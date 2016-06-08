@@ -1,0 +1,541 @@
+
+2016-06-07 14:54:46...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 14:54:49...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 14:54:51...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 14:54:54...Begin System Check Process *************
+2016-06-07 14:54:54...Your version of PHP is not supported by Sugar.  You will need to install a version that is compatible with the Sugar application.  Please consult the Compatibility Matrix in the Release Notes for supported PHP Versions. Your version is   5.6.20-0+deb8u1
+2016-06-07 14:54:54...XML Parsing Support Found
+2016-06-07 14:54:54...MBString Support Found
+2016-06-07 14:54:54...ERROR:: Mcrypt module isn't loaded. Please refer to your PHP Manual for more information on how to load mcrypt module.
+2016-06-07 14:54:54...ZIP Support Found
+2016-06-07 14:54:54.../custom directory and subdirectory check passed
+2016-06-07 14:54:54...cache directory and subdirectory check passed
+2016-06-07 14:54:54.../module  directory and subdirectory check passed
+2016-06-07 14:54:54.../upload directory check passed
+2016-06-07 14:54:54.../zip check passed
+2016-06-07 14:54:54.../BCMATH check passed
+2016-06-07 14:54:54...Testing .htaccess redirects
+2016-06-07 14:54:54...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 14:54:54...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-07 14:54:54...Outputting HTML for System check
+2016-06-07 14:54:54...Errors were found *************
+2016-06-07 14:55:35...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 14:55:59...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 14:57:43...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 14:57:45...Begin System Check Process *************
+2016-06-07 14:57:45...XML Parsing Support Found
+2016-06-07 14:57:45...MBString Support Found
+2016-06-07 14:57:45...ERROR:: Mcrypt module isn't loaded. Please refer to your PHP Manual for more information on how to load mcrypt module.
+2016-06-07 14:57:45...ZIP Support Found
+2016-06-07 14:57:45.../custom directory and subdirectory check passed
+2016-06-07 14:57:45...cache directory and subdirectory check passed
+2016-06-07 14:57:45.../module  directory and subdirectory check passed
+2016-06-07 14:57:45.../upload directory check passed
+2016-06-07 14:57:45.../zip check passed
+2016-06-07 14:57:45.../BCMATH check passed
+2016-06-07 14:57:45...Testing .htaccess redirects
+2016-06-07 14:57:45...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 14:57:45...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-07 14:57:45...Outputting HTML for System check
+2016-06-07 14:57:45...Errors were found *************
+2016-06-07 14:57:48...Begin System Check Process *************
+2016-06-07 14:57:48...XML Parsing Support Found
+2016-06-07 14:57:48...MBString Support Found
+2016-06-07 14:57:48...ERROR:: Mcrypt module isn't loaded. Please refer to your PHP Manual for more information on how to load mcrypt module.
+2016-06-07 14:57:48...ZIP Support Found
+2016-06-07 14:57:48.../custom directory and subdirectory check passed
+2016-06-07 14:57:48...cache directory and subdirectory check passed
+2016-06-07 14:57:48.../module  directory and subdirectory check passed
+2016-06-07 14:57:48.../upload directory check passed
+2016-06-07 14:57:48.../zip check passed
+2016-06-07 14:57:48.../BCMATH check passed
+2016-06-07 14:57:48...Testing .htaccess redirects
+2016-06-07 14:57:48...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 14:57:48...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-07 14:57:48...Outputting HTML for System check
+2016-06-07 14:57:48...Errors were found *************
+2016-06-07 15:01:39...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:01:42...Begin System Check Process *************
+2016-06-07 15:01:42...XML Parsing Support Found
+2016-06-07 15:01:42...MBString Support Found
+2016-06-07 15:01:42...ERROR:: Mcrypt module isn't loaded. Please refer to your PHP Manual for more information on how to load mcrypt module.
+2016-06-07 15:01:42...ZIP Support Found
+2016-06-07 15:01:42.../custom directory and subdirectory check passed
+2016-06-07 15:01:42...cache directory and subdirectory check passed
+2016-06-07 15:01:42.../module  directory and subdirectory check passed
+2016-06-07 15:01:42.../upload directory check passed
+2016-06-07 15:01:42.../zip check passed
+2016-06-07 15:01:42.../BCMATH check passed
+2016-06-07 15:01:42...Testing .htaccess redirects
+2016-06-07 15:01:42...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:01:42...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-07 15:01:42...Outputting HTML for System check
+2016-06-07 15:01:42...Errors were found *************
+2016-06-07 15:02:16...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:02:20...Begin System Check Process *************
+2016-06-07 15:02:20...XML Parsing Support Found
+2016-06-07 15:02:20...MBString Support Found
+2016-06-07 15:02:20...ERROR:: Mcrypt module isn't loaded. Please refer to your PHP Manual for more information on how to load mcrypt module.
+2016-06-07 15:02:20...ZIP Support Found
+2016-06-07 15:02:20.../custom directory and subdirectory check passed
+2016-06-07 15:02:20...cache directory and subdirectory check passed
+2016-06-07 15:02:20.../module  directory and subdirectory check passed
+2016-06-07 15:02:20.../upload directory check passed
+2016-06-07 15:02:20.../zip check passed
+2016-06-07 15:02:20.../BCMATH check passed
+2016-06-07 15:02:20...Testing .htaccess redirects
+2016-06-07 15:02:20...Passed .htaccess redirects check
+2016-06-07 15:02:20...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:02:20...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-07 15:02:20...Outputting HTML for System check
+2016-06-07 15:02:20...Errors were found *************
+2016-06-07 15:02:21...Begin System Check Process *************
+2016-06-07 15:02:21...XML Parsing Support Found
+2016-06-07 15:02:21...MBString Support Found
+2016-06-07 15:02:21...ERROR:: Mcrypt module isn't loaded. Please refer to your PHP Manual for more information on how to load mcrypt module.
+2016-06-07 15:02:21...ZIP Support Found
+2016-06-07 15:02:21.../custom directory and subdirectory check passed
+2016-06-07 15:02:21...cache directory and subdirectory check passed
+2016-06-07 15:02:21.../module  directory and subdirectory check passed
+2016-06-07 15:02:21.../upload directory check passed
+2016-06-07 15:02:21.../zip check passed
+2016-06-07 15:02:21.../BCMATH check passed
+2016-06-07 15:02:21...Testing .htaccess redirects
+2016-06-07 15:02:21...Passed .htaccess redirects check
+2016-06-07 15:02:21...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:02:21...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-07 15:02:21...Outputting HTML for System check
+2016-06-07 15:02:21...Errors were found *************
+2016-06-07 15:03:28...Begin System Check Process *************
+2016-06-07 15:03:28...XML Parsing Support Found
+2016-06-07 15:03:28...MBString Support Found
+2016-06-07 15:03:28...ERROR:: Mcrypt module isn't loaded. Please refer to your PHP Manual for more information on how to load mcrypt module.
+2016-06-07 15:03:28...ZIP Support Found
+2016-06-07 15:03:28.../custom directory and subdirectory check passed
+2016-06-07 15:03:28...cache directory and subdirectory check passed
+2016-06-07 15:03:28.../module  directory and subdirectory check passed
+2016-06-07 15:03:28.../upload directory check passed
+2016-06-07 15:03:28.../zip check passed
+2016-06-07 15:03:28.../BCMATH check passed
+2016-06-07 15:03:28...Testing .htaccess redirects
+2016-06-07 15:03:28...Passed .htaccess redirects check
+2016-06-07 15:03:28...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:03:28...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-07 15:03:28...Outputting HTML for System check
+2016-06-07 15:03:28...Errors were found *************
+2016-06-07 15:03:38...Begin System Check Process *************
+2016-06-07 15:03:38...XML Parsing Support Found
+2016-06-07 15:03:38...MBString Support Found
+2016-06-07 15:03:38...MCrypt is loaded
+2016-06-07 15:03:38...ZIP Support Found
+2016-06-07 15:03:38.../custom directory and subdirectory check passed
+2016-06-07 15:03:38...cache directory and subdirectory check passed
+2016-06-07 15:03:38.../module  directory and subdirectory check passed
+2016-06-07 15:03:38.../upload directory check passed
+2016-06-07 15:03:38.../zip check passed
+2016-06-07 15:03:38.../BCMATH check passed
+2016-06-07 15:03:38...Testing .htaccess redirects
+2016-06-07 15:03:38...Passed .htaccess redirects check
+2016-06-07 15:03:38...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:03:38...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-07 15:03:38...Outputting HTML for System check
+2016-06-07 15:03:38...No Errors were found *************
+2016-06-07 15:03:41...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:04:07...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:04:09...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:08:10...Begin DB Check Process *************
+2016-06-07 15:08:10...testing with mysql:mysqli
+2016-06-07 15:08:10...Basic form info is valid, continuing Process.
+2016-06-07 15:08:10...Testing user account...
+2016-06-07 15:08:10...ERROR::  The provided database host, username, and/or password is invalid, and a connection to the database could not be established.  Please enter a valid host, username and password
+2016-06-07 15:08:10...Testing priviliged account...
+2016-06-07 15:08:10...ERROR::  The provided database host, username, and/or password is invalid, and a connection to the database could not be established.  Please enter a valid host, username and password
+2016-06-07 15:08:10...Begining to check FTS Settings.
+2016-06-07 15:08:10...FTS connection results: -99
+2016-06-07 15:08:10...ERROR:: Unable to connect to FTS.Elastic
+2016-06-07 15:08:10...FATAL:: errors have been detected!  User will not be allowed to continue.  Errors are as follow:
+2016-06-07 15:08:10..... The provided database host, username, and/or password is invalid, and a connection to the database could not be established.  Please enter a valid host, username and password
+2016-06-07 15:08:10..... Unable to connect to Full Text Search server, please verify your settings.
+2016-06-07 15:08:10...End DB Check Process *************
+2016-06-07 15:08:21...Begin DB Check Process *************
+2016-06-07 15:08:21...testing with mysql:mysqli
+2016-06-07 15:08:21...Basic form info is valid, continuing Process.
+2016-06-07 15:08:21...Testing user account...
+2016-06-07 15:08:21...Connection made using  host: localhost, usr: root
+2016-06-07 15:08:21...Testing priviliged account...
+2016-06-07 15:08:21...Connection made using  host: localhost, usr: root
+2016-06-07 15:08:21...DB not selected, will create sugarcrm
+2016-06-07 15:08:21...Passed DB install check
+2016-06-07 15:08:21...Begining to check FTS Settings.
+2016-06-07 15:08:21...FTS connection results: -99
+2016-06-07 15:08:21...ERROR:: Unable to connect to FTS.Elastic
+2016-06-07 15:08:21...FATAL:: errors have been detected!  User will not be allowed to continue.  Errors are as follow:
+2016-06-07 15:08:21..... Unable to connect to Full Text Search server, please verify your settings.
+2016-06-07 15:08:21...End DB Check Process *************
+2016-06-07 15:20:49...Begin DB Check Process *************
+2016-06-07 15:20:49...testing with mysql:mysqli
+2016-06-07 15:20:49...Basic form info is valid, continuing Process.
+2016-06-07 15:20:49...Testing user account...
+2016-06-07 15:20:49...Connection made using  host: localhost, usr: root
+2016-06-07 15:20:49...Testing priviliged account...
+2016-06-07 15:20:49...Connection made using  host: localhost, usr: root
+2016-06-07 15:20:49...DB not selected, will create sugarcrm
+2016-06-07 15:20:49...Passed DB install check
+2016-06-07 15:20:49...Begining to check FTS Settings.
+2016-06-07 15:20:49...FTS connection results: 1
+2016-06-07 15:20:49...SUCCESS:: no errors detected!
+2016-06-07 15:20:49...End DB Check Process *************
+2016-06-07 15:20:49...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:21:02...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:21:07...installerHook: Could not find custom/install/install_hooks.php
+2016-06-07 15:21:07...calling handleSugarConfig()
+2016-06-07 15:21:07...calling handleLog4Php()
+2016-06-07 15:21:07...calling handleHtaccess()
+2016-06-07 15:21:07...calling handleDbCreateDatabase()
+2016-06-07 15:21:08...Enabling fulltext indexing
+2016-06-07 15:21:08...looping through all the Beans and create their tables
+2016-06-07 15:21:08...processing table acl_actions
+2016-06-07 15:21:08...creating table acl_actions
+2016-06-07 15:21:08...creating Relationship Meta for ACLAction
+2016-06-07 15:21:08...processing table acl_roles
+2016-06-07 15:21:08...creating table acl_roles
+2016-06-07 15:21:08...creating Relationship Meta for ACLRole
+2016-06-07 15:21:08...processing table relationships
+2016-06-07 15:21:08...processing table acl_role_sets
+2016-06-07 15:21:08...creating table acl_role_sets
+2016-06-07 15:21:08...creating Relationship Meta for ACLRoleSet
+2016-06-07 15:21:08...processing table leads
+2016-06-07 15:21:08...creating table leads
+2016-06-07 15:21:08...creating Relationship Meta for Lead
+2016-06-07 15:21:08...processing table cases
+2016-06-07 15:21:09...creating table cases
+2016-06-07 15:21:09...creating Relationship Meta for Case
+2016-06-07 15:21:09...processing table bugs
+2016-06-07 15:21:09...creating table bugs
+2016-06-07 15:21:09...creating Relationship Meta for Bug
+2016-06-07 15:21:09...processing table users
+2016-06-07 15:21:10...creating table users
+2016-06-07 15:21:10...creating Relationship Meta for User
+2016-06-07 15:21:10...processing table campaign_log
+2016-06-07 15:21:10...creating table campaign_log
+2016-06-07 15:21:10...creating Relationship Meta for CampaignLog
+2016-06-07 15:21:10...processing table project
+2016-06-07 15:21:11...creating table project
+2016-06-07 15:21:11...creating Relationship Meta for Project
+2016-06-07 15:21:11...processing table project_task
+2016-06-07 15:21:11...creating table project_task
+2016-06-07 15:21:11...creating Relationship Meta for ProjectTask
+2016-06-07 15:21:11...processing table campaigns
+2016-06-07 15:21:11...creating table campaigns
+2016-06-07 15:21:11...creating Relationship Meta for Campaign
+2016-06-07 15:21:11...processing table prospect_lists
+2016-06-07 15:21:12...creating table prospect_lists
+2016-06-07 15:21:12...creating Relationship Meta for ProspectList
+2016-06-07 15:21:12...processing table prospects
+2016-06-07 15:21:12...creating table prospects
+2016-06-07 15:21:12...creating Relationship Meta for Prospect
+2016-06-07 15:21:12...processing table email_marketing
+2016-06-07 15:21:12...creating table email_marketing
+2016-06-07 15:21:12...creating Relationship Meta for EmailMarketing
+2016-06-07 15:21:12...processing table campaign_trkrs
+2016-06-07 15:21:12...creating table campaign_trkrs
+2016-06-07 15:21:12...creating Relationship Meta for CampaignTracker
+2016-06-07 15:21:12...processing table releases
+2016-06-07 15:21:12...creating table releases
+2016-06-07 15:21:12...creating Relationship Meta for Release
+2016-06-07 15:21:12...processing table emailman
+2016-06-07 15:21:12...creating table emailman
+2016-06-07 15:21:12...creating Relationship Meta for EmailMan
+2016-06-07 15:21:12...processing table schedulers
+2016-06-07 15:21:13...creating table schedulers
+2016-06-07 15:21:13...creating Relationship Meta for Scheduler
+2016-06-07 15:21:13...processing table job_queue
+2016-06-07 15:21:13...creating table job_queue
+2016-06-07 15:21:13...creating Relationship Meta for SchedulersJob
+2016-06-07 15:21:13...processing table contacts
+2016-06-07 15:21:13...creating table contacts
+2016-06-07 15:21:13...creating Relationship Meta for Contact
+2016-06-07 15:21:13...processing table accounts
+2016-06-07 15:21:14...creating table accounts
+2016-06-07 15:21:14...creating Relationship Meta for Account
+2016-06-07 15:21:14...processing table opportunities
+2016-06-07 15:21:15...creating table opportunities
+2016-06-07 15:21:15...creating Relationship Meta for Opportunity
+2016-06-07 15:21:15...processing table email_templates
+2016-06-07 15:21:15...creating table email_templates
+2016-06-07 15:21:15...creating Relationship Meta for EmailTemplate
+2016-06-07 15:21:15...processing table users_signatures
+2016-06-07 15:21:15...creating table users_signatures
+2016-06-07 15:21:15...creating Relationship Meta for UserSignature
+2016-06-07 15:21:15...processing table notes
+2016-06-07 15:21:16...creating table notes
+2016-06-07 15:21:16...creating Relationship Meta for Note
+2016-06-07 15:21:16...processing table calls
+2016-06-07 15:21:16...creating table calls
+2016-06-07 15:21:16...creating Relationship Meta for Call
+2016-06-07 15:21:16...processing table emails
+2016-06-07 15:21:17...creating table emails
+2016-06-07 15:21:17...creating Relationship Meta for Email
+2016-06-07 15:21:17...processing table meetings
+2016-06-07 15:21:17...creating table meetings
+2016-06-07 15:21:17...creating Relationship Meta for Meeting
+2016-06-07 15:21:17...processing table tasks
+2016-06-07 15:21:17...creating table tasks
+2016-06-07 15:21:17...creating Relationship Meta for Task
+2016-06-07 15:21:17...processing table users
+2016-06-07 15:21:17...processing table users
+2016-06-07 15:21:17...processing table currencies
+2016-06-07 15:21:17...creating table currencies
+2016-06-07 15:21:17...creating Relationship Meta for Currency
+2016-06-07 15:21:17...processing table tracker
+2016-06-07 15:21:19...creating table tracker
+2016-06-07 15:21:19...creating Relationship Meta for Tracker
+2016-06-07 15:21:19...processing table tracker_perf
+2016-06-07 15:21:19...creating table tracker_perf
+2016-06-07 15:21:19...creating Relationship Meta for tracker_perf
+2016-06-07 15:21:19...processing table tracker_sessions
+2016-06-07 15:21:19...creating table tracker_sessions
+2016-06-07 15:21:19...creating Relationship Meta for tracker_sessions
+2016-06-07 15:21:19...processing table tracker_queries
+2016-06-07 15:21:19...creating table tracker_queries
+2016-06-07 15:21:19...creating Relationship Meta for tracker_queries
+2016-06-07 15:21:19...processing table import_maps
+2016-06-07 15:21:19...creating table import_maps
+2016-06-07 15:21:19...creating Relationship Meta for ImportMap
+2016-06-07 15:21:19...processing table users_last_import
+2016-06-07 15:21:19...creating table users_last_import
+2016-06-07 15:21:19...creating Relationship Meta for UsersLastImport
+2016-06-07 15:21:19...processing table config
+2016-06-07 15:21:19...creating table config
+2016-06-07 15:21:19...creating Relationship Meta for Administration
+2016-06-07 15:21:19...processing table upgrade_history
+2016-06-07 15:21:19...creating table upgrade_history
+2016-06-07 15:21:19...creating Relationship Meta for UpgradeHistory
+2016-06-07 15:21:19...processing table vcals
+2016-06-07 15:21:19...creating table vcals
+2016-06-07 15:21:19...creating Relationship Meta for vCal
+2016-06-07 15:21:19...processing table versions
+2016-06-07 15:21:20...creating table versions
+2016-06-07 15:21:20...creating Relationship Meta for Version
+2016-06-07 15:21:20...processing table roles
+2016-06-07 15:21:20...creating table roles
+2016-06-07 15:21:20...creating Relationship Meta for Role
+2016-06-07 15:21:20...processing table documents
+2016-06-07 15:21:20...creating table documents
+2016-06-07 15:21:20...creating Relationship Meta for Document
+2016-06-07 15:21:20...processing table document_revisions
+2016-06-07 15:21:20...creating table document_revisions
+2016-06-07 15:21:20...creating Relationship Meta for DocumentRevision
+2016-06-07 15:21:20...processing table fields_meta_data
+2016-06-07 15:21:20...creating table fields_meta_data
+2016-06-07 15:21:20...creating Relationship Meta for FieldsMetaData
+2016-06-07 15:21:20...processing table inbound_email
+2016-06-07 15:21:20...creating table inbound_email
+2016-06-07 15:21:20...creating Relationship Meta for InboundEmail
+2016-06-07 15:21:20...processing table saved_search
+2016-06-07 15:21:20...creating table saved_search
+2016-06-07 15:21:20...creating Relationship Meta for SavedSearch
+2016-06-07 15:21:20...processing table user_preferences
+2016-06-07 15:21:21...creating table user_preferences
+2016-06-07 15:21:21...creating Relationship Meta for UserPreference
+2016-06-07 15:21:21...processing table 
+2016-06-07 15:21:21...processing table email_addresses
+2016-06-07 15:21:21...creating table email_addresses
+2016-06-07 15:21:21...creating Relationship Meta for EmailAddress
+2016-06-07 15:21:21...processing table emails_text
+2016-06-07 15:21:21...creating table emails_text
+2016-06-07 15:21:21...creating Relationship Meta for EmailText
+2016-06-07 15:21:21...processing table saved_reports
+2016-06-07 15:21:21...creating table saved_reports
+2016-06-07 15:21:21...creating Relationship Meta for SavedReport
+2016-06-07 15:21:21...processing table acl_fields
+2016-06-07 15:21:21...creating table acl_fields
+2016-06-07 15:21:21...creating Relationship Meta for ACLField
+2016-06-07 15:21:21...processing table contracts
+2016-06-07 15:21:21...creating table contracts
+2016-06-07 15:21:21...creating Relationship Meta for Contract
+2016-06-07 15:21:21...processing table teams
+2016-06-07 15:21:22...creating table teams
+2016-06-07 15:21:22...creating Relationship Meta for Team
+2016-06-07 15:21:22...processing table team_memberships
+2016-06-07 15:21:22...creating table team_memberships
+2016-06-07 15:21:22...creating Relationship Meta for TeamMembership
+2016-06-07 15:21:22...processing table team_sets
+2016-06-07 15:21:22...creating table team_sets
+2016-06-07 15:21:22...creating Relationship Meta for TeamSet
+2016-06-07 15:21:22...processing table team_sets_modules
+2016-06-07 15:21:22...creating table team_sets_modules
+2016-06-07 15:21:22...creating Relationship Meta for TeamSetModule
+2016-06-07 15:21:22...processing table team_notices
+2016-06-07 15:21:22...creating table team_notices
+2016-06-07 15:21:22...creating Relationship Meta for TeamNotices
+2016-06-07 15:21:22...processing table product_templates
+2016-06-07 15:21:22...creating table product_templates
+2016-06-07 15:21:22...creating Relationship Meta for ProductTemplate
+2016-06-07 15:21:22...processing table product_types
+2016-06-07 15:21:22...creating table product_types
+2016-06-07 15:21:22...creating Relationship Meta for ProductType
+2016-06-07 15:21:22...processing table product_categories
+2016-06-07 15:21:23...creating table product_categories
+2016-06-07 15:21:23...creating Relationship Meta for ProductCategory
+2016-06-07 15:21:23...processing table manufacturers
+2016-06-07 15:21:23...creating table manufacturers
+2016-06-07 15:21:23...creating Relationship Meta for Manufacturer
+2016-06-07 15:21:23...processing table quotes
+2016-06-07 15:21:23...creating table quotes
+2016-06-07 15:21:23...creating Relationship Meta for Quote
+2016-06-07 15:21:23...processing table product_bundle_notes
+2016-06-07 15:21:23...creating table product_bundle_notes
+2016-06-07 15:21:23...creating Relationship Meta for ProductBundleNote
+2016-06-07 15:21:23...processing table products
+2016-06-07 15:21:24...creating table products
+2016-06-07 15:21:24...creating Relationship Meta for Product
+2016-06-07 15:21:24...processing table product_bundles
+2016-06-07 15:21:24...creating table product_bundles
+2016-06-07 15:21:24...creating Relationship Meta for ProductBundle
+2016-06-07 15:21:24...processing table revenue_line_items
+2016-06-07 15:21:24...creating table revenue_line_items
+2016-06-07 15:21:24...creating Relationship Meta for RevenueLineItem
+2016-06-07 15:21:24...processing table shippers
+2016-06-07 15:21:24...creating table shippers
+2016-06-07 15:21:24...creating Relationship Meta for Shipper
+2016-06-07 15:21:24...processing table taxrates
+2016-06-07 15:21:24...creating table taxrates
+2016-06-07 15:21:24...creating Relationship Meta for TaxRate
+2016-06-07 15:21:24...processing table timeperiods
+2016-06-07 15:21:24...creating table timeperiods
+2016-06-07 15:21:24...creating Relationship Meta for TimePeriod
+2016-06-07 15:21:24...processing table timeperiods
+2016-06-07 15:21:24...processing table timeperiods
+2016-06-07 15:21:24...processing table timeperiods
+2016-06-07 15:21:24...processing table timeperiods
+2016-06-07 15:21:24...processing table timeperiods
+2016-06-07 15:21:24...processing table timeperiods
+2016-06-07 15:21:24...processing table forecasts
+2016-06-07 15:21:24...creating table forecasts
+2016-06-07 15:21:24...creating Relationship Meta for Forecast
+2016-06-07 15:21:24...processing table forecast_worksheets
+2016-06-07 15:21:25...creating table forecast_worksheets
+2016-06-07 15:21:25...creating Relationship Meta for ForecastWorksheet
+2016-06-07 15:21:25...processing table forecast_manager_worksheets
+2016-06-07 15:21:25...creating table forecast_manager_worksheets
+2016-06-07 15:21:25...creating Relationship Meta for ForecastManagerWorksheet
+2016-06-07 15:21:25...processing table opportunities
+2016-06-07 15:21:25...processing table users
+2016-06-07 15:21:25...processing table quotas
+2016-06-07 15:21:25...creating table quotas
+2016-06-07 15:21:25...creating Relationship Meta for Quota
+2016-06-07 15:21:25...processing table workflow
+2016-06-07 15:21:25...creating table workflow
+2016-06-07 15:21:25...creating Relationship Meta for WorkFlow
+2016-06-07 15:21:25...processing table workflow_triggershells
+2016-06-07 15:21:25...creating table workflow_triggershells
+2016-06-07 15:21:25...creating Relationship Meta for WorkFlowTriggerShell
+2016-06-07 15:21:25...processing table workflow_alertshells
+2016-06-07 15:21:25...creating table workflow_alertshells
+2016-06-07 15:21:25...creating Relationship Meta for WorkFlowAlertShell
+2016-06-07 15:21:25...processing table workflow_alerts
+2016-06-07 15:21:25...creating table workflow_alerts
+2016-06-07 15:21:25...creating Relationship Meta for WorkFlowAlert
+2016-06-07 15:21:25...processing table workflow_actionshells
+2016-06-07 15:21:25...creating table workflow_actionshells
+2016-06-07 15:21:25...creating Relationship Meta for WorkFlowActionShell
+2016-06-07 15:21:25...processing table workflow_actions
+2016-06-07 15:21:25...creating table workflow_actions
+2016-06-07 15:21:25...creating Relationship Meta for WorkFlowAction
+2016-06-07 15:21:25...processing table expressions
+2016-06-07 15:21:25...creating table expressions
+2016-06-07 15:21:25...creating Relationship Meta for Expression
+2016-06-07 15:21:25...processing table systems
+2016-06-07 15:21:25...creating table systems
+2016-06-07 15:21:25...creating Relationship Meta for System
+2016-06-07 15:21:25...processing table session_active
+2016-06-07 15:21:25...creating table session_active
+2016-06-07 15:21:25...creating Relationship Meta for SessionManager
+2016-06-07 15:21:25...processing table contract_types
+2016-06-07 15:21:26...creating table contract_types
+2016-06-07 15:21:26...creating Relationship Meta for ContractType
+2016-06-07 15:21:26...processing table project_resources
+2016-06-07 15:21:26...creating table project_resources
+2016-06-07 15:21:26...creating Relationship Meta for ProjectResource
+2016-06-07 15:21:26...processing table holidays
+2016-06-07 15:21:26...creating table holidays
+2016-06-07 15:21:26...creating Relationship Meta for Holiday
+2016-06-07 15:21:26...processing table 
+2016-06-07 15:21:26...processing table styleguide
+2016-06-07 15:21:26...creating table styleguide
+2016-06-07 15:21:26...creating Relationship Meta for Styleguide
+2016-06-07 15:21:26...processing table notifications
+2016-06-07 15:21:26...creating table notifications
+2016-06-07 15:21:26...creating Relationship Meta for Notifications
+2016-06-07 15:21:26...processing table eapm
+2016-06-07 15:21:27...creating table eapm
+2016-06-07 15:21:27...creating Relationship Meta for EAPM
+2016-06-07 15:21:27...processing table oauth_consumer
+2016-06-07 15:21:27...creating table oauth_consumer
+2016-06-07 15:21:27...creating Relationship Meta for OAuthKey
+2016-06-07 15:21:27...processing table oauth_tokens
+2016-06-07 15:21:27...creating table oauth_tokens
+2016-06-07 15:21:27...creating Relationship Meta for OAuthToken
+2016-06-07 15:21:27...processing table sugarfavorites
+2016-06-07 15:21:27...creating table sugarfavorites
+2016-06-07 15:21:27...creating Relationship Meta for SugarFavorites
+2016-06-07 15:21:27...processing table weblogichooks
+2016-06-07 15:21:27...creating table weblogichooks
+2016-06-07 15:21:27...creating Relationship Meta for WebLogicHook
+2016-06-07 15:21:27...processing table activities
+2016-06-07 15:21:27...creating table activities
+2016-06-07 15:21:27...creating Relationship Meta for Activity
+2016-06-07 15:21:27...processing table comments
+2016-06-07 15:21:27...creating table comments
+2016-06-07 15:21:27...creating Relationship Meta for Comment
+2016-06-07 15:21:27...processing table subscriptions
+2016-06-07 15:21:27...creating table subscriptions
+2016-06-07 15:21:27...creating Relationship Meta for Subscription
+2016-06-07 15:21:27...processing table filters
+2016-06-07 15:21:28...creating table filters
+2016-06-07 15:21:28...creating Relationship Meta for Filters
+2016-06-07 15:21:28...processing table dashboards
+2016-06-07 15:21:28...creating table dashboards
+2016-06-07 15:21:28...creating Relationship Meta for Dashboard
+2016-06-07 15:21:28...processing table tags
+2016-06-07 15:21:28...creating table tags
+2016-06-07 15:21:28...creating Relationship Meta for Tag
+2016-06-07 15:21:28...processing table categories
+2016-06-07 15:21:28...creating table categories
+2016-06-07 15:21:28...creating Relationship Meta for Category
+2016-06-07 15:21:28...processing table pdfmanager
+2016-06-07 15:21:29...creating table pdfmanager
+2016-06-07 15:21:29...creating Relationship Meta for PdfManager
+2016-06-07 15:21:29...processing table kbdocuments
+2016-06-07 15:21:29...creating table kbdocuments
+2016-06-07 15:21:29...creating Relationship Meta for KBDocument
+2016-06-07 15:21:29...processing table kbcontents
+2016-06-07 15:21:30...creating table kbcontents
+2016-06-07 15:21:30...creating Relationship Meta for KBContent
+2016-06-07 15:21:30...processing table kbarticles
+2016-06-07 15:21:30...creating table kbarticles
+2016-06-07 15:21:30...creating Relationship Meta for KBArticle
+2016-06-07 15:21:30...processing table kbcontent_templates
+2016-06-07 15:21:30...creating table kbcontent_templates
+2016-06-07 15:21:30...creating Relationship Meta for KBContentTemplate
+2016-06-07 15:21:30...processing table embedded_files
+2016-06-07 15:21:30...creating table embedded_files
+2016-06-07 15:21:30...creating Relationship Meta for EmbeddedFile
+2016-06-07 15:21:36...Begin creating Defaults
+2016-06-07 15:21:36...INSERT defaults INTO config TABLE
+2016-06-07 15:21:37...Updating license information
+2016-06-07 15:21:38...Creating default users
+2016-06-07 15:21:39...Creating default reports
+2016-06-07 15:21:41...Creating default scheduler jobs
+2016-06-07 15:21:45...creating new user for Snip
+2016-06-07 15:21:45...populating the db with seed data
+2016-06-07 15:21:45...done populating the db with seed data
+2016-06-07 15:21:45...running full indexer
+2016-06-07 15:21:49...Done populating data *********
+2016-06-07 15:21:49...Running post-install hooks
+2016-06-07 15:21:49...Finished post-install hooks
+2016-06-07 15:21:49...Populating file cache
+2016-06-07 15:21:50...Populating metadata cache
+2016-06-07 15:21:52...Installation has completed *********
+2016-06-07 15:22:21...installerHook: Could not find custom/install/install_hooks.php
