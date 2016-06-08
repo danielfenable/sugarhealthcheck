@@ -13,6 +13,7 @@ use Auth;
 use Session;
 use App\Http\Requests\Sugar\Auth\Datapush;
 
+
 class loginController extends Controller
 {
     public function handleLogin(){

@@ -47,37 +47,20 @@
 
 
                     <li class="active-link">
-                        <a href="home" ><i class="fa fa-desktop "></i>Dashboard <span class="badge">Included</span></a>
+                        <a href="home" ><i class="fa fa-desktop "></i>Dashboard </a>
                     </li>
                    
 
                     <li>
-                        <a href="ui.html"><i class="fa fa-table "></i>UI Elements  <span class="badge">Included</span></a>
-                    </li>
-                    <li>
-                        <a href="blank.html"><i class="fa fa-edit "></i>Blank Page  <span class="badge">Included</span></a>
-                    </li>
-
-
-                    <li>
-                        <a href="#"><i class="fa fa-qrcode "></i>My Link One</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-bar-chart-o"></i>My Link Two</a>
+                        <a href="ui.html"><i class="fa fa-table "></i>Placeholder </a>
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-edit "></i>My Link Three </a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-table "></i>My Link Four</a>
-                    </li>
-                     <li>
-                        <a href="#"><i class="fa fa-edit "></i>My Link Five </a>
+                        <a href="#"><i class="fa fa-qrcode "></i>Placeholder</a>
                     </li>
                     
                 </ul>
-                            </div>
+           </div>
 
         </nav>
         <!-- /. NAV SIDE  -->
@@ -113,9 +96,9 @@
                  
                   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                       <div class="div-square">
-                           <a href="blank.html" >
+                           <a href="recover" >
  <i class="fa fa-envelope-o fa-5x"></i>
-                      <h4>Mail Box</h4>
+                      <h4>Recover Records</h4>
                       </a>
                       </div>
                      
@@ -133,9 +116,9 @@
                   </div>
                   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                       <div class="div-square">
-                           <a href="blank.html" >
+                           <a href="users" >
  <i class="fa fa-users fa-5x"></i>
-                      <h4>See Users</h4>
+                      <h4>Users</h4>
                       </a>
                       </div>
                      

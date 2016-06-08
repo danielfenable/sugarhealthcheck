@@ -26,6 +26,14 @@ Route::group(['middleware' => ['sugar']], function () {
 
     Route::get("repair", "RepairController@handler");
     Route::post("repair","RepairController@perform");
+    
+    Route::get("users","UsersController@handler");
+    Route::post("users","UsersController@perform");
+
+    Route::get("recover","RecoverController@handler");
+    Route::post("recovercount","RecoverController@recoverCount");
+    Route::post("recoverlist","RecoverController@recoverList");
+    Route::post("recover","RecoverController@perform");
 
 });
 

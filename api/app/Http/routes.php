@@ -20,3 +20,7 @@ $app->get("list","SugarListController@returnSugars");
 $app->get("fixperms","FixpermsController@perform");
 
 $app->get("repair","RepairController@handler");
+
+$app->get("users","UsersController@perform");
+
+$app->post("recover","RecoverController@perform");

@@ -10,9 +10,9 @@ use View;
 
 use App\Enable\Server\Repair;
 
-class RepairController extends Controller
+class RecoverController extends Controller
 {
-        public function handler(){		
+        public function perform(){		
         $repair = new Repair();
         $output = $repair->perform();
         return $output;

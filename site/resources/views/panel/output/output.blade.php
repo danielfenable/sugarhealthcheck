@@ -3,7 +3,7 @@
 @section('addon')
     @parent
 
-{{$output}}
+{!! $output !!}
 
 
 @stop

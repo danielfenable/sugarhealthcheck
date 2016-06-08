@@ -31,7 +31,9 @@ class RepairController extends Controller
 
     	$repair = new CallRepair();
     	$result = $repair->perform($request->system);
-        return view::make("panel/output/output")->with("output",$result);
+
+        $decoded =  html_entity_decode($result);
+        return view::make("panel/output/output")->with("output",$decoded);
 
 
     }   
