@@ -24,6 +24,9 @@ Route::group(['middleware' => ['sugar']], function () {
     Route::get("fixperms","FixpermsController@handler");
     Route::post("fixperms","FixpermsController@perform");
 
+    Route::get("repair", "RepairController@handler");
+    Route::post("repair","RepairController@perform");
+
 });
 
 Route::get('login', "loginController@handleLogin");

@@ -19,6 +19,34 @@ try {
 |
 */
 
+//----------------------------------------------------
+
+// Boot SugarCRM application using passed in GET variable if needed.
+
+if(isset($_GET['system'])){
+
+error_reporting(E_WARNING && E_STRICT && E_ERROR);
+
+	$root = "/var/www/html/";
+    $system = $_GET['system'];
+
+	if(!defined('sugarEntry')){
+		define('sugarEntry',TRUE);
+	}
+
+	define('SUGAR_BASE_DIR',$root . $_GET['system']);
+    if (!file_exists(SUGAR_BASE_DIR.'/config.php')) {
+        die("Cannot load config file for $system");
+    }
+	require($root . $_GET['system'] . "/config.php");
+    require($root . $_GET['system'] . "/include/entryPoint.php");
+    require_once('modules/Administration/QuickRepairAndRebuild.php');
+    require_once('include/utils/layout_utils.php');
+
+}
+
+//-----------------------------------------------------
+
 $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
@@ -81,6 +109,7 @@ $app->singleton(
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

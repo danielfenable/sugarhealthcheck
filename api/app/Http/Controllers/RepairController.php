@@ -8,15 +8,17 @@ use App\Http\Requests;
 
 use View;
 
-use App\Enable\Server\list_sugars;
+use App\Enable\Server\Repair;
 
 class RepairController extends Controller
 {
-        public function handler(){
-                $sugars = new Sugars();
-                $list_sugars = $sugars->listSugars();
-        return View::make('panel/repair')->with("sugars",$list_sugars);
+        public function handler(){		
+        $repair = new Repair();
+        $output = $repair->perform();
+        return $output;
+
     }
 }
+
 
 ?>

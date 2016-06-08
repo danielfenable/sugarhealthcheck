@@ -44,9 +44,10 @@ class loginController extends Controller
 			        'username'  => Input::get('username'),
 			        'password'  => Input::get('password')
 			    );
-			// Attempt auth with EnableIt Sugar
-			    $sugar_request = new Client("https://enableit.enablecloud.co.uk",$userdata["username"],$userdata["password"]);
+			// Attempt auth with Sugar
+			    $sugar_request = new Client(env("SUGAR_URL",FALSE),$userdata["username"],$userdata["password"]);
 			    $sugar_token = $sugar_request->getToken();
+
 			    if($sugar_token == "need_login" || $sugar_token == NULL){
 			       	return Redirect::to('login')
 			        	  ->withErrors(

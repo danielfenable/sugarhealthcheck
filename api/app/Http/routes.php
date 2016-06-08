@@ -18,3 +18,5 @@ $app->get('/', function () use ($app) {
 $app->get("list","SugarListController@returnSugars");
 
 $app->get("fixperms","FixpermsController@perform");
+
+$app->get("repair","RepairController@handler");
