@@ -1,0 +1,703 @@
+
+2016-06-24 14:49:20...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:49:24...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:49:27...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:49:46...Begin System Check Process *************
+2016-06-24 14:49:46...Your version of PHP is not supported by Sugar.  You will need to install a version that is compatible with the Sugar application.  Please consult the Compatibility Matrix in the Release Notes for supported PHP Versions. Your version is   5.6.20-0+deb8u1
+2016-06-24 14:49:46...XML Parsing Support Found
+2016-06-24 14:49:46...MBString Support Found
+2016-06-24 14:49:46...MCrypt is loaded
+2016-06-24 14:49:46...ZIP Support Found
+2016-06-24 14:49:46.../custom directory and subdirectory check passed
+2016-06-24 14:49:46...cache directory and subdirectory check passed
+2016-06-24 14:49:46.../module  directory and subdirectory check passed
+2016-06-24 14:49:46.../upload directory check passed
+2016-06-24 14:49:46.../zip check passed
+2016-06-24 14:49:46.../BCMATH check passed
+2016-06-24 14:49:46...Testing .htaccess redirects
+2016-06-24 14:49:46...Passed .htaccess redirects check
+2016-06-24 14:49:46...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:49:46...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-24 14:49:46...Outputting HTML for System check
+2016-06-24 14:49:46...Errors were found *************
+2016-06-24 14:49:50...Begin System Check Process *************
+2016-06-24 14:49:50...Your version of PHP is not supported by Sugar.  You will need to install a version that is compatible with the Sugar application.  Please consult the Compatibility Matrix in the Release Notes for supported PHP Versions. Your version is   5.6.20-0+deb8u1
+2016-06-24 14:49:50...XML Parsing Support Found
+2016-06-24 14:49:50...MBString Support Found
+2016-06-24 14:49:50...MCrypt is loaded
+2016-06-24 14:49:50...ZIP Support Found
+2016-06-24 14:49:50.../custom directory and subdirectory check passed
+2016-06-24 14:49:50...cache directory and subdirectory check passed
+2016-06-24 14:49:50.../module  directory and subdirectory check passed
+2016-06-24 14:49:50.../upload directory check passed
+2016-06-24 14:49:50.../zip check passed
+2016-06-24 14:49:50.../BCMATH check passed
+2016-06-24 14:49:50...Testing .htaccess redirects
+2016-06-24 14:49:50...Passed .htaccess redirects check
+2016-06-24 14:49:50...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:49:50...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-24 14:49:50...Outputting HTML for System check
+2016-06-24 14:49:50...Errors were found *************
+2016-06-24 14:50:48...Begin System Check Process *************
+2016-06-24 14:50:48...XML Parsing Support Found
+2016-06-24 14:50:48...MBString Support Found
+2016-06-24 14:50:48...MCrypt is loaded
+2016-06-24 14:50:48...ZIP Support Found
+2016-06-24 14:50:48.../custom directory and subdirectory check passed
+2016-06-24 14:50:48...cache directory and subdirectory check passed
+2016-06-24 14:50:48.../module  directory and subdirectory check passed
+2016-06-24 14:50:48.../upload directory check passed
+2016-06-24 14:50:48.../zip check passed
+2016-06-24 14:50:48.../BCMATH check passed
+2016-06-24 14:50:48...Testing .htaccess redirects
+2016-06-24 14:50:48...Passed .htaccess redirects check
+2016-06-24 14:50:48...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:50:48...php.ini location found. /etc/php5/apache2/php.ini
+2016-06-24 14:50:48...Outputting HTML for System check
+2016-06-24 14:50:48...No Errors were found *************
+2016-06-24 14:50:51...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:52:56...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:52:58...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:53:01...Begin DB Check Process *************
+2016-06-24 14:53:01...testing with mysql:mysqli
+2016-06-24 14:53:01...Basic form info is valid, continuing Process.
+2016-06-24 14:53:01...Testing user account...
+2016-06-24 14:53:01...ERROR::  The provided database host, username, and/or password is invalid, and a connection to the database could not be established.  Please enter a valid host, username and password
+2016-06-24 14:53:01...Testing priviliged account...
+2016-06-24 14:53:01...ERROR::  The provided database host, username, and/or password is invalid, and a connection to the database could not be established.  Please enter a valid host, username and password
+2016-06-24 14:53:01...Begining to check FTS Settings.
+2016-06-24 14:53:01...FTS connection results: 1
+2016-06-24 14:53:01...FATAL:: errors have been detected!  User will not be allowed to continue.  Errors are as follow:
+2016-06-24 14:53:01..... The provided database host, username, and/or password is invalid, and a connection to the database could not be established.  Please enter a valid host, username and password
+2016-06-24 14:53:01...End DB Check Process *************
+2016-06-24 14:53:15...Begin DB Check Process *************
+2016-06-24 14:53:15...testing with mysql:mysqli
+2016-06-24 14:53:15...Basic form info is valid, continuing Process.
+2016-06-24 14:53:15...Testing user account...
+2016-06-24 14:53:15...Connection made using  host: localhost, usr: root
+2016-06-24 14:53:15...Testing priviliged account...
+2016-06-24 14:53:15...Connection made using  host: localhost, usr: root
+2016-06-24 14:53:15...ERROR:: The provided Database Name already exists.  You can<br>1.  hit the back button and choose a new database name <br>2.  click next and continue but all existing tables on this database will be dropped.  <strong>This means your tables and data will be blown away.</strong>
+2016-06-24 14:53:15...Passed DB install check
+2016-06-24 14:53:15...Begining to check FTS Settings.
+2016-06-24 14:53:15...FTS connection results: 1
+2016-06-24 14:53:15...WARNING:: no errors detected, but DB tables will be dropped!, issuing warning to user
+2016-06-24 14:53:15...End DB Check Process *************
+2016-06-24 14:53:20...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:54:13...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:54:30...installerHook: Could not find custom/install/install_hooks.php
+2016-06-24 14:54:30...calling handleSugarConfig()
+2016-06-24 14:54:30...calling handleLog4Php()
+2016-06-24 14:54:30...calling handleHtaccess()
+2016-06-24 14:54:30...calling handleDbCharsetCollation()
+2016-06-24 14:54:30...Enabling fulltext indexing
+2016-06-24 14:54:30...looping through all the Beans and create their tables
+2016-06-24 14:54:30...processing table acl_actions
+2016-06-24 14:54:30...dropping table acl_actions
+2016-06-24 14:54:30...creating table acl_actions
+2016-06-24 14:54:30...creating Relationship Meta for ACLAction
+2016-06-24 14:54:30...processing table acl_roles
+2016-06-24 14:54:30...dropping table acl_roles
+2016-06-24 14:54:30...creating table acl_roles
+2016-06-24 14:54:30...creating Relationship Meta for ACLRole
+2016-06-24 14:54:30...processing table relationships
+2016-06-24 14:54:30...processing table acl_role_sets
+2016-06-24 14:54:30...dropping table acl_role_sets
+2016-06-24 14:54:30...creating table acl_role_sets
+2016-06-24 14:54:30...creating Relationship Meta for ACLRoleSet
+2016-06-24 14:54:31...processing table leads
+2016-06-24 14:54:31...dropping table leads
+2016-06-24 14:54:31...creating table leads
+2016-06-24 14:54:31...creating Relationship Meta for Lead
+2016-06-24 14:54:31...processing table cases
+2016-06-24 14:54:31...dropping table cases
+2016-06-24 14:54:32...creating table cases
+2016-06-24 14:54:32...creating Relationship Meta for Case
+2016-06-24 14:54:32...processing table bugs
+2016-06-24 14:54:32...dropping table bugs
+2016-06-24 14:54:32...creating table bugs
+2016-06-24 14:54:32...creating Relationship Meta for Bug
+2016-06-24 14:54:32...processing table users
+2016-06-24 14:54:32...dropping table users
+2016-06-24 14:54:33...creating table users
+2016-06-24 14:54:33...creating Relationship Meta for User
+2016-06-24 14:54:33...processing table campaign_log
+2016-06-24 14:54:33...dropping table campaign_log
+2016-06-24 14:54:33...creating table campaign_log
+2016-06-24 14:54:33...creating Relationship Meta for CampaignLog
+2016-06-24 14:54:33...processing table project
+2016-06-24 14:54:33...dropping table project
+2016-06-24 14:54:33...creating table project
+2016-06-24 14:54:33...creating Relationship Meta for Project
+2016-06-24 14:54:33...processing table project_task
+2016-06-24 14:54:33...dropping table project_task
+2016-06-24 14:54:34...creating table project_task
+2016-06-24 14:54:34...creating Relationship Meta for ProjectTask
+2016-06-24 14:54:34...processing table campaigns
+2016-06-24 14:54:34...dropping table campaigns
+2016-06-24 14:54:34...creating table campaigns
+2016-06-24 14:54:34...creating Relationship Meta for Campaign
+2016-06-24 14:54:34...processing table prospect_lists
+2016-06-24 14:54:34...dropping table prospect_lists
+2016-06-24 14:54:34...creating table prospect_lists
+2016-06-24 14:54:34...creating Relationship Meta for ProspectList
+2016-06-24 14:54:34...processing table prospects
+2016-06-24 14:54:34...dropping table prospects
+2016-06-24 14:54:35...creating table prospects
+2016-06-24 14:54:35...creating Relationship Meta for Prospect
+2016-06-24 14:54:35...processing table email_marketing
+2016-06-24 14:54:35...dropping table email_marketing
+2016-06-24 14:54:35...creating table email_marketing
+2016-06-24 14:54:35...creating Relationship Meta for EmailMarketing
+2016-06-24 14:54:35...processing table campaign_trkrs
+2016-06-24 14:54:35...dropping table campaign_trkrs
+2016-06-24 14:54:35...creating table campaign_trkrs
+2016-06-24 14:54:35...creating Relationship Meta for CampaignTracker
+2016-06-24 14:54:35...processing table releases
+2016-06-24 14:54:35...dropping table releases
+2016-06-24 14:54:35...creating table releases
+2016-06-24 14:54:35...creating Relationship Meta for Release
+2016-06-24 14:54:35...processing table emailman
+2016-06-24 14:54:35...dropping table emailman
+2016-06-24 14:54:36...creating table emailman
+2016-06-24 14:54:36...creating Relationship Meta for EmailMan
+2016-06-24 14:54:36...processing table schedulers
+2016-06-24 14:54:36...dropping table schedulers
+2016-06-24 14:54:36...creating table schedulers
+2016-06-24 14:54:36...creating Relationship Meta for Scheduler
+2016-06-24 14:54:36...processing table job_queue
+2016-06-24 14:54:36...dropping table job_queue
+2016-06-24 14:54:36...creating table job_queue
+2016-06-24 14:54:36...creating Relationship Meta for SchedulersJob
+2016-06-24 14:54:36...processing table contacts
+2016-06-24 14:54:36...dropping table contacts
+2016-06-24 14:54:36...creating table contacts
+2016-06-24 14:54:36...creating Relationship Meta for Contact
+2016-06-24 14:54:36...processing table accounts
+2016-06-24 14:54:36...dropping table accounts
+2016-06-24 14:54:37...creating table accounts
+2016-06-24 14:54:37...creating Relationship Meta for Account
+2016-06-24 14:54:37...processing table opportunities
+2016-06-24 14:54:37...dropping table opportunities
+2016-06-24 14:54:38...creating table opportunities
+2016-06-24 14:54:38...creating Relationship Meta for Opportunity
+2016-06-24 14:54:38...processing table email_templates
+2016-06-24 14:54:38...dropping table email_templates
+2016-06-24 14:54:38...creating table email_templates
+2016-06-24 14:54:38...creating Relationship Meta for EmailTemplate
+2016-06-24 14:54:38...processing table users_signatures
+2016-06-24 14:54:38...dropping table users_signatures
+2016-06-24 14:54:38...creating table users_signatures
+2016-06-24 14:54:38...creating Relationship Meta for UserSignature
+2016-06-24 14:54:38...processing table notes
+2016-06-24 14:54:38...dropping table notes
+2016-06-24 14:54:38...creating table notes
+2016-06-24 14:54:38...creating Relationship Meta for Note
+2016-06-24 14:54:38...processing table calls
+2016-06-24 14:54:39...dropping table calls
+2016-06-24 14:54:39...creating table calls
+2016-06-24 14:54:39...creating Relationship Meta for Call
+2016-06-24 14:54:39...processing table emails
+2016-06-24 14:54:39...dropping table emails
+2016-06-24 14:54:39...creating table emails
+2016-06-24 14:54:39...creating Relationship Meta for Email
+2016-06-24 14:54:39...processing table meetings
+2016-06-24 14:54:39...dropping table meetings
+2016-06-24 14:54:40...creating table meetings
+2016-06-24 14:54:40...creating Relationship Meta for Meeting
+2016-06-24 14:54:40...processing table tasks
+2016-06-24 14:54:40...dropping table tasks
+2016-06-24 14:54:40...creating table tasks
+2016-06-24 14:54:40...creating Relationship Meta for Task
+2016-06-24 14:54:40...processing table users
+2016-06-24 14:54:40...processing table users
+2016-06-24 14:54:40...processing table currencies
+2016-06-24 14:54:41...dropping table currencies
+2016-06-24 14:54:41...creating table currencies
+2016-06-24 14:54:41...creating Relationship Meta for Currency
+2016-06-24 14:54:41...processing table tracker
+2016-06-24 14:54:41...dropping table tracker
+2016-06-24 14:54:42...creating table tracker
+2016-06-24 14:54:42...creating Relationship Meta for Tracker
+2016-06-24 14:54:42...processing table tracker_perf
+2016-06-24 14:54:42...dropping table tracker_perf
+2016-06-24 14:54:42...creating table tracker_perf
+2016-06-24 14:54:42...creating Relationship Meta for tracker_perf
+2016-06-24 14:54:42...processing table tracker_sessions
+2016-06-24 14:54:42...dropping table tracker_sessions
+2016-06-24 14:54:42...creating table tracker_sessions
+2016-06-24 14:54:42...creating Relationship Meta for tracker_sessions
+2016-06-24 14:54:42...processing table tracker_queries
+2016-06-24 14:54:43...dropping table tracker_queries
+2016-06-24 14:54:43...creating table tracker_queries
+2016-06-24 14:54:43...creating Relationship Meta for tracker_queries
+2016-06-24 14:54:43...processing table import_maps
+2016-06-24 14:54:43...dropping table import_maps
+2016-06-24 14:54:43...creating table import_maps
+2016-06-24 14:54:43...creating Relationship Meta for ImportMap
+2016-06-24 14:54:43...processing table users_last_import
+2016-06-24 14:54:43...dropping table users_last_import
+2016-06-24 14:54:43...creating table users_last_import
+2016-06-24 14:54:43...creating Relationship Meta for UsersLastImport
+2016-06-24 14:54:43...processing table config
+2016-06-24 14:54:43...dropping table config
+2016-06-24 14:54:43...creating table config
+2016-06-24 14:54:43...creating Relationship Meta for Administration
+2016-06-24 14:54:43...processing table upgrade_history
+2016-06-24 14:54:43...dropping table upgrade_history
+2016-06-24 14:54:43...creating table upgrade_history
+2016-06-24 14:54:43...creating Relationship Meta for UpgradeHistory
+2016-06-24 14:54:43...processing table vcals
+2016-06-24 14:54:43...dropping table vcals
+2016-06-24 14:54:43...creating table vcals
+2016-06-24 14:54:43...creating Relationship Meta for vCal
+2016-06-24 14:54:43...processing table versions
+2016-06-24 14:54:43...dropping table versions
+2016-06-24 14:54:44...creating table versions
+2016-06-24 14:54:44...creating Relationship Meta for Version
+2016-06-24 14:54:44...processing table roles
+2016-06-24 14:54:44...dropping table roles
+2016-06-24 14:54:44...creating table roles
+2016-06-24 14:54:44...creating Relationship Meta for Role
+2016-06-24 14:54:44...processing table documents
+2016-06-24 14:54:44...dropping table documents
+2016-06-24 14:54:44...creating table documents
+2016-06-24 14:54:44...creating Relationship Meta for Document
+2016-06-24 14:54:44...processing table document_revisions
+2016-06-24 14:54:44...dropping table document_revisions
+2016-06-24 14:54:44...creating table document_revisions
+2016-06-24 14:54:44...creating Relationship Meta for DocumentRevision
+2016-06-24 14:54:44...processing table fields_meta_data
+2016-06-24 14:54:44...dropping table fields_meta_data
+2016-06-24 14:54:44...creating table fields_meta_data
+2016-06-24 14:54:44...creating Relationship Meta for FieldsMetaData
+2016-06-24 14:54:44...processing table inbound_email
+2016-06-24 14:54:44...dropping table inbound_email
+2016-06-24 14:54:45...creating table inbound_email
+2016-06-24 14:54:45...creating Relationship Meta for InboundEmail
+2016-06-24 14:54:45...processing table saved_search
+2016-06-24 14:54:45...dropping table saved_search
+2016-06-24 14:54:45...creating table saved_search
+2016-06-24 14:54:45...creating Relationship Meta for SavedSearch
+2016-06-24 14:54:45...processing table user_preferences
+2016-06-24 14:54:45...dropping table user_preferences
+2016-06-24 14:54:45...creating table user_preferences
+2016-06-24 14:54:45...creating Relationship Meta for UserPreference
+2016-06-24 14:54:45...processing table 
+2016-06-24 14:54:45...processing table email_addresses
+2016-06-24 14:54:45...dropping table email_addresses
+2016-06-24 14:54:45...creating table email_addresses
+2016-06-24 14:54:45...creating Relationship Meta for EmailAddress
+2016-06-24 14:54:45...processing table emails_text
+2016-06-24 14:54:45...dropping table emails_text
+2016-06-24 14:54:45...creating table emails_text
+2016-06-24 14:54:45...creating Relationship Meta for EmailText
+2016-06-24 14:54:45...processing table saved_reports
+2016-06-24 14:54:45...dropping table saved_reports
+2016-06-24 14:54:45...creating table saved_reports
+2016-06-24 14:54:45...creating Relationship Meta for SavedReport
+2016-06-24 14:54:45...processing table acl_fields
+2016-06-24 14:54:45...dropping table acl_fields
+2016-06-24 14:54:45...creating table acl_fields
+2016-06-24 14:54:45...creating Relationship Meta for ACLField
+2016-06-24 14:54:45...processing table contracts
+2016-06-24 14:54:46...dropping table contracts
+2016-06-24 14:54:46...creating table contracts
+2016-06-24 14:54:46...creating Relationship Meta for Contract
+2016-06-24 14:54:46...processing table teams
+2016-06-24 14:54:46...dropping table teams
+2016-06-24 14:54:46...creating table teams
+2016-06-24 14:54:46...creating Relationship Meta for Team
+2016-06-24 14:54:46...processing table team_memberships
+2016-06-24 14:54:46...dropping table team_memberships
+2016-06-24 14:54:46...creating table team_memberships
+2016-06-24 14:54:46...creating Relationship Meta for TeamMembership
+2016-06-24 14:54:46...processing table team_sets
+2016-06-24 14:54:46...dropping table team_sets
+2016-06-24 14:54:47...creating table team_sets
+2016-06-24 14:54:47...creating Relationship Meta for TeamSet
+2016-06-24 14:54:47...processing table team_sets_modules
+2016-06-24 14:54:47...dropping table team_sets_modules
+2016-06-24 14:54:47...creating table team_sets_modules
+2016-06-24 14:54:47...creating Relationship Meta for TeamSetModule
+2016-06-24 14:54:47...processing table team_notices
+2016-06-24 14:54:47...dropping table team_notices
+2016-06-24 14:54:47...creating table team_notices
+2016-06-24 14:54:47...creating Relationship Meta for TeamNotices
+2016-06-24 14:54:47...processing table product_templates
+2016-06-24 14:54:47...dropping table product_templates
+2016-06-24 14:54:47...creating table product_templates
+2016-06-24 14:54:47...creating Relationship Meta for ProductTemplate
+2016-06-24 14:54:47...processing table product_types
+2016-06-24 14:54:47...dropping table product_types
+2016-06-24 14:54:47...creating table product_types
+2016-06-24 14:54:47...creating Relationship Meta for ProductType
+2016-06-24 14:54:47...processing table product_categories
+2016-06-24 14:54:47...dropping table product_categories
+2016-06-24 14:54:48...creating table product_categories
+2016-06-24 14:54:48...creating Relationship Meta for ProductCategory
+2016-06-24 14:54:48...processing table manufacturers
+2016-06-24 14:54:48...dropping table manufacturers
+2016-06-24 14:54:48...creating table manufacturers
+2016-06-24 14:54:48...creating Relationship Meta for Manufacturer
+2016-06-24 14:54:48...processing table quotes
+2016-06-24 14:54:48...dropping table quotes
+2016-06-24 14:54:48...creating table quotes
+2016-06-24 14:54:48...creating Relationship Meta for Quote
+2016-06-24 14:54:48...processing table product_bundle_notes
+2016-06-24 14:54:48...dropping table product_bundle_notes
+2016-06-24 14:54:49...creating table product_bundle_notes
+2016-06-24 14:54:49...creating Relationship Meta for ProductBundleNote
+2016-06-24 14:54:49...processing table products
+2016-06-24 14:54:49...dropping table products
+2016-06-24 14:54:49...creating table products
+2016-06-24 14:54:49...creating Relationship Meta for Product
+2016-06-24 14:54:49...processing table product_bundles
+2016-06-24 14:54:49...dropping table product_bundles
+2016-06-24 14:54:49...creating table product_bundles
+2016-06-24 14:54:49...creating Relationship Meta for ProductBundle
+2016-06-24 14:54:49...processing table revenue_line_items
+2016-06-24 14:54:49...dropping table revenue_line_items
+2016-06-24 14:54:49...creating table revenue_line_items
+2016-06-24 14:54:49...creating Relationship Meta for RevenueLineItem
+2016-06-24 14:54:49...processing table shippers
+2016-06-24 14:54:49...dropping table shippers
+2016-06-24 14:54:50...creating table shippers
+2016-06-24 14:54:50...creating Relationship Meta for Shipper
+2016-06-24 14:54:50...processing table taxrates
+2016-06-24 14:54:50...dropping table taxrates
+2016-06-24 14:54:50...creating table taxrates
+2016-06-24 14:54:50...creating Relationship Meta for TaxRate
+2016-06-24 14:54:50...processing table timeperiods
+2016-06-24 14:54:50...dropping table timeperiods
+2016-06-24 14:54:50...creating table timeperiods
+2016-06-24 14:54:50...creating Relationship Meta for TimePeriod
+2016-06-24 14:54:50...processing table timeperiods
+2016-06-24 14:54:50...processing table timeperiods
+2016-06-24 14:54:50...processing table timeperiods
+2016-06-24 14:54:50...processing table timeperiods
+2016-06-24 14:54:50...processing table timeperiods
+2016-06-24 14:54:50...processing table timeperiods
+2016-06-24 14:54:50...processing table forecasts
+2016-06-24 14:54:50...dropping table forecasts
+2016-06-24 14:54:50...creating table forecasts
+2016-06-24 14:54:50...creating Relationship Meta for Forecast
+2016-06-24 14:54:50...processing table forecast_worksheets
+2016-06-24 14:54:50...dropping table forecast_worksheets
+2016-06-24 14:54:50...creating table forecast_worksheets
+2016-06-24 14:54:50...creating Relationship Meta for ForecastWorksheet
+2016-06-24 14:54:50...processing table forecast_manager_worksheets
+2016-06-24 14:54:50...dropping table forecast_manager_worksheets
+2016-06-24 14:54:51...creating table forecast_manager_worksheets
+2016-06-24 14:54:51...creating Relationship Meta for ForecastManagerWorksheet
+2016-06-24 14:54:51...processing table opportunities
+2016-06-24 14:54:51...processing table users
+2016-06-24 14:54:51...processing table quotas
+2016-06-24 14:54:51...dropping table quotas
+2016-06-24 14:54:51...creating table quotas
+2016-06-24 14:54:51...creating Relationship Meta for Quota
+2016-06-24 14:54:51...processing table workflow
+2016-06-24 14:54:51...dropping table workflow
+2016-06-24 14:54:52...creating table workflow
+2016-06-24 14:54:52...creating Relationship Meta for WorkFlow
+2016-06-24 14:54:52...processing table workflow_triggershells
+2016-06-24 14:54:52...dropping table workflow_triggershells
+2016-06-24 14:54:52...creating table workflow_triggershells
+2016-06-24 14:54:52...creating Relationship Meta for WorkFlowTriggerShell
+2016-06-24 14:54:52...processing table workflow_alertshells
+2016-06-24 14:54:52...dropping table workflow_alertshells
+2016-06-24 14:54:52...creating table workflow_alertshells
+2016-06-24 14:54:52...creating Relationship Meta for WorkFlowAlertShell
+2016-06-24 14:54:52...processing table workflow_alerts
+2016-06-24 14:54:52...dropping table workflow_alerts
+2016-06-24 14:54:52...creating table workflow_alerts
+2016-06-24 14:54:52...creating Relationship Meta for WorkFlowAlert
+2016-06-24 14:54:52...processing table workflow_actionshells
+2016-06-24 14:54:52...dropping table workflow_actionshells
+2016-06-24 14:54:52...creating table workflow_actionshells
+2016-06-24 14:54:52...creating Relationship Meta for WorkFlowActionShell
+2016-06-24 14:54:52...processing table workflow_actions
+2016-06-24 14:54:52...dropping table workflow_actions
+2016-06-24 14:54:52...creating table workflow_actions
+2016-06-24 14:54:52...creating Relationship Meta for WorkFlowAction
+2016-06-24 14:54:52...processing table expressions
+2016-06-24 14:54:52...dropping table expressions
+2016-06-24 14:54:52...creating table expressions
+2016-06-24 14:54:52...creating Relationship Meta for Expression
+2016-06-24 14:54:52...processing table systems
+2016-06-24 14:54:52...dropping table systems
+2016-06-24 14:54:52...creating table systems
+2016-06-24 14:54:52...creating Relationship Meta for System
+2016-06-24 14:54:52...processing table session_active
+2016-06-24 14:54:52...dropping table session_active
+2016-06-24 14:54:52...creating table session_active
+2016-06-24 14:54:52...creating Relationship Meta for SessionManager
+2016-06-24 14:54:52...processing table contract_types
+2016-06-24 14:54:53...dropping table contract_types
+2016-06-24 14:54:53...creating table contract_types
+2016-06-24 14:54:53...creating Relationship Meta for ContractType
+2016-06-24 14:54:53...processing table project_resources
+2016-06-24 14:54:53...dropping table project_resources
+2016-06-24 14:54:53...creating table project_resources
+2016-06-24 14:54:53...creating Relationship Meta for ProjectResource
+2016-06-24 14:54:53...processing table holidays
+2016-06-24 14:54:53...dropping table holidays
+2016-06-24 14:54:53...creating table holidays
+2016-06-24 14:54:53...creating Relationship Meta for Holiday
+2016-06-24 14:54:53...processing table custom_queries
+2016-06-24 14:54:53...dropping table custom_queries
+2016-06-24 14:54:53...creating table custom_queries
+2016-06-24 14:54:53...creating Relationship Meta for CustomQuery
+2016-06-24 14:54:53...processing table data_sets
+2016-06-24 14:54:53...dropping table data_sets
+2016-06-24 14:54:53...creating table data_sets
+2016-06-24 14:54:53...creating Relationship Meta for DataSet
+2016-06-24 14:54:53...processing table dataset_attributes
+2016-06-24 14:54:53...dropping table dataset_attributes
+2016-06-24 14:54:53...creating table dataset_attributes
+2016-06-24 14:54:53...creating Relationship Meta for DataSet_Attribute
+2016-06-24 14:54:53...processing table report_maker
+2016-06-24 14:54:53...dropping table report_maker
+2016-06-24 14:54:53...creating table report_maker
+2016-06-24 14:54:53...creating Relationship Meta for ReportMaker
+2016-06-24 14:54:53...processing table pmse_project
+2016-06-24 14:54:53...dropping table pmse_project
+2016-06-24 14:54:54...creating table pmse_project
+2016-06-24 14:54:54...creating Relationship Meta for pmse_Project
+2016-06-24 14:54:54...processing table pmse_inbox
+2016-06-24 14:54:54...dropping table pmse_inbox
+2016-06-24 14:54:54...creating table pmse_inbox
+2016-06-24 14:54:54...creating Relationship Meta for pmse_Inbox
+2016-06-24 14:54:54...processing table pmse_business_rules
+2016-06-24 14:54:54...dropping table pmse_business_rules
+2016-06-24 14:54:54...creating table pmse_business_rules
+2016-06-24 14:54:54...creating Relationship Meta for pmse_Business_Rules
+2016-06-24 14:54:54...processing table pmse_emails_templates
+2016-06-24 14:54:54...dropping table pmse_emails_templates
+2016-06-24 14:54:55...creating table pmse_emails_templates
+2016-06-24 14:54:55...creating Relationship Meta for pmse_Emails_Templates
+2016-06-24 14:54:55...processing table pmse_bpmn_activity
+2016-06-24 14:54:55...dropping table pmse_bpmn_activity
+2016-06-24 14:54:55...creating table pmse_bpmn_activity
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnActivity
+2016-06-24 14:54:55...processing table pmse_bpmn_artifact
+2016-06-24 14:54:55...dropping table pmse_bpmn_artifact
+2016-06-24 14:54:55...creating table pmse_bpmn_artifact
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnArtifact
+2016-06-24 14:54:55...processing table pmse_bpmn_bound
+2016-06-24 14:54:55...dropping table pmse_bpmn_bound
+2016-06-24 14:54:55...creating table pmse_bpmn_bound
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnBound
+2016-06-24 14:54:55...processing table pmse_bpmn_data
+2016-06-24 14:54:55...dropping table pmse_bpmn_data
+2016-06-24 14:54:55...creating table pmse_bpmn_data
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnData
+2016-06-24 14:54:55...processing table pmse_bpmn_diagram
+2016-06-24 14:54:55...dropping table pmse_bpmn_diagram
+2016-06-24 14:54:55...creating table pmse_bpmn_diagram
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnDiagram
+2016-06-24 14:54:55...processing table pmse_bpmn_documentation
+2016-06-24 14:54:55...dropping table pmse_bpmn_documentation
+2016-06-24 14:54:55...creating table pmse_bpmn_documentation
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnDocumentation
+2016-06-24 14:54:55...processing table pmse_bpmn_event
+2016-06-24 14:54:55...dropping table pmse_bpmn_event
+2016-06-24 14:54:55...creating table pmse_bpmn_event
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnEvent
+2016-06-24 14:54:55...processing table pmse_bpmn_extension
+2016-06-24 14:54:55...dropping table pmse_bpmn_extension
+2016-06-24 14:54:55...creating table pmse_bpmn_extension
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnExtension
+2016-06-24 14:54:55...processing table pmse_bpmn_flow
+2016-06-24 14:54:55...dropping table pmse_bpmn_flow
+2016-06-24 14:54:55...creating table pmse_bpmn_flow
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnFlow
+2016-06-24 14:54:55...processing table pmse_bpmn_gateway
+2016-06-24 14:54:55...dropping table pmse_bpmn_gateway
+2016-06-24 14:54:55...creating table pmse_bpmn_gateway
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnGateway
+2016-06-24 14:54:55...processing table pmse_bpmn_lane
+2016-06-24 14:54:55...dropping table pmse_bpmn_lane
+2016-06-24 14:54:55...creating table pmse_bpmn_lane
+2016-06-24 14:54:55...creating Relationship Meta for pmse_BpmnLane
+2016-06-24 14:54:55...processing table pmse_bpmn_laneset
+2016-06-24 14:54:55...dropping table pmse_bpmn_laneset
+2016-06-24 14:54:56...creating table pmse_bpmn_laneset
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmnLaneset
+2016-06-24 14:54:56...processing table pmse_bpmn_participant
+2016-06-24 14:54:56...dropping table pmse_bpmn_participant
+2016-06-24 14:54:56...creating table pmse_bpmn_participant
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmnParticipant
+2016-06-24 14:54:56...processing table pmse_bpmn_process
+2016-06-24 14:54:56...dropping table pmse_bpmn_process
+2016-06-24 14:54:56...creating table pmse_bpmn_process
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmnProcess
+2016-06-24 14:54:56...processing table pmse_bpm_flow
+2016-06-24 14:54:56...dropping table pmse_bpm_flow
+2016-06-24 14:54:56...creating table pmse_bpm_flow
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmFlow
+2016-06-24 14:54:56...processing table pmse_bpm_thread
+2016-06-24 14:54:56...dropping table pmse_bpm_thread
+2016-06-24 14:54:56...creating table pmse_bpm_thread
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmThread
+2016-06-24 14:54:56...processing table pmse_bpm_notes
+2016-06-24 14:54:56...dropping table pmse_bpm_notes
+2016-06-24 14:54:56...creating table pmse_bpm_notes
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmNotes
+2016-06-24 14:54:56...processing table pmse_bpm_related_dependency
+2016-06-24 14:54:56...dropping table pmse_bpm_related_dependency
+2016-06-24 14:54:56...creating table pmse_bpm_related_dependency
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmRelatedDependency
+2016-06-24 14:54:56...processing table pmse_bpm_case_data
+2016-06-24 14:54:56...dropping table pmse_bpm_case_data
+2016-06-24 14:54:56...creating table pmse_bpm_case_data
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmCaseData
+2016-06-24 14:54:56...processing table pmse_bpm_activity_user
+2016-06-24 14:54:56...dropping table pmse_bpm_activity_user
+2016-06-24 14:54:56...creating table pmse_bpm_activity_user
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmActivityUser
+2016-06-24 14:54:56...processing table pmse_bpm_event_definition
+2016-06-24 14:54:56...dropping table pmse_bpm_event_definition
+2016-06-24 14:54:56...creating table pmse_bpm_event_definition
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmEventDefinition
+2016-06-24 14:54:56...processing table pmse_bpm_gateway_definition
+2016-06-24 14:54:56...dropping table pmse_bpm_gateway_definition
+2016-06-24 14:54:56...creating table pmse_bpm_gateway_definition
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmGatewayDefinition
+2016-06-24 14:54:56...processing table pmse_bpm_activity_definition
+2016-06-24 14:54:56...dropping table pmse_bpm_activity_definition
+2016-06-24 14:54:56...creating table pmse_bpm_activity_definition
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmActivityDefinition
+2016-06-24 14:54:56...processing table pmse_bpm_activity_step
+2016-06-24 14:54:56...dropping table pmse_bpm_activity_step
+2016-06-24 14:54:56...creating table pmse_bpm_activity_step
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmActivityStep
+2016-06-24 14:54:56...processing table pmse_bpm_form_action
+2016-06-24 14:54:56...dropping table pmse_bpm_form_action
+2016-06-24 14:54:56...creating table pmse_bpm_form_action
+2016-06-24 14:54:56...creating Relationship Meta for pmse_BpmFormAction
+2016-06-24 14:54:56...processing table pmse_bpm_dynamic_forms
+2016-06-24 14:54:56...dropping table pmse_bpm_dynamic_forms
+2016-06-24 14:54:57...creating table pmse_bpm_dynamic_forms
+2016-06-24 14:54:57...creating Relationship Meta for pmse_BpmDynaForm
+2016-06-24 14:54:57...processing table pmse_bpm_process_definition
+2016-06-24 14:54:57...dropping table pmse_bpm_process_definition
+2016-06-24 14:54:57...creating table pmse_bpm_process_definition
+2016-06-24 14:54:57...creating Relationship Meta for pmse_BpmProcessDefinition
+2016-06-24 14:54:57...processing table pmse_bpm_config
+2016-06-24 14:54:57...dropping table pmse_bpm_config
+2016-06-24 14:54:57...creating table pmse_bpm_config
+2016-06-24 14:54:57...creating Relationship Meta for pmse_BpmConfig
+2016-06-24 14:54:57...processing table pmse_bpm_group
+2016-06-24 14:54:57...dropping table pmse_bpm_group
+2016-06-24 14:54:57...creating table pmse_bpm_group
+2016-06-24 14:54:57...creating Relationship Meta for pmse_BpmGroup
+2016-06-24 14:54:57...processing table pmse_bpm_group_user
+2016-06-24 14:54:57...dropping table pmse_bpm_group_user
+2016-06-24 14:54:57...creating table pmse_bpm_group_user
+2016-06-24 14:54:57...creating Relationship Meta for pmse_BpmGroupUser
+2016-06-24 14:54:57...processing table pmse_bpm_access_management
+2016-06-24 14:54:57...dropping table pmse_bpm_access_management
+2016-06-24 14:54:57...creating table pmse_bpm_access_management
+2016-06-24 14:54:57...creating Relationship Meta for pmse_BpmAccessManagement
+2016-06-24 14:54:57...processing table 
+2016-06-24 14:54:57...processing table styleguide
+2016-06-24 14:54:57...dropping table styleguide
+2016-06-24 14:54:57...creating table styleguide
+2016-06-24 14:54:57...creating Relationship Meta for Styleguide
+2016-06-24 14:54:57...processing table notifications
+2016-06-24 14:54:57...dropping table notifications
+2016-06-24 14:54:58...creating table notifications
+2016-06-24 14:54:58...creating Relationship Meta for Notifications
+2016-06-24 14:54:58...processing table eapm
+2016-06-24 14:54:58...dropping table eapm
+2016-06-24 14:54:58...creating table eapm
+2016-06-24 14:54:58...creating Relationship Meta for EAPM
+2016-06-24 14:54:58...processing table oauth_consumer
+2016-06-24 14:54:58...dropping table oauth_consumer
+2016-06-24 14:54:58...creating table oauth_consumer
+2016-06-24 14:54:58...creating Relationship Meta for OAuthKey
+2016-06-24 14:54:58...processing table oauth_tokens
+2016-06-24 14:54:58...dropping table oauth_tokens
+2016-06-24 14:54:58...creating table oauth_tokens
+2016-06-24 14:54:58...creating Relationship Meta for OAuthToken
+2016-06-24 14:54:58...processing table sugarfavorites
+2016-06-24 14:54:58...dropping table sugarfavorites
+2016-06-24 14:54:58...creating table sugarfavorites
+2016-06-24 14:54:58...creating Relationship Meta for SugarFavorites
+2016-06-24 14:54:58...processing table weblogichooks
+2016-06-24 14:54:58...dropping table weblogichooks
+2016-06-24 14:54:59...creating table weblogichooks
+2016-06-24 14:54:59...creating Relationship Meta for WebLogicHook
+2016-06-24 14:54:59...processing table activities
+2016-06-24 14:54:59...dropping table activities
+2016-06-24 14:54:59...creating table activities
+2016-06-24 14:54:59...creating Relationship Meta for Activity
+2016-06-24 14:54:59...processing table comments
+2016-06-24 14:54:59...dropping table comments
+2016-06-24 14:54:59...creating table comments
+2016-06-24 14:54:59...creating Relationship Meta for Comment
+2016-06-24 14:54:59...processing table subscriptions
+2016-06-24 14:54:59...dropping table subscriptions
+2016-06-24 14:54:59...creating table subscriptions
+2016-06-24 14:54:59...creating Relationship Meta for Subscription
+2016-06-24 14:54:59...processing table filters
+2016-06-24 14:54:59...dropping table filters
+2016-06-24 14:54:59...creating table filters
+2016-06-24 14:54:59...creating Relationship Meta for Filters
+2016-06-24 14:54:59...processing table dashboards
+2016-06-24 14:54:59...dropping table dashboards
+2016-06-24 14:54:59...creating table dashboards
+2016-06-24 14:54:59...creating Relationship Meta for Dashboard
+2016-06-24 14:54:59...processing table tags
+2016-06-24 14:54:59...dropping table tags
+2016-06-24 14:55:00...creating table tags
+2016-06-24 14:55:00...creating Relationship Meta for Tag
+2016-06-24 14:55:00...processing table categories
+2016-06-24 14:55:00...dropping table categories
+2016-06-24 14:55:00...creating table categories
+2016-06-24 14:55:00...creating Relationship Meta for Category
+2016-06-24 14:55:00...processing table pdfmanager
+2016-06-24 14:55:00...dropping table pdfmanager
+2016-06-24 14:55:00...creating table pdfmanager
+2016-06-24 14:55:00...creating Relationship Meta for PdfManager
+2016-06-24 14:55:00...processing table kbdocuments
+2016-06-24 14:55:00...dropping table kbdocuments
+2016-06-24 14:55:00...creating table kbdocuments
+2016-06-24 14:55:00...creating Relationship Meta for KBDocument
+2016-06-24 14:55:00...processing table kbcontents
+2016-06-24 14:55:00...dropping table kbcontents
+2016-06-24 14:55:01...creating table kbcontents
+2016-06-24 14:55:01...creating Relationship Meta for KBContent
+2016-06-24 14:55:01...processing table kbarticles
+2016-06-24 14:55:01...dropping table kbarticles
+2016-06-24 14:55:01...creating table kbarticles
+2016-06-24 14:55:01...creating Relationship Meta for KBArticle
+2016-06-24 14:55:01...processing table kbcontent_templates
+2016-06-24 14:55:01...dropping table kbcontent_templates
+2016-06-24 14:55:01...creating table kbcontent_templates
+2016-06-24 14:55:01...creating Relationship Meta for KBContentTemplate
+2016-06-24 14:55:01...processing table embedded_files
+2016-06-24 14:55:01...dropping table embedded_files
+2016-06-24 14:55:01...creating table embedded_files
+2016-06-24 14:55:01...creating Relationship Meta for EmbeddedFile
+2016-06-24 14:55:11...Begin creating Defaults
+2016-06-24 14:55:11...INSERT defaults INTO config TABLE
+2016-06-24 14:55:12...Updating license information
+2016-06-24 14:55:14...Creating default users
+2016-06-24 14:55:14...Creating default reports
+2016-06-24 14:55:16...Creating default scheduler jobs
+2016-06-24 14:55:19...creating new user for Snip
+2016-06-24 14:55:20...Converting Opportunities to use RevenueLineItems
+2016-06-24 14:55:39...Converting Opportunities Reports to use RevenueLineItems
+2016-06-24 14:55:39...converting Forecasts to use RevenueLineItems
+2016-06-24 14:55:40...populating the db with seed data
+2016-06-24 14:55:40...done populating the db with seed data
+2016-06-24 14:55:40...running full indexer
+2016-06-24 14:55:45...Done populating data *********
+2016-06-24 14:55:45...Running post-install hooks
+2016-06-24 14:55:45...Finished post-install hooks
+2016-06-24 14:55:45...Populating file cache
+2016-06-24 14:55:46...Populating metadata cache
+2016-06-24 14:55:48...Installation has completed *********
+2016-06-24 14:56:02...installerHook: Could not find custom/install/install_hooks.php
