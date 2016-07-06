@@ -9,7 +9,13 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+/*********************************************************************************
+ * Description:  Defines the Catalan language pack for the base application. 
+ * $Id: cat_cat.lang.php,v 1.0 2009/08/04 16:13:27 rfeliu Exp $
+ * Source: SugarCRM 5.2.0
+ * Contributor(s): Ramón Feliu (ramon@slay.es).
+ ********************************************************************************/
 $mod_strings = array(
-'LBL_ASSIGNED_TO_ID'=>'ID d&#39;usuari assignat',
-'LBL_ASSIGNED_TO_NAME' => 'Assignat a',
+'LBL_ASSIGNED_TO_ID'				=> 'Usuari Assignat',
+'LBL_ASSIGNED_TO_NAME' 				=> 'Assignat a',
 );

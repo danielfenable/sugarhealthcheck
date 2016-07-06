@@ -88,8 +88,6 @@ var AdamShapeLayerCommand = function (receiver, options) {
     this.beforeValues = [];
     this.afterStyle = [];
     this.afterValues = [];
-    this.beforeName = null;
-    this.afterName = null;
     this.propertyNames = [];
     AdamShapeLayerCommand.prototype.initObject.call(this, receiver, options);
 };
@@ -150,12 +148,6 @@ AdamShapeLayerCommand.prototype.initObject = function (receiver, options) {
             this.propertyNames.push('evn_marker');
             this.beforeValues.push(this.receiver['evn_marker']);
             this.afterValues.push(options.changes.evn_marker);
-        }
-
-        this.beforeName = this.afterName = receiver.getName();
-
-        if (options.changes.evn_name !== undefined) {
-            this.afterName = options.changes.evn_name;
         }
 
         this.propertyNames.push('evn_message');
@@ -250,9 +242,6 @@ AdamShapeLayerCommand.prototype.execute = function () {
         }
 
     }
-    if (this.afterName !== null) {
-        this.receiver.setName(this.afterName).label.textField.value = this.afterName;
-    }
     this.canvas.triggerCommandAdam(this.receiver, this.propertyNames, this.beforeValues, this.afterValues);
 };
 
@@ -267,9 +256,6 @@ AdamShapeLayerCommand.prototype.undo = function () {
         if (this.propertyNames[i] === 'gat_default_flow') {
             this.switchDefaultFlow(this.beforeValues[i], 'DEFAULT', 'SEQUENCE');
         }
-    }
-    if (this.beforeName !== null) {
-        this.receiver.setName(this.beforeName).label.textField.value = this.beforeName;
     }
     this.canvas.triggerCommandAdam(this.receiver, this.propertyNames, this.afterValues, this.beforeValues);
 };

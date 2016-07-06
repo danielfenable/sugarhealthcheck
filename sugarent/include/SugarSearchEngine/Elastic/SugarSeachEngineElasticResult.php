@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,35 +11,18 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-require_once 'include/SugarSearchEngine/SugarSearchEngineAbstractResult.php';
-require_once 'include/SugarSearchEngine/SugarSearchEngineHighlighter.php';
-
-use Sugarcrm\Sugarcrm\Elasticsearch\Adapter\Result;
-use Sugarcrm\Sugarcrm\Elasticsearch\Query\Highlighter\HighlighterInterface;
+require_once("include/SugarSearchEngine/SugarSearchEngineAbstractResult.php");
+require_once("include/SugarSearchEngine/SugarSearchEngineHighlighter.php");
 
 /**
  * Adapter class to Elastica Result
- *
- *                      !!! DEPRECATION WARNING !!!
- *
- * All code in include/SugarSearchEngine is going to be deprecated in a future
- * release. Do not use any of its APIs for code customizations as there will be
- * no guarantee of support and/or functionality for it. Use the new framework
- * located in the directories src/SearchEngine and src/Elasticsearch.
- *
- * @deprecated
  */
 class SugarSeachEngineElasticResult extends SugarSearchEngineAbstractResult
 {
     /**
      * @var \Elastica\Result
      */
-    protected $elasticaResult;
-
-    /**
-     * @var HighlighterInterface
-     */
-    protected $highlighter;
+    private $elasticaResult;
 
     /**
      * @param \Elastica\Result $result
@@ -46,26 +30,12 @@ class SugarSeachEngineElasticResult extends SugarSearchEngineAbstractResult
     public function __construct(\Elastica\Result $result)
     {
         $this->elasticaResult = $result;
-    }
-
-    /**
-     * Get bean
-     * @return SugarBean
-     */
-    public function getBean()
-    {
-        if (empty($this->bean)) {
-            $this->bean = BeanFactory::getBean($this->getModule(), $this->getId());
-            if (empty($this->bean)) {
-                $msg = sprintf(
-                    "Unable to load bean '%s' for module '%s' for FTS result set",
-                    $this->getId(),
-                    $this->getModule()
-                );
-                $GLOBALS['log']->fatal($msg);
-            }
+        //No need to lazy load, will always want to load the bean to fill in the details
+        $this->bean = BeanFactory::getBean($this->getModule(), $this->getId());
+        if($this->bean === FALSE)
+        {
+            $GLOBALS['log']->fatal("Unable to load bean with id for FTS result set: {$this->getId()}");
         }
-        return $this->bean;
     }
 
     /**
@@ -84,8 +54,9 @@ class SugarSeachEngineElasticResult extends SugarSearchEngineAbstractResult
      */
     public function getModule()
     {
-        return $this->elasticaResult->getType();
+        return $this->elasticaResult->module;
     }
+
 
     /**
      *
@@ -98,7 +69,7 @@ class SugarSeachEngineElasticResult extends SugarSearchEngineAbstractResult
 
     /**
      * This function returns an array of highlighted key-value pairs.
-     *
+     * 
      * @param maxFields - the number of highlighted fields to return, 0 = all
      *
      * @return array of key value pairs
@@ -107,19 +78,14 @@ class SugarSeachEngineElasticResult extends SugarSearchEngineAbstractResult
     {
         $ret = array();
 
-        if (isset($this->highlighter)) {
-            $parsedResult = new Result($this->elasticaResult);
-            $parsedResult->setHighlighter($this->highlighter);
-            $highlights = $parsedResult->getHighlights();
-        } else {
-            $highlights = $this->elasticaResult->getHighlights();
-        }
+        $highlights = $this->elasticaResult->getHighlights();
 
-        if (!empty($highlights) && is_array($highlights)) {
+        if (!empty($highlights) && is_array($highlights))
+        {
             $highlighter = new SugarSearchEngineHighlighter();
             $highlighter->setModule($this->getModule());
             $ret = $highlighter->processHighlightText($highlights);
-            if ($maxFields > 0) {
+            if($maxFields > 0) {
                 $ret = array_slice($ret, 0, $maxFields);
             }
         }
@@ -134,14 +100,5 @@ class SugarSeachEngineElasticResult extends SugarSearchEngineAbstractResult
     public function getSource()
     {
         return $this->elasticaResult->getSource();
-    }
-
-    /**
-     * Set highlighter
-     * @param HighlighterInterface $highlighter
-     */
-    public function setHighlighter(HighlighterInterface $highlighter)
-    {
-        $this->highlighter = $highlighter;
     }
 }

@@ -34,11 +34,10 @@ class PMSERoundRobin extends PMSEScriptTask
      * $response['flow_id'] = $flowData['id']; // The flowData id if present
      *
      *
-     * @param array $flowData
-     * @param null $bean
-     * @param string $externalAction
-     * @param array $arguments
-     * @return array
+     * @param type $flowData
+     * @param type $bean
+     * @param type $externalAction
+     * @return type
      */
     public function run($flowData, $bean = null, $externalAction = '', $arguments = array())
     {
@@ -53,17 +52,18 @@ class PMSERoundRobin extends PMSEScriptTask
         
         $bpmnElement = $this->retrieveDefinitionData($flowData['bpmn_id']);
         $act_assign_team = $bpmnElement['act_assign_team'];
-
+        //$objTeamBean = $this->beanFactory->getBean('Teams');
+        //$teamBean = $objTeamBean->getById($act_assign_team);
         $teamBean = $this->retrieveTeamData($act_assign_team);
 
         $act_assignment_method = $bpmnElement['act_assignment_method'];
         if (isset($bean->team_id) && isset($teamBean->id) && ($teamBean->id == $act_assign_team)) {
-
+            //$this->bpmLog('DEBUG', "[{$flowData['cas_id']}][{$flowData['cas_index']}] assign team to $act_assign_team $act_assignment_method");
             $bean->load_relationship('teams');
-
+            //$bean->teams->replace(array($act_assign_team));
             $historyData = $this->retrieveHistoryData($flowData['cas_sugar_module']);
             $historyData->savePreData('team_id', $bean->team_id);
-
+            //$bean->team_id = $act_assign_team;
             $historyData->savePostData('team_id', $act_assign_team);
 
             //check if the team_set exists for this team, if yes, we change the field team_set_id
@@ -72,8 +72,10 @@ class PMSERoundRobin extends PMSEScriptTask
             $rowTeam = $bean->db->fetchByAssoc($resultTeam);
             if ($rowTeam['count'] >= 1) {
                 $historyData->savePreData('team_set_id', $bean->team_set_id);
+                //$bean->team_set_id = $act_assign_team;
                 if (isset($bpmnElement['act_update_record_owner']) && $bpmnElement['act_update_record_owner'] == 1) {
                     $bean->team_set_id = $act_assign_team;
+                    $bean->save();
                 }
                 $historyData->savePostData('team_set_id', $act_assign_team);
             }
@@ -86,11 +88,17 @@ class PMSERoundRobin extends PMSEScriptTask
                     $bean->assigned_user_id = $nextUser;
                 }
                 $flowData['cas_user_id'] = $nextUser;
+                //$query = "update pmse_bpm_flow set " .
+                //    " cas_user_id = '$nextUser' " .
+                //    " where cas_id = {$flowData['cas_id']} and cas_index = {{$flowData['cas_index']}} ";
+                //$bean->db->query($query);
 
                 $historyData->savePostData('assigned_user_id', $nextUser);
+                //$this->bpmLog('INFO', "[{$flowData['cas_id']}][{$flowData['cas_index']}] assigned to user $nextUser");
             }
 
-            PMSEEngineUtils::saveAssociatedBean($bean);
+            $bean->skipPartialUpdate = true;
+            $bean->save();
 
             $params = array();
             $params['cas_id'] = $flowData['cas_id'];

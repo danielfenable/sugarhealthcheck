@@ -73,7 +73,7 @@ require_once 'modules/vCals/HTTP_WebDAV_Server_vCal.php';
             }
 
             // if username is still empty, then return 401
-            if (empty($_REQUEST['user_name']) && empty($_REQUEST['email']) && empty($_REQUEST['user_id'])) {
+            if (empty($_REQUEST['user_name']) && empty($_REQUEST['email'])) {
                 if ($_REQUEST['type'] == 'ics') {
                     $this->http_status("401 not authorized");
                     header('WWW-Authenticate: Basic realm="SugarCRM iCal"');

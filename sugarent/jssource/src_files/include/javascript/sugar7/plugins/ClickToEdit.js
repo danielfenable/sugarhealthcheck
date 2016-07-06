@@ -221,11 +221,8 @@
                     } else {
                         this.$el.removeClass('active');
                     }
-                    // only add isEditable if the field is not disabled
-                    if (!this.$el.hasClass('disabled')) {
-                        this.$el.addClass('isEditable');
-                        this.$el.wrapInner('<div class="' + cteClass + '" data-cid="' + this.cid + '" />');
-                    }
+                    this.$el.addClass('isEditable');
+                    this.$el.wrapInner('<div class="' + cteClass + '" data-cid="' + this.cid + '" />');
                 }, this);
                 if (this.context.parent) {
                     // Clears errors when navigating from the manager's forecast worksheet to the manager's RLI so that
@@ -419,9 +416,7 @@
 
                     if (this.type === "enum") {
                         this.model.once('change:' + this.name, function() {
-                            _.defer(_.bind(function() {
-                                this.setMode('list');
-                            }, this));
+                            this.setMode('list');
                         }, this);
                     }
 

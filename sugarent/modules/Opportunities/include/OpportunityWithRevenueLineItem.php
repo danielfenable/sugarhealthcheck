@@ -78,7 +78,6 @@ class OpportunityWithRevenueLineItem extends OpportunitySetup
             'studio' => false,
             'massupdate' => false,
             'reportable' => false,
-            'importable' => false,
         ),
         'sales_status' => array(
             'studio' => true,
@@ -98,16 +97,6 @@ class OpportunityWithRevenueLineItem extends OpportunitySetup
             'reportable' => true,
             'workflow' => true
         )
-    );
-
-    /**
-     * Which reports should be shown and hidden.
-     *
-     * @var array
-     */
-    protected $reportchange = array(
-        'show' => array(),
-        'hide' => array('Current Quarter Forecast', 'Detailed Forecast')
     );
 
     /**
@@ -137,14 +126,6 @@ class OpportunityWithRevenueLineItem extends OpportunitySetup
                 'commit_stage' => false,
             )
         );
-
-        $this->fixFilter(
-            array(
-                'sales_stage' => false,
-                'sales_status' => true,
-                'probability' => false,
-            )
-        );
     }
 
     /**
@@ -169,25 +150,16 @@ EOL;
 
         SugarAutoLoader::ensureDir($this->moduleExtFolder . '/Dependencies');
 
-
-        // below is a ugly hack to update the `set_base_rate` dependency
         $file_contents = <<<EOL
 <?php
 if (isset(\$dependencies['Opportunities'])) {
     foreach(
-        array('commit_stage_readonly_set_value','best_worst_sales_stage_read_only','likely_case_copy_when_closed')
+        array('set_base_rate','commit_stage_readonly_set_value','best_worst_sales_stage_read_only','likely_case_copy_when_closed')
         as \$dep
     ) {
         if (isset(\$dependencies['Opportunities'][\$dep])) {
             unset(\$dependencies['Opportunities'][\$dep]);
         }
-    }
-
-    // the `set_base_rate` dependency needs to use 'sales_status' here
-    if (isset(\$dependencies['Opportunities']['set_base_rate'])) {
-        \$dependencies['Opportunities']['set_base_rate']['triggerFields'] = array('sales_status');
-        \$dependencies['Opportunities']['set_base_rate']['actions'][0]['params']['value'] =
-            'ifElse(isForecastClosed(\$sales_status), \$base_rate, currencyRate(\$currency_id))';
     }
 }
 EOL;
@@ -219,16 +191,8 @@ EOL;
 
         sugar_file_put_contents($this->rliModuleExtFolder . '/Vardefs/' . $this->rliModuleExtVardefFile, $file_contents);
 
-        // set the current loaded instance up
-        if (isset($GLOBALS['dictionary']['RevenueLineItem'])) {
-            $GLOBALS['dictionary']['RevenueLineItem']['importable'] = true;
-            $GLOBALS['dictionary']['RevenueLineItem']['unified_search'] = true;
-        }
-
-        $this->cleanupUnifiedSearchCache();
-
         SugarAutoLoader::ensureDir($this->appExtFolder . '/Include');
-
+        
         // we need to run the code we are putting in the custom file
         $GLOBALS['moduleList'][] = 'RevenueLineItems';
         if (isset($GLOBALS['modInvisList']) && is_array($GLOBALS['modInvisList'])) {
@@ -293,19 +257,6 @@ EOL;
     }
 
     /**
-     * Create a notification for the current user informing them of mode switch completion.
-     */
-    protected function sendNotification()
-    {
-        $notification = BeanFactory::getBean('Notifications');
-        $notification->assigned_user_id = $GLOBALS['current_user']->id;
-        $notification->name = $GLOBALS['app_strings']['LBL_JOB_NOTIFICATION_OPPS_WITH_RLIS_SUBJECT'];
-        $notification->description = $GLOBALS['app_strings']['LBL_JOB_NOTIFICATION_OPPS_WITH_RLIS_SUBJECT'];
-        $notification->severity = 'success';
-        $notification->save();
-    }
-
-    /**
      * Find all the Opportunities and Create RLI's for them, this will process the last 100 modified Opportunities
      * right away, and schedule the rest in chunks of 100 for the Scheduler to Take care of
      *
@@ -322,7 +273,6 @@ EOL;
         $opps = $sq->execute();
 
         if (empty($opps)) {
-            $this->sendNotification();
             return false;
         }
 
@@ -332,13 +282,9 @@ EOL;
 
         $job_group = md5(microtime());
 
-        if(count($bean_chunks) > 1) {
-            // process any remaining in the background
-            for ($x = 1; $x < count($bean_chunks); $x++) {
-                $this->createRevenueLineItemJob($bean_chunks[$x], $job_group);
-            }
-        } else {
-            $this->sendNotification();
+        // process any remaining in the background
+        for ($x = 1; $x < count($bean_chunks); $x++) {
+            $this->createRevenueLineItemJob($bean_chunks[$x], $job_group);
         }
     }
 
@@ -375,7 +321,8 @@ EOL;
     {
         Activity::disable();
         // disable the fts index as well
-        $ftsSearch = \Sugarcrm\Sugarcrm\SearchEngine\SearchEngine::getInstance();
+        /* @var $ftsSearch SugarSearchEngineElastic */
+        $ftsSearch = SugarSearchEngineFactory::getInstance();
         $ftsSearch->setForceAsyncIndex(true);
 
         foreach ($data as $db_opp) {
@@ -406,9 +353,6 @@ EOL;
                 $rli->commit_stage = '';
                 $rli->sales_stage = $opp->sales_stage;
                 $rli->deleted = $opp->deleted;
-                $rli->team_id = $opp->team_id;
-                $rli->team_set_id = $opp->team_set_id;
-                $rli->team_set_selected_id = $opp->team_set_selected_id;
                 $rli->save();
 
                 // set the relationship up correctly

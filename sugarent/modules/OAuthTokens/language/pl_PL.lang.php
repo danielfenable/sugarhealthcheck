@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,20 +12,21 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
+	
 
 $mod_strings = array (
-    'LBL_OAUTH_REQUEST' => "Wyślij zapotrzebowanie na token",
-    'LBL_OAUTH_AUTHORIZE' => "Autoryzuj token",
-	'LBL_OAUTH_CONSUMERREQ' => "Autoryzuj token od klienta %s",
-    'LBL_OAUTH_ROLE' => "Rola tokenu",
-	'LBL_OAUTH_VALIDATION' => "Kod weryfikujący",
-  	'LBL_ASSIGNED_TO_NAME' => 'Użytkownik',
-  	'LBL_ID' => 'ID',
-    'LBL_STATUS' => 'Status',
-    'LBL_TS' => 'Ostatnia weryfikacja',
-    'LBL_LIST_DELETE' => 'Usuń token',
-    'LBL_CONSUMER' => 'Nazwa klienta',
-    'LBL_OAUTH_DISABLED' => 'Wsparcie OAuth nie jest aktywne. Brakuje rozszerzenia PHP oauth. Skontaktuj się z administratorem.',
-    'LBL_CONTACTS' => 'Nazwisko kontaktu',
+  'LBL_ASSIGNED_TO_NAME' => 'Użytkownik',
+  'LBL_CONSUMER' => 'Nazwa klienta',
+  'LBL_CONTACTS' => 'Nazwisko kontaktu',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_DELETE' => 'Usuń token',
+  'LBL_OAUTH_AUTHORIZE' => 'Autoryzuj token',
+  'LBL_OAUTH_CONSUMERREQ' => 'Autoryzuj token od klienta %s',
+  'LBL_OAUTH_DISABLED' => 'Wsparcie OAuth nie jest aktywne. Brakuje rozszerzenia PHP oauth. Skontaktuj się z administratorem.',
+  'LBL_OAUTH_REQUEST' => 'Wyślij zapotrzebowanie na token',
+  'LBL_OAUTH_ROLE' => 'Rola tokenu',
+  'LBL_OAUTH_VALIDATION' => 'Kod weryfikujący',
+  'LBL_STATUS' => 'Status',
+  'LBL_TS' => 'Ostatnia weryfikacja',
 );
+

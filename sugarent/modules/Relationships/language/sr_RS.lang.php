@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,16 +12,12 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
- /*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-  'LBL_ID' => 'Id odnosa',
+  'LBL_RELATIONSHIP_ROLE_COLUMN' => 'Naziv kolone za ulogu veze',
+  'LBL_RELATIONSHIP_ROLE_COLUMN_VALUE' => 'Vrednost kolone za ulogu veze',
+  'LBL_ID' => 'ID broj',
   'LBL_RELATIONSHIP_NAME' => 'Naziv veze',
   'LBL_LHS_MODULE' => 'Naziv modula sa leve strane',
   'LBL_LHS_TABLE' => 'Naziv tabele sa leve strane',
@@ -31,10 +29,7 @@ $mod_strings = array (
   'LBL_JOIN_KEY_LHS' => 'Poveži ključ sa levom stranom',
   'LBL_JOIN_KEY_RHS' => 'Poveži ključ sa desnom stranom',
   'LBL_RELATIONSHIP_TYPE' => 'Tip veze',
-  'LBL_RELATIONSHIP_ROLE_COLUMN' => 'Naziv kolone za ulogu veze',
-  'LBL_RELATIONSHIP_ROLE_COLUMN_VALUE' => 'Vrednost kolone za ulogu veze',
-  'LBL_REVERSE' => 'Obrnuto' ,
+  'LBL_REVERSE' => 'Obrnuto',
   'LBL_DELETED' => 'Obrisan',
 );
-  
-?>
+

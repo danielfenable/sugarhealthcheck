@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 55140 2010-03-08 22:32:48Z jmertic $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -38,7 +38,7 @@ $mod_strings = array (
   'LNK_NEW_TAXRATE' => 'لائحة سعر الضريبة',
   'LNK_IMPORT_TAXRATES' => 'استيراد أسعار الضريبة',
   'NTC_DELETE_CONFIRMATION' => 'هل تريد بالتأكيد حذف هذا السجل؟',
-  'ERR_DELETE_RECORD' => 'يجب عليك تحديد رقم السجل لحذف سعر الضريبة.',
+  'ERR_DELETE_RECORD' => 'يجب عليك تحديد رقم سجل لحذف سعر الضريبة.',
   'NTC_STATUS' => 'قم بتعيين الحالة على "غير نشط" لإزالة سعر الضريبة هذا من القوائم المنسدلة "سعر الضريبة"',
   'NTC_LIST_ORDER' => 'قم بتعيين الترتيب الذي سيظهر به سعر الضريبة هذا في القوائم المنسدلة "سعر الضريبة"',
   'taxrate_status_dom' => 

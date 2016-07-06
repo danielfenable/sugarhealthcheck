@@ -118,11 +118,8 @@ class PMSEEngineFilterApi extends FilterApi
      */
     public function filterListAllPA(ServiceBase $api, array $args, $acl = 'list')
     {
-        // Set the default visibility to a regular user
-        if (empty($args['filter']['visibility'])) {
-            $args['filter'][] = array('visibility' => 'regular_user');
-        }
-
+        // This send by default 'regular_user' to the custom filter 'visibility'
+        $args['filter'][] = array('visibility' => 'regular_user');
         return parent::filterList($api, $args, $acl);
     }
 
@@ -239,12 +236,6 @@ class PMSEEngineFilterApi extends FilterApi
             if ($access == 'regular_user') {
                 global $current_user;
                 $where->queryAnd()->equals('cas_user_id', $current_user->id);
-                $where->queryOr()->notEquals('cas_assignment_method', 'selfservice')->isNull('cas_assignment_method');
-            } else {
-                $supportedModules = PMSEEngineUtils::getSupportedModules();
-                if (!empty($supportedModules)) {
-                    $where->queryAnd()->in('cas_sugar_module', $supportedModules);
-                }
             }
         }
         self::$isVisibilityApplied = true;
@@ -262,9 +253,9 @@ class PMSEEngineFilterApi extends FilterApi
                 ->gte('cas_due_date', TimeDate::getInstance()->nowDb())
                 ->isNull('cas_due_date');
         } else if ($exp === 'false') {
-            $where->queryAnd()
-                ->isNotEmpty('cas_due_date')
-                ->lte('cas_due_date', TimeDate::getInstance()->nowDb());
+            $where->queryOr()
+                ->lte('cas_due_date', TimeDate::getInstance()->nowDb())
+                ->isNull('cas_due_date');
         }
     }
 
@@ -311,14 +302,7 @@ class PMSEEngineFilterApi extends FilterApi
         list($operator, $value) = self::getExpression($expression);
         switch($operator) {
             case '$equals':
-                //more dirty hack
-                //will be fixed when we redo relationships with vardefs
-                if ($field === 'act_name') {
-                    $sql = "activity.name = '$value'";
-                    $where->queryOr()->addRaw($sql);
-                } else {
-                    $where->equals($field, $value);
-                }
+                $where->equals($field, $value);
                 break;
             case '$not_equals':
                 $where->notEquals($field, $value);
@@ -376,21 +360,18 @@ class PMSEEngineFilterApi extends FilterApi
      */
     public static function getExpression($expression)
     {
-        // we don't send an operator in args if the operator is $equals
-        if (!is_array($expression)) {
-            $value = $expression;
-            $expression = array();
-            $expression['$equals'] = $value;
-        }
+        if (is_array($expression)) {
+            $keys = array_keys($expression);
+            $operator = $keys[0];
+            if (in_array($operator, self::$supportedOperators)) {
+                return array($operator, $expression[$operator]);
+            } else {
+                throw new SugarApiExceptionInvalidParameter('ERROR_PA_FILTER_UNSUPPORTED_OPERATOR');
+            }
 
-        $keys = array_keys($expression);
-        $operator = $keys[0];
-        if (in_array($operator, self::$supportedOperators)) {
-            return array($operator, $expression[$operator]);
         } else {
-            throw new SugarApiExceptionInvalidParameter('ERROR_PA_FILTER_UNSUPPORTED_OPERATOR');
+            throw new SugarApiExceptionInvalidParameter('ERROR_PA_FILTER_INVALID_OPERATOR');
         }
-
     }
 
     /**
@@ -440,7 +421,6 @@ class PMSEEngineFilterApi extends FilterApi
 
         $fields[] = array("cas_sugar_object_id", 'cas_sugar_object_id');
         $fields[] = array("cas_user_id",'cas_user_id');
-        $fields[] = array("cas_assignment_method",'cas_assignment_method');
 
 
         $q->joinTable('pmse_inbox', array('alias' => 'inbox', 'joinType' => 'INNER', 'linkingTable' => true))
@@ -480,7 +460,8 @@ class PMSEEngineFilterApi extends FilterApi
             ->on()
             ->equalsField('user_data.id', 'cas_user_id')
             ->equals('user_data.deleted', 0);
-        $fields[] = array("user_data.user_name", 'user_name');
+        $fields[] = array("user_data.first_name", 'first_name');
+        $fields[] = array("user_data.last_name", 'last_name');
 
         //INNER JOIN TEAM_DATA DEFINTION
         $q->joinTable('teams', array('alias' => 'team_data', 'joinType' => 'LEFT', 'linkingTable' => true))
@@ -543,12 +524,13 @@ class PMSEEngineFilterApi extends FilterApi
             $arr_aux['flow_id'] = $bean->fetched_row['id'];
             $arr_aux['id2'] = $bean->fetched_row['inbox_id'];
             $arr_aux['task_name'] = $bean->fetched_row['act_name'];
-            $arr_aux['cas_assignment_method'] = $bean->fetched_row['cas_assignment_method'];
+            $arr_aux['cas_status'] = $bean->fetched_row['act_assignment_method'];
             $arr_aux['assigned_user_name'] = $bean->fetched_row['assigned_user_name'];
             $arr_aux['cas_sugar_module'] = $bean->fetched_row['cas_sugar_module'];
             $arr_aux['cas_sugar_object_id'] = $bean->fetched_row['cas_sugar_object_id'];
             $arr_aux['prj_id'] = $bean->fetched_row['prj_id'];
             $arr_aux['in_time'] = true;
+            $arr_aux['id'] = $bean->fetched_row['inbox_id'];
 
             $arr_aux['cas_user_id'] = $bean->fetched_row['cas_user_id'];
             $arr_aux['prj_created_by'] = $bean->fetched_row['prj_created_by'];

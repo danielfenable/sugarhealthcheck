@@ -118,7 +118,6 @@ $viewdefs['base']['view']['saved-reports-chart'] = array(
                             'name' => 'rotateTicks',
                             'text' => 'LBL_CHART_CONFIG_TICK_ROTATE',
                             'type' => 'bool',
-                            'css_class' => 'disabled',
                             'default' => true,
                         ),
                     ),

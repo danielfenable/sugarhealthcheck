@@ -19,7 +19,7 @@
 <span class="lead">
     This endpoint will return a set of related records fetched from multiple links defined by <code>:collection_name</code>.
     The records will be filtered, sorted and truncated to <code>max_num</code> as a single collection.
-    Collections may use a field mapping. For instance, the <code>due_date</code> of Tasks may be referred to as <code>date_end</code>.
+    Collections may use field mapping. For instance, <code>due_date</code> of Tasks may be referred to as <code>date_end</code>.
     In this case the alias (<code>date_end</code>) should be used in <code>filter</code> and <code>order_by</code> expressions instead of real field name.
     Note that response data still contains the original fields for the module.
 </span>
@@ -39,7 +39,7 @@
         <td>fields</td>
         <td>String</td>
         <td>
-            See <a href="module_filter_get_help.html">Filter API</a>. If collection definition uses aliases, then aliases should be used instead of real field names.
+            Same as for <a href="module_filter_get_help.html">Filter API</a>. If collection definition uses aliases, then aliases should be used instead of real field names.
         </td>
         <td>False</td>
     </tr>
@@ -60,18 +60,10 @@
         <td>False</td>
     </tr>
     <tr>
-        <td>filter</td>
-        <td>String</td>
-        <td>
-            See <a href="module_filter_get_help.html">Filter API</a>. If collection definition uses aliases, then aliases should be used instead of real field names.
-        </td>
-        <td>False</td>
-    </tr>
-    <tr>
         <td>order_by</td>
         <td>String</td>
         <td>
-            See <a href="module_filter_get_help.html">Filter API</a>. If collection definition uses aliases, then aliases should be used instead of real field names.
+            Same as for <a href="module_filter_get_help.html">Filter API</a>. If collection definition uses aliases, then aliases should be used instead of real field names.
         </td>
         <td>False</td>
     </tr>

@@ -10,16 +10,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
-
 $portal_modules = array('Contacts', 'Accounts', 'Notes');
 $portal_modules[] = 'Cases';
 $portal_modules[] = 'Bugs';
 
+$portal_modules[] = 'KBDocuments';
+
 /*
 BUGS
 */
+
+require_once('modules/KBDocuments/SearchUtils.php');
 
 function get_bugs_in_contacts($in, $orderBy = '')
     {
@@ -153,9 +154,13 @@ function get_notes_in_module($in, $module, $orderBy = '')
         if(empty($in)  || $in =='()' || $in =="('')")return;
 
         // First, get the list of IDs.
-        $query = "SELECT id from {$rel->table_name}
-            where parent_id IN {$in} AND parent_type = {$GLOBALS['db']->quoted($module)}
-             AND deleted = 0 AND portal_flag = 1";
+        if ($module == 'KBDocuments' || $module == 'DocumentRevisions') {
+            $query = "SELECT dr.* from document_revisions dr
+                      inner join kbdocument_revisions kr on kr.document_revision_id = dr.id AND kr.kbdocument_id IN ($in)
+                      AND dr.file_mime_type is not null";
+        } else {
+            $query = "SELECT id from $rel->table_name where parent_id IN $in AND parent_type='".$GLOBALS['db']->quote($module)."' AND deleted=0 AND portal_flag = 1";
+        }
 
         if(!empty($orderBy)){
             require_once 'include/SugarSQLValidate.php';
@@ -269,7 +274,7 @@ function get_module_in($module_name){
         return '()';
     }
 
-    $module_name_in = ArrayFunctions::array_access_keys($_SESSION['viewable'][$module_name]);
+    $module_name_in = array_keys($_SESSION['viewable'][$module_name]);
     $module_name_list = array();
     foreach ( $module_name_in as $name ) {
         $module_name_list[] = $GLOBALS['db']->quote($name);
@@ -296,7 +301,7 @@ function set_module_in($arrayList, $module_name){
         if(!empty($_SESSION['viewable'][strtolower($module_name).'_in'])){
             if($arrayList['in'] != '()') {
                 $newList = array();
-                if ( ArrayFunctions::is_array_access($_SESSION['viewable'][strtolower($module_name).'_in']) ) {
+                if ( is_array($_SESSION['viewable'][strtolower($module_name).'_in']) ) {
                     foreach($_SESSION['viewable'][strtolower($module_name).'_in'] as $name ) {
                         $newList[] = $GLOBALS['db']->quote($name);
                     }
@@ -338,6 +343,57 @@ function login_user($portal_auth){
     }
 }
 
+/**
+ * portal_get_child_tags_query
+ * Given a tag name, this method scans the kbtags table and returns the first level
+ * of any child tags found.
+ * @param $tag The kbtags.parent_tag_id value to search for
+ * @return List of child tag ids.
+ */
+function portal_get_child_tags_query($session, $tag) {
+
+    if (!portal_validate_authenticated($session)) {
+        $error->set_error('invalid_session');
+        return array (
+        'result_count' => -1,
+        'entry_list' => array (),
+        'error' => $error->get_soap_array());
+    }
+
+    $sugar = BeanFactory::getBean('KBDocuments');
+    //Use KBDocuments/SearchUtils.php
+    return get_child_tags($tag, $sugar);
+}
+
+function portal_get_tag_docs_query($session, $tag) {
+
+    if (!portal_validate_authenticated($session)) {
+        $error->set_error('invalid_session');
+        return array (
+        'result_count' => -1,
+        'entry_list' => array (),
+        'error' => $error->get_soap_array());
+    }
+
+    $sugar = BeanFactory::getBean('KBDocuments');
+    //Use KBDocuments/SearchUtils.php
+    return get_tag_docs($tag, $sugar);
+}
+
+function portal_get_kbdocument_body_query($session, $id) {
+
+    if (!portal_validate_authenticated($session)) {
+        $error->set_error('invalid_session');
+        return array (
+        'result_count' => -1,
+        'entry_list' => array (),
+        'error' => $error->get_soap_array());
+    }
+
+    $sugar = BeanFactory::getBean('KBDocuments');
+    //Use KBDocuments/SearchUtils.php
+    return get_kbdocument_body($id, $sugar);
+}
 
 function portal_get_entry_list_limited($session, $module_name,$where, $order_by, $select_fields, $row_offset, $limit){
     global  $beanList, $beanFiles, $portal_modules;
@@ -399,6 +455,35 @@ function portal_get_entry_list_limited($session, $module_name,$where, $order_by,
         if(!empty($_SESSION['viewable'][$module_name])){
             $list = get_related_list(get_module_in($module_name), BeanFactory::getBean('Bugs'), $where, $order_by, $row_offset, $limit);
         }
+    } else if ($module_name == 'KBDocuments') {
+            $sugar = BeanFactory::getBean('KBDocuments');
+            $sugar->disable_row_level_security = true;
+            $keywords = array();
+            //Check if there was a LIKE or = clause built.  If so, the key/value pairs
+            $where = str_replace("\'", "<##@comma@##>", $where);
+            if (preg_match_all("/kbdocuments[\.]([^\s]*?)[\s]+(LIKE|=)[\s]+[\'](.*?)[%][\']/si", $where, $matches, PREG_SET_ORDER)) {
+                foreach($matches as $match) {
+                        $value = str_replace("<##@comma@##>", "\'", $match[3]);
+                        $keywords[$match[1]] = $value;
+                }
+            }
+            $where = "";
+
+            $result = create_portal_list_query($sugar, $order_by, $where, $keywords, $row_offset, $limit);
+            $list = array ();
+            while ($row = $sugar->db->fetchByAssoc($result)) {
+                   $id = $row['id'];
+                   //$list[] = $id;
+                   $record = BeanFactory::getBean('KBDocuments', $id, array("disable_row_level_security" => true));
+                   $record->fill_in_additional_list_fields();
+                   $list[] = $record;
+            }
+    } else if ($module_name == 'FAQ') {
+                $sugar = BeanFactory::getBean('KBDocuments');
+                preg_match("/kbdocuments.tags[\s]=[\s]+[(][\'](.*?)[\'][)]/si", $where, $matches);
+                //Use KBDocuments/SearchUtils.php
+                //ToDo: Set Global ID for FAQ somewhere, can't assume it's faq1
+                $list = get_faq_list($matches[1], $sugar);
     } else{
         $error->set_error('no_module_support');
         return array('result_count'=>-1, 'entry_list'=>array(), 'error'=>$error->get_soap_array());
@@ -422,4 +507,4 @@ function portal_get_entry_list_limited($session, $module_name,$where, $order_by,
 }
 
 $invalid_contact_fields = array('portal_password'=>1);
-$valid_modules_for_contact = array('Contacts'=>1, 'Cases'=>1, 'Notes'=>1, 'Bugs'=>1, 'Accounts'=>1, 'Leads'=>1);
+$valid_modules_for_contact = array('Contacts'=>1, 'Cases'=>1, 'Notes'=>1, 'Bugs'=>1, 'Accounts'=>1, 'Leads'=>1, 'KBDocuments'=>1);

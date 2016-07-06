@@ -25,16 +25,6 @@ $vardefs = array(
             'duplicate_merge'=>'disabled',
             'mandatory_fetch' => true,
             'massupdate' => false,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-                'aggregations' => array(
-                    'assigned_user_id' => array(
-                        'type' => 'MyItems',
-                        'label' => 'LBL_AGG_ASSIGNED_TO_ME',
-                    ),
-                ),
-            ),
 		),
 	 'assigned_user_name' =>
 	 array (
@@ -68,7 +58,7 @@ $vardefs = array(
     'table' => 'users',
   ),
 ),
-    'indices' => array(
+    'indicies' => array(
         'assigned_user_id' => array(
             'name' => 'idx_' . strtolower($table_name) . '_assigned_del',
             'type' => 'index',

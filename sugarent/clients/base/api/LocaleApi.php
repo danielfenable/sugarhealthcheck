@@ -31,13 +31,20 @@ class LocaleApi extends SugarApi
 
     public function localeOptions($api, $args)
     {
-        global $locale, $sugar_config;
-        return array(
-            'timepref' => $sugar_config['time_formats'],
-            'datepref' => $sugar_config['date_formats'],
-            'default_locale_name_format' => $locale->getUsableLocaleNameOptions($sugar_config['name_formats']),
-            'timezone' => TimeDate::getTimezoneList(),
-        );
+        global $locale, $sugar_config, $current_user;
+        $data = array();
+        $dformat = $locale->getPrecedentPreference($current_user->id?'datef':'default_date_format', $current_user);
+        $tformat = $locale->getPrecedentPreference($current_user->id?'timef':'default_time_format', $current_user);
+        $nformat = $locale->getPrecedentPreference('default_locale_name_format', $current_user);
+        if (!array_key_exists($nformat, $sugar_config['name_formats'])) {
+            $nformat = $sugar_config['default_locale_name_format'];
+        }
+        $data['timepref'] = $sugar_config['time_formats'];
+        $data['datepref'] = $sugar_config['date_formats'];
+        $data['default_locale_name_format'] = $locale->getUsableLocaleNameOptions($sugar_config['name_formats']);
+        $data['timezone'] = $timezoneList = TimeDate::getTimezoneList();
+        $data['_hash'] = $current_user->getUserMDHash();
+        return $data;
     }
 
 }

@@ -168,7 +168,10 @@ class PMSEBeanHandler
      */
     public function getRelationshipData($relationName, $db)
     {
-        return SugarRelationshipFactory::getInstance()->getRelationshipDef($relationName);
+        $query = "select * from relationships where relationship_name='" . $relationName . "'";
+        $result = $db->Query($query);
+        $row = $db->fetchByAssoc($result);
+        return $row;
     }
 
     /**
@@ -190,17 +193,12 @@ class PMSEBeanHandler
     {
         global $beanList;
         $replace_array = array();
+        $replace_type_array = array();
 
         foreach ($component_array as $module_name => $module_array) {
             foreach ($module_array as $field => $field_array) {
-                if (!isset($field_array['filter']) || !isset($beanList[$field_array['filter']])) {
-                    if (isset($field_array['type']) && $field_array['type'] === 'relate') {
-                        $newBean = $this->pmseRelatedModule->getRelatedModule($bean, $field_array['rel_module']);
-                    } else if (isset($field_array['filter'])) {
-                        $newBean = $this->pmseRelatedModule->getRelatedModule($bean, $field_array['filter']);
-                    } else {
-                        $newBean = $bean;
-                    }
+                if (!isset($beanList[$field_array['filter']])) {
+                    $newBean = $this->pmseRelatedModule->getRelatedModule($bean, $field_array['filter']);
                 } else {
                     $newBean = $bean;
                 }
@@ -217,11 +215,7 @@ class PMSEBeanHandler
                 } else {
                      $value = !empty($newBean)?array_pop($newBean)->$field_array['name']:null;
                 }
-                if (($field_array['value_type']) === 'href_link') {
-                    $replace_array[$field_array['original']] = bpminbox_get_href($newBean, $field, $value);
-                } else {
-                    $replace_array[$field_array['original']] = bpminbox_get_display_text($newBean, $field, $value);
-                }
+                $replace_array[$field_array['original']]  = bpminbox_get_display_text($newBean, $field, $value);
             }
         }
 
@@ -359,7 +353,6 @@ class PMSEBeanHandler
      */
     public function processValueExpression($expression, $bean)
     {
-        global $timedate;
         $response = new stdClass();
         $dataEval = array();
         foreach ($expression as $value) {
@@ -378,9 +371,6 @@ class PMSEBeanHandler
                         case 'NUMBER':
                             $dataEval[] = (float)$value->expValue;
                             break;
-                        case 'CURRENCY':
-                            $dataEval[] = json_encode($value);
-                            break;
                         case 'BOOL':
                             $dataEval[] = $value->expValue == 'TRUE' ? true : false;
                             break;
@@ -391,23 +381,7 @@ class PMSEBeanHandler
                 }
             } else {
                 $fields = $value->expValue;
-                $field_value = !empty($bean->fetched_row[$fields]) ? $bean->fetched_row[$fields] : $bean->$fields;
-                switch (strtolower($value->expSubtype)) {
-                    case 'currency':
-                        $constantCurrency = new stdClass();
-                        $constantCurrency->expType = 'CONSTANT';
-                        $constantCurrency->expSubtype = 'currency';
-                        $constantCurrency->expValue = $bean->$fields;
-                        $constantCurrency->expField = $bean->currency_id;
-                        $dataEval[] = json_encode($constantCurrency);
-                        break;
-                    case 'datetime':
-                    case 'datetimecombo':
-                        $dataEval[] = $timedate->asIso(new DateTime($field_value, new DateTimeZone('UTC')));
-                        break;
-                    default:
-                        $dataEval[] = $field_value;
-                }
+                $dataEval[] = $bean->$fields;
             }
         }
         if (count($dataEval) > 1) {
@@ -445,8 +419,6 @@ class PMSEBeanHandler
                 $component_array[$split_array[2]][$split_array[3]]['name'] = $split_array[3];
                 $component_array[$split_array[2]][$split_array[3]]['value_type'] = $split_array[0];
                 $component_array[$split_array[2]][$split_array[3]]['original'] = $matched_component;
-                $component_array[$split_array[2]][$split_array[3]]['type'] = 'relate';
-                $component_array[$split_array[2]][$split_array[3]]['rel_module'] = $split_array[2];
             } else {
                 //base module
                 //0 - future/past/href_link 1 - base_module 2 - field
@@ -462,12 +434,6 @@ class PMSEBeanHandler
                     $component_array[$base_module][$meta_name]['name'] = $split_array[1];
                     $component_array[$base_module][$meta_name]['value_type'] = 'future';
                     $component_array[$base_module][$meta_name]['original'] = $matched_component;
-
-                    // If the base_module has an alternate name which matches the filter then use the
-                    // base_module name as the filter instead of the alternate name
-                    if (translate($base_module) === $component_array[$base_module][$meta_name]['filter']) {
-                        $component_array[$base_module][$meta_name]['filter'] = $base_module;
-                    }
                 }
             }
         }

@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +10,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
   'LBL_MODULE_NAME' => 'Tooteuuendused',
-  'LBL_MODULE_NAME_SINGULAR' => 'Release',
   'LBL_MODULE_TITLE' => 'Tooteuuendused: Avaleht',
   'LBL_SEARCH_FORM_TITLE' => 'Tooteuuenduste otsing',
   'LBL_LIST_FORM_TITLE' => 'Tooteuuenduste loend',
@@ -37,14 +36,10 @@ $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Tooteuuenduse kustutamiseks täpsusta kirje numbrit.',
   'NTC_STATUS' => 'Selle tooteuuenduse eemaldamiseks Tooteuuenduste rippmenüü loenditest määra selle olekuks Mitteaktiivne',
   'NTC_LIST_ORDER' => 'Määra järjekord, mitmendana see tooteuuendus kuvatakse Tooteuuenduste rippmenüü nimekirjades',
-  'LBL_ACTIVE_RELEASES' => 'Active releases',
-  'release_status_dom' =>
+  'release_status_dom' => 
   array (
     'Active' => 'Aktiivne',
     'Inactive' => 'Mitteaktiivne',
-),
-	'LBL_EDITLAYOUT' => 'Edit Layout' /*for 508 compliance fix*/,
+  ),
 );
 
-
-?>

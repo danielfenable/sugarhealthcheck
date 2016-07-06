@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-/*********************************************************************************
-* Description:
-* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
-* Reserved. Contributor(s): contact@synolia.com - www.synolia.com
-* *******************************************************************************/
-
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Získejte klíč a tajný klíč rozhraní API ze služby Twitter zaregistrováním vaší instance Sugar jako nové aplikace.<br/><br>Postup registrace vaší instance:<br/><br/><ol><li>Přejděte na stránky pro vývojáře služby Twitter: <a href=&#39;http://dev.twitter.com/apps/new&#39; target=&#39;_blank&#39;>http://dev.twitter.com/apps/new</a>.</li><li>Přihlaste se pomocí účtu služby Twitter, pod kterým chcete aplikaci zaregistrovat.</li><li>Do registračního formuláře zadejte název aplikace. Jedná se o název, který uvidí uživatelé, když provedou ověření svého účtu služby Twitter z aplikace Sugar.</li><li>Zadejte popis.</li><li>Zadejte adresu URL webu aplikace.</li><li>Zadejte adresu URL zpětného volání (může být jakákoli, protože aplikace Sugar ji během ověřování obchází. Příklad: Zadejte adresu URL vaší stránky Sugar).</li><li>Přijměte podmínky rozhraní API služby Twitter.</li><li>Klikněte na položku „Create your Twitter application“ (Vytvořit vaši aplikaci služby Twitter).</li><li>Na stránce aplikace najděte klíč a tajný klíč rozhraní API na kartě „API Keys“ (Klíče rozhraní API). Klíč a tajný klíč zadejte níže.</li></ol></td></tr></table>',
-    'LBL_NAME' => 'Uživatelské jméno pro Twitter',
-    'LBL_ID' => 'Uživatelské jméno pro Twitter',
-	'company_url' => 'Adresa URL',
-    'oauth_consumer_key' => 'Klíč rozhraní API',
-    'oauth_consumer_secret' => 'Tajný klíč rozhraní API',
+  'LBL_LICENSING_INFO' => 'Získejte klíč a secret z Twitteru registrací vaší Sugar instance jako nové aplikace.<br /><br />Kroky k registraci instance:<br /><br />1. Přejít na Twitter © stránky vývojářů: http://dev.twitter.com/apps/new.<br />2. Přihlásit se pomocí účtu Twitter, pod který chcete zaregistrovat aplikaci.<br />3. V rámci registračního formuláře, zadejte název aplikace. Toto je název se uživatelům zobrazí při ověřování jejich Twitter účtů v Sugar.<br />4. Zadejte popis.<br />5. Zadejte webovou aplikační URL (může být cokoliv).<br />6. Vyberte "Browser " pro typ aplikace .<br />7. Po výběru "Browser" pro typ aplikace, zadejte zpětnou adresu URL (může být cokoliv Příklad: Zadejte Sugar kořenovou URL).<br />8. Zadejte bezpečnostní slovo.<br />9. Klikněte na "Registrace žádosti".<br />10. Souhlasím s Podmínkami Twitter API služby.<br />11. V rámci aplikace stránce naleznete API Klíč a Secret. Zadejte klíč a secret níže.',
+  'oauth_consumer_secret' => 'OAuth kód (Consumer Secret)',
+  'company_url' => 'URL',
+  'LBL_NAME' => 'Uživatelské jméno (pro twitter)',
+  'LBL_ID' => 'Uživatelské jméno (pro twitter)',
+  'oauth_consumer_key' => 'Spotřebitelský klíč',
 );
 
-?>

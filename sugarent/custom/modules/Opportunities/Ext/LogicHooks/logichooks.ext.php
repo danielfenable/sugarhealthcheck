@@ -58,33 +58,6 @@ $hook_array['before_save'][] = array(
 
 ?>
 <?php
-// Merged from modules/Opportunities/Ext/LogicHooks/FixWorksheetAccountAssignment.php
-
-/*
- * Your installation or use of this SugarCRM file is subject to the applicable
- * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
- * If you do not agree to all of the applicable terms or do not have the
- * authority to bind the entity as an authorized representative, then do not
- * install or use this SugarCRM file.
- *
- * Copyright (C) SugarCRM Inc. All rights reserved.
- */
-
-
-/**
- * After we update the relationship of an opportunity, we need to resave so the worksheet gets updated as well.
- */
-$hook_array['after_relationship_add'][] = array(
-    10,
-    'fixWorksheetAccountAssignment',
-    'modules/Opportunities/OpportunityHooks.php',
-    'OpportunityHooks',
-    'fixWorksheetAccountAssignment',
-);
-
-?>
-<?php
 // Merged from modules/Opportunities/Ext/LogicHooks/OpportunitySyncWorksheet.php
 
 /*
@@ -107,33 +80,6 @@ $hook_array['after_save'][] = array(
     'modules/Opportunities/OpportunityHooks.php',
     'OpportunityHooks',
     'saveWorksheet',
-);
-
-?>
-<?php
-// Merged from modules/Opportunities/Ext/LogicHooks/SetCommitStageForClosedWon.php
-
- if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*
- * Your installation or use of this SugarCRM file is subject to the applicable
- * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
- * If you do not agree to all of the applicable terms or do not have the
- * authority to bind the entity as an authorized representative, then do not
- * install or use this SugarCRM file.
- *
- * Copyright (C) SugarCRM Inc. All rights reserved.
- */
-
-/**
- * Before we save an opp, check if we need to set the commit stage
- */
-$hook_array['before_save'][] = array(
-    10,
-    'beforeSaveIncludedCheck',
-    'modules/Opportunities/OpportunityHooks.php',
-    'OpportunityHooks',
-    'beforeSaveIncludedCheck',
 );
 
 ?>

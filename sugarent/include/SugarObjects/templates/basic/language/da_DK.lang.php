@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,28 +12,26 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-'LBL_ID'=>'Id',
-'LBL_DATE_ENTERED'=>'Oprettet den',
-'LBL_DATE_MODIFIED'=>'Ændret den', 
-'LBL_MODIFIED'=>'Ændret af',
-'LBL_MODIFIED_ID'=>'Ændret af id',
-'LBL_MODIFIED_NAME'=>'Ændret af navn',
-'LBL_CREATED'=>'Oprettet af',
-'LBL_CREATED_ID'=>'Oprettet af id',
-'LBL_DOC_OWNER'=>'Dokument ejer',
-'LBL_USER_FAVORITES'=>'Brugernes favorit',
-'LBL_DESCRIPTION'=>'Beskrivelse',
-'LBL_DELETED'=>'Slettet',
-'LBL_NAME'=>'Navn',
-'LBL_CREATED_USER'=>'Oprettet af bruger',
-'LBL_MODIFIED_USER'=>'Ændret af bruger',
-'LBL_LIST_NAME'=>'Navn',
-'LBL_EDIT_BUTTON' => 'Rediger',
- 'LBL_REMOVE' => 'Fjern',
-    //define label(s) to be used for overriding local values during import/export
-    'LBL_EXPORT_MODIFIED_BY_NAME' => 'Ændret af navn:',
-
-
+$mod_strings = array (
+  'LBL_CREATED' => 'Oprettet af',
+  'LBL_CREATED_ID' => 'Oprettet af id',
+  'LBL_CREATED_USER' => 'Oprettet af bruger',
+  'LBL_DATE_ENTERED' => 'Oprettet den',
+  'LBL_DATE_MODIFIED' => 'Ændret den',
+  'LBL_DELETED' => 'Slettet',
+  'LBL_DESCRIPTION' => 'Beskrivelse',
+  'LBL_DOC_OWNER' => 'Dokument ejer',
+  'LBL_EDIT_BUTTON' => 'Rediger',
+  'LBL_ID' => 'Id',
+  'LBL_LIST_NAME' => 'Navn',
+  'LBL_MODIFIED' => 'Ændret af',
+  'LBL_MODIFIED_ID' => 'Ændret af id',
+  'LBL_MODIFIED_NAME' => 'Ændret af navn',
+  'LBL_MODIFIED_USER' => 'Ændret af bruger',
+  'LBL_NAME' => 'Navn',
+  'LBL_REMOVE' => 'Fjern',
+  'LBL_USER_FAVORITES' => 'Brugernes favorit',
 );
+

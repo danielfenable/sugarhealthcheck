@@ -77,8 +77,6 @@ $mod_strings = array(
 
     'LBL_OPERATOR_CONTAINS' => 'is any of',
     'LBL_OPERATOR_NOT_CONTAINS' => 'is not any of',
-    'LBL_OPERATOR_EMPTY' => 'is empty',
-    'LBL_OPERATOR_NOT_EMPTY' => 'is not empty',
     'LBL_OPERATOR_MATCHES' => 'exactly matches',
     'LBL_OPERATOR_IS' => 'is',
     'LBL_OPERATOR_IS_NOT' => 'is not',

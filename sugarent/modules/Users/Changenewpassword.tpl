@@ -23,7 +23,6 @@ var ERR_REENTER_PASSWORDS = '{/literal}{$MOD.ERR_REENTER_PASSWORDS}{literal}';
 <script type='text/javascript' src='{/literal}{sugar_getjspath file="modules/Users/PasswordRequirementBox.js"}{literal}'></script>
 <style type="text/css">
 <!--
-
 @import url({sugar_getjspath file='modules/Users/PasswordRequirementBox.css'});
 .body 
 { 
@@ -70,7 +69,7 @@ form
 </style>
 {/literal}
 
-<form action="index.php" method="post" name="ChangePasswordForm" id="ChangePasswordForm" onsubmit="return document.getElementById('cant_login').value == ''">
+<form action="{$SITE_URL}" method="post" name="ChangePasswordForm" id="ChangePasswordForm" onsubmit="return document.getElementById('cant_login').value == ''">
 {sugar_csrf_form_token}
 <table cellpadding="0" align="center" width="100%" cellspacing="0" border="0">
 <tr>
@@ -114,7 +113,6 @@ form
 		{/if}
 			{$OLD_PASSWORD_FIELD}
 			{$USERNAME_FIELD}
-
 			<th rowspan='3' align='center'>
                 {sugar_password_requirements_box width='300px' class='x-sqs-list' style='background-color:white; padding:5px !important;'}
 			</th>

@@ -278,8 +278,6 @@ class Employee extends Person {
         return $userCustomfields;
     }
 
-    public function getPrivateTeamID()
-    {
-        return User::staticGetPrivateTeamID($this->id);
-    }
 }
+
+?>

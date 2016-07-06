@@ -44,6 +44,11 @@ and (orientation: portrait) {
       display: none;
   }
 
+  // Smooth out the collapsing/expanding nav
+  .nav-collapse {
+    .translate3d(0, 0, 0); // activate the GPU
+  }
+
   // Block level the page header small tag for readability
   .page-header h1 small {
     display: block;
@@ -215,42 +220,6 @@ and (orientation: portrait) {
 
 }
 
-@media (max-width: 540px) {
-  .navbar {
-    .search {
-        min-width: 36px !important;
-        .navbar-search {
-          display: none;
-        }
-        .quicksearch-button-wrapper {
-          > .btn {
-            background-color: black;
-            border-radius: 3px;
-            .fa-search {
-              color: white;
-            }
-          }
-        }
-
-      &.expanded {
-        position: absolute;
-        left: 1px;
-        z-index: 2001;
-        background-color: black;
-        .navbar-search {
-          display: inherit;
-          width: inherit !important;
-        }
-        .quicksearch-button-wrapper {
-          > .btn {
-            background-color: transparent;
-          }
-        }
-      }
-    }
-  }
-}
-
 @media (max-width: 768px) {
   // GRID & CONTAINERS
   // -----------------
@@ -319,7 +288,8 @@ and (orientation: portrait) {
   }
 
   #content {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .dashboard {
@@ -371,7 +341,6 @@ and (orientation: portrait) {
     width: 100%;
     margin-top: 61px;
     border-bottom: @borderWidget;
-    z-index: initial;
   }
 
   .touch .main-pane {
@@ -387,8 +356,8 @@ and (orientation: portrait) {
     overflow-y: visible;
     border-right: none;
     width: 100%;
-    z-index: initial;
-    .box-shadow(~"inset 0 8px 8px -8px rgba(0, 0, 0, .2)");
+    z-index: @zindexHeaderpane + 1;
+    .box-shadow(~"inset 0 8px 16px -8px rgba(0, 0, 0, .2)");
     .dashboard {
       top: auto;
       bottom: auto;
@@ -435,15 +404,14 @@ and (orientation: portrait) {
     top: 48px;
     left: 100%;
     margin-left: 25%;
+    .box-shadow(~"-3px 0 4px rgba(0,0,0,0.1)");
     width: 75%;
     height: ~"-moz-calc(100% - 93px) !important";
     height: ~"-webkit-calc(100% - 93px) !important";
     height: ~"calc(100% - 93px) !important";
     z-index: 1090;
     overflow: scroll;
-    &.active {
-      .box-shadow(~"-3px 0 4px rgba(0,0,0,0.1)");
-    }
+    background: url('@{textureSecondary}');
     .preview-headerbar {
       .box-shadow(none) !important;
       border-top: none;
@@ -453,24 +421,15 @@ and (orientation: portrait) {
     }
   }
 
-  .side > .preview-pane {
-    display: block;
-  }
-
   .preview-pane.active {
     left:0;
-    -webkit-animation: preview-in .3s;
-    animation-name: preview-in;
-    animation-duration: .3s;
+    -webkit-animation:preview-in .3s;
   }
 
-  .preview-pane {
-    -webkit-animation: preview-out .3s;
-    animation-name: preview-out;
-    animation-duration: .3s;
-    display: block;
+  @-webkit-keyframes preview-in {
+    0% {left:100%;}
+    100% {left:0px;}
   }
-
   .card2 {
     margin: 10px 0;
   }
@@ -491,15 +450,6 @@ and (orientation: portrait) {
     }
     .participants-form .cell.select .field {
       margin-left: -181px;
-    }
-  }
-
-  .flex-list-view.right-actions.scroll-width .dataTable {
-    td:last-child > span,
-    th:last-child .dropdown,
-    th:last-child > span {
-      width: 55px;
-      right: 0;
     }
   }
 

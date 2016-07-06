@@ -18,7 +18,7 @@
     className: "dashlets row-fluid",
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     bindDataChange: function() {
         if(this.model) {
@@ -47,7 +47,7 @@
 
         var components = app.utils.deepCopy(this.model.get("metadata")).components;
         _.each(components, function(component, index) {
-            this.initComponents([{
+            this._addComponentsFromDef([{
                 layout: {
                     type: 'dashlet-row',
                     width: component.width,
@@ -56,7 +56,6 @@
                 }
             }]);
         } , this);
-
         this.loadData();
         this.render();
     },
@@ -75,27 +74,9 @@
     },
 
     /**
-     * @inheritdoc
-     *
-     * Resets the original css classes, and adds the dashboard classes if
-     * defined.
-     */
-    _render: function() {
-        this.$el.removeClass();
-        this.$el.addClass(this.className);
-        this._super('_render');
-        if (this.model.has('css_class')) {
-            this.$el.addClass(this.model.get('css_class'));
-        }
-    },
-
-    /**
      * Set all appended dashlets drag-and-droppable
      */
     applyDragAndDrop: function() {
-        if (this.model.get('drag_and_drop') === false) {
-            return;
-        }
         var self = this;
         this.$('.dashlet:not(.empty)').draggable({
             revert: 'invalid',
@@ -149,12 +130,12 @@
     getCurrentComponent: function(metadata, tracekey) {
         var position = tracekey.split(''),
             component = metadata.components;
-        _.each(position, function(index) {
+        _.each(position, function(index){
             component = component.rows ? component.rows[index] : component[index];
         }, this);
 
         var layout = this;
-        _.each(position, function(index) {
+        _.each(position, function(index){
             layout = layout._components[index];
         }, this);
         return {
@@ -173,32 +154,32 @@
         if (target === source) {
             return;
         }
-        var metadata = this.model.get('metadata'),
+        var metadata = this.model.get("metadata"),
             targetComponent = this.getCurrentComponent(metadata, target),
             sourceComponent = this.getCurrentComponent(metadata, source);
 
         //Swap the metadata except 'width' property since it's previous size
         var cloneMeta = app.utils.deepCopy(targetComponent.metadata);
         _.each(targetComponent.metadata, function(value, key) {
-            if (key !== 'width') {
+            if(key !== 'width') {
                 delete targetComponent.metadata[key];
             }
         }, this);
         _.each(sourceComponent.metadata, function(value, key) {
-            if (key !== 'width') {
+            if(key !== 'width') {
                 targetComponent.metadata[key] = value;
                 delete sourceComponent.metadata[key];
             }
         }, this);
         _.each(cloneMeta, function(value, key) {
-            if (key !== 'width') {
+            if(key !== 'width') {
                 sourceComponent.metadata[key] = value;
             }
         }, this);
 
-        this.model.set('metadata', app.utils.deepCopy(metadata), {silent: true});
-        this.model.trigger('change:layout');
-        if (this.model._previousMode === 'view') {
+        this.model.set("metadata", app.utils.deepCopy(metadata), {silent: true});
+        this.model.trigger("change:layout");
+        if(this.model._previousMode === 'view') {
             //Autosave for view mode
             this.model.save(null, {
                 //Show alerts for this request
@@ -206,12 +187,12 @@
             });
         }
         //Swap the view components
-        var targetDashlet = targetComponent.layout._components.splice(0);
-        var sourceDashlet = sourceComponent.layout._components.splice(0);
+        var targetDashlet = targetComponent.layout._components.splice(0),
+            sourceDashlet = sourceComponent.layout._components.splice(0);
 
         //switch the metadata
-        var targetMeta = app.utils.deepCopy(targetComponent.layout.meta);
-        var sourceMeta = app.utils.deepCopy(sourceComponent.layout.meta);
+        var targetMeta = app.utils.deepCopy(targetComponent.layout.meta),
+            sourceMeta = app.utils.deepCopy(sourceComponent.layout.meta);
         targetComponent.layout.meta = sourceMeta;
         sourceComponent.layout.meta = targetMeta;
 
@@ -224,48 +205,31 @@
             comp.layout = targetComponent.layout;
         }, this);
         //switch invisibility
-        var targetInvisible = targetComponent.layout._invisible;
-        var sourceInvisible = sourceComponent.layout._invisible;
-        if (targetInvisible) {
+        var targetInvisible = targetComponent.layout._invisible,
+            sourceInvisible = sourceComponent.layout._invisible;
+        if(targetInvisible) {
             sourceComponent.layout.setInvisible();
         } else {
             sourceComponent.layout.unsetInvisible();
         }
-        if (sourceInvisible) {
+        if(sourceInvisible) {
             targetComponent.layout.setInvisible();
         } else {
             targetComponent.layout.unsetInvisible();
         }
 
         //Swap the DOM
-        var cloneEl = targetComponent.layout.$el.children(':first').get(0);
-        targetComponent.layout.$el.append(sourceComponent.layout.$el.children(':not(.helper)').get(0));
+        var cloneEl = targetComponent.layout.$el.children(":first").get(0);
+        targetComponent.layout.$el.append(sourceComponent.layout.$el.children(":not(.helper)").get(0));
         sourceComponent.layout.$el.append(cloneEl);
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     _dispose: function() {
-        var $dashlets = this.$('.dashlet');
-        var $dashletContainers = this.$('.dashlet-container');
-
-        // Make sure the element is initialized to be draggable before destroying.
-        _.each($dashlets, function(dashlet) {
-            var $dashlet = $(dashlet);
-            if (!_.isUndefined($dashlet.draggable('instance'))) {
-                $dashlet.draggable('destroy');
-            }
-        });
-
-        // Make sure the element is initialized to be droppable before destroying.
-        _.each($dashletContainers, function(dashletContainer) {
-            var $dashletContainer = $(dashletContainer);
-            if (!_.isUndefined($dashletContainer.droppable('instance'))) {
-                $dashletContainer.droppable('destroy');
-            }
-        });
-
+        this.$('.dashlet').draggable('destroy');
+        this.$('.dashlet-container').droppable('destroy');
         this._super('_dispose');
     }
 })

@@ -8,5 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({extendsFrom:'EnumField',initialize:function(options){this.plugins=_.clone(this.plugins)||[];this.plugins.push('ClickToEdit');this._super("initialize",[options]);},bindDataChange:function(){if(this.name==='sales_stage'){this.model.on('change:sales_stage',function(model,newValue){var salesStageWon=app.metadata.getModule('Forecasts','config').sales_stage_won;if(_.contains(salesStageWon,newValue)){this.context.trigger('forecasts:cteRemove:'+model.id)}},this);}
-if(this.name==='commit_stage'){this.context.on('forecasts:cteRemove:'+this.model.id,function(){this.$el.removeClass('isEditable');var $divEl=this.$('div.clickToEdit');if($divEl.length){$divEl.removeClass('clickToEdit');}},this);}},_render:function(){this._super('_render');if(this.name==='commit_stage'&&this.$el.hasClass('disabled')){this.$el.addClass('list');}}})
+({extendsFrom:'EnumField',initialize:function(options){this.plugins=_.clone(this.plugins)||[];this.plugins.push('ClickToEdit');this._super("initialize",[options]);},_render:function(){this._super('_render');if(this.name==='commit_stage'&&this.$el.hasClass('disabled')){this.$el.addClass('list');}}})

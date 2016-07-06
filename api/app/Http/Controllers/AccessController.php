@@ -17,16 +17,27 @@ class AccessController extends Controller
         $unique_download = self::uuid();
         $db = \DBManagerFactory::getInstance();
 
+        $sql = "SELECT id FROM oauth_consumer WHERE name = 'Standard OAuth Username & Password Key'";
+        $result = $GLOBALS['db']->query($sql);
+        while ($row = $GLOBALS['db']->fetchByAssoc($result)) {
+              $consumer = $row['id'];
+        }
+        if (!$consumer) {
+             return array('error' => 'Could not get consumer key from table.');
+        }
         $sql = "SELECT id FROM users WHERE user_name = '$user'";
         $result = $GLOBALS['db']->query($sql);
         while ($row = $GLOBALS['db']->fetchByAssoc($result)) {
-              $id = $row['id'];
+             $id = $row['id'];
+        }
+        if (!$id) {
+             return array('error' => 'Could not get user id from table.');
         }
         $sql = "INSERT INTO oauth_tokens (id, consumer, tstate, token_ts, expire_ts,
                                           download_token, platform,
                                           deleted, assigned_user_id)
                                           VALUES
-                                          ('$unique_id', 'e221eb79-da8a-f7cf-8038-576d4a90d60a',
+                                          ('$unique_id', '$consumer',
                                            2 ,1467210724,1468430324, '$unique_download', 'base', 0, '$id'
                                           )";
         $result = $GLOBALS['db']->query($sql);

@@ -31,7 +31,7 @@ class ForecastManagerWorksheetsFilterApi extends FilterApi
                 'method' => 'ForecastManagerWorksheetsGet',
                 'jsonParams' => array(),
                 'shortHelp' => 'Filter records from a single module',
-                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastManagerWorksheetGet.html',
+                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetGet.html',
             ),
             'forecastWorksheetTimePeriodGet' => array(
                 'reqType' => 'GET',
@@ -40,7 +40,7 @@ class ForecastManagerWorksheetsFilterApi extends FilterApi
                 'method' => 'ForecastManagerWorksheetsGet',
                 'jsonParams' => array(),
                 'shortHelp' => 'Filter records from a single module',
-                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastManagerWorksheetGet.html',
+                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetGet.html',
             ),
             'forecastWorksheetTimePeriodUserIdGet' => array(
                 'reqType' => 'GET',
@@ -49,7 +49,7 @@ class ForecastManagerWorksheetsFilterApi extends FilterApi
                 'method' => 'ForecastManagerWorksheetsGet',
                 'jsonParams' => array(),
                 'shortHelp' => 'Filter records from a single module',
-                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastManagerWorksheetGet.html',
+                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetGet.html',
             ),
             'forecastWorksheetChartGet' => array(
                 'reqType' => 'GET',
@@ -85,7 +85,7 @@ class ForecastManagerWorksheetsFilterApi extends FilterApi
                 'method' => 'filterList',
                 'jsonParams' => array('filter'),
                 'shortHelp' => 'Filter records from a single module',
-                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastManagerWorksheetFilter.html',
+                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetFilter.html',
             ),
             'filterModulePost' => array(
                 'reqType' => 'POST',
@@ -94,7 +94,7 @@ class ForecastManagerWorksheetsFilterApi extends FilterApi
                 'method' => 'filterList',
                 'jsonParams' => array('filter'),
                 'shortHelp' => 'Filter records from a single module',
-                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastManagerWorksheetFilter.html',
+                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetFilter.html',
             ),
         );
     }
@@ -116,8 +116,12 @@ class ForecastManagerWorksheetsFilterApi extends FilterApi
         if (!isset($args['user_id'])) {
             $args['user_id'] = false;
         }
+        // make sure the type arg is set to prevent notices
+        if (!isset($args['type'])) {
+            $args['type'] = '';
+        }
 
-        $args['filter'] = $this->createFilter($api, $args['user_id'], $args['timeperiod_id']);
+        $args['filter'] = $this->createFilter($api, $args['user_id'], $args['timeperiod_id'], $args['type']);
 
         return parent::filterList($api, $args);
     }
@@ -245,6 +249,7 @@ class ForecastManagerWorksheetsFilterApi extends FilterApi
         // some local variables
         $found_assigned_user = false;
         $found_timeperiod = false;
+        $found_type = false;
 
         // if filter is not defined, define it
         if (!isset($args['filter']) || !is_array($args['filter'])) {
@@ -270,10 +275,14 @@ class ForecastManagerWorksheetsFilterApi extends FilterApi
                 if ($filter_key == 'draft') {
                     unset($args['filter'][$key]);
                 }
+                if ($found_type == false && $filter_key == 'type') {
+                    $found_type = array_pop($filter);
+                    unset($args['filter'][$key]);
+                }
             }
         }
 
-        $args['filter'] = $this->createFilter($api, $found_assigned_user, $found_timeperiod);
+        $args['filter'] = $this->createFilter($api, $found_assigned_user, $found_timeperiod, $found_type);
 
         return parent::filterList($api, $args);
     }

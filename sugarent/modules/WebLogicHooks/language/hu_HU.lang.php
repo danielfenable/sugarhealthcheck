@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-    'LBL_MODULE_NAME' => 'Web Logic Hook állományok',
-    'LBL_MODULE_NAME_SINGULAR' => 'Web Logic Hook állományok',
-    'LBL_MODULE_TITLE' => 'Web Logic Hook állományok',
-    'LNK_NEW_LOGIC_HOOK' => 'Web Logic Hook létrehozása',
-    'LNK_LOGIC_HOOK_LIST' => 'Web Logic Hook állományok megtekintése',
-    'LBL_TARGET_NAME' => 'Modul neve',
-    'LBL_REQUEST_METHOD' => 'Lekérés módja',
-    'LBL_TRIGGER_EVENT' => 'Kiváltó esemény',
-    'LBL_URL' => 'URL',
+$mod_strings = array (
+  'LBL_MODULE_NAME' => 'Web Logic Hook állományok',
+  'LBL_MODULE_NAME_SINGULAR' => 'Web Logic Hook állományok',
+  'LBL_MODULE_TITLE' => 'Web Logic Hook állományok',
+  'LBL_REQUEST_METHOD' => 'Lekérés módja',
+  'LBL_TARGET_NAME' => 'Modul neve',
+  'LBL_TRIGGER_EVENT' => 'Kiváltó esemény',
+  'LBL_URL' => 'URL',
+  'LNK_LOGIC_HOOK_LIST' => 'Web Logic Hook állományok megtekintése',
+  'LNK_NEW_LOGIC_HOOK' => 'Web Logic Hook létrehozása',
 );
+

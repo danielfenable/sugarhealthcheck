@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({_render:function(){var now=new Date(),due_date=this.model.get(this.name),date=new Date(due_date);this.model.set('overdue',!_.isNull(due_date)&&date<now);this._super('_render');}})
+({_render:function(){var now=new Date(),date=new Date(this.model.get(this.name));this.model.set('overdue',date<now);this._super('_render');}})

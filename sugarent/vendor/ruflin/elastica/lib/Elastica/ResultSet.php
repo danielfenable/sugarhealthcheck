@@ -1,7 +1,6 @@
 <?php
 
 namespace Elastica;
-
 use Elastica\Exception\InvalidException;
 
 /**
@@ -16,13 +15,6 @@ use Elastica\Exception\InvalidException;
  */
 class ResultSet implements \Iterator, \Countable, \ArrayAccess
 {
-    /**
-     * Class for the static create method to use.
-     *
-     * @var string
-     */
-    protected static $_class = 'Elastica\\ResultSet';
-
     /**
      * Results
      *
@@ -85,31 +77,6 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
     }
 
     /**
-     * Creates a new ResultSet object. Can be configured to return a different
-     * implementation of the ResultSet class.
-     *
-     * @param  Response  $response
-     * @param  Query     $query
-     * @return ResultSet
-     */
-    public static function create(Response $response, Query $query)
-    {
-        $class = static::$_class;
-
-        return new $class($response, $query);
-    }
-
-    /**
-     * Sets the class to be used for the static create method.
-     *
-     * @param string $class
-     */
-    public static function setClass($class)
-    {
-        static::$_class = $class;
-    }
-
-    /**
      * Loads all data into the results object (initialisation)
      *
      * @param \Elastica\Response $response Response object
@@ -143,22 +110,19 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
      * Returns true if the response contains suggestion results; false otherwise
      * @return bool
      */
-    public function hasSuggests()
-    {
+    public function hasSuggests(){
         $data = $this->_response->getData();
-
         return isset($data['suggest']);
     }
 
     /**
-     * Return all suggests
-     *
-     * @return array suggest results
-     */
-    public function getSuggests()
+    * Return all suggests
+    *
+    * @return array suggest results
+    */
+    public function getSuggests() 
     {
         $data = $this->_response->getData();
-
         return isset($data['suggest']) ? $data['suggest'] : array();
     }
 
@@ -200,7 +164,7 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
 
     /**
      * Retrieve a specific aggregation from this result set
-     * @param  string                     $name the name of the desired aggregation
+     * @param string $name the name of the desired aggregation
      * @return array
      * @throws Exception\InvalidException if an aggregation by the given name cannot be found
      */
@@ -247,20 +211,20 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
     }
 
     /**
-     * Returns the total number of ms for this search to complete
-     *
-     * @return int Total time
-     */
+    * Returns the total number of ms for this search to complete
+    *
+    * @return int Total time
+    */
     public function getTotalTime()
     {
         return (int) $this->_took;
     }
 
     /**
-     * Returns true iff the query has timed out
-     *
-     * @return bool Timed out
-     */
+    * Returns true iff the query has timed out
+    *
+    * @return bool Timed out
+    */
     public function hasTimedOut()
     {
         return (bool) $this->_timedOut;
@@ -360,8 +324,8 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
      * Whether a offset exists
      * @link http://php.net/manual/en/arrayaccess.offsetexists.php
      *
-     * @param  integer $offset
-     * @return boolean true on success or false on failure.
+     * @param   integer $offset
+     * @return  boolean true on success or false on failure.
      */
     public function offsetExists($offset)
     {
@@ -372,9 +336,9 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
      * Offset to retrieve
      * @link http://php.net/manual/en/arrayaccess.offsetget.php
      *
-     * @param  integer                    $offset
-     * @throws Exception\InvalidException
-     * @return Result|null
+     * @param   integer $offset
+     * @throws  Exception\InvalidException
+     * @return  Result|null
      */
     public function offsetGet($offset)
     {
@@ -389,9 +353,9 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
      * Offset to set
      * @link http://php.net/manual/en/arrayaccess.offsetset.php
      *
-     * @param  integer                    $offset
-     * @param  Result                     $value
-     * @throws Exception\InvalidException
+     * @param   integer $offset
+     * @param   Result  $value
+     * @throws  Exception\InvalidException
      */
     public function offsetSet($offset, $value)
     {

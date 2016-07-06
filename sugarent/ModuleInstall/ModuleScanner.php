@@ -794,9 +794,9 @@ class ModuleScanner{
 	 *This function will take all issues of the current instance and print them to the screen
 	 **/
 	public function displayIssues($package='Package'){
-		global $sugar_version, $sugar_flavor;
 		echo '<h2>'.str_replace('{PACKAGE}' , $package ,translate('ML_PACKAGE_SCANNING')). '</h2><BR><h2 class="error">' . translate('ML_INSTALLATION_FAILED') . '</h2><br><p>' .str_replace('{PACKAGE}' , $package ,translate('ML_PACKAGE_NOT_CONFIRM')). '</p><ul><li>'. translate('ML_OBTAIN_NEW_PACKAGE') . '<li>' . translate('ML_RELAX_LOCAL').
-'</ul></p><br>' . ' <a href="http://www.sugarcrm.com/crm/product_doc.php?module=FailPackageScan&version=' . $sugar_version . '&edtion=' . $sugar_flavor . '" target="_blank">' . translate('ML_PKG_SCAN_GUIDE') . '</a>'.'<br><br>';
+'</ul></p><br>' . translate('ML_SUGAR_LOADING_POLICY') .  ' <a href=" http://kb.sugarcrm.com/custom/module-loader-restrictions-for-sugar-open-cloud/">' . translate('ML_SUGAR_KB') . '</a>.'.
+'<br>' . translate('ML_AVAIL_RESTRICTION'). ' <a href=" http://developers.sugarcrm.com/wordpress/2009/08/14/module-loader-restrictions/">' . translate('ML_SUGAR_DZ') .  '</a>.<br><br>';
 
 
 		foreach($this->issues as $type=>$issues){

@@ -1,8 +1,13 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("highlight-base",function(e,t){var n=e.Array,r=e.Escape,i=e.Text.WordBreak,s=e.Lang.isArray,o={},u="(&[^;\\s]*)?",a={_REGEX:u+"(%needles)",_REPLACER:function(e,t,n){return t&&!/\s/.test(n)?e:a._TEMPLATE.replace(/\{s\}/g,n)},_START_REGEX:"^"+u+"(%needles)",_TEMPLATE:'<b class="'+e.ClassNameManager.getClassName("highlight")+'">{s}</b>',all:function(e,t,n){var i=[],u,f,l,c,h,p;n||(n=o),u=n.escapeHTML!==!1,h=n.startsWith?a._START_REGEX:a._REGEX,p=n.replacer||a._REPLACER,t=s(t)?t:[t];for(f=0,l=t.length;f<l;++f)c=t[f],c&&i.push(r.regex(u?r.html(c):c));return u&&(e=r.html(e)),i.length?e.replace(new RegExp(h.replace("%needles",i.join("|")),n.caseSensitive?"g":"gi"),p):e},allCase:function(t,n,r){return a.all(t,n,e.merge(r||o,{caseSensitive:!0}))},start:function(t,n,r){return a.all(t,n,e.merge(r||o,{startsWith:!0}))},startCase:function(e,t){return a.start(e,t,{caseSensitive:!0})},words:function(e,t,u){var f,l,c=a._TEMPLATE,h;return u||(u=o),f=!!u.caseSensitive,t=n.hash(s(t)?t:i.getUniqueWords(t,{ignoreCase:!f})),l=u.mapper||function(e,t){return t.hasOwnProperty(f?e:e.toLowerCase())?c.replace(/\{s\}/g,r.html(e)):r.html(e)},h=i.getWords(e,{includePunctuation:!0,includeWhitespace:!0}),n.map(h,function(e){return l(e,t)}).join("")},wordsCase:function(e,t){return a.words(e,t,{caseSensitive:!0})}};e.Highlight=a},"3.15.0",{requires:["array-extras","classnamemanager","escape","text-wordbreak"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('highlight-base',function(Y,NAME){var YArray=Y.Array,Escape=Y.Escape,WordBreak=Y.Text.WordBreak,isArray=Y.Lang.isArray,EMPTY_OBJECT={},UNCLOSED_ENTITY='(&[^;\\s]*)?',Highlight={_REGEX:UNCLOSED_ENTITY+'(%needles)',_REPLACER:function(match,p1,p2){return p1&&!(/\s/).test(p2)?match:Highlight._TEMPLATE.replace(/\{s\}/g,p2);},_START_REGEX:'^'+UNCLOSED_ENTITY+'(%needles)',_TEMPLATE:'<b class="'+Y.ClassNameManager.getClassName('highlight')+'">{s}</b>',all:function(haystack,needles,options){var validNeedles=[],esc,i,len,needle,regex,replacer;if(!options){options=EMPTY_OBJECT;}
+esc=options.escapeHTML!==false;regex=options.startsWith?Highlight._START_REGEX:Highlight._REGEX;replacer=options.replacer||Highlight._REPLACER;needles=isArray(needles)?needles:[needles];for(i=0,len=needles.length;i<len;++i){needle=needles[i];if(needle){validNeedles.push(Escape.regex(esc?Escape.html(needle):needle));}}
+if(esc){haystack=Escape.html(haystack);}
+if(!validNeedles.length){return haystack;}
+return haystack.replace(new RegExp(regex.replace('%needles',validNeedles.join('|')),options.caseSensitive?'g':'gi'),replacer);},allCase:function(haystack,needles,options){return Highlight.all(haystack,needles,Y.merge(options||EMPTY_OBJECT,{caseSensitive:true}));},start:function(haystack,needles,options){return Highlight.all(haystack,needles,Y.merge(options||EMPTY_OBJECT,{startsWith:true}));},startCase:function(haystack,needles){return Highlight.start(haystack,needles,{caseSensitive:true});},words:function(haystack,needles,options){var caseSensitive,mapper,template=Highlight._TEMPLATE,words;if(!options){options=EMPTY_OBJECT;}
+caseSensitive=!!options.caseSensitive;needles=YArray.hash(isArray(needles)?needles:WordBreak.getUniqueWords(needles,{ignoreCase:!caseSensitive}));mapper=options.mapper||function(word,needles){if(needles.hasOwnProperty(caseSensitive?word:word.toLowerCase())){return template.replace(/\{s\}/g,Escape.html(word));}
+return Escape.html(word);};words=WordBreak.getWords(haystack,{includePunctuation:true,includeWhitespace:true});return YArray.map(words,function(word){return mapper(word,needles);}).join('');},wordsCase:function(haystack,needles){return Highlight.words(haystack,needles,{caseSensitive:true});}};Y.Highlight=Highlight;},'3.15.0',{"requires":["array-extras","classnamemanager","escape","text-wordbreak"]});

@@ -11,11 +11,11 @@
 /**
  * @class View.Fields.Base.Audit.FieldtypeField
  * @alias SUGAR.App.view.fields.BaseAuditFieldtypeField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Convert the raw field type name
      * into the label of the field of the parent model.
      */

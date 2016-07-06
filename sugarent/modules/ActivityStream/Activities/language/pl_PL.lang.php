@@ -1,5 +1,7 @@
 <?php
- if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,23 +12,23 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-    'TPL_ACTIVITY_CREATE' => 'Utworzono {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}} {{str "LBL_MODULE_NAME_SINGULAR" object.module}}.',
-    'TPL_ACTIVITY_POST' => '{{{value}}}{{{str "TPL_ACTIVITY_ON" "Activities" this}}}',
-    'TPL_ACTIVITY_UPDATE' => 'Zaktualizowano {{#if updateStr}}{{{updateStr}}} w {{/if}}{{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.',
-    'TPL_ACTIVITY_UPDATE_FIELD' => '<a rel="tooltip" title="Zmieniono: {{before}} na: {{after}}">{{field_label}}</a>',
-    'TPL_ACTIVITY_LINK' => 'Powiązano {{{str "TPL_ACTIVITY_RECORD" "Activities" subject}}} z {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.',
-    'TPL_ACTIVITY_UNLINK' => 'Usunięto powiązanie {{{str "TPL_ACTIVITY_RECORD" "Activities" subject}}} z {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.',
-    'TPL_ACTIVITY_ATTACH' => 'Dodano plik <a class="dragoff" target="sugar_attach" href="{{url}}">{{filename}}</a>{{{str "TPL_ACTIVITY_ON" "Activities" this}}}',
-    'TPL_ACTIVITY_DELETE' => 'Usunięto {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}} {{str "LBL_MODULE_NAME_SINGULAR" object.module}}.',
-    'TPL_ACTIVITY_UNDELETE' => 'Przywrócono {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}} {{str "LBL_MODULE_NAME_SINGULAR" object.module}}.',
-    'TPL_ACTIVITY_RECORD' => '<a href="#{{buildRoute module=module id=id}}">{{name}}</a>',
-    // We need the trailing space at the end of the next line so that the str
-    // handlebars helper isn't confused by a template that returns no text.
-    'TPL_ACTIVITY_ON' => '{{#if object}} on {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}. {{/if}}{{#if module}} on {{str "LBL_MODULE_NAME_SINGULAR" module}}.{{else}} {{/if}}',
-    'TPL_COMMENT' => '{{{value}}}',
-    'TPL_MORE_COMMENT' => '{{this}} więcej komentarzy&hellip;',
-    'TPL_MORE_COMMENTS' => '{{this}} więcej komentarzy&hellip;',
-    'TPL_SHOW_MORE_MODULE' => 'Więcej postów...',
+$mod_strings = array (
+  'TPL_ACTIVITY_ATTACH' => 'Dodano plik <a class="dragoff" target="sugar_attach" href="{{url}}">{{filename}}</a>{{{str "TPL_ACTIVITY_ON" "Activities" this}}}',
+  'TPL_ACTIVITY_CREATE' => 'Utworzono {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}} {{str "LBL_MODULE_NAME_SINGULAR" object.module}}.',
+  'TPL_ACTIVITY_DELETE' => 'Usunięto {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}} {{str "LBL_MODULE_NAME_SINGULAR" object.module}}.',
+  'TPL_ACTIVITY_LINK' => 'Powiązano {{{str "TPL_ACTIVITY_RECORD" "Activities" subject}}} z {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.',
+  'TPL_ACTIVITY_ON' => '{{#if object}} on {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}. {{/if}}{{#if module}} on {{str "LBL_MODULE_NAME_SINGULAR" module}}.{{else}} {{/if}}',
+  'TPL_ACTIVITY_POST' => '{{{value}}}{{{str "TPL_ACTIVITY_ON" "Activities" this}}}',
+  'TPL_ACTIVITY_RECORD' => '<a href="#{{buildRoute module=module id=id}}">{{name}}</a>',
+  'TPL_ACTIVITY_UNDELETE' => 'Przywrócono {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}} {{str "LBL_MODULE_NAME_SINGULAR" object.module}}.',
+  'TPL_ACTIVITY_UNLINK' => 'Usunięto powiązanie {{{str "TPL_ACTIVITY_RECORD" "Activities" subject}}} z {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.',
+  'TPL_ACTIVITY_UPDATE' => 'Zaktualizowano {{#if updateStr}}{{{updateStr}}} w {{/if}}{{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.',
+  'TPL_ACTIVITY_UPDATE_FIELD' => '<a rel="tooltip" title="Zmieniono: {{before}} na: {{after}}">{{field_label}}</a>',
+  'TPL_COMMENT' => '{{{value}}}',
+  'TPL_MORE_COMMENT' => '{{this}} więcej komentarzy&hellip;',
+  'TPL_MORE_COMMENTS' => '{{this}} więcej komentarzy&hellip;',
+  'TPL_SHOW_MORE_MODULE' => 'Więcej postów...',
 );
+

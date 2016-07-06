@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,20 +13,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-/*********************************************************************************
-* Description:
-* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
-* Reserved. Contributor(s): contact@synolia.com - www.synolia.com
-* *******************************************************************************/
-
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Siguro një Çelës API dhe Sekret nga Twitter duke e regjistruar instancën tënde Sugar si aplikacion të ri.<br/><br>Hapat për regjistrimin e instancës tënde:<br/><br/><ol><li>Shko në faqen e zhvilluesve të Twitter:<a href=&#39;http://dev.twitter.com/apps/new&#39; target=&#39;_blank&#39;>http://dev.twitter.com/apps/new</a>.</li><li>Identifikohu me llogarinë e Twitter me të cilën dëshiron të regjistrosh aplikacionin.</li><li>Në formularin e regjistrimit, shkruaj emrin e aplikacionit. Ky është emri të cilin përdoruesit do të shohin kur të vërtetojnë llogaritë e tyre në Twitter nga Sugar.</li><li>Shkruaj përshkrimin.</li><li>Shkruaj URL-në e uebsajtit të aplikacionit.</li><li>Zgjidh një URL anulimi (mund të jetë gjithçka duke qenë se Sugar e anashkalon këtë gjatë vërtetimit. Shembull: Fut URL-në e sajtit tënd të Sugar).</li><li>Prano kushtet e shërbimit të API të Twitter.</li><li>Kliko "Krijo aplikacionin tënd të Twitter".</li><li>Brenda faqes së aplikacionit, gjej Çelësin API dhe Sekretin API te skeda "Çelësat e API". Shkruaj Çelësin dhe Sekretin më poshtë.</li></ol></td></tr></table>',
-    'LBL_NAME' => 'Emri i përdoruesit në Twitter',
-    'LBL_ID' => 'Emri i përdoruesit në Twitter',
-	'company_url' => 'URL',
-    'oauth_consumer_key' => 'Çelësi API',
-    'oauth_consumer_secret' => 'Sekreti API',
+  'LBL_ID' => 'Emri përdorues në Twitter',
+  'LBL_LICENSING_INFO' => 'Siguro Çelës konsumatori dhe Sekret nga Twitter@ duke u regjistruar Sugar tënd si aplikim i ri.<br />Hapat për regjistrim:<br />1. Shko në faqen e zhvilluesve Twitter@:http://dev.twitter.com/apps/new.<br />2. Kyçu me llogarinë me të cilën dëshiron të regjistrosh aplikimin.<br />3. Në formën e regjistrimit, shkruaj emrin e aplikimit. Kjo është emri me të cilën përdoruesit do të shohin kur atentikojnë llogaritë e tyre në Twitter nga Sugar.<br />4. Shkruaj përshkrim.<br />5. Shkruaj URL e aplikimit të ueb faqes.<br />6. Selekto Shfletim për llojin e aplikimit.<br />7. Pas selektimit të llojit të aplikimit, shtyp URL e thirjes së kthyer.<br />8. Shkruaj fjalët e sigurisë.<br />9. Shytp Regjistro aplikimin. <br />10. Prano kushtet e shërbimeve të API Twitter.<br />11. Në faqen e aplikimit gjej çelësin e konsumatorit dhe sekrtetin e konsumatorit. Shkruaj çelësin dhe sekretin më poshtë.',
+  'LBL_NAME' => 'Emri përdorues në Twitter',
+  'company_url' => 'URL',
+  'oauth_consumer_key' => 'Çelësi i konsumatorit',
+  'oauth_consumer_secret' => 'Sekreti i konsumatorit',
 );
 
-?>

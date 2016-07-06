@@ -14,10 +14,6 @@ require_once('modules/Campaigns/utils.php');
 
 class LeadConvert
 {
-    const TRANSFERACTION_NONE = 'donothing';
-    const TRANSFERACTION_COPY = 'copy';
-    const TRANSFERACTION_MOVE = 'move';
-
     const STATUS_CONVERTED = 'Converted';
     protected $fileName = "modules/Leads/clients/base/layouts/convert-main/convert-main.php";
     protected $modules;
@@ -62,13 +58,10 @@ class LeadConvert
     /**
      * Converts the Lead to a Contact and associates other modules to both lead and contact.
      * @param $modules Array of SugarBeans
-     * @param $transferActivitiesAction The type of transfer to perform on lead activities (e.g. copy, move ...)
-     * @param $transferActivitiesModules Array of modules to transfer lead activities to
      * @return array modules
      */
-    public function convertLead($modules, $transferActivitiesAction = '', $transferActivitiesModules = array())
+    public function convertLead($modules)
     {
-        $calcFieldBeans = array();
         $this->modules = $modules;
         if (isset($this->modules['Contacts'])) {
             $this->contact = $this->modules['Contacts'];
@@ -87,24 +80,10 @@ class LeadConvert
             if ($this->modules[$moduleName]->object_name == 'Opportunity' && empty($this->modules[$moduleName]->account_id)) {
                 $this->updateOpportunityWithAccountInformation($moduleDef);
             }
-
-            if ($moduleName == "Accounts" && $this->lead->account_name != $modules['Accounts']->name) {
-                $this->lead->account_name = $modules['Accounts']->name;
-            }
-
             $this->setAssignedForModulesToLeads($moduleDef);
             $this->setRelationshipForModulesToLeads($moduleDef);
 
             $this->modules[$moduleName]->save();
-
-            //iterate through each field in field map and check meta for calculated fields
-            foreach ($this->modules[$moduleName]->field_name_map as $calcFieldDefs) {
-                if (!empty($calcFieldDefs['calculated'])) {
-                    //bean has a calculated field, lets add it to the array for later processing
-                    $calcFieldBeans[$moduleName] = $this->modules[$moduleName];
-                    break;
-                }
-            }
         }
 
         if($this->contact != null && $this->contact instanceof Contact) {
@@ -112,62 +91,13 @@ class LeadConvert
             $this->addLogForContactInCampaign();
         }
 
-        $this->performLeadActivitiesTransfer($transferActivitiesAction, $transferActivitiesModules);
-
         $this->lead->status = LeadConvert::STATUS_CONVERTED;
         $this->lead->converted = 1;
         $this->lead->in_workflow = true;
         $this->lead->get_Opportunity();
         $this->lead->save();
 
-        //IF beans have calculated fields, re-save now  so calculated values can be updated
-        foreach ($calcFieldBeans as $calcFieldBean) {
-            //refetch bean and save to update Calculated Fields.
-            $calcFieldBean->retrieve($calcFieldBean->id);
-            $calcFieldBean->save();
-        }
-
         return $this->modules;
-    }
-
-    /**
-     * If a Transfer Action is provided that agrees with the allowed actions define in the System Settings, then
-     * perform the appropriate transfer of any Activities found for the Lead to the target transfer modules specified.
-     * @param $transferActivitiesAction The type of transfer to perform on lead activities (e.g. copy, move ...)
-     * @param $transferActivitiesModules Array of modules to transfer lead activities to
-     */
-    public function performLeadActivitiesTransfer($transferActivitiesAction, $transferActivitiesModules)
-    {
-        // Check to see if there is an action to take on the Transfer of Lead Activities
-        $activitySetting = $this->getActivitySetting(); // From Configuration Setting
-
-         if (!empty($activitySetting) &&
-            !empty($transferActivitiesAction)
-        ) {
-            if ($activitySetting === static::TRANSFERACTION_COPY &&
-                $transferActivitiesAction === static::TRANSFERACTION_COPY &&
-                !empty($transferActivitiesModules)
-            ) {
-                Activity::disable();
-                $this->copyActivities(
-                    $this->lead,
-                    $this->modules,
-                    $transferActivitiesModules
-                );
-                Activity::enable();
-            } elseif ($activitySetting === static::TRANSFERACTION_MOVE &&
-                $transferActivitiesAction === static::TRANSFERACTION_MOVE &&
-                !empty($this->contact)
-            ) {
-                Activity::disable();
-                // Activity Move is currently limited to the Contact that the Lead is being converted to.
-                $this->moveActivities(
-                    $this->lead,
-                    $this->contact
-                );
-                Activity::enable();
-            }
-        }
     }
 
     /**
@@ -175,15 +105,13 @@ class LeadConvert
      *
      * @param $moduleDef
      */
-    public function updateOpportunityWithAccountInformation($moduleDef)
-    {
+    public function updateOpportunityWithAccountInformation($moduleDef) {
         $moduleName = $moduleDef['module'];
         if (isset($this->modules['Accounts'])) {
             $this->modules[$moduleName]->account_id = $this->modules['Accounts']->id;
             $this->modules[$moduleName]->account_name = $this->modules['Accounts']->name;
         }
     }
-
     /**
      * Sets the relationships for modules to the Contacts module
      * @return null
@@ -294,168 +222,6 @@ class LeadConvert
     }
 
     /**
-     * Copy Lead's Related Activities to Specified Modules
-     * @param $lead
-     * @param $beans
-     * @param $transferModules
-     */
-    public function copyActivities($lead, $beans, $transferModules)
-    {
-        global $app_list_strings;
-        $parent_types = $app_list_strings['record_type_display'];
-        $activities = $this->getActivitiesFromLead($lead);
-
-        // If an account is present, we will specify the account as the parent bean
-        $accountTarget = null;
-        if (!empty($beans['Accounts'])) {
-            // Process this after any other copy-to targets are processed
-            $accountTarget = $beans['Accounts'];
-            unset($beans['Accounts']);
-        }
-
-        foreach ($beans as $module => $bean) {
-            if (isset($parent_types[$module])) {
-                foreach ($activities as $activity) {
-                    if (in_array($module, $transferModules)) {
-                        $this->copyActivityAndRelateToBean($activity, $bean, array());
-                    }
-                }
-            }
-        }
-
-        if (!empty($accountTarget) && isset($parent_types['Accounts']) && in_array('Accounts', $transferModules)) {
-            $accountParentInfo = array('id' => $accountTarget->id, 'type' => 'Accounts');
-            foreach ($activities as $activity) {
-                $this->copyActivityAndRelateToBean($activity, $accountTarget, $accountParentInfo);
-            }
-        }
-    }
-
-    /**
-     * Move Lead's Related Activities to Target Bean
-     * @param $lead
-     * @param $bean  target Bean
-     */
-    public function moveActivities($lead, $bean)
-    {
-        if (!empty($bean)) {
-            $activities = $this->getActivitiesFromLead($lead);
-            foreach ($activities as $activity) {
-                if ($rel = $this->findRelationship($activity, $lead)) {
-                    $activity->load_relationship($rel);
-
-                    if ($activity->parent_id && $activity->id) {
-                        $activity->$rel->delete($activity->id, $activity->parent_id);
-                    }
-
-                    if ($rel = $this->findRelationship($activity, $bean)) {
-                        $activity->load_relationship($rel);
-                        $relObj = $activity->$rel->getRelationshipObject();
-                        if ($relObj->relationship_type == 'one-to-one' || $relObj->relationship_type == 'one-to-many') {
-                            $key = $relObj->rhs_key;
-                            $activity->$key = $bean->id;
-                        }
-                        $activity->$rel->add($bean);
-                    }
-
-                    // set the new parent id and type
-                    $activity->parent_id = $bean->id;
-                    $activity->parent_type = $bean->module_dir;
-
-                    $activity->save();
-                }
-            }
-        }
-    }
-
-    /**
-     * Gets the list of activities related to the lead
-     * @param Lead $lead Lead to get activities from
-     * @return Array of Activity SugarBeans.
-     */
-    protected function getActivitiesFromLead($lead)
-    {
-        global $beanList, $db;
-        $activitiesList = array("Calls", "Tasks", "Meetings", "Emails", "Notes");
-        $activities = array();
-
-        if (!empty($lead)) {
-            foreach ($activitiesList as $module) {
-                $beanName = $beanList[$module];
-                $activity = new $beanName();
-                $query = "SELECT id FROM {$activity->table_name} WHERE parent_id = '{$lead->id}' AND parent_type = 'Leads'";
-                $result = $db->query($query, true);
-                while ($row = $db->fetchByAssoc($result)) {
-                    $activity = new $beanName();
-                    $activity->retrieve($row['id']);
-                    $activity->fixUpFormatting();
-                    $activities[] = $activity;
-                }
-            }
-        }
-
-        return $activities;
-    }
-
-    /**
-     * Clone the supplied Activity and relate it to the supplied bean. Set parent_id and parent_type on the cloned
-     * Activity if these values are supplied to this function.
-     * @param $activity The Activity that you wish to Clone and assign to the supplied Bean
-     * @param $bean The target Bean that you wish to copy the new Cloned Activity to.
-     * @param array $parentArr The parent_id and parent_type values to set on the cloned Activity (optional)
-     */
-    protected function copyActivityAndRelateToBean($activity, $bean, $parentArr = array())
-    {
-        $newActivity = clone $activity;
-        $newActivity->id = create_guid();
-        $newActivity->new_with_id = true;
-
-        //set the parent id and type if it was passed in, otherwise use blank to wipe it out
-        $parentID = '';
-        $parentType = '';
-        if (!empty($parentArr)) {
-            if (!empty($parentArr['id'])) {
-                $parentID = $parentArr['id'];
-            }
-
-            if (!empty($parentArr['type'])) {
-                $parentType = $parentArr['type'];
-            }
-
-        }
-
-        //Special case to prevent duplicated tasks from appearing under Contacts multiple times
-        if ($newActivity->module_dir == "Tasks" && $bean->module_dir != "Contacts") {
-            $newActivity->contact_id = $newActivity->contact_name = "";
-        }
-
-        if ($rel = $this->findRelationship($newActivity, $bean)) {
-            if (isset($newActivity->$rel)) {
-                // this comes form $activity, get rid of it and load our own
-                $newActivity->$rel = '';
-            }
-
-            $newActivity->load_relationship($rel);
-            $relObj = $newActivity->$rel->getRelationshipObject();
-            if ($relObj->relationship_type == 'one-to-one' || $relObj->relationship_type == 'one-to-many') {
-                $key = $relObj->rhs_key;
-                $newActivity->$key = $bean->id;
-            }
-
-            //parent (related to field) should be blank unless it is explicitly sent in
-            $newActivity->parent_id = $parentID;
-            $newActivity->parent_type = $parentType;
-
-            $newActivity->update_date_modified = false; //bug 41747
-            $newActivity->save();
-            $newActivity->$rel->add($bean);
-            if ($newActivity->module_dir == "Notes" && $newActivity->filename) {
-                UploadFile::duplicate_file($activity->id, $newActivity->id, $newActivity->filename);
-            }
-        }
-    }
-
-    /**
      * Finds the relationship between two modules and returns the relationship key
      * @return string
      */
@@ -489,16 +255,6 @@ class LeadConvert
             }
         }
         return false;
-    }
-
-    public function getActivitySetting()
-    {
-        global $sugar_config;
-        $activitySetting = static::TRANSFERACTION_NONE;
-        if (isset($sugar_config['lead_conv_activity_opt'])) {
-            $activitySetting = $sugar_config['lead_conv_activity_opt'];
-        }
-        return $activitySetting;
     }
 
     public function getMetaTableDictionary()

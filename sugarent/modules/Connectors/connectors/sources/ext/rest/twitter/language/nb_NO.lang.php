@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-/*********************************************************************************
-* Description:
-* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
-* Reserved. Contributor(s): contact@synolia.com - www.synolia.com
-* *******************************************************************************/
-
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Skaff en API-nøkkel og hemmelig nøkkel fra Twitter ved å registrere Sugar-forekomsten din som en ny applikasjon.<br/><br>Fremgangsmåte for å registrere forekomsten din:<br/><br/><ol><li>Gå til nettsiden Twitter Developers: <a href=&#39;http://dev.twitter.com/apps/new&#39; target=&#39;_blank&#39;>http://dev.twitter.com/apps/new</a>.</li><li>Logg på med Twitter-kontoen som du ønsker å registrere applikasjonen under.</li><li>Skriv inn et navn for applikasjonen på registreringsskjemaet. Dette er navnet brukere vil se når de autentiserer Twitter-kontoene sine på Sugar.</li><li>Skriv inn en beskrivelse.</li><li>Skriv inn en nettadresse til applikasjonsnettsiden.</li><li>Skriv inn en retur-URL (dette kan være hva som helst siden Sugar hopper over dette ved autentisering. Du kan f.eks. skrive inn nettadressen til Sugar-siden din).</li><li>Godta tjenestevilkårene for Twitter API.</li><li>Klikk på «Create your Twitter application».</li><li>Finn API-nøkkelen og den hemmelige nøkkelen på applikasjonssiden under kategorien «API-nøkler». Skriv inn API-nøkkelen og den hemmelige nøkkelen nedenfor.</li></ol></td></tr></table>',
-    'LBL_NAME' => 'Twitter-brukernavn',
-    'LBL_ID' => 'Twitter-brukernavn',
-	'company_url' => 'Link',
-    'oauth_consumer_key' => 'API-nøkkel',
-    'oauth_consumer_secret' => 'API-hemmelighet',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obtain a Consumer Key and Secret from Twitter&#169; by registering your Sugar instance as a new application.<br/><br>Steps to register your instance:<br/><br/><ol><li>Go to the Twitter&#169; Developers site: <a href="http://dev.twitter.com/apps/new" target="_blank">http://dev.twitter.com/apps/new</a>.</li><li>Sign In using the Twitter account under which you would like to register the application.</li><li>Within the registration form, enter a name for the application. This is the name users will see when they authenticate their Twitter accounts from within Sugar.</li><li>Enter a Description.</li><li>Enter an Application Website URL (could be anything).</li><li>Select "Browser" for Application Type.</li><li>After selecting "Browser" for Application Type, enter a Callback URL (could be anything since Sugar bypasses this on authentication. Example: Enter your Sugar root URL).</li><li>Enter the security words.</li><li>Click "Register application".</li><li>Accept the Twitter API Terms of Service.</li><li>Within the application page, find the Consumer Key and Consumer Secret. Enter the Key and Secret below.</li></ol></td></tr></table>',
+  'company_url' => 'URL',
+  'oauth_consumer_key' => 'Consumer Key',
+  'oauth_consumer_secret' => 'Consumer Secret',
+  'LBL_NAME' => 'Twitter brukernavn',
+  'LBL_ID' => 'Twitter brukernavn',
 );
 
-?>

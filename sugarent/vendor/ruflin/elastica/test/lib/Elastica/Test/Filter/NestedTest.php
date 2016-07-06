@@ -6,8 +6,8 @@ use Elastica\Document;
 use Elastica\Filter\Nested;
 use Elastica\Query\Terms;
 use Elastica\Search;
-use Elastica\Test\Base as BaseTest;
 use Elastica\Type\Mapping;
+use Elastica\Test\Base as BaseTest;
 
 class NestedTest extends BaseTest
 {
@@ -26,8 +26,8 @@ class NestedTest extends BaseTest
                 'hobbies' => array(
                     'type' => 'nested',
                     'include_in_parent' => true,
-                    'properties' => array('hobby' => array('type' => 'string')),
-                ),
+                    'properties' => array('hobby' => array('type' => 'string'))
+                )
             )
         );
         $type->setMapping($mapping);
@@ -39,8 +39,8 @@ class NestedTest extends BaseTest
                 'firstname' => 'Nicolas',
                 'lastname' => 'Ruflin',
                 'hobbies' => array(
-                    array('hobby' => 'opensource'),
-                ),
+                    array('hobby' => 'opensource')
+                )
             )
         );
         $docs[] = new Document(2,
@@ -50,13 +50,20 @@ class NestedTest extends BaseTest
                 'hobbies' => array(
                     array('hobby' => 'opensource'),
                     array('hobby' => 'guitar'),
-                ),
+                )
             )
         );
         $response = $type->addDocuments($docs);
 
         // Refresh index
         $index->refresh();
+    }
+
+    public function tearDown()
+    {
+        $client = $this->_getClient();
+        $index = $client->getIndex('elastica_test_filter_nested');
+        $index->delete();
     }
 
     public function testToArray()
@@ -72,9 +79,9 @@ class NestedTest extends BaseTest
             'nested' => array(
                 'path' => 'hobbies',
                 'query' => array('terms' => array(
-                    'hobby' => array('guitar'),
-                )),
-            ),
+                    'hobby' => array('guitar')
+                ))
+            )
         );
 
         $this->assertEquals($expectedArray, $f->toArray());
@@ -110,17 +117,5 @@ class NestedTest extends BaseTest
         $s->addIndex($i);
         $r = $s->search($f);
         $this->assertEquals(2, $r->getTotalHits());
-    }
-
-    public function testSetJoin()
-    {
-        $filter = new Nested();
-
-        $this->assertTrue($filter->setJoin(true)->getParam('join'));
-
-        $this->assertFalse($filter->setJoin(false)->getParam('join'));
-
-        $returnValue = $filter->setJoin(true);
-        $this->assertInstanceOf('Elastica\Filter\Nested', $returnValue);
     }
 }

@@ -63,15 +63,14 @@ class ACLField  extends ACLAction
                 if ((
                         !empty($def['source']) && $def['source'] == 'custom_fields') &&
                         $def['type'] != 'id' && (empty($def['dbType']) || ($def['dbType'] != 'id')
-                    ) ||
-                    (!empty($def['group']) && empty($def['hideacl'])) ||
+                    ) || !empty($def['group']) ||
                     (
                         empty($def['hideacl']) && !empty($def['type']) && !in_array($field, $exclude) &&
                         (
                             (
                                 empty($def['source']) && $def['type'] != 'id' &&
                                 (empty($def['dbType']) || ($def['dbType'] != 'id'))
-                            ) || !empty($def['link']) || in_array($def['type'], SugarBean::$relateFieldTypes)
+                            ) || !empty($def['link']) || $def['type'] == 'relate'
                         )
                     )
                 ) {
@@ -332,81 +331,6 @@ class ACLField  extends ACLAction
             return 1;
         }
         return 0;
-    }
-
-    /**
-     * Generates ACL specific condition for the given query condition, if needed
-     *
-     * @param SugarQuery_Builder_Condition $condition Original condition
-     * @param User|null $user ACL user
-     *
-     * @return SugarQuery_Builder_Where|null ACL specific condition or NULL if not applicable
-     */
-    public static function generateAclCondition(SugarQuery_Builder_Condition $condition, User $user = null)
-    {
-        if (!$user || $user->isAdmin()) {
-            return null;
-        }
-
-        $field = $condition->field;
-
-        if (!isset(self::$acl_fields[$user->id][$field->moduleName][$field->field])) {
-            return null;
-        }
-
-        $access = self::$acl_fields[$user->id][$field->moduleName][$field->field];
-
-        if ($access == ACL_OWNER_READ_WRITE) {
-            return self::generateIsOwnerCondition($condition->query, $field->moduleName, $user);
-        }
-
-        return null;
-    }
-
-    /**
-     * Generates a condition which filters out the records not owned by the given user
-     *
-     * @param SugarQuery $query The query to generate the condition for
-     * @param string $module The module which the records being selected belong to
-     * @param User $user ACL user
-     *
-     * @return SugarQuery_Builder_Where|null Condition or NULL if not applicable
-     */
-    protected static function generateIsOwnerCondition(SugarQuery $query, $module, User $user)
-    {
-        $bean = BeanFactory::getBean($module);
-        if (!$bean) {
-            return null;
-        }
-
-        $fields = array('assigned_user_id', 'created_by');
-        $fields = array_intersect($fields, array_keys($bean->field_defs));
-
-        $previous = $result = null;
-        while (count($fields) > 0) {
-            $field = array_pop($fields);
-
-            $condition = new SugarQuery_Builder_Condition($query);
-            $condition->setOperator('=')->setField($field)->setValues($user->id)->ignoreAcl();
-
-            $result = new SugarQuery_Builder_Orwhere($query);
-            $result->add($condition);
-
-            if ($previous !== null) {
-                $isNull = new SugarQuery_Builder_Condition($query);
-                $isNull->setField($field)->isNull()->ignoreAcl();
-
-                $and = new SugarQuery_Builder_Andwhere($query);
-                $and->add($isNull);
-                $and->add($previous);
-
-                $result->add($and);
-            }
-
-            $previous = $result;
-        }
-
-        return $result;
     }
 
     /**

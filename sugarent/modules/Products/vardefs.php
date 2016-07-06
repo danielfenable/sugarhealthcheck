@@ -79,12 +79,9 @@ $dictionary['Product'] = array(
                 'discount_usdollar' => 'discount_usdollar',
                 'tax_class' => 'tax_class',
                 'weight' => 'weight',
-                'type_id' => 'type_id',
                 'type_name' => 'type_name',
                 'manufacturer_id' => 'manufacturer_id',
                 'manufacturer_name' => 'manufacturer_name',
-                'currency_id' => 'currency_id',
-                'base_rate' => 'base_rate',
             ),
         ),
         'account_id' => array(
@@ -158,6 +155,7 @@ $dictionary['Product'] = array(
         'contact_name' => array(
             'name' => 'contact_name',
             'rname' => 'name',
+            'db_concat_fields' => array(0 => 'first_name', 1 => 'last_name'),
             'source' => 'non-db',
             'len' => '510',
             'group' => 'contact_name',
@@ -251,11 +249,7 @@ $dictionary['Product'] = array(
             'type' => 'name',
             'len' => '50',
             'unified_search' => true,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 0.80,
-            ),
+            'full_text_search' => array('enabled' => true, 'boost' => 1),
             'comment' => 'Name of the product',
             'reportable' => true,
             'importable' => 'required',
@@ -268,11 +262,6 @@ $dictionary['Product'] = array(
             'vname' => 'LBL_MFT_PART_NUM',
             'type' => 'varchar',
             'len' => '50',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 1.15,
-            ),
             'comment' => 'Manufacturer part number'
         ),
         'vendor_part_num' => array(
@@ -469,6 +458,25 @@ $dictionary['Product'] = array(
             'calculated' => true,
             'enforced' => true,
         ),
+        'currency_id' => array(
+            'name' => 'currency_id',
+            'dbType' => 'id',
+            'vname' => 'LBL_CURRENCY_ID',
+            'type' => 'currency_id',
+            'function' => 'getCurrencies',
+            'function_bean' => 'Currencies',
+            'required' => false,
+            'reportable' => false,
+            'default' => '-99',
+            'comment' => 'Currency of the product'
+        ),
+        'base_rate' => array(
+            'name' => 'base_rate',
+            'vname' => 'LBL_CURRENCY_RATE',
+            'type' => 'decimal',
+            'len' => '26,6',
+            'studio' => false
+        ),
         'status' => array(
             'name' => 'status',
             'vname' => 'LBL_STATUS',
@@ -477,11 +485,7 @@ $dictionary['Product'] = array(
             'default' => '',
             'len' => 100,
             'audited' => true,
-            'comment' => 'Product status (ex: Quoted, Ordered, Shipped)',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-            ),
+            'comment' => 'Product status (ex: Quoted, Ordered, Shipped)'
         ),
         'tax_class' => array(
             'name' => 'tax_class',
@@ -727,6 +731,48 @@ $dictionary['Product'] = array(
             'link_type' => 'one',
             'source' => 'non-db',
         ),
+        // Added for Meta-Data framework
+        'currency_name' => array(
+            'name' => 'currency_name',
+            'rname' => 'name',
+            'id_name' => 'currency_id',
+            'vname' => 'LBL_CURRENCY_NAME',
+            'type' => 'relate',
+            'link' => 'currencies',
+            'isnull' => true,
+            'table' => 'currencies',
+            'module' => 'Currencies',
+            'source' => 'non-db',
+            'function' => 'getCurrencies',
+            'function_bean' => 'Currencies',
+            'studio' => false,
+            'duplicate_merge' => 'disabled',
+            'massupdate' => false
+        ),
+        'currency_symbol' => array(
+            'name' => 'currency_symbol',
+            'rname' => 'symbol',
+            'id_name' => 'currency_id',
+            'vname' => 'LBL_CURRENCY_SYMBOL',
+            'type' => 'relate',
+            'link' => 'currencies',
+            'isnull' => true,
+            'table' => 'currencies',
+            'module' => 'Currencies',
+            'source' => 'non-db',
+            'function' => 'getCurrencySymbols',
+            'function_bean' => 'Currencies',
+            'studio' => false,
+            'duplicate_merge' => 'disabled',
+            'massupdate' => false
+        ),
+        'currencies' => array(
+            'name' => 'currencies',
+            'type' => 'link',
+            'relationship' => 'product_currencies',
+            'source' => 'non-db',
+            'vname' => 'LBL_CURRENCIES',
+        ),
         'quote_name' => array(
             'name' => 'quote_name',
             'rname' => 'name',
@@ -930,6 +976,7 @@ $dictionary['Product'] = array(
         ),
     ),
     'indices' => array(
+        array('name' => 'idx_products', 'type' => 'index', 'fields' => array('name', 'deleted')),
         array(
             'name' => 'idx_prod_user_dc_timestamp',
             'type' => 'index',
@@ -943,6 +990,15 @@ $dictionary['Product'] = array(
         array('name' => 'idx_product_rli', 'type' => 'index', 'fields' => array('revenuelineitem_id')),
     ),
     'relationships' => array(
+        'product_currencies' => array(
+            'lhs_module' => 'Products',
+            'lhs_table' => 'products',
+            'lhs_key' => 'currency_id',
+            'rhs_module' => 'Currencies',
+            'rhs_table' => 'currencies',
+            'rhs_key' => 'id',
+            'relationship_type' => 'one-to-many'
+        ),
         'product_notes' => array(
             'lhs_module' => 'Products',
             'lhs_table' => 'products',
@@ -1058,12 +1114,12 @@ $dictionary['Product'] = array(
             'relationship_role_column_value' => 'Products'
         ),
         'product_manufacturers' => array(
-            'lhs_module' => 'Manufacturers',
-            'lhs_table' => 'manufacturers',
-            'lhs_key' => 'id',
-            'rhs_module' => 'Products',
-            'rhs_table' => 'products',
-            'rhs_key' => 'manufacturer_id',
+            'rhs_module' => 'Manufacturers',
+            'rhs_table' => 'manufacturers',
+            'rhs_key' => 'id',
+            'lhs_module' => 'Products',
+            'lhs_table' => 'products',
+            'lhs_key' => 'manufacturer_id',
             'relationship_type' => 'one-to-many'
         ),
     ),
@@ -1093,9 +1149,5 @@ VardefManager::createVardef(
         'default',
         'assignable',
         'team_security',
-        'currency'
     )
 );
-
-//boost value for full text search
-$dictionary['Product']['fields']['description']['full_text_search']['boost'] = 0.40;

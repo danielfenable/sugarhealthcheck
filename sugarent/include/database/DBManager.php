@@ -11,57 +11,60 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+/*********************************************************************************
+
+* Description: This file handles the Data base functionality for the application.
+* It acts as the DB abstraction layer for the application. It depends on helper classes
+* which generate the necessary SQL. This sql is then passed to PEAR DB classes.
+* The helper class is chosen in DBManagerFactory, which is driven by 'db_type' in 'dbconfig' under config.php.
+*
+* All the functions in this class will work with any bean which implements the meta interface.
+* The passed bean is passed to helper class which uses these functions to generate correct sql.
+*
+* The meta interface has the following functions:
+* getTableName()	        	Returns table name of the object.
+* getFieldDefinitions()	    	Returns a collection of field definitions in order.
+* getFieldDefintion(name)		Return field definition for the field.
+* getFieldValue(name)	    	Returns the value of the field identified by name.
+*                           	If the field is not set, the function will return boolean FALSE.
+* getPrimaryFieldDefinition()	Returns the field definition for primary key
+*
+* The field definition is an array with the following keys:
+*
+* name 		This represents name of the field. This is a required field.
+* type 		This represents type of the field. This is a required field and valid values are:
+*           �   int
+*           �   long
+*           �   varchar
+*           �   text
+*           �   date
+*           �   datetime
+*           �   double
+*           �   float
+*           �   uint
+*           �   ulong
+*           �   time
+*           �   short
+*           �   enum
+* length    This is used only when the type is varchar and denotes the length of the string.
+*           The max value is 255.
+* enumvals  This is a list of valid values for an enum separated by "|".
+*           It is used only if the type is �enum�;
+* required  This field dictates whether it is a required value.
+*           The default value is �FALSE�.
+* isPrimary This field identifies the primary key of the table.
+*           If none of the fields have this flag set to �TRUE�,
+*           the first field definition is assume to be the primary key.
+*           Default value for this field is �FALSE�.
+* default   This field sets the default value for the field definition.
+*
+*
+* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+* All Rights Reserved.
+********************************************************************************/
+
 /**
- * Base database driver implementation.
- *
- * This class handles the Data base functionality for the application.
- * It acts as the DB abstraction layer for the application. It depends on
- * helper classes which generate the necessary SQL.
- * The helper class is chosen in DBManagerFactory, which is driven by `db_type`
- * in `dbconfig` under `config.php`.
- *
- * All the functions in this class will work with any bean which implements the
- * meta interface.
- * The passed bean is passed to helper class which uses these functions to
- * generate correct sql.
- *
- * FIXME move this to an interface instead of having this documented here
- * The meta interface has the following functions:
- * getTableName()                Returns table name of the object.
- * getFieldDefinitions()         Returns a collection of field definitions in order.
- * getFieldDefinition(name)      Return field definition for the field.
- * getFieldValue(name)           Returns the value of the field identified by name.
- *                               If the field is not set, the function will return boolean FALSE.
- * getPrimaryFieldDefinition()   Returns the field definition for primary key
- *
- * The field definition is an array with the following keys:
- *
- * name      This represents name of the field. This is a required field.
- * type      This represents type of the field. This is a required field and valid values are:
- *   - int
- *   - long
- *   - varchar
- *   - text
- *   - date
- *   - datetime
- *   - double
- *   - float
- *   - uint
- *   - ulong
- *   - time
- *   - short
- *   - enum
- * length    This is used only when the type is varchar and denotes the length of the string.
- *           The max value is 255.
- * enumvals  This is a list of valid values for an enum separated by "|".
- *           It is used only if the type is `enum`;
- * required  This field dictates whether it is a required value.
- *           The default value is `FALSE`.
- * isPrimary This field identifies the primary key of the table.
- *           If none of the fields have this flag set to `TRUE`,
- *           the first field definition is assume to be the primary key.
- *           Default value for this field is `FALSE`.
- * default   This field sets the default value for the field definition.
+ * Base database driver implementation
  * @api
  */
 abstract class DBManager
@@ -114,7 +117,6 @@ abstract class DBManager
 
     /**
      * default state for using Prepared Statements
-	 * @deprecated("Will be deprecated in 7.8 version and above")
      */
     public $usePreparedStatements = false;
 
@@ -174,13 +176,6 @@ abstract class DBManager
 	 * @var array
 	 */
 	protected $type_map = array();
-
-    /**
-     * Type min:max value
-     * @abstract
-     * @var array
-     */
-    protected $type_range = array();
 
 	/**
 	 * Type classification into:
@@ -249,13 +244,11 @@ abstract class DBManager
 	 */
 	protected $options = array();
 
-
     /**
      * Default performance profile
      * @var array
      */
     protected $defaultPerfProfile = array();
-
 
     /**
      * Gets a string comparison SQL snippet for use in hard coded queries. This
@@ -428,6 +421,17 @@ abstract class DBManager
 	}
 
 	/**
+	 * Returns this instance's DBHelper
+	 * Actually now returns $this
+	 * @deprecated
+	 * @return DBManager
+	 */
+	public function getHelper()
+	{
+		return $this;
+	}
+
+	/**
 	 * Checks for error happening in the database
 	 *
 	 * @param  string $msg        message to prepend to the error message
@@ -496,16 +500,11 @@ abstract class DBManager
      * additional reporting or log in a different area in the future.
      *
      * @param  string  $query query to log
-     * @param  array   $boundData prepared statement bound data
      * @return boolean true if the query was logged, false otherwise
      */
-    public function dump_slow_queries($query, $boundData = null)
+    public function dump_slow_queries($query)
     {
         global $sugar_config;
-
-        if (!empty($sugar_config['xhprof_config'])) {
-            SugarXHprof::getInstance()->trackSQL($query, $this->query_time, $boundData);
-        }
 
         $do_the_dump = isset($sugar_config['dump_slow_queries'])
             ? $sugar_config['dump_slow_queries'] : false;
@@ -529,7 +528,7 @@ abstract class DBManager
      *
      * @param string $query  value of query to track
      */
-    public function track_slow_queries($query)
+    protected function track_slow_queries($query)
     {
         $trackerManager = TrackerManager::getInstance();
         if ($trackerManager->isPaused()) {
@@ -722,7 +721,6 @@ protected function checkQuery($sql, $object_name = false)
 	{
 		$tablename =  $bean->getTableName();
 		$msg = "Error inserting into table: $tablename:";
-		// usePreparedStatements will be deprecated in 7.8 version and above
 	    if ($this->usePreparedStatements) {
 	        list($sql, $data, $clob) = $this->insertSQL($bean, true);
 	        // Prepare and execute the statement
@@ -769,14 +767,13 @@ protected function checkQuery($sql, $object_name = false)
 	 * @param array $data Key/value to insert
 	 * @param array $field_map Fields map from SugarBean
 	 * @param bool $execute Execute or return query?
-	 * @param bool usePreparedStatements(will be deprecated in 7.8 version and above)
      * @return bool query result
      */
 	public function insertParams($table, $field_defs, $data, $field_map = null, $execute = true, $usePreparedStatements = false)
 	{
         $values = array();
-        foreach ($field_defs as $fieldDef) {
-            $field = $fieldDef['name'];
+		foreach ($field_defs as $field => $fieldDef)
+		{
 			if (isset($fieldDef['source']) && $fieldDef['source'] != 'db')  continue;
 			//custom fields handle their save separately
 			if(!empty($field_map) && !empty($field_map[$field]['custom_type'])) continue;
@@ -861,7 +858,6 @@ protected function checkQuery($sql, $object_name = false)
 	{
 		$tablename = $bean->getTableName();
 		$msg = "Error updating table: $tablename:";
-		// usePreparedStatements will be deprecated in 7.8 version and above
 	    if($this->usePreparedStatements) {
             list($sql, $data, $lobs) = $this->updateSQL($bean, $where, true);
             // Prepare and execute the statement
@@ -885,7 +881,6 @@ protected function checkQuery($sql, $object_name = false)
 	{
 	    $tablename =  $bean->getTableName();
 	    $msg = "Error deleting from table: $tablename:";
-		// usePreparedStatements will be deprecated in 7.8 version and above
 	    if($this->usePreparedStatements) {
 	        list($sql, $data) = $this->deleteSQL($bean, $where, true);
 	        // Prepare and execute the statement
@@ -910,7 +905,6 @@ protected function checkQuery($sql, $object_name = false)
 	{
 		$tablename =  $bean->getTableName();
 	    $msg = "Error retriving values from table: $tablename:";
-		// usePreparedStatements will be deprecated in 7.8 version and above
 	    if($this->usePreparedStatements) {
 	        list($sql, $data) = $this->retrieveSQL($bean, $where, true);
 	        // Prepare and execute the statement
@@ -1069,10 +1063,6 @@ protected function checkQuery($sql, $object_name = false)
 				/* required + is_null=false => not null */
 			return false;
 		}
-        if ((isset($vardef['type']) && $vardef['type'] == 'bool')
-            || (isset($vardef['dbType']) && $vardef['dbType'] == 'bool')) {
-            return false;
-        }
 		if(empty($vardef['auto_increment']) && (empty($vardef['type']) || $vardef['type'] != 'id' || (isset($vardef['required']) && empty($vardef['required'])))
 					&& (empty($vardef['dbType']) || $vardef['dbType'] != 'id' || (isset($vardef['required']) && empty($vardef['required'])))
 					&& (empty($vardef['name']) || ($vardef['name'] != 'id' && $vardef['name'] != 'deleted'))
@@ -1086,7 +1076,7 @@ protected function checkQuery($sql, $object_name = false)
 	/**
 	 * Builds the SQL commands that repair a table structure
 	 *
-     * @param  string $tableName Table name
+	 * @param  string $tableName
 	 * @param  array  $fielddefs Field definitions, in vardef format
 	 * @param  array  $indices   Index definitions, in vardef format
 	 * @param  bool   $execute   optional, true if we want the queries executed instead of returned
@@ -1094,7 +1084,8 @@ protected function checkQuery($sql, $object_name = false)
      * @todo: refactor engine param to be more generic
      * @return string
      */
-    public function repairTableParams($tableName, $fielddefs, array $indices, $execute = true, $engine = null)
+
+    public function repairTableParams($tableName, $fielddefs,  $indices, $execute = true, $engine = null)
     {
         global  $sugar_config;
         //jc: had a bug when running the repair if the tablename is blank the repair will
@@ -1420,35 +1411,16 @@ protected function checkQuery($sql, $object_name = false)
      * @param bool $ignoreName Ignore name-only differences?
      * @return bool   true if they match, false if they don't
      */
-    public function compareVarDefs($fielddef1, $fielddef2, $ignoreName = false)
-    {
-        foreach ($fielddef1 as $key => $value) {
-            if ($key == 'name' &&
-                (strtolower($fielddef1[$key]) == strtolower($fielddef2[$key]) ||
-                    $ignoreName) ) {
-                continue;
-            }
-            if (isset($fielddef2[$key])) {
-                if ($fielddef1[$key] == $fielddef2[$key]) {
-                    continue;
-                }
-
-                if ($key === 'default' && // ignore vardef default value = '' and db value = 0.0
-                    isset($fielddef1['type']) && $this->isNumericType($fielddef1['type']) &&
-                    floatval($fielddef1[$key]) == floatval($fielddef2[$key])) {
-                    continue;
-                }
-
-                if ($key === 'auto_increment') { // check loose true value
-                    if (isTruthy($fielddef1[$key]) && isTruthy($fielddef2[$key])) {
-                        continue;
-                    }
-                }
-            }
-            //Ignore len if its not set in the vardef
-            if ($key == 'len' && empty($fielddef2[$key])) {
-                continue;
-            }
+	public function compareVarDefs($fielddef1, $fielddef2, $ignoreName = false)
+	{
+		foreach ( $fielddef1 as $key => $value ) {
+			if ( $key == 'name' && ( strtolower($fielddef1[$key]) == strtolower($fielddef2[$key]) || $ignoreName) )
+				continue;
+			if ( isset($fielddef2[$key]) && $fielddef1[$key] == $fielddef2[$key] )
+				continue;
+			//Ignore len if its not set in the vardef
+			if ($key == 'len' && empty($fielddef2[$key]))
+				continue;
             // if the length in db is greather than the vardef, ignore it
             if ($key == 'len') {
                 list($dblen, $dbprec) = $this->parseLenPrecision($fielddef1);
@@ -1458,10 +1430,10 @@ protected function checkQuery($sql, $object_name = false)
                 }
             }
             return false;
-        }
+		}
 
-        return true;
-    }
+		return true;
+	}
 
 	/**
 	 * Compare a field in two tables
@@ -1824,9 +1796,6 @@ protected function checkQuery($sql, $object_name = false)
 			// We have a count query.  Run it and get the results.
 			$result = $this->query($count_query, true, "Error running count query for $this->object_name List: ");
 			$assoc = $this->fetchByAssoc($result);
-
-			// free resource
-			$this->freeDbResult($result);
 			if(!empty($assoc['c']))
 			{
 				$rows_found = $assoc['c'];
@@ -2172,10 +2141,9 @@ protected function checkQuery($sql, $object_name = false)
 	 * @param  string   $sql        SQL Statement to execute
 	 * @param  bool     $dieOnError True if we want to call die if the query returns errors
 	 * @param  string   $msg        Message to log if error occurs
-	 * @param  bool     $encode   	encode the result
 	 * @return array    single value from the query
 	 */
-	public function getOne($sql, $dieOnError = false, $msg = '', $encode = true)
+	public function getOne($sql, $dieOnError = false, $msg = '')
 	{
 		$this->log->info("Get One: |$sql|");
 		if(!$this->hasLimit($sql)) {
@@ -2187,9 +2155,7 @@ protected function checkQuery($sql, $object_name = false)
 		}
 		$this->checkError($msg.' Get One Failed:' . $sql, $dieOnError);
 		if (!$queryresult) return false;
-		$row = $this->fetchByAssoc($queryresult, $encode);
-
-		$this->freeDbResult($queryresult);
+		$row = $this->fetchByAssoc($queryresult);
 		if(!empty($row)) {
 			return array_shift($row);
 		}
@@ -2202,10 +2168,10 @@ protected function checkQuery($sql, $object_name = false)
 	 * @param  string   $sql        SQL Statement to execute
 	 * @param  bool     $dieOnError True if we want to call die if the query returns errors
 	 * @param  string   $msg        Message to log if error occurs
-	 * @param  bool     $encode   	encode the result
+	 * @param  bool     $suppress   Message to log if error occurs
 	 * @return array    single row from the query
 	 */
-	public function fetchOne($sql, $dieOnError = false, $msg = '', $encode = true)
+	public function fetchOne($sql, $dieOnError = false, $msg = '', $suppress = false)
 	{
 		$this->log->info("Fetch One: |$sql|");
 		$this->checkConnection();
@@ -2214,44 +2180,10 @@ protected function checkQuery($sql, $object_name = false)
 
 		if (!$queryresult) return false;
 
-		$row = $this->fetchByAssoc($queryresult, $encode);
-		$this->freeResult($queryresult);
-
+		$row = $this->fetchByAssoc($queryresult);
 		if ( !$row ) return false;
 
-		return $row;
-	}
-
-	/**
-	 * Runs a limit offset, 1 query and returns a single row
-	 *
-	 * @param  string   $sql        SQL Statement to execute
-	 * @param  bool     $dieOnError True if we want to call die if the query returns errors
-	 * @param  string   $msg        Message to log if error occurs
-	 * @param  bool     $encode     encode result
-	 * @return array    single row from the query
-	 */
-	public function fetchOneOffset($sql, $offset, $dieOnError = false, $msg = '', $encode = true)
-	{
-		$this->log->info("fetch OneOffset: |$sql|");
-		$this->checkConnection();
-
-		if(!$this->hasLimit($sql)) {
-			$queryresult = $this->limitQuery($sql, $offset, 1, $dieOnError, $msg);
-		} else {
-			$queryresult = $this->query($sql, $dieOnError, $msg, $suppress);
-		}
-		$this->checkError($msg.' fetch OneOffset Failed:' . $sql, $dieOnError);
-		if (!$queryresult) {
-			return false;
-		}
-		$row = $this->fetchByAssoc($queryresult, $encode);
-		$this->freeDbResult($queryresult);
-
-		if (!$row) {
-			return false;
-		}
-
+		$this->freeResult($queryresult);
 		return $row;
 	}
 
@@ -2316,22 +2248,6 @@ protected function checkQuery($sql, $object_name = false)
 
 		return array();
 	}
-
-    /**
-     * Returns the min and max number that the field can store. False if not supported
-     * @param array $fieldDef
-     * @return array | boolean eg array('min_value'=>-2147483648, 'max_value'=>2147483647) for int field
-     */
-    public function getFieldRange($fieldDef)
-    {
-        $type = $this->getFieldType($fieldDef);
-
-        if ($type && isset($this->type_range[$type])) {
-            return $this->type_range[$type];
-        }
-
-        return false;
-    }
 
 	/**
 	 * Returns the index description for a given index in table
@@ -2518,7 +2434,6 @@ protected function checkQuery($sql, $object_name = false)
 	 * Generates SQL for insert statement.
 	 *
 	 * @param  SugarBean $bean SugarBean instance
-	 * @param bool usePreparedStatements (will be deprecated in 7.8 version and above)
 	 * @return string SQL Create Table statement
 	 */
 	public function insertSQL(SugarBean $bean, $usePreparedStatements = false)
@@ -2533,7 +2448,6 @@ protected function checkQuery($sql, $object_name = false)
 	 *
 	 * @param  SugarBean $bean SugarBean instance
 	 * @param  array  $where Optional, where conditions in an array
-	 * @param bool usePreparedStatements (will be deprecated in 7.8 version and above)
 	 * @return string SQL Create Table statement
 	 */
 	public function updateSQL(SugarBean $bean, array $where = array(), $usePreparedStatements = false)
@@ -2592,7 +2506,7 @@ protected function checkQuery($sql, $object_name = false)
      * @param array $where Key/value for where
      * @param array $field_map Fields map from SugarBean
      * @param bool $execute Execute or return query?
-     * @param bool $usePreparedStatements (will be deprecated in 7.8 version and above)
+     * @param bool $usePreparedStatements
      *
      * @return bool|string|array|PreparedStatement query result
      */
@@ -2802,6 +2716,7 @@ protected function checkQuery($sql, $object_name = false)
 			// handle some known types
 			switch($this->type_class[$type]) {
 				case 'bool':
+				case 'int':
 					if (!empty($fieldDef['required']) && $val == ''){
 						if (isset($fieldDef['default'])){
 							return $fieldDef['default'];
@@ -2809,31 +2724,20 @@ protected function checkQuery($sql, $object_name = false)
 						return 0;
 					}
 					return intval($val);
-				case 'int':
-					if (!empty($fieldDef['required']) && $val == ''){
-						if (isset($fieldDef['default']) && is_numeric($fieldDef['default'])){
-							return $fieldDef['default'];
-						}
-						return 0;
-					}
-					return intval($val);
-				case 'bigint' :
-					$val = (float)$val;
+                case 'bigint' :
+                    $val = (float)$val;
 					if (!empty($fieldDef['required']) && $val == false){
-						if (isset($fieldDef['default']) && is_numeric($fieldDef['default'])){
+						if (isset($fieldDef['default'])){
 							return $fieldDef['default'];
 						}
 						return 0;
 					}
-					return $val;
+                    return $val;
 				case 'float':
 					if (!empty($fieldDef['required'])  && $val == ''){
-						if (isset($fieldDef['default']) && is_numeric($fieldDef['default'])){
+						if (isset($fieldDef['default'])){
 							return $fieldDef['default'];
 						}
-						return 0;
-					}
-					if (empty($val)){
 						return 0;
 					}
 					return floatval($val);
@@ -2905,9 +2809,6 @@ protected function checkQuery($sql, $object_name = false)
 		if (!empty($fieldDef['required']) || ($fieldDef['name'] == 'id' && !isset($fieldDef['required'])) ) {
 			$fieldDef['required'] = 'true';
 		}
-        if ($fieldDef['type'] === 'bool') {
-            $fieldDef['required'] = 'true';
-        }
 	}
 
 	/**
@@ -2999,7 +2900,6 @@ protected function checkQuery($sql, $object_name = false)
      *
      * @param SugarBean $bean SugarBean instance
      * @param array $where where conditions in an array
-	 * @param bool $usePreparedStatements (will be deprecated in 7.8 version and above)
      * @return string SQL Update Statement
      */
     public function deleteSQL(SugarBean $bean, array $where, $usePreparedStatements = false)
@@ -3019,7 +2919,6 @@ protected function checkQuery($sql, $object_name = false)
      *
      * @param SugarBean $bean SugarBean instance
      * @param array $where where conditions in an array
-	 * @param bool $usePreparedStatements (will be deprecated in 7.8 version and above)
      * @return string SQL Select Statement
      */
     public function retrieveSQL(SugarBean $bean, array $where, $usePreparedStatements = false)
@@ -3215,11 +3114,8 @@ protected function checkQuery($sql, $object_name = false)
             // nothing to do
         } elseif ($this->getFieldType($fieldDef) == 'bool') {
             if (isset($fieldDef['default'])) {
-                $value = (int) isTruthy($fieldDef['default']);
-            } else {
-                $value = 0;
+                $default = " DEFAULT " . (int)isTruthy($fieldDef['default']);
             }
-            $default = " DEFAULT " . $value;
         } elseif (isset($fieldDef['default'])) {
             $default = " DEFAULT " . $this->massageValue($fieldDef['default'], $fieldDef);
         }
@@ -3728,22 +3624,6 @@ protected function checkQuery($sql, $object_name = false)
                     }
                 }
 
-                // if we have a type of currency, we need to convert the value into the base for the system.
-                if (!empty($field_type) && $field_type === 'currency') {
-                    if (empty($before_value)) {
-                        //further processing expects a string, so change empty array into blank string
-                        $before_value = '';
-                    } else {
-                        $before_value = SugarCurrency::convertAmountToBase($before_value, $bean->currency_id);
-                    }
-                    if (empty($after_value)) {
-                        //further processing expects a string, so change empty array into blank string
-                        $after_value = '';
-                    } else {
-                        $after_value = SugarCurrency::convertAmountToBase($after_value, $bean->currency_id);
-                    }
-                }
-
                 //if the type and values match, do nothing.
                 if (!($this->_emptyValue($before_value,$field_type) && $this->_emptyValue($after_value,$field_type))) {
                     $change = false;
@@ -3879,16 +3759,13 @@ protected function checkQuery($sql, $object_name = false)
 	 * @param string $type
      * @return bool
 	 */
-    public function isNumericType($type)
-    {
-        if (isset($this->type_class[$type])) {
-            $dataType = $this->type_class[$type];
-            if ($dataType == 'int' || $dataType == 'float' || $dataType == 'bigint' || $dataType == 'bool') {
-                return true;
-            }
-        }
-        return false;
-    }
+	public function isNumericType($type)
+	{
+	    if(isset($this->type_class[$type]) && ($this->type_class[$type] == 'int' || $this->type_class[$type] == 'float' || $this->type_class[$type] == 'bool')) {
+	        return true;
+	    }
+		return false;
+	}
 
     /**
      * Check if the value is empty value for this type
@@ -4266,40 +4143,33 @@ protected function checkQuery($sql, $object_name = false)
 		return $last;
 	}
 
-    /**
-     * Fetches the next row in the query result into an associative array
-     *
-     * @param  resource $result
-     * @param  bool $encode Need to HTML-encode the result?
-     * @param  bool $freeResult need to free Result or Statement reference
-     * @return array    returns false if there are no more rows available to fetch
-     */
-    public function fetchByAssoc($result, $encode = true, $freeResult = false)
-    {
-        if (empty($result))	return false;
+	/**
+	 * Fetches the next row in the query result into an associative array
+	 *
+	 * @param  resource $result
+	 * @param  bool $encode Need to HTML-encode the result?
+	 * @return array    returns false if there are no more rows available to fetch
+	 */
+	public function fetchByAssoc($result, $encode = true)
+	{
+	    if (empty($result))	return false;
 
-        if(is_int($encode) && func_num_args() == 3) {
-            // old API: $result, $rowNum, $encode
-            $GLOBALS['log']->deprecated("Using row number in fetchByAssoc is not portable and no longer supported. Please fix your code.");
-            $encode = func_get_arg(2);
-            $freeResult = false;
-        }
-
-        if($result instanceof PreparedStatement) {
-            $row = $result->preparedStatementFetch();
-        } else {
-            $row = $this->fetchRow($result);
-            if ($freeResult){
-                // free DB result reference
-                $this->freeDbResult($result);
-            }
-        }
-        if (!empty($row) && $encode && $this->encode) {
-            return array_map(array($this, "encodeHTML"), $row);
-        } else {
-           return $row;
-        }
-    }
+	    if(is_int($encode) && func_num_args() == 3) {
+	        // old API: $result, $rowNum, $encode
+	        $GLOBALS['log']->deprecated("Using row number in fetchByAssoc is not portable and no longer supported. Please fix your code.");
+	        $encode = func_get_arg(2);
+	    }
+	    if($result instanceof PreparedStatement) {
+	       $row = $result->preparedStatementFetch();
+	    } else {
+	       $row = $this->fetchRow($result);
+	    }
+	    if (!empty($row) && $encode && $this->encode) {
+	    	return array_map(array($this, "encodeHTML"), $row);
+	    } else {
+	       return $row;
+	    }
+	}
 
 	/**
 	 * Get DB driver name used for install/upgrade scripts
@@ -4780,14 +4650,13 @@ protected function checkQuery($sql, $object_name = false)
 	abstract public function version();
 
 	/**
-	 * to check if a table with the name $tableName exists
+	 * Checks if a table with the name $tableName exists
 	 * and returns true if it does or false otherwise
 	 *
 	 * @param  string $tableName
 	 * @return bool
 	 */
 	abstract public function tableExists($tableName);
-
 
 	/**
 	 * Fetches the next row in the query result into an associative array

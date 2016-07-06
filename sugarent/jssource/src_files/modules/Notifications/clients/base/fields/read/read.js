@@ -18,7 +18,7 @@
     plugins: ['Tooltip'],
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * The read field is always a readonly field.
      *

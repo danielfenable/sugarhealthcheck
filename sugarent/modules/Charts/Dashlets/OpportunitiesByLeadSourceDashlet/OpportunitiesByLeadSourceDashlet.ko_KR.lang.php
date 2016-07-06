@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,11 +12,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: MyPipelineBySalesStageDashlet.en_us.lang.php 16286 2006-08-22 20:14:45Z wayne $
+$dashletStrings = array (
+  'OpportunitiesByLeadSourceDashlet' => 
+  array (
+    'LBL_DESCRIPTION' => '주 예비고객 출처에 따른 예비고객의 원도표',
+    'LBL_REFRESH' => '도표 새로고침',
+    'LBL_TITLE' => '주 예비고객 출처에 따른 모든 예비고객',
+  ),
+);
 
-
-$dashletStrings['OpportunitiesByLeadSourceDashlet'] = array('LBL_TITLE'       => '주 예비고객 출처에 따른 모든 예비고객',
-                                                       'LBL_DESCRIPTION' => '주 예비고객 출처에 따른 예비고객의 원도표',
-                                                       'LBL_REFRESH'     => '도표 새로고침');
-?>

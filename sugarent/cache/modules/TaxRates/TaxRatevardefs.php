@@ -73,7 +73,7 @@
       'vname' => 'LBL_VALUE',
       'type' => 'decimal',
       'dbType' => 'decimal2',
-      'len' => '26,6',
+      'len' => '7,5',
       'importable' => 'required',
       'required' => true,
     ),
@@ -126,10 +126,20 @@
         0 => 'id',
       ),
     ),
+    1 => 
+    array (
+      'name' => 'idx_taxrates',
+      'type' => 'index',
+      'fields' => 
+      array (
+        0 => 'name',
+        1 => 'deleted',
+      ),
+    ),
   ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
     0 => 'product_bundles',
   ),
+  'custom_fields' => false,
 );

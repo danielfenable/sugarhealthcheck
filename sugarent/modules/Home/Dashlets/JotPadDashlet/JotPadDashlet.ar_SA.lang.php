@@ -19,7 +19,7 @@ $dashletStrings['JotPadDashlet'] = array('LBL_TITLE'            => 'JotPad',
                                          'LBL_SAVING'           => 'جارٍ حفظ JotPad ...',
                                          'LBL_SAVED'            => 'تم الحفظ',
                                          'LBL_CONFIGURE_TITLE'  => 'العنوان',
-                                         'LBL_CONFIGURE_HEIGHT' => 'الارتفاع (1 - 300)',
+                                         'LBL_CONFIGURE_HEIGHT' => 'الارتفاع (1 إلى 300)',
                                          'LBL_DBLCLICK_HELP'    => 'انقر نقرًا مزدوجًا أدناه للتحرير.',
                                          'LBL_DEFAULT_TEXT'     => $defaultText,
 );

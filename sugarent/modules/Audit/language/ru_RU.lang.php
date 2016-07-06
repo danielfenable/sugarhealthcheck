@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'Просмотреть журнал изменений',
-    'LBL_FIELD_NAME' => 'Поле',
-    'LBL_OLD_NAME' => 'Старое значение',
-    'LBL_NEW_VALUE' => 'Новое значение',
-    'LBL_CREATED_BY' => 'Изменено пользователем',
-    'LBL_LIST_DATE' => 'Дата изменения',
-    'LBL_AUDITED_FIELDS' => 'Поля, контролируемые в этом модуле:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'Нет контролируемых полей в этом модуле',
-    'LBL_CHANGE_LOG' => 'История изменений',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'Когда в полях контролируемой валюты сохраняются значения в валюте, отличной от валюты по умолчанию, в журнале изменений будут отображаться старые и новые значения в конвертированной валюте, определяемой системой по умолчанию.'
+
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Поля, контролируемые в этом модуле:',
+  'LBL_AUDIT_TITLE' => 'Просмотреть журнал изменений',
+  'LBL_CHANGE_LOG' => 'История изменений',
+  'LBL_CREATED_BY' => 'Изменено пользователем',
+  'LBL_FIELD_NAME' => 'Поле',
+  'LBL_LIST_DATE' => 'Дата изменения',
+  'LBL_NEW_VALUE' => 'Новое значение',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'Нет контролируемых полей в этом модуле',
+  'LBL_OLD_NAME' => 'Старое значение',
 );
+

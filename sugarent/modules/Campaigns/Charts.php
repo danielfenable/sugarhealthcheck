@@ -45,7 +45,7 @@ class campaign_charts {
 
 			$query = "SELECT activity_type,target_type, count(*) hits ";
 			$query.= " FROM campaign_log ";
-			$query.= " WHERE campaign_id = '$campaign_id' AND archived=0 AND deleted=0 AND target_id IS NOT NULL";
+			$query.= " WHERE campaign_id = '$campaign_id' AND archived=0 AND deleted=0";
 
             //if $marketing id is specified, then lets filter the chart by the value
             if (!empty($marketing_id)){

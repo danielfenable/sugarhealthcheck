@@ -92,7 +92,7 @@
     _recentToggleKey: null,
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Initializes the collections that will be used when the dropdown is
      * opened.
@@ -155,7 +155,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Adds the title and the class for the Home module (Sugar cube).
      */

@@ -64,7 +64,8 @@ class Link {
         $this->_relationship_name=$_rel_name;
 		$this->relationship_fields = (!empty($fieldDef['rel_fields']))?$fieldDef['rel_fields']: array();
 		$this->_bean = $_bean;
-		$this->_relationship = SugarRelationshipFactory::getInstance()->getRelationship($this->_relationship_name);
+		$this->_relationship = BeanFactory::getBean("Relationships");
+		$this->_relationship->retrieve_by_name($this->_relationship_name);
 
 		$this->_db = DBManagerFactory::getInstance();
 
@@ -117,7 +118,7 @@ class Link {
 	}
 
     function loadedSuccesfully() {
-        return !empty($this->_relationship);
+        return !empty($this->_relationship->id);
     }
 
 	/* This method will return the following based on cardinality of the relationship.
@@ -219,23 +220,6 @@ class Link {
 		}
 		return false;
 	}
-
-    /**
-     * Return "many" if multiple records can be related through this link
-     * or "one" if at most, one record can be related.
-     * @return string
-     */
-    public function getType()
-    {
-        if ($this->_relationship->relationship_type == 'one-to-one' ||
-            ($this->_relationship->relationship_type == 'many-to-one' && $this->_get_bean_position()) ||
-            ($this->_relationship->relationship_type == 'one-to-many' && !$this->_get_bean_position())) {
-            return REL_TYPE_ONE;
-        }
-        else {
-            return REL_TYPE_MANY;
-        }
-    }
 
 	function getJoin($params, $return_array =false)
 	{
@@ -1003,7 +987,8 @@ class Link {
 
 		$GLOBALS['log']->debug("relationship_exists query(".$query.')');
 
-		$row = $this->_db->fetchOne($query, true);
+		$result=$this->_db->query($query, true);
+		$row = $this->_db->fetchByAssoc($result);
 
 		if ($row == null) {
 			return false;

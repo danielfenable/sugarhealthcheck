@@ -46,7 +46,8 @@ require_once('include/workflow/workflow_utils.php');
 		$temp_module->call_vardef_handler("template_rel_filter");
 		$temp_module->vardef_handler->start_none=true;
 		$temp_module->vardef_handler->start_none_lbl = $GLOBALS['mod_strings']['LBL_PLEASE_SELECT'];
-		$target_dropdown = get_select_options_with_id($temp_module->vardef_handler->get_vardef_array(true, true, true, true, false, false),"");
+
+		$target_dropdown = get_select_options_with_id($temp_module->vardef_handler->get_vardef_array(true, true, true, true),"");
 		$select_jscript = "onchange=\"window.parent.togglefields('rel_iframe', 'fields_iframe', 'base_module')";	
 		$ext_value = "";
 		$on_start = "";

@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +11,28 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Reporty "trackeru"',
-                                          'LBL_DESCRIPTION'      => 'Budík ke spuštění dotazů proti údajům trackeru',
-                                          'LBL_SAVING'           => 'Spuštění dotazu...',
-                                          'LBL_SAVED'            => 'Dotaz dokončen',
-                                          'LBL_CLEAR'            => 'Smazat',
-                                          'LBL_CLEAR_TOOLTIP'    => 'Vymaže datum hodnoty pole',
-                                          'LBL_CONFIGURE_TITLE'  => 'Titul',
-                                          'LBL_CONFIGURE_HEIGHT' => 'Výška (1-300)',
-										  'LBL_SELECT_QUERY'     => 'Zvolte dotaz',
-										  'LBL_FILTER'              => 'Filtr',
-										  'LBL_FILTER_TOOLTIP'      => 'Filtry podle hodnoty v poli datumu',
-										  'LBL_SINCE'            => 'Od:',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
-										                               '  The date value entered will replace the default date value for the report.' .
-										                               '  For example, in the "My Activity (This Week)" report, the' .
-										                               ' value will be used to display all records after the filter date' .
-										                               ' instead of the default time period of one week.',
+
+
+
+
+
+	
+$dashletStrings = array (
+  'TrackerDashlet' => 
+  array (
+    'LBL_DESCRIPTION' => 'Budík ke spuštění dotazů proti údajům trackeru',
+    'LBL_CHOOSE_DATE_TOOLTIP' => 'Pro výběr zprávy, můžete poskytnout filtrování dat. Datum zadaná hodnota nahradí implicitní hodnotu data pro tuto zprávu. Například, v reportu "Moje aktivity (tento týden)", se bude hodnota používat k zobrazení všech záznamů za filtrem, datum, místo období implicitní dobu jednoho týdne.',
+    'LBL_TITLE' => 'Reporty "trackeru"',
+    'LBL_SAVING' => 'Spuštění dotazu...',
+    'LBL_SAVED' => 'Dotaz dokončen',
+    'LBL_CLEAR' => 'Vyčistit',
+    'LBL_CLEAR_TOOLTIP' => 'Vymaže datum hodnoty pole',
+    'LBL_CONFIGURE_TITLE' => 'Název',
+    'LBL_CONFIGURE_HEIGHT' => 'Výška (1-300)',
+    'LBL_SELECT_QUERY' => 'Zvolte dotaz',
+    'LBL_FILTER' => 'Filtr',
+    'LBL_FILTER_TOOLTIP' => 'Filtry podle hodnoty v poli datumu',
+    'LBL_SINCE' => 'Od:',
+  ),
 );
+

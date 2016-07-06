@@ -168,114 +168,71 @@ class LogicHook{
         }
 	}
 
-    /**
-     * Apply sorting to the hooks using the sort index. Hooks with matching
-     * sort indexes will be processed in no particular order.
-     *
-     * @param array $hookArray
-     * @return array Sorted indices
-     */
-    protected function getProcessOrder(array $hookArray)
-    {
-        $sortedIndices = array();
-        foreach ($hookArray as $idx => $hookDetails) {
-            $sortedIndices[$idx] = $hookDetails[0];
-        }
-        asort($sortedIndices);
-        return array_keys($sortedIndices);
-    }
-
-    /**
-     * Prepare availability of given class
-     * @param string $class Fully qualified class name
-     * @param string $file Optional filename, only used for non namespaced classes
-     * @return boolean
-     */
-    protected function loadHookClass($class, $file = null)
-    {
-        // Ignore file parameter if class is namespaced
-        if (false !== strpos($class, '\\')) {
-            $file = null;
-        }
-
-        // If no file is given, only autoloader can help us out
-        if (empty($file)) {
-            return class_exists($class);
-        }
-
-        // Chech if file exists
-        if (!SugarAutoLoader::load($file)) {
-            return false;
-        }
-
-        // Finally check if our class is available
-        return class_exists($class);
-    }
-
-    /**
-     * Log wrapper
-     * @param string $level Log level
-     * @param string $msg Log message
-     */
-    protected function log($level, $msg)
-    {
-        if (!empty($GLOBALS['log'])) {
-            $GLOBALS['log']->{$level}($msg);
-        }
-    }
-
 	/**
 	 * This is called from call_custom_logic and actually performs the action as defined in the
 	 * logic hook. If the bean is null, then we assume this call was not made from a SugarBean Object and
 	 * therefore we do not pass it to the method call.
 	 *
-	 * @param array $hookArray
+	 * @param array $hook_array
 	 * @param string $event
 	 * @param array $arguments
 	 * @param SugarBean $bean
 	 */
-    public function process_hooks($hookArray, $event, $arguments)
-    {
-        // Skip if event is unknown
-        if (empty($hookArray[$event])) {
-            return;
-        }
+	function process_hooks($hook_array, $event, $arguments){
+		// Now iterate through the array for the appropriate hook
+		if(!empty($hook_array[$event])){
 
-        // Apply sorting
-        $processOrder = $this->getProcessOrder($hookArray[$event]);
+			// Apply sorting to the hooks using the sort index.
+			// Hooks with matching sort indexes will be processed in no particular order.
+			$sorted_indexes = array();
+			foreach($hook_array[$event] as $idx => $hook_details)
+			{
+				$order_idx = $hook_details[0];
+				$sorted_indexes[$idx] = $order_idx;
+			}
+			asort($sorted_indexes);
 
-        foreach ($processOrder as $hookIndex) {
+			$process_order = array_keys($sorted_indexes);
 
-            $hookDetails = $hookArray[$event][$hookIndex];
-            $hookFile = $hookDetails[2];
-            $hookClass = $hookDetails[3];
-            $hookFunc = $hookDetails[4];
+			foreach($process_order as $hook_index){
+				$hook_details = $hook_array[$event][$hook_index];
+				if(!file_exists($hook_details[2])){
+                    if(isset($GLOBALS['log'])){
+					    $GLOBALS['log']->error('Unable to load custom logic file: '.$hook_details[2]);
+                    }
+					continue;
+				}
+				include_once($hook_details[2]);
+				$hook_class = $hook_details[3];
+				$hook_function = $hook_details[4];
 
-            if (!$this->loadHookClass($hookClass, $hookFile)) {
-                $this->log("error", "Unable to load custom logic class '$hookClass'");
-                continue;
-            }
-
-            if ($hookClass == $hookFunc) {
-                $this->log("debug", "Creating new instance of hook class '$hookClass' with parameters");
-                if (!is_null($this->bean)) {
-                    $hookObject = new $hookClass($this->bean, $event, $arguments);
-                } else {
-                    $hookObject = new $hookClass($event, $arguments);
-                }
-            } else {
-                $this->log("debug", "Creating new instance of hook class '$hookClass' without parameters");
-                $hookObject = new $hookClass();
-                if (!is_null($this->bean)) {
-                    $callback = array($hookObject, $hookFunc);
-                    // & is here because of BR-1345 and old broken hooks
-                    // that use &$bean in args.
-                    $params = array_merge(array(&$this->bean, $event, $arguments), array_slice($hookDetails, 5));
-                    call_user_func_array($callback, $params);
-                } else {
-                    $hookObject->$hookFunc($event, $arguments);
-                }
-            }
-        }
-    }
+				// Make a static call to the function of the specified class
+				//TODO Make a factory for these classes.  Cache instances accross uses
+				if($hook_class == $hook_function){
+                    if(isset($GLOBALS['log'])){
+					    $GLOBALS['log']->debug('Creating new instance of hook class '.$hook_class.' with parameters');
+                    }
+					if(!is_null($this->bean))
+						$class = new $hook_class($this->bean, $event, $arguments);
+					else
+						$class = new $hook_class($event, $arguments);
+				}else{
+                    if(isset($GLOBALS['log'])){
+					    $GLOBALS['log']->debug('Creating new instance of hook class '.$hook_class.' without parameters');
+                    }
+					$class = new $hook_class();
+                    if (!is_null($this->bean)) {
+                        $callback = array($class, $hook_function);
+                        // & is here because of BR-1345 and old broken hooks
+                        // that use &$bean in args.
+                        $params = array_merge(array(&$this->bean, $event, $arguments), array_slice($hook_details, 5));
+                        call_user_func_array($callback, $params);
+                    }
+					else
+						$class->$hook_function($event, $arguments);
+				}
+			}
+		}
+	}
 }
+?>

@@ -67,7 +67,7 @@ array (
         'width' => '2', 
         'label' => 'LBL_LIST_TEAM',
         'default' => false
-  ),
+  ),        
   'DATE_START' => 
   array (
     'width' => '15%',

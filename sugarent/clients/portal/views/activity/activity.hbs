@@ -18,10 +18,10 @@
                         {{#if ../collection.models}}
                         {{#each ../../collection.models}}
                         <li class="activity" data-id="{{id}}">
-                            <span class="label label-{{module}} pull-left">{{getModuleName module}}</span>
+                            <a class="avatar pull-left" href="javascript:void(0)" data-toggle="tab"><span class="label label-{{module}}">{{getModuleName module}}</span></a>
                             <p class="ellipsis_inline">
                                 {{#with attributes}}
-                                    <a href="javascript:void(0)" data-action="loadPreview">{{name}}</a>
+                                    <a href="javascript:void(0)">{{name}}</a>
                                     <br>
                                     <date class="date">
                                         {{#if showRelativeTime}}
@@ -33,7 +33,7 @@
                                 {{/with}}
                             </p>
                             <div class="actions">
-                               <a href="javascript:void(0)" rel="tooltip" data-action="loadPreview" title="{{str "LBL_PREVIEW"}}"><i class="fa fa-eye"></i></a>
+                               <a href="javascript:void(0)" rel="tooltip" title="{{str "LBL_PREVIEW"}}"><i class="fa fa-eye"></i></a>
                             </div>
                         </li>
                         {{/each}}

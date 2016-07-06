@@ -47,24 +47,16 @@
             ),
 
             /**
-             * Handle validation errors.
-             *
+             * Handle validation errors
              * Set to edit mode and decorates the field
-             *
-             * @param {Object} errors The validation error(s) affecting this field.
+             * @param {Object} errors The validation error(s) affecting this field
              */
             handleValidationError: function (errors) {
                 this.clearErrorDecoration();
                 _.defer(function (field) {
                     field._errors = errors;
-                    // Only call setMode to re-render if this is the current field we are editing
-                    // Solves issue when the model is on the page more than once, yet we are editing
-                    // in only 1 view. Example Recordlist and Preview together
-                    if (field.parent && field.parent.action === 'edit') {
-                        field.parent.render();
-                    } else if (field.action === 'edit') {
-                        field.render();
-                    }
+                    field.parent ? field.parent.setMode('edit') : field.setMode('edit');
+
                     // As we're now "post form submission", if `no_required_placeholder`, we need to
                     // manually decorateRequired (as we only omit required on form's initial render)
                     if (!field._shouldRenderRequiredPlaceholder()) {
@@ -141,7 +133,7 @@
             },
 
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              * Checks fallback actions first and then follows ACLs checking
              * after that.
              *
@@ -172,7 +164,6 @@
              * Defines fallback rules for ACL checking.
              */
             viewFallbackMap: {
-                'preview': 'detail',
                 'list': 'detail',
                 'edit': 'detail',
                 'detail': 'noaccess',
@@ -187,7 +178,7 @@
             ],
 
             /**
-             * @inheritdoc
+             * {@inheritdoc}
              */
             _getFallbackTemplate: function(viewName) {
                 if (_.contains(this.fallbackActions, viewName)) {
@@ -354,7 +345,7 @@
             },
 
             /**
-             * @inheritdoc
+             * {@inheritdoc}
              *
              * Override setMode to remove any stale view action CSS classes.
              * @override
@@ -368,7 +359,7 @@
             },
 
             /**
-             * @inheritdoc
+             * {@inheritdoc}
              *
              * Override setMode to remove the stale disabled CSS class.
              * @override
@@ -421,10 +412,10 @@
                 // used on non datetime fields
                 var isWrapped = $ftag.parent().hasClass('input-append');
                 if (!isWrapped) {
-                    $ftag.wrap('<div class="input-append ' + ftag + '">');
+                    $ftag.wrap('<div class="input-append error ' + ftag + '">');
+                } else {
+                    $ftag.parent().addClass('error');
                 }
-
-                $ftag.parent().addClass('error');
 
                 $tooltip = $(this.exclamationMarkTemplate(errorMessages));
                 $ftag.after($tooltip);
@@ -444,10 +435,7 @@
              * Destroy all error tooltips.
              */
             destroyAllErrorTooltips: function() {
-                if (!this._errorTooltips) {
-                    return;
-                }
-                app.utils.tooltip.destroy($(this._errorTooltips));
+                app.utils.tooltip.destroy(this._errorTooltips);
                 this._errorTooltips = null;
             },
 
@@ -470,7 +458,7 @@
                 // Remove previous exclamation then add back.
                 this.destroyAllErrorTooltips();
                 this.$('.add-on.error-tooltip').remove();
-                var isWrappedError = $ftag.parent().hasClass('input-append') && $ftag.parent().hasClass('error');
+                var isWrapped = $ftag.parent().hasClass('input-append');
 
                 // FIXME: this check for datetime should be made generic (when
                 // SC-2568 gets in) based on use of normal addon
@@ -478,7 +466,7 @@
                     isCurrencyField = $ftag.parent().hasClass('currency');
                 if (isDateField || isCurrencyField) {
                     $ftag.parent().removeClass('error');
-                } else if (isWrappedError) {
+                } else if (isWrapped) {
                     $ftag.unwrap();
                 }
 
@@ -506,47 +494,31 @@
             },
 
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              * Attach focus handler in order to pass the current element's location.
              */
             bindDomChange: function() {
-                // Need to delay the function with debounce because Chrome 39
-                // auto-scrolls the viewport on tabbing and we want to make sure
-                // that the `handleFocus` is run afterwards.
-                this.$(this.fieldTag).on('focus', _.bind(_.debounce(this.handleFocus, 40), this));
+                this.$(this.fieldTag).on('focus', _.bind(this.handleFocus, this));
                 _fieldProto.bindDomChange.call(this);
             },
 
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              * Calculate current offset location and pass it to the parent's view.
              */
-            handleFocus: function() {
+            handleFocus: function(evt) {
                 if (this.disposed) {
                     return;
                 }
-                //Sometimes, chrome 39 auto-scrolls on tab. So here we reset the
-                //flex list to its scrolling position. Storing the value in data
-                //attributes is done by the recordList.
-                var $flexList = this.$el.closest('.flex-list-view-content');
-                if (!_.isUndefined($flexList)) {
-                    var previousScrollLeftValue = $flexList.data('previousScrollLeftValue');
-                    if (!_.isUndefined(previousScrollLeftValue) && $flexList.scrollLeft() !== previousScrollLeftValue) {
-                        $flexList.scrollLeft(previousScrollLeftValue);
-                        $flexList.removeData('previousScrollLeftValue');
-                    }
-                }
-                var left = this.$el.position().left;
-                var right = this.$el.outerWidth() + left;
-                var top = this.$el.offset().top;
-                var bottom = this.$el.outerHeight() + top;
-                var fieldPadding = parseInt(this.$el.parent().css('padding-left'), 10);
+                var left = this.$el.offset().left,
+                    right = this.$el.outerWidth() + left,
+                    top = this.$el.offset().top,
+                    bottom = this.$el.outerHeight() + top;
                 this.view.trigger('field:focus:location', {
                     left: left,
                     right: right,
                     top: top,
-                    bottom: bottom,
-                    fieldPadding: fieldPadding
+                    bottom: bottom
                 });
             },
 

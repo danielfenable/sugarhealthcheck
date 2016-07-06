@@ -207,7 +207,6 @@ interface IMailer
      * @abstract
      * @access public
      * @throws MailerException
-     * @return string The complete MIME message that was sent.
      */
     public function send();
 }

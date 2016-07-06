@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,24 +10,23 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
+  'LBL_ID' => 'ID',
   'LBL_MODULE_NAME' => 'Artikli kategooriad',
-  'LBL_MODULE_NAME_SINGULAR' => 'Product Category',
   'LBL_MODULE_TITLE' => 'Artikli kategooriad: Avaleht',
   'LBL_SEARCH_FORM_TITLE' => 'Artikli tüübi otsing',
   'LBL_LIST_FORM_TITLE' => 'Artikli kategooria loend',
   'LBL_PRODUCTCATEGORY' => 'Artikli kategooria:',
   'LBL_LIST_NAME' => 'Artikli kategooria',
   'LBL_LIST_DESCRIPTION' => 'Kirjeldus',
-  'LBL_ID' => 'ID',
   'LBL_NAME' => 'Artikli kategooria:',
   'LBL_DESCRIPTION' => 'Kirjeldus:',
   'LBL_LIST_LIST_ORDER' => 'Tellimus',
@@ -41,21 +40,11 @@ $mod_strings = array (
   'NTC_DELETE_CONFIRMATION' => 'Oled kindel, et soovid seda kirjet kustutada?',
   'ERR_DELETE_RECORD' => 'Artikli tüübi kustutamiseks täpsusta kirje numbrit.',
   'NTC_LIST_ORDER' => 'Määra järjekord, mitmendana see kategooria kuvatakse Artikli kategooria rippmenüü nimekirjades',
-  'LNK_IMPORT_PRODUCT_CATEGORIES'=>'Impordi artikli kategooriad:',
+  'LNK_IMPORT_PRODUCT_CATEGORIES' => 'Impordi artikli kategooriad:',
   'LBL_DISABLE_ALERT' => 'See emakataloog on kehtetu',
   'NTC_DELETE_PRUNE_CONFIRMATION' => 'Oled kindel, et soovid selle kategooria kustutada ning ka kõik selle alamkategooriad ning artiklid?',
   'NTC_DELETE_GRAFT_CONFIRMATION' => 'Oled kindel, et soovid selle kategooria kustutada? Kõik alamkategooriad ja artiklid säilivad.',
   'LBL_PARENT_NAME' => 'Emakategooria:',
-  'LBL_CATEGORIES'=> 'Kategooriad',
-  'LBL_EDITLAYOUT' => '' /*for 508 compliance fix*/,
-  'LBL_CREATED_ID'=>'Created By Id',
-  'LBL_MODIFIED_ID'=>'Modified By Id',
-  'LBL_ASSIGNED_USER_NAME' => 'Vastutaja:',
-  //For export labels  
-  'LBL_PARENT_CATEGORY'=> 'Parent Category',
-  'LBL_EXPORT_PARENT_ID'=> 'Parent Category ID',
-  'LBL_EXPORT_MODIFIED_USER_ID' => 'Modified User ID',
-  'LBL_EXPORT_CREATED_BY' => 'Created By ID',
-  'LBL_ASSIGNED_TO_NAME' => 'Määratud kasutaja',
-  );
-?>
+  'LBL_CATEGORIES' => 'Kategooriad',
+);
+

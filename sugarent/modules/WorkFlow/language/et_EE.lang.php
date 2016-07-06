@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,18 +10,23 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
+  'LBL_LIST_UP' => 'up',
+  'LBL_LIST_DN' => 'dn',
+  'LBL_SET' => 'Set',
+  'LBL_AS' => 'as',
+  'LBL_LINK_RECORD' => 'Link to Record',
+  'LBL__S' => '\'s',
   'LBL_MODULE_NAME' => 'Töövoo definitsioonid',
-  'LBL_MODULE_NAME_SINGULAR' => 'Workflow Definition',
-  'LBL_MODULE_ID' => 'Töövoog',  
+  'LBL_MODULE_ID' => 'Töövoog',
   'LBL_MODULE_TITLE' => 'Töövoog: Avaleht',
   'LBL_SEARCH_FORM_TITLE' => 'Töövoo otsing',
   'LBL_LIST_FORM_TITLE' => 'Töövoo loend',
@@ -37,25 +42,20 @@ $mod_strings = array (
   'LBL_BASE_MODULE' => 'Eesmärgi moodul:',
   'LBL_LIST_ORDER' => 'Jätka tellimust:',
   'LBL_FROM_NAME' => 'Nime alt:',
-  'LBL_FROM_ADDRESS' => 'Aadressilt:',  
+  'LBL_FROM_ADDRESS' => 'Aadressilt:',
   'LNK_NEW_WORKFLOW' => 'Loo töövoo definitsioon',
-  'LNK_WORKFLOW' => 'Loendi töövoo defintsioonid', 
-  
-  
+  'LNK_WORKFLOW' => 'Loendi töövoo defintsioonid',
   'LBL_ALERT_TEMPLATES' => 'Teavituse mallid',
   'LBL_CREATE_ALERT_TEMPLATE' => 'Loo teavituse mall:',
   'LBL_SUBJECT' => 'Teema:',
-  
   'LBL_RECORD_TYPE' => 'Kehtib:',
- 'LBL_RELATED_MODULE'=> 'Seotud moodul:',
-  
-  
+  'LBL_RELATED_MODULE' => 'Seotud moodul:',
   'LBL_PROCESS_LIST' => 'Töövoo jada:',
-	'LNK_ALERT_TEMPLATES' => 'Teavituse e-kirja mallid',
-	'LNK_PROCESS_VIEW' => 'Töövoo jada:',
+  'LNK_ALERT_TEMPLATES' => 'Teavituse e-kirja mallid',
+  'LNK_PROCESS_VIEW' => 'Töövoo jada:',
   'LBL_PROCESS_SELECT' => 'Palun vali moodul:',
-  'LBL_LACK_OF_TRIGGER_ALERT'=> 'Märkus: selle töövöö funktsioneerimiseks on vaja luua käivitaja',
-  'LBL_LACK_OF_NOTIFICATIONS_ON'=> 'Märkus: teavituste saatmiseks paku SMTP Serveri infot adminis > e-posti sätted.',
+  'LBL_LACK_OF_TRIGGER_ALERT' => 'Märkus: selle töövöö funktsioneerimiseks on vaja luua käivitaja',
+  'LBL_LACK_OF_NOTIFICATIONS_ON' => 'Märkus: teavituste saatmiseks paku SMTP Serveri infot adminis > e-posti sätted.',
   'LBL_FIRE_ORDER' => 'Töötlemisjärjekord:',
   'LBL_RECIPIENTS' => 'Saajad',
   'LBL_INVITEES' => 'Kutsutud',
@@ -67,33 +67,19 @@ $mod_strings = array (
   'LBL_SELECT_VALUE' => 'Vali väärtus.',
   'LBL_SELECT_MODULE' => 'Palun vali seotud moodul.',
   'LBL_SELECT_FILTER' => 'Vali väli, mida siduda seotud mooduli filtriga.',
-  'LBL_LIST_UP' => 'up',
-  'LBL_LIST_DN' => 'dn',
-  'LBL_SET' => 'Set',
-  'LBL_AS' => 'as',
   'LBL_SHOW' => 'Näita',
   'LBL_HIDE' => 'Peida',
   'LBL_SPECIFIC_FIELD' => 'konkreetne väli',
   'LBL_ANY_FIELD' => 'igasugune väli',
-  'LBL_LINK_RECORD'=>'Link to Record',
-  'LBL_INVITE_LINK'=>'Meeting/Call Invite Link',
-  'LBL_PLEASE_SELECT'=>'Palun vali',
-  'LBL_BODY'=>'Keha:',
-  'LBL__S'=>'&#39;s',
-  'LBL_ALERT_SUBJECT'=>'TÖÖVOO TEAVITUS',
-  'LBL_ACTION_ERROR'=>'Seda tegevust ei saa teostada. Üks või mitu tegevust sisaldavad vigu.',
-  'LBL_ACTION_ERRORS'=>'Hoiatus: Üks või mitu tegevust sisaldavad vigu.',
-  'LBL_ALERT_ERROR'=>'Seda teavitust ei saa teostada. Redigeeri teavitus selliselt, et kõik sätted oleksid kehtivad.',
-  'LBL_ALERT_ERRORS'=>'Hoiatus: üks või mitu allolevat teavitust sisaldavad vigu.',
-  'LBL_TRIGGER_ERROR'=>'Hoiatus: see käivitaja sisaldab kehtetuid väärtuseid ning ei toimi.',
-  'LBL_TRIGGER_ERRORS'=>'Hoiatus: Üks või mitu allolevat käivitajat sisaldavad vigu.',
-  'LBL_UP' => 'Up' /*for 508 compliance fix*/,
-  'LBL_DOWN' => 'Down' /*for 508 compliance fix*/,
-  'LBL_EDITLAYOUT' => 'Edit Layout' /*for 508 compliance fix*/,
-  'LBL_EMAILTEMPLATES_TYPE_LIST_WORKFLOW' => array('workflow' => 'Workflow'),
-  'LBL_EMAILTEMPLATES_TYPE' => 'Type',
-
-  // Workflow sunsetting message, added in 7.6.1
-  'LBL_WORKFLOW_SUNSET_NOTICE' => '<strong>Märkus.</strong> See funktsioon eemaldatakse Sugari tulevasest väljalaskest, mis on hetkel planeeritud aastaks 2017. Väljalaske Sugar Enterprise kliendid peaksid hakkama kasutama Process Authori pakutavaid täiustatud töövoo võimalusi. Lisateabe saamiseks klõpsake <a href="http://www.sugarcrm.com/wf-eol/" target="_blank">siia</a>.',
+  'LBL_INVITE_LINK' => 'Meeting/Call Invite Link',
+  'LBL_PLEASE_SELECT' => 'Palun vali',
+  'LBL_BODY' => 'Keha:',
+  'LBL_ALERT_SUBJECT' => 'TÖÖVOO TEAVITUS',
+  'LBL_ACTION_ERROR' => 'Seda tegevust ei saa teostada. Üks või mitu tegevust sisaldavad vigu.',
+  'LBL_ACTION_ERRORS' => 'Hoiatus: Üks või mitu tegevust sisaldavad vigu.',
+  'LBL_ALERT_ERROR' => 'Seda teavitust ei saa teostada. Redigeeri teavitus selliselt, et kõik sätted oleksid kehtivad.',
+  'LBL_ALERT_ERRORS' => 'Hoiatus: üks või mitu allolevat teavitust sisaldavad vigu.',
+  'LBL_TRIGGER_ERROR' => 'Hoiatus: see käivitaja sisaldab kehtetuid väärtuseid ning ei toimi.',
+  'LBL_TRIGGER_ERRORS' => 'Hoiatus: Üks või mitu allolevat käivitajat sisaldavad vigu.',
 );
 

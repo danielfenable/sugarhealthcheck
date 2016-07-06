@@ -10,7 +10,6 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 *}
-
 <div style="padding:5px" height="100%">
 	<div>
 		<a class="listViewThLinkS1" href="javascript:SUGAR.routing.ui.addRule();">{$app_strings.LBL_ROUTING_ADD_RULE}</a> <a class="listViewThLinkS1" href="javascript:SUGAR.routing.ui.addRule();">{sugar_getimage alt=$app_strings.LBL_ADD name="plus" ext=".gif" other_attributes='align="absmiddle" border="0" '}</a>

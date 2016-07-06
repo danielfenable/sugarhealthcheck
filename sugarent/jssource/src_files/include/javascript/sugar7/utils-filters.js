@@ -16,7 +16,7 @@
             'FilterOptions': Backbone.Model.extend({
 
                 /**
-                 * @inheritdoc
+                 * @inheritDoc
                  */
                 initialize: function(options) {
                     this._filterPopulateNames = [];
@@ -125,7 +125,7 @@
                     }
                     var filterPopulate = this.get('filter_populate') || {};
                     _.each(this._filterRelate, function(toField, fromField) {
-                        filterPopulate[toField] = {$in: [relateModel.get(fromField)]};
+                        filterPopulate[toField] = relateModel.get(fromField);
 
                         var relateNameField = _.find(relateModel.fields, function(field) {
                             return field.id_name === fromField;

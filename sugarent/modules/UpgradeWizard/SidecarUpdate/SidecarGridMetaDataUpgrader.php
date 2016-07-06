@@ -279,8 +279,7 @@ class SidecarGridMetaDataUpgrader extends SidecarAbstractMetaDataUpgrader
     protected function getConvertedPanelName($name, $index)
     {
         // Custom panels on Edit/Detail views were named lbl_{type}view_panel#
-        // For meetings module name is lbl_meeting_information
-        $custom = preg_match('/lbl_(edit|detail)view_panel|lbl_meeting_information/i', $name);
+        $custom = preg_match('/lbl_(edit|detail)view_panel/i', $name);
 
         // If this isn't a custom panel and the index is a known special panel
         // handle it

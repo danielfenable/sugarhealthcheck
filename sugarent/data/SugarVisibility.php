@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -102,11 +103,6 @@ abstract class SugarVisibility
         if (isset($this->options[$name])) {
             return $this->options[$name];
         }
-
-        if ($name === 'action' && $default !== null) {
-            $GLOBALS['log']->warn('Relying on the default action in SugarVisibility is discouraged');
-        }
-
         return $default;
     }
 
@@ -126,11 +122,9 @@ abstract class SugarVisibility
      * updated. Override to implement visibility related attribute updates
      * before the bean is indexed.
      * @return void
-     * @deprecated
      */
     public function beforeSseIndexing()
     {
-        $GLOBALS['log']->deprecated("SugarVisibility::beforeSseIndexing is deprecated !");
     }
 
     /**
@@ -138,11 +132,11 @@ abstract class SugarVisibility
      * @param SugarSearchEngineInterface $engine Sugar search engine objects
      * @param mixed $filter
      * @return mixed
-     * @deprecated
+     *
+     * FIXME: $filter is tightly coupled to Elasticsearch
      */
     public function addSseVisibilityFilter(SugarSearchEngineInterface $engine, $filter)
     {
-        $GLOBALS['log']->deprecated("SugarVisibility::addSseVisibilityFilter is deprecated !");
         return $filter;
     }
 }

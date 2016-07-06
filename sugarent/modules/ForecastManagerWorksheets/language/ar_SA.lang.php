@@ -13,15 +13,15 @@
 $mod_strings = array (
 
     //module strings.
-    'LBL_MODULE_NAME' => 'قوائم إدارة التوقعات',
-    'LBL_MODULE_NAME_SINGULAR' => 'قائمه إدارة التوقعات',
+    'LBL_MODULE_NAME' => 'أوراق عمل إدارة التنبؤ',
+    'LBL_MODULE_NAME_SINGULAR' => 'ورقة عمل إدارة التنبؤ',
     'LNK_NEW_OPPORTUNITY' => 'إنشاء فرصة',
-    'LBL_MODULE_TITLE' => 'قوائم إدارة التوقعات',
-    'LBL_LIST_FORM_TITLE' => 'التوقعات المؤكدة',
-    'LNK_UPD_FORECAST' => 'قائمه إدارة التوقعات',
+    'LBL_MODULE_TITLE' => 'أوراق عمل إدارة التنبؤ',
+    'LBL_LIST_FORM_TITLE' => 'التنبؤات المؤكدة',
+    'LNK_UPD_FORECAST' => 'ورقة عمل إدارة التنبؤ',
     'LNK_QUOTA' => 'عرض الحصص النسبية',
-    'LNK_FORECAST_LIST' => 'عرض سجل التوقع',
-    'LBL_FORECAST_HISTORY' => 'التوقعات: السجل',
+    'LNK_FORECAST_LIST' => 'عرض سجل التنبؤ',
+    'LBL_FORECAST_HISTORY' => 'التنبؤات: السجل',
     'LBL_FORECAST_HISTORY_TITLE' => 'السجل',
 
     //var defs
@@ -30,9 +30,9 @@ $mod_strings = array (
     'LBL_REPORTS_TO_USER_NAME' => 'تقارير إلى',
 
     //forecast table
-    'LBL_FORECAST_ID' => 'معرّف التوقع',
+    'LBL_FORECAST_ID' => 'معرّف التنبؤ',
     'LBL_FORECAST_TIME_ID' => 'معرّف الفترة الزمنية',
-    'LBL_FORECAST_TYPE' => 'نوع التوقع',
+    'LBL_FORECAST_TYPE' => 'نوع التنبؤ',
     'LBL_FORECAST_OPP_COUNT' => 'إجمالي عدد الفرص',
     'LBL_FORECAST_PIPELINE_OPP_COUNT' => 'عدد الفرص للتدفق',
     'LBL_FORECAST_OPP_WEIGH'=> 'المبلغ المقدر',
@@ -54,9 +54,9 @@ $mod_strings = array (
     'LBL_QC_COMMIT_BUTTON' => 'تأكيد',
     'LBL_QC_WORKSHEET_BUTTON' => 'ورقة العمل',
     'LBL_QC_ROLL_COMMIT_VALUE' => 'المبلغ المؤكد التراكمي:',
-    'LBL_QC_DIRECT_FORECAST' => 'التوقع المباشر الخاص بي:',
-    'LBL_QC_ROLLUP_FORECAST' => 'مجموعة التوقع الخاصة بي:',
-    'LBL_QC_UPCOMING_FORECASTS' => 'التوقعات الخاصة بي',
+    'LBL_QC_DIRECT_FORECAST' => 'التنبؤ المباشر الخاص بي:',
+    'LBL_QC_ROLLUP_FORECAST' => 'مجموعة التنبؤ الخاصة بي:',
+    'LBL_QC_UPCOMING_FORECASTS' => 'التنبؤات الخاصة بي',
     'LBL_QC_LAST_DATE_COMMITTED' => 'آخر تاريخ تأكيد:',
     'LBL_QC_LAST_COMMIT_VALUE' => 'آخر مبلغ مؤكد:',
     'LBL_QC_HEADER_DELIM'=> 'إلى',
@@ -72,26 +72,54 @@ $mod_strings = array (
     'LBL_OW_DESCRIPTION'=>'الوصف',
     'LBL_OW_TYPE'=>'النوع',
 
+    //forecast schedule shortcuts
+    'LNK_NEW_TIMEPERIOD' => 'إنشاء فترة زمنية',
+    'LNK_TIMEPERIOD_LIST' => 'عرض الفترات الزمنية',
+
+    //Forecast schedule sub panel list view.
+    'LBL_SVFS_FORECASTDATE' => 'جدولة تاريخ البدء',
+    'LBL_SVFS_STATUS' => 'الحالة',
+    'LBL_SVFS_USER' => 'لـ',
+    'LBL_SVFS_CASCADE' => 'تتالٍ للتقارير؟',
+    'LBL_SVFS_HEADER' => 'جدول التنبؤ:',
+
+    //Forecast Schedule detail; view.....
+    'LB_FS_KEY' => 'المعرّف',
+    'LBL_FS_TIMEPERIOD_ID' => 'معرّف الفترة الزمنية',
+    'LBL_FS_USER_ID' => 'معرّف المستخدم',
+    'LBL_FS_TIMEPERIOD' => 'الفترة الزمنية',
+    'LBL_FS_START_DATE' => 'تاريخ البدء',
+    'LBL_FS_END_DATE' => 'تاريخ الانتهاء',
+    'LBL_FS_FORECAST_START_DATE' => "تاريخ بدء التنبؤ",
+    'LBL_FS_STATUS' => 'الحالة',
+    'LBL_FS_FORECAST_FOR' => 'جدولة لـ:',
+    'LBL_FS_CASCADE' =>'تتالٍ؟',
+    'LBL_FS_MODULE_NAME' => 'جدول التنبؤ',
+    'LBL_FS_CREATED_BY' =>'تم الإنشاء بواسطة',
+    'LBL_FS_DATE_ENTERED' => 'تاريخ الإدخال',
+    'LBL_FS_DATE_MODIFIED' => 'تاريخ التعديل',
+    'LBL_FS_DELETED' => 'تم الحذف',
+
     //forecast worksheet direct reports forecast
     'LBL_FDR_USER_NAME'=>'تقرير مباشر',
-    'LBL_FDR_OPPORTUNITIES'=>'الفرص في التوقع:',
+    'LBL_FDR_OPPORTUNITIES'=>'الفرص في التنبؤ:',
     'LBL_FDR_WEIGH'=>'المبلغ المقدر للفرص:',
     'LBL_FDR_COMMIT'=>'المبلغ المؤكد',
     'LBL_FDR_DATE_COMMIT'=>'تاريخ التأكيد',
 
     //detail view.
-    'LBL_DV_HEADER' => 'التوقعات: ورقة العمل',
-    'LBL_DV_MY_FORECASTS' => 'التوقعات الخاصة بي',
-    'LBL_DV_MY_TEAM' => "توقعات فريقي" ,
+    'LBL_DV_HEADER' => 'التنبؤات: ورقة العمل',
+    'LBL_DV_MY_FORECASTS' => 'التنبؤات الخاصة بي',
+    'LBL_DV_MY_TEAM' => "تنبؤات فريقي" ,
     'LBL_DV_TIMEPERIODS' => 'الفترات الزمنية:',
-    'LBL_DV_FORECAST_PERIOD' => 'فترة التوقع الزمنية',
-    'LBL_DV_FORECAST_OPPORTUNITY' => 'فرص التوقع',
+    'LBL_DV_FORECAST_PERIOD' => 'فترة التنبؤ الزمنية',
+    'LBL_DV_FORECAST_OPPORTUNITY' => 'فرص التنبؤ',
     'LBL_SEARCH' => 'تحديد',
     'LBL_SEARCH_LABEL' => 'تحديد',
-    'LBL_COMMIT_HEADER' => 'تأكيد التوقع',
+    'LBL_COMMIT_HEADER' => 'تأكيد التنبؤ',
     'LBL_DV_LAST_COMMIT_DATE' =>'آخر تاريخ تأكيد:',
     'LBL_DV_LAST_COMMIT_AMOUNT' =>'آخر مبالغ التأكيد:',
-    'LBL_DV_FORECAST_ROLLUP' => 'إظهار التوقع',
+    'LBL_DV_FORECAST_ROLLUP' => 'إظهار التنبؤ',
     'LBL_DV_TIMEPERIOD' => 'الفترة الزمنية:',
     'LBL_DV_TIMPERIOD_DATES' => 'نطاق التاريخ:',
     'LBL_LOADING_COMMIT_HISTORY' => 'يتم الآن تحميل سجل التأكيد...',
@@ -100,7 +128,7 @@ $mod_strings = array (
     'LBL_LV_TIMPERIOD'=> 'الفترة الزمنية',
     'LBL_LV_TIMPERIOD_START_DATE'=> 'تاريخ البدء',
     'LBL_LV_TIMPERIOD_END_DATE'=> 'تاريخ الانتهاء',
-    'LBL_LV_TYPE'=> 'نوع التوقع',
+    'LBL_LV_TYPE'=> 'نوع التنبؤ',
     'LBL_LV_COMMIT_DATE'=> 'تاريخ التأكيد',
     'LBL_LV_OPPORTUNITIES'=> 'الفرص',
     'LBL_LV_WEIGH'=> 'المبلغ المقدر',
@@ -115,7 +143,7 @@ $mod_strings = array (
     'LBL_FC_START_DATE' => 'تاريخ البدء',
     'LBL_FC_USER' => 'جدولة لـ',
 
-    'LBL_NO_ACTIVE_TIMEPERIOD'=>'لا توجد فترات زمنية نشطة لوحدة التوقعات.',
+    'LBL_NO_ACTIVE_TIMEPERIOD'=>'لا توجد فترات زمنية نشطة لوحدة التنبؤات.',
     'LBL_FDR_ADJ_AMOUNT'=>'المبلغ المعدل',
     'LBL_SAVE_WOKSHEET'=>'حفظ ورقة العمل',
     'LBL_RESET_WOKSHEET'=>'إعادة تعيين ورقة العمل',
@@ -130,7 +158,7 @@ $mod_strings = array (
     'LBL_QUOTA' => 'الحصة النسبية',
     'LBL_QUOTA_ADJUSTED' => 'الحصة النسبية (معدلة)',
 
-    'LBL_FORECAST' => 'التوقع',
+    'LBL_FORECAST' => 'التنبؤ',
     'LBL_COMMIT_STAGE' => 'تأكيد المرحلة',
     'LBL_SALES_STAGE' => 'مرحلة',
     'LBL_AMOUNT' => 'المبلغ',
@@ -141,7 +169,6 @@ $mod_strings = array (
     'LBL_VERSION' => 'الإصدار',
 
     // Label for Current User Rep Worksheet Line
-    // &#x200E; tells the browser to interpret as left-to-right
     'LBL_MY_MANAGER_LINE' => '{{full_name}} (أنا)',
 
     'LBL_EDITABLE_INVALID' => 'قيمة غير صالحة لـ {{field_name}}',

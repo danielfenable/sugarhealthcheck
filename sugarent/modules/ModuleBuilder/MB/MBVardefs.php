@@ -155,7 +155,7 @@ class MBVardefs{
         if (!isset($vardef['default'])) {
             unset($vardef['default']);
         }
-        if (empty($this->vardef['fields'][$vardef['name']]) && empty($this->vardefs['fields'][$vardef['name']])) {
+        if(empty($this->vardef['fields'][$vardef['name']])) {
             // clean up names for new fields
             $vardef['name'] = $this->validateVardefName($vardef['name']);
         }

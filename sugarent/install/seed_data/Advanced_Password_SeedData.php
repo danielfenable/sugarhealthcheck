@@ -15,7 +15,6 @@ require('config.php');
 global $sugar_config;
 global $timedate;
 global $mod_strings;
-
 require_once('modules/Teams/Team.php');
 $Team = new Team();
 $Team_id = $Team->retrieve_team_id('Administrator');
@@ -28,7 +27,6 @@ $EmailTemp->subject = $mod_strings['advanced_password_new_account_email']['subje
 $EmailTemp->body = $mod_strings['advanced_password_new_account_email']['txt_body'];
 $EmailTemp->body_html = $mod_strings['advanced_password_new_account_email']['body'];
 $EmailTemp->deleted = 0;
-
 $EmailTemp->team_id = $Team_id;
 $EmailTemp->published = 'off';
 $EmailTemp->text_only = 0;
@@ -43,7 +41,6 @@ $EmailTemp->subject = $mod_strings['advanced_password_forgot_password_email']['s
 $EmailTemp->body = $mod_strings['advanced_password_forgot_password_email']['txt_body'];
 $EmailTemp->body_html = $mod_strings['advanced_password_forgot_password_email']['body'];
 $EmailTemp->deleted = 0;
-
 $EmailTemp->team_id = $Team_id;
 $EmailTemp->published = 'off';
 $EmailTemp->text_only = 0;

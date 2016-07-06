@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-Получете API ключ от Citrix Online GoToMeeting, като регистрирате ново приложение.<br>
-&nbsp;<br>
-Стъпки за регистриране на Вашата инсталация:<br>
-&nbsp;<br>
-<ol>
-<li>Влезте във Вашия профил на разработчик в Citrix Online: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>Щракнете върху Кандидатстване за развоен ключ</li>
-<li>В API на продукта изберете GoToMeeting и въведете URL адреса на Вашата инсталация в полето за URL адрес на приложение</li>
-<li>Под Вашите приложения ще видите колона, озаглавена API ключ</li>
-<li>Копирайте я по-долу.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'API ключ',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />Получете развоен ключ от Citrix Online GoToMeeting като регистрирате вашата инсталация.<br><br />&nbsp;<br><br />Стъпки за регистрация на вашата инсталация:<br><br />&nbsp;<br><br /><ol><br /><li>На адрес: https://developer.citrixonline.com/ влезте кати използвате вашия профил</li><br /><li>Натиснете върху Кандидатстване за развоен ключ / Apply for Developer Key</li><br /><li>В продуктовия интерфейс / Product API маркирайте GoToMeeting и въведете URL на вашата инсталция</li><br /><li>Ще видите колона именована API Key в изпратената от вас заявка</li><br /><li>Копирайте го по-долу в текущата страница.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'Ключ',
 );
+

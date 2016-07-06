@@ -61,12 +61,9 @@ $dictionary['Lead'] = array(
             'type' => 'enum',
             'len' => '100',
             'options' => 'lead_status_dom',
-            'default' => 'New',
             'audited' => true,
             'comment' => 'Status of the lead',
             'merge_filter' => 'enabled',
-            //Fixme PAT-2241 will remove this when SugarLogic is supported in preview
-            'previewEdit' => false,
         ),
         'status_description' => array(
             'name' => 'status_description',
@@ -149,27 +146,8 @@ $dictionary['Lead'] = array(
             'type' => 'varchar',
             'len' => '255',
             'unified_search' => true,
+            'full_text_search' => array('enabled' => true, 'boost' => 3),
             'comment' => 'Account name for lead',
-        ),
-        'account_to_lead' => array(
-            'name' => 'account_to_lead',
-            'rname' => 'name',
-            'type' => 'relate',
-            'link' => 'accounts',
-            'isnull' => 'true',
-            'source' => 'non-db',
-            'unified_search' => false,
-            'studio' => false,
-            'massupdate' => false,
-            'populate_list' => array(
-                'billing_address_street' => 'primary_address_street',
-                'billing_address_city' => 'primary_address_city',
-                'billing_address_state' => 'primary_address_state',
-                'billing_address_postalcode' => 'primary_address_postalcode',
-                'billing_address_country' => 'primary_address_country',
-                'phone_office' => 'phone_work',
-            ),
-            'importable' => 'false',
         ),
         'accounts' => array(
             'name' => 'accounts',
@@ -186,6 +164,7 @@ $dictionary['Lead'] = array(
             'type' => 'text',
             'group' => 'account_name',
             'unified_search' => true,
+            'full_text_search' => array('enabled' => true, 'boost' => 1),
             'comment' => 'Description of lead account'
         ),
         'contact_id' => array(
@@ -411,7 +390,9 @@ $dictionary['Lead'] = array(
             'len' => '255',
             'group' => 'portal',
             'comment' => 'Portal user name when lead created via lead portal',
-            'studio' => true,
+            //BEGIN SUGARCRM flav!=ent
+            'studio' => 'false',
+            //END SUGARCRM
         ),
         'portal_app' => array(
             'name' => 'portal_app',
@@ -420,7 +401,8 @@ $dictionary['Lead'] = array(
             'group' => 'portal',
             'len' => '255',
             'comment' => 'Portal application that resulted in created of lead',
-            'studio' => true,
+            //BEGIN SUGARCRM flav!=ent
+            'studio' => 'false',
         ),
         'website' => array(
             'name' => 'website',
@@ -708,6 +690,7 @@ $dictionary['Lead'] = array(
     ),
     //This enables optimistic locking for Saves From EditView
     'optimistic_locking' => true,
+
 );
 
 VardefManager::createVardef(
@@ -720,16 +703,3 @@ VardefManager::createVardef(
         'person'
     )
 );
-
-//boost value for full text search
-$dictionary['Lead']['fields']['first_name']['full_text_search']['boost'] = 1.87;
-$dictionary['Lead']['fields']['last_name']['full_text_search']['boost'] = 1.85;
-$dictionary['Lead']['fields']['email']['full_text_search']['boost'] = 1.83;
-$dictionary['Lead']['fields']['phone_home']['full_text_search']['boost'] = 1.02;
-$dictionary['Lead']['fields']['phone_mobile']['full_text_search']['boost'] = 1.01;
-$dictionary['Lead']['fields']['phone_work']['full_text_search']['boost'] = 1.00;
-$dictionary['Lead']['fields']['phone_other']['full_text_search']['boost'] = 0.99;
-$dictionary['Lead']['fields']['phone_fax']['full_text_search']['boost'] = 0.98;
-$dictionary['Lead']['fields']['description']['full_text_search']['boost'] = 0.70;
-$dictionary['Lead']['fields']['primary_address_street']['full_text_search']['boost'] = 0.31;
-$dictionary['Lead']['fields']['alt_address_street']['full_text_search']['boost'] = 0.30;

@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 48695 2009-06-17 16:28:51Z eddy $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -19,8 +19,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 
 $mod_strings = array (
-  'LBL_REPLY_ADDR' => 'عنوان "الرد على": ',
-  'LBL_REPLY_NAME' => 'اسم "الرد على": ',
+  'LBL_REPLY_ADDR' => 'عنوان "الرد إلى": ',
+  'LBL_REPLY_NAME' => 'اسم "الرد إلى": ',
 
   'LBL_MODULE_NAME' => 'البريد التسويقي',
   'LBL_MODULE_NAME_SINGULAR' => 'البريد التسويقي',

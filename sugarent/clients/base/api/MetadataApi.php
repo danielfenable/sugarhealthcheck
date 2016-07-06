@@ -163,38 +163,6 @@ class MetadataApi extends SugarApi
 
 
     /**
-     * To massage metadata for backward compatibility.
-     *
-     * @param ServiceBase $api
-     * @param array $args
-     * @param array $data
-     * @return array
-     */
-    protected function massageMetaData(ServiceBase $api, array $args, array $data)
-    {
-        if (empty($args['module_dependencies']) && $api->getRequest()->getVersion() < 11) {
-            foreach ($data['modules'] as $module => &$modMeta) {
-                // move module level dependencies $modMeta['dependencies'] to each view
-                if (!empty($modMeta['dependencies']) && !empty($modMeta['views'])) {
-                    foreach ($modMeta['views'] as $view => &$viewMeta) {
-                        if (is_array($viewMeta) && !empty($viewMeta['meta'])) {
-                            if (!isset($viewMeta['meta']['dependencies']) ||
-                                !is_array($viewMeta['meta']['dependencies'])) {
-                                $viewMeta['meta']['dependencies'] = array();
-                            }
-                            foreach ($modMeta['dependencies'] as $dep) {
-                                $viewMeta['meta']['dependencies'][] = $dep;
-                            }
-                        }
-                    }
-                    unset($modMeta['dependencies']);
-                }
-            }
-        }
-        return $data;
-    }
-
-    /**
      * Authenticated metadata request endpoint
      * 
      * @param ServiceBase $api
@@ -216,9 +184,6 @@ class MetadataApi extends SugarApi
 
         // Get our metadata now
         $data = $mm->getMetadata($args);
-
-        // handle dependency backward compatiblity
-        $data = $this->massageMetaData($api, $args, $data);
 
         // These are the base metadata sections in private metadata
         $sections = $mm->getSections();
@@ -365,23 +330,17 @@ class MetadataApi extends SugarApi
      */
     public function getLanguage(ServiceBase $api, array $args, $public = false)
     {
-        $return = '';
-
-        //Since this is a raw response we need to set the content type ourselves.
-        $api->getResponse()->setHeader("Content-Type", "application/json");
-
         // Get the metadata manager we need first
         $mm = $this->getMetaDataManager($api->platform, $public);
-        $lang = $mm->getLanguage($args);
 
-        //generate hash
-        $hash = md5($lang);
+         //Since this is a raw response we need to set the content type ourselves.
+        $api->getResponse()->setHeader("Content-Type", "application/json");
+        //Cache language files forever as the request includes the hash in the URL
+        $api->getResponse()->setHeader("Cache-Control" , "max-age=31556940, private");
+        $api->getResponse()->setHeader("Pragma" , "");
+        $api->getResponse()->setHeader('Expires', gmdate('D, d M Y H:i:s \G\M\T', time() + 31556940));
 
-        if (!$api->generateETagHeader($hash, 0)) {
-            $return = $lang;
-        }
-
-        return $return;
+        return $mm->getLanguage($args);
     }
 
     /**

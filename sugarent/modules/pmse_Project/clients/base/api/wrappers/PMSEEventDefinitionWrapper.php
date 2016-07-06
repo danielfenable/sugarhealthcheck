@@ -13,7 +13,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  */
 
 require_once 'modules/pmse_Inbox/engine/PMSEEngineUtils.php';
-require_once 'modules/pmse_Project/clients/base/api/wrappers/PMSEObservers/PMSEObservable.php';
+require_once 'PMSEObservers/PMSEObservable.php';
 
 
 class PMSEEventDefinitionWrapper implements PMSEObservable
@@ -128,7 +128,7 @@ class PMSEEventDefinitionWrapper implements PMSEObservable
         $result = array();
         $this->event->retrieve_by_string_fields(array('evn_uid' => $args['record']));
         if ($this->event->fetched_row != false) {
-            $this->eventDefinition->retrieve($this->event->id);
+            $this->eventDefinition->retrieve_by_string_fields(array('id' => $this->event->id));
             if ($this->eventDefinition->fetched_row != false) {
                 $result = array_merge($result, $this->eventDefinition->fetched_row);
                 $result['evn_uid'] = $this->event->fetched_row['evn_uid'];
@@ -164,7 +164,7 @@ class PMSEEventDefinitionWrapper implements PMSEObservable
 
                     $args = $args['data'];
 
-                    $this->eventDefinition->retrieve($this->event->id);
+                    $this->eventDefinition->retrieve_by_string_fields(array('id' => $this->event->id));
                     if (!isset($args['evn_status'])) {
                         $args['evn_status'] = 'ACTIVE';
                     }

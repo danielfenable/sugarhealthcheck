@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,27 +12,25 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-// $Id: en_us.lang.php 13782 2006-06-06 17:58:55Z majed $
+	
 
 $mod_strings = array (
-	'LBL_ROLE' => 'Rola',
-	'LBL_LANGUAGE' => 'Jazyk:',
-	'LBL_MODULE_NAME' => 'Role',
-	'LBL_MODULE_NAME_SINGULAR' => 'Rola',
-	'LBL_MODULE_TITLE' => 'Role: Hlavná stránka',
-	'LBL_SEARCH_FORM_TITLE' => 'Vyhľadávanie role',
-	'LBL_LIST_FORM_TITLE' => 'Zoznam rolí',
-	'LNK_NEW_ROLE' => 'Vytvoriť rolu',
-	'LNK_ROLES' => 'Role',
-	'LBL_NAME' => 'Meno:',
-	'LBL_DESCRIPTION' => 'Popis:',
-	'LBL_ALLOWED_MODULES' => 'Dostupné moduly:',
-	'LBL_DISALLOWED_MODULES' => 'Zakázané moduly:',
-	'LBL_ASSIGN_MODULES' => 'Úprava modulov:',
-	'LBL_DEFAULT_SUBPANEL_TITLE' => 'Role',
-	'LBL_USERS'=>'Užívatelia',
-	
-	'LBL_USERS_SUBPANEL_TITLE' => 'Užívatelia',
+  'LBL_ALLOWED_MODULES' => 'Dostupné moduly:',
+  'LBL_ASSIGN_MODULES' => 'Úprava modulov:',
+  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Role',
+  'LBL_DESCRIPTION' => 'Popis:',
+  'LBL_DISALLOWED_MODULES' => 'Zakázané moduly:',
+  'LBL_LANGUAGE' => 'Jazyk:',
+  'LBL_LIST_FORM_TITLE' => 'Zoznam rolí',
+  'LBL_MODULE_NAME' => 'Role',
+  'LBL_MODULE_NAME_SINGULAR' => 'Rola',
+  'LBL_MODULE_TITLE' => 'Role: Hlavná stránka',
+  'LBL_NAME' => 'Meno:',
+  'LBL_ROLE' => 'Rola',
+  'LBL_SEARCH_FORM_TITLE' => 'Vyhľadávanie role',
+  'LBL_USERS' => 'Užívatelia',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Užívatelia',
+  'LNK_NEW_ROLE' => 'Vytvoriť rolu',
+  'LNK_ROLES' => 'Role',
 );
-?>
+

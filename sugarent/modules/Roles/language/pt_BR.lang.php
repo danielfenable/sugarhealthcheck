@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,27 +12,25 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-// $Id: en_us.lang.php 13782 2006-06-06 17:58:55Z majed $
+	
 
 $mod_strings = array (
-	'LBL_ROLE' => 'Função:',
-	'LBL_LANGUAGE' => 'Idioma:',
-	'LBL_MODULE_NAME' => 'Funções',
-	'LBL_MODULE_NAME_SINGULAR' => 'Função',
-	'LBL_MODULE_TITLE' => 'Funções: Tela Principal',
-	'LBL_SEARCH_FORM_TITLE' => 'Pesquisa de funções',
-	'LBL_LIST_FORM_TITLE' => 'Lista de funções',
-	'LNK_NEW_ROLE' => 'Criar função',
-	'LNK_ROLES' => 'Funções',
-	'LBL_NAME' => 'Nome:',
-	'LBL_DESCRIPTION' => 'Descrição:',
-	'LBL_ALLOWED_MODULES' => 'Módulos permitidos:',
-	'LBL_DISALLOWED_MODULES' => 'Módulos proibidos:',
-	'LBL_ASSIGN_MODULES' => 'Editar módulos:',
-	'LBL_DEFAULT_SUBPANEL_TITLE' => 'Funções',
-	'LBL_USERS'=>'Usuários',
-	
-	'LBL_USERS_SUBPANEL_TITLE' => 'Usuários',
+  'LBL_ALLOWED_MODULES' => 'Módulos permitidos:',
+  'LBL_ASSIGN_MODULES' => 'Editar módulos:',
+  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Funções',
+  'LBL_DESCRIPTION' => 'Descrição:',
+  'LBL_DISALLOWED_MODULES' => 'Módulos proibidos:',
+  'LBL_LANGUAGE' => 'Idioma:',
+  'LBL_LIST_FORM_TITLE' => 'Listar Funções',
+  'LBL_MODULE_NAME' => 'Funções',
+  'LBL_MODULE_NAME_SINGULAR' => 'Perfil',
+  'LBL_MODULE_TITLE' => 'Funções: Tela Principal',
+  'LBL_NAME' => 'Nome:',
+  'LBL_ROLE' => 'Função:',
+  'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Funções',
+  'LBL_USERS' => 'Usuários',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Usuários',
+  'LNK_NEW_ROLE' => 'Criar Nova Função',
+  'LNK_ROLES' => 'Funções',
 );
-?>
+

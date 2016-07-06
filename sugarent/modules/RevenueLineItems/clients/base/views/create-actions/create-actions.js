@@ -1,0 +1,14 @@
+/*
+     * Your installation or use of this SugarCRM file is subject to the applicable
+     * terms available at
+     * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+     * If you do not agree to all of the applicable terms or do not have the
+     * authority to bind the entity as an authorized representative, then do not
+     * install or use this SugarCRM file.
+     *
+     * Copyright (C) SugarCRM Inc. All rights reserved.
+     */
+({extendsFrom:'CreateActionsView',initialize:function(options){this._super("initialize",[options]);this._parsePanelFields(this.meta.panels);},bindDataChange:function(){this.model.on('change:likely_case',this._handleLikelyChange,this);this._super('bindDataChange');},_handleLikelyChange:function(new_model,val,options){if(_.isEmpty(new_model.get('product_template_id'))&&!_.isFinite(new_model.get('discount_price'))){var quantity=new_model.get('quantity'),new_value='';if(!_.isFinite(quantity)||parseFloat(quantity)===0){quantity=1;}
+if(!_.isEmpty(val)){new_value=app.math.div(val,quantity);}
+new_model.set({discount_price:new_value});}},_parsePanelFields:function(panels){_.each(panels,function(panel){if(!app.metadata.getModule("Forecasts","config").is_setup){_.every(panel.fields,function(field,index){if(field.name=='commit_stage'){panel.fields[index]={'name':'spacer','label':field.label,'span':6,'readonly':true};return false;}
+return true;},this);}},this);}})

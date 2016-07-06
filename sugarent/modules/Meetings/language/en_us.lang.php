@@ -16,7 +16,6 @@ $mod_strings = array (
 	'LBL_ADD_INVITEE' => 'Add Invitees',
 	'LBL_COLON' => ':',
 	'LBL_CONTACT_NAME' => 'Contact:',
-    'LBL_CONTACT_ID'   => 'Contact Id',
 	'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contacts',
 	'LBL_CREATED_BY'=>'Created by',
 	'LBL_DATE_END'=>'End Date',
@@ -115,7 +114,6 @@ $mod_strings = array (
     'LBL_ACCEPT_STATUS' => 'Accept Status',
     'LBL_ACCEPT_LINK' => 'Accept Link',
     'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'There was an error launching this meeting. Please contact your Administrator.',
-    'LBL_EXTERNAL_MEETING_NO_URL' => 'The link to launch {{meetingType}} was not generated properly when the meeting was created. Please contact your Administrator.',
     // You are not invited to the meeting messages
     'LBL_EXTNOT_HEADER' => 'Error: Not Invited',
     'LBL_EXTNOT_MAIN' => 'You are not able to join this Meeting because you are not an Invitee.',
@@ -211,5 +209,7 @@ To create a {{meetings_singular_module}}:
 2. Add invitees to the {{meetings_singular_module}}.
     - Click "Select an Attendee" to add an existing user, contact, or lead to the {{meetings_singular_module}}.
     - Click the plus icon to the right of "Select an Attendee" to create a {{meetings_singular_module}} attendee as a new Sugar record.
-3. Click "Save" to finalize the new record and return to the previous page.',
+3. Click "Save" to finalize the new record and return to the previous page.
+    - Choose "Save and view" to open the new meeting in record view.
+    - Choose "Save and create new" to immediately create another new {{meetings_singular_module}}.',
 );

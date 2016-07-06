@@ -21,43 +21,32 @@ class SchedulersJob extends Basic
     const JOB_STATUS_RUNNING = 'running';
     const JOB_STATUS_DONE = 'done';
 
-    // Resolutions.
     const JOB_PENDING = 'queued';
     const JOB_PARTIAL = 'partial';
     const JOB_SUCCESS = 'success';
     const JOB_FAILURE = 'failure';
-    const JOB_RUNNING = 'running';
-    const JOB_CANCELLED = 'cancelled';
 
     // schema attributes
-    public $id;
-    public $name;
-    public $deleted;
-    public $date_entered;
-    public $date_modified;
-    public $scheduler_id;
-    public $execute_time; // when to execute
+	public $id;
+	public $name;
+	public $deleted;
+	public $date_entered;
+	public $date_modified;
+	public $scheduler_id;
+	public $execute_time; // when to execute
     public $status;
     public $resolution;
     public $message;
-    public $target; // URL or function name
+	public $target; // URL or function name
     public $data; // Data set
     public $requeue; // Requeue on failure?
     public $retry_count;
     public $failure_count;
-    /**
-     * @depricated
-     * @var int
-     */
     public $job_delay=0; // Frequency to run it
     public $assigned_user_id; // User under which the task is running
     public $client; // Client ID that owns this job
     public $execute_time_db;
     public $percent_complete; // how much of the job is done
-    public $module;
-    public $fallible;
-    public $rerun;
-    public $interface = true;
 
     /**
      * The group that the job belongs to

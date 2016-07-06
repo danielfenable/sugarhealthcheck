@@ -174,7 +174,6 @@ $mod_strings = array (
     'LBL_SHIPPING' => 'Shipping:',
     'LBL_DISCOUNT_TOTAL' => 'Discount:',
     'LBL_NEW_SUB' => 'Discounted Subtotal:',
-    'LBL_NEW_SUB_USDOLLAR' => 'Discounted Subtotal (US Dollar):',
     'LBL_SHOW_LINE_NUMS' => 'Display Line Numbers:',
     'LBL_STATE' => 'State:',
     'LBL_SUBTOTAL_USDOLLAR'=>'Subtotal (US Dollar)',

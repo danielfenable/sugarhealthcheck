@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.QuickcreateField
  * @alias SUGAR.App.view.fields.BaseQuickcreateField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     events: {
@@ -19,30 +19,11 @@
     },
 
     plugins: ['LinkedModel'],
-
-    /**
-     * @inheritdoc
-     */
-    initialize: function(options) {
-        this._super('initialize', [options]);
+    initialize: function (options) {
+        app.view.Field.prototype.initialize.call(this, options);
         //Listen to create view model changes to keep track of unsaved changes
-        app.events.on('create:model:changed', this.createModelChanged, this);
-        this.on('linked-model:create', this._prepareCtxForReload, this);
+        app.events.on("create:model:changed", this.createModelChanged, this);
     },
-
-    /**
-     * Changes properties on the context so that its collection can be
-     * re-fetched.
-     *
-     * FIXME: This will be removed when SC-4775 is implemented.
-     *
-     * @private
-     */
-    _prepareCtxForReload: function() {
-        this.context.resetLoadFlag();
-        this.context.set('skipFetch', false);
-    },
-
     /**
      * Keeps track of if the create view's model has changed.
      * @param hasChanged
@@ -70,9 +51,12 @@
                     this.createRelatedRecord(module);
                 }, this)
             });
-        } else {
+        } else if (moduleMeta && moduleMeta.isBwcEnabled) {
             // TODO: SP-1568 - We don't yet deal with bwc model changed attributes so
             // this will navigate to new create page WITHOUT alert for unsaved changes
+            this.createRelatedRecord(module);
+        } else {
+            app.drawer.reset();
             this.createRelatedRecord(module);
         }
     },
@@ -133,7 +117,7 @@
             model = this.createLinkModel(this.context.get('model'), relatedContext.link);
         }
         app.drawer.open({
-            layout: this.actionLayout || 'create',
+            layout: this.actionLayout || 'create-actions',
             context: {
                 create: true,
                 module: module,
@@ -176,8 +160,10 @@
                 //Don't show alerts for this request, background update
                 showAlerts: false
             };
+            collection.resetPagination();
             context.resetLoadFlag(false);
             context.set('skipFetch', false);
+            options = _.extend(options, context.get('collectionOptions'));
             context.loadData(options);
         }
     }

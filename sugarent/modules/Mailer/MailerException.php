@@ -24,7 +24,6 @@ class MailerException extends Exception
     const InvalidMessageBody            = 8;
     const InvalidAttachment             = 9;
     const InvalidMailer                 = 10;
-    const ExecutableAttachment          = 11;
 
     static protected $errorMessageMappings = array(
         self::ResourceNotFound              => 'LBL_INTERNAL_ERROR',
@@ -36,7 +35,6 @@ class MailerException extends Exception
         self::FailedToTransferHeaders       => 'LBL_INTERNAL_ERROR',
         self::InvalidAttachment             => 'LBL_INVALID_ATTACHMENT',
         self::InvalidMailer                 => 'LBL_INTERNAL_ERROR',
-        self::ExecutableAttachment          => 'LBL_EXECUTABLE_ATTACHMENT',
     );
 
     public function getLogMessage() {

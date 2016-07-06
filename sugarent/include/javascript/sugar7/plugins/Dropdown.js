@@ -8,8 +8,7 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-(function(app){app.events.on('app:init',function(){app.plugins.register('Dropdown',['layout','view'],{events:{'keydown':'handleDropdownKeydown'},onAttach:function(component,plugin){this.on('init',function(){if(app.bwc){this.listenTo(app.bwc,'clicked',this.closeDropdown);}
-app.routing.before('route',this.closeDropdown,this);});},isDropdownOpen:function(){return!!this.$('[data-toggle="dropdown"]').parent().hasClass('open');},handleDropdownKeydown:function(event){var $items,$focusItem,keysCaptured;if(!this.isDropdownOpen()){return;}
+(function(app){app.events.on('app:init',function(){app.plugins.register('Dropdown',['layout','view'],{events:{'keydown':'handleDropdownKeydown'},onAttach:function(component,plugin){this.on('init',function(){this.listenTo(app.bwc,'clicked',this.closeDropdown);app.routing.before('route',this.closeDropdown,this,true);});},isDropdownOpen:function(){return!!this.$('[data-toggle="dropdown"]').parent().hasClass('open');},handleDropdownKeydown:function(event){var $items,$focusItem,keysCaptured;if(!this.isDropdownOpen()){return;}
 if(event.keyCode===$.ui.keyCode.ESCAPE||event.keyCode===$.ui.keyCode.TAB){this.closeDropdown();}else{$items=this._getDropdownItems();$focusItem=$items.filter(':focus');this._focusSubmenuItem(event.keyCode,$items.index($focusItem),$items);if(event.keyCode===$.ui.keyCode.RIGHT||event.keyCode===$.ui.keyCode.LEFT){this._toggleSubmenu($focusItem);}}
 keysCaptured=[$.ui.keyCode.ESCAPE,$.ui.keyCode.UP,$.ui.keyCode.DOWN,$.ui.keyCode.LEFT,$.ui.keyCode.RIGHT];if(_.contains(keysCaptured,event.keyCode)){event.stopPropagation();event.preventDefault();}},_getDropdownItems:function(){return this.$(this.dropdownItemSelector||'[role=menu] li:not(.divider) a:visible');},_focusSubmenuItem:function(key,index,$items){var $menuItemToFocus;if(key===$.ui.keyCode.UP&&index>0){index--;}
 if(key===$.ui.keyCode.DOWN&&index<$items.length-1){index++;}

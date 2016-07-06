@@ -3,8 +3,8 @@
 namespace Elastica\Test;
 
 use Elastica\Param;
-use Elastica\Test\Base as BaseTest;
 use Elastica\Util;
+use Elastica\Test\Base as BaseTest;
 
 class ParamTest extends BaseTest
 {

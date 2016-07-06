@@ -31,6 +31,7 @@ var SUGAR = SUGAR || {};
  *
  * - called on app:init, load the analytics api.
  *
+ * @public
  * @member SUGAR.analytics.connectors
  *
  * start(id, options)
@@ -39,6 +40,7 @@ var SUGAR = SUGAR || {};
  *
  * @param  {String}id, tracking id of for analytics system
  * @param  {Object}options, SUGAR.App.config.analytics configuration.
+ * @public
  * @member SUGAR.analytics.connectors
  *
  * trackPageView(pageURI)
@@ -46,6 +48,7 @@ var SUGAR = SUGAR || {};
  * - track a change of page.
  *
  * @param  {String} pageURI.
+ * @public
  * @member SUGAR.analytics.connectors
  *
  * trackEvent()
@@ -53,6 +56,7 @@ var SUGAR = SUGAR || {};
  * - track an event on the page.
  *
  * @param  {Object} event, with the following attributes: category, action, label, value. Label is always set as the current route the user is on.
+ * @public
  * @member SUGAR.analytics.connectors
  *
  * Below is a sample connector.
@@ -114,7 +118,7 @@ var SUGAR = SUGAR || {};
  *
  *          app.analytics.currentViewId = viewId;
  *          app.analytics.trackPageView(app.analytics.currentViewId);
- *      }, this);
+ *      }, {}, this);
  * });
  * app.start();
  * </pre>
@@ -145,19 +149,6 @@ var SUGAR = SUGAR || {};
         eventSplitter: /\s{2,}/,
         currentViewId: '',
 
-        /**
-         * Object containing the list of events to track, mapped to their
-         * respective DOM selector.
-         *
-         * @protected
-         * @type {Object}
-         */
-        _eventsHash: {
-            click: '[track^=click]',
-            swipeleft: '[track^=swipeleft]',
-            swiperight: '[track^=swiperight]'
-        },
-
         init: function() {
             if (!app.config.analytics || !app.config.analytics.enabled ||
                 !app.config.analytics.connector || !app.analytics.connectors[app.config.analytics.connector]
@@ -167,18 +158,25 @@ var SUGAR = SUGAR || {};
                 return;
             }
 
-            var self = this;
             app.on('app:init', function() {
                 app.events.register('app:analytics:init', this);
                 app.analytics.connector = app.analytics.connectors[app.config.analytics.connector];
                 app.analytics.connector.initialize();
 
-                _.each(self._eventsHash, function(val, key) {
-                    $('html').on(key, val, function(e) {
-                        var data = self._parseTrackTag($(this).attr('track'));
-                        app.analytics.trackEvent(key, data.action, e, data.value);
-                    });
-                });
+                // Override layout dispose
+                var origLayoutDispose = app.view.Layout.prototype._dispose;
+                app.view.Layout.prototype._dispose = function() {
+                    app.analytics.detachAnalytics(this.$el);
+                    origLayoutDispose.call(this);
+                };
+
+                // Override view render
+                var origViewRender = app.view.View.prototype._render;
+                app.view.View.prototype._render = function() {
+                    app.analytics.detachAnalytics(this.$el);
+                    origViewRender.call(this);
+                    app.analytics.attachAnalytics(this.$el);
+                };
             }).on('app:start', function() {
 
                 // Apps should do their initialization of page tracking based on the following event.
@@ -215,6 +213,7 @@ var SUGAR = SUGAR || {};
          * Track a page view
          *
          * @param  {String} page URI.
+         * @public
          * @member SUGAR.analytics
          */
         trackPageView: function(page) {
@@ -231,6 +230,7 @@ var SUGAR = SUGAR || {};
          * @param  {String} action.
          * @param  {String} event.
          * @param  {String} value.
+         * @public
          * @member SUGAR.analytics
          */
         trackEvent: function(category, action, event, value) {
@@ -248,11 +248,10 @@ var SUGAR = SUGAR || {};
          * Detach analytics in an element based on having the track attribute
          *
          * @param  {JQuery Object} element.
+         * @public
          * @member SUGAR.analytics
-         * @deprecated since 7.7. Will be removed in 7.9.
          */
         detachAnalytics: function($el) {
-            app.logger.warn('`app.analytics.detachAnalytics()` is deprecated and will be removed in 7.9.');
             var $els = this.getTrackableElements($el);
             $els.unbind('.analytics');
         },
@@ -261,11 +260,10 @@ var SUGAR = SUGAR || {};
          * Attach analytics in an element based on having the 'track' attribute
          *
          * @param  {JQuery Object} element.
+         * @public
          * @member SUGAR.analytics
-         * @deprecated since 7.7. Will be removed in 7.9.
          */
         attachAnalytics: function($el) {
-            app.logger.warn('`app.analytics.attachAnalytics()` is deprecated and will be removed in 7.9.');
             var self = this;
             var $els = this.getTrackableElements($el);
             $els.unbind('.analytics');
@@ -278,11 +276,10 @@ var SUGAR = SUGAR || {};
          * Find all trackable elements in an element based on them having the 'track' attribute
          *
          * @param  {JQuery Object} element.
+         * @public
          * @member SUGAR.analytics
-         * @deprecated since 7.7. Will be removed in 7.9.
          */
         getTrackableElements: function($el) {
-            app.logger.warn('`app.analytics.getTrackableElements()` is deprecated and will be removed in 7.9.');
             var items = this._getTrackableElements($el);
             if ($el.attr('track')) {
                 items = items.add($el);
@@ -311,15 +308,12 @@ var SUGAR = SUGAR || {};
 
             this._attachEvents(eventArgs.events, eventArgs.action, eventArgs.css, $el);
         },
-
         /**
          * parses track tags
          * @param {String} track
-         * @return {Object}
-         * @deprecated since 7.7. Will be removed in 7.9.
+         * @returns {{}}
          */
-        parseTrackTag: function(track) {
-            app.logger.warn('`app.analytics.parseTrackTag()` is deprecated and will be removed in 7.9.');
+        parseTrackTag: function(track){
             var result = {events:'', action:'', css:''};
             var pieces = track.split(':');
             var actionCss = pieces[1] ? pieces[1].split('.'):pieces[0].split('.');
@@ -333,31 +327,6 @@ var SUGAR = SUGAR || {};
             });
 
             result.events = ee.join(' ');
-            return result;
-        },
-
-        /**
-         * Parses the `track` attribute.
-         *
-         * @param {String} track The value of the `track` attribute.
-         * @return {Object} The hash containing the data to pass to
-         *   {@link SUGAR.analytics#trackEvent}
-         * @return {string} return.action The action (example: 'mass_delete').
-         * @return {number|null} return.value The value corresponding to the action.
-         * @private
-         */
-        _parseTrackTag: function(track) {
-            var result = {action: '', value: null};
-            var pieces = track.split(':');
-            if (!pieces[1]) {
-                return result;
-            }
-            var actionValue = pieces[1].split('.');
-            result.action = actionValue[0];
-            if (actionValue[1]) {
-                result.value = actionValue[1];
-            }
-
             return result;
         },
 

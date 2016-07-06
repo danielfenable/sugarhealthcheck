@@ -67,13 +67,6 @@ class Importer
      */
     protected $currencyFieldPosition = false;
 
-    /**
-     * Flag that tells the importer whether to look for tags
-     *
-     * @var boolean
-     */
-    protected $hasTags = false;
-
     public function __construct($importSource, $bean)
     {
         global $mod_strings, $sugar_config;
@@ -110,9 +103,6 @@ class Importer
 
         // do we have a currency_id field
         $this->currencyFieldPosition = array_search('currency_id', $this->importColumns);
-
-        // Are we importing tags?
-        $this->hasTags = array_search('tag', $this->importColumns);
 
         //catch output including notices and warnings so import process can run to completion
         $output = '';
@@ -251,12 +241,6 @@ class Importer
             // If there is an default value then use it instead
             if ( !empty($_REQUEST[$field]) )
             {
-                if ($fieldDef['type'] == 'relate' && !empty($row[$fieldNum]) && $row[$fieldNum] != $_REQUEST[$field]) {
-                    if (!empty($fieldDef['id_name']) && empty($row[$fieldDef['id_name']])) {
-                        $focus->$fieldDef['id_name'] = "";
-                    }
-                }
-
                 $defaultRowValue = $this->populateDefaultMapValue($field, $_REQUEST[$field], $fieldDef);
 
                 if(!empty($fieldDef['custom_type']) && $fieldDef['custom_type'] == 'teamset' && empty($rowValue))
@@ -474,10 +458,7 @@ class Importer
             if (isset ($dbrow['id']) && $dbrow['id'] != -1)
             {
                 // if it exists but was deleted, just remove it
-                // if you import a record, and specify the ID,
-                // and the record ID already exists and is deleted... the "old" deleted record
-                // should be removed and replaced with the new record you are importing.
-                if (isset ($dbrow['deleted']) && $dbrow['deleted'] == 1)
+                if (isset ($dbrow['deleted']) && $dbrow['deleted'] == 1 && $this->isUpdateOnly ==false)
                 {
                     $this->removeDeletedBean($focus);
                     $focus->new_with_id = true;
@@ -527,13 +508,6 @@ class Importer
 
         if ($do_save)
         {
-            // Need to ensure the imported record has an ID
-            if ($newRecord && empty($focus->id)) {
-                $focus->id = create_guid();
-                $focus->new_with_id = true;
-            }
-
-            $this->handleTagsImport($focus, $row);
             $this->saveImportBean($focus, $newRecord);
             // Update the created/updated counter
             $this->importSource->markRowAsImported($newRecord);
@@ -543,70 +517,6 @@ class Importer
 
         unset($defaultRowValue);
 
-    }
-
-    /**
-     * Handles importing of tags for a row
-     *
-     * @param SugarBean $focus The parent sugar bean
-     * @param array $row The row of data being imported
-     */
-    public function handleTagsImport($focus, $row)
-    {
-        // Handle tags import - this needs to be done only when we have an
-        // ID for the parent record as relationships don't like it when you
-        // don't have a real record to relate to
-        if ($this->hasTags !== false && $focus->isTaggable()) {
-            $sfh = new SugarFieldHandler();
-
-            // Get the Tag SugarField for handling the saving
-            $sfTag = $sfh->getSugarField('tag');
-
-            // Build an argument list for this save
-            $tagFieldName = $focus->getTagField();
-            $tagField = $focus->field_defs[$tagFieldName];
-
-            // Build the params array so the field can save what needs saving
-            $params[$tagFieldName] = array();
-
-            // Get the tags from the bean if they exist. Using a fresh bean
-            // because at this point $focus is the new data.
-            // THIS LINE IS FOR MERGING TAGS INSTEAD OF OVERRIDING THEM
-            //$currentTags = $sfTag->getTagValues(BeanFactory::getBean($focus->module_dir, $focus->id), $tagFieldName);
-
-            // Get the tags from the row. Tags are separated by double quotes.
-            // ex Value1,Value2,Value3 and then merged with existing tags
-            $importTags = $sfTag->getTagValuesFromImport($row[$this->hasTags]);
-
-            // Now get all tags and massage them a little bit for uniqueness.
-            // THIS LINE IS FOR MERGING TAGS INSTEAD OF OVERRIDING THEM
-            //$allTags = array_merge($currentTags, $importTags);
-            $allTags = $importTags;
-
-            // Holds the lowercase tag name to make sure tags are unique for this record
-            $tagCheck = array();
-            foreach ($allTags as $tag) {
-                // Simple cleansing
-                $tag = trim($tag);
-
-                // If the tag, after trim, is empty, move on
-                if (!empty($tag)) {
-                    $tagLower = strtolower($tag);
-
-                    // If we haven't touched this tag yet, hit it
-                    if (!isset($tagCheck[$tagLower])) {
-                        // Add it to the params array
-                        $params[$tagFieldName][] = array('name' => $tag);
-
-                        // Mark that it has been checked
-                        $tagCheck[$tagLower] = 1;
-                    }
-                }
-            }
-
-            // Now save the field
-            $sfTag->apiSave($focus, $params, $tagFieldName, $tagField);
-        }
     }
 
     protected function sanitizeFieldValueByType($rowValue, $fieldDef, $defaultRowValue, $focus, $fieldTranslated)
@@ -630,16 +540,8 @@ class Importer
                 }
                 if ( $returnValue === FALSE )
                 {
-                    $opts = $this->ifs->getOptions($fieldDef['type'], $fieldDef);
-                    $this->importSource->writeError(
-                        ($opts ?
-                            $mod_strings['LBL_ERROR_NOT_IN_ENUM'] . implode(",", $opts) :
-                            $mod_strings['LBL_ERROR_ENUM_EMPTY']
-                        ),
-                        $fieldTranslated,
-                        $rowValue
-                    );
-                    return false;
+                    $this->importSource->writeError($mod_strings['LBL_ERROR_NOT_IN_ENUM'] . implode(",",$app_list_strings[$fieldDef['options']]), $fieldTranslated,$rowValue);
+                    return FALSE;
                 }
                 else
                     return $returnValue;
@@ -651,7 +553,7 @@ class Importer
                 if (!$returnValue && !empty($defaultRowValue))
                     $returnValue = $this->ifs->relate($defaultRowValue,$fieldDef, $focus);
                 // Bug 33623 - Set the id value found from the above method call as an importColumn
-                if ($returnValue !== false && !in_array($fieldDef['id_name'], $this->importColumns))
+                if ($returnValue !== false)
                     $this->importColumns[] = $fieldDef['id_name'];
                 return $rowValue;
                 break;
@@ -682,7 +584,8 @@ class Importer
     protected function cloneExistingBean($focus)
     {
         $existing_focus = clone $this->bean;
-        if (!($existing_focus->retrieve($focus->id) instanceOf SugarBean) || !$existing_focus->ACLAccess('edit')) {
+        if ( !( $existing_focus->retrieve($focus->id) instanceOf SugarBean ) )
+        {
             return FALSE;
         }
         else
@@ -898,6 +801,11 @@ class Importer
     protected function populateDefaultMapValue($field, $fieldValue, $fieldDef)
     {
         global $timedate, $current_user;
+
+        // If the field we're examining is a relate, don't return a default value.
+        if ($fieldDef['type'] == 'relate') {
+            return '';
+        }
 
         if ( is_array($fieldValue) )
             $defaultRowValue = encodeMultienumValue($fieldValue);

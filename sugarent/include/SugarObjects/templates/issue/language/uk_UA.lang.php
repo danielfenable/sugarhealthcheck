@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,40 +12,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-
-  'LBL_NAME' =>'Назва',
-  'LBL_NUMBER' => 'Номер:',
-  'LBL_STATUS' => 'Статус:',
-  'LBL_PRIORITY' => 'Пріоритет:',
-  'LBL_DESCRIPTION' => 'Опис:',
-  'LBL_RESOLUTION' => 'Resolution',
-  'LBL_LAST_MODIFIED' => 'Остання зміна',
-  'LBL_ASSIGNED_TO_ID'=>'Відповідальний (-а)',
-  'LBL_ASSIGNED_TO_NAME' => 'Користувач:',  	  
-  'LBL_WORK_LOG' => 'Робочий Лог:',
+  'LBL_ASSIGNED_TO_ID' => 'Відповідальний (-а):',
+  'LBL_ASSIGNED_TO_NAME' => 'Користувач:',
+  'LBL_ASSIGNED_USER' => 'Відповідальний (-а):',
+  'LBL_ASSIGNED_USER_NAME' => 'Відповідальний (-а)',
   'LBL_CREATED_BY' => 'Створено:',
   'LBL_DATE_CREATED' => 'Дата створення:',
   'LBL_DATE_ENTERED' => 'Дата створення:',
-  'LBL_DATE_MODIFIED'=>'Дата змінення:',
-  'LBL_MODIFIED_BY' => 'Остання зміна:',
-  'LBL_ASSIGNED_USER' => 'Відповідальний (-а):',
-  'LBL_ASSIGNED_USER_NAME' => 'Відповідальний (-а)',
-  'LBL_SYSTEM_ID' =>'Система (Id):',
-  'LBL_TEAM_NAME' =>'Назва команди:',
-  'LBL_TYPE'=>'Тип:',
+  'LBL_DATE_MODIFIED' => 'Дата змінення:',
+  'LBL_DESCRIPTION' => 'Опис:',
+  'LBL_EDIT_BUTTON' => 'Редагувати',
+  'LBL_LAST_MODIFIED' => 'Остання зміна',
+  'LBL_MODIFIED_BY' => 'Останній раз змінено:',
+  'LBL_NAME' => 'Назва',
+  'LBL_NUMBER' => 'Номер:',
+  'LBL_PRIORITY' => 'Пріоритет:',
+  'LBL_REMOVE' => 'Видалити',
+  'LBL_RESOLUTION' => 'Рішення:',
+  'LBL_STATUS' => 'Статус:',
   'LBL_SUBJECT' => 'Тема:',
+  'LBL_SYSTEM_ID' => 'Система (Id):',
+  'LBL_TEAM_NAME' => 'Назва команди:',
+  'LBL_TYPE' => 'Тип:',
+  'LBL_WORK_LOG' => 'Робочий Лог:',
+);
 
-    'LBL_EDIT_BUTTON' => 'Редагувати',
-    'LBL_REMOVE' => 'Видалити',
-
-  
-  );

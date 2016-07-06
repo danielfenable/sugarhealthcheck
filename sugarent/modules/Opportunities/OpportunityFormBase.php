@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id: OpportunityFormBase.php 53409 2010-01-04 03:31:15Z roger $
+
 
 class OpportunityFormBase{
 
@@ -205,6 +205,7 @@ $cal_lang = "en";
 
 $the_form="";
 		$the_form .=  "<input type=hidden name=".$prefix."team_id value=".$team_id.">";
+
 
 
 if (isset($lead->opportunity_amount)) {

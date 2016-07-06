@@ -686,7 +686,7 @@ var DCMenu = YUI({debug:false,combine: true, timeout: 10000, base:"include/javas
         else
         {
             var dcgscontent = Y.one('#dcgscontent');
-            dcgscontent.set('innerHTML', '<div style="height:400px;width:300px;"><img src="themes/default/images/img_loading.gif?v='+SUGAR.VERSION_MARK+'"/></div>');
+            dcgscontent.set('innerHTML', '<div style="height:400px;width:300px;"><img src="themes/default/images/img_loading.gif"/></div>');
             if(! overlays[qvDepth].visible )
             {
                 overlays[qvDepth].show();
@@ -694,7 +694,7 @@ var DCMenu = YUI({debug:false,combine: true, timeout: 10000, base:"include/javas
             return;
         }
 
-        content = '<div id="dcboxbodyqv" class="sugar_spot_search" style="position: fixed;"><div class="dashletPanel dc"><div class="hd"><div><a id="dcmenu_close_link" href="javascript:DCMenu.closeQView()"><i class="fa fa-times fa-sm"></i></a></div></div><div class="bd"><div class="bd-center"><div class="dccontent" id="dcgscontent"><br><div style="height:400px;width:300px;"><img src="themes/default/images/img_loading.gif?v='+SUGAR.VERSION_MARK+'"/><br></div></div></div></div><div class="ft"><div class="bl"></div><div class="ft-center"></div><div class="br"></div></div></div></div></div></div></div></div></div>';
+        content = '<div id="dcboxbodyqv" class="sugar_spot_search" style="position: fixed;"><div class="dashletPanel dc"><div class="hd"><div><a id="dcmenu_close_link" href="javascript:DCMenu.closeQView()"><i class="fa fa-times fa-sm"></i></a></div></div><div class="bd"><div class="bd-center"><div class="dccontent" id="dcgscontent"><br><div style="height:400px;width:300px;"><img src="themes/default/images/img_loading.gif"/><br></div></div></div></div><div class="ft"><div class="bl"></div><div class="ft-center"></div><div class="br"></div></div></div></div></div></div></div></div></div>';
 
         overlays[qvDepth].set("bodyContent", content);
         overlays[qvDepth].set("align", {node:"#dcboxbody",

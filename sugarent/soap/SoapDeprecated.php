@@ -831,7 +831,6 @@ function create_contact($user_name,$password, $first_name, $last_name, $email_ad
 	$contact->email1 = $email_address;
 	$contact->assigned_user_id = $user_id;
 	$contact->assigned_user_name = $user_name;
-
 	$contact->team_id = $seed_user->default_team;
 	return $contact->save();
 }

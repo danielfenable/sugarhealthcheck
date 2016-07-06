@@ -33,7 +33,6 @@ $config["languages"]=array (
   'ru_RU' => 'Русский',
   'sv_SE' => 'Svenska',
   'tr_TR' => 'Türkçe',
-  'zh_TW' => '繁體中文',
   'zh_CN' => '简体中文',
   'pt_BR' => 'Português Brasileiro',
   'ca_ES' => 'Català',

@@ -4,12 +4,11 @@ namespace Elastica\Test;
 
 use Elastica\Document;
 use Elastica\Exception\InvalidException;
-use Elastica\Facet\Terms;
-use Elastica\Query;
 use Elastica\Query\Builder;
 use Elastica\Query\Term;
 use Elastica\Query\Text;
-use Elastica\Suggest;
+use Elastica\Query;
+use Elastica\Facet\Terms;
 use Elastica\Test\Base as BaseTest;
 
 class QueryTest extends BaseTest
@@ -64,31 +63,14 @@ class QueryTest extends BaseTest
         $this->assertEquals($query1->toArray(), $query2->toArray());
     }
 
-    public function testSuggestShouldNotRemoveOtherParameters()
-    {
-        $query1 = new Query();
-        $query2 = new Query();
-
-        $suggest = new Suggest();
-        $suggest->setGlobalText('test');
-
-        $query1->setSize(40);
-        $query1->setSuggest($suggest);
-
-        $query2->setSuggest($suggest);
-        $query2->setSize(40);
-
-        $this->assertEquals($query1->toArray(), $query2->toArray());
-    }
-
     public function testArrayQuery()
     {
         $query = array(
             'query' => array(
                 'text' => array(
-                    'title' => 'test',
-                ),
-            ),
+                    'title' => 'test'
+                )
+            )
         );
 
         $query1 = Query::create($query);
@@ -172,7 +154,7 @@ class QueryTest extends BaseTest
 
         $this->assertContains('firstname', $data['fields']);
         $this->assertContains('lastname', $data['fields']);
-        $this->assertCount(2, $data['fields']);
+        $this->assertEquals(2, count($data['fields']));
     }
 
     public function testGetQuery()

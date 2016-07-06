@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,21 +12,15 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * $Id$
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
- 
- $app_list_strings = array (
 
-  strtolower($object_name).'_type_dom' =>
+
+$object_name = strtolower($object_name);
+$app_list_strings = array (
+  $object_name.'_type_dom' => 
   array (
     '' => '',
-    'Existing Business' => 'Existing Business',
-    'New Business' => 'New Business',
+    'Existing Business' => 'Існуючий бізнес',
+    'New Business' => 'Новий бізнес',
   ),
+);
 
-  );

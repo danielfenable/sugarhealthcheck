@@ -56,7 +56,6 @@ class Viewpackage extends SugarView
             $nodes = $mbt->fetchNodes();
             
 			$package_labels = array();
-			$key_labels = array();
 			if(!empty($nodes['tree_data']['nodes']))
 			{
 				foreach($nodes['tree_data']['nodes'] as $entry) 
@@ -64,14 +63,12 @@ class Viewpackage extends SugarView
 					if(!empty($entry['data']['label']) && $name != $entry['data']['label'])
 					{
 						$package_labels[] = strtoupper($entry['data']['label']);
-                                                $key_labels[] = strtoupper(ModuleBuilder::getPackageKey($entry['data']['label']));
 					}
 				}
 			}
 			
 			$json = getJSONobj();
 			$smarty->assign('package_labels', $json->encode($package_labels));            	
-                        $smarty->assign('key_labels', $json->encode($key_labels));
 			
 	 		$this->package =& $mb->packages[$name];
 	 		$this->loadModuleTypes();

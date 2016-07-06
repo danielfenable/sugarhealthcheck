@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-Hent API Key fra Citrix Online GoToMeeting ved å registrere en ny søknad.<br>
-&nbsp;<br>
-Slik registrerer du forekomsten din:<br>
-&nbsp;<br>
-<ol>
-<li>Logg på din Citrix Online Developer-konto: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>Klikk på «Søk om utviklernøkkel»</li>
-<li>Under produkt-API velger du GoToMeeting og angir forekomst-URL-en i applikasjons-URL-en.</li>
-<li>Du kommer til å se en søyle som heter API-nøkkel under «Dine applikasjoner»</li>
-<li>Kopier den nedenfor.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'API-nøkkel',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => 'Skaff API Key fra Citrix Online GoToMeeting ved å registrere en ny søknad.<br /><br />Trinnene for å registrere instansen:<br /><br />1. Logg deg på Citrix Online utviklerkonto: https://developer.citrixonline.com/<br />2. Klikk på Søk om Developer Key<br />3. I Produkt API velge GoToMeeting, og skriv inn din instans URL i applikasjon URL<br />4. Du vil se en kolonne kalt API Key under Applications<br />5. Kopier den nedenfor.',
+  'oauth_consumer_key' => 'API Key',
 );
+

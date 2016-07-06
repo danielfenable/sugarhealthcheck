@@ -252,10 +252,10 @@ $mod_strings = array (
 
     // Help Text
     // List View Help Text
-    'LBL_HELP_RECORDS' => 'تكون الوحدة {{plural_module_name}} من أفراد لهم علاقة بالمؤسسة الخاصة بك. {{module_name}} ترتبط السجلات بشكل متطابق بسجل {{accounts_singular_module}} وتكرار {{plural_module_name}} قد يكون مرتبطًا بواحدة {{accounts_singular_module}}. هناك طرق عديدة يمكنك من خلالها إنشاء {{plural_module_name}} في Sugar على سبيل المثال {{plural_module_name}} عبر الوحدة، والاستيراد {{plural_module_name}}، وتحويل {{leads_module}} إلى {{plural_module_name}}، إلخ. بمجرد إنشاء السجل {{module_name}}، يمكنك عرض المعلومات المتعلقة بـ {{module_name}} عبر {{plural_module_name}} عرض السجل وتعديلها. كل سجل {{module_name}} قد يرتبط بسجلات Sugar الأخرى مثل {{meetings_module}}، {{cases_module}}، {{opportunities_module}}، وغيره الكثير، مما يجعل السجل {{module_name}} موزعًا لعرض تفاعلاتك مع الفرد والاستمرار بها.',
+    'LBL_HELP_RECORDS' => 'تكون الوحدة {{plural_module_name}}من أفراد لهم علاقة بالمؤسسة الخاصة بك. {{module_name}} ترتبط السجلات بشكل متطابق بسجل {{accounts_singular_module}}وتكرار {{plural_module_name}}قد يكون مرتبطًا بواحدة {{accounts_singular_module}}. هناك طرق عديدة يمكنك من خلالها إنشاء {{plural_module_name}} في Sugar على سبيل المثال {{plural_module_name}} عبر الوحدة، والاستيراد {{plural_module_name}}، وتحويل{{leads_module}} إلى {{plural_module_name}}، إلخ. بمجرد إنشاء السجل {{module_name}}، يمكنك عرض المعلومات المتعلقة بـ {{module_name}} عبر {{plural_module_name}} عرض السجل وتعديلها. كل سجل {{module_name}}قد يرتبط بسجلات Sugar الأخرى مثل {{meetings_module}}، {{cases_module}}، {{opportunities_module}}، وغيره الكثير، مما يجعل السجل {{module_name}}موزعًا لعرض تفاعلاتك مع الفرد والاستمرار بها.',
 
     // Record View Help Text
-    'LBL_HELP_RECORD' => 'تتكون الوحدة {{plural_module_name}} من الأفراد ذوي العلاقة بالمؤسسة الخاصة بك.
+    'LBL_HELP_RECORD' => 'تتكون الوحدة {{plural_module_name}}من الأفراد ذوي العلاقة بالمؤسسة الخاصة بك.
 
 – يتم تعديل حقول هذا السجل من خلال النقر فوق حقل فردي أو زر تعديل. 
  –يتم عرض الروابط أو تعديلها بالنسبة للسجلات الأخرى في اللوحات الفرعية من خلال تبديل الجزء الأسفل الأيسر إلى "عرض البيانات".
@@ -270,7 +270,9 @@ $mod_strings = array (
 1. قم بتوفير قيم للحقول حسب الرغبة.
  - يجب أن يتم إكمال الحقول المميزة على أنها "مطلوبة" قبل الحفظ.
  - انقر فوق "إظهار المزيد" لعرض حقول إضافية إذا لزم الأمر.
-2. انقر فوق "حفظ" لإنهاء السجل الجديد والعودة إلى الصفحة السابقة.',
+2. انقر فوق "حفظ" لإنهاء السجل الجديد والعودة إلى الصفحة السابقة.
+ - اختر "حفظ وعرض" لفتح {{module_name}} جديد في عرض السجل.
+ - اختر "حفظ وإنشاء جديد" لإنشاء واحد جديد على الفور {{module_name}}.',
 
     //Marketo
     'LBL_MKTO_SYNC' => 'مزامنة مع Marketo&reg;',

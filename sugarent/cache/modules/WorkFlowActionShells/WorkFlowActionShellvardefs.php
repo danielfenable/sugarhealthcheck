@@ -206,8 +206,8 @@
       'relationship_type' => 'one-to-many',
     ),
   ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

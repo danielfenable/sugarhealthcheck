@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({extendsFrom:'DupecheckListView',additionalTableClasses:'duplicates-multiselect',initialize:function(options){this.plugins=_.union(this.plugins,['MassCollection']);this._super('initialize',[options]);}})
+({extendsFrom:'DupecheckListView',additionalTableClasses:'duplicates-multiselect'})

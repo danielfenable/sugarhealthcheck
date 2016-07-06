@@ -18,12 +18,6 @@ class SugarUpgradeOpportunityUpdateTimeStamp extends UpgradeScript
 
     public function run()
     {
-        // if we are coming from 7.6, don't run this again.
-        if (version_compare($this->from_version, '7.6', '>=')) {
-            $this->log('Timestamps already added; Skipping Upgrade Script');
-            return;
-        }
-
         $this->log('Updating Opportunity TimeStamp fields');
         $sql = "select id, date_closed from opportunities where deleted = 0";
         $results = $this->db->query($sql);

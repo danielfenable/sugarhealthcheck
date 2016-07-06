@@ -14,7 +14,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: view.detail.php
+
  * Description: This file is used to override the default Meta-data DetailView behavior
  * to provide customization specific to the Campaigns module.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -48,7 +48,6 @@ class OpportunitiesViewEdit extends ViewEdit
         if (empty($this->bean->id) && empty($_REQUEST['probability'])) {
             $prePopProb = 'document.getElementsByName(\'sales_stage\')[0].onchange();';
         }
-
         $admin = BeanFactory::getBean('Administration');
         $settings = $admin->getConfigForModule('Forecasts');
         $wonStages = $json->encode($settings['sales_stage_won']);
@@ -60,7 +59,6 @@ class OpportunitiesViewEdit extends ViewEdit
 	if(sales_stage) {
 
         var probability = document.getElementsByName('probability')[0];
-
         won_stages = $wonStages;
         var best_case = document.getElementsByName('best_case')[0];
         var worst_case = document.getElementsByName('worst_case')[0];
@@ -84,7 +82,6 @@ class OpportunitiesViewEdit extends ViewEdit
                 probability.value = prob_array[sales_stage.value];
                 SUGAR.util.callOnChangeListers(probability);
             }
-
             if(won_stages.indexOf(sales_stage.value) > -1) {
                 if(best_case) {
                     best_case.value = amount.value;

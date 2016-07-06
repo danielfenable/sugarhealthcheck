@@ -1,5 +1,5 @@
 <?php
- /*
+/*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
  * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
@@ -9,6 +9,7 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
 /*
  * Created on Aug 14, 2007
  *
@@ -20,18 +21,18 @@ $object_name = strtolower($object_name);
 
   $object_name.'_type_dom' =>
   array (
-  	'Administration' => 'Administration',
+  	'Administration' => 'Yönetim',
     'Product' => 'Ürün',
     'User' => 'Kullanıcı',
   ),
    $object_name.'_status_dom' =>
   array (
-    'New' => 'Yeni',
     'Assigned' => 'Atanmış',
     'Closed' => 'Kapalı',
+    'Duplicate' => 'Aynı Kayıttan Oluştur',
+    'New' => 'Yeni',
     'Pending Input' => 'Cevap Bekleniyor',
     'Rejected' => 'Reddedildi',
-    'Duplicate' => 'Aynı Kayıttan Oluştur',
   ),
   $object_name.'_priority_dom' =>
   array (
@@ -43,10 +44,10 @@ $object_name = strtolower($object_name);
   array (
   	'' => '',
   	'Accepted' => 'Kabul edildi',
-    'Duplicate' => 'Aynı Kayıttan Oluştur',
     'Closed' => 'Kapalı',
-    'Out of Date' => 'Geçerliliğini Yitirmiş',
+    'Duplicate' => 'Aynı Kayıttan Oluştur',
     'Invalid' => 'Geçersiz',
+    'Out of Date' => 'Geçerliliğini Yitirmiş',
   ),
   );
 ?>

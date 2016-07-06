@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-Erhalten Sie einen API-Schlüssel von Citrix Online GoToMeeting, indem Sie eine neue Anwendung registrieren.<br>
-&nbsp;<br>
-Vorgehensweise zur Registrierung Ihrer Instanz:<br>
-&nbsp;<br>
-<ol>
-<li>Melden Sie sich mit Ihrem Citrix Online-Entwicklerkonto an: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>Klicken Sie auf "Apply for Developer Key"</li>
-<li>Unter Product API wählen Sie GoToMeeting aus und geben Sie Ihre Instanz-URL als Anwendungs-URL ein</li>
-<li>Es wird jetzt eine Spalte mit dem Namen "API Key" unter "Your Applications" angezeigt</li>
-<li>Kopieren Sie diese unten.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'API-Schlüssel',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />Obtain API Key from Citrix Online GoToMeeting by registering a new application.<br><br />&nbsp;<br><br />Steps to register your instance:<br><br />&nbsp;<br><br /><ol><br /><li>Log in to your Citrix Online developer account: https://developer.citrixonline.com/</li><br /><li>Click on Apply for Developer Key</li><br /><li>In Product API select GoToMeeting, and enter your instance URL in Application URL</li><br /><li>You will see a column called API Key under Your Applications</li><br /><li>Copy it below.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'API Key',
 );
+

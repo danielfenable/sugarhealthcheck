@@ -45,6 +45,7 @@ $mod_strings = array (
     'LBL_SOURCE' => 'Source:',
 	'LBL_SUBJECT'						=> 'Subject:',
 	'LBL_SYSTEM_ID'						=> 'System ID',
+    'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Knowledge Base',
 	'LBL_LIST_ACCOUNT_NAME'				=> 'Account Name',
 	'LBL_LIST_ASSIGNED'					=> 'Assigned To',
 	'LBL_LIST_CLOSE'					=> 'Close',
@@ -72,7 +73,6 @@ $mod_strings = array (
 	'LNK_CASE_REPORTS' => 'View Case Reports',
 	'LBL_SHOW_IN_PORTAL' => 'Show in Portal',
 	'LBL_CREATE_KB_DOCUMENT' => 'Create Article',
-    'LBL_KBCONTENTS_SUBPANEL_TITLE' => 'Knowledge Base',
 
     'LBL_CREATED_USER' => 'Created User',
     'LBL_MODIFIED_USER' => 'Modified User',
@@ -136,5 +136,7 @@ To create a {{module_name}}:
 1. Provide values for the fields as desired.
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
-2. Click "Save" to finalize the new record and return to the previous page.',
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
 );

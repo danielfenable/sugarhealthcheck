@@ -193,7 +193,7 @@ ErrorListPanel.prototype.removeMessage = function (containerId, messageId) {
 };
 
 ErrorListPanel.prototype.removeItemById = function (id) {
-	var items = this.getItems(), i, index, item;
+	var items = this.getItems(), i, index;
 
 	if ( !(typeof id ===  "string") ) {
 		throw new Error("ErrorListPanel.removeItemById(): the value is invalid");
@@ -202,12 +202,12 @@ ErrorListPanel.prototype.removeItemById = function (id) {
 	for  ( i = 0 ; i < items.length; i+=1 ) {
 		if (items[i].getErrorId() === id ) {
 			index = i;
-			break;
 		}
 	}
 	if ( index !== undefined ) {
 		item = this.getItem(index);
 		this.removeItem(index);
+		return item;
 		return item;
 	} else {
 		return null;
@@ -223,7 +223,7 @@ ErrorListPanel.prototype.appendTo = function (tagId) {
 };
 
 ErrorListPanel.prototype.getItemById = function (id) {
-	var items = this.getItems(), i, index, item;
+	var items = this.getItems(), i, index;
 
 	if ( !(typeof id ===  "string") ) {
 		throw new Error("ErrorListPanel.removeItemById(): the value is invalid");
@@ -232,7 +232,6 @@ ErrorListPanel.prototype.getItemById = function (id) {
 	for  ( i = 0 ; i < items.length; i+=1 ) {
 		if (items[i].getErrorId() === id ) {
 			index = i;
-			break;
 		}
 	}
 	if ( index !== undefined ) {

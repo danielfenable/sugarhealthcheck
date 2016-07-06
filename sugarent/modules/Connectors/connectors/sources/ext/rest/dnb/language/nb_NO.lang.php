@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,19 +12,15 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): contact@synolia.com - www.synolia.com
- * *******************************************************************************/
+	
+
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"> <tr><td valign="top" width="7%" class="dataLabel"> <img height="50" src="modules/Connectors/connectors/sources/ext/rest/dnb/images/DNB_corp30_pos.png"></td> <td>D&amp;B Sugar® gir D&amp;B-abonnenter tilgang til den nyeste, mest fullstendige og nøyaktige firmainformasjonen, inkludert selskapets og personlig kontaktinformasjon, konkurrenter, familieselskaper, økonomi, nyheter og sosiale medier. For å lære mer om D&amp;B Sugar®, gå til <a target="_blank" href="http://www.dnb.com/partner/dnb-for-sugarcrm.html"> Dun &amp; Bradstreet</a>.</td></tr></table>',
-    'LBL_NAME' => 'D&B-brukernavn',
-    'LBL_ID' => 'D&B-brukernavn',
-    'company_url' => 'Link',
-    'dnb_username' => 'D&B-brukernavn',
-    'dnb_password' => 'D&B-applikasjonsnøkkel',
-    'dnb_env' => 'D&B-miljø'
+  'LBL_ID' => 'D&B Brukernavn',
+  'LBL_LICENSING_INFO' => 'D&B for Sugar® gir D&B-abonnenter tilgang til den mest oppdaterte, fullstendige og nøyaktige forretnings informasjon inkludert bedrifter og individuell kontaktinformasjon, konkurrenter, familieselskaper, finans, nyheter og sosiale mediale. Hvis du vil vite mer om D&B for Sugar®, besøk Dun & Bradstreet http://www.dnb.com/partner/dnb-for-sugarcrm.html',
+  'LBL_NAME' => 'D&B Brukernavn',
+  'company_url' => 'Link',
+  'dnb_env' => 'D&B Miljø',
+  'dnb_password' => 'D&B Applikasjonsnøkkel',
+  'dnb_username' => 'D&B Brukernavn',
 );
 
-?>

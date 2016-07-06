@@ -60,9 +60,7 @@ function QuotesEditManager() {
         this.toggleTaxSelect(doc, count, false);
         this.setToEdit(doc.getElementById('cost_price_' + count));
         this.setToEdit(doc.getElementById('list_price_' + count));
-        if (!doc.getElementById('discount_price_' + count).readOnly) {
-            this.setToEdit(doc.getElementById('discount_price_' + count));
-        }
+        this.setToEdit(doc.getElementById('discount_price_' + count));
         this.setToEdit(doc.getElementById('tax_class_name_' + count));
         this.setToEdit(doc.getElementById('mft_part_num_' + count));
         //setToEdit(doc.getElementById('pricing_formula_name_'+count));
@@ -992,14 +990,12 @@ function QuotesEditManager() {
         cell1.width = 200;
         cell1.noWrap = true;
         var itemName = 'name_' + this.count;
-        var fieldLength = app.metadata.getModule('Products', 'fields').name.len;
         var textEl = this.createElement('input', {
             'type': 'text',
             'size': 30,
             'name': 'product_name[' + this.count + ']',
             'id': itemName,
-            'value': product_name,
-            'maxlength': fieldLength
+            'value': product_name
         }, ['sqsEnabled', 'sqsNoAutofill']);
         textEl.count = this.count;
         textEl.alt = function() {
@@ -1186,11 +1182,6 @@ function QuotesEditManager() {
                 this.select();
             }
         };
-
-        if (pricing_formula) {
-            this.setToReadOnly(textEl);
-        }
-
         item_list_MSI[itemName] = textEl;
         cell6.appendChild(textEl);
 

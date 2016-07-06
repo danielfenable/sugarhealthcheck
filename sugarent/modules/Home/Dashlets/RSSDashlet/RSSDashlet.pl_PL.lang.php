@@ -11,16 +11,25 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
+/*********************************************************************************
+ * pl_pl.lang.php for SugarCRM 6.5.0
+ * Translator: eVolpe
+ * All Rights Reserved.
+ * Any bugs report welcome: support@evolpe.pl
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
 
 
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Kanały wiadomości',
-                                         'LBL_DESCRIPTION'      => 'Kanały wiadomości',
+
+
+
+$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Kanał informacyjny',
+                                         'LBL_DESCRIPTION'      => 'Kanał informacyjny',
                                          'LBL_SAVING'           => 'Parsowanie...',
-                                         'LBL_SAVED'            => 'Zakończono',
-                                         'LBL_AUTO_SCROLL'      => 'Automatyczne przewijanie',
+                                         'LBL_SAVED'            => 'Ukończono',
+                                         'LBL_AUTO_SCROLL'      => 'Auto-przewijanie',
                                           'LBL_SCROLL_SPEED'      => 'Prędkość przewijania (%)',
-                                         'LBL_CONFIGURE_TITLE'  => 'Stanowisko',
+                                         'LBL_CONFIGURE_TITLE'  => 'Tytuł',
                                          'LBL_CONFIGURE_HEIGHT' => 'Wysokość (1 - 300)',
                                          'LBL_CONFIGURE_RSSURL' => 'Łącze URL kanału RSS',
                                          'LBL_DBLCLICK_HELP'    => '',

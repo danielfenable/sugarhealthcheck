@@ -23,15 +23,15 @@ class SugarUpgradeCreateHelpDashboards extends UpgradeScript
                            d.view_name,
                            d.assigned_user_id,
                            (SELECT d1.dashboard_type
-                            FROM   dashboards d1
+                            FROM   dashboards AS d1
                             WHERE  d1.dashboard_module = d.dashboard_module
                                AND d1.view_name = d.view_name
                                AND d1.assigned_user_id = d.assigned_user_id
-                               AND d1.dashboard_type = 'help-dashboard') has_help_dashboard
-                    FROM   dashboards d
+                               AND d1.dashboard_type = 'help-dashboard') as has_help_dashboard
+                    FROM   dashboards AS d
                     GROUP  BY d.assigned_user_id,
                               d.dashboard_module,
-                              d.view_name";
+                              d.view_name;";
 
             $results = $this->db->query($sql);
 
@@ -57,7 +57,7 @@ class SugarUpgradeCreateHelpDashboards extends UpgradeScript
                         '" . $GLOBALS['timedate']->nowDb() . "', '" . $GLOBALS['timedate']->nowDb() . "',
                         '" . $row['assigned_user_id'] . "', '" . $row['assigned_user_id'] . "', NULL, 0,
                         '" . $row['assigned_user_id'] . "', '" . $row['dashboard_module'] . "', '" . $row['view_name'] . "',
-                        '" . $helpDashboardMeta . "', 'help-dashboard')";
+                        '" . $helpDashboardMeta . "', 'help-dashboard');";
 
                 $this->db->query($sqlInsert);
 

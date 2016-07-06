@@ -1,13 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:21
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team Id',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned To:',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created:',
   'LBL_DATE_MODIFIED' => 'Date Modified:',
@@ -27,6 +20,11 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned To:',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team Id',
   'LBL_NUMBER' => 'Number:',
   'LBL_STATUS' => 'Status:',
   'LBL_PRIORITY' => 'Priority:',
@@ -69,6 +67,7 @@ $mod_strings = array (
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documents',
   'LBL_SEARCH_FORM_TITLE' => 'Case Search',
   'LBL_SOURCE' => 'Source:',
+  'LBL_KBDOCUMENTS_SUBPANEL_TITLE' => 'Knowledge Base',
   'LBL_LIST_ACCOUNT_NAME' => 'Account Name',
   'LBL_LIST_ASSIGNED' => 'Assigned To',
   'LBL_LIST_CLOSE' => 'Close',
@@ -93,7 +92,6 @@ $mod_strings = array (
   'LNK_CASE_REPORTS' => 'View Case Reports',
   'LBL_SHOW_IN_PORTAL' => 'Show in Portal',
   'LBL_CREATE_KB_DOCUMENT' => 'Create Article',
-  'LBL_KBCONTENTS_SUBPANEL_TITLE' => 'Knowledge Base',
   'LBL_PROJECT_SUBPANEL_TITLE' => 'Projects',
   'LBL_CASE_INFORMATION' => 'Overview',
   'LBL_MODIFIED_BY_NAME_OWNER' => 'Modified By Name Owner',
@@ -140,5 +138,7 @@ To create a {{module_name}}:
 1. Provide values for the fields as desired.
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
-2. Click "Save" to finalize the new record and return to the previous page.',
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
 );

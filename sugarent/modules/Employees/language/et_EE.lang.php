@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +10,21 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
+  'LBL_LIST_ADMIN' => 'Admin',
+  'LBL_NEW_EMPLOYEE_BUTTON_KEY' => 'N',
+  'LBL_FAX' => 'Fax:',
+  'LBL_CREATE_USER_BUTTON_KEY' => 'N',
+  'LBL_PORTAL_ONLY' => 'Portal Only User',
   'LBL_MODULE_NAME' => 'Töötajad',
-  'LBL_MODULE_NAME_SINGULAR' => 'Employee',
   'LBL_MODULE_TITLE' => 'Töötajad: Avaleht',
   'LBL_SEARCH_FORM_TITLE' => 'Töötaja otsing',
   'LBL_LIST_FORM_TITLE' => 'Töötajad',
@@ -40,15 +44,12 @@ $mod_strings = array (
   'LBL_LIST_EMAIL' => 'E-post',
   'LBL_LIST_PRIMARY_PHONE' => 'Töötelefon',
   'LBL_LIST_USER_NAME' => 'Kasutajanimi',
-  'LBL_LIST_ADMIN' => 'Admin',
   'LBL_NEW_EMPLOYEE_BUTTON_TITLE' => 'Uus töötaja [Alt+N]',
   'LBL_NEW_EMPLOYEE_BUTTON_LABEL' => 'Uus töötaja',
-  'LBL_NEW_EMPLOYEE_BUTTON_KEY' => 'N',
   'LBL_ERROR' => 'Viga:',
   'LBL_PASSWORD' => 'Parool:',
   'LBL_EMPLOYEE_NAME' => 'Töötaja nimi:',
   'LBL_USER_NAME' => 'Kasutajanimi:',
-  'LBL_USER_TYPE' => 'Kasutaja tüüp',
   'LBL_FIRST_NAME' => 'Eesnimi:',
   'LBL_LAST_NAME' => 'Perekonnanimi:',
   'LBL_EMPLOYEE_SETTINGS' => 'Töötaja sätted',
@@ -67,6 +68,7 @@ $mod_strings = array (
   'LBL_ANY_ADDRESS' => 'Muu aadress:',
   'LBL_ANY_PHONE' => 'Muu telefon:',
   'LBL_ANY_EMAIL' => 'Muu E-post:',
+  'LBL_ADDRESS' => 'Aadress:',
   'LBL_CITY' => 'Linn:',
   'LBL_STATE' => 'Maakond:',
   'LBL_POSTAL_CODE' => 'Postiindeks:',
@@ -75,17 +77,14 @@ $mod_strings = array (
   'LBL_MOBILE_PHONE' => 'Mobiil:',
   'LBL_OTHER' => 'Muu:',
   'LBL_EMAIL' => 'E-post:',
-  'LBL_PRIMARY_EMAIL' => 'Esmane e-posti aadress',
-  'LBL_EMAIL_LINK_TYPE'				=> 'E-posti klient',
-  'LBL_EMAIL_LINK_TYPE_HELP'			=> '<b>Sugar Mail Client:</b> Send emails using the email client in the Sugar application.<br><b>External Mail Client:</b> Send email using an email client outside of the Sugar application, such as Microsoft Outlook.',
   'LBL_HOME_PHONE' => 'Telefon kodus:',
   'LBL_WORK_PHONE' => 'Telefon tööl:',
+  'LBL_ADDRESS_INFORMATION' => 'Aadressi info:',
   'LBL_EMPLOYEE_STATUS' => 'Töötaja olek:',
   'LBL_PRIMARY_ADDRESS' => 'Esmane aadress:',
   'LBL_SAVED_SEARCH' => 'Paigutuse valikud',
   'LBL_CREATE_USER_BUTTON_TITLE' => 'Loo kasutaja [Alt+N]',
   'LBL_CREATE_USER_BUTTON_LABEL' => 'Loo kasutaja',
-  'LBL_CREATE_USER_BUTTON_KEY' => 'N',
   'LBL_FAVORITE_COLOR' => 'Lemmikvärv:',
   'LBL_MESSENGER_ID' => 'IM nimi:',
   'LBL_MESSENGER_TYPE' => 'IM tüüp:',
@@ -100,52 +99,15 @@ $mod_strings = array (
   'LBL_DEFAULT_TEAM_TEXT' => 'Valib esmase meeskonna uute kirjete jaoks',
   'LBL_MY_TEAMS' => 'Minu meeskonnad',
   'LBL_LIST_DESCRIPTION' => 'Kirjeldus',
-  'LNK_EDIT_TABS'=>'Redigeeri sakid',
+  'LNK_EDIT_TABS' => 'Redigeeri sakid',
   'NTC_REMOVE_TEAM_MEMBER_CONFIRMATION' => 'Oled kindel, et soovid eemaldada selle töötaja liikmelisuse?',
   'LBL_LIST_EMPLOYEE_STATUS' => 'Töötaja olek',
-
-  'LBL_SUGAR_LOGIN' => 'On Sugari kasutaja',  
-  'LBL_RECEIVE_NOTIFICATIONS' => 'Teavita määramisest',  
-  'LBL_IS_ADMIN' => 'On administraator',  
+  'LBL_SUGAR_LOGIN' => 'On Sugari kasutaja',
+  'LBL_RECEIVE_NOTIFICATIONS' => 'Teavita määramisest',
+  'LBL_IS_ADMIN' => 'On administraator',
   'LBL_GROUP' => 'Grupi kasutaja',
-  'LBL_PORTAL_ONLY'	=> 'Portal Only User',
-  'LBL_PHOTO'	=> 'Foto',
-  'LBL_DELETE_USER_CONFIRM'           => 'See töötaja on ka Kasutaja. Töötaja kirje kustutamisel kustutatakse ka Kasutaja kirje ning Kasutaja ei oma enam ligipääsu rakendusele. Kas soovid selle kirje kustutamisega jätkata?',
-  'LBL_DELETE_EMPLOYEE_CONFIRM'       => 'Kas oled kindel, et soovid selle töötaja kustutada?',
-  'LBL_ONLY_ACTIVE' => 'Active Employees',
-	'LBL_SELECT' => 'Valitud' /*for 508 compliance fix*/,
-	'LBL_FF_CLEAR' => 'Tühjenda' /*for 508 compliance fix*/,
-  'LBL_AUTHENTICATE_ID' => 'Autoriseerimise Id',
-  'LBL_EXT_AUTHENTICATE' => 'Väline autentimine',
-  'LBL_GROUP_USER' => 'Grupi kasutaja',
-  'LBL_LIST_ACCEPT_STATUS' => 'Aktsepteeri olek',
-  'LBL_MODIFIED_BY' =>'Muutja',
-  'LBL_MODIFIED_BY_ID' =>'Modified By Id',
-  'LBL_CREATED_BY_NAME' => 'Created By', //bug48978
-  'LBL_PORTAL_ONLY_USER' => 'Portal API User',
-  'LBL_PSW_MODIFIED' => 'viimati muudetud parool',
-  'LBL_SHOW_ON_EMPLOYEES' => 'Display Employee Record',
-  'LBL_USER_HASH' => 'Salasõna',
-  'LBL_SYSTEM_GENERATED_PASSWORD' =>'System Generated Password',
-  'LBL_PICTURE_FILE' => 'Pilt',
-  'LBL_DESCRIPTION'	=> 'Kirjeldus',
-  'LBL_FAX_PHONE'						=> 'Fax:',
-  'LBL_FAX'							=> 'Fax:',
-  'LBL_STATUS'						=> 'Olek',
-  'LBL_ADDRESS_CITY'					=> 'Aadress liinn',
-  'LBL_ADDRESS_COUNTRY'				=> 'Maakond',
-  'LBL_ADDRESS_INFORMATION'			=> 'Aadressi info:',
-  'LBL_ADDRESS_POSTALCODE'			=> 'Postiindeks',
-  'LBL_ADDRESS_STATE'					=> 'Riik',
-  'LBL_ADDRESS_STREET'				=> 'T&#39;änav',
-  'LBL_ADDRESS'						=> 'Aadress:',
-  
-  'LBL_DATE_MODIFIED' => 'Date Modified',
-  'LBL_DATE_ENTERED' => 'Date Entered',
-  'LBL_DELETED' => 'Deleted',
-  'LBL_EMAIL_ADDRESS'=>'Email Address',
-  'LBL_CONTACTS_SYNC' => 'Contacts',
+  'LBL_PHOTO' => 'Foto',
+  'LBL_DELETE_USER_CONFIRM' => 'See töötaja on ka Kasutaja. Töötaja kirje kustutamisel kustutatakse ka Kasutaja kirje ning Kasutaja ei oma enam ligipääsu rakendusele. Kas soovid selle kirje kustutamisega jätkata?',
+  'LBL_DELETE_EMPLOYEE_CONFIRM' => 'Kas oled kindel, et soovid selle töötaja kustutada?',
 );
 
-
-?>

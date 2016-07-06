@@ -97,8 +97,8 @@ var project,
         myLayout.toggle('east');
     });*/
 
-var getAutoIncrementName = function (type, targetElement) {
-    var i, j, k = canvas.getCustomShapes().getSize(), element, exists, index = 1, auxMap = {
+var getAutoIncrementName = function (type) {
+    var i, j, k = canvas.getCustomShapes().getSize(), exists, index = 1, auxMap = {
         AdamUserTask: translate('LBL_PMSE_ADAM_DESIGNER_TASK'),
         AdamScriptTask: translate('LBL_PMSE_ADAM_DESIGNER_ACTION'),
         AdamEventLead: translate('LBL_PMSE_ADAM_DESIGNER_LEAD_START_EVENT'),
@@ -118,9 +118,8 @@ var getAutoIncrementName = function (type, targetElement) {
     for (i = 0; i < k; i += 1) {
         exists = false;
         for (j = 0; j < k; j += 1) {
-            element =  canvas.getCustomShapes().get(j);
-            if (element.getName() === auxMap[type] + " # " + (i + 1)) {
-                exists = !(targetElement && targetElement === element);
+            if (canvas.getCustomShapes().get(j).getName() === auxMap[type] + " # " + (i + 1)) {
+                exists = true;
                 break;
             }
         }
@@ -133,7 +132,6 @@ var getAutoIncrementName = function (type, targetElement) {
 };
 
 function renderProject (prjCode) {
-    var pmseCurrencies, currencies, sugarCurrencies, currentCurrency, i;
     adamUID = prjCode;
 
     //RESIZE OPTIONS
@@ -176,22 +174,7 @@ function renderProject (prjCode) {
 
     $('.ui-layout-north').css('overflow', 'hidden');
 
-    pmseCurrencies = [];
-    currencies = SUGAR.App.metadata.getCurrencies();
-    for (currID in currencies) {
-        if (currencies.hasOwnProperty(currID)) {
-            if (currencies[currID].status === 'Active') {
-                pmseCurrencies.push({
-                    id: currID,
-                    iso: currencies[currID].iso4217,
-                    name: currencies[currID].name,
-                    rate: parseFloat(currencies[currID].conversion_rate),
-                    preferred: currID === SUGAR.App.user.getCurrency().currency_id,
-                    symbol: currencies[currID].symbol
-                });
-            }
-        }
-    }
+
     project = new AdamProject({
         metadata: [
             {
@@ -218,17 +201,8 @@ function renderProject (prjCode) {
                     url: "pmse_Project/CrmData/fields/{MODULE}",
                     root: "result"
                 }
-            },
-            {
-                name: "currencies",
-                data: pmseCurrencies
             }
         ]
-    });
-
-    project.addMetadata("teams_details", {
-        dataURL: 'Teams',
-        dataRoot: 'records'
     });
 
     canvas = new AdamCanvas({
@@ -1271,7 +1245,6 @@ function renderProject (prjCode) {
                 });
                 break;
             }
-
             return customShape;
         }
     });
@@ -1345,7 +1318,7 @@ function renderProject (prjCode) {
         }
     };
     $('#txt-title').focusout(function (e) {
-        if ($.trim($('#txt-title').val()) !== '') {
+        if($('#txt-title').val()!==''){
             save_name();
         }
     }).keypress(function(e) {

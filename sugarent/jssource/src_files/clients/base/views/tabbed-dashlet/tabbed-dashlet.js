@@ -74,7 +74,7 @@
     _defaultSettings: {},
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Bind the separate context to avoid sharing context's handlers
      * between its extension dashlets.
@@ -85,14 +85,13 @@
             return;
         }
 
-        this.collection = app.data.createBeanCollection(this.module);
+        this.collection = new Backbone.Collection();
         this.context = this.context.getChildContext({
             forceNew: true,
             model: this.context.parent && this.context.parent.get('model'),
             collection: this.collection,
             //FIXME: name is temporary - special case for LinkedModel - SC-2550
-            name: 'tabbed-dashlet',
-            skipFetch: true
+            name: 'tabbed-dashlet'
         });
 
         this.context.set('parentModule', this.module);
@@ -445,8 +444,7 @@
         var loadDataRequests = [];
         _.each(tabs, function(tab, index) {
             loadDataRequests.push(function(callback){
-                tab.collection.setOption(self._getCollectionOptions(index));
-
+                tab.collection.options = self._getCollectionOptions(index);
                 tab.collection.filterDef = _.union(
                     self._getCollectionFilters(index),
                     self._getFilters(index)
@@ -545,7 +543,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * New model related properties are injected into each model:
      *
@@ -593,7 +591,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _dispose: function() {
         _.each(this.tabs, function(tab) {

@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +13,16 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-    'LBL_MODULE_NAME'			=> 'Підписи користувача',
-    'LBL_MODULE_NAME_SINGULAR'		=> 'Підпис користувача',
-    'LBL_EMAIL_SIGNATURE_ERROR1' => 'Цьому підпису потрібна назва.',
-    'LBL_SIGNATURE_NAME'         => 'Назва',
-    'LBL_SIGNATURE'              => 'Підпис',
-    'LBL_SIGNATURE_HTML'         => 'підпис HTML',
-    'LBL_SIGNATURE_DEFAULT'      => 'Використати підпис?',
-    'LBL_SIGNATURE_PREPEND'      => 'Підпис над відповіддю?',
-    'LBL_SIGNATURES'             => 'Підписи',
+
+$mod_strings = array (
+  'LBL_EMAIL_SIGNATURE_ERROR1' => 'Цьому підпису потрібна назва.',
+  'LBL_MODULE_NAME' => 'Підписи користувача',
+  'LBL_MODULE_NAME_SINGULAR' => 'Підпис користувача',
+  'LBL_SIGNATURE' => 'Підпис',
+  'LBL_SIGNATURES' => 'Підписи',
+  'LBL_SIGNATURE_DEFAULT' => 'Використати підпис?',
+  'LBL_SIGNATURE_HTML' => 'підпис HTML',
+  'LBL_SIGNATURE_NAME' => 'Назва',
+  'LBL_SIGNATURE_PREPEND' => 'Підпис над відповіддю?',
 );
+

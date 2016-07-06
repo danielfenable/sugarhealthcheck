@@ -118,12 +118,13 @@
          * Primarily used for logging purposes, this method is useful for
          * debugging.
          *
-         * @param {jQuery} $el The element for which the tag should be
-         *   generated.
+         * @param {jQuery} $el
+         * The element for which the tag should be generated.
          *
-         * @return {string} A string representing an element's tag, with all
-         *   attributes. The element's selector, if one exists, is returned
-         *   when a representation cannot be reasonably generated.
+         * @returns {String}
+         * A string representing an element's tag, with all attributes. The
+         * element's selector, if one exists, is returned when a representation
+         * cannot be reasonably generated.
          */
         getElementTag: function($el) {
             var tagName = ($el.prop('tagName') || '').toLowerCase(),

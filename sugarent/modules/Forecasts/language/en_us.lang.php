@@ -284,8 +284,6 @@ $mod_strings = array (
     'LBL_FORECASTS_ACLS_NO_ACCESS_TITLE' => 'Forecasts Access Error:',
     'LBL_FORECASTS_ACLS_NO_ACCESS_MSG' => 'You do not have access to the Forecasts module. Please contact your Administrator.',
 
-    'LBL_FORECASTS_RECORDS_ACLS_NO_ACCESS_MSG' => 'You do not have access to the Forecasts module\'s records. Please contact your Administrator.',
-
     // Panel and BreadCrumb Labels
     'LBL_FORECASTS_CONFIG_BREADCRUMB_WORKSHEET_LAYOUT' => 'Worksheet Layout',
     'LBL_FORECASTS_CONFIG_BREADCRUMB_RANGES' => 'Ranges',
@@ -321,7 +319,7 @@ $mod_strings = array (
     'LBL_FORECASTS_CONFIG_LEAFPERIOD' => 'Choose the sub period that you want to view your Time Period over:',
     'LBL_FORECASTS_CONFIG_START_DATE' => 'Choose fiscal year start date',
     'LBL_FORECASTS_CONFIG_TIMEPERIODS_FORWARD' => 'Choose the number of future Time Periods to view in the worksheet.<br><i>This number applies to the base Time Period selected. For example, choosing 2 with Yearly Time Period will show 8 future Quarters</i>',
-    'LBL_FORECASTS_CONFIG_TIMEPERIODS_BACKWARD' => 'Choose the number of past Time Periods to view in the worksheet.<br><i>This number applies to the base Time Period selected. For example, choosing 2 with Quarterly Time Period will show 6 past Months</i>',
+    'LBL_FORECASTS_CONFIG_TIMEPERIODS_BACKWARD' => 'Choose the number of past Time Periods to view in the worksheet.<br><i>This number applies to the base Time Period selected. For example, choosing 2 with Monthly Time Period will show 6 past Months</i>',
     'LBL_FORECASTS_CONFIG_TIMEPERIOD_FISCAL_YEAR' => 'The chosen start date indicates the fiscal year may span across two years. Please choose which year to use as the Fiscal Year:',
     'LBL_FISCAL_YEAR' => 'Fiscal Year',
 
@@ -410,8 +408,6 @@ $mod_strings = array (
     'LBL_QUOTA_ASSIGNED' => 'Quotas have been successfully assigned.',
     'LBL_FORECASTS_NO_ACCESS_TO_CFG_TITLE' => 'Forecasts Access Error',
     'LBL_FORECASTS_NO_ACCESS_TO_CFG_MSG' => 'You do not have access to configure Forecasts. Please contact your Administrator.',
-    'WARNING_DELETED_RECORD_RECOMMIT_1' => 'This record was included in a ',
-    'WARNING_DELETED_RECORD_RECOMMIT_2' => 'It will be removed and you will need to re-commit your ',
 
     'LBL_DASHLET_MY_FORECAST' => 'My Forecast',
     'LBL_DASHLET_MY_TEAMS_FORECAST' => "My Team's Forecast",

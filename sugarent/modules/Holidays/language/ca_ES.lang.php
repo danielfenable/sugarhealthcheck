@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,35 +12,28 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-// $Id: en_us.lang.php 13782 2006-06-06 17:58:55 +0000 (Tue, 06 Jun 2006) majed $
+	
 
 $mod_strings = array (
-	'LBL_MODULE_NAME' => 'Festius',
-	'LBL_MODULE_NAME_SINGULAR' => 'Festiu',
-	'LBL_MODULE_TITLE' => 'Festius: inici',
-	'LBL_HOLIDAY' => 'Festiu:',
-	'LBL_HOLIDAY_DATE' => 'Data del Festiu:',
-	'LBL_NAME' => 'Data del Festiu:',
-	'LBL_DESCRIPTION' => 'Descripció:',
-	'LBL_RESOURCE_NAME' => 'Nom del recurs ',
-	
-	'LBL_SEARCH_FORM_TITLE' => 'Cerca de festius',
-	'LBL_LIST_FORM_TITLE' => 'Llista de festius',		
-
-	'LNK_NEW_HOLIDAY' => 'Agregar Festiu',
-	'LNK_HOLIDAYS' => 'Festius',
-	
-	'LBL_USERS_SUBPANEL_TITLE' => 'Usuaris',
-	'LBL_USER_HOLIDAY_SUBPANEL_TITLE'	=> 'Festius del Usuari',
-	
-	'LBL_RESOURCE' => 'Recurs:',
-	'LBL_PERSON_TYPE' => 'Tipus de persona',
-	'LBL_RELATED_MODULE'=> 'Mòdul Relacionat:',
-	
-	// For HolidaysQuickCreate.php
-	'LBL_SELECT_RESOURCE_TYPE' => 'Seleccioni el Tipus de Recurs...',
-	'LBL_USER' => 'Usuari',
-	'LBL_CONTACT' => 'Contacte',
+  'LBL_CONTACT' => 'Contacte',
+  'LBL_DESCRIPTION' => 'Descripció:',
+  'LBL_HOLIDAY' => 'Festiu:',
+  'LBL_HOLIDAY_DATE' => 'Data del Festiu:',
+  'LBL_LIST_FORM_TITLE' => 'Llista de Festius',
+  'LBL_MODULE_NAME' => 'Festius',
+  'LBL_MODULE_NAME_SINGULAR' => 'Festiu',
+  'LBL_MODULE_TITLE' => 'Festius: Inici',
+  'LBL_NAME' => 'Data del Festiu:',
+  'LBL_PERSON_TYPE' => 'Tipus de persona',
+  'LBL_RELATED_MODULE' => 'Mòdul Relacionat:',
+  'LBL_RESOURCE' => 'Recurs:',
+  'LBL_RESOURCE_NAME' => 'Nom del Recurs',
+  'LBL_SEARCH_FORM_TITLE' => 'Recerca de Festius',
+  'LBL_SELECT_RESOURCE_TYPE' => 'Seleccioni el Tipus de Recurs...',
+  'LBL_USER' => 'Usuari',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Usuaris',
+  'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'Festius del Usuari',
+  'LNK_HOLIDAYS' => 'Festius',
+  'LNK_NEW_HOLIDAY' => 'Agregar Festiu',
 );
-?>
+

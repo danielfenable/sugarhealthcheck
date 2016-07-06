@@ -75,9 +75,9 @@ class SugarWidgetSubPanelEmailLink extends SugarWidgetField {
 			    );
                 if(isset($layout_def['fields']['FULL_NAME'])){
                     $composeData['parent_name'] = $layout_def['fields']['FULL_NAME'];
-                    $composeData['to_email_addrs'] = sprintf("%s <%s>", $layout_def['fields']['FULL_NAME'], $layout_def['fields']['EMAIL']);
+                    $composeData['to_email_addrs'] = sprintf("%s <%s>", $layout_def['fields']['FULL_NAME'], $layout_def['fields']['EMAIL1']);
                 } else {
-                    $composeData['to_email_addrs'] = $layout_def['fields']['EMAIL'];
+                    $composeData['to_email_addrs'] = $layout_def['fields']['EMAIL1'];
                 }
                 require_once('modules/Emails/EmailUI.php');
                 $eUi = new EmailUI();

@@ -25,10 +25,6 @@
          * but for record edit view, we need to wait until after sync so we can
          * detect a change event accurately.
          *
-         * For invitees that are added automatically in the create scenario,
-         * we want these to be set as "default" so they are not reported as
-         * unsaved changes if the user attempts to leave the page.
-         *
          * This plugin is built to enhance {@link View.Views.Base.RecordView}
          * and its descendants.
          */
@@ -38,15 +34,15 @@
                     this.turnOffAutoInviteParent();
 
                     if (this.isFieldPrepopulatedOnCreate('parent_name')) {
-                        this.handleParentChange(this.model, {default: true});
+                        this.handleParentChange(this.model);
                     }
 
                     if (this.isFieldPrepopulatedOnCreate('assigned_user_name')) {
-                        this.handleAssignedUserChange(this.model, {default: true});
+                        this.handleAssignedUserChange(this.model);
                     }
 
                     if (this.isFieldPrepopulatedOnCreate('contact_id')) {
-                        this.addContactFromContactIdField(this.model, {default: true});
+                        this.addContactFromContactIdField(this.model);
                     }
 
                     if (this.model.isNew()) {
@@ -93,10 +89,8 @@
              * the bean automatically.
              *
              * @param {Object} model
-             * @param {Object} [options] Additional options to pass along when
-             *   adding an invitee to the collection.
              */
-            handleParentChange: function(model, options) {
+            handleParentChange: function(model) {
                 var parent = app.data.createBean(model.get('parent_type'), {
                     id: model.get('parent_id'),
                     name: model.get('parent_name')
@@ -106,7 +100,7 @@
                     if (this._isCreateAndLinkAction(parent, model)) {
                         parent.deletable = false;
                     }
-                    this.addAsInvitee(parent, options);
+                    this.addAsInvitee(parent);
                 }
             },
 
@@ -115,10 +109,8 @@
              * changed.
              *
              * @param {Data.Bean} model
-             * @param {Object} [options] Additional options to pass along when
-             *   adding an invitee to the collection.
              */
-            handleAssignedUserChange: function(model, options) {
+            handleAssignedUserChange: function(model) {
                 var user;
 
                 user = app.data.createBean('Users', {
@@ -127,7 +119,7 @@
                 });
 
                 if (this.isPossibleInvitee(user)) {
-                    this.addAsInvitee(user, options);
+                    this.addAsInvitee(user);
                 }
             },
 
@@ -138,10 +130,8 @@
              * the bean automatically.
              *
              * @param {Data.Bean} model
-             * @param {Object} [options] Additional options to pass along when
-             *   adding an invitee to the collection.
              */
-            addContactFromContactIdField: function(model, options) {
+            addContactFromContactIdField: function(model) {
                 var contact = app.data.createBean('Contacts', {
                     id: model.get('contact_id'),
                     name: model.get('contact_name')
@@ -151,7 +141,7 @@
                     if (this._isCreateAndLinkAction(contact, model)) {
                         contact.deletable = false;
                     }
-                    this.addAsInvitee(contact, options);
+                    this.addAsInvitee(contact);
                 }
             },
 
@@ -199,12 +189,9 @@
              * Add the given person as an invitee
              *
              * @param {Object} person
-             * @param {Object} [options] Additional options to pass along when
-             *   adding an invitee to the collection.
              */
-            addAsInvitee: function(person, options) {
-                options = _.extend({merge: true}, (options || {}));
-                this.model.get('invitees').add(person, options);
+            addAsInvitee: function(person) {
+                this.model.get('invitees').add(person, {merge: true});
             }
         });
     });

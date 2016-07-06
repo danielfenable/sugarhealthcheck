@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,33 +12,25 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'LBL_ACCEPT_CLIENT' => 'クライアントのデータが優先です',
+  'LBL_ACCEPT_SERVER' => 'サーバのデータが優先です',
+  'LBL_CHECKING_SYNC_AVAILABLE' => 'サーバとの接続を確認中...',
+  'LBL_CLEAN_ALERT' => 'クライアントデータをクリアするとクライアントのレコードがすべて削除されます。',
+  'LBL_CLEAN_SYNC' => 'クライアントデータをクリア:',
+  'LBL_GO_ONLINE' => 'オンラインで接続',
+  'LBL_INITIAL_SYNC_MESSAGE' => 'オフラインクライアントをインストールしました。下のボタンをクリックして同期処理を開始してください。',
   'LBL_MODULE_NAME' => '同期',
   'LBL_MODULE_NAME_SINGULAR' => '同期',
   'LBL_MODULE_TITLE' => '同期: ホーム',
-  'LBL_GO_ONLINE' => 'オンラインで接続',
-  'LBL_SYNC_AVAILABLE' => 'サーバの接続確認',
-  'LBL_CHECKING_SYNC_AVAILABLE' => 'サーバとの接続を確認中...',
+  'LBL_POWERED_BY_SUGAR' => 'Powered By SugarCRM',
+  'LBL_PROMPT' => 'プロンプト',
   'LBL_SERVER_AVAILABLE' => 'サーバと接続済み',
   'LBL_SERVER_UNAVAILABLE' => 'サーバに接続できません - インターネットに接続されているかどうか確認してください。',
-  'LBL_START_SYNC'=>'同期開始',
-  'LBL_SYNC_SETUP'=>'同期設定',
-  'LBL_PROMPT'=> 'プロンプト',
-  'LBL_ACCEPT_SERVER'=>'サーバのデータが優先です',
-  'LBL_ACCEPT_CLIENT'=>'クライアントのデータが優先です',
-  'LBL_CLEAN_SYNC'=>'クライアントデータをクリア:',
-  'LBL_CLEAN_ALERT'=>'クライアントデータをクリアするとクライアントのレコードがすべて削除されます。',
-  'LBL_INITIAL_SYNC_MESSAGE' => 'オフラインクライアントをインストールしました。下のボタンをクリックして同期処理を開始してください。',
-	'LBL_POWERED_BY_SUGAR' => 'SugarCRM 搭載' /*for 508 compliance fix*/,
+  'LBL_START_SYNC' => '同期開始',
+  'LBL_SYNC_AVAILABLE' => 'サーバの接続確認',
+  'LBL_SYNC_SETUP' => '同期設定',
 );
 
-
-?>

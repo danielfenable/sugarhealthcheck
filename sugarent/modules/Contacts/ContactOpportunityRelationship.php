@@ -10,6 +10,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+/*********************************************************************************
+
+ * Description:  TODO: To be written.
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
+
+
+
+
 
 // Contact is used to store customer information.
 class ContactOpportunityRelationship extends SugarBean {
@@ -46,17 +57,14 @@ class ContactOpportunityRelationship extends SugarBean {
 
 
     /**
-     * This is deprecated since 7.7.0 and will be removed in 7.9.0.
-     * Please use __construct() instead.
-     * @deprecated 7.7.0
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
      * @see __construct
+     * @deprecated
      */
     public function ContactOpportunityRelationship()
     {
         self::__construct();
-        $GLOBALS['log']->deprecated('ContactOpportunityRelationship::ContactOpportunityRelationship() is deprecated ' .
-            'since 7.7.0. and will be removed in 7.9.0. Please use ' .
-            'ContactOpportunityRelationship::__construct() instead.');
     }
 
 

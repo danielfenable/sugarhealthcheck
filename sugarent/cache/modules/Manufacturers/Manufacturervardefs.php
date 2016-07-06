@@ -33,18 +33,6 @@
       'type' => 'datetime',
       'required' => true,
       'comment' => 'Date record created',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_entered' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'date_modified' => 
     array (
@@ -53,18 +41,6 @@
       'type' => 'datetime',
       'required' => true,
       'comment' => 'Date record last modified',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_modified' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'modified_user_id' => 
     array (
@@ -78,20 +54,6 @@
       'dbType' => 'id',
       'reportable' => true,
       'comment' => 'User who last modified record',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'modified_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'created_by' => 
     array (
@@ -104,20 +66,6 @@
       'isnull' => 'false',
       'dbType' => 'id',
       'comment' => 'User who created record',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'created_by' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_CREATED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'name' => 
     array (
@@ -133,8 +81,7 @@
       'full_text_search' => 
       array (
         'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.78000000000000003,
+        'boost' => 3,
       ),
     ),
     'list_order' => 
@@ -164,7 +111,7 @@
       'relationship' => 'revenuelineitems_manufacturers',
       'source' => 'non-db',
       'vname' => 'LBL_REVENUELINEITEMS',
-      'workflow' => true,
+      'workflow' => false,
     ),
   ),
   'acls' => 
@@ -174,7 +121,6 @@
       'aclModule' => 'Products',
       'allowUserRead' => true,
     ),
-    'SugarACLStatic' => false,
   ),
   'indices' => 
   array (
@@ -198,8 +144,8 @@
       ),
     ),
   ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

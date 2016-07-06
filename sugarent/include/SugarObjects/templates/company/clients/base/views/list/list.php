@@ -145,8 +145,8 @@ $viewdefs[$module_name]['base']['view']['list'] = array(
                     'enabled' => true,
                 ),
                 array(
-                    'name' => 'email',
-                    'label' => 'LBL_ANY_EMAIL',
+                    'name' => 'email1',
+                    'label' => 'LBL_EMAIL_ADDRESS',
                     'link' => true,
                     'default' => true,
                     'enabled' => true,

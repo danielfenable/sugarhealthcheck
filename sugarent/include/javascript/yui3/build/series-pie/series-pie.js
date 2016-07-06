@@ -1,9 +1,84 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("series-pie",function(e,t){var n=e.config,r=n.doc,i=e.ClassNameManager.getClassName,s=i("seriesmarker");e.PieSeries=e.Base.create("pieSeries",e.SeriesBase,[e.Plots],{_map:null,_image:null,_setMap:function(){var e="pieHotSpotMapi_"+Math.round(1e5*Math.random()),t=this.get("graph"),n,i,s;t?i=t.get("contentBox"):(n=this.get("graphic"),i=n.get("node"));if(this._image){i.removeChild(this._image);while(this._areaNodes&&this._areaNodes.length>0)s=this._areaNodes.shift(),this._map.removeChild(s);i.removeChild(this._map)}this._image=r.createElement("img"),this._image.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAABCAYAAAD9yd/wAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABJJREFUeNpiZGBgSGPAAgACDAAIkABoFyloZQAAAABJRU5ErkJggg==",i.appendChild(this._image),this._image.style.position="absolute",this._image.style.left="0px",this._image.style.top="0px",this._image.setAttribute("usemap","#"+e),this._image.style.zIndex=3,this._image.style.opacity=0,this._image.setAttribute("alt","imagemap"),this._map=r.createElement("map"),i.appendChild(this._map),this._map.setAttribute("name",e),this._map.setAttribute("id",e),this._areaNodes=[]},_categoryDisplayName:null,_valueDisplayName:null,addListeners:function(){var t=this.get("categoryAxis"),n=this.get("valueAxis");t&&(t.after("dataReady",e.bind(this._categoryDataChangeHandler,this)),t.after("dataUpdate",e.bind(this._categoryDataChangeHandler,this))),n&&(n.after("dataReady",e.bind(this._valueDataChangeHandler,this)),n.after("dataUpdate",e.bind(this._valueDataChangeHandler,this))),this.after("categoryAxisChange",this.categoryAxisChangeHandler),this.after("valueAxisChange",this.valueAxisChangeHandler),this._stylesChangeHandle=this.after("stylesChange",this._updateHandler),this._visibleChangeHandle=this.after("visibleChange",this._handleVisibleChange)},validate:function(){this.draw(),this._renderered=!0},_categoryAxisChangeHandler:function(){var t=this.get("categoryAxis");t.after("dataReady",e.bind(this._categoryDataChangeHandler,this)),t.after("dataUpdate",e.bind(this._categoryDataChangeHandler,this))},_valueAxisChangeHandler:function(){var t=this.get("valueAxis");t.after("dataReady",e.bind(this._valueDataChangeHandler,this)),t.after("dataUpdate",e.bind(this._valueDataChangeHandler,this))},GUID:"pieseries",_categoryDataChangeHandler:function(){this._rendered&&this.get("categoryKey")&&this.get("valueKey")&&this.draw()},_valueDataChangeHandler:function(){this._rendered&&this.get("categoryKey")&&this.get("valueKey")&&this.draw()},getTotalValues:function(){var e=this.get("valueAxis").getTotalByKey(this.get("valueKey"));return e},draw:function(){var e=this.get("width"),t=this.get("height");if(isFinite(e)&&isFinite(t)&&e>0&&t>0){this._rendered=!0;if(this._drawing){this._callLater=!0;return}this._drawing=!0,this._callLater=!1,this.drawSeries(),this._drawing=!1,this._callLater?this.draw():this.fire("drawingComplete")}},drawPlots:function(){var t=this.get("valueAxis").getDataByKey(this.get("valueKey")).concat(),n=0,r=t.length,i=this.get("styles").marker,s=i.fill.colors,o=i.fill.alphas||["1"],u=i.border.colors,a=[i.border.weight],f=[i.border.alpha],l=a.concat(),c=u.concat(),h=f.concat(),p,d,v=i.padding,m=this.get("graphic"),g=Math.min(m.get("width"),m.get("height")),y=g-(v.left+v.right),b=g-(v.top+v.bottom),w=-90,E=y/2,S=b/2,x=Math.min(E,S),T=0,N,C=0,k,L,A,O,M,_=this.get("graphOrder")||0,D=e.Graphic.NAME==="canvasGraphic";for(;T<r;++T)N=parseFloat(t[T]),t.push(N),isNaN(N)||(n+=N);p=s?s.concat():null,d=o?o.concat():null,this._createMarkerCache(),D&&(this._setMap(),this._image.width=y,this._image.height=b);for(T=0;T<r;T++)N=t[T],n===0?C=360/t.length:C=360*(N/n),p&&p.length<1&&(p=s.concat()),d&&d.length<1&&(d=o.concat()),l&&l.length<1&&(l=a.concat()),l&&c.length<1&&(c=u.concat()),h&&h.length<1&&(h=f.concat()),A=l?l.shift():null,k=c?c.shift():null,L=h?h.shift():null,w+=C,O={border:{color:k,weight:A,alpha:L},fill:{color:p?p.shift():this._getDefaultColor(T,"slice"),alpha:d?d.shift():null},type:"pieslice",arc:C,radius:x,startAngle:w,cx:E,cy:S,width:y,height:b},M=this.getMarker(O,_,T),D&&this._addHotspot(O,_,T);this._clearMarkerCache()},_setStyles:function(t){return t.marker||(t={marker:t}),t=this._parseMarkerStyles(t),e.PieSeries.superclass._mergeStyles.apply(this,[t,this._getDefaultStyles()])},_addHotspot:function(e,t,n){var i=r.createElement("area"),o=1,u=e.cx,a=e.cy,f=e.arc,l=e.startAngle-f,c=e.startAngle,h=e.radius,p=u+Math.cos(l/180*Math.PI)*h,d=a+Math.sin(l/180*Math.PI)*h,v=u+Math.cos(c/180*Math.PI)*h,m=a+Math.sin(c/180*Math.PI)*h,g=Math.floor(f/10)-1,y=f/Math.floor(f/10)/180*Math.PI,b=Math.atan((d-a)/(p-u)),w=u+", "+a+", "+p+", "+d,E,S,x;for(o=1;o<=g;++o)x=y*o,E=Math.cos(b+x),S=Math.sin(b+x),l<=90?(w+=", "+(u+h*Math.cos(b+y*o)),w+=", "+(a+h*Math.sin(b+y*o))):(w+=", "+(u-h*Math.cos(b+y*o)),w+=", "+(a-h*Math.sin(b+y*o)));w+=", "+v+", "+m,w+=", "+u+", "+a,this._map.appendChild(i),i.setAttribute("class",s),i.setAttribute("id","hotSpot_"+t+"_"+n),i.setAttribute("shape","polygon"),i.setAttribute("coords",w),this._areaNodes.push(i)},updateMarkerState:function(e,t){if(this._markers[t]){var n=this._getState(e),r,i,s=this._markers[t],o=this.get("styles").marker;r=n==="off"||!o[n]?o:o[n],i=this._mergeStyles(r,{}),i.fill.color=i.fill.colors[t%i.fill.colors.length],i.fill.alpha=i.fill.alphas[t%i.fill.alphas.length],s.set(i)}},_createMarker:function(e){var t=this.get("graphic"),n,r=this._copyObject(e);return n=t.addShape(r),n.addClass(s),n},_clearMarkerCache:function(){var e=this._markerCache.length,t=0,n;for(;t<e;++t)n=this._markerCache[t],n&&n.destroy();this._markerCache=[]},_getPlotDefaults:function(){var e={padding:{top:0,left:0,right:0,bottom:0},fill:{alphas:["1"]},border:{weight:0,alpha:1}};return e.fill.colors=this._defaultSliceColors,e.border.colors=this._defaultBorderColors,e}},{ATTRS:{type:{value:"pie"},order:{},graph:{},categoryAxis:{value:null,validator:function(e){return e!==this.get("categoryAxis")}},valueAxis:{value:null,validator:function(e){return e!==
-this.get("valueAxis")}},categoryKey:{value:null,validator:function(e){return e!==this.get("categoryKey")}},valueKey:{value:null,validator:function(e){return e!==this.get("valueKey")}},categoryDisplayName:{setter:function(e){return this._categoryDisplayName=e,e},getter:function(){return this._categoryDisplayName||this.get("categoryKey")}},valueDisplayName:{setter:function(e){return this._valueDisplayName=e,e},getter:function(){return this._valueDisplayName||this.get("valueKey")}},slices:null}})},"3.15.0",{requires:["series-base","series-plot-util"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('series-pie',function(Y,NAME){var CONFIG=Y.config,DOCUMENT=CONFIG.doc,_getClassName=Y.ClassNameManager.getClassName,SERIES_MARKER=_getClassName("seriesmarker");Y.PieSeries=Y.Base.create("pieSeries",Y.SeriesBase,[Y.Plots],{_map:null,_image:null,_setMap:function()
+{var id="pieHotSpotMapi_"+Math.round(100000*Math.random()),graph=this.get("graph"),graphic,cb,areaNode;if(graph)
+{cb=graph.get("contentBox");}
+else
+{graphic=this.get("graphic");cb=graphic.get("node");}
+if(this._image)
+{cb.removeChild(this._image);while(this._areaNodes&&this._areaNodes.length>0)
+{areaNode=this._areaNodes.shift();this._map.removeChild(areaNode);}
+cb.removeChild(this._map);}
+this._image=DOCUMENT.createElement("img");this._image.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAABCAYAAAD9yd/wAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSB"+"JbWFnZVJlYWR5ccllPAAAABJJREFUeNpiZGBgSGPAAgACDAAIkABoFyloZQAAAABJRU5ErkJggg==";cb.appendChild(this._image);this._image.style.position="absolute";this._image.style.left="0px";this._image.style.top="0px";this._image.setAttribute("usemap","#"+id);this._image.style.zIndex=3;this._image.style.opacity=0;this._image.setAttribute("alt","imagemap");this._map=DOCUMENT.createElement("map");cb.appendChild(this._map);this._map.setAttribute("name",id);this._map.setAttribute("id",id);this._areaNodes=[];},_categoryDisplayName:null,_valueDisplayName:null,addListeners:function()
+{var categoryAxis=this.get("categoryAxis"),valueAxis=this.get("valueAxis");if(categoryAxis)
+{categoryAxis.after("dataReady",Y.bind(this._categoryDataChangeHandler,this));categoryAxis.after("dataUpdate",Y.bind(this._categoryDataChangeHandler,this));}
+if(valueAxis)
+{valueAxis.after("dataReady",Y.bind(this._valueDataChangeHandler,this));valueAxis.after("dataUpdate",Y.bind(this._valueDataChangeHandler,this));}
+this.after("categoryAxisChange",this.categoryAxisChangeHandler);this.after("valueAxisChange",this.valueAxisChangeHandler);this._stylesChangeHandle=this.after("stylesChange",this._updateHandler);this._visibleChangeHandle=this.after("visibleChange",this._handleVisibleChange);},validate:function()
+{this.draw();this._renderered=true;},_categoryAxisChangeHandler:function()
+{var categoryAxis=this.get("categoryAxis");categoryAxis.after("dataReady",Y.bind(this._categoryDataChangeHandler,this));categoryAxis.after("dataUpdate",Y.bind(this._categoryDataChangeHandler,this));},_valueAxisChangeHandler:function()
+{var valueAxis=this.get("valueAxis");valueAxis.after("dataReady",Y.bind(this._valueDataChangeHandler,this));valueAxis.after("dataUpdate",Y.bind(this._valueDataChangeHandler,this));},GUID:"pieseries",_categoryDataChangeHandler:function()
+{if(this._rendered&&this.get("categoryKey")&&this.get("valueKey"))
+{this.draw();}},_valueDataChangeHandler:function()
+{if(this._rendered&&this.get("categoryKey")&&this.get("valueKey"))
+{this.draw();}},getTotalValues:function()
+{var total=this.get("valueAxis").getTotalByKey(this.get("valueKey"));return total;},draw:function()
+{var w=this.get("width"),h=this.get("height");if(isFinite(w)&&isFinite(h)&&w>0&&h>0)
+{this._rendered=true;if(this._drawing)
+{this._callLater=true;return;}
+this._drawing=true;this._callLater=false;this.drawSeries();this._drawing=false;if(this._callLater)
+{this.draw();}
+else
+{this.fire("drawingComplete");}}},drawPlots:function()
+{var values=this.get("valueAxis").getDataByKey(this.get("valueKey")).concat(),totalValue=0,itemCount=values.length,styles=this.get("styles").marker,fillColors=styles.fill.colors,fillAlphas=styles.fill.alphas||["1"],borderColors=styles.border.colors,borderWeights=[styles.border.weight],borderAlphas=[styles.border.alpha],tbw=borderWeights.concat(),tbc=borderColors.concat(),tba=borderAlphas.concat(),tfc,tfa,padding=styles.padding,graphic=this.get("graphic"),minDimension=Math.min(graphic.get("width"),graphic.get("height")),w=minDimension-(padding.left+padding.right),h=minDimension-(padding.top+padding.bottom),startAngle=-90,halfWidth=w / 2,halfHeight=h / 2,radius=Math.min(halfWidth,halfHeight),i=0,value,angle=0,lc,la,lw,wedgeStyle,marker,graphOrder=this.get("graphOrder")||0,isCanvas=Y.Graphic.NAME==="canvasGraphic";for(;i<itemCount;++i)
+{value=parseFloat(values[i]);values.push(value);if(!isNaN(value))
+{totalValue+=value;}}
+tfc=fillColors?fillColors.concat():null;tfa=fillAlphas?fillAlphas.concat():null;this._createMarkerCache();if(isCanvas)
+{this._setMap();this._image.width=w;this._image.height=h;}
+for(i=0;i<itemCount;i++)
+{value=values[i];if(totalValue===0)
+{angle=360 / values.length;}
+else
+{angle=360*(value / totalValue);}
+if(tfc&&tfc.length<1)
+{tfc=fillColors.concat();}
+if(tfa&&tfa.length<1)
+{tfa=fillAlphas.concat();}
+if(tbw&&tbw.length<1)
+{tbw=borderWeights.concat();}
+if(tbw&&tbc.length<1)
+{tbc=borderColors.concat();}
+if(tba&&tba.length<1)
+{tba=borderAlphas.concat();}
+lw=tbw?tbw.shift():null;lc=tbc?tbc.shift():null;la=tba?tba.shift():null;startAngle+=angle;wedgeStyle={border:{color:lc,weight:lw,alpha:la},fill:{color:tfc?tfc.shift():this._getDefaultColor(i,"slice"),alpha:tfa?tfa.shift():null},type:"pieslice",arc:angle,radius:radius,startAngle:startAngle,cx:halfWidth,cy:halfHeight,width:w,height:h};marker=this.getMarker(wedgeStyle,graphOrder,i);if(isCanvas)
+{this._addHotspot(wedgeStyle,graphOrder,i);}}
+this._clearMarkerCache();},_setStyles:function(val)
+{if(!val.marker)
+{val={marker:val};}
+val=this._parseMarkerStyles(val);return Y.PieSeries.superclass._mergeStyles.apply(this,[val,this._getDefaultStyles()]);},_addHotspot:function(cfg,seriesIndex,index)
+{var areaNode=DOCUMENT.createElement("area"),i=1,x=cfg.cx,y=cfg.cy,arc=cfg.arc,startAngle=cfg.startAngle-arc,endAngle=cfg.startAngle,radius=cfg.radius,ax=x+Math.cos(startAngle / 180*Math.PI)*radius,ay=y+Math.sin(startAngle / 180*Math.PI)*radius,bx=x+Math.cos(endAngle / 180*Math.PI)*radius,by=y+Math.sin(endAngle / 180*Math.PI)*radius,numPoints=Math.floor(arc/10)-1,divAngle=(arc/(Math.floor(arc/10))/ 180)*Math.PI,angleCoord=Math.atan((ay-y)/(ax-x)),pts=x+", "+y+", "+ax+", "+ay,cosAng,sinAng,multDivAng;for(i=1;i<=numPoints;++i)
+{multDivAng=divAngle*i;cosAng=Math.cos(angleCoord+multDivAng);sinAng=Math.sin(angleCoord+multDivAng);if(startAngle<=90)
+{pts+=", "+(x+(radius*Math.cos(angleCoord+(divAngle*i))));pts+=", "+(y+(radius*Math.sin(angleCoord+(divAngle*i))));}
+else
+{pts+=", "+(x-(radius*Math.cos(angleCoord+(divAngle*i))));pts+=", "+(y-(radius*Math.sin(angleCoord+(divAngle*i))));}}
+pts+=", "+bx+", "+by;pts+=", "+x+", "+y;this._map.appendChild(areaNode);areaNode.setAttribute("class",SERIES_MARKER);areaNode.setAttribute("id","hotSpot_"+seriesIndex+"_"+index);areaNode.setAttribute("shape","polygon");areaNode.setAttribute("coords",pts);this._areaNodes.push(areaNode);},updateMarkerState:function(type,i)
+{if(this._markers[i])
+{var state=this._getState(type),markerStyles,indexStyles,marker=this._markers[i],styles=this.get("styles").marker;markerStyles=state==="off"||!styles[state]?styles:styles[state];indexStyles=this._mergeStyles(markerStyles,{});indexStyles.fill.color=indexStyles.fill.colors[i%indexStyles.fill.colors.length];indexStyles.fill.alpha=indexStyles.fill.alphas[i%indexStyles.fill.alphas.length];marker.set(indexStyles);}},_createMarker:function(styles)
+{var graphic=this.get("graphic"),marker,cfg=this._copyObject(styles);marker=graphic.addShape(cfg);marker.addClass(SERIES_MARKER);return marker;},_clearMarkerCache:function()
+{var len=this._markerCache.length,i=0,marker;for(;i<len;++i)
+{marker=this._markerCache[i];if(marker)
+{marker.destroy();}}
+this._markerCache=[];},_getPlotDefaults:function()
+{var defs={padding:{top:0,left:0,right:0,bottom:0},fill:{alphas:["1"]},border:{weight:0,alpha:1}};defs.fill.colors=this._defaultSliceColors;defs.border.colors=this._defaultBorderColors;return defs;}},{ATTRS:{type:{value:"pie"},order:{},graph:{},categoryAxis:{value:null,validator:function(value)
+{return value!==this.get("categoryAxis");}},valueAxis:{value:null,validator:function(value)
+{return value!==this.get("valueAxis");}},categoryKey:{value:null,validator:function(value)
+{return value!==this.get("categoryKey");}},valueKey:{value:null,validator:function(value)
+{return value!==this.get("valueKey");}},categoryDisplayName:{setter:function(val)
+{this._categoryDisplayName=val;return val;},getter:function()
+{return this._categoryDisplayName||this.get("categoryKey");}},valueDisplayName:{setter:function(val)
+{this._valueDisplayName=val;return val;},getter:function()
+{return this._valueDisplayName||this.get("valueKey");}},slices:null}});},'3.15.0',{"requires":["series-base","series-plot-util"]});

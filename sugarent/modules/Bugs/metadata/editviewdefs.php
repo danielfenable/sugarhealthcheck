@@ -88,7 +88,6 @@ $viewdefs['Bugs']['EditView'] = array(
             'name' => 'assigned_user_name',
             'label' => 'LBL_ASSIGNED_TO_NAME',
           ),
-
           'team_name',
         ),
       ),

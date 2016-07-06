@@ -1,5 +1,457 @@
 <?php 
  $relationships = array (
+  'user_direct_reports' => 
+  array (
+    'name' => 'user_direct_reports',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'reports_to_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'users_users_signatures' => 
+  array (
+    'name' => 'users_users_signatures',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'UserSignatures',
+    'rhs_table' => 'users_signatures',
+    'rhs_key' => 'user_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'users_email_addresses' => 
+  array (
+    'name' => 'users_email_addresses',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'EmailAddresses',
+    'rhs_table' => 'email_addresses',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'email_addr_bean_rel',
+    'join_key_lhs' => 'bean_id',
+    'join_key_rhs' => 'email_address_id',
+    'relationship_role_column' => 'bean_module',
+    'relationship_role_column_value' => 'Users',
+    'fields' => 
+    array (
+      0 => 
+      array (
+        'name' => 'id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      1 => 
+      array (
+        'name' => 'email_address_id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      2 => 
+      array (
+        'name' => 'bean_id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      3 => 
+      array (
+        'name' => 'bean_module',
+        'type' => 'varchar',
+        'len' => 100,
+        'required' => true,
+      ),
+      4 => 
+      array (
+        'name' => 'primary_address',
+        'type' => 'bool',
+        'default' => '0',
+      ),
+      5 => 
+      array (
+        'name' => 'reply_to_address',
+        'type' => 'bool',
+        'default' => '0',
+      ),
+      6 => 
+      array (
+        'name' => 'date_created',
+        'type' => 'datetime',
+      ),
+      7 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      8 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'default' => 0,
+      ),
+    ),
+  ),
+  'users_email_addresses_primary' => 
+  array (
+    'name' => 'users_email_addresses_primary',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'EmailAddresses',
+    'rhs_table' => 'email_addresses',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'email_addr_bean_rel',
+    'join_key_lhs' => 'bean_id',
+    'join_key_rhs' => 'email_address_id',
+    'relationship_role_columns' => 
+    array (
+      'primary_address' => '1',
+      'bean_module' => 'Users',
+    ),
+    'fields' => 
+    array (
+      0 => 
+      array (
+        'name' => 'id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      1 => 
+      array (
+        'name' => 'email_address_id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      2 => 
+      array (
+        'name' => 'bean_id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      3 => 
+      array (
+        'name' => 'bean_module',
+        'type' => 'varchar',
+        'len' => 100,
+        'required' => true,
+      ),
+      4 => 
+      array (
+        'name' => 'primary_address',
+        'type' => 'bool',
+        'default' => '0',
+      ),
+      5 => 
+      array (
+        'name' => 'reply_to_address',
+        'type' => 'bool',
+        'default' => '0',
+      ),
+      6 => 
+      array (
+        'name' => 'date_created',
+        'type' => 'datetime',
+      ),
+      7 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      8 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'default' => 0,
+      ),
+    ),
+  ),
+  'users_team_count_relationship' => 
+  array (
+    'name' => 'users_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'users_teams' => 
+  array (
+    'name' => 'users_teams',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'users_forecasts' => 
+  array (
+    'name' => 'users_forecasts',
+    'rhs_module' => 'Forecasts',
+    'rhs_table' => 'forecasts',
+    'rhs_key' => 'user_id',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'forecast_type',
+    'relationship_role_column_value' => 'Rollup',
+  ),
+  'users_quotas' => 
+  array (
+    'name' => 'users_quotas',
+    'rhs_module' => 'Quotas',
+    'rhs_table' => 'quotas',
+    'rhs_key' => 'user_id',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'quota_type',
+    'relationship_role_column_value' => 'Direct',
+  ),
+  'users_team_sets' => 
+  array (
+    'name' => 'users_team_sets',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_id',
+    'join_key_rhs' => 'team_set_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'users_team' => 
+  array (
+    'name' => 'users_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'default_team',
+    'relationship_type' => 'one-to-many',
+  ),
+  'users_acl_role_sets' => 
+  array (
+    'name' => 'users_acl_role_sets',
+    'lhs_module' => 'ACLRoleSets',
+    'lhs_table' => 'acl_role_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'acl_role_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'teams_favorite' => 
+  array (
+    'name' => 'teams_favorite',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Teams',
+    'user_field' => 'created_by',
+  ),
+  'teams_following' => 
+  array (
+    'name' => 'teams_following',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Teams',
+    'user_field' => 'created_by',
+  ),
+  'teams_modified_user' => 
+  array (
+    'name' => 'teams_modified_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'modified_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'teams_created_by' => 
+  array (
+    'name' => 'teams_created_by',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'created_by',
+    'relationship_type' => 'one-to-many',
+  ),
+  'team_activities' => 
+  array (
+    'name' => 'team_activities',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Activities',
+    'rhs_table' => 'activities',
+    'rhs_key' => 'id',
+    'rhs_vname' => 'LBL_ACTIVITY_STREAM',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'activities_users',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'activity_id',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Teams',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'type' => 'id',
+        'len' => 36,
+        'required' => true,
+      ),
+      'activity_id' => 
+      array (
+        'name' => 'activity_id',
+        'type' => 'id',
+        'len' => 36,
+        'required' => true,
+      ),
+      'parent_type' => 
+      array (
+        'name' => 'parent_type',
+        'type' => 'varchar',
+        'len' => 100,
+      ),
+      'parent_id' => 
+      array (
+        'name' => 'parent_id',
+        'type' => 'id',
+        'len' => 36,
+      ),
+      'fields' => 
+      array (
+        'name' => 'fields',
+        'type' => 'json',
+        'dbType' => 'longtext',
+        'required' => true,
+      ),
+      'date_modified' => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      'deleted' => 
+      array (
+        'name' => 'deleted',
+        'vname' => 'LBL_DELETED',
+        'type' => 'bool',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'tracker_user_id' => 
+  array (
+    'name' => 'tracker_user_id',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'TrackerSessions',
+    'rhs_table' => 'tracker',
+    'rhs_key' => 'user_id',
+    'relationship_type' => 'one-to-many',
+  ),
   'accounts_bugs' => 
   array (
     'name' => 'accounts_bugs',
@@ -6559,506 +7011,38 @@
       ),
     ),
   ),
-  'usefulness' => 
+  'aclrolesets_favorite' => 
   array (
-    'name' => 'usefulness',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'kbarticle_id',
-    'table' => 'kbusefulness',
-    'join_key_rhs' => 'kbarticle_id',
-    'join_key_lhs' => 'user_id',
-    'true_relationship_type' => 'many-to-many',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-      ),
-      'vote' => 
-      array (
-        'name' => 'vote',
-      ),
-      'ssid' => 
-      array (
-        'name' => 'ssid',
-      ),
-      'kbarticle_id' => 
-      array (
-        'name' => 'kbarticle_id',
-      ),
-      'user_id' => 
-      array (
-        'name' => 'user_id',
-      ),
-      'contact_id' => 
-      array (
-        'name' => 'contact_id',
-      ),
-      'date_modified' => 
-      array (
-        'name' => 'date_modified',
-      ),
-      'zeroflag' => 
-      array (
-        'name' => 'zeroflag',
-      ),
-    ),
-    'primary_flag_column' => 'zeroflag',
-  ),
-  'user_direct_reports' => 
-  array (
-    'name' => 'user_direct_reports',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Users',
-    'rhs_table' => 'users',
-    'rhs_key' => 'reports_to_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'users_users_signatures' => 
-  array (
-    'name' => 'users_users_signatures',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'UserSignatures',
-    'rhs_table' => 'users_signatures',
-    'rhs_key' => 'user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'users_email_addresses' => 
-  array (
-    'name' => 'users_email_addresses',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmailAddresses',
-    'rhs_table' => 'email_addresses',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'email_addr_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'email_address_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Users',
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'email_address_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-        'required' => true,
-      ),
-      4 => 
-      array (
-        'name' => 'primary_address',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-      5 => 
-      array (
-        'name' => 'reply_to_address',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-      6 => 
-      array (
-        'name' => 'date_created',
-        'type' => 'datetime',
-      ),
-      7 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      8 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => 0,
-      ),
-    ),
-  ),
-  'users_email_addresses_primary' => 
-  array (
-    'name' => 'users_email_addresses_primary',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmailAddresses',
-    'rhs_table' => 'email_addresses',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'email_addr_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'email_address_id',
-    'relationship_role_columns' => 
-    array (
-      'primary_address' => '1',
-      'bean_module' => 'Users',
-    ),
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'email_address_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-        'required' => true,
-      ),
-      4 => 
-      array (
-        'name' => 'primary_address',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-      5 => 
-      array (
-        'name' => 'reply_to_address',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-      6 => 
-      array (
-        'name' => 'date_created',
-        'type' => 'datetime',
-      ),
-      7 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      8 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => 0,
-      ),
-    ),
-  ),
-  'users_team_count_relationship' => 
-  array (
-    'name' => 'users_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Users',
-    'rhs_table' => 'users',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'users_teams' => 
-  array (
-    'name' => 'users_teams',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'users_forecasts' => 
-  array (
-    'name' => 'users_forecasts',
-    'rhs_module' => 'Forecasts',
-    'rhs_table' => 'forecasts',
-    'rhs_key' => 'user_id',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'forecast_type',
-    'relationship_role_column_value' => 'Rollup',
-  ),
-  'users_quotas' => 
-  array (
-    'name' => 'users_quotas',
-    'rhs_module' => 'Quotas',
-    'rhs_table' => 'quotas',
-    'rhs_key' => 'user_id',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'quota_type',
-    'relationship_role_column_value' => 'Direct',
-  ),
-  'users_team_sets' => 
-  array (
-    'name' => 'users_team_sets',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Users',
-    'rhs_table' => 'users',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_id',
-    'join_key_rhs' => 'team_set_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'users_team' => 
-  array (
-    'name' => 'users_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Users',
-    'rhs_table' => 'users',
-    'rhs_key' => 'default_team',
-    'relationship_type' => 'one-to-many',
-  ),
-  'users_acl_role_sets' => 
-  array (
-    'name' => 'users_acl_role_sets',
+    'name' => 'aclrolesets_favorite',
     'lhs_module' => 'ACLRoleSets',
     'lhs_table' => 'acl_role_sets',
     'lhs_key' => 'id',
     'rhs_module' => 'Users',
     'rhs_table' => 'users',
-    'rhs_key' => 'acl_role_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'users_created_by' => 
-  array (
-    'name' => 'users_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'created_by',
-    'rhs_module' => 'Users',
-    'rhs_table' => 'users',
-    'rhs_key' => 'id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'teams_modified_user' => 
-  array (
-    'name' => 'teams_modified_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'modified_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'teams_created_by' => 
-  array (
-    'name' => 'teams_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'created_by',
-    'relationship_type' => 'one-to-many',
-  ),
-  'team_activities' => 
-  array (
-    'name' => 'team_activities',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Activities',
-    'rhs_table' => 'activities',
-    'rhs_key' => 'id',
-    'rhs_vname' => 'LBL_ACTIVITY_STREAM',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'activities_users',
-    'join_key_lhs' => 'parent_id',
-    'join_key_rhs' => 'activity_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Teams',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'activity_id' => 
-      array (
-        'name' => 'activity_id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'parent_type' => 
-      array (
-        'name' => 'parent_type',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      'parent_id' => 
-      array (
-        'name' => 'parent_id',
-        'type' => 'id',
-        'len' => 36,
-      ),
-      'fields' => 
-      array (
-        'name' => 'fields',
-        'type' => 'json',
-        'dbType' => 'longtext',
-        'required' => true,
-      ),
-      'date_modified' => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      'deleted' => 
-      array (
-        'name' => 'deleted',
-        'vname' => 'LBL_DELETED',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'teams_following' => 
-  array (
-    'name' => 'teams_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Teams',
-    'user_field' => 'created_by',
-  ),
-  'teams_favorite' => 
-  array (
-    'name' => 'teams_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Teams',
+    'relationship_role_column_value' => 'ACLRoleSets',
+    'user_field' => 'created_by',
+  ),
+  'aclrolesets_following' => 
+  array (
+    'name' => 'aclrolesets_following',
+    'lhs_module' => 'ACLRoleSets',
+    'lhs_table' => 'acl_role_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'ACLRoleSets',
     'user_field' => 'created_by',
   ),
   'aclrolesets_modified_user' => 
@@ -7148,94 +7132,39 @@
       ),
     ),
   ),
-  'aclrolesets_following' => 
+  'leads_favorite' => 
   array (
-    'name' => 'aclrolesets_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'leads_favorite',
+    'lhs_module' => 'Leads',
+    'lhs_table' => 'leads',
     'lhs_key' => 'id',
-    'rhs_module' => 'ACLRoleSets',
-    'rhs_table' => 'acl_role_sets',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'ACLRoleSets',
-    'user_field' => 'created_by',
-  ),
-  'aclrolesets_favorite' => 
-  array (
-    'name' => 'aclrolesets_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ACLRoleSets',
-    'rhs_table' => 'acl_role_sets',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'ACLRoleSets',
+    'relationship_role_column_value' => 'Leads',
     'user_field' => 'created_by',
   ),
-  'aclrolesets_tags' => 
+  'leads_following' => 
   array (
-    'name' => 'aclrolesets_tags',
-    'lhs_module' => 'ACLRoleSets',
-    'lhs_table' => 'acl_role_sets',
+    'name' => 'leads_following',
+    'lhs_module' => 'Leads',
+    'lhs_table' => 'leads',
     'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'ACLRoleSets',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Leads',
+    'user_field' => 'created_by',
   ),
   'leads_modified_user' => 
   array (
@@ -7319,193 +7248,6 @@
       array (
         'name' => 'deleted',
         'vname' => 'LBL_DELETED',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'lead_prospect' => 
-  array (
-    'name' => 'lead_prospect',
-    'lhs_module' => 'Leads',
-    'lhs_table' => 'leads',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Prospects',
-    'rhs_table' => 'prospects',
-    'rhs_key' => 'lead_id',
-    'relationship_type' => 'one-to-one',
-  ),
-  'lead_direct_reports' => 
-  array (
-    'name' => 'lead_direct_reports',
-    'lhs_module' => 'Leads',
-    'lhs_table' => 'leads',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Leads',
-    'rhs_table' => 'leads',
-    'rhs_key' => 'reports_to_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'lead_tasks' => 
-  array (
-    'name' => 'lead_tasks',
-    'lhs_module' => 'Leads',
-    'lhs_table' => 'leads',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tasks',
-    'rhs_table' => 'tasks',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Leads',
-  ),
-  'lead_notes' => 
-  array (
-    'name' => 'lead_notes',
-    'lhs_module' => 'Leads',
-    'lhs_table' => 'leads',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Leads',
-  ),
-  'lead_meetings' => 
-  array (
-    'name' => 'lead_meetings',
-    'lhs_module' => 'Leads',
-    'lhs_table' => 'leads',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Meetings',
-    'rhs_table' => 'meetings',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Leads',
-  ),
-  'lead_calls' => 
-  array (
-    'name' => 'lead_calls',
-    'lhs_module' => 'Leads',
-    'lhs_table' => 'leads',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Calls',
-    'rhs_table' => 'calls',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Leads',
-  ),
-  'lead_emails' => 
-  array (
-    'name' => 'lead_emails',
-    'lhs_module' => 'Leads',
-    'lhs_table' => 'leads',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Emails',
-    'rhs_table' => 'emails',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Leads',
-  ),
-  'lead_campaign_log' => 
-  array (
-    'name' => 'lead_campaign_log',
-    'lhs_module' => 'Leads',
-    'lhs_table' => 'leads',
-    'lhs_key' => 'id',
-    'rhs_module' => 'CampaignLog',
-    'rhs_table' => 'campaign_log',
-    'rhs_key' => 'target_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'leads_following' => 
-  array (
-    'name' => 'leads_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Leads',
-    'rhs_table' => 'leads',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Leads',
-    'user_field' => 'created_by',
-  ),
-  'leads_favorite' => 
-  array (
-    'name' => 'leads_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Leads',
-    'rhs_table' => 'leads',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Leads',
-    'user_field' => 'created_by',
-  ),
-  'leads_tags' => 
-  array (
-    'name' => 'leads_tags',
-    'lhs_module' => 'Leads',
-    'lhs_table' => 'leads',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Leads',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
         'type' => 'bool',
         'default' => '0',
       ),
@@ -7675,9 +7417,11 @@
     'join_table' => 'email_addr_bean_rel',
     'join_key_lhs' => 'bean_id',
     'join_key_rhs' => 'email_address_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Leads',
-    'primary_flag_column' => 'primary_address',
+    'relationship_role_columns' => 
+    array (
+      'primary_address' => '1',
+      'bean_module' => 'Leads',
+    ),
     'fields' => 
     array (
       0 => 
@@ -7734,6 +7478,138 @@
         'default' => 0,
       ),
     ),
+  ),
+  'lead_prospect' => 
+  array (
+    'name' => 'lead_prospect',
+    'lhs_module' => 'Leads',
+    'lhs_table' => 'leads',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Prospects',
+    'rhs_table' => 'prospects',
+    'rhs_key' => 'lead_id',
+    'relationship_type' => 'one-to-one',
+  ),
+  'lead_direct_reports' => 
+  array (
+    'name' => 'lead_direct_reports',
+    'lhs_module' => 'Leads',
+    'lhs_table' => 'leads',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Leads',
+    'rhs_table' => 'leads',
+    'rhs_key' => 'reports_to_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'lead_tasks' => 
+  array (
+    'name' => 'lead_tasks',
+    'lhs_module' => 'Leads',
+    'lhs_table' => 'leads',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Tasks',
+    'rhs_table' => 'tasks',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Leads',
+  ),
+  'lead_notes' => 
+  array (
+    'name' => 'lead_notes',
+    'lhs_module' => 'Leads',
+    'lhs_table' => 'leads',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Leads',
+  ),
+  'lead_meetings' => 
+  array (
+    'name' => 'lead_meetings',
+    'lhs_module' => 'Leads',
+    'lhs_table' => 'leads',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Meetings',
+    'rhs_table' => 'meetings',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Leads',
+  ),
+  'lead_calls' => 
+  array (
+    'name' => 'lead_calls',
+    'lhs_module' => 'Leads',
+    'lhs_table' => 'leads',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Calls',
+    'rhs_table' => 'calls',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Leads',
+  ),
+  'lead_emails' => 
+  array (
+    'name' => 'lead_emails',
+    'lhs_module' => 'Leads',
+    'lhs_table' => 'leads',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Emails',
+    'rhs_table' => 'emails',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Leads',
+  ),
+  'lead_campaign_log' => 
+  array (
+    'name' => 'lead_campaign_log',
+    'lhs_module' => 'Leads',
+    'lhs_table' => 'leads',
+    'lhs_key' => 'id',
+    'rhs_module' => 'CampaignLog',
+    'rhs_table' => 'campaign_log',
+    'rhs_key' => 'target_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'cases_favorite' => 
+  array (
+    'name' => 'cases_favorite',
+    'lhs_module' => 'Cases',
+    'lhs_table' => 'cases',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Cases',
+    'user_field' => 'created_by',
+  ),
+  'cases_following' => 
+  array (
+    'name' => 'cases_following',
+    'lhs_module' => 'Cases',
+    'lhs_table' => 'cases',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Cases',
+    'user_field' => 'created_by',
   ),
   'cases_modified_user' => 
   array (
@@ -7822,71 +7698,6 @@
       ),
     ),
   ),
-  'case_calls' => 
-  array (
-    'name' => 'case_calls',
-    'lhs_module' => 'Cases',
-    'lhs_table' => 'cases',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Calls',
-    'rhs_table' => 'calls',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Cases',
-  ),
-  'case_tasks' => 
-  array (
-    'name' => 'case_tasks',
-    'lhs_module' => 'Cases',
-    'lhs_table' => 'cases',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tasks',
-    'rhs_table' => 'tasks',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Cases',
-  ),
-  'case_notes' => 
-  array (
-    'name' => 'case_notes',
-    'lhs_module' => 'Cases',
-    'lhs_table' => 'cases',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Cases',
-  ),
-  'case_meetings' => 
-  array (
-    'name' => 'case_meetings',
-    'lhs_module' => 'Cases',
-    'lhs_table' => 'cases',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Meetings',
-    'rhs_table' => 'meetings',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Cases',
-  ),
-  'case_emails' => 
-  array (
-    'name' => 'case_emails',
-    'lhs_module' => 'Cases',
-    'lhs_table' => 'cases',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Emails',
-    'rhs_table' => 'emails',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Cases',
-  ),
   'cases_assigned_user' => 
   array (
     'name' => 'cases_assigned_user',
@@ -7897,95 +7708,6 @@
     'rhs_table' => 'cases',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
-  ),
-  'cases_following' => 
-  array (
-    'name' => 'cases_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Cases',
-    'rhs_table' => 'cases',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Cases',
-    'user_field' => 'created_by',
-  ),
-  'cases_favorite' => 
-  array (
-    'name' => 'cases_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Cases',
-    'rhs_table' => 'cases',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Cases',
-    'user_field' => 'created_by',
-  ),
-  'cases_tags' => 
-  array (
-    'name' => 'cases_tags',
-    'lhs_module' => 'Cases',
-    'lhs_table' => 'cases',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Cases',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
   ),
   'cases_team_count_relationship' => 
   array (
@@ -8054,6 +7776,105 @@
     'rhs_table' => 'cases',
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'case_calls' => 
+  array (
+    'name' => 'case_calls',
+    'lhs_module' => 'Cases',
+    'lhs_table' => 'cases',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Calls',
+    'rhs_table' => 'calls',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Cases',
+  ),
+  'case_tasks' => 
+  array (
+    'name' => 'case_tasks',
+    'lhs_module' => 'Cases',
+    'lhs_table' => 'cases',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Tasks',
+    'rhs_table' => 'tasks',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Cases',
+  ),
+  'case_notes' => 
+  array (
+    'name' => 'case_notes',
+    'lhs_module' => 'Cases',
+    'lhs_table' => 'cases',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Cases',
+  ),
+  'case_meetings' => 
+  array (
+    'name' => 'case_meetings',
+    'lhs_module' => 'Cases',
+    'lhs_table' => 'cases',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Meetings',
+    'rhs_table' => 'meetings',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Cases',
+  ),
+  'case_emails' => 
+  array (
+    'name' => 'case_emails',
+    'lhs_module' => 'Cases',
+    'lhs_table' => 'cases',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Emails',
+    'rhs_table' => 'emails',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Cases',
+  ),
+  'bugs_favorite' => 
+  array (
+    'name' => 'bugs_favorite',
+    'lhs_module' => 'Bugs',
+    'lhs_table' => 'bugs',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Bugs',
+    'user_field' => 'created_by',
+  ),
+  'bugs_following' => 
+  array (
+    'name' => 'bugs_following',
+    'lhs_module' => 'Bugs',
+    'lhs_table' => 'bugs',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Bugs',
+    'user_field' => 'created_by',
   ),
   'bugs_modified_user' => 
   array (
@@ -8142,71 +7963,6 @@
       ),
     ),
   ),
-  'bug_tasks' => 
-  array (
-    'name' => 'bug_tasks',
-    'lhs_module' => 'Bugs',
-    'lhs_table' => 'bugs',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tasks',
-    'rhs_table' => 'tasks',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Bugs',
-  ),
-  'bug_meetings' => 
-  array (
-    'name' => 'bug_meetings',
-    'lhs_module' => 'Bugs',
-    'lhs_table' => 'bugs',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Meetings',
-    'rhs_table' => 'meetings',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Bugs',
-  ),
-  'bug_calls' => 
-  array (
-    'name' => 'bug_calls',
-    'lhs_module' => 'Bugs',
-    'lhs_table' => 'bugs',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Calls',
-    'rhs_table' => 'calls',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Bugs',
-  ),
-  'bug_emails' => 
-  array (
-    'name' => 'bug_emails',
-    'lhs_module' => 'Bugs',
-    'lhs_table' => 'bugs',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Emails',
-    'rhs_table' => 'emails',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Bugs',
-  ),
-  'bug_notes' => 
-  array (
-    'name' => 'bug_notes',
-    'lhs_module' => 'Bugs',
-    'lhs_table' => 'bugs',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Bugs',
-  ),
   'bugs_assigned_user' => 
   array (
     'name' => 'bugs_assigned_user',
@@ -8217,117 +7973,6 @@
     'rhs_table' => 'bugs',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
-  ),
-  'bugs_release' => 
-  array (
-    'name' => 'bugs_release',
-    'lhs_module' => 'Releases',
-    'lhs_table' => 'releases',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Bugs',
-    'rhs_table' => 'bugs',
-    'rhs_key' => 'found_in_release',
-    'relationship_type' => 'one-to-many',
-  ),
-  'bugs_fixed_in_release' => 
-  array (
-    'name' => 'bugs_fixed_in_release',
-    'lhs_module' => 'Releases',
-    'lhs_table' => 'releases',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Bugs',
-    'rhs_table' => 'bugs',
-    'rhs_key' => 'fixed_in_release',
-    'relationship_type' => 'one-to-many',
-  ),
-  'bugs_following' => 
-  array (
-    'name' => 'bugs_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Bugs',
-    'rhs_table' => 'bugs',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Bugs',
-    'user_field' => 'created_by',
-  ),
-  'bugs_favorite' => 
-  array (
-    'name' => 'bugs_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Bugs',
-    'rhs_table' => 'bugs',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Bugs',
-    'user_field' => 'created_by',
-  ),
-  'bugs_tags' => 
-  array (
-    'name' => 'bugs_tags',
-    'lhs_module' => 'Bugs',
-    'lhs_table' => 'bugs',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Bugs',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
   ),
   'bugs_team_count_relationship' => 
   array (
@@ -8397,71 +8042,103 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
+  'bug_tasks' => 
+  array (
+    'name' => 'bug_tasks',
+    'lhs_module' => 'Bugs',
+    'lhs_table' => 'bugs',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Tasks',
+    'rhs_table' => 'tasks',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Bugs',
+  ),
+  'bug_meetings' => 
+  array (
+    'name' => 'bug_meetings',
+    'lhs_module' => 'Bugs',
+    'lhs_table' => 'bugs',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Meetings',
+    'rhs_table' => 'meetings',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Bugs',
+  ),
+  'bug_calls' => 
+  array (
+    'name' => 'bug_calls',
+    'lhs_module' => 'Bugs',
+    'lhs_table' => 'bugs',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Calls',
+    'rhs_table' => 'calls',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Bugs',
+  ),
+  'bug_emails' => 
+  array (
+    'name' => 'bug_emails',
+    'lhs_module' => 'Bugs',
+    'lhs_table' => 'bugs',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Emails',
+    'rhs_table' => 'emails',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Bugs',
+  ),
+  'bug_notes' => 
+  array (
+    'name' => 'bug_notes',
+    'lhs_module' => 'Bugs',
+    'lhs_table' => 'bugs',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Bugs',
+  ),
+  'bugs_release' => 
+  array (
+    'name' => 'bugs_release',
+    'lhs_module' => 'Releases',
+    'lhs_table' => 'releases',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Bugs',
+    'rhs_table' => 'bugs',
+    'rhs_key' => 'found_in_release',
+    'relationship_type' => 'one-to-many',
+  ),
+  'bugs_fixed_in_release' => 
+  array (
+    'name' => 'bugs_fixed_in_release',
+    'lhs_module' => 'Releases',
+    'lhs_table' => 'releases',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Bugs',
+    'rhs_table' => 'bugs',
+    'rhs_key' => 'fixed_in_release',
+    'relationship_type' => 'one-to-many',
+  ),
   'prospectlists_assigned_user' => 
   array (
     'name' => 'prospectlists_assigned_user',
     'lhs_module' => 'Users',
     'lhs_table' => 'users',
     'lhs_key' => 'id',
-    'rhs_module' => 'ProspectLists',
+    'rhs_module' => 'prospectlists',
     'rhs_table' => 'prospect_lists',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
-  ),
-  'prospectlists_tags' => 
-  array (
-    'name' => 'prospectlists_tags',
-    'lhs_module' => 'ProspectLists',
-    'lhs_table' => 'prospect_lists',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'ProspectLists',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
   ),
   'prospectlists_team_count_relationship' => 
   array (
@@ -8530,6 +8207,40 @@
     'rhs_table' => 'prospect_lists',
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'prospects_favorite' => 
+  array (
+    'name' => 'prospects_favorite',
+    'lhs_module' => 'Prospects',
+    'lhs_table' => 'prospects',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Prospects',
+    'user_field' => 'created_by',
+  ),
+  'prospects_following' => 
+  array (
+    'name' => 'prospects_following',
+    'lhs_module' => 'Prospects',
+    'lhs_table' => 'prospects',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Prospects',
+    'user_field' => 'created_by',
   ),
   'prospects_modified_user' => 
   array (
@@ -8613,171 +8324,6 @@
       array (
         'name' => 'deleted',
         'vname' => 'LBL_DELETED',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'prospect_tasks' => 
-  array (
-    'name' => 'prospect_tasks',
-    'lhs_module' => 'Prospects',
-    'lhs_table' => 'prospects',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tasks',
-    'rhs_table' => 'tasks',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Prospects',
-  ),
-  'prospect_notes' => 
-  array (
-    'name' => 'prospect_notes',
-    'lhs_module' => 'Prospects',
-    'lhs_table' => 'prospects',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Prospects',
-  ),
-  'prospect_meetings' => 
-  array (
-    'name' => 'prospect_meetings',
-    'lhs_module' => 'Prospects',
-    'lhs_table' => 'prospects',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Meetings',
-    'rhs_table' => 'meetings',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Prospects',
-  ),
-  'prospect_calls' => 
-  array (
-    'name' => 'prospect_calls',
-    'lhs_module' => 'Prospects',
-    'lhs_table' => 'prospects',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Calls',
-    'rhs_table' => 'calls',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Prospects',
-  ),
-  'prospect_emails' => 
-  array (
-    'name' => 'prospect_emails',
-    'lhs_module' => 'Prospects',
-    'lhs_table' => 'prospects',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Emails',
-    'rhs_table' => 'emails',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Prospects',
-  ),
-  'prospect_campaign_log' => 
-  array (
-    'name' => 'prospect_campaign_log',
-    'lhs_module' => 'Prospects',
-    'lhs_table' => 'prospects',
-    'lhs_key' => 'id',
-    'rhs_module' => 'CampaignLog',
-    'rhs_table' => 'campaign_log',
-    'rhs_key' => 'target_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'prospects_following' => 
-  array (
-    'name' => 'prospects_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Prospects',
-    'rhs_table' => 'prospects',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Prospects',
-    'user_field' => 'created_by',
-  ),
-  'prospects_favorite' => 
-  array (
-    'name' => 'prospects_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Prospects',
-    'rhs_table' => 'prospects',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Prospects',
-    'user_field' => 'created_by',
-  ),
-  'prospects_tags' => 
-  array (
-    'name' => 'prospects_tags',
-    'lhs_module' => 'Prospects',
-    'lhs_table' => 'prospects',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Prospects',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
         'type' => 'bool',
         'default' => '0',
       ),
@@ -8947,9 +8493,11 @@
     'join_table' => 'email_addr_bean_rel',
     'join_key_lhs' => 'bean_id',
     'join_key_rhs' => 'email_address_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Prospects',
-    'primary_flag_column' => 'primary_address',
+    'relationship_role_columns' => 
+    array (
+      'primary_address' => '1',
+      'bean_module' => 'Prospects',
+    ),
     'fields' => 
     array (
       0 => 
@@ -9006,6 +8554,150 @@
         'default' => 0,
       ),
     ),
+  ),
+  'prospect_tasks' => 
+  array (
+    'name' => 'prospect_tasks',
+    'lhs_module' => 'Prospects',
+    'lhs_table' => 'prospects',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Tasks',
+    'rhs_table' => 'tasks',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Prospects',
+  ),
+  'prospect_notes' => 
+  array (
+    'name' => 'prospect_notes',
+    'lhs_module' => 'Prospects',
+    'lhs_table' => 'prospects',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Prospects',
+  ),
+  'prospect_meetings' => 
+  array (
+    'name' => 'prospect_meetings',
+    'lhs_module' => 'Prospects',
+    'lhs_table' => 'prospects',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Meetings',
+    'rhs_table' => 'meetings',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Prospects',
+  ),
+  'prospect_calls' => 
+  array (
+    'name' => 'prospect_calls',
+    'lhs_module' => 'Prospects',
+    'lhs_table' => 'prospects',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Calls',
+    'rhs_table' => 'calls',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Prospects',
+  ),
+  'prospect_emails' => 
+  array (
+    'name' => 'prospect_emails',
+    'lhs_module' => 'Prospects',
+    'lhs_table' => 'prospects',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Emails',
+    'rhs_table' => 'emails',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Prospects',
+  ),
+  'prospect_campaign_log' => 
+  array (
+    'name' => 'prospect_campaign_log',
+    'lhs_module' => 'Prospects',
+    'lhs_table' => 'prospects',
+    'lhs_key' => 'id',
+    'rhs_module' => 'CampaignLog',
+    'rhs_table' => 'campaign_log',
+    'rhs_key' => 'target_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'project_team_count_relationship' => 
+  array (
+    'name' => 'project_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Project',
+    'rhs_table' => 'project',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'project_teams' => 
+  array (
+    'name' => 'project_teams',
+    'lhs_module' => 'Project',
+    'lhs_table' => 'project',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'project_team' => 
+  array (
+    'name' => 'project_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Project',
+    'rhs_table' => 'project',
+    'rhs_key' => 'team_id',
+    'relationship_type' => 'one-to-many',
   ),
   'projects_notes' => 
   array (
@@ -9161,22 +8853,22 @@
     'relationship_role_column' => 'related_module',
     'relationship_role_column_value' => 'Project',
   ),
-  'project_team_count_relationship' => 
+  'projecttask_team_count_relationship' => 
   array (
-    'name' => 'project_team_count_relationship',
+    'name' => 'projecttask_team_count_relationship',
     'lhs_module' => 'Teams',
     'lhs_table' => 'team_sets',
     'lhs_key' => 'id',
-    'rhs_module' => 'Project',
-    'rhs_table' => 'project',
+    'rhs_module' => 'ProjectTask',
+    'rhs_table' => 'project_task',
     'rhs_key' => 'team_set_id',
     'relationship_type' => 'one-to-many',
   ),
-  'project_teams' => 
+  'projecttask_teams' => 
   array (
-    'name' => 'project_teams',
-    'lhs_module' => 'Project',
-    'lhs_table' => 'project',
+    'name' => 'projecttask_teams',
+    'lhs_module' => 'ProjectTask',
+    'lhs_table' => 'project_task',
     'lhs_key' => 'team_set_id',
     'rhs_module' => 'Teams',
     'rhs_table' => 'teams',
@@ -9218,14 +8910,14 @@
       ),
     ),
   ),
-  'project_team' => 
+  'projecttask_team' => 
   array (
-    'name' => 'project_team',
+    'name' => 'projecttask_team',
     'lhs_module' => 'Teams',
     'lhs_table' => 'teams',
     'lhs_key' => 'id',
-    'rhs_module' => 'Project',
-    'rhs_table' => 'project',
+    'rhs_module' => 'ProjectTask',
+    'rhs_table' => 'project_task',
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
@@ -9327,73 +9019,39 @@
     'rhs_key' => 'created_by',
     'relationship_type' => 'one-to-many',
   ),
-  'projecttask_team_count_relationship' => 
+  'campaigns_favorite' => 
   array (
-    'name' => 'projecttask_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
+    'name' => 'campaigns_favorite',
+    'lhs_module' => 'Campaigns',
+    'lhs_table' => 'campaigns',
     'lhs_key' => 'id',
-    'rhs_module' => 'ProjectTask',
-    'rhs_table' => 'project_task',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'projecttask_teams' => 
-  array (
-    'name' => 'projecttask_teams',
-    'lhs_module' => 'ProjectTask',
-    'lhs_table' => 'project_task',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Campaigns',
+    'user_field' => 'created_by',
   ),
-  'projecttask_team' => 
+  'campaigns_following' => 
   array (
-    'name' => 'projecttask_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
+    'name' => 'campaigns_following',
+    'lhs_module' => 'Campaigns',
+    'lhs_table' => 'campaigns',
     'lhs_key' => 'id',
-    'rhs_module' => 'ProjectTask',
-    'rhs_table' => 'project_task',
-    'rhs_key' => 'team_id',
-    'relationship_type' => 'one-to-many',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Campaigns',
+    'user_field' => 'created_by',
   ),
   'campaigns_modified_user' => 
   array (
@@ -9481,6 +9139,85 @@
         'default' => '0',
       ),
     ),
+  ),
+  'campaigns_assigned_user' => 
+  array (
+    'name' => 'campaigns_assigned_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Campaigns',
+    'rhs_table' => 'campaigns',
+    'rhs_key' => 'assigned_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'campaigns_team_count_relationship' => 
+  array (
+    'name' => 'campaigns_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Campaigns',
+    'rhs_table' => 'campaigns',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'campaigns_teams' => 
+  array (
+    'name' => 'campaigns_teams',
+    'lhs_module' => 'Campaigns',
+    'lhs_table' => 'campaigns',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'campaigns_team' => 
+  array (
+    'name' => 'campaigns_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Campaigns',
+    'rhs_table' => 'campaigns',
+    'rhs_key' => 'team_id',
+    'relationship_type' => 'one-to-many',
   ),
   'campaign_accounts' => 
   array (
@@ -9615,130 +9352,6 @@
     'rhs_key' => 'modified_user_id',
     'relationship_type' => 'one-to-many',
   ),
-  'campaigns_following' => 
-  array (
-    'name' => 'campaigns_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Campaigns',
-    'rhs_table' => 'campaigns',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Campaigns',
-    'user_field' => 'created_by',
-  ),
-  'campaigns_favorite' => 
-  array (
-    'name' => 'campaigns_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Campaigns',
-    'rhs_table' => 'campaigns',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Campaigns',
-    'user_field' => 'created_by',
-  ),
-  'campaigns_assigned_user' => 
-  array (
-    'name' => 'campaigns_assigned_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Campaigns',
-    'rhs_table' => 'campaigns',
-    'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'campaigns_team_count_relationship' => 
-  array (
-    'name' => 'campaigns_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Campaigns',
-    'rhs_table' => 'campaigns',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'campaigns_teams' => 
-  array (
-    'name' => 'campaigns_teams',
-    'lhs_module' => 'Campaigns',
-    'lhs_table' => 'campaigns',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'campaigns_team' => 
-  array (
-    'name' => 'campaigns_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Campaigns',
-    'rhs_table' => 'campaigns',
-    'rhs_key' => 'team_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'campaigns_currencies' => 
-  array (
-    'name' => 'campaigns_currencies',
-    'lhs_module' => 'Currencies',
-    'lhs_table' => 'currencies',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Campaigns',
-    'rhs_table' => 'campaigns',
-    'rhs_key' => 'currency_id',
-    'relationship_type' => 'one-to-many',
-  ),
   'email_template_email_marketings' => 
   array (
     'name' => 'email_template_email_marketings',
@@ -9826,6 +9439,40 @@
     'rhs_table' => 'campaign_trkrs',
     'rhs_key' => 'campaign_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'schedulers_favorite' => 
+  array (
+    'name' => 'schedulers_favorite',
+    'lhs_module' => 'Schedulers',
+    'lhs_table' => 'schedulers',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Schedulers',
+    'user_field' => 'created_by',
+  ),
+  'schedulers_following' => 
+  array (
+    'name' => 'schedulers_following',
+    'lhs_module' => 'Schedulers',
+    'lhs_table' => 'schedulers',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Schedulers',
+    'user_field' => 'created_by',
   ),
   'schedulers_modified_user' => 
   array (
@@ -9947,86 +9594,6 @@
     'rhs_key' => 'scheduler_id',
     'relationship_type' => 'one-to-many',
   ),
-  'schedulers_following' => 
-  array (
-    'name' => 'schedulers_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Schedulers',
-    'rhs_table' => 'schedulers',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Schedulers',
-    'user_field' => 'created_by',
-  ),
-  'schedulers_favorite' => 
-  array (
-    'name' => 'schedulers_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Schedulers',
-    'rhs_table' => 'schedulers',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Schedulers',
-    'user_field' => 'created_by',
-  ),
-  'schedulersjob_notes' => 
-  array (
-    'name' => 'schedulersjob_notes',
-    'lhs_module' => 'SchedulersJobs',
-    'lhs_table' => 'job_queue',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-  ),
-  'schedulersjobs_following' => 
-  array (
-    'name' => 'schedulersjobs_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'SchedulersJobs',
-    'rhs_table' => 'job_queue',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'SchedulersJobs',
-    'user_field' => 'created_by',
-  ),
-  'schedulersjobs_favorite' => 
-  array (
-    'name' => 'schedulersjobs_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'SchedulersJobs',
-    'rhs_table' => 'job_queue',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'SchedulersJobs',
-    'user_field' => 'created_by',
-  ),
   'schedulersjobs_assigned_user' => 
   array (
     'name' => 'schedulersjobs_assigned_user',
@@ -10037,6 +9604,40 @@
     'rhs_table' => 'job_queue',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'contacts_favorite' => 
+  array (
+    'name' => 'contacts_favorite',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Contacts',
+    'user_field' => 'created_by',
+  ),
+  'contacts_following' => 
+  array (
+    'name' => 'contacts_following',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Contacts',
+    'user_field' => 'created_by',
   ),
   'contacts_modified_user' => 
   array (
@@ -10125,102 +9726,6 @@
       ),
     ),
   ),
-  'contact_direct_reports' => 
-  array (
-    'name' => 'contact_direct_reports',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Contacts',
-    'rhs_table' => 'contacts',
-    'rhs_key' => 'reports_to_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'contact_leads' => 
-  array (
-    'name' => 'contact_leads',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Leads',
-    'rhs_table' => 'leads',
-    'rhs_key' => 'contact_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'contact_notes' => 
-  array (
-    'name' => 'contact_notes',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'contact_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'contact_notes_parent' => 
-  array (
-    'name' => 'contact_notes_parent',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Contacts',
-  ),
-  'contact_calls_parent' => 
-  array (
-    'name' => 'contact_calls_parent',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Calls',
-    'rhs_table' => 'calls',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Contacts',
-  ),
-  'contact_meetings_parent' => 
-  array (
-    'name' => 'contact_meetings_parent',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Meetings',
-    'rhs_table' => 'meetings',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Contacts',
-  ),
-  'contact_tasks' => 
-  array (
-    'name' => 'contact_tasks',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tasks',
-    'rhs_table' => 'tasks',
-    'rhs_key' => 'contact_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'contact_tasks_parent' => 
-  array (
-    'name' => 'contact_tasks_parent',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tasks',
-    'rhs_table' => 'tasks',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Contacts',
-  ),
   'contacts_assigned_user' => 
   array (
     'name' => 'contacts_assigned_user',
@@ -10231,117 +9736,6 @@
     'rhs_table' => 'contacts',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
-  ),
-  'contact_products' => 
-  array (
-    'name' => 'contact_products',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Products',
-    'rhs_table' => 'products',
-    'rhs_key' => 'contact_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'contact_campaign_log' => 
-  array (
-    'name' => 'contact_campaign_log',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'CampaignLog',
-    'rhs_table' => 'campaign_log',
-    'rhs_key' => 'target_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'contacts_following' => 
-  array (
-    'name' => 'contacts_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Contacts',
-    'rhs_table' => 'contacts',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Contacts',
-    'user_field' => 'created_by',
-  ),
-  'contacts_favorite' => 
-  array (
-    'name' => 'contacts_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Contacts',
-    'rhs_table' => 'contacts',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Contacts',
-    'user_field' => 'created_by',
-  ),
-  'contacts_tags' => 
-  array (
-    'name' => 'contacts_tags',
-    'lhs_module' => 'Contacts',
-    'lhs_table' => 'contacts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Contacts',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
   ),
   'contacts_team_count_relationship' => 
   array (
@@ -10496,9 +9890,11 @@
     'join_table' => 'email_addr_bean_rel',
     'join_key_lhs' => 'bean_id',
     'join_key_rhs' => 'email_address_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Contacts',
-    'primary_flag_column' => 'primary_address',
+    'relationship_role_columns' => 
+    array (
+      'primary_address' => '1',
+      'bean_module' => 'Contacts',
+    ),
     'fields' => 
     array (
       0 => 
@@ -10555,6 +9951,158 @@
         'default' => 0,
       ),
     ),
+  ),
+  'contact_direct_reports' => 
+  array (
+    'name' => 'contact_direct_reports',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Contacts',
+    'rhs_table' => 'contacts',
+    'rhs_key' => 'reports_to_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'contact_leads' => 
+  array (
+    'name' => 'contact_leads',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Leads',
+    'rhs_table' => 'leads',
+    'rhs_key' => 'contact_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'contact_notes' => 
+  array (
+    'name' => 'contact_notes',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'contact_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'contact_notes_parent' => 
+  array (
+    'name' => 'contact_notes_parent',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Contacts',
+  ),
+  'contact_calls_parent' => 
+  array (
+    'name' => 'contact_calls_parent',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Calls',
+    'rhs_table' => 'calls',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Contacts',
+  ),
+  'contact_meetings_parent' => 
+  array (
+    'name' => 'contact_meetings_parent',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Meetings',
+    'rhs_table' => 'meetings',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Contacts',
+  ),
+  'contact_tasks' => 
+  array (
+    'name' => 'contact_tasks',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Tasks',
+    'rhs_table' => 'tasks',
+    'rhs_key' => 'contact_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'contact_tasks_parent' => 
+  array (
+    'name' => 'contact_tasks_parent',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Tasks',
+    'rhs_table' => 'tasks',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Contacts',
+  ),
+  'contact_products' => 
+  array (
+    'name' => 'contact_products',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Products',
+    'rhs_table' => 'products',
+    'rhs_key' => 'contact_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'contact_campaign_log' => 
+  array (
+    'name' => 'contact_campaign_log',
+    'lhs_module' => 'Contacts',
+    'lhs_table' => 'contacts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'CampaignLog',
+    'rhs_table' => 'campaign_log',
+    'rhs_key' => 'target_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'accounts_favorite' => 
+  array (
+    'name' => 'accounts_favorite',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Accounts',
+    'user_field' => 'created_by',
+  ),
+  'accounts_following' => 
+  array (
+    'name' => 'accounts_following',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Accounts',
+    'user_field' => 'created_by',
   ),
   'accounts_modified_user' => 
   array (
@@ -10643,104 +10191,6 @@
       ),
     ),
   ),
-  'member_accounts' => 
-  array (
-    'name' => 'member_accounts',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Accounts',
-    'rhs_table' => 'accounts',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'account_cases' => 
-  array (
-    'name' => 'account_cases',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Cases',
-    'rhs_table' => 'cases',
-    'rhs_key' => 'account_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'account_tasks' => 
-  array (
-    'name' => 'account_tasks',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tasks',
-    'rhs_table' => 'tasks',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Accounts',
-  ),
-  'account_notes' => 
-  array (
-    'name' => 'account_notes',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Accounts',
-  ),
-  'account_meetings' => 
-  array (
-    'name' => 'account_meetings',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Meetings',
-    'rhs_table' => 'meetings',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Accounts',
-  ),
-  'account_calls' => 
-  array (
-    'name' => 'account_calls',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Calls',
-    'rhs_table' => 'calls',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Accounts',
-  ),
-  'account_emails' => 
-  array (
-    'name' => 'account_emails',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Emails',
-    'rhs_table' => 'emails',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Accounts',
-  ),
-  'account_leads' => 
-  array (
-    'name' => 'account_leads',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Leads',
-    'rhs_table' => 'leads',
-    'rhs_key' => 'account_id',
-    'relationship_type' => 'one-to-many',
-  ),
   'accounts_assigned_user' => 
   array (
     'name' => 'accounts_assigned_user',
@@ -10751,95 +10201,6 @@
     'rhs_table' => 'accounts',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
-  ),
-  'accounts_following' => 
-  array (
-    'name' => 'accounts_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Accounts',
-    'rhs_table' => 'accounts',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Accounts',
-    'user_field' => 'created_by',
-  ),
-  'accounts_favorite' => 
-  array (
-    'name' => 'accounts_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Accounts',
-    'rhs_table' => 'accounts',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Accounts',
-    'user_field' => 'created_by',
-  ),
-  'accounts_tags' => 
-  array (
-    'name' => 'accounts_tags',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Accounts',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
   ),
   'accounts_team_count_relationship' => 
   array (
@@ -10994,9 +10355,11 @@
     'join_table' => 'email_addr_bean_rel',
     'join_key_lhs' => 'bean_id',
     'join_key_rhs' => 'email_address_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Accounts',
-    'primary_flag_column' => 'primary_address',
+    'relationship_role_columns' => 
+    array (
+      'primary_address' => '1',
+      'bean_module' => 'Accounts',
+    ),
     'fields' => 
     array (
       0 => 
@@ -11053,6 +10416,138 @@
         'default' => 0,
       ),
     ),
+  ),
+  'member_accounts' => 
+  array (
+    'name' => 'member_accounts',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Accounts',
+    'rhs_table' => 'accounts',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'account_cases' => 
+  array (
+    'name' => 'account_cases',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Cases',
+    'rhs_table' => 'cases',
+    'rhs_key' => 'account_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'account_tasks' => 
+  array (
+    'name' => 'account_tasks',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Tasks',
+    'rhs_table' => 'tasks',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Accounts',
+  ),
+  'account_notes' => 
+  array (
+    'name' => 'account_notes',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Accounts',
+  ),
+  'account_meetings' => 
+  array (
+    'name' => 'account_meetings',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Meetings',
+    'rhs_table' => 'meetings',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Accounts',
+  ),
+  'account_calls' => 
+  array (
+    'name' => 'account_calls',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Calls',
+    'rhs_table' => 'calls',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Accounts',
+  ),
+  'account_emails' => 
+  array (
+    'name' => 'account_emails',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Emails',
+    'rhs_table' => 'emails',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Accounts',
+  ),
+  'account_leads' => 
+  array (
+    'name' => 'account_leads',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Leads',
+    'rhs_table' => 'leads',
+    'rhs_key' => 'account_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'opportunities_favorite' => 
+  array (
+    'name' => 'opportunities_favorite',
+    'lhs_module' => 'Opportunities',
+    'lhs_table' => 'opportunities',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Opportunities',
+    'user_field' => 'created_by',
+  ),
+  'opportunities_following' => 
+  array (
+    'name' => 'opportunities_following',
+    'lhs_module' => 'Opportunities',
+    'lhs_table' => 'opportunities',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Opportunities',
+    'user_field' => 'created_by',
   ),
   'opportunities_modified_user' => 
   array (
@@ -11141,6 +10636,85 @@
       ),
     ),
   ),
+  'opportunities_assigned_user' => 
+  array (
+    'name' => 'opportunities_assigned_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Opportunities',
+    'rhs_table' => 'opportunities',
+    'rhs_key' => 'assigned_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'opportunities_team_count_relationship' => 
+  array (
+    'name' => 'opportunities_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Opportunities',
+    'rhs_table' => 'opportunities',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'opportunities_teams' => 
+  array (
+    'name' => 'opportunities_teams',
+    'lhs_module' => 'Opportunities',
+    'lhs_table' => 'opportunities',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'opportunities_team' => 
+  array (
+    'name' => 'opportunities_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Opportunities',
+    'rhs_table' => 'opportunities',
+    'rhs_key' => 'team_id',
+    'relationship_type' => 'one-to-many',
+  ),
   'opportunity_calls' => 
   array (
     'name' => 'opportunity_calls',
@@ -11217,15 +10791,15 @@
     'rhs_key' => 'opportunity_id',
     'relationship_type' => 'one-to-many',
   ),
-  'opportunities_assigned_user' => 
+  'opportunity_currencies' => 
   array (
-    'name' => 'opportunities_assigned_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Opportunities',
-    'rhs_table' => 'opportunities',
-    'rhs_key' => 'assigned_user_id',
+    'name' => 'opportunity_currencies',
+    'lhs_module' => 'Opportunities',
+    'lhs_table' => 'opportunities',
+    'lhs_key' => 'currency_id',
+    'rhs_module' => 'Currencies',
+    'rhs_table' => 'currencies',
+    'rhs_key' => 'id',
     'relationship_type' => 'one-to-many',
   ),
   'opportunities_revenuelineitems' => 
@@ -11237,207 +10811,6 @@
     'rhs_module' => 'RevenueLineItems',
     'rhs_table' => 'revenue_line_items',
     'rhs_key' => 'opportunity_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'opportunities_following' => 
-  array (
-    'name' => 'opportunities_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Opportunities',
-    'rhs_table' => 'opportunities',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Opportunities',
-    'user_field' => 'created_by',
-  ),
-  'opportunities_favorite' => 
-  array (
-    'name' => 'opportunities_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Opportunities',
-    'rhs_table' => 'opportunities',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Opportunities',
-    'user_field' => 'created_by',
-  ),
-  'opportunities_tags' => 
-  array (
-    'name' => 'opportunities_tags',
-    'lhs_module' => 'Opportunities',
-    'lhs_table' => 'opportunities',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Opportunities',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'opportunities_team_count_relationship' => 
-  array (
-    'name' => 'opportunities_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Opportunities',
-    'rhs_table' => 'opportunities',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'opportunities_teams' => 
-  array (
-    'name' => 'opportunities_teams',
-    'lhs_module' => 'Opportunities',
-    'lhs_table' => 'opportunities',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'opportunities_team' => 
-  array (
-    'name' => 'opportunities_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Opportunities',
-    'rhs_table' => 'opportunities',
-    'rhs_key' => 'team_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'opportunities_currencies' => 
-  array (
-    'name' => 'opportunities_currencies',
-    'lhs_module' => 'Currencies',
-    'lhs_table' => 'currencies',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Opportunities',
-    'rhs_table' => 'opportunities',
-    'rhs_key' => 'currency_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'emailtemplates_assigned_user' => 
-  array (
-    'name' => 'emailtemplates_assigned_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmailTemplates',
-    'rhs_table' => 'email_templates',
-    'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'emailtemplates_modified_user' => 
-  array (
-    'name' => 'emailtemplates_modified_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmailTemplates',
-    'rhs_table' => 'email_templates',
-    'rhs_key' => 'modified_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'emailtemplates_created_by' => 
-  array (
-    'name' => 'emailtemplates_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmailTemplates',
-    'rhs_table' => 'email_templates',
-    'rhs_key' => 'created_by',
     'relationship_type' => 'one-to-many',
   ),
   'emailtemplates_team_count_relationship' => 
@@ -11507,6 +10880,51 @@
     'rhs_table' => 'email_templates',
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'emailtemplates_assigned_user' => 
+  array (
+    'name' => 'emailtemplates_assigned_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'EmailTemplates',
+    'rhs_table' => 'email_templates',
+    'rhs_key' => 'assigned_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'usersignatures_favorite' => 
+  array (
+    'name' => 'usersignatures_favorite',
+    'lhs_module' => 'UserSignatures',
+    'lhs_table' => 'users_signatures',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'UserSignatures',
+    'user_field' => 'created_by',
+  ),
+  'usersignatures_following' => 
+  array (
+    'name' => 'usersignatures_following',
+    'lhs_module' => 'UserSignatures',
+    'lhs_table' => 'users_signatures',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'UserSignatures',
+    'user_field' => 'created_by',
   ),
   'usersignatures_modified_user' => 
   array (
@@ -11595,38 +11013,38 @@
       ),
     ),
   ),
-  'usersignatures_following' => 
+  'notes_favorite' => 
   array (
-    'name' => 'usersignatures_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'notes_favorite',
+    'lhs_module' => 'Notes',
+    'lhs_table' => 'notes',
     'lhs_key' => 'id',
-    'rhs_module' => 'UserSignatures',
-    'rhs_table' => 'users_signatures',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'UserSignatures',
-    'user_field' => 'created_by',
-  ),
-  'usersignatures_favorite' => 
-  array (
-    'name' => 'usersignatures_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'UserSignatures',
-    'rhs_table' => 'users_signatures',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'UserSignatures',
+    'relationship_role_column_value' => 'Notes',
+    'user_field' => 'created_by',
+  ),
+  'notes_following' => 
+  array (
+    'name' => 'notes_following',
+    'lhs_module' => 'Notes',
+    'lhs_table' => 'notes',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Notes',
     'user_field' => 'created_by',
   ),
   'notes_modified_user' => 
@@ -11716,95 +11134,6 @@
       ),
     ),
   ),
-  'notes_following' => 
-  array (
-    'name' => 'notes_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Notes',
-    'user_field' => 'created_by',
-  ),
-  'notes_favorite' => 
-  array (
-    'name' => 'notes_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Notes',
-    'user_field' => 'created_by',
-  ),
-  'notes_tags' => 
-  array (
-    'name' => 'notes_tags',
-    'lhs_module' => 'Notes',
-    'lhs_table' => 'notes',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Notes',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'notes_assigned_user' => 
   array (
     'name' => 'notes_assigned_user',
@@ -11883,6 +11212,40 @@
     'rhs_table' => 'notes',
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'calls_favorite' => 
+  array (
+    'name' => 'calls_favorite',
+    'lhs_module' => 'Calls',
+    'lhs_table' => 'calls',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Calls',
+    'user_field' => 'created_by',
+  ),
+  'calls_following' => 
+  array (
+    'name' => 'calls_following',
+    'lhs_module' => 'Calls',
+    'lhs_table' => 'calls',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Calls',
+    'user_field' => 'created_by',
   ),
   'calls_modified_user' => 
   array (
@@ -11982,108 +11345,6 @@
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
   ),
-  'calls_notes' => 
-  array (
-    'name' => 'calls_notes',
-    'lhs_module' => 'Calls',
-    'lhs_table' => 'calls',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Calls',
-  ),
-  'calls_following' => 
-  array (
-    'name' => 'calls_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Calls',
-    'rhs_table' => 'calls',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Calls',
-    'user_field' => 'created_by',
-  ),
-  'calls_favorite' => 
-  array (
-    'name' => 'calls_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Calls',
-    'rhs_table' => 'calls',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Calls',
-    'user_field' => 'created_by',
-  ),
-  'calls_tags' => 
-  array (
-    'name' => 'calls_tags',
-    'lhs_module' => 'Calls',
-    'lhs_table' => 'calls',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Calls',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'calls_team_count_relationship' => 
   array (
     'name' => 'calls_team_count_relationship',
@@ -12149,6 +11410,87 @@
     'lhs_key' => 'id',
     'rhs_module' => 'Calls',
     'rhs_table' => 'calls',
+    'rhs_key' => 'team_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'calls_notes' => 
+  array (
+    'name' => 'calls_notes',
+    'lhs_module' => 'Calls',
+    'lhs_table' => 'calls',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Calls',
+  ),
+  'emails_team_count_relationship' => 
+  array (
+    'name' => 'emails_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Emails',
+    'rhs_table' => 'emails',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'emails_teams' => 
+  array (
+    'name' => 'emails_teams',
+    'lhs_module' => 'Emails',
+    'lhs_table' => 'emails',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'emails_team' => 
+  array (
+    'name' => 'emails_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Emails',
+    'rhs_table' => 'emails',
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
@@ -12341,73 +11683,39 @@
     'rhs_key' => 'parent_id',
     'relationship_type' => 'one-to-many',
   ),
-  'emails_team_count_relationship' => 
+  'meetings_favorite' => 
   array (
-    'name' => 'emails_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
+    'name' => 'meetings_favorite',
+    'lhs_module' => 'Meetings',
+    'lhs_table' => 'meetings',
     'lhs_key' => 'id',
-    'rhs_module' => 'Emails',
-    'rhs_table' => 'emails',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'emails_teams' => 
-  array (
-    'name' => 'emails_teams',
-    'lhs_module' => 'Emails',
-    'lhs_table' => 'emails',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Meetings',
+    'user_field' => 'created_by',
   ),
-  'emails_team' => 
+  'meetings_following' => 
   array (
-    'name' => 'emails_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
+    'name' => 'meetings_following',
+    'lhs_module' => 'Meetings',
+    'lhs_table' => 'meetings',
     'lhs_key' => 'id',
-    'rhs_module' => 'Emails',
-    'rhs_table' => 'emails',
-    'rhs_key' => 'team_id',
-    'relationship_type' => 'one-to-many',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Meetings',
+    'user_field' => 'created_by',
   ),
   'meetings_modified_user' => 
   array (
@@ -12507,108 +11815,6 @@
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
   ),
-  'meetings_notes' => 
-  array (
-    'name' => 'meetings_notes',
-    'lhs_module' => 'Meetings',
-    'lhs_table' => 'meetings',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Meetings',
-  ),
-  'meetings_following' => 
-  array (
-    'name' => 'meetings_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Meetings',
-    'rhs_table' => 'meetings',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Meetings',
-    'user_field' => 'created_by',
-  ),
-  'meetings_favorite' => 
-  array (
-    'name' => 'meetings_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Meetings',
-    'rhs_table' => 'meetings',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Meetings',
-    'user_field' => 'created_by',
-  ),
-  'meetings_tags' => 
-  array (
-    'name' => 'meetings_tags',
-    'lhs_module' => 'Meetings',
-    'lhs_table' => 'meetings',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Meetings',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'meetings_team_count_relationship' => 
   array (
     'name' => 'meetings_team_count_relationship',
@@ -12676,6 +11882,53 @@
     'rhs_table' => 'meetings',
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'meetings_notes' => 
+  array (
+    'name' => 'meetings_notes',
+    'lhs_module' => 'Meetings',
+    'lhs_table' => 'meetings',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Meetings',
+  ),
+  'tasks_favorite' => 
+  array (
+    'name' => 'tasks_favorite',
+    'lhs_module' => 'Tasks',
+    'lhs_table' => 'tasks',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Tasks',
+    'user_field' => 'created_by',
+  ),
+  'tasks_following' => 
+  array (
+    'name' => 'tasks_following',
+    'lhs_module' => 'Tasks',
+    'lhs_table' => 'tasks',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Tasks',
+    'user_field' => 'created_by',
   ),
   'tasks_modified_user' => 
   array (
@@ -12764,19 +12017,6 @@
       ),
     ),
   ),
-  'tasks_notes' => 
-  array (
-    'name' => 'tasks_notes',
-    'lhs_module' => 'Tasks',
-    'lhs_table' => 'tasks',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Tasks',
-  ),
   'tasks_assigned_user' => 
   array (
     'name' => 'tasks_assigned_user',
@@ -12787,121 +12027,6 @@
     'rhs_table' => 'tasks',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
-  ),
-  'task_meetings_parent' => 
-  array (
-    'name' => 'task_meetings_parent',
-    'lhs_module' => 'Tasks',
-    'lhs_table' => 'tasks',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Meetings',
-    'rhs_table' => 'meetings',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Tasks',
-  ),
-  'task_calls_parent' => 
-  array (
-    'name' => 'task_calls_parent',
-    'lhs_module' => 'Tasks',
-    'lhs_table' => 'tasks',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Calls',
-    'rhs_table' => 'calls',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Tasks',
-  ),
-  'tasks_following' => 
-  array (
-    'name' => 'tasks_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tasks',
-    'rhs_table' => 'tasks',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Tasks',
-    'user_field' => 'created_by',
-  ),
-  'tasks_favorite' => 
-  array (
-    'name' => 'tasks_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tasks',
-    'rhs_table' => 'tasks',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Tasks',
-    'user_field' => 'created_by',
-  ),
-  'tasks_tags' => 
-  array (
-    'name' => 'tasks_tags',
-    'lhs_module' => 'Tasks',
-    'lhs_table' => 'tasks',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Tasks',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
   ),
   'tasks_team_count_relationship' => 
   array (
@@ -12971,6 +12096,45 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
+  'tasks_notes' => 
+  array (
+    'name' => 'tasks_notes',
+    'lhs_module' => 'Tasks',
+    'lhs_table' => 'tasks',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Tasks',
+  ),
+  'task_meetings_parent' => 
+  array (
+    'name' => 'task_meetings_parent',
+    'lhs_module' => 'Tasks',
+    'lhs_table' => 'tasks',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Meetings',
+    'rhs_table' => 'meetings',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Tasks',
+  ),
+  'task_calls_parent' => 
+  array (
+    'name' => 'task_calls_parent',
+    'lhs_module' => 'Tasks',
+    'lhs_table' => 'tasks',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Calls',
+    'rhs_table' => 'calls',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Tasks',
+  ),
   'tracker_monitor_id' => 
   array (
     'name' => 'tracker_monitor_id',
@@ -12982,107 +12146,39 @@
     'rhs_key' => 'monitor_id',
     'relationship_type' => 'one-to-one',
   ),
-  'tracker_user_id' => 
+  'documents_favorite' => 
   array (
-    'name' => 'tracker_user_id',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'documents_favorite',
+    'lhs_module' => 'Documents',
+    'lhs_table' => 'documents',
     'lhs_key' => 'id',
-    'rhs_module' => 'TrackerSessions',
-    'rhs_table' => 'tracker',
-    'rhs_key' => 'user_id',
-    'relationship_type' => 'one-to-many',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Documents',
+    'user_field' => 'created_by',
   ),
-  'tracker_tracker_queries' => 
+  'documents_following' => 
   array (
-    'name' => 'tracker_tracker_queries',
-    'table' => 'tracker_tracker_queries',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'int',
-        'len' => '11',
-        'isnull' => 'false',
-        'auto_increment' => true,
-        'reportable' => false,
-      ),
-      'monitor_id' => 
-      array (
-        'name' => 'monitor_id',
-        'type' => 'id',
-        'len' => '36',
-      ),
-      'query_id' => 
-      array (
-        'name' => 'query_id',
-        'type' => 'id',
-        'len' => '36',
-      ),
-      'date_modified' => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-    ),
-    'indices' => 
-    array (
-      0 => 
-      array (
-        'name' => 'tracker_tracker_queriespk',
-        'type' => 'primary',
-        'fields' => 
-        array (
-          0 => 'id',
-        ),
-      ),
-      1 => 
-      array (
-        'name' => 'idx_tracker_tq_monitor',
-        'type' => 'index',
-        'fields' => 
-        array (
-          0 => 'monitor_id',
-        ),
-      ),
-      2 => 
-      array (
-        'name' => 'idx_tracker_tq_query',
-        'type' => 'index',
-        'fields' => 
-        array (
-          0 => 'query_id',
-        ),
-      ),
-    ),
-    'relationships' => 
-    array (
-      'tracker_tracker_queries' => 
-      array (
-        'lhs_module' => 'Trackers',
-        'lhs_table' => 'tracker',
-        'lhs_key' => 'monitor_id',
-        'rhs_module' => 'TrackerQueries',
-        'rhs_table' => 'tracker_queries',
-        'rhs_key' => 'query_id',
-        'relationship_type' => 'many-to-many',
-        'join_table' => 'tracker_tracker_queries',
-        'join_key_lhs' => 'monitor_id',
-        'join_key_rhs' => 'query_id',
-      ),
-    ),
-    'lhs_module' => 'Trackers',
-    'lhs_table' => 'tracker',
-    'lhs_key' => 'monitor_id',
-    'rhs_module' => 'TrackerQueries',
-    'rhs_table' => 'tracker_queries',
-    'rhs_key' => 'query_id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tracker_tracker_queries',
-    'join_key_lhs' => 'monitor_id',
-    'join_key_rhs' => 'query_id',
+    'name' => 'documents_following',
+    'lhs_module' => 'Documents',
+    'lhs_table' => 'documents',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Documents',
+    'user_field' => 'created_by',
   ),
   'documents_modified_user' => 
   array (
@@ -13171,73 +12267,6 @@
       ),
     ),
   ),
-  'related_documents' => 
-  array (
-    'name' => 'related_documents',
-    'lhs_module' => 'Documents',
-    'lhs_table' => 'documents',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Documents',
-    'rhs_table' => 'documents',
-    'rhs_key' => 'related_doc_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'document_revisions' => 
-  array (
-    'name' => 'document_revisions',
-    'lhs_module' => 'Documents',
-    'lhs_table' => 'documents',
-    'lhs_key' => 'id',
-    'rhs_module' => 'DocumentRevisions',
-    'rhs_table' => 'document_revisions',
-    'rhs_key' => 'document_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'latest_document_revision' => 
-  array (
-    'name' => 'latest_document_revision',
-    'lhs_module' => 'Documents',
-    'lhs_table' => 'documents',
-    'lhs_key' => 'document_revision_id',
-    'rhs_module' => 'DocumentRevisions',
-    'rhs_table' => 'document_revisions',
-    'rhs_key' => 'id',
-    'relationship_type' => 'one-to-one',
-  ),
-  'documents_following' => 
-  array (
-    'name' => 'documents_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Documents',
-    'rhs_table' => 'documents',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Documents',
-    'user_field' => 'created_by',
-  ),
-  'documents_favorite' => 
-  array (
-    'name' => 'documents_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Documents',
-    'rhs_table' => 'documents',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Documents',
-    'user_field' => 'created_by',
-  ),
   'documents_assigned_user' => 
   array (
     'name' => 'documents_assigned_user',
@@ -13317,6 +12346,39 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
+  'related_documents' => 
+  array (
+    'name' => 'related_documents',
+    'lhs_module' => 'Documents',
+    'lhs_table' => 'documents',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Documents',
+    'rhs_table' => 'documents',
+    'rhs_key' => 'related_doc_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'document_revisions' => 
+  array (
+    'name' => 'document_revisions',
+    'lhs_module' => 'Documents',
+    'lhs_table' => 'documents',
+    'lhs_key' => 'id',
+    'rhs_module' => 'DocumentRevisions',
+    'rhs_table' => 'document_revisions',
+    'rhs_key' => 'document_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'latest_document_revision' => 
+  array (
+    'name' => 'latest_document_revision',
+    'lhs_module' => 'Documents',
+    'lhs_table' => 'documents',
+    'lhs_key' => 'document_revision_id',
+    'rhs_module' => 'DocumentRevisions',
+    'rhs_table' => 'document_revisions',
+    'rhs_key' => 'id',
+    'relationship_type' => 'one-to-one',
+  ),
   'revisions_created_by' => 
   array (
     'name' => 'revisions_created_by',
@@ -13327,6 +12389,187 @@
     'rhs_table' => 'document_revisions',
     'rhs_key' => 'created_by',
     'relationship_type' => 'one-to-many',
+  ),
+  'styleguide_email_addresses' => 
+  array (
+    'name' => 'styleguide_email_addresses',
+    'lhs_module' => 'Styleguide',
+    'lhs_table' => 'styleguide',
+    'lhs_key' => 'id',
+    'rhs_module' => 'EmailAddresses',
+    'rhs_table' => 'email_addresses',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'email_addr_bean_rel',
+    'join_key_lhs' => 'bean_id',
+    'join_key_rhs' => 'email_address_id',
+    'relationship_role_column' => 'bean_module',
+    'relationship_role_column_value' => 'Styleguide',
+    'fields' => 
+    array (
+      0 => 
+      array (
+        'name' => 'id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      1 => 
+      array (
+        'name' => 'email_address_id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      2 => 
+      array (
+        'name' => 'bean_id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      3 => 
+      array (
+        'name' => 'bean_module',
+        'type' => 'varchar',
+        'len' => 100,
+        'required' => true,
+      ),
+      4 => 
+      array (
+        'name' => 'primary_address',
+        'type' => 'bool',
+        'default' => '0',
+      ),
+      5 => 
+      array (
+        'name' => 'reply_to_address',
+        'type' => 'bool',
+        'default' => '0',
+      ),
+      6 => 
+      array (
+        'name' => 'date_created',
+        'type' => 'datetime',
+      ),
+      7 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      8 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'default' => 0,
+      ),
+    ),
+  ),
+  'styleguide_email_addresses_primary' => 
+  array (
+    'name' => 'styleguide_email_addresses_primary',
+    'lhs_module' => 'Styleguide',
+    'lhs_table' => 'styleguide',
+    'lhs_key' => 'id',
+    'rhs_module' => 'EmailAddresses',
+    'rhs_table' => 'email_addresses',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'email_addr_bean_rel',
+    'join_key_lhs' => 'bean_id',
+    'join_key_rhs' => 'email_address_id',
+    'relationship_role_columns' => 
+    array (
+      'primary_address' => '1',
+      'bean_module' => 'Styleguide',
+    ),
+    'fields' => 
+    array (
+      0 => 
+      array (
+        'name' => 'id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      1 => 
+      array (
+        'name' => 'email_address_id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      2 => 
+      array (
+        'name' => 'bean_id',
+        'type' => 'id',
+        'required' => true,
+      ),
+      3 => 
+      array (
+        'name' => 'bean_module',
+        'type' => 'varchar',
+        'len' => 100,
+        'required' => true,
+      ),
+      4 => 
+      array (
+        'name' => 'primary_address',
+        'type' => 'bool',
+        'default' => '0',
+      ),
+      5 => 
+      array (
+        'name' => 'reply_to_address',
+        'type' => 'bool',
+        'default' => '0',
+      ),
+      6 => 
+      array (
+        'name' => 'date_created',
+        'type' => 'datetime',
+      ),
+      7 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      8 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'default' => 0,
+      ),
+    ),
+  ),
+  'styleguide_favorite' => 
+  array (
+    'name' => 'styleguide_favorite',
+    'lhs_module' => 'Styleguide',
+    'lhs_table' => 'styleguide',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Styleguide',
+    'user_field' => 'created_by',
+  ),
+  'styleguide_following' => 
+  array (
+    'name' => 'styleguide_following',
+    'lhs_module' => 'Styleguide',
+    'lhs_table' => 'styleguide',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Styleguide',
+    'user_field' => 'created_by',
   ),
   'styleguide_modified_user' => 
   array (
@@ -13415,185 +12658,6 @@
       ),
     ),
   ),
-  'styleguide_email_addresses' => 
-  array (
-    'name' => 'styleguide_email_addresses',
-    'lhs_module' => 'Styleguide',
-    'lhs_table' => 'styleguide',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmailAddresses',
-    'rhs_table' => 'email_addresses',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'email_addr_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'email_address_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Styleguide',
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'email_address_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-        'required' => true,
-      ),
-      4 => 
-      array (
-        'name' => 'primary_address',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-      5 => 
-      array (
-        'name' => 'reply_to_address',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-      6 => 
-      array (
-        'name' => 'date_created',
-        'type' => 'datetime',
-      ),
-      7 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      8 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => 0,
-      ),
-    ),
-  ),
-  'styleguide_email_addresses_primary' => 
-  array (
-    'name' => 'styleguide_email_addresses_primary',
-    'lhs_module' => 'Styleguide',
-    'lhs_table' => 'styleguide',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmailAddresses',
-    'rhs_table' => 'email_addresses',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'email_addr_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'email_address_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Styleguide',
-    'primary_flag_column' => 'primary_address',
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'email_address_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-        'required' => true,
-      ),
-      4 => 
-      array (
-        'name' => 'primary_address',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-      5 => 
-      array (
-        'name' => 'reply_to_address',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-      6 => 
-      array (
-        'name' => 'date_created',
-        'type' => 'datetime',
-      ),
-      7 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      8 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => 0,
-      ),
-    ),
-  ),
-  'styleguide_following' => 
-  array (
-    'name' => 'styleguide_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Styleguide',
-    'rhs_table' => 'styleguide',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Styleguide',
-    'user_field' => 'created_by',
-  ),
-  'styleguide_favorite' => 
-  array (
-    'name' => 'styleguide_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Styleguide',
-    'rhs_table' => 'styleguide',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Styleguide',
-    'user_field' => 'created_by',
-  ),
   'styleguide_assigned_user' => 
   array (
     'name' => 'styleguide_assigned_user',
@@ -13604,28 +12668,6 @@
     'rhs_table' => 'styleguide',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
-  ),
-  'inbound_email_created_by' => 
-  array (
-    'name' => 'inbound_email_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'InboundEmail',
-    'rhs_table' => 'inbound_email',
-    'rhs_key' => 'created_by',
-    'relationship_type' => 'one-to-one',
-  ),
-  'inbound_email_modified_user_id' => 
-  array (
-    'name' => 'inbound_email_modified_user_id',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'InboundEmail',
-    'rhs_table' => 'inbound_email',
-    'rhs_key' => 'modified_user_id',
-    'relationship_type' => 'one-to-one',
   ),
   'inboundemail_team_count_relationship' => 
   array (
@@ -13695,16 +12737,27 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
-  'saved_search_assigned_user' => 
+  'inbound_email_created_by' => 
   array (
-    'name' => 'saved_search_assigned_user',
+    'name' => 'inbound_email_created_by',
     'lhs_module' => 'Users',
     'lhs_table' => 'users',
     'lhs_key' => 'id',
-    'rhs_module' => 'SavedSearch',
-    'rhs_table' => 'saved_search',
-    'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
+    'rhs_module' => 'InboundEmail',
+    'rhs_table' => 'inbound_email',
+    'rhs_key' => 'created_by',
+    'relationship_type' => 'one-to-one',
+  ),
+  'inbound_email_modified_user_id' => 
+  array (
+    'name' => 'inbound_email_modified_user_id',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'InboundEmail',
+    'rhs_table' => 'inbound_email',
+    'rhs_key' => 'modified_user_id',
+    'relationship_type' => 'one-to-one',
   ),
   'savedsearch_team_count_relationship' => 
   array (
@@ -13774,25 +12827,14 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
-  'employees_created_by' => 
+  'saved_search_assigned_user' => 
   array (
-    'name' => 'employees_created_by',
-    'lhs_module' => 'Employees',
-    'lhs_table' => 'users',
-    'lhs_key' => 'created_by',
-    'rhs_module' => 'Users',
-    'rhs_table' => 'users',
-    'rhs_key' => 'id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'report_assigned_user' => 
-  array (
-    'name' => 'report_assigned_user',
+    'name' => 'saved_search_assigned_user',
     'lhs_module' => 'Users',
     'lhs_table' => 'users',
     'lhs_key' => 'id',
-    'rhs_module' => 'Reports',
-    'rhs_table' => 'saved_reports',
+    'rhs_module' => 'SavedSearch',
+    'rhs_table' => 'saved_search',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
   ),
@@ -13864,6 +12906,17 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
+  'report_assigned_user' => 
+  array (
+    'name' => 'report_assigned_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Reports',
+    'rhs_table' => 'saved_reports',
+    'rhs_key' => 'assigned_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
   'team_memberships' => 
   array (
     'name' => 'team_memberships',
@@ -13877,6 +12930,40 @@
     'join_table' => 'team_memberships',
     'join_key_lhs' => 'team_id',
     'join_key_rhs' => 'user_id',
+  ),
+  'quotes_favorite' => 
+  array (
+    'name' => 'quotes_favorite',
+    'lhs_module' => 'Quotes',
+    'lhs_table' => 'quotes',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Quotes',
+    'user_field' => 'created_by',
+  ),
+  'quotes_following' => 
+  array (
+    'name' => 'quotes_following',
+    'lhs_module' => 'Quotes',
+    'lhs_table' => 'quotes',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Quotes',
+    'user_field' => 'created_by',
   ),
   'quotes_modified_user' => 
   array (
@@ -13965,6 +13052,85 @@
       ),
     ),
   ),
+  'quotes_assigned_user' => 
+  array (
+    'name' => 'quotes_assigned_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Quotes',
+    'rhs_table' => 'quotes',
+    'rhs_key' => 'assigned_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'quotes_team_count_relationship' => 
+  array (
+    'name' => 'quotes_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Quotes',
+    'rhs_table' => 'quotes',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'quotes_teams' => 
+  array (
+    'name' => 'quotes_teams',
+    'lhs_module' => 'Quotes',
+    'lhs_table' => 'quotes',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'quotes_team' => 
+  array (
+    'name' => 'quotes_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Quotes',
+    'rhs_table' => 'quotes',
+    'rhs_key' => 'team_id',
+    'relationship_type' => 'one-to-many',
+  ),
   'quote_tasks' => 
   array (
     'name' => 'quote_tasks',
@@ -14052,129 +13218,39 @@
     'rhs_key' => 'quote_id',
     'relationship_type' => 'one-to-many',
   ),
-  'quotes_assigned_user' => 
+  'revenuelineitems_favorite' => 
   array (
-    'name' => 'quotes_assigned_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'revenuelineitems_favorite',
+    'lhs_module' => 'RevenueLineItems',
+    'lhs_table' => 'revenue_line_items',
     'lhs_key' => 'id',
-    'rhs_module' => 'Quotes',
-    'rhs_table' => 'quotes',
-    'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'quotes_following' => 
-  array (
-    'name' => 'quotes_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Quotes',
-    'rhs_table' => 'quotes',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Quotes',
-    'user_field' => 'created_by',
-  ),
-  'quotes_favorite' => 
-  array (
-    'name' => 'quotes_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Quotes',
-    'rhs_table' => 'quotes',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Quotes',
+    'relationship_role_column_value' => 'RevenueLineItems',
     'user_field' => 'created_by',
   ),
-  'quotes_team_count_relationship' => 
+  'revenuelineitems_following' => 
   array (
-    'name' => 'quotes_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
+    'name' => 'revenuelineitems_following',
+    'lhs_module' => 'RevenueLineItems',
+    'lhs_table' => 'revenue_line_items',
     'lhs_key' => 'id',
-    'rhs_module' => 'Quotes',
-    'rhs_table' => 'quotes',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'quotes_teams' => 
-  array (
-    'name' => 'quotes_teams',
-    'lhs_module' => 'Quotes',
-    'lhs_table' => 'quotes',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'quotes_team' => 
-  array (
-    'name' => 'quotes_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Quotes',
-    'rhs_table' => 'quotes',
-    'rhs_key' => 'team_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'quotes_currencies' => 
-  array (
-    'name' => 'quotes_currencies',
-    'lhs_module' => 'Currencies',
-    'lhs_table' => 'currencies',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Quotes',
-    'rhs_table' => 'quotes',
-    'rhs_key' => 'currency_id',
-    'relationship_type' => 'one-to-many',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'RevenueLineItems',
+    'user_field' => 'created_by',
   ),
   'revenuelineitems_modified_user' => 
   array (
@@ -14262,6 +13338,96 @@
         'default' => '0',
       ),
     ),
+  ),
+  'revenuelineitems_assigned_user' => 
+  array (
+    'name' => 'revenuelineitems_assigned_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'RevenueLineItems',
+    'rhs_table' => 'revenue_line_items',
+    'rhs_key' => 'assigned_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'revenuelineitems_team_count_relationship' => 
+  array (
+    'name' => 'revenuelineitems_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'RevenueLineItems',
+    'rhs_table' => 'revenue_line_items',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'revenuelineitems_teams' => 
+  array (
+    'name' => 'revenuelineitems_teams',
+    'lhs_module' => 'RevenueLineItems',
+    'lhs_table' => 'revenue_line_items',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'revenuelineitems_team' => 
+  array (
+    'name' => 'revenuelineitems_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'RevenueLineItems',
+    'rhs_table' => 'revenue_line_items',
+    'rhs_key' => 'team_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'revenuelineitem_currencies' => 
+  array (
+    'name' => 'revenuelineitem_currencies',
+    'lhs_module' => 'RevenueLineItems',
+    'lhs_table' => 'revenue_line_items',
+    'lhs_key' => 'currency_id',
+    'rhs_module' => 'Currencies',
+    'rhs_table' => 'currencies',
+    'rhs_key' => 'id',
+    'relationship_type' => 'one-to-many',
   ),
   'revenuelineitem_tasks' => 
   array (
@@ -14370,184 +13536,39 @@
     'rhs_key' => 'manufacturer_id',
     'relationship_type' => 'one-to-many',
   ),
-  'revenuelineitems_following' => 
+  'products_favorite' => 
   array (
-    'name' => 'revenuelineitems_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'products_favorite',
+    'lhs_module' => 'Products',
+    'lhs_table' => 'products',
     'lhs_key' => 'id',
-    'rhs_module' => 'RevenueLineItems',
-    'rhs_table' => 'revenue_line_items',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'RevenueLineItems',
-    'user_field' => 'created_by',
-  ),
-  'revenuelineitems_favorite' => 
-  array (
-    'name' => 'revenuelineitems_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'RevenueLineItems',
-    'rhs_table' => 'revenue_line_items',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'RevenueLineItems',
+    'relationship_role_column_value' => 'Products',
     'user_field' => 'created_by',
   ),
-  'revenuelineitems_tags' => 
+  'products_following' => 
   array (
-    'name' => 'revenuelineitems_tags',
-    'lhs_module' => 'RevenueLineItems',
-    'lhs_table' => 'revenue_line_items',
+    'name' => 'products_following',
+    'lhs_module' => 'Products',
+    'lhs_table' => 'products',
     'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'RevenueLineItems',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'revenuelineitems_assigned_user' => 
-  array (
-    'name' => 'revenuelineitems_assigned_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'RevenueLineItems',
-    'rhs_table' => 'revenue_line_items',
-    'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'revenuelineitems_team_count_relationship' => 
-  array (
-    'name' => 'revenuelineitems_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
-    'lhs_key' => 'id',
-    'rhs_module' => 'RevenueLineItems',
-    'rhs_table' => 'revenue_line_items',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'revenuelineitems_teams' => 
-  array (
-    'name' => 'revenuelineitems_teams',
-    'lhs_module' => 'RevenueLineItems',
-    'lhs_table' => 'revenue_line_items',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'revenuelineitems_team' => 
-  array (
-    'name' => 'revenuelineitems_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'RevenueLineItems',
-    'rhs_table' => 'revenue_line_items',
-    'rhs_key' => 'team_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'revenuelineitems_currencies' => 
-  array (
-    'name' => 'revenuelineitems_currencies',
-    'lhs_module' => 'Currencies',
-    'lhs_table' => 'currencies',
-    'lhs_key' => 'id',
-    'rhs_module' => 'RevenueLineItems',
-    'rhs_table' => 'revenue_line_items',
-    'rhs_key' => 'currency_id',
-    'relationship_type' => 'one-to-many',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Products',
+    'user_field' => 'created_by',
   ),
   'products_modified_user' => 
   array (
@@ -14636,74 +13657,6 @@
       ),
     ),
   ),
-  'product_notes' => 
-  array (
-    'name' => 'product_notes',
-    'lhs_module' => 'Products',
-    'lhs_table' => 'products',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Products',
-  ),
-  'opportunities_products' => 
-  array (
-    'name' => 'opportunities_products',
-    'lhs_module' => 'Opportunities',
-    'lhs_table' => 'opportunities',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Products',
-    'rhs_table' => 'products',
-    'rhs_key' => 'opportunity_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'products_accounts' => 
-  array (
-    'name' => 'products_accounts',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Products',
-    'rhs_table' => 'products',
-    'rhs_key' => 'account_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'product_categories' => 
-  array (
-    'name' => 'product_categories',
-    'lhs_module' => 'ProductCategories',
-    'lhs_table' => 'product_categories',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Products',
-    'rhs_table' => 'products',
-    'rhs_key' => 'category_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'product_templates' => 
-  array (
-    'name' => 'product_templates',
-    'lhs_module' => 'ProductTemplates',
-    'lhs_table' => 'product_templates',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Products',
-    'rhs_table' => 'products',
-    'rhs_key' => 'product_template_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'product_types' => 
-  array (
-    'name' => 'product_types',
-    'lhs_module' => 'ProductTypes',
-    'lhs_table' => 'product_types',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Products',
-    'rhs_table' => 'products',
-    'rhs_key' => 'type_id',
-    'relationship_type' => 'one-to-many',
-  ),
   'products_assigned_user' => 
   array (
     'name' => 'products_assigned_user',
@@ -14714,143 +13667,6 @@
     'rhs_table' => 'products',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
-  ),
-  'products_revenuelineitems' => 
-  array (
-    'name' => 'products_revenuelineitems',
-    'rhs_module' => 'Products',
-    'rhs_table' => 'products',
-    'rhs_key' => 'revenuelineitem_id',
-    'lhs_module' => 'RevenueLineItems',
-    'lhs_table' => 'revenue_line_items',
-    'lhs_key' => 'id',
-    'relationship_type' => 'one-to-one',
-  ),
-  'product_calls' => 
-  array (
-    'name' => 'product_calls',
-    'lhs_module' => 'Products',
-    'lhs_table' => 'products',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Calls',
-    'rhs_table' => 'calls',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Products',
-  ),
-  'product_meetings' => 
-  array (
-    'name' => 'product_meetings',
-    'lhs_module' => 'Products',
-    'lhs_table' => 'products',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Meetings',
-    'rhs_table' => 'meetings',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Products',
-  ),
-  'product_manufacturers' => 
-  array (
-    'name' => 'product_manufacturers',
-    'lhs_module' => 'Manufacturers',
-    'lhs_table' => 'manufacturers',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Products',
-    'rhs_table' => 'products',
-    'rhs_key' => 'manufacturer_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'products_following' => 
-  array (
-    'name' => 'products_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Products',
-    'rhs_table' => 'products',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Products',
-    'user_field' => 'created_by',
-  ),
-  'products_favorite' => 
-  array (
-    'name' => 'products_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Products',
-    'rhs_table' => 'products',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Products',
-    'user_field' => 'created_by',
-  ),
-  'products_tags' => 
-  array (
-    'name' => 'products_tags',
-    'lhs_module' => 'Products',
-    'lhs_table' => 'products',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Products',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
   ),
   'products_team_count_relationship' => 
   array (
@@ -14920,26 +13736,131 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
-  'products_currencies' => 
+  'product_currencies' => 
   array (
-    'name' => 'products_currencies',
-    'lhs_module' => 'Currencies',
-    'lhs_table' => 'currencies',
+    'name' => 'product_currencies',
+    'lhs_module' => 'Products',
+    'lhs_table' => 'products',
+    'lhs_key' => 'currency_id',
+    'rhs_module' => 'Currencies',
+    'rhs_table' => 'currencies',
+    'rhs_key' => 'id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'product_notes' => 
+  array (
+    'name' => 'product_notes',
+    'lhs_module' => 'Products',
+    'lhs_table' => 'products',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Products',
+  ),
+  'opportunities_products' => 
+  array (
+    'name' => 'opportunities_products',
+    'lhs_module' => 'Opportunities',
+    'lhs_table' => 'opportunities',
     'lhs_key' => 'id',
     'rhs_module' => 'Products',
     'rhs_table' => 'products',
-    'rhs_key' => 'currency_id',
+    'rhs_key' => 'opportunity_id',
     'relationship_type' => 'one-to-many',
   ),
-  'product_bundle_taxrate' => 
+  'products_accounts' => 
   array (
-    'name' => 'product_bundle_taxrate',
-    'rhs_module' => 'ProductBundles',
-    'rhs_table' => 'product_bundles',
-    'rhs_key' => 'taxrate_id',
-    'lhs_module' => 'TaxRates',
-    'lhs_table' => 'taxrates',
+    'name' => 'products_accounts',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
     'lhs_key' => 'id',
+    'rhs_module' => 'Products',
+    'rhs_table' => 'products',
+    'rhs_key' => 'account_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'product_categories' => 
+  array (
+    'name' => 'product_categories',
+    'lhs_module' => 'ProductCategories',
+    'lhs_table' => 'product_categories',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Products',
+    'rhs_table' => 'products',
+    'rhs_key' => 'category_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'product_templates' => 
+  array (
+    'name' => 'product_templates',
+    'lhs_module' => 'ProductTemplates',
+    'lhs_table' => 'product_templates',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Products',
+    'rhs_table' => 'products',
+    'rhs_key' => 'product_template_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'product_types' => 
+  array (
+    'name' => 'product_types',
+    'lhs_module' => 'ProductTypes',
+    'lhs_table' => 'product_types',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Products',
+    'rhs_table' => 'products',
+    'rhs_key' => 'type_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'products_revenuelineitems' => 
+  array (
+    'name' => 'products_revenuelineitems',
+    'rhs_module' => 'Products',
+    'rhs_table' => 'products',
+    'rhs_key' => 'revenuelineitem_id',
+    'lhs_module' => 'RevenueLineItems',
+    'lhs_table' => 'revenue_line_items',
+    'lhs_key' => 'id',
+    'relationship_type' => 'one-to-one',
+  ),
+  'product_calls' => 
+  array (
+    'name' => 'product_calls',
+    'lhs_module' => 'Products',
+    'lhs_table' => 'products',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Calls',
+    'rhs_table' => 'calls',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Products',
+  ),
+  'product_meetings' => 
+  array (
+    'name' => 'product_meetings',
+    'lhs_module' => 'Products',
+    'lhs_table' => 'products',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Meetings',
+    'rhs_table' => 'meetings',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Products',
+  ),
+  'product_manufacturers' => 
+  array (
+    'name' => 'product_manufacturers',
+    'rhs_module' => 'Manufacturers',
+    'rhs_table' => 'manufacturers',
+    'rhs_key' => 'id',
+    'lhs_module' => 'Products',
+    'lhs_table' => 'products',
+    'lhs_key' => 'manufacturer_id',
     'relationship_type' => 'one-to-many',
   ),
   'productbundles_team_count_relationship' => 
@@ -15010,16 +13931,50 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
-  'productbundles_currencies' => 
+  'product_bundle_taxrate' => 
   array (
-    'name' => 'productbundles_currencies',
-    'lhs_module' => 'Currencies',
-    'lhs_table' => 'currencies',
-    'lhs_key' => 'id',
+    'name' => 'product_bundle_taxrate',
     'rhs_module' => 'ProductBundles',
     'rhs_table' => 'product_bundles',
-    'rhs_key' => 'currency_id',
+    'rhs_key' => 'taxrate_id',
+    'lhs_module' => 'TaxRates',
+    'lhs_table' => 'taxrates',
+    'lhs_key' => 'id',
     'relationship_type' => 'one-to-many',
+  ),
+  'producttemplates_favorite' => 
+  array (
+    'name' => 'producttemplates_favorite',
+    'lhs_module' => 'ProductTemplates',
+    'lhs_table' => 'product_templates',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'ProductTemplates',
+    'user_field' => 'created_by',
+  ),
+  'producttemplates_following' => 
+  array (
+    'name' => 'producttemplates_following',
+    'lhs_module' => 'ProductTemplates',
+    'lhs_table' => 'product_templates',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'ProductTemplates',
+    'user_field' => 'created_by',
   ),
   'producttemplates_modified_user' => 
   array (
@@ -15108,6 +14063,17 @@
       ),
     ),
   ),
+  'producttemplates_assigned_user' => 
+  array (
+    'name' => 'producttemplates_assigned_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'ProductTemplates',
+    'rhs_table' => 'product_templates',
+    'rhs_key' => 'assigned_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
   'product_templates_product_categories' => 
   array (
     'name' => 'product_templates_product_categories',
@@ -15141,116 +14107,39 @@
     'rhs_key' => 'manufacturer_id',
     'relationship_type' => 'one-to-many',
   ),
-  'producttemplates_following' => 
+  'productcategories_favorite' => 
   array (
-    'name' => 'producttemplates_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'productcategories_favorite',
+    'lhs_module' => 'ProductCategories',
+    'lhs_table' => 'product_categories',
     'lhs_key' => 'id',
-    'rhs_module' => 'ProductTemplates',
-    'rhs_table' => 'product_templates',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'ProductTemplates',
-    'user_field' => 'created_by',
-  ),
-  'producttemplates_favorite' => 
-  array (
-    'name' => 'producttemplates_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ProductTemplates',
-    'rhs_table' => 'product_templates',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'ProductTemplates',
+    'relationship_role_column_value' => 'ProductCategories',
     'user_field' => 'created_by',
   ),
-  'producttemplates_tags' => 
+  'productcategories_following' => 
   array (
-    'name' => 'producttemplates_tags',
-    'lhs_module' => 'ProductTemplates',
-    'lhs_table' => 'product_templates',
+    'name' => 'productcategories_following',
+    'lhs_module' => 'ProductCategories',
+    'lhs_table' => 'product_categories',
     'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'ProductTemplates',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'producttemplates_assigned_user' => 
-  array (
-    'name' => 'producttemplates_assigned_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ProductTemplates',
-    'rhs_table' => 'product_templates',
-    'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'producttemplates_currencies' => 
-  array (
-    'name' => 'producttemplates_currencies',
-    'lhs_module' => 'Currencies',
-    'lhs_table' => 'currencies',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ProductTemplates',
-    'rhs_table' => 'product_templates',
-    'rhs_key' => 'currency_id',
-    'relationship_type' => 'one-to-many',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'ProductCategories',
+    'user_field' => 'created_by',
   ),
   'productcategories_modified_user' => 
   array (
@@ -15339,51 +14228,6 @@
       ),
     ),
   ),
-  'member_categories' => 
-  array (
-    'name' => 'member_categories',
-    'lhs_module' => 'ProductCategories',
-    'lhs_table' => 'product_categories',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ProductCategories',
-    'rhs_table' => 'product_categories',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'productcategories_following' => 
-  array (
-    'name' => 'productcategories_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ProductCategories',
-    'rhs_table' => 'product_categories',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'ProductCategories',
-    'user_field' => 'created_by',
-  ),
-  'productcategories_favorite' => 
-  array (
-    'name' => 'productcategories_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ProductCategories',
-    'rhs_table' => 'product_categories',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'ProductCategories',
-    'user_field' => 'created_by',
-  ),
   'productcategories_assigned_user' => 
   array (
     'name' => 'productcategories_assigned_user',
@@ -15393,6 +14237,17 @@
     'rhs_module' => 'ProductCategories',
     'rhs_table' => 'product_categories',
     'rhs_key' => 'assigned_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'member_categories' => 
+  array (
+    'name' => 'member_categories',
+    'lhs_module' => 'ProductCategories',
+    'lhs_table' => 'product_categories',
+    'lhs_key' => 'id',
+    'rhs_module' => 'ProductCategories',
+    'rhs_table' => 'product_categories',
+    'rhs_key' => 'parent_id',
     'relationship_type' => 'one-to-many',
   ),
   'shipper_quotes' => 
@@ -15496,16 +14351,39 @@
     'rhs_key' => 'user_id',
     'relationship_type' => 'one-to-many',
   ),
-  'forecasts_currencies' => 
+  'forecastworksheets_favorite' => 
   array (
-    'name' => 'forecasts_currencies',
-    'lhs_module' => 'Currencies',
-    'lhs_table' => 'currencies',
+    'name' => 'forecastworksheets_favorite',
+    'lhs_module' => 'ForecastWorksheets',
+    'lhs_table' => 'forecast_worksheets',
     'lhs_key' => 'id',
-    'rhs_module' => 'Forecasts',
-    'rhs_table' => 'forecasts',
-    'rhs_key' => 'currency_id',
-    'relationship_type' => 'one-to-many',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'ForecastWorksheets',
+    'user_field' => 'created_by',
+  ),
+  'forecastworksheets_following' => 
+  array (
+    'name' => 'forecastworksheets_following',
+    'lhs_module' => 'ForecastWorksheets',
+    'lhs_table' => 'forecast_worksheets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'ForecastWorksheets',
+    'user_field' => 'created_by',
   ),
   'forecastworksheets_modified_user' => 
   array (
@@ -15594,95 +14472,6 @@
       ),
     ),
   ),
-  'forecastworksheets_accounts' => 
-  array (
-    'name' => 'forecastworksheets_accounts',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ForecastWorksheets',
-    'rhs_table' => 'forecast_worksheets',
-    'rhs_key' => 'account_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'forecastworksheets_opportunities' => 
-  array (
-    'name' => 'forecastworksheets_opportunities',
-    'lhs_module' => 'Opportunities',
-    'lhs_table' => 'opportunities',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ForecastWorksheets',
-    'rhs_table' => 'forecast_worksheets',
-    'rhs_key' => 'opportunity_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'forecastworksheets_campaigns' => 
-  array (
-    'name' => 'forecastworksheets_campaigns',
-    'lhs_module' => 'Campaigns',
-    'lhs_table' => 'campaigns',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ForecastWorksheets',
-    'rhs_table' => 'forecast_worksheets',
-    'rhs_key' => 'campaign_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'forecastworksheets_templates' => 
-  array (
-    'name' => 'forecastworksheets_templates',
-    'lhs_module' => 'ProductTemplates',
-    'lhs_table' => 'product_templates',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ForecastWorksheets',
-    'rhs_table' => 'forecast_worksheets',
-    'rhs_key' => 'product_template_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'forecastworksheets_categories' => 
-  array (
-    'name' => 'forecastworksheets_categories',
-    'lhs_module' => 'ProductCategories',
-    'lhs_table' => 'product_categories',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ForecastWorksheets',
-    'rhs_table' => 'forecast_worksheets',
-    'rhs_key' => 'category_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'forecastworksheets_following' => 
-  array (
-    'name' => 'forecastworksheets_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ForecastWorksheets',
-    'rhs_table' => 'forecast_worksheets',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'ForecastWorksheets',
-    'user_field' => 'created_by',
-  ),
-  'forecastworksheets_favorite' => 
-  array (
-    'name' => 'forecastworksheets_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ForecastWorksheets',
-    'rhs_table' => 'forecast_worksheets',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'ForecastWorksheets',
-    'user_field' => 'created_by',
-  ),
   'forecastworksheets_assigned_user' => 
   array (
     'name' => 'forecastworksheets_assigned_user',
@@ -15762,6 +14551,61 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
+  'forecastworksheets_accounts' => 
+  array (
+    'name' => 'forecastworksheets_accounts',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'ForecastWorksheets',
+    'rhs_table' => 'forecast_worksheets',
+    'rhs_key' => 'account_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'forecastworksheets_opportunities' => 
+  array (
+    'name' => 'forecastworksheets_opportunities',
+    'lhs_module' => 'Opportunities',
+    'lhs_table' => 'opportunities',
+    'lhs_key' => 'id',
+    'rhs_module' => 'ForecastWorksheets',
+    'rhs_table' => 'forecast_worksheets',
+    'rhs_key' => 'opportunity_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'forecastworksheets_campaigns' => 
+  array (
+    'name' => 'forecastworksheets_campaigns',
+    'lhs_module' => 'Campaigns',
+    'lhs_table' => 'campaigns',
+    'lhs_key' => 'id',
+    'rhs_module' => 'ForecastWorksheets',
+    'rhs_table' => 'forecast_worksheets',
+    'rhs_key' => 'campaign_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'forecastworksheets_templates' => 
+  array (
+    'name' => 'forecastworksheets_templates',
+    'lhs_module' => 'ProductTemplates',
+    'lhs_table' => 'product_templates',
+    'lhs_key' => 'id',
+    'rhs_module' => 'ForecastWorksheets',
+    'rhs_table' => 'forecast_worksheets',
+    'rhs_key' => 'product_template_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'forecastworksheets_categories' => 
+  array (
+    'name' => 'forecastworksheets_categories',
+    'lhs_module' => 'ProductCategories',
+    'lhs_table' => 'product_categories',
+    'lhs_key' => 'id',
+    'rhs_module' => 'ForecastWorksheets',
+    'rhs_table' => 'forecast_worksheets',
+    'rhs_key' => 'category_id',
+    'relationship_type' => 'one-to-many',
+  ),
   'forecastworksheets_currencies' => 
   array (
     'name' => 'forecastworksheets_currencies',
@@ -15772,6 +14616,40 @@
     'rhs_table' => 'forecast_worksheets',
     'rhs_key' => 'currency_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'forecastmanagerworksheets_favorite' => 
+  array (
+    'name' => 'forecastmanagerworksheets_favorite',
+    'lhs_module' => 'ForecastManagerWorksheets',
+    'lhs_table' => 'forecast_manager_worksheets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'ForecastManagerWorksheets',
+    'user_field' => 'created_by',
+  ),
+  'forecastmanagerworksheets_following' => 
+  array (
+    'name' => 'forecastmanagerworksheets_following',
+    'lhs_module' => 'ForecastManagerWorksheets',
+    'lhs_table' => 'forecast_manager_worksheets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'ForecastManagerWorksheets',
+    'user_field' => 'created_by',
   ),
   'forecastmanagerworksheets_modified_user' => 
   array (
@@ -15860,40 +14738,6 @@
       ),
     ),
   ),
-  'forecastmanagerworksheets_following' => 
-  array (
-    'name' => 'forecastmanagerworksheets_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ForecastManagerWorksheets',
-    'rhs_table' => 'forecast_manager_worksheets',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'ForecastManagerWorksheets',
-    'user_field' => 'created_by',
-  ),
-  'forecastmanagerworksheets_favorite' => 
-  array (
-    'name' => 'forecastmanagerworksheets_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'ForecastManagerWorksheets',
-    'rhs_table' => 'forecast_manager_worksheets',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'ForecastManagerWorksheets',
-    'user_field' => 'created_by',
-  ),
   'forecastmanagerworksheets_assigned_user' => 
   array (
     'name' => 'forecastmanagerworksheets_assigned_user',
@@ -15973,16 +14817,39 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
-  'forecastmanagerworksheets_currencies' => 
+  'quotas_favorite' => 
   array (
-    'name' => 'forecastmanagerworksheets_currencies',
-    'lhs_module' => 'Currencies',
-    'lhs_table' => 'currencies',
+    'name' => 'quotas_favorite',
+    'lhs_module' => 'Quotas',
+    'lhs_table' => 'quotas',
     'lhs_key' => 'id',
-    'rhs_module' => 'ForecastManagerWorksheets',
-    'rhs_table' => 'forecast_manager_worksheets',
-    'rhs_key' => 'currency_id',
-    'relationship_type' => 'one-to-many',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Quotas',
+    'user_field' => 'created_by',
+  ),
+  'quotas_following' => 
+  array (
+    'name' => 'quotas_following',
+    'lhs_module' => 'Quotas',
+    'lhs_table' => 'quotas',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Quotas',
+    'user_field' => 'created_by',
   ),
   'quotas_modified_user' => 
   array (
@@ -16071,40 +14938,6 @@
       ),
     ),
   ),
-  'quotas_following' => 
-  array (
-    'name' => 'quotas_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Quotas',
-    'rhs_table' => 'quotas',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Quotas',
-    'user_field' => 'created_by',
-  ),
-  'quotas_favorite' => 
-  array (
-    'name' => 'quotas_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Quotas',
-    'rhs_table' => 'quotas',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Quotas',
-    'user_field' => 'created_by',
-  ),
   'quotas_assigned_user' => 
   array (
     'name' => 'quotas_assigned_user',
@@ -16114,17 +14947,6 @@
     'rhs_module' => 'Quotas',
     'rhs_table' => 'quotas',
     'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'quotas_currencies' => 
-  array (
-    'name' => 'quotas_currencies',
-    'lhs_module' => 'Currencies',
-    'lhs_table' => 'currencies',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Quotas',
-    'rhs_table' => 'quotas',
-    'rhs_key' => 'currency_id',
     'relationship_type' => 'one-to-many',
   ),
   'workflow_triggers' => 
@@ -16310,6 +15132,40 @@
     'rhs_key' => 'parent_exp_id',
     'relationship_type' => 'one-to-many',
   ),
+  'contracts_favorite' => 
+  array (
+    'name' => 'contracts_favorite',
+    'lhs_module' => 'Contracts',
+    'lhs_table' => 'contracts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Contracts',
+    'user_field' => 'created_by',
+  ),
+  'contracts_following' => 
+  array (
+    'name' => 'contracts_following',
+    'lhs_module' => 'Contracts',
+    'lhs_table' => 'contracts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Contracts',
+    'user_field' => 'created_by',
+  ),
   'contracts_modified_user' => 
   array (
     'name' => 'contracts_modified_user',
@@ -16397,41 +15253,6 @@
       ),
     ),
   ),
-  'contracts_contract_types' => 
-  array (
-    'name' => 'contracts_contract_types',
-    'lhs_module' => 'ContractTypes',
-    'lhs_table' => 'contract_types',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Contracts',
-    'rhs_table' => 'contracts',
-    'rhs_key' => 'type',
-    'relationship_type' => 'one-to-many',
-  ),
-  'contract_notes' => 
-  array (
-    'name' => 'contract_notes',
-    'lhs_module' => 'Contracts',
-    'lhs_table' => 'contracts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Contracts',
-    'relationship_type' => 'one-to-many',
-  ),
-  'account_contracts' => 
-  array (
-    'name' => 'account_contracts',
-    'lhs_module' => 'Accounts',
-    'lhs_table' => 'accounts',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Contracts',
-    'rhs_table' => 'contracts',
-    'rhs_key' => 'account_id',
-    'relationship_type' => 'one-to-many',
-  ),
   'contracts_assigned_user' => 
   array (
     'name' => 'contracts_assigned_user',
@@ -16442,40 +15263,6 @@
     'rhs_table' => 'contracts',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
-  ),
-  'contracts_following' => 
-  array (
-    'name' => 'contracts_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Contracts',
-    'rhs_table' => 'contracts',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Contracts',
-    'user_field' => 'created_by',
-  ),
-  'contracts_favorite' => 
-  array (
-    'name' => 'contracts_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Contracts',
-    'rhs_table' => 'contracts',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Contracts',
-    'user_field' => 'created_by',
   ),
   'contracts_team_count_relationship' => 
   array (
@@ -16542,6 +15329,416 @@
     'lhs_key' => 'id',
     'rhs_module' => 'Contracts',
     'rhs_table' => 'contracts',
+    'rhs_key' => 'team_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'contracts_contract_types' => 
+  array (
+    'name' => 'contracts_contract_types',
+    'lhs_module' => 'Contracts',
+    'lhs_table' => 'contracts',
+    'lhs_key' => 'type',
+    'rhs_module' => 'ContractTypes',
+    'rhs_table' => 'contract_types',
+    'rhs_key' => 'id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'contract_notes' => 
+  array (
+    'name' => 'contract_notes',
+    'lhs_module' => 'Contracts',
+    'lhs_table' => 'contracts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Notes',
+    'rhs_table' => 'notes',
+    'rhs_key' => 'parent_id',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Contracts',
+    'relationship_type' => 'one-to-many',
+  ),
+  'account_contracts' => 
+  array (
+    'name' => 'account_contracts',
+    'lhs_module' => 'Accounts',
+    'lhs_table' => 'accounts',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Contracts',
+    'rhs_table' => 'contracts',
+    'rhs_key' => 'account_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbdocuments_team_count_relationship' => 
+  array (
+    'name' => 'kbdocuments_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocuments',
+    'rhs_table' => 'kbdocuments',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbdocuments_teams' => 
+  array (
+    'name' => 'kbdocuments_teams',
+    'lhs_module' => 'KBDocuments',
+    'lhs_table' => 'kbdocuments',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'kbdocuments_team' => 
+  array (
+    'name' => 'kbdocuments_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocuments',
+    'rhs_table' => 'kbdocuments',
+    'rhs_key' => 'team_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbdocument_revisions' => 
+  array (
+    'name' => 'kbdocument_revisions',
+    'lhs_module' => 'KBDocuments',
+    'lhs_table' => 'kbdocuments',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocumentRevisions',
+    'rhs_table' => 'kbdocument_revisions',
+    'rhs_key' => 'kbdocument_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbdocuments_modified_user' => 
+  array (
+    'name' => 'kbdocuments_modified_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocuments',
+    'rhs_table' => 'kbdocuments',
+    'rhs_key' => 'modified_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbdocuments_created_by' => 
+  array (
+    'name' => 'kbdocuments_created_by',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocuments',
+    'rhs_table' => 'kbdocuments',
+    'rhs_key' => 'created_by',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kb_assigned_user' => 
+  array (
+    'name' => 'kb_assigned_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocuments',
+    'rhs_table' => 'kbdocuments',
+    'rhs_key' => 'assigned_user_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbdoc_approver_user' => 
+  array (
+    'name' => 'kbdoc_approver_user',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocuments',
+    'rhs_table' => 'kbdocuments',
+    'rhs_key' => 'kbdoc_approver_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'case_kbdocuments' => 
+  array (
+    'name' => 'case_kbdocuments',
+    'lhs_module' => 'Cases',
+    'lhs_table' => 'cases',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocuments',
+    'rhs_table' => 'kbdocuments',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Cases',
+  ),
+  'email_kbdocuments' => 
+  array (
+    'name' => 'email_kbdocuments',
+    'lhs_module' => 'Emails',
+    'lhs_table' => 'emails',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocuments',
+    'rhs_table' => 'kbdocuments',
+    'rhs_key' => 'parent_id',
+    'relationship_type' => 'one-to-many',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Emails',
+  ),
+  'kbrev_revisions_created_by' => 
+  array (
+    'name' => 'kbrev_revisions_created_by',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocumentRevisions',
+    'rhs_table' => 'kbdocument_revisions',
+    'rhs_key' => 'created_by',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbtags_team_count_relationship' => 
+  array (
+    'name' => 'kbtags_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBTags',
+    'rhs_table' => 'kbtags',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbtags_teams' => 
+  array (
+    'name' => 'kbtags_teams',
+    'lhs_module' => 'KBTags',
+    'lhs_table' => 'kbtags',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'kbtags_team' => 
+  array (
+    'name' => 'kbtags_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBTags',
+    'rhs_table' => 'kbtags',
+    'rhs_key' => 'team_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbdocumentkbtags_team_count_relationship' => 
+  array (
+    'name' => 'kbdocumentkbtags_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocumentKBTags',
+    'rhs_table' => 'kbdocuments_kbtags',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbdocumentkbtags_teams' => 
+  array (
+    'name' => 'kbdocumentkbtags_teams',
+    'lhs_module' => 'KBDocumentKBTags',
+    'lhs_table' => 'kbdocuments_kbtags',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'kbdocumentkbtags_team' => 
+  array (
+    'name' => 'kbdocumentkbtags_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocumentKBTags',
+    'rhs_table' => 'kbdocuments_kbtags',
+    'rhs_key' => 'team_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbrevisions_created_by' => 
+  array (
+    'name' => 'kbrevisions_created_by',
+    'lhs_module' => 'Users',
+    'lhs_table' => 'users',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBDocumentKBTags',
+    'rhs_table' => 'kbdocuments_kbtags',
+    'rhs_key' => 'created_by',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbcontents_team_count_relationship' => 
+  array (
+    'name' => 'kbcontents_team_count_relationship',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'team_sets',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBContents',
+    'rhs_table' => 'kbcontents',
+    'rhs_key' => 'team_set_id',
+    'relationship_type' => 'one-to-many',
+  ),
+  'kbcontents_teams' => 
+  array (
+    'name' => 'kbcontents_teams',
+    'lhs_module' => 'KBContents',
+    'lhs_table' => 'kbcontents',
+    'lhs_key' => 'team_set_id',
+    'rhs_module' => 'Teams',
+    'rhs_table' => 'teams',
+    'rhs_key' => 'id',
+    'relationship_type' => 'many-to-many',
+    'join_table' => 'team_sets_teams',
+    'join_key_lhs' => 'team_set_id',
+    'join_key_rhs' => 'team_id',
+    'fields' => 
+    array (
+      'id' => 
+      array (
+        'name' => 'id',
+        'vname' => 'LBL_ID',
+        'type' => 'id',
+        'required' => true,
+      ),
+      0 => 
+      array (
+        'name' => 'team_set_id',
+        'type' => 'id',
+      ),
+      1 => 
+      array (
+        'name' => 'team_id',
+        'type' => 'id',
+      ),
+      2 => 
+      array (
+        'name' => 'date_modified',
+        'type' => 'datetime',
+      ),
+      3 => 
+      array (
+        'name' => 'deleted',
+        'type' => 'bool',
+        'len' => '',
+        'default' => '0',
+      ),
+    ),
+  ),
+  'kbcontents_team' => 
+  array (
+    'name' => 'kbcontents_team',
+    'lhs_module' => 'Teams',
+    'lhs_table' => 'teams',
+    'lhs_key' => 'id',
+    'rhs_module' => 'KBContents',
+    'rhs_table' => 'kbcontents',
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
@@ -16749,6 +15946,40 @@
     'rhs_key' => 'team_id',
     'relationship_type' => 'one-to-many',
   ),
+  'pmse_project_favorite' => 
+  array (
+    'name' => 'pmse_project_favorite',
+    'lhs_module' => 'pmse_Project',
+    'lhs_table' => 'pmse_project',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_Project',
+    'user_field' => 'created_by',
+  ),
+  'pmse_project_following' => 
+  array (
+    'name' => 'pmse_project_following',
+    'lhs_module' => 'pmse_Project',
+    'lhs_table' => 'pmse_project',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_Project',
+    'user_field' => 'created_by',
+  ),
   'pmse_project_modified_user' => 
   array (
     'name' => 'pmse_project_modified_user',
@@ -16836,40 +16067,6 @@
       ),
     ),
   ),
-  'pmse_project_following' => 
-  array (
-    'name' => 'pmse_project_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_Project',
-    'rhs_table' => 'pmse_project',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_Project',
-    'user_field' => 'created_by',
-  ),
-  'pmse_project_favorite' => 
-  array (
-    'name' => 'pmse_project_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_Project',
-    'rhs_table' => 'pmse_project',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_Project',
-    'user_field' => 'created_by',
-  ),
   'pmse_project_team_count_relationship' => 
   array (
     'name' => 'pmse_project_team_count_relationship',
@@ -16948,6 +16145,40 @@
     'rhs_table' => 'pmse_project',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_inbox_favorite' => 
+  array (
+    'name' => 'pmse_inbox_favorite',
+    'lhs_module' => 'pmse_Inbox',
+    'lhs_table' => 'pmse_inbox',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_Inbox',
+    'user_field' => 'created_by',
+  ),
+  'pmse_inbox_following' => 
+  array (
+    'name' => 'pmse_inbox_following',
+    'lhs_module' => 'pmse_Inbox',
+    'lhs_table' => 'pmse_inbox',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_Inbox',
+    'user_field' => 'created_by',
   ),
   'pmse_inbox_modified_user' => 
   array (
@@ -17036,40 +16267,6 @@
       ),
     ),
   ),
-  'pmse_inbox_following' => 
-  array (
-    'name' => 'pmse_inbox_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_Inbox',
-    'rhs_table' => 'pmse_inbox',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_Inbox',
-    'user_field' => 'created_by',
-  ),
-  'pmse_inbox_favorite' => 
-  array (
-    'name' => 'pmse_inbox_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_Inbox',
-    'rhs_table' => 'pmse_inbox',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_Inbox',
-    'user_field' => 'created_by',
-  ),
   'pmse_inbox_team_count_relationship' => 
   array (
     'name' => 'pmse_inbox_team_count_relationship',
@@ -17148,6 +16345,40 @@
     'rhs_table' => 'pmse_inbox',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_business_rules_favorite' => 
+  array (
+    'name' => 'pmse_business_rules_favorite',
+    'lhs_module' => 'pmse_Business_Rules',
+    'lhs_table' => 'pmse_business_rules',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_Business_Rules',
+    'user_field' => 'created_by',
+  ),
+  'pmse_business_rules_following' => 
+  array (
+    'name' => 'pmse_business_rules_following',
+    'lhs_module' => 'pmse_Business_Rules',
+    'lhs_table' => 'pmse_business_rules',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_Business_Rules',
+    'user_field' => 'created_by',
   ),
   'pmse_business_rules_modified_user' => 
   array (
@@ -17236,40 +16467,6 @@
       ),
     ),
   ),
-  'pmse_business_rules_following' => 
-  array (
-    'name' => 'pmse_business_rules_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_Business_Rules',
-    'rhs_table' => 'pmse_business_rules',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_Business_Rules',
-    'user_field' => 'created_by',
-  ),
-  'pmse_business_rules_favorite' => 
-  array (
-    'name' => 'pmse_business_rules_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_Business_Rules',
-    'rhs_table' => 'pmse_business_rules',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_Business_Rules',
-    'user_field' => 'created_by',
-  ),
   'pmse_business_rules_team_count_relationship' => 
   array (
     'name' => 'pmse_business_rules_team_count_relationship',
@@ -17348,6 +16545,40 @@
     'rhs_table' => 'pmse_business_rules',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_emails_templates_favorite' => 
+  array (
+    'name' => 'pmse_emails_templates_favorite',
+    'lhs_module' => 'pmse_Emails_Templates',
+    'lhs_table' => 'pmse_emails_templates',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_Emails_Templates',
+    'user_field' => 'created_by',
+  ),
+  'pmse_emails_templates_following' => 
+  array (
+    'name' => 'pmse_emails_templates_following',
+    'lhs_module' => 'pmse_Emails_Templates',
+    'lhs_table' => 'pmse_emails_templates',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_Emails_Templates',
+    'user_field' => 'created_by',
   ),
   'pmse_emails_templates_modified_user' => 
   array (
@@ -17436,40 +16667,6 @@
       ),
     ),
   ),
-  'pmse_emails_templates_following' => 
-  array (
-    'name' => 'pmse_emails_templates_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_Emails_Templates',
-    'rhs_table' => 'pmse_emails_templates',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_Emails_Templates',
-    'user_field' => 'created_by',
-  ),
-  'pmse_emails_templates_favorite' => 
-  array (
-    'name' => 'pmse_emails_templates_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_Emails_Templates',
-    'rhs_table' => 'pmse_emails_templates',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_Emails_Templates',
-    'user_field' => 'created_by',
-  ),
   'pmse_emails_templates_team_count_relationship' => 
   array (
     'name' => 'pmse_emails_templates_team_count_relationship',
@@ -17548,6 +16745,40 @@
     'rhs_table' => 'pmse_emails_templates',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnactivity_favorite' => 
+  array (
+    'name' => 'pmse_bpmnactivity_favorite',
+    'lhs_module' => 'pmse_BpmnActivity',
+    'lhs_table' => 'pmse_bpmn_activity',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnActivity',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnactivity_following' => 
+  array (
+    'name' => 'pmse_bpmnactivity_following',
+    'lhs_module' => 'pmse_BpmnActivity',
+    'lhs_table' => 'pmse_bpmn_activity',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnActivity',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnactivity_modified_user' => 
   array (
@@ -17636,95 +16867,6 @@
       ),
     ),
   ),
-  'pmse_bpmnactivity_following' => 
-  array (
-    'name' => 'pmse_bpmnactivity_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnActivity',
-    'rhs_table' => 'pmse_bpmn_activity',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnActivity',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnactivity_favorite' => 
-  array (
-    'name' => 'pmse_bpmnactivity_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnActivity',
-    'rhs_table' => 'pmse_bpmn_activity',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnActivity',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnactivity_tags' => 
-  array (
-    'name' => 'pmse_bpmnactivity_tags',
-    'lhs_module' => 'pmse_BpmnActivity',
-    'lhs_table' => 'pmse_bpmn_activity',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnActivity',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnactivity_assigned_user' => 
   array (
     'name' => 'pmse_bpmnactivity_assigned_user',
@@ -17735,6 +16877,40 @@
     'rhs_table' => 'pmse_bpmn_activity',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnartifact_favorite' => 
+  array (
+    'name' => 'pmse_bpmnartifact_favorite',
+    'lhs_module' => 'pmse_BpmnArtifact',
+    'lhs_table' => 'pmse_bpmn_artifact',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnArtifact',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnartifact_following' => 
+  array (
+    'name' => 'pmse_bpmnartifact_following',
+    'lhs_module' => 'pmse_BpmnArtifact',
+    'lhs_table' => 'pmse_bpmn_artifact',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnArtifact',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnartifact_modified_user' => 
   array (
@@ -17823,95 +16999,6 @@
       ),
     ),
   ),
-  'pmse_bpmnartifact_following' => 
-  array (
-    'name' => 'pmse_bpmnartifact_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnArtifact',
-    'rhs_table' => 'pmse_bpmn_artifact',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnArtifact',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnartifact_favorite' => 
-  array (
-    'name' => 'pmse_bpmnartifact_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnArtifact',
-    'rhs_table' => 'pmse_bpmn_artifact',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnArtifact',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnartifact_tags' => 
-  array (
-    'name' => 'pmse_bpmnartifact_tags',
-    'lhs_module' => 'pmse_BpmnArtifact',
-    'lhs_table' => 'pmse_bpmn_artifact',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnArtifact',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnartifact_assigned_user' => 
   array (
     'name' => 'pmse_bpmnartifact_assigned_user',
@@ -17922,6 +17009,40 @@
     'rhs_table' => 'pmse_bpmn_artifact',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnbound_favorite' => 
+  array (
+    'name' => 'pmse_bpmnbound_favorite',
+    'lhs_module' => 'pmse_BpmnBound',
+    'lhs_table' => 'pmse_bpmn_bound',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnBound',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnbound_following' => 
+  array (
+    'name' => 'pmse_bpmnbound_following',
+    'lhs_module' => 'pmse_BpmnBound',
+    'lhs_table' => 'pmse_bpmn_bound',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnBound',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnbound_modified_user' => 
   array (
@@ -18010,95 +17131,6 @@
       ),
     ),
   ),
-  'pmse_bpmnbound_following' => 
-  array (
-    'name' => 'pmse_bpmnbound_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnBound',
-    'rhs_table' => 'pmse_bpmn_bound',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnBound',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnbound_favorite' => 
-  array (
-    'name' => 'pmse_bpmnbound_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnBound',
-    'rhs_table' => 'pmse_bpmn_bound',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnBound',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnbound_tags' => 
-  array (
-    'name' => 'pmse_bpmnbound_tags',
-    'lhs_module' => 'pmse_BpmnBound',
-    'lhs_table' => 'pmse_bpmn_bound',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnBound',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnbound_assigned_user' => 
   array (
     'name' => 'pmse_bpmnbound_assigned_user',
@@ -18109,6 +17141,40 @@
     'rhs_table' => 'pmse_bpmn_bound',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmndata_favorite' => 
+  array (
+    'name' => 'pmse_bpmndata_favorite',
+    'lhs_module' => 'pmse_BpmnData',
+    'lhs_table' => 'pmse_bpmn_data',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnData',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmndata_following' => 
+  array (
+    'name' => 'pmse_bpmndata_following',
+    'lhs_module' => 'pmse_BpmnData',
+    'lhs_table' => 'pmse_bpmn_data',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnData',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmndata_modified_user' => 
   array (
@@ -18197,95 +17263,6 @@
       ),
     ),
   ),
-  'pmse_bpmndata_following' => 
-  array (
-    'name' => 'pmse_bpmndata_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnData',
-    'rhs_table' => 'pmse_bpmn_data',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnData',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmndata_favorite' => 
-  array (
-    'name' => 'pmse_bpmndata_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnData',
-    'rhs_table' => 'pmse_bpmn_data',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnData',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmndata_tags' => 
-  array (
-    'name' => 'pmse_bpmndata_tags',
-    'lhs_module' => 'pmse_BpmnData',
-    'lhs_table' => 'pmse_bpmn_data',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnData',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmndata_assigned_user' => 
   array (
     'name' => 'pmse_bpmndata_assigned_user',
@@ -18296,6 +17273,40 @@
     'rhs_table' => 'pmse_bpmn_data',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmndiagram_favorite' => 
+  array (
+    'name' => 'pmse_bpmndiagram_favorite',
+    'lhs_module' => 'pmse_BpmnDiagram',
+    'lhs_table' => 'pmse_bpmn_diagram',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnDiagram',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmndiagram_following' => 
+  array (
+    'name' => 'pmse_bpmndiagram_following',
+    'lhs_module' => 'pmse_BpmnDiagram',
+    'lhs_table' => 'pmse_bpmn_diagram',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnDiagram',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmndiagram_modified_user' => 
   array (
@@ -18384,95 +17395,6 @@
       ),
     ),
   ),
-  'pmse_bpmndiagram_following' => 
-  array (
-    'name' => 'pmse_bpmndiagram_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnDiagram',
-    'rhs_table' => 'pmse_bpmn_diagram',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnDiagram',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmndiagram_favorite' => 
-  array (
-    'name' => 'pmse_bpmndiagram_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnDiagram',
-    'rhs_table' => 'pmse_bpmn_diagram',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnDiagram',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmndiagram_tags' => 
-  array (
-    'name' => 'pmse_bpmndiagram_tags',
-    'lhs_module' => 'pmse_BpmnDiagram',
-    'lhs_table' => 'pmse_bpmn_diagram',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnDiagram',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmndiagram_assigned_user' => 
   array (
     'name' => 'pmse_bpmndiagram_assigned_user',
@@ -18483,6 +17405,40 @@
     'rhs_table' => 'pmse_bpmn_diagram',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmndocumentation_favorite' => 
+  array (
+    'name' => 'pmse_bpmndocumentation_favorite',
+    'lhs_module' => 'pmse_BpmnDocumentation',
+    'lhs_table' => 'pmse_bpmn_documentation',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnDocumentation',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmndocumentation_following' => 
+  array (
+    'name' => 'pmse_bpmndocumentation_following',
+    'lhs_module' => 'pmse_BpmnDocumentation',
+    'lhs_table' => 'pmse_bpmn_documentation',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnDocumentation',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmndocumentation_modified_user' => 
   array (
@@ -18571,95 +17527,6 @@
       ),
     ),
   ),
-  'pmse_bpmndocumentation_following' => 
-  array (
-    'name' => 'pmse_bpmndocumentation_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnDocumentation',
-    'rhs_table' => 'pmse_bpmn_documentation',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnDocumentation',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmndocumentation_favorite' => 
-  array (
-    'name' => 'pmse_bpmndocumentation_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnDocumentation',
-    'rhs_table' => 'pmse_bpmn_documentation',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnDocumentation',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmndocumentation_tags' => 
-  array (
-    'name' => 'pmse_bpmndocumentation_tags',
-    'lhs_module' => 'pmse_BpmnDocumentation',
-    'lhs_table' => 'pmse_bpmn_documentation',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnDocumentation',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmndocumentation_assigned_user' => 
   array (
     'name' => 'pmse_bpmndocumentation_assigned_user',
@@ -18670,6 +17537,40 @@
     'rhs_table' => 'pmse_bpmn_documentation',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnevent_favorite' => 
+  array (
+    'name' => 'pmse_bpmnevent_favorite',
+    'lhs_module' => 'pmse_BpmnEvent',
+    'lhs_table' => 'pmse_bpmn_event',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnEvent',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnevent_following' => 
+  array (
+    'name' => 'pmse_bpmnevent_following',
+    'lhs_module' => 'pmse_BpmnEvent',
+    'lhs_table' => 'pmse_bpmn_event',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnEvent',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnevent_modified_user' => 
   array (
@@ -18758,95 +17659,6 @@
       ),
     ),
   ),
-  'pmse_bpmnevent_following' => 
-  array (
-    'name' => 'pmse_bpmnevent_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnEvent',
-    'rhs_table' => 'pmse_bpmn_event',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnEvent',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnevent_favorite' => 
-  array (
-    'name' => 'pmse_bpmnevent_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnEvent',
-    'rhs_table' => 'pmse_bpmn_event',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnEvent',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnevent_tags' => 
-  array (
-    'name' => 'pmse_bpmnevent_tags',
-    'lhs_module' => 'pmse_BpmnEvent',
-    'lhs_table' => 'pmse_bpmn_event',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnEvent',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnevent_assigned_user' => 
   array (
     'name' => 'pmse_bpmnevent_assigned_user',
@@ -18857,6 +17669,40 @@
     'rhs_table' => 'pmse_bpmn_event',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnextension_favorite' => 
+  array (
+    'name' => 'pmse_bpmnextension_favorite',
+    'lhs_module' => 'pmse_BpmnExtension',
+    'lhs_table' => 'pmse_bpmn_extension',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnExtension',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnextension_following' => 
+  array (
+    'name' => 'pmse_bpmnextension_following',
+    'lhs_module' => 'pmse_BpmnExtension',
+    'lhs_table' => 'pmse_bpmn_extension',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnExtension',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnextension_modified_user' => 
   array (
@@ -18945,95 +17791,6 @@
       ),
     ),
   ),
-  'pmse_bpmnextension_following' => 
-  array (
-    'name' => 'pmse_bpmnextension_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnExtension',
-    'rhs_table' => 'pmse_bpmn_extension',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnExtension',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnextension_favorite' => 
-  array (
-    'name' => 'pmse_bpmnextension_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnExtension',
-    'rhs_table' => 'pmse_bpmn_extension',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnExtension',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnextension_tags' => 
-  array (
-    'name' => 'pmse_bpmnextension_tags',
-    'lhs_module' => 'pmse_BpmnExtension',
-    'lhs_table' => 'pmse_bpmn_extension',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnExtension',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnextension_assigned_user' => 
   array (
     'name' => 'pmse_bpmnextension_assigned_user',
@@ -19044,6 +17801,40 @@
     'rhs_table' => 'pmse_bpmn_extension',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnflow_favorite' => 
+  array (
+    'name' => 'pmse_bpmnflow_favorite',
+    'lhs_module' => 'pmse_BpmnFlow',
+    'lhs_table' => 'pmse_bpmn_flow',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnFlow',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnflow_following' => 
+  array (
+    'name' => 'pmse_bpmnflow_following',
+    'lhs_module' => 'pmse_BpmnFlow',
+    'lhs_table' => 'pmse_bpmn_flow',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnFlow',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnflow_modified_user' => 
   array (
@@ -19132,95 +17923,6 @@
       ),
     ),
   ),
-  'pmse_bpmnflow_following' => 
-  array (
-    'name' => 'pmse_bpmnflow_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnFlow',
-    'rhs_table' => 'pmse_bpmn_flow',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnFlow',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnflow_favorite' => 
-  array (
-    'name' => 'pmse_bpmnflow_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnFlow',
-    'rhs_table' => 'pmse_bpmn_flow',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnFlow',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnflow_tags' => 
-  array (
-    'name' => 'pmse_bpmnflow_tags',
-    'lhs_module' => 'pmse_BpmnFlow',
-    'lhs_table' => 'pmse_bpmn_flow',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnFlow',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnflow_assigned_user' => 
   array (
     'name' => 'pmse_bpmnflow_assigned_user',
@@ -19231,6 +17933,40 @@
     'rhs_table' => 'pmse_bpmn_flow',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmngateway_favorite' => 
+  array (
+    'name' => 'pmse_bpmngateway_favorite',
+    'lhs_module' => 'pmse_BpmnGateway',
+    'lhs_table' => 'pmse_bpmn_gateway',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnGateway',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmngateway_following' => 
+  array (
+    'name' => 'pmse_bpmngateway_following',
+    'lhs_module' => 'pmse_BpmnGateway',
+    'lhs_table' => 'pmse_bpmn_gateway',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnGateway',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmngateway_modified_user' => 
   array (
@@ -19319,95 +18055,6 @@
       ),
     ),
   ),
-  'pmse_bpmngateway_following' => 
-  array (
-    'name' => 'pmse_bpmngateway_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnGateway',
-    'rhs_table' => 'pmse_bpmn_gateway',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnGateway',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmngateway_favorite' => 
-  array (
-    'name' => 'pmse_bpmngateway_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnGateway',
-    'rhs_table' => 'pmse_bpmn_gateway',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnGateway',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmngateway_tags' => 
-  array (
-    'name' => 'pmse_bpmngateway_tags',
-    'lhs_module' => 'pmse_BpmnGateway',
-    'lhs_table' => 'pmse_bpmn_gateway',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnGateway',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmngateway_assigned_user' => 
   array (
     'name' => 'pmse_bpmngateway_assigned_user',
@@ -19418,6 +18065,40 @@
     'rhs_table' => 'pmse_bpmn_gateway',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnlane_favorite' => 
+  array (
+    'name' => 'pmse_bpmnlane_favorite',
+    'lhs_module' => 'pmse_BpmnLane',
+    'lhs_table' => 'pmse_bpmn_lane',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnLane',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnlane_following' => 
+  array (
+    'name' => 'pmse_bpmnlane_following',
+    'lhs_module' => 'pmse_BpmnLane',
+    'lhs_table' => 'pmse_bpmn_lane',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnLane',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnlane_modified_user' => 
   array (
@@ -19506,95 +18187,6 @@
       ),
     ),
   ),
-  'pmse_bpmnlane_following' => 
-  array (
-    'name' => 'pmse_bpmnlane_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnLane',
-    'rhs_table' => 'pmse_bpmn_lane',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnLane',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnlane_favorite' => 
-  array (
-    'name' => 'pmse_bpmnlane_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnLane',
-    'rhs_table' => 'pmse_bpmn_lane',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnLane',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnlane_tags' => 
-  array (
-    'name' => 'pmse_bpmnlane_tags',
-    'lhs_module' => 'pmse_BpmnLane',
-    'lhs_table' => 'pmse_bpmn_lane',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnLane',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnlane_assigned_user' => 
   array (
     'name' => 'pmse_bpmnlane_assigned_user',
@@ -19605,6 +18197,40 @@
     'rhs_table' => 'pmse_bpmn_lane',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnlaneset_favorite' => 
+  array (
+    'name' => 'pmse_bpmnlaneset_favorite',
+    'lhs_module' => 'pmse_BpmnLaneset',
+    'lhs_table' => 'pmse_bpmn_laneset',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnLaneset',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnlaneset_following' => 
+  array (
+    'name' => 'pmse_bpmnlaneset_following',
+    'lhs_module' => 'pmse_BpmnLaneset',
+    'lhs_table' => 'pmse_bpmn_laneset',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnLaneset',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnlaneset_modified_user' => 
   array (
@@ -19693,95 +18319,6 @@
       ),
     ),
   ),
-  'pmse_bpmnlaneset_following' => 
-  array (
-    'name' => 'pmse_bpmnlaneset_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnLaneset',
-    'rhs_table' => 'pmse_bpmn_laneset',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnLaneset',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnlaneset_favorite' => 
-  array (
-    'name' => 'pmse_bpmnlaneset_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnLaneset',
-    'rhs_table' => 'pmse_bpmn_laneset',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnLaneset',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnlaneset_tags' => 
-  array (
-    'name' => 'pmse_bpmnlaneset_tags',
-    'lhs_module' => 'pmse_BpmnLaneset',
-    'lhs_table' => 'pmse_bpmn_laneset',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnLaneset',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnlaneset_assigned_user' => 
   array (
     'name' => 'pmse_bpmnlaneset_assigned_user',
@@ -19792,6 +18329,40 @@
     'rhs_table' => 'pmse_bpmn_laneset',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnparticipant_favorite' => 
+  array (
+    'name' => 'pmse_bpmnparticipant_favorite',
+    'lhs_module' => 'pmse_BpmnParticipant',
+    'lhs_table' => 'pmse_bpmn_participant',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnParticipant',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnparticipant_following' => 
+  array (
+    'name' => 'pmse_bpmnparticipant_following',
+    'lhs_module' => 'pmse_BpmnParticipant',
+    'lhs_table' => 'pmse_bpmn_participant',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnParticipant',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnparticipant_modified_user' => 
   array (
@@ -19880,95 +18451,6 @@
       ),
     ),
   ),
-  'pmse_bpmnparticipant_following' => 
-  array (
-    'name' => 'pmse_bpmnparticipant_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnParticipant',
-    'rhs_table' => 'pmse_bpmn_participant',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnParticipant',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnparticipant_favorite' => 
-  array (
-    'name' => 'pmse_bpmnparticipant_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnParticipant',
-    'rhs_table' => 'pmse_bpmn_participant',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnParticipant',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnparticipant_tags' => 
-  array (
-    'name' => 'pmse_bpmnparticipant_tags',
-    'lhs_module' => 'pmse_BpmnParticipant',
-    'lhs_table' => 'pmse_bpmn_participant',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnParticipant',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnparticipant_assigned_user' => 
   array (
     'name' => 'pmse_bpmnparticipant_assigned_user',
@@ -19979,6 +18461,40 @@
     'rhs_table' => 'pmse_bpmn_participant',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnprocess_favorite' => 
+  array (
+    'name' => 'pmse_bpmnprocess_favorite',
+    'lhs_module' => 'pmse_BpmnProcess',
+    'lhs_table' => 'pmse_bpmn_process',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmnProcess',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnprocess_following' => 
+  array (
+    'name' => 'pmse_bpmnprocess_following',
+    'lhs_module' => 'pmse_BpmnProcess',
+    'lhs_table' => 'pmse_bpmn_process',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmnProcess',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnprocess_modified_user' => 
   array (
@@ -20067,95 +18583,6 @@
       ),
     ),
   ),
-  'pmse_bpmnprocess_following' => 
-  array (
-    'name' => 'pmse_bpmnprocess_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnProcess',
-    'rhs_table' => 'pmse_bpmn_process',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmnProcess',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnprocess_favorite' => 
-  array (
-    'name' => 'pmse_bpmnprocess_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmnProcess',
-    'rhs_table' => 'pmse_bpmn_process',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmnProcess',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnprocess_tags' => 
-  array (
-    'name' => 'pmse_bpmnprocess_tags',
-    'lhs_module' => 'pmse_BpmnProcess',
-    'lhs_table' => 'pmse_bpmn_process',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmnProcess',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnprocess_assigned_user' => 
   array (
     'name' => 'pmse_bpmnprocess_assigned_user',
@@ -20166,6 +18593,40 @@
     'rhs_table' => 'pmse_bpmn_process',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmflow_favorite' => 
+  array (
+    'name' => 'pmse_bpmflow_favorite',
+    'lhs_module' => 'pmse_BpmFlow',
+    'lhs_table' => 'pmse_bpm_flow',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmFlow',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmflow_following' => 
+  array (
+    'name' => 'pmse_bpmflow_following',
+    'lhs_module' => 'pmse_BpmFlow',
+    'lhs_table' => 'pmse_bpm_flow',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmFlow',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmflow_modified_user' => 
   array (
@@ -20254,95 +18715,6 @@
       ),
     ),
   ),
-  'pmse_bpmflow_following' => 
-  array (
-    'name' => 'pmse_bpmflow_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmFlow',
-    'rhs_table' => 'pmse_bpm_flow',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmFlow',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmflow_favorite' => 
-  array (
-    'name' => 'pmse_bpmflow_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmFlow',
-    'rhs_table' => 'pmse_bpm_flow',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmFlow',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmflow_tags' => 
-  array (
-    'name' => 'pmse_bpmflow_tags',
-    'lhs_module' => 'pmse_BpmFlow',
-    'lhs_table' => 'pmse_bpm_flow',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmFlow',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmflow_assigned_user' => 
   array (
     'name' => 'pmse_bpmflow_assigned_user',
@@ -20353,6 +18725,40 @@
     'rhs_table' => 'pmse_bpm_flow',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmthread_favorite' => 
+  array (
+    'name' => 'pmse_bpmthread_favorite',
+    'lhs_module' => 'pmse_BpmThread',
+    'lhs_table' => 'pmse_bpm_thread',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmThread',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmthread_following' => 
+  array (
+    'name' => 'pmse_bpmthread_following',
+    'lhs_module' => 'pmse_BpmThread',
+    'lhs_table' => 'pmse_bpm_thread',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmThread',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmthread_modified_user' => 
   array (
@@ -20441,95 +18847,6 @@
       ),
     ),
   ),
-  'pmse_bpmthread_following' => 
-  array (
-    'name' => 'pmse_bpmthread_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmThread',
-    'rhs_table' => 'pmse_bpm_thread',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmThread',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmthread_favorite' => 
-  array (
-    'name' => 'pmse_bpmthread_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmThread',
-    'rhs_table' => 'pmse_bpm_thread',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmThread',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmthread_tags' => 
-  array (
-    'name' => 'pmse_bpmthread_tags',
-    'lhs_module' => 'pmse_BpmThread',
-    'lhs_table' => 'pmse_bpm_thread',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmThread',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmthread_assigned_user' => 
   array (
     'name' => 'pmse_bpmthread_assigned_user',
@@ -20540,6 +18857,40 @@
     'rhs_table' => 'pmse_bpm_thread',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmnotes_favorite' => 
+  array (
+    'name' => 'pmse_bpmnotes_favorite',
+    'lhs_module' => 'pmse_BpmNotes',
+    'lhs_table' => 'pmse_bpm_notes',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmNotes',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmnotes_following' => 
+  array (
+    'name' => 'pmse_bpmnotes_following',
+    'lhs_module' => 'pmse_BpmNotes',
+    'lhs_table' => 'pmse_bpm_notes',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmNotes',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmnotes_modified_user' => 
   array (
@@ -20628,95 +18979,6 @@
       ),
     ),
   ),
-  'pmse_bpmnotes_following' => 
-  array (
-    'name' => 'pmse_bpmnotes_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmNotes',
-    'rhs_table' => 'pmse_bpm_notes',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmNotes',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnotes_favorite' => 
-  array (
-    'name' => 'pmse_bpmnotes_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmNotes',
-    'rhs_table' => 'pmse_bpm_notes',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmNotes',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmnotes_tags' => 
-  array (
-    'name' => 'pmse_bpmnotes_tags',
-    'lhs_module' => 'pmse_BpmNotes',
-    'lhs_table' => 'pmse_bpm_notes',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmNotes',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmnotes_assigned_user' => 
   array (
     'name' => 'pmse_bpmnotes_assigned_user',
@@ -20727,6 +18989,40 @@
     'rhs_table' => 'pmse_bpm_notes',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmrelateddependency_favorite' => 
+  array (
+    'name' => 'pmse_bpmrelateddependency_favorite',
+    'lhs_module' => 'pmse_BpmRelatedDependency',
+    'lhs_table' => 'pmse_bpm_related_dependency',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmRelatedDependency',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmrelateddependency_following' => 
+  array (
+    'name' => 'pmse_bpmrelateddependency_following',
+    'lhs_module' => 'pmse_BpmRelatedDependency',
+    'lhs_table' => 'pmse_bpm_related_dependency',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmRelatedDependency',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmrelateddependency_modified_user' => 
   array (
@@ -20815,95 +19111,6 @@
       ),
     ),
   ),
-  'pmse_bpmrelateddependency_following' => 
-  array (
-    'name' => 'pmse_bpmrelateddependency_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmRelatedDependency',
-    'rhs_table' => 'pmse_bpm_related_dependency',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmRelatedDependency',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmrelateddependency_favorite' => 
-  array (
-    'name' => 'pmse_bpmrelateddependency_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmRelatedDependency',
-    'rhs_table' => 'pmse_bpm_related_dependency',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmRelatedDependency',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmrelateddependency_tags' => 
-  array (
-    'name' => 'pmse_bpmrelateddependency_tags',
-    'lhs_module' => 'pmse_BpmRelatedDependency',
-    'lhs_table' => 'pmse_bpm_related_dependency',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmRelatedDependency',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmrelateddependency_assigned_user' => 
   array (
     'name' => 'pmse_bpmrelateddependency_assigned_user',
@@ -20914,6 +19121,40 @@
     'rhs_table' => 'pmse_bpm_related_dependency',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmcasedata_favorite' => 
+  array (
+    'name' => 'pmse_bpmcasedata_favorite',
+    'lhs_module' => 'pmse_BpmCaseData',
+    'lhs_table' => 'pmse_bpm_case_data',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmCaseData',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmcasedata_following' => 
+  array (
+    'name' => 'pmse_bpmcasedata_following',
+    'lhs_module' => 'pmse_BpmCaseData',
+    'lhs_table' => 'pmse_bpm_case_data',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmCaseData',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmcasedata_modified_user' => 
   array (
@@ -21002,95 +19243,6 @@
       ),
     ),
   ),
-  'pmse_bpmcasedata_following' => 
-  array (
-    'name' => 'pmse_bpmcasedata_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmCaseData',
-    'rhs_table' => 'pmse_bpm_case_data',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmCaseData',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmcasedata_favorite' => 
-  array (
-    'name' => 'pmse_bpmcasedata_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmCaseData',
-    'rhs_table' => 'pmse_bpm_case_data',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmCaseData',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmcasedata_tags' => 
-  array (
-    'name' => 'pmse_bpmcasedata_tags',
-    'lhs_module' => 'pmse_BpmCaseData',
-    'lhs_table' => 'pmse_bpm_case_data',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmCaseData',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmcasedata_assigned_user' => 
   array (
     'name' => 'pmse_bpmcasedata_assigned_user',
@@ -21101,6 +19253,40 @@
     'rhs_table' => 'pmse_bpm_case_data',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmactivityuser_favorite' => 
+  array (
+    'name' => 'pmse_bpmactivityuser_favorite',
+    'lhs_module' => 'pmse_BpmActivityUser',
+    'lhs_table' => 'pmse_bpm_activity_user',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmActivityUser',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmactivityuser_following' => 
+  array (
+    'name' => 'pmse_bpmactivityuser_following',
+    'lhs_module' => 'pmse_BpmActivityUser',
+    'lhs_table' => 'pmse_bpm_activity_user',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmActivityUser',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmactivityuser_modified_user' => 
   array (
@@ -21189,95 +19375,6 @@
       ),
     ),
   ),
-  'pmse_bpmactivityuser_following' => 
-  array (
-    'name' => 'pmse_bpmactivityuser_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmActivityUser',
-    'rhs_table' => 'pmse_bpm_activity_user',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmActivityUser',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmactivityuser_favorite' => 
-  array (
-    'name' => 'pmse_bpmactivityuser_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmActivityUser',
-    'rhs_table' => 'pmse_bpm_activity_user',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmActivityUser',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmactivityuser_tags' => 
-  array (
-    'name' => 'pmse_bpmactivityuser_tags',
-    'lhs_module' => 'pmse_BpmActivityUser',
-    'lhs_table' => 'pmse_bpm_activity_user',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmActivityUser',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmactivityuser_assigned_user' => 
   array (
     'name' => 'pmse_bpmactivityuser_assigned_user',
@@ -21288,6 +19385,40 @@
     'rhs_table' => 'pmse_bpm_activity_user',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmeventdefinition_favorite' => 
+  array (
+    'name' => 'pmse_bpmeventdefinition_favorite',
+    'lhs_module' => 'pmse_BpmEventDefinition',
+    'lhs_table' => 'pmse_bpm_event_definition',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmEventDefinition',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmeventdefinition_following' => 
+  array (
+    'name' => 'pmse_bpmeventdefinition_following',
+    'lhs_module' => 'pmse_BpmEventDefinition',
+    'lhs_table' => 'pmse_bpm_event_definition',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmEventDefinition',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmeventdefinition_modified_user' => 
   array (
@@ -21376,95 +19507,6 @@
       ),
     ),
   ),
-  'pmse_bpmeventdefinition_following' => 
-  array (
-    'name' => 'pmse_bpmeventdefinition_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmEventDefinition',
-    'rhs_table' => 'pmse_bpm_event_definition',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmEventDefinition',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmeventdefinition_favorite' => 
-  array (
-    'name' => 'pmse_bpmeventdefinition_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmEventDefinition',
-    'rhs_table' => 'pmse_bpm_event_definition',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmEventDefinition',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmeventdefinition_tags' => 
-  array (
-    'name' => 'pmse_bpmeventdefinition_tags',
-    'lhs_module' => 'pmse_BpmEventDefinition',
-    'lhs_table' => 'pmse_bpm_event_definition',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmEventDefinition',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmeventdefinition_assigned_user' => 
   array (
     'name' => 'pmse_bpmeventdefinition_assigned_user',
@@ -21475,6 +19517,40 @@
     'rhs_table' => 'pmse_bpm_event_definition',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmgatewaydefinition_favorite' => 
+  array (
+    'name' => 'pmse_bpmgatewaydefinition_favorite',
+    'lhs_module' => 'pmse_BpmGatewayDefinition',
+    'lhs_table' => 'pmse_bpm_gateway_definition',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmGatewayDefinition',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmgatewaydefinition_following' => 
+  array (
+    'name' => 'pmse_bpmgatewaydefinition_following',
+    'lhs_module' => 'pmse_BpmGatewayDefinition',
+    'lhs_table' => 'pmse_bpm_gateway_definition',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmGatewayDefinition',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmgatewaydefinition_modified_user' => 
   array (
@@ -21563,95 +19639,6 @@
       ),
     ),
   ),
-  'pmse_bpmgatewaydefinition_following' => 
-  array (
-    'name' => 'pmse_bpmgatewaydefinition_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmGatewayDefinition',
-    'rhs_table' => 'pmse_bpm_gateway_definition',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmGatewayDefinition',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmgatewaydefinition_favorite' => 
-  array (
-    'name' => 'pmse_bpmgatewaydefinition_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmGatewayDefinition',
-    'rhs_table' => 'pmse_bpm_gateway_definition',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmGatewayDefinition',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmgatewaydefinition_tags' => 
-  array (
-    'name' => 'pmse_bpmgatewaydefinition_tags',
-    'lhs_module' => 'pmse_BpmGatewayDefinition',
-    'lhs_table' => 'pmse_bpm_gateway_definition',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmGatewayDefinition',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmgatewaydefinition_assigned_user' => 
   array (
     'name' => 'pmse_bpmgatewaydefinition_assigned_user',
@@ -21662,6 +19649,40 @@
     'rhs_table' => 'pmse_bpm_gateway_definition',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmactivitydefinition_favorite' => 
+  array (
+    'name' => 'pmse_bpmactivitydefinition_favorite',
+    'lhs_module' => 'pmse_BpmActivityDefinition',
+    'lhs_table' => 'pmse_bpm_activity_definition',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmActivityDefinition',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmactivitydefinition_following' => 
+  array (
+    'name' => 'pmse_bpmactivitydefinition_following',
+    'lhs_module' => 'pmse_BpmActivityDefinition',
+    'lhs_table' => 'pmse_bpm_activity_definition',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmActivityDefinition',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmactivitydefinition_modified_user' => 
   array (
@@ -21750,95 +19771,6 @@
       ),
     ),
   ),
-  'pmse_bpmactivitydefinition_following' => 
-  array (
-    'name' => 'pmse_bpmactivitydefinition_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmActivityDefinition',
-    'rhs_table' => 'pmse_bpm_activity_definition',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmActivityDefinition',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmactivitydefinition_favorite' => 
-  array (
-    'name' => 'pmse_bpmactivitydefinition_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmActivityDefinition',
-    'rhs_table' => 'pmse_bpm_activity_definition',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmActivityDefinition',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmactivitydefinition_tags' => 
-  array (
-    'name' => 'pmse_bpmactivitydefinition_tags',
-    'lhs_module' => 'pmse_BpmActivityDefinition',
-    'lhs_table' => 'pmse_bpm_activity_definition',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmActivityDefinition',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmactivitydefinition_assigned_user' => 
   array (
     'name' => 'pmse_bpmactivitydefinition_assigned_user',
@@ -21849,6 +19781,40 @@
     'rhs_table' => 'pmse_bpm_activity_definition',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmactivitystep_favorite' => 
+  array (
+    'name' => 'pmse_bpmactivitystep_favorite',
+    'lhs_module' => 'pmse_BpmActivityStep',
+    'lhs_table' => 'pmse_bpm_activity_step',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmActivityStep',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmactivitystep_following' => 
+  array (
+    'name' => 'pmse_bpmactivitystep_following',
+    'lhs_module' => 'pmse_BpmActivityStep',
+    'lhs_table' => 'pmse_bpm_activity_step',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmActivityStep',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmactivitystep_modified_user' => 
   array (
@@ -21937,95 +19903,6 @@
       ),
     ),
   ),
-  'pmse_bpmactivitystep_following' => 
-  array (
-    'name' => 'pmse_bpmactivitystep_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmActivityStep',
-    'rhs_table' => 'pmse_bpm_activity_step',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmActivityStep',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmactivitystep_favorite' => 
-  array (
-    'name' => 'pmse_bpmactivitystep_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmActivityStep',
-    'rhs_table' => 'pmse_bpm_activity_step',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmActivityStep',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmactivitystep_tags' => 
-  array (
-    'name' => 'pmse_bpmactivitystep_tags',
-    'lhs_module' => 'pmse_BpmActivityStep',
-    'lhs_table' => 'pmse_bpm_activity_step',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmActivityStep',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmactivitystep_assigned_user' => 
   array (
     'name' => 'pmse_bpmactivitystep_assigned_user',
@@ -22036,6 +19913,40 @@
     'rhs_table' => 'pmse_bpm_activity_step',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmformaction_favorite' => 
+  array (
+    'name' => 'pmse_bpmformaction_favorite',
+    'lhs_module' => 'pmse_BpmFormAction',
+    'lhs_table' => 'pmse_bpm_form_action',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmFormAction',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmformaction_following' => 
+  array (
+    'name' => 'pmse_bpmformaction_following',
+    'lhs_module' => 'pmse_BpmFormAction',
+    'lhs_table' => 'pmse_bpm_form_action',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmFormAction',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmformaction_modified_user' => 
   array (
@@ -22124,95 +20035,6 @@
       ),
     ),
   ),
-  'pmse_bpmformaction_following' => 
-  array (
-    'name' => 'pmse_bpmformaction_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmFormAction',
-    'rhs_table' => 'pmse_bpm_form_action',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmFormAction',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmformaction_favorite' => 
-  array (
-    'name' => 'pmse_bpmformaction_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmFormAction',
-    'rhs_table' => 'pmse_bpm_form_action',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmFormAction',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmformaction_tags' => 
-  array (
-    'name' => 'pmse_bpmformaction_tags',
-    'lhs_module' => 'pmse_BpmFormAction',
-    'lhs_table' => 'pmse_bpm_form_action',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmFormAction',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmformaction_assigned_user' => 
   array (
     'name' => 'pmse_bpmformaction_assigned_user',
@@ -22223,6 +20045,40 @@
     'rhs_table' => 'pmse_bpm_form_action',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmdynaform_favorite' => 
+  array (
+    'name' => 'pmse_bpmdynaform_favorite',
+    'lhs_module' => 'pmse_BpmDynaForm',
+    'lhs_table' => 'pmse_bpm_dynamic_forms',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmDynaForm',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmdynaform_following' => 
+  array (
+    'name' => 'pmse_bpmdynaform_following',
+    'lhs_module' => 'pmse_BpmDynaForm',
+    'lhs_table' => 'pmse_bpm_dynamic_forms',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmDynaForm',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmdynaform_modified_user' => 
   array (
@@ -22311,95 +20167,6 @@
       ),
     ),
   ),
-  'pmse_bpmdynaform_following' => 
-  array (
-    'name' => 'pmse_bpmdynaform_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmDynaForm',
-    'rhs_table' => 'pmse_bpm_dynamic_forms',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmDynaForm',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmdynaform_favorite' => 
-  array (
-    'name' => 'pmse_bpmdynaform_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmDynaForm',
-    'rhs_table' => 'pmse_bpm_dynamic_forms',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmDynaForm',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmdynaform_tags' => 
-  array (
-    'name' => 'pmse_bpmdynaform_tags',
-    'lhs_module' => 'pmse_BpmDynaForm',
-    'lhs_table' => 'pmse_bpm_dynamic_forms',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmDynaForm',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmdynaform_assigned_user' => 
   array (
     'name' => 'pmse_bpmdynaform_assigned_user',
@@ -22410,6 +20177,40 @@
     'rhs_table' => 'pmse_bpm_dynamic_forms',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmprocessdefinition_favorite' => 
+  array (
+    'name' => 'pmse_bpmprocessdefinition_favorite',
+    'lhs_module' => 'pmse_BpmProcessDefinition',
+    'lhs_table' => 'pmse_bpm_process_definition',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmProcessDefinition',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmprocessdefinition_following' => 
+  array (
+    'name' => 'pmse_bpmprocessdefinition_following',
+    'lhs_module' => 'pmse_BpmProcessDefinition',
+    'lhs_table' => 'pmse_bpm_process_definition',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmProcessDefinition',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmprocessdefinition_modified_user' => 
   array (
@@ -22498,95 +20299,6 @@
       ),
     ),
   ),
-  'pmse_bpmprocessdefinition_following' => 
-  array (
-    'name' => 'pmse_bpmprocessdefinition_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmProcessDefinition',
-    'rhs_table' => 'pmse_bpm_process_definition',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmProcessDefinition',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmprocessdefinition_favorite' => 
-  array (
-    'name' => 'pmse_bpmprocessdefinition_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmProcessDefinition',
-    'rhs_table' => 'pmse_bpm_process_definition',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmProcessDefinition',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmprocessdefinition_tags' => 
-  array (
-    'name' => 'pmse_bpmprocessdefinition_tags',
-    'lhs_module' => 'pmse_BpmProcessDefinition',
-    'lhs_table' => 'pmse_bpm_process_definition',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmProcessDefinition',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmprocessdefinition_assigned_user' => 
   array (
     'name' => 'pmse_bpmprocessdefinition_assigned_user',
@@ -22597,6 +20309,40 @@
     'rhs_table' => 'pmse_bpm_process_definition',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmconfig_favorite' => 
+  array (
+    'name' => 'pmse_bpmconfig_favorite',
+    'lhs_module' => 'pmse_BpmConfig',
+    'lhs_table' => 'pmse_bpm_config',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmConfig',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmconfig_following' => 
+  array (
+    'name' => 'pmse_bpmconfig_following',
+    'lhs_module' => 'pmse_BpmConfig',
+    'lhs_table' => 'pmse_bpm_config',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmConfig',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmconfig_modified_user' => 
   array (
@@ -22685,95 +20431,6 @@
       ),
     ),
   ),
-  'pmse_bpmconfig_following' => 
-  array (
-    'name' => 'pmse_bpmconfig_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmConfig',
-    'rhs_table' => 'pmse_bpm_config',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmConfig',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmconfig_favorite' => 
-  array (
-    'name' => 'pmse_bpmconfig_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmConfig',
-    'rhs_table' => 'pmse_bpm_config',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmConfig',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmconfig_tags' => 
-  array (
-    'name' => 'pmse_bpmconfig_tags',
-    'lhs_module' => 'pmse_BpmConfig',
-    'lhs_table' => 'pmse_bpm_config',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmConfig',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmconfig_assigned_user' => 
   array (
     'name' => 'pmse_bpmconfig_assigned_user',
@@ -22784,6 +20441,40 @@
     'rhs_table' => 'pmse_bpm_config',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmgroup_favorite' => 
+  array (
+    'name' => 'pmse_bpmgroup_favorite',
+    'lhs_module' => 'pmse_BpmGroup',
+    'lhs_table' => 'pmse_bpm_group',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmGroup',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmgroup_following' => 
+  array (
+    'name' => 'pmse_bpmgroup_following',
+    'lhs_module' => 'pmse_BpmGroup',
+    'lhs_table' => 'pmse_bpm_group',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmGroup',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmgroup_modified_user' => 
   array (
@@ -22872,95 +20563,6 @@
       ),
     ),
   ),
-  'pmse_bpmgroup_following' => 
-  array (
-    'name' => 'pmse_bpmgroup_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmGroup',
-    'rhs_table' => 'pmse_bpm_group',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmGroup',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmgroup_favorite' => 
-  array (
-    'name' => 'pmse_bpmgroup_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmGroup',
-    'rhs_table' => 'pmse_bpm_group',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmGroup',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmgroup_tags' => 
-  array (
-    'name' => 'pmse_bpmgroup_tags',
-    'lhs_module' => 'pmse_BpmGroup',
-    'lhs_table' => 'pmse_bpm_group',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmGroup',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmgroup_assigned_user' => 
   array (
     'name' => 'pmse_bpmgroup_assigned_user',
@@ -22971,6 +20573,40 @@
     'rhs_table' => 'pmse_bpm_group',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmgroupuser_favorite' => 
+  array (
+    'name' => 'pmse_bpmgroupuser_favorite',
+    'lhs_module' => 'pmse_BpmGroupUser',
+    'lhs_table' => 'pmse_bpm_group_user',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmGroupUser',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmgroupuser_following' => 
+  array (
+    'name' => 'pmse_bpmgroupuser_following',
+    'lhs_module' => 'pmse_BpmGroupUser',
+    'lhs_table' => 'pmse_bpm_group_user',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmGroupUser',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmgroupuser_modified_user' => 
   array (
@@ -23059,95 +20695,6 @@
       ),
     ),
   ),
-  'pmse_bpmgroupuser_following' => 
-  array (
-    'name' => 'pmse_bpmgroupuser_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmGroupUser',
-    'rhs_table' => 'pmse_bpm_group_user',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmGroupUser',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmgroupuser_favorite' => 
-  array (
-    'name' => 'pmse_bpmgroupuser_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmGroupUser',
-    'rhs_table' => 'pmse_bpm_group_user',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmGroupUser',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmgroupuser_tags' => 
-  array (
-    'name' => 'pmse_bpmgroupuser_tags',
-    'lhs_module' => 'pmse_BpmGroupUser',
-    'lhs_table' => 'pmse_bpm_group_user',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmGroupUser',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmgroupuser_assigned_user' => 
   array (
     'name' => 'pmse_bpmgroupuser_assigned_user',
@@ -23158,6 +20705,40 @@
     'rhs_table' => 'pmse_bpm_group_user',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'pmse_bpmaccessmanagement_favorite' => 
+  array (
+    'name' => 'pmse_bpmaccessmanagement_favorite',
+    'lhs_module' => 'pmse_BpmAccessManagement',
+    'lhs_table' => 'pmse_bpm_access_management',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'pmse_BpmAccessManagement',
+    'user_field' => 'created_by',
+  ),
+  'pmse_bpmaccessmanagement_following' => 
+  array (
+    'name' => 'pmse_bpmaccessmanagement_following',
+    'lhs_module' => 'pmse_BpmAccessManagement',
+    'lhs_table' => 'pmse_bpm_access_management',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'pmse_BpmAccessManagement',
+    'user_field' => 'created_by',
   ),
   'pmse_bpmaccessmanagement_modified_user' => 
   array (
@@ -23246,95 +20827,6 @@
       ),
     ),
   ),
-  'pmse_bpmaccessmanagement_following' => 
-  array (
-    'name' => 'pmse_bpmaccessmanagement_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmAccessManagement',
-    'rhs_table' => 'pmse_bpm_access_management',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'pmse_BpmAccessManagement',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmaccessmanagement_favorite' => 
-  array (
-    'name' => 'pmse_bpmaccessmanagement_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'pmse_BpmAccessManagement',
-    'rhs_table' => 'pmse_bpm_access_management',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'pmse_BpmAccessManagement',
-    'user_field' => 'created_by',
-  ),
-  'pmse_bpmaccessmanagement_tags' => 
-  array (
-    'name' => 'pmse_bpmaccessmanagement_tags',
-    'lhs_module' => 'pmse_BpmAccessManagement',
-    'lhs_table' => 'pmse_bpm_access_management',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'pmse_BpmAccessManagement',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'pmse_bpmaccessmanagement_assigned_user' => 
   array (
     'name' => 'pmse_bpmaccessmanagement_assigned_user',
@@ -23345,6 +20837,40 @@
     'rhs_table' => 'pmse_bpm_access_management',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'notifications_favorite' => 
+  array (
+    'name' => 'notifications_favorite',
+    'lhs_module' => 'Notifications',
+    'lhs_table' => 'notifications',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Notifications',
+    'user_field' => 'created_by',
+  ),
+  'notifications_following' => 
+  array (
+    'name' => 'notifications_following',
+    'lhs_module' => 'Notifications',
+    'lhs_table' => 'notifications',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Notifications',
+    'user_field' => 'created_by',
   ),
   'notifications_modified_user' => 
   array (
@@ -23433,40 +20959,6 @@
       ),
     ),
   ),
-  'notifications_following' => 
-  array (
-    'name' => 'notifications_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notifications',
-    'rhs_table' => 'notifications',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Notifications',
-    'user_field' => 'created_by',
-  ),
-  'notifications_favorite' => 
-  array (
-    'name' => 'notifications_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notifications',
-    'rhs_table' => 'notifications',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Notifications',
-    'user_field' => 'created_by',
-  ),
   'notifications_assigned_user' => 
   array (
     'name' => 'notifications_assigned_user',
@@ -23477,6 +20969,40 @@
     'rhs_table' => 'notifications',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'eapm_favorite' => 
+  array (
+    'name' => 'eapm_favorite',
+    'lhs_module' => 'EAPM',
+    'lhs_table' => 'eapm',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'EAPM',
+    'user_field' => 'created_by',
+  ),
+  'eapm_following' => 
+  array (
+    'name' => 'eapm_following',
+    'lhs_module' => 'EAPM',
+    'lhs_table' => 'eapm',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'EAPM',
+    'user_field' => 'created_by',
   ),
   'eapm_modified_user' => 
   array (
@@ -23565,40 +21091,6 @@
       ),
     ),
   ),
-  'eapm_following' => 
-  array (
-    'name' => 'eapm_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EAPM',
-    'rhs_table' => 'eapm',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'EAPM',
-    'user_field' => 'created_by',
-  ),
-  'eapm_favorite' => 
-  array (
-    'name' => 'eapm_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EAPM',
-    'rhs_table' => 'eapm',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'EAPM',
-    'user_field' => 'created_by',
-  ),
   'eapm_assigned_user' => 
   array (
     'name' => 'eapm_assigned_user',
@@ -23609,6 +21101,40 @@
     'rhs_table' => 'eapm',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'oauthkeys_favorite' => 
+  array (
+    'name' => 'oauthkeys_favorite',
+    'lhs_module' => 'OAuthKeys',
+    'lhs_table' => 'oauth_consumer',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'OAuthKeys',
+    'user_field' => 'created_by',
+  ),
+  'oauthkeys_following' => 
+  array (
+    'name' => 'oauthkeys_following',
+    'lhs_module' => 'OAuthKeys',
+    'lhs_table' => 'oauth_consumer',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'OAuthKeys',
+    'user_field' => 'created_by',
   ),
   'oauthkeys_modified_user' => 
   array (
@@ -23697,40 +21223,6 @@
       ),
     ),
   ),
-  'oauthkeys_following' => 
-  array (
-    'name' => 'oauthkeys_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'OAuthKeys',
-    'rhs_table' => 'oauth_consumer',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'OAuthKeys',
-    'user_field' => 'created_by',
-  ),
-  'oauthkeys_favorite' => 
-  array (
-    'name' => 'oauthkeys_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'OAuthKeys',
-    'rhs_table' => 'oauth_consumer',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'OAuthKeys',
-    'user_field' => 'created_by',
-  ),
   'oauthkeys_assigned_user' => 
   array (
     'name' => 'oauthkeys_assigned_user',
@@ -23774,6 +21266,40 @@
     'rhs_table' => 'oauth_tokens',
     'rhs_key' => 'contact_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'sugarfavorites_favorite' => 
+  array (
+    'name' => 'sugarfavorites_favorite',
+    'lhs_module' => 'SugarFavorites',
+    'lhs_table' => 'sugarfavorites',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'SugarFavorites',
+    'user_field' => 'created_by',
+  ),
+  'sugarfavorites_following' => 
+  array (
+    'name' => 'sugarfavorites_following',
+    'lhs_module' => 'SugarFavorites',
+    'lhs_table' => 'sugarfavorites',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'SugarFavorites',
+    'user_field' => 'created_by',
   ),
   'sugarfavorites_modified_user' => 
   array (
@@ -23862,40 +21388,6 @@
       ),
     ),
   ),
-  'sugarfavorites_following' => 
-  array (
-    'name' => 'sugarfavorites_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'SugarFavorites',
-    'rhs_table' => 'sugarfavorites',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'SugarFavorites',
-    'user_field' => 'created_by',
-  ),
-  'sugarfavorites_favorite' => 
-  array (
-    'name' => 'sugarfavorites_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'SugarFavorites',
-    'rhs_table' => 'sugarfavorites',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'SugarFavorites',
-    'user_field' => 'created_by',
-  ),
   'sugarfavorites_assigned_user' => 
   array (
     'name' => 'sugarfavorites_assigned_user',
@@ -23906,6 +21398,40 @@
     'rhs_table' => 'sugarfavorites',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'weblogichooks_favorite' => 
+  array (
+    'name' => 'weblogichooks_favorite',
+    'lhs_module' => 'WebLogicHooks',
+    'lhs_table' => 'weblogichooks',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'WebLogicHooks',
+    'user_field' => 'created_by',
+  ),
+  'weblogichooks_following' => 
+  array (
+    'name' => 'weblogichooks_following',
+    'lhs_module' => 'WebLogicHooks',
+    'lhs_table' => 'weblogichooks',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'WebLogicHooks',
+    'user_field' => 'created_by',
   ),
   'weblogichooks_modified_user' => 
   array (
@@ -23994,38 +21520,38 @@
       ),
     ),
   ),
-  'weblogichooks_following' => 
+  'activities_favorite' => 
   array (
-    'name' => 'weblogichooks_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'activities_favorite',
+    'lhs_module' => 'Activities',
+    'lhs_table' => 'activities',
     'lhs_key' => 'id',
-    'rhs_module' => 'WebLogicHooks',
-    'rhs_table' => 'weblogichooks',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'WebLogicHooks',
-    'user_field' => 'created_by',
-  ),
-  'weblogichooks_favorite' => 
-  array (
-    'name' => 'weblogichooks_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'WebLogicHooks',
-    'rhs_table' => 'weblogichooks',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'WebLogicHooks',
+    'relationship_role_column_value' => 'Activities',
+    'user_field' => 'created_by',
+  ),
+  'activities_following' => 
+  array (
+    'name' => 'activities_following',
+    'lhs_module' => 'Activities',
+    'lhs_table' => 'activities',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Activities',
     'user_field' => 'created_by',
   ),
   'activities_modified_user' => 
@@ -24126,38 +21652,38 @@
     'rhs_key' => 'parent_id',
     'relationship_type' => 'one-to-many',
   ),
-  'activities_following' => 
+  'comments_favorite' => 
   array (
-    'name' => 'activities_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'comments_favorite',
+    'lhs_module' => 'Comments',
+    'lhs_table' => 'comments',
     'lhs_key' => 'id',
-    'rhs_module' => 'Activities',
-    'rhs_table' => 'activities',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Activities',
-    'user_field' => 'created_by',
-  ),
-  'activities_favorite' => 
-  array (
-    'name' => 'activities_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Activities',
-    'rhs_table' => 'activities',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Activities',
+    'relationship_role_column_value' => 'Comments',
+    'user_field' => 'created_by',
+  ),
+  'comments_following' => 
+  array (
+    'name' => 'comments_following',
+    'lhs_module' => 'Comments',
+    'lhs_table' => 'comments',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Comments',
     'user_field' => 'created_by',
   ),
   'comments_modified_user' => 
@@ -24247,38 +21773,38 @@
       ),
     ),
   ),
-  'comments_following' => 
+  'subscriptions_favorite' => 
   array (
-    'name' => 'comments_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'subscriptions_favorite',
+    'lhs_module' => 'Subscriptions',
+    'lhs_table' => 'subscriptions',
     'lhs_key' => 'id',
-    'rhs_module' => 'Comments',
-    'rhs_table' => 'comments',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Comments',
-    'user_field' => 'created_by',
-  ),
-  'comments_favorite' => 
-  array (
-    'name' => 'comments_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Comments',
-    'rhs_table' => 'comments',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Comments',
+    'relationship_role_column_value' => 'Subscriptions',
+    'user_field' => 'created_by',
+  ),
+  'subscriptions_following' => 
+  array (
+    'name' => 'subscriptions_following',
+    'lhs_module' => 'Subscriptions',
+    'lhs_table' => 'subscriptions',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Subscriptions',
     'user_field' => 'created_by',
   ),
   'subscriptions_modified_user' => 
@@ -24368,38 +21894,38 @@
       ),
     ),
   ),
-  'subscriptions_following' => 
+  'filters_favorite' => 
   array (
-    'name' => 'subscriptions_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'filters_favorite',
+    'lhs_module' => 'Filters',
+    'lhs_table' => 'filters',
     'lhs_key' => 'id',
-    'rhs_module' => 'Subscriptions',
-    'rhs_table' => 'subscriptions',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Subscriptions',
-    'user_field' => 'created_by',
-  ),
-  'subscriptions_favorite' => 
-  array (
-    'name' => 'subscriptions_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Subscriptions',
-    'rhs_table' => 'subscriptions',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Subscriptions',
+    'relationship_role_column_value' => 'Filters',
+    'user_field' => 'created_by',
+  ),
+  'filters_following' => 
+  array (
+    'name' => 'filters_following',
+    'lhs_module' => 'Filters',
+    'lhs_table' => 'filters',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Filters',
     'user_field' => 'created_by',
   ),
   'filters_modified_user' => 
@@ -24489,40 +22015,6 @@
       ),
     ),
   ),
-  'filters_following' => 
-  array (
-    'name' => 'filters_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Filters',
-    'rhs_table' => 'filters',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Filters',
-    'user_field' => 'created_by',
-  ),
-  'filters_favorite' => 
-  array (
-    'name' => 'filters_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Filters',
-    'rhs_table' => 'filters',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Filters',
-    'user_field' => 'created_by',
-  ),
   'filters_team_count_relationship' => 
   array (
     'name' => 'filters_team_count_relationship',
@@ -24601,6 +22093,40 @@
     'rhs_table' => 'filters',
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
+  ),
+  'dashboards_favorite' => 
+  array (
+    'name' => 'dashboards_favorite',
+    'lhs_module' => 'Dashboards',
+    'lhs_table' => 'dashboards',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'sugarfavorites',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
+    'relationship_role_column' => 'module',
+    'relationship_role_column_value' => 'Dashboards',
+    'user_field' => 'created_by',
+  ),
+  'dashboards_following' => 
+  array (
+    'name' => 'dashboards_following',
+    'lhs_module' => 'Dashboards',
+    'lhs_table' => 'dashboards',
+    'lhs_key' => 'id',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
+    'rhs_key' => 'id',
+    'relationship_type' => 'user-based',
+    'join_table' => 'subscriptions',
+    'join_key_lhs' => 'parent_id',
+    'join_key_rhs' => 'created_by',
+    'relationship_role_column' => 'parent_type',
+    'relationship_role_column_value' => 'Dashboards',
+    'user_field' => 'created_by',
   ),
   'dashboards_modified_user' => 
   array (
@@ -24689,95 +22215,6 @@
       ),
     ),
   ),
-  'dashboards_following' => 
-  array (
-    'name' => 'dashboards_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Dashboards',
-    'rhs_table' => 'dashboards',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Dashboards',
-    'user_field' => 'created_by',
-  ),
-  'dashboards_favorite' => 
-  array (
-    'name' => 'dashboards_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Dashboards',
-    'rhs_table' => 'dashboards',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Dashboards',
-    'user_field' => 'created_by',
-  ),
-  'dashboards_tags' => 
-  array (
-    'name' => 'dashboards_tags',
-    'lhs_module' => 'Dashboards',
-    'lhs_table' => 'dashboards',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'Dashboards',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
   'dashboards_assigned_user' => 
   array (
     'name' => 'dashboards_assigned_user',
@@ -24789,1331 +22226,38 @@
     'rhs_key' => 'assigned_user_id',
     'relationship_type' => 'one-to-many',
   ),
-  'tags_modified_user' => 
+  'pdfmanager_favorite' => 
   array (
-    'name' => 'tags_modified_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'pdfmanager_favorite',
+    'lhs_module' => 'PdfManager',
+    'lhs_table' => 'pdfmanager',
     'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'modified_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'tags_created_by' => 
-  array (
-    'name' => 'tags_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'created_by',
-    'relationship_type' => 'one-to-many',
-  ),
-  'tag_activities' => 
-  array (
-    'name' => 'tag_activities',
-    'lhs_module' => 'Tags',
-    'lhs_table' => 'tags',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Activities',
-    'rhs_table' => 'activities',
-    'rhs_key' => 'id',
-    'rhs_vname' => 'LBL_ACTIVITY_STREAM',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'activities_users',
-    'join_key_lhs' => 'parent_id',
-    'join_key_rhs' => 'activity_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Tags',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'activity_id' => 
-      array (
-        'name' => 'activity_id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'parent_type' => 
-      array (
-        'name' => 'parent_type',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      'parent_id' => 
-      array (
-        'name' => 'parent_id',
-        'type' => 'id',
-        'len' => 36,
-      ),
-      'fields' => 
-      array (
-        'name' => 'fields',
-        'type' => 'json',
-        'dbType' => 'longtext',
-        'required' => true,
-      ),
-      'date_modified' => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      'deleted' => 
-      array (
-        'name' => 'deleted',
-        'vname' => 'LBL_DELETED',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'tags_following' => 
-  array (
-    'name' => 'tags_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Tags',
-    'user_field' => 'created_by',
-  ),
-  'tags_favorite' => 
-  array (
-    'name' => 'tags_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
+    'join_key_lhs' => 'record_id',
+    'join_key_rhs' => 'modified_user_id',
     'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Tags',
+    'relationship_role_column_value' => 'PdfManager',
     'user_field' => 'created_by',
   ),
-  'tags_assigned_user' => 
+  'pdfmanager_following' => 
   array (
-    'name' => 'tags_assigned_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
+    'name' => 'pdfmanager_following',
+    'lhs_module' => 'PdfManager',
+    'lhs_table' => 'pdfmanager',
     'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'categories_modified_user' => 
-  array (
-    'name' => 'categories_modified_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Categories',
-    'rhs_table' => 'categories',
-    'rhs_key' => 'modified_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'categories_created_by' => 
-  array (
-    'name' => 'categories_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Categories',
-    'rhs_table' => 'categories',
-    'rhs_key' => 'created_by',
-    'relationship_type' => 'one-to-many',
-  ),
-  'category_activities' => 
-  array (
-    'name' => 'category_activities',
-    'lhs_module' => 'Categories',
-    'lhs_table' => 'categories',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Activities',
-    'rhs_table' => 'activities',
-    'rhs_key' => 'id',
-    'rhs_vname' => 'LBL_ACTIVITY_STREAM',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'activities_users',
-    'join_key_lhs' => 'parent_id',
-    'join_key_rhs' => 'activity_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Categories',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'activity_id' => 
-      array (
-        'name' => 'activity_id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'parent_type' => 
-      array (
-        'name' => 'parent_type',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      'parent_id' => 
-      array (
-        'name' => 'parent_id',
-        'type' => 'id',
-        'len' => 36,
-      ),
-      'fields' => 
-      array (
-        'name' => 'fields',
-        'type' => 'json',
-        'dbType' => 'longtext',
-        'required' => true,
-      ),
-      'date_modified' => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      'deleted' => 
-      array (
-        'name' => 'deleted',
-        'vname' => 'LBL_DELETED',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'categories_following' => 
-  array (
-    'name' => 'categories_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Categories',
-    'rhs_table' => 'categories',
+    'rhs_module' => 'Users',
+    'rhs_table' => 'users',
     'rhs_key' => 'id',
     'relationship_type' => 'user-based',
     'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'Categories',
-    'user_field' => 'created_by',
-  ),
-  'categories_favorite' => 
-  array (
-    'name' => 'categories_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Categories',
-    'rhs_table' => 'categories',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'Categories',
-    'user_field' => 'created_by',
-  ),
-  'kbdocuments_modified_user' => 
-  array (
-    'name' => 'kbdocuments_modified_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBDocuments',
-    'rhs_table' => 'kbdocuments',
-    'rhs_key' => 'modified_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbdocuments_created_by' => 
-  array (
-    'name' => 'kbdocuments_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBDocuments',
-    'rhs_table' => 'kbdocuments',
-    'rhs_key' => 'created_by',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbdocument_activities' => 
-  array (
-    'name' => 'kbdocument_activities',
-    'lhs_module' => 'KBDocuments',
-    'lhs_table' => 'kbdocuments',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Activities',
-    'rhs_table' => 'activities',
-    'rhs_key' => 'id',
-    'rhs_vname' => 'LBL_ACTIVITY_STREAM',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'activities_users',
     'join_key_lhs' => 'parent_id',
-    'join_key_rhs' => 'activity_id',
+    'join_key_rhs' => 'created_by',
     'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'KBDocuments',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'activity_id' => 
-      array (
-        'name' => 'activity_id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'parent_type' => 
-      array (
-        'name' => 'parent_type',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      'parent_id' => 
-      array (
-        'name' => 'parent_id',
-        'type' => 'id',
-        'len' => 36,
-      ),
-      'fields' => 
-      array (
-        'name' => 'fields',
-        'type' => 'json',
-        'dbType' => 'longtext',
-        'required' => true,
-      ),
-      'date_modified' => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      'deleted' => 
-      array (
-        'name' => 'deleted',
-        'vname' => 'LBL_DELETED',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'kbdocuments_following' => 
-  array (
-    'name' => 'kbdocuments_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBDocuments',
-    'rhs_table' => 'kbdocuments',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'KBDocuments',
-    'user_field' => 'created_by',
-  ),
-  'kbdocuments_favorite' => 
-  array (
-    'name' => 'kbdocuments_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBDocuments',
-    'rhs_table' => 'kbdocuments',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'KBDocuments',
-    'user_field' => 'created_by',
-  ),
-  'kbdocuments_team_count_relationship' => 
-  array (
-    'name' => 'kbdocuments_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBDocuments',
-    'rhs_table' => 'kbdocuments',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbdocuments_teams' => 
-  array (
-    'name' => 'kbdocuments_teams',
-    'lhs_module' => 'KBDocuments',
-    'lhs_table' => 'kbdocuments',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'kbdocuments_team' => 
-  array (
-    'name' => 'kbdocuments_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBDocuments',
-    'rhs_table' => 'kbdocuments',
-    'rhs_key' => 'team_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbdocuments_assigned_user' => 
-  array (
-    'name' => 'kbdocuments_assigned_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBDocuments',
-    'rhs_table' => 'kbdocuments',
-    'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbcontents_modified_user' => 
-  array (
-    'name' => 'kbcontents_modified_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'modified_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbcontents_created_by' => 
-  array (
-    'name' => 'kbcontents_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'created_by',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbcontent_activities' => 
-  array (
-    'name' => 'kbcontent_activities',
-    'lhs_module' => 'KBContents',
-    'lhs_table' => 'kbcontents',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Activities',
-    'rhs_table' => 'activities',
-    'rhs_key' => 'id',
-    'rhs_vname' => 'LBL_ACTIVITY_STREAM',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'activities_users',
-    'join_key_lhs' => 'parent_id',
-    'join_key_rhs' => 'activity_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'KBContents',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'activity_id' => 
-      array (
-        'name' => 'activity_id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'parent_type' => 
-      array (
-        'name' => 'parent_type',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      'parent_id' => 
-      array (
-        'name' => 'parent_id',
-        'type' => 'id',
-        'len' => 36,
-      ),
-      'fields' => 
-      array (
-        'name' => 'fields',
-        'type' => 'json',
-        'dbType' => 'longtext',
-        'required' => true,
-      ),
-      'date_modified' => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      'deleted' => 
-      array (
-        'name' => 'deleted',
-        'vname' => 'LBL_DELETED',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'kbcontent_notes' => 
-  array (
-    'name' => 'kbcontent_notes',
-    'lhs_module' => 'KBContents',
-    'lhs_table' => 'kbcontents',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'KBContents',
-  ),
-  'kbcontent_attachments' => 
-  array (
-    'name' => 'kbcontent_attachments',
-    'lhs_module' => 'KBContents',
-    'lhs_table' => 'kbcontents',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Notes',
-    'rhs_table' => 'notes',
-    'rhs_key' => 'parent_id',
-    'relationship_type' => 'one-to-many',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'KBContentsAttachments',
-  ),
-  'kbdocuments_kbcontents' => 
-  array (
-    'name' => 'kbdocuments_kbcontents',
-    'lhs_module' => 'KBDocuments',
-    'lhs_table' => 'kbdocuments',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'kbdocument_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbarticles_kbcontents' => 
-  array (
-    'name' => 'kbarticles_kbcontents',
-    'lhs_module' => 'KBArticles',
-    'lhs_table' => 'kbarticles',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'kbarticle_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'localizations' => 
-  array (
-    'name' => 'localizations',
-    'lhs_module' => 'KBContents',
-    'lhs_table' => 'kbcontents',
-    'lhs_key' => 'kbdocument_id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'kbdocument_id',
-    'join_table' => 'kbcontents',
-    'join_key_lhs' => 'kbdocument_id',
-    'join_key_rhs' => 'kbdocument_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'revisions' => 
-  array (
-    'name' => 'revisions',
-    'lhs_module' => 'KBContents',
-    'lhs_table' => 'kbcontents',
-    'lhs_key' => 'kbarticle_id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'kbarticle_id',
-    'join_table' => 'kbcontents',
-    'join_key_lhs' => 'kbarticle_id',
-    'join_key_rhs' => 'kbarticle_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbsapprovers_kbcontents' => 
-  array (
-    'name' => 'kbsapprovers_kbcontents',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'kbsapprover_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'relcases_kbcontents' => 
-  array (
-    'name' => 'relcases_kbcontents',
-    'lhs_module' => 'Cases',
-    'lhs_table' => 'cases',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'kbscase_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbcontents_following' => 
-  array (
-    'name' => 'kbcontents_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'KBContents',
-    'user_field' => 'created_by',
-  ),
-  'kbcontents_favorite' => 
-  array (
-    'name' => 'kbcontents_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'KBContents',
-    'user_field' => 'created_by',
-  ),
-  'kbcontents_tags' => 
-  array (
-    'name' => 'kbcontents_tags',
-    'lhs_module' => 'KBContents',
-    'lhs_table' => 'kbcontents',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Tags',
-    'rhs_table' => 'tags',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'tag_bean_rel',
-    'join_key_lhs' => 'bean_id',
-    'join_key_rhs' => 'tag_id',
-    'relationship_role_column' => 'bean_module',
-    'relationship_role_column_value' => 'KBContents',
-    'dynamic_subpanel' => true,
-    'fields' => 
-    array (
-      0 => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      1 => 
-      array (
-        'name' => 'tag_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      2 => 
-      array (
-        'name' => 'bean_id',
-        'type' => 'id',
-        'required' => true,
-      ),
-      3 => 
-      array (
-        'name' => 'bean_module',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      4 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      5 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'kbcontents_team_count_relationship' => 
-  array (
-    'name' => 'kbcontents_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbcontents_teams' => 
-  array (
-    'name' => 'kbcontents_teams',
-    'lhs_module' => 'KBContents',
-    'lhs_table' => 'kbcontents',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'kbcontents_team' => 
-  array (
-    'name' => 'kbcontents_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'team_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbcontents_assigned_user' => 
-  array (
-    'name' => 'kbcontents_assigned_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContents',
-    'rhs_table' => 'kbcontents',
-    'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbarticles_modified_user' => 
-  array (
-    'name' => 'kbarticles_modified_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBArticles',
-    'rhs_table' => 'kbarticles',
-    'rhs_key' => 'modified_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbarticles_created_by' => 
-  array (
-    'name' => 'kbarticles_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBArticles',
-    'rhs_table' => 'kbarticles',
-    'rhs_key' => 'created_by',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbarticle_activities' => 
-  array (
-    'name' => 'kbarticle_activities',
-    'lhs_module' => 'KBArticles',
-    'lhs_table' => 'kbarticles',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Activities',
-    'rhs_table' => 'activities',
-    'rhs_key' => 'id',
-    'rhs_vname' => 'LBL_ACTIVITY_STREAM',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'activities_users',
-    'join_key_lhs' => 'parent_id',
-    'join_key_rhs' => 'activity_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'KBArticles',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'activity_id' => 
-      array (
-        'name' => 'activity_id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'parent_type' => 
-      array (
-        'name' => 'parent_type',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      'parent_id' => 
-      array (
-        'name' => 'parent_id',
-        'type' => 'id',
-        'len' => 36,
-      ),
-      'fields' => 
-      array (
-        'name' => 'fields',
-        'type' => 'json',
-        'dbType' => 'longtext',
-        'required' => true,
-      ),
-      'date_modified' => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      'deleted' => 
-      array (
-        'name' => 'deleted',
-        'vname' => 'LBL_DELETED',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'kbdocuments_kbarticles' => 
-  array (
-    'name' => 'kbdocuments_kbarticles',
-    'lhs_module' => 'KBDocuments',
-    'lhs_table' => 'kbdocuments',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBArticles',
-    'rhs_table' => 'kbarticles',
-    'rhs_key' => 'kbdocument_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbarticles_following' => 
-  array (
-    'name' => 'kbarticles_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBArticles',
-    'rhs_table' => 'kbarticles',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'KBArticles',
-    'user_field' => 'created_by',
-  ),
-  'kbarticles_favorite' => 
-  array (
-    'name' => 'kbarticles_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBArticles',
-    'rhs_table' => 'kbarticles',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'KBArticles',
-    'user_field' => 'created_by',
-  ),
-  'kbarticles_team_count_relationship' => 
-  array (
-    'name' => 'kbarticles_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBArticles',
-    'rhs_table' => 'kbarticles',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbarticles_teams' => 
-  array (
-    'name' => 'kbarticles_teams',
-    'lhs_module' => 'KBArticles',
-    'lhs_table' => 'kbarticles',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'kbarticles_team' => 
-  array (
-    'name' => 'kbarticles_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBArticles',
-    'rhs_table' => 'kbarticles',
-    'rhs_key' => 'team_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbarticles_assigned_user' => 
-  array (
-    'name' => 'kbarticles_assigned_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBArticles',
-    'rhs_table' => 'kbarticles',
-    'rhs_key' => 'assigned_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbcontenttemplates_modified_user' => 
-  array (
-    'name' => 'kbcontenttemplates_modified_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContentTemplates',
-    'rhs_table' => 'kbcontent_templates',
-    'rhs_key' => 'modified_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbcontenttemplates_created_by' => 
-  array (
-    'name' => 'kbcontenttemplates_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContentTemplates',
-    'rhs_table' => 'kbcontent_templates',
-    'rhs_key' => 'created_by',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbcontenttemplate_activities' => 
-  array (
-    'name' => 'kbcontenttemplate_activities',
-    'lhs_module' => 'KBContentTemplates',
-    'lhs_table' => 'kbcontent_templates',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Activities',
-    'rhs_table' => 'activities',
-    'rhs_key' => 'id',
-    'rhs_vname' => 'LBL_ACTIVITY_STREAM',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'activities_users',
-    'join_key_lhs' => 'parent_id',
-    'join_key_rhs' => 'activity_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'KBContentTemplates',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'activity_id' => 
-      array (
-        'name' => 'activity_id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'parent_type' => 
-      array (
-        'name' => 'parent_type',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      'parent_id' => 
-      array (
-        'name' => 'parent_id',
-        'type' => 'id',
-        'len' => 36,
-      ),
-      'fields' => 
-      array (
-        'name' => 'fields',
-        'type' => 'json',
-        'dbType' => 'longtext',
-        'required' => true,
-      ),
-      'date_modified' => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      'deleted' => 
-      array (
-        'name' => 'deleted',
-        'vname' => 'LBL_DELETED',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'kbcontenttemplates_following' => 
-  array (
-    'name' => 'kbcontenttemplates_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContentTemplates',
-    'rhs_table' => 'kbcontent_templates',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'KBContentTemplates',
-    'user_field' => 'created_by',
-  ),
-  'kbcontenttemplates_favorite' => 
-  array (
-    'name' => 'kbcontenttemplates_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContentTemplates',
-    'rhs_table' => 'kbcontent_templates',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'KBContentTemplates',
-    'user_field' => 'created_by',
-  ),
-  'kbcontenttemplates_team_count_relationship' => 
-  array (
-    'name' => 'kbcontenttemplates_team_count_relationship',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'team_sets',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContentTemplates',
-    'rhs_table' => 'kbcontent_templates',
-    'rhs_key' => 'team_set_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'kbcontenttemplates_teams' => 
-  array (
-    'name' => 'kbcontenttemplates_teams',
-    'lhs_module' => 'KBContentTemplates',
-    'lhs_table' => 'kbcontent_templates',
-    'lhs_key' => 'team_set_id',
-    'rhs_module' => 'Teams',
-    'rhs_table' => 'teams',
-    'rhs_key' => 'id',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'team_sets_teams',
-    'join_key_lhs' => 'team_set_id',
-    'join_key_rhs' => 'team_id',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'vname' => 'LBL_ID',
-        'type' => 'id',
-        'required' => true,
-      ),
-      0 => 
-      array (
-        'name' => 'team_set_id',
-        'type' => 'id',
-      ),
-      1 => 
-      array (
-        'name' => 'team_id',
-        'type' => 'id',
-      ),
-      2 => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      3 => 
-      array (
-        'name' => 'deleted',
-        'type' => 'bool',
-        'len' => '',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'kbcontenttemplates_team' => 
-  array (
-    'name' => 'kbcontenttemplates_team',
-    'lhs_module' => 'Teams',
-    'lhs_table' => 'teams',
-    'lhs_key' => 'id',
-    'rhs_module' => 'KBContentTemplates',
-    'rhs_table' => 'kbcontent_templates',
-    'rhs_key' => 'team_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'embeddedfiles_modified_user' => 
-  array (
-    'name' => 'embeddedfiles_modified_user',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmbeddedFiles',
-    'rhs_table' => 'embedded_files',
-    'rhs_key' => 'modified_user_id',
-    'relationship_type' => 'one-to-many',
-  ),
-  'embeddedfiles_created_by' => 
-  array (
-    'name' => 'embeddedfiles_created_by',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmbeddedFiles',
-    'rhs_table' => 'embedded_files',
-    'rhs_key' => 'created_by',
-    'relationship_type' => 'one-to-many',
-  ),
-  'embeddedfile_activities' => 
-  array (
-    'name' => 'embeddedfile_activities',
-    'lhs_module' => 'EmbeddedFiles',
-    'lhs_table' => 'embedded_files',
-    'lhs_key' => 'id',
-    'rhs_module' => 'Activities',
-    'rhs_table' => 'activities',
-    'rhs_key' => 'id',
-    'rhs_vname' => 'LBL_ACTIVITY_STREAM',
-    'relationship_type' => 'many-to-many',
-    'join_table' => 'activities_users',
-    'join_key_lhs' => 'parent_id',
-    'join_key_rhs' => 'activity_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'EmbeddedFiles',
-    'fields' => 
-    array (
-      'id' => 
-      array (
-        'name' => 'id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'activity_id' => 
-      array (
-        'name' => 'activity_id',
-        'type' => 'id',
-        'len' => 36,
-        'required' => true,
-      ),
-      'parent_type' => 
-      array (
-        'name' => 'parent_type',
-        'type' => 'varchar',
-        'len' => 100,
-      ),
-      'parent_id' => 
-      array (
-        'name' => 'parent_id',
-        'type' => 'id',
-        'len' => 36,
-      ),
-      'fields' => 
-      array (
-        'name' => 'fields',
-        'type' => 'json',
-        'dbType' => 'longtext',
-        'required' => true,
-      ),
-      'date_modified' => 
-      array (
-        'name' => 'date_modified',
-        'type' => 'datetime',
-      ),
-      'deleted' => 
-      array (
-        'name' => 'deleted',
-        'vname' => 'LBL_DELETED',
-        'type' => 'bool',
-        'default' => '0',
-      ),
-    ),
-  ),
-  'embeddedfiles_following' => 
-  array (
-    'name' => 'embeddedfiles_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmbeddedFiles',
-    'rhs_table' => 'embedded_files',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'EmbeddedFiles',
-    'user_field' => 'created_by',
-  ),
-  'embeddedfiles_favorite' => 
-  array (
-    'name' => 'embeddedfiles_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'EmbeddedFiles',
-    'rhs_table' => 'embedded_files',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'EmbeddedFiles',
+    'relationship_role_column_value' => 'PdfManager',
     'user_field' => 'created_by',
   ),
   'pdfmanager_modified_user' => 
@@ -26202,40 +22346,6 @@
         'default' => '0',
       ),
     ),
-  ),
-  'pdfmanager_following' => 
-  array (
-    'name' => 'pdfmanager_following',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'PdfManager',
-    'rhs_table' => 'pdfmanager',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'subscriptions',
-    'join_key_lhs' => 'created_by',
-    'join_key_rhs' => 'parent_id',
-    'relationship_role_column' => 'parent_type',
-    'relationship_role_column_value' => 'PdfManager',
-    'user_field' => 'created_by',
-  ),
-  'pdfmanager_favorite' => 
-  array (
-    'name' => 'pdfmanager_favorite',
-    'lhs_module' => 'Users',
-    'lhs_table' => 'users',
-    'lhs_key' => 'id',
-    'rhs_module' => 'PdfManager',
-    'rhs_table' => 'pdfmanager',
-    'rhs_key' => 'id',
-    'relationship_type' => 'user-based',
-    'join_table' => 'sugarfavorites',
-    'join_key_lhs' => 'modified_user_id',
-    'join_key_rhs' => 'record_id',
-    'relationship_role_column' => 'module',
-    'relationship_role_column_value' => 'PdfManager',
-    'user_field' => 'created_by',
   ),
   'pdfmanager_team_count_relationship' => 
   array (

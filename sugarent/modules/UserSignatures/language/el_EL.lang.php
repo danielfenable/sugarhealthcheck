@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-    'LBL_MODULE_NAME'			=> 'Υπογραφές Χειριστή',
-    'LBL_MODULE_NAME_SINGULAR'		=> 'Υπογραφή Χειριστή',
-    'LBL_EMAIL_SIGNATURE_ERROR1' => 'Αυτή η υπογραφή απαιτεί ένα όνομα.',
-    'LBL_SIGNATURE_NAME'         => 'Όνομα',
-    'LBL_SIGNATURE'              => 'Υπογραφή',
-    'LBL_SIGNATURE_HTML'         => 'Υπογραφή HTML',
-    'LBL_SIGNATURE_DEFAULT'      => 'Χρήση υπογραφής;',
-    'LBL_SIGNATURE_PREPEND'      => 'Υπογραφή στην απάντηση;',
-    'LBL_SIGNATURES'             => 'Υπογραφές',
+$mod_strings = array (
+  'LBL_EMAIL_SIGNATURE_ERROR1' => 'Αυτή η υπογραφή απαιτεί ένα όνομα.',
+  'LBL_MODULE_NAME' => 'Υπογραφές Χειριστή',
+  'LBL_MODULE_NAME_SINGULAR' => 'Υπογραφή Χειριστή',
+  'LBL_SIGNATURE' => 'Υπογραφή',
+  'LBL_SIGNATURES' => 'Υπογραφές',
+  'LBL_SIGNATURE_DEFAULT' => 'Χρήση υπογραφής;',
+  'LBL_SIGNATURE_HTML' => 'Υπογραφή HTML',
+  'LBL_SIGNATURE_NAME' => 'Όνομα',
+  'LBL_SIGNATURE_PREPEND' => 'Υπογραφή στην απάντηση;',
 );
+

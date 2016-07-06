@@ -11,10 +11,11 @@
 /**
  * @class View.Fields.Base.CopyField
  * @alias SUGAR.App.view.fields.BaseCopyField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     'events': {
+        'click input[type=checkbox]': 'toggle',
         'click button': 'copyOnce'
     },
 
@@ -28,7 +29,7 @@
      * Initializes the initialValues and fields properties.
      * Enables sync by default.
      *
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
 
@@ -55,9 +56,13 @@
      * Otherwise, restore all the values of the modified fields by this copy
      * widget and enable target fields.
      *
+     * @param {Event} evt
+     *   The event (expecting a click event) that triggered the checkbox status
+     *   change.
      */
-    toggle: function() {
-        this.sync(this.$fieldTag.is(':checked'));
+    toggle: function(evt) {
+
+        this.sync($(evt.currentTarget).is(':checked'));
     },
 
     sync: function(enable) {
@@ -214,7 +219,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return {Boolean}
      */
@@ -225,21 +230,9 @@
         }
         return value;
     },
-    /**
-     * Binds DOM changes to a model.
-     */
-    bindDomChange: function() {
 
-        if (!(this.model instanceof Backbone.Model)) return;
-
-        var self = this;
-        var el = this.$fieldTag = this.$el.find(this.fieldTag);
-        el.on("change", function() {
-          self.toggle();
-        });
-    },
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * This will make the fields in sync if it is on by default.
      */
@@ -253,8 +246,8 @@
                 return;
             }
 
-            var inSync = this.model.isNew() || _.all(this.def.mapping, function(target, source) {
-                return this.model.has(source) && this.model.get(source) === this.model.get(target);
+            var inSync = _.all(this.def.mapping, function(target, source) {
+                return this.model.get(source) === this.model.get(target);
             }, this);
             this.sync(inSync);
         }

@@ -74,17 +74,7 @@ class PMSETimerEvent extends PMSEIntermediateEvent
                     $eventDefinition['evn_criteria'],
                     $bean
                 );
-                if ($dueDate instanceof SugarDateTime) {
-                    $date = $dueDate;
-                } else {
-                    $date = TimeDate::getInstance()->fromIso($dueDate);
-                    if (empty($date)) {
-                        $date = TimeDate::getInstance()->fromString($dueDate);
-                    }
-                    if (!($date instanceof SugarDateTime)) {
-                        throw new Exception("TimerEvent: Cannot convert '{$dueDate}' to SugarDateTime.", 1);
-                    }
-                }
+                $date = TimeDate::getInstance()->fromIso($dueDate);
                 $dateDB = $date->asDb();
                 $flowData['cas_delegate_date'] = $dateDB;
                 $flowData['cas_due_date'] = $dateDB;

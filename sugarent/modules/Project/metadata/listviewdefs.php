@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: listviewdefs.php 56123 2010-04-26 21:48:19Z asandberg $
+
 
 $listViewDefs['Project'] = array(
 	'NAME' => array(
@@ -44,7 +44,7 @@ $listViewDefs['Project'] = array(
         'width' => '2', 
         'label' => 'LBL_LIST_TEAM',
         'related_fields' => array('team_id'),        
-        'default' => false),
+        'default' => false),        
 
 );
 

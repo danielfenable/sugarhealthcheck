@@ -18,8 +18,6 @@ t.href=url;}}
 function subp_nav_sidecar(m,i,a,link){var app=parent.SUGAR.App,view=app.controller.layout.getComponent('bwc'),url;if(!app.metadata.getModule(m).isBwcEnabled){if(a==='c'){view.createRelatedRecord(m,link);return false;}
 a='';url=view.convertToSidecarUrl('index.php?module='+m+'&action='+a+'&record='+i);app.router.navigate(url,{trigger:true});return false;}}
 function subp_archive_email(){var app=parent.SUGAR.App,view=app.controller.layout.getComponent('bwc');view.openArchiveEmailDrawer();return false;}
-function relationship_remove(module,action,params){var id=get_record_id();var params=_.extend(params,{record:id,return_id:id});var route=app.bwc.buildRoute(module,id||null,action,params);if(!_.isUndefined(params.return_url)){route+=params.return_url;}
-app.router.navigate("#"+route,{trigger:true});}
 function sub_p_rem(sp,lf,li,rp){return_url="index.php?module="+get_module_name()+"&action=SubPanelViewer&subpanel="+sp+"&record="+get_record_id()+"&sugar_body_only=1&inline=1";remove_url="index.php?module="+get_module_name()
 +"&action=DeleteRelationship"
 +"&record="+get_record_id()
@@ -53,12 +51,10 @@ var refresh_page=escape(passthru_data['refresh_page']);for(prop in passthru_data
 var query_string=query_array.join('&');request_map[request_id]=passthru_data['child_field'];var returnstuff=http_fetch_sync('index.php',query_string);request_id++;if(typeof returnstuff!='undefined'&&typeof returnstuff.responseText!='undefined'&&returnstuff.responseText.length!=0){got_data(returnstuff,true);}
 if(refresh_page==1){document.location.reload(true);}}
 function got_data(args,inline)
-{var list_subpanel=document.getElementById('list_subpanel_'+request_map[args.request_id].toLowerCase());if(list_subpanel!=null){var subpanel=document.getElementById('subpanel_'+request_map[args.request_id].toLowerCase());var child_field=request_map[args.request_id].toLowerCase();var bwcComponent=window.parent.SUGAR.App.controller.layout.getComponent('bwc');if(inline){if(bwcComponent){bwcComponent.confirmMemLeak(list_subpanel);$('a',list_subpanel).off('.bwc.sugarcrm');}
-child_field_loaded[child_field]=2;list_subpanel.innerHTML='';list_subpanel.innerHTML=args.responseText;}else{if(bwcComponent){bwcComponent.confirmMemLeak(subpanel);$('a',subpanel).off('.bwc.sugarcrm');}
-child_field_loaded[child_field]=1;subpanel.innerHTML='';subpanel.innerHTML=args.responseText;var inlineTable=subpanel.getElementsByTagName('table');inlineTable=inlineTable[1];inlineTable=subpanel.removeChild(inlineTable);var listDiv=document.createElement('div');listDiv.id='list_subpanel_'+request_map[args.request_id].toLowerCase();subpanel.appendChild(listDiv);listDiv.appendChild(inlineTable);}
+{var list_subpanel=document.getElementById('list_subpanel_'+request_map[args.request_id].toLowerCase());if(list_subpanel!=null){var subpanel=document.getElementById('subpanel_'+request_map[args.request_id].toLowerCase());var child_field=request_map[args.request_id].toLowerCase();if(inline){window.parent.SUGAR.App.controller.layout.getComponent('bwc').confirmMemLeak(list_subpanel);$('a',list_subpanel).off('.bwc.sugarcrm');child_field_loaded[child_field]=2;list_subpanel.innerHTML='';list_subpanel.innerHTML=args.responseText;}else{window.parent.SUGAR.App.controller.layout.getComponent('bwc').confirmMemLeak(subpanel);$('a',subpanel).off('.bwc.sugarcrm');child_field_loaded[child_field]=1;subpanel.innerHTML='';subpanel.innerHTML=args.responseText;var inlineTable=subpanel.getElementsByTagName('table');inlineTable=inlineTable[1];inlineTable=subpanel.removeChild(inlineTable);var listDiv=document.createElement('div');listDiv.id='list_subpanel_'+request_map[args.request_id].toLowerCase();subpanel.appendChild(listDiv);listDiv.appendChild(inlineTable);}
 SUGAR.util.evalScript(args.responseText);subpanel.style.display='';set_div_cookie(subpanel.cookie_name,'');if(current_child_field!=''&&child_field!=current_child_field)
 {}
-current_child_field=child_field;$("ul.clickMenu").each(function(index,node){$(node).sugarActionMenu();});if(bwcComponent){bwcComponent.rewriteLinks();}}}
+current_child_field=child_field;$("ul.clickMenu").each(function(index,node){$(node).sugarActionMenu();});window.parent.SUGAR.App.controller.layout.getComponent('bwc').rewriteLinks();}}
 function showSubPanel(child_field,url,force_load,layout_def_key)
 {var inline=1;if(typeof(force_load)=='undefined'||force_load==null)
 {force_load=false;}

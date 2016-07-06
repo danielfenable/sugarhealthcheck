@@ -17,14 +17,10 @@ require_once 'clients/base/api/RelateApi.php';
 /**
  * Collection API
  */
-abstract class CollectionApi extends SugarApi
+class CollectionApi extends SugarApi
 {
-    /**
-     * The key appended to each resulting record designating which collection source it was retrieved from
-     *
-     * @var string
-     */
-    protected static $sourceKey = '_source';
+    /** @var RelateApi */
+    protected $relateApi;
 
     /**
      * Function to compare string values when sorting records
@@ -32,6 +28,26 @@ abstract class CollectionApi extends SugarApi
      * @var callable
      */
     protected $collator = 'strcasecmp';
+
+    /**
+     * Registers API
+     *
+     * @return array
+     * @codeCoverageIgnore
+     */
+    public function registerApiRest()
+    {
+        return array(
+            'getCollection' => array(
+                'reqType' => 'GET',
+                'path' => array('<module>', '?', 'collection', '?'),
+                'pathVars' => array('module', 'record', '', 'collection_name'),
+                'method' => 'getCollection',
+                'shortHelp' => 'Lists collection records.',
+                'longHelp' => 'include/api/help/module_record_collection_collection_name_get_help.html',
+            ),
+        );
+    }
 
     /**
      * Sets the function to compare string values when sorting records
@@ -60,13 +76,16 @@ abstract class CollectionApi extends SugarApi
      */
     public function getCollection(ServiceBase $api, array $args)
     {
-        $definition = $this->getCollectionDefinition($api, $args);
+        $this->requireArgs($args, array('module', 'record', 'collection_name'));
+        $bean = $this->loadBean($api, $args);
+
+        $definition = $this->getCollectionDefinition($bean, $args['collection_name']);
         $args = $this->normalizeArguments($args, $definition);
 
-        $sortSpec = $this->getSortSpec($definition, $args['order_by']);
-        $sortFields = $this->getAdditionalSortFields($args, $definition, $sortSpec);
+        $sortSpec = $this->getSortSpec($bean, $definition['links'], $args['order_by']);
+        $sortFields = $this->getAdditionalSortFields($args, $definition['links'], $sortSpec);
 
-        $data = $this->getData($api, $args, $definition, $sortFields);
+        $data = $this->getData($api, $args, $bean, $definition['links'], $sortFields);
 
         $records = $this->sortData($data, $sortSpec, $args['offset'], $args['max_num'], $nextOffset);
 
@@ -101,32 +120,7 @@ abstract class CollectionApi extends SugarApi
     }
 
     /**
-     * API endpoint
-     *
-     * @param ServiceBase $api
-     * @param array $args
-     *
-     * @return array
-     * @throws SugarApiExceptionError
-     * @throws SugarApiExceptionInvalidParameter
-     * @throws SugarApiExceptionMissingParameter
-     * @throws SugarApiExceptionNotAuthorized
-     * @throws SugarApiExceptionNotFound
-     */
-    public function getCollectionCount(ServiceBase $api, array $args)
-    {
-        $definition = $this->getCollectionDefinition($api, $args);
-        $args = $this->normalizeArguments($args, $definition);
-
-        $count = $this->getCount($api, $args, $definition);
-
-        return array(
-            'record_count' => $count,
-        );
-    }
-
-    /**
-     * Retrieves records from collection sources
+     * Retrieves records from collection links
      *
      * Any SugarApiException's that are thrown when retrieving related records are caught and added to the return value.
      * Even though the API may respond with "200 OK", the client should handle these errors appropriately. In these
@@ -134,7 +128,8 @@ abstract class CollectionApi extends SugarApi
      *
      * @param ServiceBase $api
      * @param array $args API arguments
-     * @param CollectionDefinitionInterface $definition
+     * @param SugarBean $bean Primary bean
+     * @param array $links Collection link definitions
      * @param array $sortFields Additional fields required for client side sort
      *
      * @return array
@@ -142,17 +137,19 @@ abstract class CollectionApi extends SugarApi
     protected function getData(
         ServiceBase $api,
         array $args,
-        CollectionDefinitionInterface $definition,
+        SugarBean $bean,
+        array $links,
         array $sortFields
     ) {
         $data = array();
-        foreach ($definition->getSources() as $source) {
-            if ($args['offset'][$source] >= 0) {
-                $sourceArgs = $this->getSourceArguments($api, $args, $definition, $source, $sortFields[$source]);
+        foreach ($links as $link) {
+            $linkName = $link['name'];
+            if ($args['offset'][$linkName] >= 0) {
+                $linkArgs = $this->getLinkArguments($api, $args, $bean, $link, $sortFields[$linkName]);
                 $response = array();
 
                 try {
-                    $response = $this->getSourceData($api, $source, $sourceArgs);
+                    $response = $this->getRelateApi()->filterRelated($api, $linkArgs);
                 } catch (SugarApiException $e) {
                     $response['next_offset'] = -1;
                     $response['records'] = array();
@@ -163,7 +160,7 @@ abstract class CollectionApi extends SugarApi
                     );
                 }
 
-                $data[$source] = $response;
+                $data[$linkName] = $response;
             }
         }
 
@@ -171,66 +168,43 @@ abstract class CollectionApi extends SugarApi
     }
 
     /**
-     * Counts records in collection sources
-     *
-     * @param ServiceBase $api
-     * @param array $args API arguments
-     * @param CollectionDefinitionInterface $definition
-     *
-     * @return array
-     * @throws SugarApiExceptionNotAuthorized
-     * @throws SugarApiExceptionNotFound
-     */
-    protected function getCount(
-        ServiceBase $api,
-        array $args,
-        CollectionDefinitionInterface $definition
-    ) {
-        $count = array();
-        foreach ($definition->getSources() as $source) {
-            $sourceArgs = $this->getSourceArguments($api, $args, $definition, $source);
-            $response = $this->getSourceCount($api, $source, $sourceArgs);
-            $count[$source] = $response['record_count'];
-        }
-
-        return $count;
-    }
-
-    /**
-     * Creates arguments for RelateApi for specific source
+     * Creates arguments for RelateApi for specific link
      *
      * @param ServiceBase $api
      * @param array $args CollectionApi arguments
-     * @param CollectionDefinitionInterface $definition Collection definition
-     * @param string $source Collection source name
+     * @param SugarBean $bean Primary bean
+     * @param array $link Collection link definition
      * @param array $sortFields Additional fields required for client side sort
      *
      * @return array RelateApi arguments
      */
-    protected function getSourceArguments(
+    protected function getLinkArguments(
         ServiceBase $api,
         array $args,
-        CollectionDefinitionInterface $definition,
-        $source,
-        array $sortFields = array()
+        SugarBean $bean,
+        array $link,
+        array $sortFields
     ) {
         $args = array_merge($args, array(
-            'offset' => $args['offset'][$source],
+            'link_name' => $link['name'],
+            'offset' => $args['offset'][$link['name']],
         ));
 
-        // this is a bit dirty: generic collection is not tied to any particular bean, but if some of its subtypes
-        // are tied (like related collection), we use the bean in order to get fields from arguments
-        $bean = isset($this->bean) ? $this->bean : null;
-        $args['fields'] = $this->getFieldsFromArgs($api, $args, $bean);
-        $args['filter'] = $this->getSourceFilter($args, $definition, $source);
-        unset($args['stored_filter']);
+        $fields = $this->getFieldsFromArgs($api, $args, $bean);
 
-        $args = $this->mapSourceArguments($definition, $source, $args);
-
-        if (count($args['fields']) > 0 && count($sortFields) > 0) {
-            $args['fields'] = array_merge($args['fields'], $sortFields);
+        if (isset($link['field_map'])) {
+            $fields = $this->mapFields($fields, $link['field_map']);
+            if (isset($args['filter'])) {
+                $args['filter'] = $this->mapFilter($args['filter'], $link['field_map']);
+            }
+            $args['order_by'] = $this->mapOrderBy($args['order_by'], $link['field_map']);
         }
 
+        if (count($fields) > 0 && count($sortFields) > 0) {
+            $fields = array_merge($fields, $sortFields);
+        }
+
+        $args['fields'] = $fields;
         $args['order_by'] = $this->formatOrderBy($args['order_by']);
 
         // view name is only applicable to primary module, and it doesn't make
@@ -241,105 +215,98 @@ abstract class CollectionApi extends SugarApi
     }
 
     /**
-     * Returns filter API argument for the given source
+     * @param SugarBean $bean SugarBean instance that represents module metadata
+     * @param string $collectionName Collection name
      *
-     * @param array $args API arguments
-     * @param CollectionDefinitionInterface $definition
-     * @param string $source Collection source name
-     * @return array
+     * @return array Link definition
+     * @throws SugarApiExceptionError
+     * @throws SugarApiExceptionNotFound
      */
-    protected function getSourceFilter(array $args, CollectionDefinitionInterface $definition, $source)
+    protected function getCollectionDefinition(SugarBean $bean, $collectionName)
     {
-        $filters = array();
-
-        if ($definition->hasSourceFilter($source)) {
-            $filters[] = $definition->getSourceFilter($source);
+        $definition = $bean->getFieldDefinition($collectionName);
+        if (!is_array($definition) || !isset($definition['type']) || $definition['type'] !== 'collection') {
+            throw new SugarApiExceptionNotFound('Collection not found');
         }
 
-        foreach ($args['stored_filter'] as $filterId) {
-            $filters[] = $definition->getStoredFilter($filterId);
+        if (!isset($definition['links'])) {
+            throw new SugarApiExceptionError(
+                sprintf('Links are not defined for collection %s in module %s', $collectionName, $bean->module_name)
+            );
         }
 
-        if (isset($args['filter'])) {
-            $filter = $args['filter'];
-            if ($definition->hasFieldMap($source)) {
-                $fieldMap = $definition->getFieldMap($source);
-                $filter = $this->mapFilter($filter, $fieldMap);
+        $definition['links'] = $this->normalizeLinks($definition['links'], $collectionName, $bean->module_name);
+
+        return $definition;
+    }
+
+    /**
+     * Normalizes and validates link definitions in collection metadata
+     *
+     * @param array $links
+     * @param $collectionName
+     * @param $moduleName
+     *
+     * @return array Normalized definitions
+     * @throws SugarApiExceptionError
+     */
+    protected function normalizeLinks($links, $collectionName, $moduleName)
+    {
+        if (!is_array($links)) {
+            throw new SugarApiExceptionError(
+                sprintf(
+                    'Links must be array, %s is given for collection %s in module %s',
+                    gettype($links),
+                    $collectionName,
+                    $moduleName
+                )
+            );
+        }
+
+        $normalized = array();
+        foreach ($links as $i => $link) {
+            if (is_string($link)) {
+                $link = array('name' => $link);
+            } elseif (is_array($link)) {
+                if (!isset($link['name']) || !is_string($link['name'])) {
+                    throw new SugarApiExceptionError(
+                        sprintf(
+                            'Link #%d name is not defined for collection %s in module %s',
+                            $i,
+                            $collectionName,
+                            $moduleName
+                        )
+                    );
+                }
+            } else {
+                throw new SugarApiExceptionError(
+                    sprintf(
+                        'Link definition must be string or array, %s is given for link #%d, collection %s in module %s',
+                        gettype($link),
+                        $i,
+                        $collectionName,
+                        $moduleName
+                    )
+                );
             }
-            $filters[] = $filter;
+
+            $normalized[] = $link;
         }
 
-        if (count($filters) > 0) {
-            return call_user_func_array('array_merge', $filters);
-        }
-
-        return array();
+        return $normalized;
     }
-
-    /**
-     * Maps API arguments using the mapping from collection definition for the given source
-     *
-     * @param CollectionDefinitionInterface $definition Collection definition
-     * @param string $source Collection source name
-     * @param array $args Arguments for underlying API call
-     *
-     * @return array Mapped arguments
-     */
-    protected function mapSourceArguments(CollectionDefinitionInterface $definition, $source, $args)
-    {
-        if ($definition->hasFieldMap($source)) {
-            $fieldMap = $definition->getFieldMap($source);
-            $args['fields'] = $this->mapFields($args['fields'], $fieldMap);
-            $args['order_by'] = $this->mapOrderBy($args['order_by'], $fieldMap);
-        }
-
-        return $args;
-    }
-
-    /**
-     * Retrieves records from the given collection source
-     *
-     * @param ServiceBase $api
-     * @param string $source Source name
-     * @param array $args API arguments
-     *
-     * @return array
-     */
-    abstract protected function getSourceData($api, $source, $args);
-
-    /**
-     * Counts records from the given collection source
-     *
-     * @param ServiceBase $api
-     * @param string $source Source name
-     * @param array $args API arguments
-     *
-     * @return array
-     */
-    abstract protected function getSourceCount($api, $source, $args);
-
-    /**
-     * Returns collection definition
-     *
-     * @param ServiceBase $api
-     * @param array $args API arguments
-     *
-     * @return CollectionDefinitionInterface
-     */
-    abstract protected function getCollectionDefinition(ServiceBase $api, array $args);
 
     /**
      * Normalizes API arguments according to collection field definition
      *
      * @param array $args API arguments
-     * @param CollectionDefinitionInterface $definition
+     * @param array $definition Collection field definition
      *
      * @return array Normalized arguments
-     * @throws SugarApiExceptionInvalidParameter when arguments are invalid and thus cannot be normalized
      */
-    protected function normalizeArguments(array $args, CollectionDefinitionInterface $definition)
+    protected function normalizeArguments(array $args, array $definition)
     {
-        $args['offset'] = $this->normalizeOffset($args, $definition);
+        $args['offset'] = $this->normalizeOffset($args, $definition['links']);
         if (!isset($args['max_num'])) {
             $args['max_num'] = $this->getDefaultLimit();
         }
@@ -347,10 +314,9 @@ abstract class CollectionApi extends SugarApi
         $args['order_by'] = $this->getOrderByFromArgs($args);
 
         if (!$args['order_by']) {
-            $orderBy = $definition->getOrderBy();
-            if ($orderBy) {
+            if (isset($definition['order_by'])) {
                 $args['order_by'] = $this->getOrderByFromArgs(array(
-                    'order_by' => $orderBy,
+                    'order_by' => $definition['order_by'],
                 ));
             } else {
                 $args['order_by'] = $this->getDefaultOrderBy();
@@ -362,8 +328,6 @@ abstract class CollectionApi extends SugarApi
             $args['fields'] = explode(',',$args['fields']);
         }
 
-        $args['stored_filter'] = $this->normalizeStoredFilter($args, $definition);
-
         return $args;
     }
 
@@ -371,12 +335,12 @@ abstract class CollectionApi extends SugarApi
      * Normalizes and validates offset API argument
      *
      * @param array $args API arguments
-     * @param array CollectionDefinitionInterface $definition
+     * @param array $links Link definitions
      *
      * @return array Normalized value
      * @throws SugarApiExceptionInvalidParameter
      */
-    protected function normalizeOffset(array $args, CollectionDefinitionInterface $definition)
+    protected function normalizeOffset(array $args, array $links)
     {
         if (isset($args['offset'])) {
             if (!is_array($args['offset'])) {
@@ -391,14 +355,15 @@ abstract class CollectionApi extends SugarApi
         }
 
         $keys = array();
-        foreach ($definition->getSources() as $source) {
-            $keys[$source] = true;
-            if (!isset($offset[$source])) {
-                $offset[$source] = 0;
+        foreach ($links as $link) {
+            $name = $link['name'];
+            $keys[$name] = true;
+            if (!isset($offset[$name])) {
+                $offset[$name] = 0;
             } else {
-                $offset[$source] = (int) $offset[$source];
-                if ($offset[$source] < 0) {
-                    $offset[$source] = -1;
+                $offset[$name] = (int) $offset[$name];
+                if ($offset[$name] < 0) {
+                    $offset[$name] = -1;
                 }
             }
         }
@@ -408,31 +373,6 @@ abstract class CollectionApi extends SugarApi
         $offset = array_intersect_key($offset, $keys);
 
         return $offset;
-    }
-
-    /**
-     * Normalizes and validates stored_filter API argument
-     *
-     * @param array $args API arguments
-     * @param array CollectionDefinitionInterface $definition
-     *
-     * @return array Normalized value
-     * @throws SugarApiExceptionInvalidParameter when the stored filter given isn't found.
-     */
-    protected function normalizeStoredFilter(array $args, CollectionDefinitionInterface $definition)
-    {
-        if (!isset($args['stored_filter'])) {
-            return array();
-        }
-
-        $filter = (array) $args['stored_filter'];
-        foreach ($filter as $filterName) {
-            if (!$definition->hasStoredFilter($filterName)) {
-                throw new SugarApiExceptionInvalidParameter('Stored filter not found');
-            }
-        }
-
-        return $filter;
     }
 
     /**
@@ -462,7 +402,7 @@ abstract class CollectionApi extends SugarApi
      * Sorts collection data by preserving original order of records of the same module and populates offset
      * with the value corresponding to the next page
      *
-     * @param array $data Collection data grouped by source
+     * @param array $data Collection data grouped by link
      * @param array $spec Sorting specification
      * @param array $offset Offset corresponding to the current page
      * @param int $limit Maximum number of resulting records
@@ -472,74 +412,72 @@ abstract class CollectionApi extends SugarApi
      */
     protected function sortData(array $data, array $spec, $offset, $limit, &$nextOffset)
     {
-        $comparator = $this->getSourceDataComparator($spec);
+        $comparator = $this->getLinkDataComparator($spec);
 
-        $sourceRecords = $returnedBySource = array();
-
-        // put source name into every record
-        foreach ($data as $source => $sourceData) {
-            $sourceRecords[$source] = $sourceData['records'];
-            $returnedBySource[$source] = 0;
-            foreach ($sourceRecords[$source] as $i => $_) {
-                $sourceRecords[$source][$i][static::$sourceKey] = $source;
+        // put link name into every record
+        $linkRecords = array();
+        foreach ($data as $linkName => $linkData) {
+            $linkRecords[$linkName] = $linkData['records'];
+            foreach ($linkRecords[$linkName] as $i => $_) {
+                $linkRecords[$linkName][$i]['_link'] = $linkName;
             }
-            $nextOffset[$source] = $sourceData['next_offset'];
+            $nextOffset[$linkName] = $linkData['next_offset'];
         }
 
-        $records = $index = array();
-        while (true) {
-            uasort($sourceRecords, $comparator);
-            $source = key($sourceRecords);
-            $record = array_shift($sourceRecords[$source]);
+        $records = array();
+        while (count($records) < $limit) {
+            uasort($linkRecords, $comparator);
+            $linkName = key($linkRecords);
+            $record = array_shift($linkRecords[$linkName]);
             if (!$record) {
                 break;
             }
-            if (!isset($index[$record['_module']][$record['id']])) {
-                if (count($records) >= $limit) {
-                    array_unshift($sourceRecords[$source], $record);
-                    break;
-                }
-                $records[] = $record;
-                $index[$record['_module']][$record['id']] = true;
-            }
-            $returnedBySource[$record[static::$sourceKey]]++;
+            $records[] = $record;
         }
 
-        $nextOffset = $this->getNextOffset($offset, $returnedBySource, $nextOffset, $sourceRecords);
+        $nextOffset = $this->getNextOffset($offset, $records, $nextOffset, $linkRecords);
 
         return $records;
     }
 
     /**
-     * Creates sorting specification from the given set of sources and ORDER BY expression
+     * Creates sorting specification from the given set of links and ORDER BY expression
      *
-     * @param CollectionDefinitionInterface $definition
+     * @param SugarBean $bean Primary bean
+     * @param array $links Collection link definitions
      * @param array $orderBy ORDER BY expression
      *
      * @return array The sorting specification
      * @throws SugarApiExceptionError
      */
-    protected function getSortSpec(CollectionDefinitionInterface $definition, $orderBy)
+    protected function getSortSpec(SugarBean $bean, array $links, $orderBy)
     {
-        $sourceData = array();
-        foreach ($definition->getSources() as $source) {
-            $moduleName = $definition->getSourceModuleName($source);
-            $bean = BeanFactory::getBean($moduleName);
-            if ($definition->hasFieldMap($source)) {
-                $fieldMap = $definition->getFieldMap($source);
+        $linkData = array();
+        foreach ($links as $definition) {
+            $linkName = $definition['name'];
+            if (!$bean->load_relationship($linkName)) {
+                throw new SugarApiExceptionError(
+                    sprintf('Unable to load link %s on module %s', $linkName, $bean->module_name)
+                );
+            }
+
+            $relatedModule = $bean->$linkName->getRelatedModuleName();
+            $relatedBean = BeanFactory::getBean($relatedModule);
+            if (isset($definition['field_map'])) {
+                $fieldMap = $definition['field_map'];
             } else {
                 $fieldMap = array();
             }
-            $sourceData[$source] = array($bean, $fieldMap);
+            $linkData[$linkName] = array($relatedBean, $fieldMap);
         }
 
         $spec = array();
         foreach ($orderBy as $alias => $direction) {
             $isNumeric = null;
             $map = array();
-            foreach ($sourceData as $source => $data) {
-                /** @var SugarBean $bean */
-                list($bean, $fieldMap) = $data;
+            foreach ($linkData as $linkName => $data) {
+                /** @var SugarBean $relatedBean */
+                list($relatedBean, $fieldMap) = $data;
 
                 if (isset($fieldMap[$alias])) {
                     $field = $fieldMap[$alias];
@@ -547,15 +485,15 @@ abstract class CollectionApi extends SugarApi
                     $field = $alias;
                 }
 
-                $fieldDef = $bean->getFieldDefinition($field);
+                $fieldDef = $relatedBean->getFieldDefinition($field);
                 if (!$fieldDef) {
                     // do not display alias since it may come from API arguments
                     throw new SugarApiExceptionError('Unable to load field definition');
                 }
 
-                $type = $bean->db->getFieldType($fieldDef);
+                $type = $relatedBean->db->getFieldType($fieldDef);
                 if ($type) {
-                    $isFieldNumeric = $bean->db->isNumericType($type);
+                    $isFieldNumeric = $relatedBean->db->isNumericType($type);
                 } else {
                     // assume field is varchar in case type is not specified
                     $isFieldNumeric = false;
@@ -567,9 +505,9 @@ abstract class CollectionApi extends SugarApi
                             'Cannot use "sort_on" more than one columns for numeric fields in collections'
                         );
                     }
-                    $map[$source] = (array) $fieldDef['sort_on'];
+                    $map[$linkName] = (array) $fieldDef['sort_on'];
                 } else {
-                    $map[$source] = array($field);
+                    $map[$linkName] = array($field);
                 }
 
                 if ($isNumeric === null) {
@@ -595,26 +533,26 @@ abstract class CollectionApi extends SugarApi
      * Returns additional fields needed for client side sorting
      *
      * @param array $args API arguments
-     * @param CollectionDefinitionInterface $definition
+     * @param array $links Collection link definitions
      * @param array $sortSpec Sorting specification
      *
-     * @return array Map of source names to their additional fields
+     * @return array Map of link names to their additional fields
      */
-    protected function getAdditionalSortFields(array $args, CollectionDefinitionInterface $definition, array $sortSpec)
+    protected function getAdditionalSortFields(array $args, $links, array $sortSpec)
     {
         $result = array();
 
-        // make sure result contains entry for every source in order to make less checks in future
-        foreach ($definition->getSources() as $source) {
-            $result[$source] = array();
+        // make sure result contains entry for every link in order to make less checks in future
+        foreach ($links as $link) {
+            $result[$link['name']] = array();
         }
 
         if (!empty($args['fields'])) {
             foreach ($sortSpec as $column) {
-                foreach ($column['map'] as $source => $sortFields) {
+                foreach ($column['map'] as $linkName => $sortFields) {
                     $addedFields = array_diff($sortFields, $args['fields']);
                     foreach ($addedFields as $addedField) {
-                        $result[$source][$addedField] = true;
+                        $result[$linkName][$addedField] = true;
                     }
                 }
             }
@@ -628,7 +566,7 @@ abstract class CollectionApi extends SugarApi
     /**
      * Builds column comparison function
      *
-     * @param array $map Map of source name to field name for the given alias
+     * @param array $map Map of link name to field name for the given alias
      * @param boolean $isNumeric Whether the column is numeric
      * @param boolean $direction Sorting direction
      *
@@ -653,11 +591,10 @@ abstract class CollectionApi extends SugarApi
 
         $factor = $direction ? 1 : -1;
 
-        $sourceKey = static::$sourceKey;
-        return function ($a, $b) use ($comparator, $map, $getValue, $factor, $sourceKey) {
+        return function ($a, $b) use ($comparator, $map, $getValue, $factor) {
             return $comparator(
-                $getValue($a, $map[$a[$sourceKey]]),
-                $getValue($b, $map[$b[$sourceKey]])
+                $getValue($a, $map[$a['_link']]),
+                $getValue($b, $map[$b['_link']])
             ) * $factor;
         };
     }
@@ -693,13 +630,13 @@ abstract class CollectionApi extends SugarApi
     }
 
     /**
-     * Builds function for sorting source data by first record in order to decide which source to take the record from
+     * Builds function for sorting links data by first record in order to decide which link to take the record from
      *
      * @param array $spec
      *
      * @return callable
      */
-    protected function getSourceDataComparator(array $spec)
+    protected function getLinkDataComparator(array $spec)
     {
         $recordComparator = $this->getRecordComparator($spec);
 
@@ -720,25 +657,33 @@ abstract class CollectionApi extends SugarApi
      * and the set of records being returned
      *
      * @param array $offset Initial value of offset
-     * @param array $returned Count of returned records by source
+     * @param array $records Returned records
      * @param array $nextOffset Collection of offsets returned by Relate API
      * @param array $remainder Not returned records
      *
      * @return array New value of offset
      */
-    protected function getNextOffset(array $offset, array $returned, array $nextOffset, array $remainder)
+    protected function getNextOffset(array $offset, array $records, array $nextOffset, array $remainder)
     {
-        $truncated = array();
+        $returned = $truncated = array();
 
-        foreach ($remainder as $source => $records) {
-            $truncated[$source] = count($records) > 0;
+        foreach ($nextOffset as $linkName => $_) {
+            $returned[$linkName] = 0;
         }
 
-        foreach ($offset as $source => $value) {
-            if (!isset($nextOffset[$source])) {
-                $nextOffset[$source] = $value;
-            } elseif ($truncated[$source]) {
-                $nextOffset[$source] = $offset[$source] + $returned[$source];
+        foreach ($records as $record) {
+            $returned[$record['_link']]++;
+        }
+
+        foreach ($remainder as $linkName => $records) {
+            $truncated[$linkName] = count($records) > 0;
+        }
+
+        foreach ($offset as $linkName => $value) {
+            if (!isset($nextOffset[$linkName])) {
+                $nextOffset[$linkName] = $value;
+            } elseif ($truncated[$linkName]) {
+                $nextOffset[$linkName] = $offset[$linkName] + $returned[$linkName];
             }
         }
 
@@ -867,17 +812,47 @@ abstract class CollectionApi extends SugarApi
      */
     protected function getDefaultOrderBy()
     {
-        return array(
-            'date_modified' => false,
-        );
+        $orderBy = array();
+        foreach ($this->getRelateApi()->getDefaultOrderBy() as $column) {
+            $field = array_shift($column);
+            $direction = array_shift($column);
+            $orderBy[$field] = strtolower($direction) != 'desc';
+        }
+
+        return $orderBy;
     }
 
     /**
-     * Returns default records limit for the given API
+     * Returns default records limit
      *
      * @return int
      */
-    abstract protected function getDefaultLimit();
+    protected function getDefaultLimit()
+    {
+        global $sugar_config;
+        global $log;
+
+        if (empty($sugar_config['list_max_entries_per_subpanel'])) {
+            $log->warn('Default subpanel entry limit is not configured');
+            return 5;
+        }
+
+        return $sugar_config['list_max_entries_per_subpanel'];
+    }
+
+    /**
+     * Lazily loads Relate API
+     *
+     * @return RelateApi
+     */
+    protected function getRelateApi()
+    {
+        if (!$this->relateApi) {
+            $this->relateApi = new RelateApi();
+        }
+
+        return $this->relateApi;
+    }
 
     /**
      * Clean up the data from unwanted fields that were not requested. For the purpose of sorting
@@ -891,9 +866,8 @@ abstract class CollectionApi extends SugarApi
     protected function cleanData(array $records, array $sortFields)
     {
         $fieldsToRemove = array_map('array_flip', $sortFields);
-        $sourceKey = static::$sourceKey;
-        $records = array_map(function ($record) use ($fieldsToRemove, $sourceKey) {
-            return array_diff_key($record, $fieldsToRemove[$record[$sourceKey]]);
+        $records = array_map(function ($record) use ($fieldsToRemove) {
+            return array_diff_key($record, $fieldsToRemove[$record['_link']]);
         }, $records);
 
         return $records;

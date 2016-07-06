@@ -110,7 +110,7 @@ if(typeof PackageManager == 'undefined') {
 														);
 
 					_loadingBar.setHeader("{/literal}{$MOD.SEARCHING_UPDATES}{literal}");
-					_loadingBar.setBody("<img src=\"include/javascript/yui/assets/rel_interstitial_loading.gif?v={VERSION_MARK}\"/>");
+					_loadingBar.setBody("<img src=\"include/javascript/yui/assets/rel_interstitial_loading.gif\"/>");
 					_loadingBar.render(document.body);
 					_loadingBar.show();
 	        		_pmg = new PackageManagerGrid();
@@ -147,7 +147,7 @@ if(typeof PackageManager == 'undefined') {
 														);
 
 					_loadingBar.setHeader("{/literal}{$MOD.DOWNLOADING}{literal}");
-					_loadingBar.setBody("<img src=\"include/javascript/yui/assets/rel_interstitial_loading.gif?v={VERSION_MARK}\"/>");
+					_loadingBar.setBody("<img src=\"include/javascript/yui/assets/rel_interstitial_loading.gif\"/>");
 					_loadingBar.render(document.body);
 					_loadingBar.show();
 	        			//_numPackagesToDownload = nodes.length;
@@ -800,7 +800,7 @@ if(typeof PackageManager == 'undefined') {
 														);
 
 					_loadingBar.setHeader("{/literal}{$MOD.AUTHENTICATING}{literal}");
-					_loadingBar.setBody("<img src=\"include/javascript/yui/assets/rel_interstitial_loading.gif?v={VERSION_MARK}\"/>");
+					_loadingBar.setBody("<img src=\"include/javascript/yui/assets/rel_interstitial_loading.gif\"/>");
 					_loadingBar.render(document.body);
 					_loadingBar.show();
 				//PackageManager.showWaiting();

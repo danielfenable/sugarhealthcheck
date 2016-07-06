@@ -57,11 +57,6 @@ class MassUpdateApi extends SugarApi {
     protected $jobId = null;
 
     /**
-     * @var if we are dealing with these mass update vars then need to check for _type vars to determine add/replace
-     */
-    protected $massUpdateVars = array('team_name','tag');
-
-    /**
      * To perform mass delete
      * @param $api ServiceBase The API class of the request, used in cases where the API changes how the fields are pulled from the args array.
      * @param $args array The arguments array passed in from the API
@@ -73,8 +68,15 @@ class MassUpdateApi extends SugarApi {
         $this->delete = true;
         $args['massupdate_params']['Delete'] = true;
         
-        if (empty($args['massupdate_params']['uid'])) {
-            throw new SugarApiExceptionMissingParameter('Missing required parameter uid');
+        // SC-1021: add 'creation date' filter if 'delete all'
+        if (!empty($args['massupdate_params']['entire'])) { 
+            unset($args['massupdate_params']['uid']);
+
+            if (empty($args['massupdate_params']['filter'])) {
+                $args['massupdate_params']['filter'] = array();
+            }
+
+            $args['massupdate_params']['filter'][] = array('date_entered' => array('$lt' => TimeDate::getInstance()->getNow(true)));
         }
 
         return $this->massUpdate($api, $args);
@@ -93,14 +95,25 @@ class MassUpdateApi extends SugarApi {
         $mu_params = $args['massupdate_params'];
         $mu_params['module'] = $args['module'];
 
-        if (empty($mu_params['uid'])) {
-            throw new SugarApiExceptionMissingParameter('Missing required parameter uid');
+        // should pass success status once uid is empty.
+        if (empty($mu_params['uid']) && empty($mu_params['entire'])) {
+            return array(
+                'status' => 'done',
+                'failed' => 0,
+            );
         }
 
-        // In some cases, a field will be sent with a *_type arg that maps to it
-        // This is used in cases like team_name and tag, where the user might want
-        // to override OR append values on the request
-        $mu_params = $this->handleTypeAdjustments($mu_params);
+        if (isset($mu_params['entire']) && empty($mu_params['entire'])) {
+            unset($mu_params['entire']);
+        }
+
+        if(isset($mu_params['team_name'])) {
+            if(isset($mu_params['team_name_type']) && $mu_params['team_name_type'] === '1') {
+                $mu_params['team_name_type'] = "add";
+            } else {
+                $mu_params['team_name_type'] = "replace";
+            }
+        }
 
         // check ACL
         $bean = BeanFactory::newBean($mu_params['module']);
@@ -130,29 +143,4 @@ class MassUpdateApi extends SugarApi {
         return $this->jobId;
     }
 
-    /**
-     * Handles modifying values of *_type fields to strings from boolean int
-     * values. This is used by team_name and tag primarily
-     *
-     * @param array $params The params sent in the request
-     * @return array
-     */
-    protected function handleTypeAdjustments($params)
-    {
-        foreach ($this->massUpdateVars as $massUpdateVar) {
-            if (isset($params[$massUpdateVar])) {
-                // check if there is an _type variable
-                $typeVar = $massUpdateVar . '_type';
-                if (isset($params[$typeVar]) && ($params[$typeVar] == '1')) {
-                    // its an add operation
-                    $params[$typeVar] = 'add';
-                } else {
-                    // its a replace operation
-                    $params[$typeVar] = 'replace';
-                }
-            }
-        }
-
-        return $params;
-    }
 }

@@ -10,6 +10,52 @@
   'comment' => 'An opportunity is the target of selling activities',
   'fields' => 
   array (
+    'my_favorite' => 
+    array (
+      'massupdate' => false,
+      'name' => 'my_favorite',
+      'vname' => 'LBL_FAVORITE',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Favorite for the user',
+      'studio' => 
+      array (
+        'list' => false,
+        'recordview' => false,
+      ),
+      'link' => 'favorite_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'favorite_link' => 
+    array (
+      'name' => 'favorite_link',
+      'type' => 'link',
+      'relationship' => 'opportunities_favorite',
+      'source' => 'non-db',
+      'vname' => 'LBL_FAVORITE',
+    ),
+    'following' => 
+    array (
+      'massupdate' => false,
+      'name' => 'following',
+      'vname' => 'LBL_FOLLOWING',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Is user following this record',
+      'studio' => 'false',
+      'link' => 'following_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'following_link' => 
+    array (
+      'name' => 'following_link',
+      'type' => 'link',
+      'relationship' => 'opportunities_following',
+      'source' => 'non-db',
+      'vname' => 'LBL_FOLLOWING',
+    ),
     'id' => 
     array (
       'name' => 'id',
@@ -32,8 +78,7 @@
       'full_text_search' => 
       array (
         'enabled' => true,
-        'searchable' => true,
-        'boost' => 1.6499999999999999,
+        'boost' => 3,
       ),
       'comment' => 'Name of the opportunity',
       'merge_filter' => 'selected',
@@ -56,18 +101,6 @@
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_entered' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'date_modified' => 
     array (
@@ -77,18 +110,6 @@
       'group' => 'modified_by_name',
       'comment' => 'Date record last modified',
       'enable_range_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_modified' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
       'studio' => 
       array (
         'portaleditview' => false,
@@ -114,20 +135,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'modified_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'modified_by_name' => 
     array (
@@ -166,20 +173,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'created_by' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_CREATED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'created_by_name' => 
     array (
@@ -204,18 +197,44 @@
       ),
       'exportable' => true,
     ),
+    'doc_owner' => 
+    array (
+      'name' => 'doc_owner',
+      'vname' => 'LBL_DOC_OWNER',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
+    'user_favorites' => 
+    array (
+      'name' => 'user_favorites',
+      'vname' => 'LBL_USER_FAVORITES',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
     'description' => 
     array (
       'name' => 'description',
       'vname' => 'LBL_DESCRIPTION',
       'type' => 'text',
       'comment' => 'Full text of the note',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.58999999999999997,
-      ),
       'rows' => 6,
       'cols' => 80,
       'duplicate_on_record_copy' => 'always',
@@ -262,6 +281,178 @@
       'module' => 'Activities',
       'bean_name' => 'Activity',
       'source' => 'non-db',
+    ),
+    'assigned_user_id' => 
+    array (
+      'name' => 'assigned_user_id',
+      'vname' => 'LBL_ASSIGNED_TO_ID',
+      'group' => 'assigned_user_name',
+      'type' => 'id',
+      'reportable' => false,
+      'isnull' => 'false',
+      'audited' => true,
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'User ID assigned to record',
+      'duplicate_merge' => 'disabled',
+      'mandatory_fetch' => true,
+      'massupdate' => false,
+    ),
+    'assigned_user_name' => 
+    array (
+      'name' => 'assigned_user_name',
+      'link' => 'assigned_user_link',
+      'vname' => 'LBL_ASSIGNED_TO',
+      'rname' => 'full_name',
+      'type' => 'relate',
+      'reportable' => false,
+      'source' => 'non-db',
+      'table' => 'users',
+      'id_name' => 'assigned_user_id',
+      'module' => 'Users',
+      'duplicate_merge' => 'disabled',
+      'duplicate_on_record_copy' => 'always',
+      'sort_on' => 
+      array (
+        0 => 'last_name',
+      ),
+      'exportable' => true,
+    ),
+    'assigned_user_link' => 
+    array (
+      'name' => 'assigned_user_link',
+      'type' => 'link',
+      'relationship' => 'opportunities_assigned_user',
+      'vname' => 'LBL_ASSIGNED_TO_USER',
+      'link_type' => 'one',
+      'module' => 'Users',
+      'bean_name' => 'User',
+      'source' => 'non-db',
+      'duplicate_merge' => 'enabled',
+      'id_name' => 'assigned_user_id',
+      'table' => 'users',
+    ),
+    'team_id' => 
+    array (
+      'name' => 'team_id',
+      'vname' => 'LBL_TEAM_ID',
+      'group' => 'team_name',
+      'reportable' => false,
+      'dbType' => 'id',
+      'type' => 'team_list',
+      'audited' => true,
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'Team ID for the account',
+    ),
+    'team_set_id' => 
+    array (
+      'name' => 'team_set_id',
+      'rname' => 'id',
+      'id_name' => 'team_set_id',
+      'vname' => 'LBL_TEAM_SET_ID',
+      'type' => 'id',
+      'audited' => true,
+      'studio' => 'false',
+      'dbType' => 'id',
+      'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+    ),
+    'team_count' => 
+    array (
+      'name' => 'team_count',
+      'rname' => 'team_count',
+      'id_name' => 'team_id',
+      'vname' => 'LBL_TEAMS',
+      'join_name' => 'ts1',
+      'table' => 'teams',
+      'type' => 'relate',
+      'required' => 'true',
+      'isnull' => 'true',
+      'module' => 'Teams',
+      'link' => 'team_count_link',
+      'massupdate' => false,
+      'dbType' => 'int',
+      'source' => 'non-db',
+      'importable' => 'false',
+      'reportable' => false,
+      'duplicate_merge' => 'disabled',
+      'duplicate_on_record_copy' => 'always',
+      'studio' => 'false',
+      'hideacl' => true,
+    ),
+    'team_name' => 
+    array (
+      'name' => 'team_name',
+      'db_concat_fields' => 
+      array (
+        0 => 'name',
+        1 => 'name_2',
+      ),
+      'sort_on' => 'tj.name',
+      'join_name' => 'tj',
+      'rname' => 'name',
+      'id_name' => 'team_id',
+      'vname' => 'LBL_TEAMS',
+      'type' => 'relate',
+      'required' => 'true',
+      'table' => 'teams',
+      'isnull' => 'true',
+      'module' => 'Teams',
+      'link' => 'team_link',
+      'massupdate' => true,
+      'dbType' => 'varchar',
+      'source' => 'non-db',
+      'len' => 36,
+      'custom_type' => 'teamset',
+      'studio' => 
+      array (
+        'portallistview' => false,
+        'portalrecordview' => false,
+      ),
+      'duplicate_on_record_copy' => 'always',
+      'exportable' => true,
+    ),
+    'team_link' => 
+    array (
+      'name' => 'team_link',
+      'type' => 'link',
+      'relationship' => 'opportunities_team',
+      'vname' => 'LBL_TEAMS_LINK',
+      'link_type' => 'one',
+      'module' => 'Teams',
+      'bean_name' => 'Team',
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'studio' => 'false',
+    ),
+    'team_count_link' => 
+    array (
+      'name' => 'team_count_link',
+      'type' => 'link',
+      'relationship' => 'opportunities_team_count_relationship',
+      'link_type' => 'one',
+      'module' => 'Teams',
+      'bean_name' => 'TeamSet',
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'reportable' => false,
+      'studio' => 'false',
+    ),
+    'teams' => 
+    array (
+      'name' => 'teams',
+      'type' => 'link',
+      'relationship' => 'opportunities_teams',
+      'bean_filter_field' => 'team_set_id',
+      'rhs_key_override' => true,
+      'source' => 'non-db',
+      'vname' => 'LBL_TEAMS',
+      'link_class' => 'TeamSetLink',
+      'link_file' => 'modules/Teams/TeamSetLink.php',
+      'studio' => 'false',
+      'reportable' => false,
     ),
     'opportunity_type' => 
     array (
@@ -367,11 +558,11 @@
       'dbType' => 'currency',
       'comment' => 'Unconverted amount of the opportunity',
       'importable' => 'required',
-      'duplicate_merge' => 'enabled',
-      'required' => false,
+      'duplicate_merge' => '1',
+      'required' => true,
       'options' => 'numeric_range_search_dom',
       'enable_range_search' => true,
-      'audited' => false,
+      'audited' => true,
       'validation' => 
       array (
         'type' => 'range',
@@ -384,13 +575,14 @@
       ),
       'convertToBase' => true,
       'showTransactionalAmount' => true,
-      'massupdate' => false,
-      'comments' => 'Unconverted amount of the opportunity',
-      'duplicate_merge_dom_value' => '1',
-      'merge_filter' => 'disabled',
-      'calculated' => true,
-      'formula' => 'rollupConditionalSum($revenuelineitems, "likely_case", "sales_stage", forecastSalesStages(true, false))',
-      'enforced' => true,
+    ),
+    'base_rate' => 
+    array (
+      'name' => 'base_rate',
+      'vname' => 'LBL_CURRENCY_RATE',
+      'type' => 'decimal',
+      'len' => '26,6',
+      'studio' => false,
     ),
     'amount_usdollar' => 
     array (
@@ -425,33 +617,70 @@
       'calculated' => true,
       'enforced' => true,
     ),
+    'currency_id' => 
+    array (
+      'name' => 'currency_id',
+      'type' => 'currency_id',
+      'dbType' => 'id',
+      'group' => 'currency_id',
+      'vname' => 'LBL_CURRENCY',
+      'function' => 'getCurrencies',
+      'function_bean' => 'Currencies',
+      'reportable' => false,
+      'comment' => 'Currency used for display purposes',
+      'default' => '-99',
+    ),
+    'currency_name' => 
+    array (
+      'name' => 'currency_name',
+      'rname' => 'name',
+      'id_name' => 'currency_id',
+      'vname' => 'LBL_CURRENCY_NAME',
+      'type' => 'relate',
+      'link' => 'currencies',
+      'isnull' => true,
+      'table' => 'currencies',
+      'module' => 'Currencies',
+      'source' => 'non-db',
+      'function' => 'getCurrencies',
+      'function_bean' => 'Currencies',
+      'studio' => false,
+      'duplicate_merge' => 'disabled',
+      'massupdate' => false,
+    ),
+    'currency_symbol' => 
+    array (
+      'name' => 'currency_symbol',
+      'rname' => 'symbol',
+      'id_name' => 'currency_id',
+      'vname' => 'LBL_CURRENCY_SYMBOL',
+      'type' => 'relate',
+      'link' => 'currencies',
+      'isnull' => true,
+      'table' => 'currencies',
+      'module' => 'Currencies',
+      'source' => 'non-db',
+      'function' => 'getCurrencySymbols',
+      'function_bean' => 'Currencies',
+      'studio' => false,
+      'duplicate_merge' => 'disabled',
+      'massupdate' => false,
+    ),
     'date_closed' => 
     array (
       'name' => 'date_closed',
       'vname' => 'LBL_DATE_CLOSED',
       'type' => 'date',
       'comment' => 'Expected or actual date the oppportunity will close',
-      'audited' => false,
+      'audited' => true,
       'importable' => 'required',
-      'required' => false,
+      'required' => true,
       'enable_range_search' => true,
       'options' => 'date_range_search_dom',
       'related_fields' => 
       array (
+        0 => 'date_closed_timestamp',
       ),
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-      ),
-      'massupdate' => false,
-      'comments' => 'Expected or actual date the oppportunity will close',
-      'duplicate_merge' => 'enabled',
-      'duplicate_merge_dom_value' => 1,
-      'merge_filter' => 'disabled',
-      'calculated' => true,
-      'formula' => 'maxRelatedDate($revenuelineitems, "date_closed")',
-      'enforced' => true,
     ),
     'date_closed_timestamp' => 
     array (
@@ -464,15 +693,7 @@
       'massupdate' => false,
       'enforced' => true,
       'calculated' => true,
-      'formula' => 'rollupMax($revenuelineitems, "date_closed_timestamp")',
-      'audited' => false,
-      'duplicate_merge' => 'enabled',
-      'duplicate_merge_dom_value' => 1,
-      'merge_filter' => 'disabled',
-      'enable_range_search' => false,
-      'min' => false,
-      'max' => false,
-      'disable_num_format' => '',
+      'formula' => 'timestamp($date_closed)',
     ),
     'next_step' => 
     array (
@@ -480,12 +701,6 @@
       'vname' => 'LBL_NEXT_STEP',
       'type' => 'varchar',
       'len' => '100',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.73999999999999999,
-      ),
       'comment' => 'The next step in the sales process',
       'merge_filter' => 'enabled',
       'massupdate' => true,
@@ -499,18 +714,10 @@
       'default' => 'Prospecting',
       'len' => '255',
       'comment' => 'Indication of progression towards closure',
-      'merge_filter' => 'disabled',
-      'importable' => false,
-      'audited' => false,
-      'required' => false,
-      'massupdate' => false,
-      'comments' => 'Indication of progression towards closure',
-      'duplicate_merge' => 'enabled',
-      'duplicate_merge_dom_value' => 1,
-      'reportable' => false,
-      'calculated' => false,
-      'dependency' => false,
-      'studio' => false,
+      'merge_filter' => 'enabled',
+      'importable' => 'required',
+      'audited' => true,
+      'required' => true,
     ),
     'sales_status' => 
     array (
@@ -521,15 +728,10 @@
       'len' => '255',
       'readonly' => true,
       'duplicate_merge' => 'disabled',
-      'studio' => true,
-      'reportable' => true,
-      'massupdate' => true,
-      'importable' => true,
-      'default' => 'New',
-      'audited' => true,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'dependency' => false,
+      'studio' => false,
+      'reportable' => false,
+      'massupdate' => false,
+      'importable' => false,
     ),
     'probability' => 
     array (
@@ -537,7 +739,7 @@
       'vname' => 'LBL_PROBABILITY',
       'type' => 'int',
       'dbType' => 'double',
-      'audited' => false,
+      'audited' => true,
       'formula' => 'getDropdownValue("sales_probability_dom",$sales_stage)',
       'calculated' => true,
       'enforced' => true,
@@ -549,17 +751,7 @@
         'min' => 0,
         'max' => 100,
       ),
-      'merge_filter' => 'disabled',
-      'massupdate' => false,
-      'comments' => 'The probability of closure',
-      'duplicate_merge' => 'enabled',
-      'duplicate_merge_dom_value' => 1,
-      'reportable' => false,
-      'enable_range_search' => false,
-      'min' => false,
-      'max' => false,
-      'disable_num_format' => '',
-      'studio' => false,
+      'merge_filter' => 'enabled',
     ),
     'best_case' => 
     array (
@@ -573,7 +765,7 @@
         'type' => 'range',
         'min' => 0,
       ),
-      'audited' => false,
+      'audited' => true,
       'related_fields' => 
       array (
         0 => 'currency_id',
@@ -581,14 +773,6 @@
       ),
       'convertToBase' => true,
       'showTransactionalAmount' => true,
-      'massupdate' => false,
-      'duplicate_merge' => 'enabled',
-      'duplicate_merge_dom_value' => 1,
-      'merge_filter' => 'disabled',
-      'calculated' => true,
-      'formula' => 'rollupConditionalSum($revenuelineitems, "best_case", "sales_stage", forecastSalesStages(true, false))',
-      'enforced' => true,
-      'enable_range_search' => false,
     ),
     'worst_case' => 
     array (
@@ -602,7 +786,7 @@
         'type' => 'range',
         'min' => 0,
       ),
-      'audited' => false,
+      'audited' => true,
       'related_fields' => 
       array (
         0 => 'currency_id',
@@ -610,40 +794,16 @@
       ),
       'convertToBase' => true,
       'showTransactionalAmount' => true,
-      'massupdate' => false,
-      'duplicate_merge' => 'enabled',
-      'duplicate_merge_dom_value' => 1,
-      'merge_filter' => 'disabled',
-      'calculated' => true,
-      'formula' => 'rollupConditionalSum($revenuelineitems, "worst_case", "sales_stage", forecastSalesStages(true, false))',
-      'enforced' => true,
-      'enable_range_search' => false,
     ),
     'commit_stage' => 
     array (
       'name' => 'commit_stage',
-      'vname' => 'LBL_COMMIT_STAGE_FORECAST',
+      'vname' => 'LBL_COMMIT_STAGE',
       'type' => 'enum',
       'len' => '50',
       'comment' => 'Forecast commit ranges: Include, Likely, Omit etc.',
       'function' => 'getCommitStageDropdown',
       'function_bean' => 'Forecasts',
-      'formula' => 'forecastCommitStage($probability)',
-      'calculated' => true,
-      'related_fields' => 
-      array (
-      ),
-      'audited' => false,
-      'massupdate' => false,
-      'options' => '',
-      'comments' => 'Forecast commit ranges: Include, Likely, Omit etc.',
-      'duplicate_merge' => 'enabled',
-      'duplicate_merge_dom_value' => 1,
-      'merge_filter' => 'disabled',
-      'reportable' => false,
-      'enforced' => false,
-      'dependency' => false,
-      'studio' => false,
     ),
     'total_revenue_line_items' => 
     array (
@@ -655,17 +815,8 @@
       'enforced' => true,
       'studio' => false,
       'workflow' => false,
-      'reportable' => true,
+      'reportable' => false,
       'importable' => false,
-      'audited' => false,
-      'massupdate' => false,
-      'duplicate_merge' => 'enabled',
-      'duplicate_merge_dom_value' => 1,
-      'merge_filter' => 'disabled',
-      'enable_range_search' => false,
-      'min' => false,
-      'max' => false,
-      'disable_num_format' => '',
     ),
     'closed_revenue_line_items' => 
     array (
@@ -673,28 +824,6 @@
       'vname' => 'LBL_CLOSED_RLIS',
       'type' => 'int',
       'formula' => 'countConditional($revenuelineitems,"sales_stage",createList("Closed Won","Closed Lost"))',
-      'calculated' => true,
-      'enforced' => true,
-      'studio' => false,
-      'workflow' => false,
-      'reportable' => true,
-      'importable' => false,
-      'audited' => false,
-      'massupdate' => false,
-      'duplicate_merge' => 'enabled',
-      'duplicate_merge_dom_value' => 1,
-      'merge_filter' => 'disabled',
-      'enable_range_search' => false,
-      'min' => false,
-      'max' => false,
-      'disable_num_format' => '',
-    ),
-    'included_revenue_line_items' => 
-    array (
-      'name' => 'included_revenue_line_items',
-      'vname' => 'LBL_INCLUDED_RLIS',
-      'type' => 'int',
-      'formula' => 'countConditional($revenuelineitems,"commit_stage", forecastIncludedCommitStages())',
       'calculated' => true,
       'enforced' => true,
       'studio' => false,
@@ -740,7 +869,6 @@
     array (
       'name' => 'contact_role',
       'type' => 'enum',
-      'studio' => 'false',
       'source' => 'non-db',
       'massupdate' => false,
       'vname' => 'LBL_OPPORTUNITY_ROLE',
@@ -846,6 +974,14 @@
       'vname' => 'LBL_CAMPAIGNS',
       'reportable' => false,
     ),
+    'currencies' => 
+    array (
+      'name' => 'currencies',
+      'type' => 'link',
+      'relationship' => 'opportunity_currencies',
+      'source' => 'non-db',
+      'vname' => 'LBL_CURRENCIES',
+    ),
     'contracts' => 
     array (
       'name' => 'contracts',
@@ -866,7 +1002,7 @@
       'vname' => 'LBL_RLI',
       'relationship' => 'opportunities_revenuelineitems',
       'source' => 'non-db',
-      'workflow' => true,
+      'workflow' => false,
     ),
     'forecastworksheets' => 
     array (
@@ -912,362 +1048,6 @@
       'reportable' => true,
       'importable' => 'false',
     ),
-    'following' => 
-    array (
-      'massupdate' => false,
-      'name' => 'following',
-      'vname' => 'LBL_FOLLOWING',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Is user following this record',
-      'studio' => 'false',
-      'link' => 'following_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'following_link' => 
-    array (
-      'name' => 'following_link',
-      'type' => 'link',
-      'relationship' => 'opportunities_following',
-      'source' => 'non-db',
-      'vname' => 'LBL_FOLLOWING',
-      'reportable' => false,
-    ),
-    'my_favorite' => 
-    array (
-      'massupdate' => false,
-      'name' => 'my_favorite',
-      'vname' => 'LBL_FAVORITE',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Favorite for the user',
-      'studio' => 
-      array (
-        'list' => false,
-        'recordview' => false,
-        'basic_search' => false,
-        'advanced_search' => false,
-      ),
-      'link' => 'favorite_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'favorite_link' => 
-    array (
-      'name' => 'favorite_link',
-      'type' => 'link',
-      'relationship' => 'opportunities_favorite',
-      'source' => 'non-db',
-      'vname' => 'LBL_FAVORITE',
-      'reportable' => false,
-      'workflow' => false,
-      'full_text_search' => 
-      array (
-        'type' => 'favorites',
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'favorite_link' => 
-          array (
-            'type' => 'MyItems',
-            'options' => 
-            array (
-              'field' => 'user_favorites',
-            ),
-          ),
-        ),
-      ),
-    ),
-    'tag' => 
-    array (
-      'name' => 'tag',
-      'vname' => 'LBL_TAGS',
-      'type' => 'tag',
-      'link' => 'tag_link',
-      'source' => 'non-db',
-      'module' => 'Tags',
-      'relate_collection' => true,
-      'studio' => 
-      array (
-        'portal' => false,
-        'base' => 
-        array (
-          'popuplist' => false,
-        ),
-        'mobile' => 
-        array (
-          'wirelesseditview' => true,
-          'wirelessdetailview' => true,
-        ),
-      ),
-      'massupdate' => true,
-      'exportable' => true,
-      'sortable' => false,
-      'rname' => 'name',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-      ),
-    ),
-    'tag_link' => 
-    array (
-      'name' => 'tag_link',
-      'type' => 'link',
-      'vname' => 'LBL_TAGS_LINK',
-      'relationship' => 'opportunities_tags',
-      'source' => 'non-db',
-      'exportable' => false,
-      'duplicate_merge' => 'disabled',
-    ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'assigned_user_id',
-      'vname' => 'LBL_ASSIGNED_TO_ID',
-      'group' => 'assigned_user_name',
-      'type' => 'id',
-      'reportable' => false,
-      'isnull' => 'false',
-      'audited' => true,
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'User ID assigned to record',
-      'duplicate_merge' => 'disabled',
-      'mandatory_fetch' => true,
-      'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'assigned_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_ASSIGNED_TO_ME',
-          ),
-        ),
-      ),
-    ),
-    'assigned_user_name' => 
-    array (
-      'name' => 'assigned_user_name',
-      'link' => 'assigned_user_link',
-      'vname' => 'LBL_ASSIGNED_TO',
-      'rname' => 'full_name',
-      'type' => 'relate',
-      'reportable' => false,
-      'source' => 'non-db',
-      'table' => 'users',
-      'id_name' => 'assigned_user_id',
-      'module' => 'Users',
-      'duplicate_merge' => 'disabled',
-      'duplicate_on_record_copy' => 'always',
-      'sort_on' => 
-      array (
-        0 => 'last_name',
-      ),
-      'exportable' => true,
-    ),
-    'assigned_user_link' => 
-    array (
-      'name' => 'assigned_user_link',
-      'type' => 'link',
-      'relationship' => 'opportunities_assigned_user',
-      'vname' => 'LBL_ASSIGNED_TO_USER',
-      'link_type' => 'one',
-      'module' => 'Users',
-      'bean_name' => 'User',
-      'source' => 'non-db',
-      'duplicate_merge' => 'enabled',
-      'id_name' => 'assigned_user_id',
-      'table' => 'users',
-    ),
-    'team_id' => 
-    array (
-      'name' => 'team_id',
-      'vname' => 'LBL_TEAM_ID',
-      'group' => 'team_name',
-      'reportable' => false,
-      'dbType' => 'id',
-      'type' => 'team_list',
-      'audited' => true,
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'Team ID for the account',
-    ),
-    'team_set_id' => 
-    array (
-      'name' => 'team_set_id',
-      'rname' => 'id',
-      'id_name' => 'team_set_id',
-      'vname' => 'LBL_TEAM_SET_ID',
-      'type' => 'id',
-      'audited' => true,
-      'studio' => 'false',
-      'dbType' => 'id',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'team_count' => 
-    array (
-      'name' => 'team_count',
-      'rname' => 'team_count',
-      'id_name' => 'team_id',
-      'vname' => 'LBL_TEAMS',
-      'join_name' => 'ts1',
-      'table' => 'teams',
-      'type' => 'relate',
-      'required' => 'true',
-      'isnull' => 'true',
-      'module' => 'Teams',
-      'link' => 'team_count_link',
-      'massupdate' => false,
-      'dbType' => 'int',
-      'source' => 'non-db',
-      'importable' => 'false',
-      'reportable' => false,
-      'duplicate_merge' => 'disabled',
-      'duplicate_on_record_copy' => 'always',
-      'studio' => 'false',
-      'hideacl' => true,
-    ),
-    'team_name' => 
-    array (
-      'name' => 'team_name',
-      'db_concat_fields' => 
-      array (
-        0 => 'name',
-        1 => 'name_2',
-      ),
-      'sort_on' => 'tj.name',
-      'join_name' => 'tj',
-      'rname' => 'name',
-      'id_name' => 'team_id',
-      'vname' => 'LBL_TEAMS',
-      'type' => 'relate',
-      'required' => 'true',
-      'table' => 'teams',
-      'isnull' => 'true',
-      'module' => 'Teams',
-      'link' => 'team_link',
-      'massupdate' => true,
-      'dbType' => 'varchar',
-      'source' => 'non-db',
-      'len' => 36,
-      'custom_type' => 'teamset',
-      'studio' => 
-      array (
-        'portallistview' => false,
-        'portalrecordview' => false,
-      ),
-      'duplicate_on_record_copy' => 'always',
-      'exportable' => true,
-    ),
-    'team_link' => 
-    array (
-      'name' => 'team_link',
-      'type' => 'link',
-      'relationship' => 'opportunities_team',
-      'vname' => 'LBL_TEAMS_LINK',
-      'link_type' => 'one',
-      'module' => 'Teams',
-      'bean_name' => 'Team',
-      'source' => 'non-db',
-      'duplicate_merge' => 'disabled',
-      'studio' => 'false',
-    ),
-    'team_count_link' => 
-    array (
-      'name' => 'team_count_link',
-      'type' => 'link',
-      'relationship' => 'opportunities_team_count_relationship',
-      'link_type' => 'one',
-      'module' => 'Teams',
-      'bean_name' => 'TeamSet',
-      'source' => 'non-db',
-      'duplicate_merge' => 'disabled',
-      'reportable' => false,
-      'studio' => 'false',
-    ),
-    'teams' => 
-    array (
-      'name' => 'teams',
-      'type' => 'link',
-      'relationship' => 'opportunities_teams',
-      'bean_filter_field' => 'team_set_id',
-      'rhs_key_override' => true,
-      'source' => 'non-db',
-      'vname' => 'LBL_TEAMS',
-      'link_class' => 'TeamSetLink',
-      'link_file' => 'modules/Teams/TeamSetLink.php',
-      'studio' => 'false',
-      'reportable' => false,
-    ),
-    'currency_id' => 
-    array (
-      'name' => 'currency_id',
-      'dbType' => 'id',
-      'vname' => 'LBL_CURRENCY_ID',
-      'type' => 'currency_id',
-      'function' => 'getCurrencies',
-      'function_bean' => 'Currencies',
-      'required' => false,
-      'reportable' => false,
-      'default' => '-99',
-    ),
-    'base_rate' => 
-    array (
-      'name' => 'base_rate',
-      'vname' => 'LBL_CURRENCY_RATE',
-      'type' => 'text',
-      'dbType' => 'decimal',
-      'len' => '26,6',
-      'readonly' => true,
-    ),
-    'currency_name' => 
-    array (
-      'name' => 'currency_name',
-      'rname' => 'name',
-      'id_name' => 'currency_id',
-      'vname' => 'LBL_CURRENCY_NAME',
-      'type' => 'relate',
-      'link' => 'currencies',
-      'isnull' => true,
-      'table' => 'currencies',
-      'module' => 'Currencies',
-      'source' => 'non-db',
-      'studio' => false,
-      'duplicate_merge' => 'disabled',
-      'function' => 'getCurrencies',
-      'function_bean' => 'Currencies',
-      'massupdate' => false,
-    ),
-    'currency_symbol' => 
-    array (
-      'name' => 'currency_symbol',
-      'rname' => 'symbol',
-      'id_name' => 'currency_id',
-      'vname' => 'LBL_CURRENCY_SYMBOL',
-      'type' => 'relate',
-      'link' => 'currencies',
-      'isnull' => true,
-      'table' => 'currencies',
-      'module' => 'Currencies',
-      'source' => 'non-db',
-      'studio' => false,
-      'duplicate_merge' => 'disabled',
-      'function' => 'getCurrencySymbols',
-      'function_bean' => 'Currencies',
-      'massupdate' => false,
-    ),
-    'currencies' => 
-    array (
-      'name' => 'currencies',
-      'type' => 'link',
-      'relationship' => 'opportunities_currencies',
-      'source' => 'non-db',
-      'vname' => 'LBL_CURRENCIES',
-    ),
   ),
   'indices' => 
   array (
@@ -1308,14 +1088,13 @@
         0 => 'date_entered',
       ),
     ),
-    'name_del' => 
+    'team_set_opportunities' => 
     array (
-      'name' => 'idx_opportunities_name_del',
+      'name' => 'idx_opportunities_tmst_id',
       'type' => 'index',
       'fields' => 
       array (
-        0 => 'name',
-        1 => 'deleted',
+        0 => 'team_set_id',
       ),
     ),
     0 => 
@@ -1383,28 +1162,41 @@
         0 => 'mkto_id',
       ),
     ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'idx_opportunities_assigned_del',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'deleted',
-        1 => 'assigned_user_id',
-      ),
-    ),
-    'team_set_opportunities' => 
-    array (
-      'name' => 'idx_opportunities_tmst_id',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'team_set_id',
-      ),
-    ),
   ),
   'relationships' => 
   array (
+    'opportunities_favorite' => 
+    array (
+      'lhs_module' => 'Opportunities',
+      'lhs_table' => 'opportunities',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'sugarfavorites',
+      'join_key_lhs' => 'record_id',
+      'join_key_rhs' => 'modified_user_id',
+      'relationship_role_column' => 'module',
+      'relationship_role_column_value' => 'Opportunities',
+      'user_field' => 'created_by',
+    ),
+    'opportunities_following' => 
+    array (
+      'lhs_module' => 'Opportunities',
+      'lhs_table' => 'opportunities',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'subscriptions',
+      'join_key_lhs' => 'parent_id',
+      'join_key_rhs' => 'created_by',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'Opportunities',
+      'user_field' => 'created_by',
+    ),
     'opportunities_modified_user' => 
     array (
       'lhs_module' => 'Users',
@@ -1440,6 +1232,49 @@
       'join_key_rhs' => 'activity_id',
       'relationship_role_column' => 'parent_type',
       'relationship_role_column_value' => 'Opportunities',
+    ),
+    'opportunities_assigned_user' => 
+    array (
+      'lhs_module' => 'Users',
+      'lhs_table' => 'users',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Opportunities',
+      'rhs_table' => 'opportunities',
+      'rhs_key' => 'assigned_user_id',
+      'relationship_type' => 'one-to-many',
+    ),
+    'opportunities_team_count_relationship' => 
+    array (
+      'lhs_module' => 'Teams',
+      'lhs_table' => 'team_sets',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Opportunities',
+      'rhs_table' => 'opportunities',
+      'rhs_key' => 'team_set_id',
+      'relationship_type' => 'one-to-many',
+    ),
+    'opportunities_teams' => 
+    array (
+      'lhs_module' => 'Opportunities',
+      'lhs_table' => 'opportunities',
+      'lhs_key' => 'team_set_id',
+      'rhs_module' => 'Teams',
+      'rhs_table' => 'teams',
+      'rhs_key' => 'id',
+      'relationship_type' => 'many-to-many',
+      'join_table' => 'team_sets_teams',
+      'join_key_lhs' => 'team_set_id',
+      'join_key_rhs' => 'team_id',
+    ),
+    'opportunities_team' => 
+    array (
+      'lhs_module' => 'Teams',
+      'lhs_table' => 'teams',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Opportunities',
+      'rhs_table' => 'opportunities',
+      'rhs_key' => 'team_id',
+      'relationship_type' => 'one-to-many',
     ),
     'opportunity_calls' => 
     array (
@@ -1511,14 +1346,14 @@
       'rhs_key' => 'opportunity_id',
       'relationship_type' => 'one-to-many',
     ),
-    'opportunities_assigned_user' => 
+    'opportunity_currencies' => 
     array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Opportunities',
-      'rhs_table' => 'opportunities',
-      'rhs_key' => 'assigned_user_id',
+      'lhs_module' => 'Opportunities',
+      'lhs_table' => 'opportunities',
+      'lhs_key' => 'currency_id',
+      'rhs_module' => 'Currencies',
+      'rhs_table' => 'currencies',
+      'rhs_key' => 'id',
       'relationship_type' => 'one-to-many',
     ),
     'opportunities_revenuelineitems' => 
@@ -1529,97 +1364,6 @@
       'rhs_module' => 'RevenueLineItems',
       'rhs_table' => 'revenue_line_items',
       'rhs_key' => 'opportunity_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'opportunities_following' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Opportunities',
-      'rhs_table' => 'opportunities',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'subscriptions',
-      'join_key_lhs' => 'created_by',
-      'join_key_rhs' => 'parent_id',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'Opportunities',
-      'user_field' => 'created_by',
-    ),
-    'opportunities_favorite' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Opportunities',
-      'rhs_table' => 'opportunities',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'sugarfavorites',
-      'join_key_lhs' => 'modified_user_id',
-      'join_key_rhs' => 'record_id',
-      'relationship_role_column' => 'module',
-      'relationship_role_column_value' => 'Opportunities',
-      'user_field' => 'created_by',
-    ),
-    'opportunities_tags' => 
-    array (
-      'lhs_module' => 'Opportunities',
-      'lhs_table' => 'opportunities',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Tags',
-      'rhs_table' => 'tags',
-      'rhs_key' => 'id',
-      'relationship_type' => 'many-to-many',
-      'join_table' => 'tag_bean_rel',
-      'join_key_lhs' => 'bean_id',
-      'join_key_rhs' => 'tag_id',
-      'relationship_role_column' => 'bean_module',
-      'relationship_role_column_value' => 'Opportunities',
-      'dynamic_subpanel' => true,
-    ),
-    'opportunities_team_count_relationship' => 
-    array (
-      'lhs_module' => 'Teams',
-      'lhs_table' => 'team_sets',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Opportunities',
-      'rhs_table' => 'opportunities',
-      'rhs_key' => 'team_set_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'opportunities_teams' => 
-    array (
-      'lhs_module' => 'Opportunities',
-      'lhs_table' => 'opportunities',
-      'lhs_key' => 'team_set_id',
-      'rhs_module' => 'Teams',
-      'rhs_table' => 'teams',
-      'rhs_key' => 'id',
-      'relationship_type' => 'many-to-many',
-      'join_table' => 'team_sets_teams',
-      'join_key_lhs' => 'team_set_id',
-      'join_key_rhs' => 'team_id',
-    ),
-    'opportunities_team' => 
-    array (
-      'lhs_module' => 'Teams',
-      'lhs_table' => 'teams',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Opportunities',
-      'rhs_table' => 'opportunities',
-      'rhs_key' => 'team_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'opportunities_currencies' => 
-    array (
-      'lhs_module' => 'Currencies',
-      'lhs_table' => 'currencies',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Opportunities',
-      'rhs_table' => 'opportunities',
-      'rhs_key' => 'currency_id',
       'relationship_type' => 'one-to-many',
     ),
   ),
@@ -1643,14 +1387,14 @@
             ),
             1 => 
             array (
-              'sales_status' => 
+              'sales_stage' => 
               array (
                 '$not_equals' => 'Closed Lost',
               ),
             ),
             2 => 
             array (
-              'sales_status' => 
+              'sales_stage' => 
               array (
                 '$not_equals' => 'Closed Won',
               ),
@@ -1687,21 +1431,19 @@
   array (
     'SugarACLStatic' => true,
   ),
-  'favorites' => true,
   'templates' => 
   array (
+    'team_security' => 'team_security',
+    'assignable' => 'assignable',
     'basic' => 'basic',
     'following' => 'following',
     'favorite' => 'favorite',
-    'taggable' => 'taggable',
-    'assignable' => 'assignable',
-    'team_security' => 'team_security',
-    'currency' => 'currency',
   ),
-  'custom_fields' => false,
+  'favorites' => true,
   'related_calc_fields' => 
   array (
     0 => 'revenuelineitems',
     1 => 'forecastworksheets',
   ),
+  'custom_fields' => false,
 );

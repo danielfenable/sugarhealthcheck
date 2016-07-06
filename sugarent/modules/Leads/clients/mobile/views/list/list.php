@@ -1,5 +1,4 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -23,82 +22,98 @@ $viewdefs['Leads']['mobile']['view']['list'] = array(
                     'enabled' => true,
                     'link' => true,
                     'related_fields' => array('first_name', 'last_name', 'salutation'),
+                    'width' => '10%',
                 ),
                 array(
                     'name' => 'title',
                     'label' => 'LBL_TITLE',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'email',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'phone_work',
                     'label' => 'LBL_OFFICE_PHONE',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'phone_mobile',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'phone_home',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'primary_address_street',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'primary_address_city',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'primary_address_state',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'primary_address_postalcode',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'primary_address_country',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'alt_address_street',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'alt_address_city',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'alt_address_state',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'alt_address_postalcode',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'alt_address_country',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
             ),

@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.PasswordField
  * @alias SUGAR.App.view.fields.BasePasswordField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     direction: 'ltr'

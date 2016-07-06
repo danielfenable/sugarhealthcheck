@@ -1,5 +1,8 @@
 <?php
- /*
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+/*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
  * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
@@ -9,44 +12,39 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*
- * Created on Aug 14, 2007
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
-$object_name = strtolower($object_name);
- $app_list_strings = array (
+	
 
-  $object_name.'_type_dom' =>
-  array (
-  	'Administration' => 'Administration',
-    'Product' => 'Product',
-    'User' => 'Užívateľ',
-  ),
-   $object_name.'_status_dom' =>
-  array (
-    'New' => 'Nový',
-    'Assigned' => 'Pridelené',
-    'Closed' => 'Closed',
-    'Pending Input' => 'Čakajúci na vstup',
-    'Rejected' => 'Zamietnutý',
-    'Duplicate' => 'Duplikovať',
-  ),
-  $object_name.'_priority_dom' =>
+$object_name = strtolower($object_name);
+$app_list_strings = array (
+  $object_name.'_priority_dom' => 
   array (
     'P1' => 'Vysoko',
     'P2' => 'Stredne',
     'P3' => 'Nízko',
   ),
-  $object_name.'_resolution_dom' =>
+  $object_name.'_resolution_dom' => 
   array (
-  	'' => '',
-  	'Accepted' => 'Akceptovaný',
+    '' => '[-čistý-]',
+    'Accepted' => 'Akceptovaný',
+    'Closed' => 'Zatvorený',
     'Duplicate' => 'Duplikovať',
-    'Closed' => 'Closed',
-    'Out of Date' => 'Zastaraný',
     'Invalid' => 'Neplatný',
+    'Out of Date' => 'Zastaraný',
   ),
-  );
-?>
+  $object_name.'_status_dom' => 
+  array (
+    'Assigned' => 'Pridelené',
+    'Closed' => 'Zatvorené',
+    'Duplicate' => 'Duplikovať',
+    'New' => 'Nový',
+    'Pending Input' => 'Čakajúci na vstup',
+    'Rejected' => 'Zamietnutý',
+  ),
+  $object_name.'_type_dom' => 
+  array (
+    'Administration' => 'Administrácia',
+    'Product' => 'Produkt',
+    'User' => 'Používateľ',
+  ),
+);
+

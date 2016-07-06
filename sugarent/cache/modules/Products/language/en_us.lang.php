@@ -1,19 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:24
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_CURRENCY' => 'Currency:',
-  'LBL_CURRENCIES' => 'Currencies',
-  'LBL_CURRENCY_NAME' => 'Currency Name',
-  'LBL_CURRENCY_SYMBOL' => 'Currency Symbol',
-  'LBL_CURRENCY_RATE' => 'Currency Rate',
-  'LBL_CURRENCY_ID' => 'Currency ID:',
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team Id',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -33,6 +20,11 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team Id',
   'LBL_CAMPAIGN_PRODUCT' => 'Campaign Quoted Line Item',
   'LBL_MODULE_NAME' => 'Quoted Line Items',
   'LBL_MODULE_NAME_SINGULAR' => 'Quoted Line Item',
@@ -94,6 +86,8 @@ $mod_strings = array (
   'NTC_DELETE_CONFIRMATION' => 'Are you sure you want to delete this record?',
   'NTC_REMOVE_CONFIRMATION' => 'Are you sure you want to remove this product relationship?',
   'ERR_DELETE_RECORD' => 'A record number must be specified to delete the product.',
+  'LBL_CURRENCY' => 'Currency:',
+  'LBL_CURRENCY_ID' => 'Currency ID:',
   'LBL_ASSET_NUMBER' => 'Asset Number:',
   'LBL_SERIAL_NUMBER' => 'Serial Number:',
   'LBL_BOOK_VALUE' => 'Book Value:',
@@ -144,6 +138,7 @@ $mod_strings = array (
   'LNK_IMPORT_PRODUCTS' => 'Import Quoted Line Items',
   'LBL_EDITLAYOUT' => 'Edit Layout',
   'LBL_EXPORT_CURRENCY_ID' => 'Currency ID',
+  'LBL_CURRENCY_RATE' => 'Currency Rate',
   'LBL_DATE_CLOSED' => 'Expected Close Date',
   'LBL_DATE_CLOSED_TIMESTAMP' => 'Expected Close Date Timestamp',
   'LBL_COMMIT_STAGE' => 'Commit Stage',
@@ -169,6 +164,8 @@ To create a {{module_name}}:
 1. Provide values for the fields as desired.
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
-2. Click "Save" to finalize the new record and return to the previous page.',
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
   'LBL_PRODUCT_POSITION' => 'Product Bundle Position',
 );

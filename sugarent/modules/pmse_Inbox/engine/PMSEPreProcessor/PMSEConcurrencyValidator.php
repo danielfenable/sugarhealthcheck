@@ -15,8 +15,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 require_once 'modules/pmse_Inbox/engine/PMSEPreProcessor/PMSEValidate.php';
 require_once 'modules/pmse_Inbox/engine/PMSELogger.php';
 
-use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
-
 /**
  * Description of PMSEConcurrencyValidator
  * The concurrency validator class purpose is to filter duplicate requests
@@ -76,7 +74,7 @@ class PMSEConcurrencyValidator implements PMSEValidate
 
         $args = $request->getArguments();
         $flowId = isset($args['idFlow']) ? $args['idFlow'] : (isset($args['flow_id']) ? $args['flow_id'] : '0');
-        if (!isset($_SESSION['locked_flows']) || !ArrayFunctions::in_array_access($flowId, $_SESSION['locked_flows'])) {
+        if (!isset($_SESSION['locked_flows']) || !in_array($flowId, $_SESSION['locked_flows'])) {
             $request->validate();
         } else {
             $request->invalidate();

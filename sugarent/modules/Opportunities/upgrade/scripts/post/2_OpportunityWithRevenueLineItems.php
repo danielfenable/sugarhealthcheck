@@ -39,7 +39,6 @@ class SugarUpgradeOpportunityWithRevenueLineItems extends UpgradeScript
             StudioModuleFactory::clearModuleCache('Opportunities');
             // in the upgrade, we only want to do the metadata conversion
             $converter = new OpportunityWithRevenueLineItem();
-            $converter->setIsUpgrade(true);
             $converter->doMetadataConvert();
 
             // just on the off chance that the formula got put into a custom file, we need to make sure it contains
@@ -114,8 +113,8 @@ class SugarUpgradeOpportunityWithRevenueLineItems extends UpgradeScript
                                     WHEN rli.sales_stage = 'Closed Lost' THEN 0
                                     ELSE (rli.best_case/rli.base_rate)
                                   END AS best_case
-                           FROM   revenue_line_items rli
-                           WHERE  rli.deleted = 0) t
+                           FROM   revenue_line_items AS rli
+                           WHERE  rli.deleted = 0) AS t
                    GROUP  BY t.opportunity_id";
 
         $results = $this->db->query($sql);

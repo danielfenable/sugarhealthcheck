@@ -213,7 +213,7 @@ sugar_file_put_contents($fmap, $new_contents);
 // write the functions cache file
 $cache_contents = $contents["javascript"];
 
-include($fmap);
+require_once $fmap;
 
 $cache_contents .= <<<EOQ
 /**

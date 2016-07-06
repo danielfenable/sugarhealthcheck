@@ -12,7 +12,9 @@ class GeoPolygonTest extends BaseTest
 {
     public function testGeoPoint()
     {
-        $index = $this->_createIndex();
+        $client = $this->_getClient();
+        $index = $client->getIndex('test');
+        $index->create(array(), true);
 
         $type = $index->getType('test');
 
@@ -47,7 +49,7 @@ class GeoPolygonTest extends BaseTest
         $geoFilter = new GeoPolygon('location', $points);
 
         $query = new Query(new MatchAll());
-        $query->setPostFilter($geoFilter);
+        $query->setFilter($geoFilter);
         $this->assertEquals(1, $type->search($query)->count());
 
         // Both points should be inside
@@ -56,7 +58,7 @@ class GeoPolygonTest extends BaseTest
         $geoFilter = new GeoPolygon('location', $points);
 
         $query = new Query(new MatchAll());
-        $query->setPostFilter($geoFilter);
+        $query->setFilter($geoFilter);
 
         $this->assertEquals(2, $type->search($query)->count());
     }

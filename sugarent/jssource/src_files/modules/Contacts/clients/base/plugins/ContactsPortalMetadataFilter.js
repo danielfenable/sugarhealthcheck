@@ -9,23 +9,27 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 (function(app) {
-    // FIXME TY-106: we need to decide if we can deprecate this
     app.events.on('app:init', function() {
 
         /**
          * ListEditable plugin is for fields that use a list-edit template instead of the standard edit
-         * during inline editing on list views.
+         * during inline editing on list views
+         *
+         * ATTENTION: WE DON'T SUPPORT MODULE PLUGINS. DON'T USE THIS
+         * WILL BE REMOVED BY SC-3047
          */
         app.plugins.register('ContactsPortalMetadataFilter', ['view'], {
             /**
              * Check if portal is active. If not, will remove the portal fields from the metadata
              * @param {Object} meta metadata to filter.
+             *
+             * @deprecated since 7.2.2
              */
             removePortalFieldsIfPortalNotActive: function(meta) {
                 if (!_.isObject(meta)) {
                     return;
                 }
-                // Portal specific fields to hide if portal is disabled
+                //Portal specific fields to hide if portal is disabled
                 var portalFields = ['portal_name', 'portal_active', 'portal_password'];
                 var serverInfo = app.metadata.getServerInfo();
                 if (!serverInfo.portal_active) {

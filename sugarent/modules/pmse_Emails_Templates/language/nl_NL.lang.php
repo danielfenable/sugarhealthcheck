@@ -1,6 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -14,39 +15,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
 $mod_strings = array (
-    'LBL_BODY_HTML' => 'Hoofdtekst',
-    'LBL_BASE_MODULE' => 'Doel Module',
-
-    'LBL_MODULE_TITLE' => 'Process E-mail Templates',
-    'LBL_MODULE_NAME' => 'Process E-mail Templates',
-    'LBL_MODULE_NAME_SINGULAR' => 'Process E-mail Template',
-
-    'LNK_LIST' => 'Bekijk Process E-mail Templates',
-    'LNK_NEW_PMSE_EMAILS_TEMPLATES' => 'Nieuw Process E-mail Template',
-    'LNK_IMPORT_PMSE_EMAILS_TEMPLATES' => 'Import Process E-mail Templates',
-
-    'LBL_PMSE_SHOW_MORE_VARIABLES' => 'Toon meer variabelen',
-
-    'LBL_PMSE_LABEL_DESIGN' => 'Ontwerpen',
-    'LBL_PMSE_LABEL_EXPORT' => 'Exporteer',
-    'LBL_PMSE_LABEL_DELETE' => 'Verwijderen',
-
-    'LBL_PMSE_SAVE_EXIT_BUTTON_LABEL' => 'Opslaan & Sluiten',
-    'LBL_PMSE_SAVE_DESIGN_BUTTON_LABEL' => 'Opslaan & Ontwerpen',
-    'LBL_PMSE_IMPORT_BUTTON_LABEL' => 'Importeren',
-
-    'LBL_PMSE_MY_EMAIL_TEMPLATES' => 'Mijn Process E-mail Templates',
-    'LBL_PMSE_ALL_EMAIL_TEMPLATES' => 'Alle Process E-mail Templates',
-
-    'LBL_PMSE_EMAIL_TEMPLATES_IMPORT_TEXT' => 'Automatisch een nieuw record met E-mailsjabloon verwerken aanmaken door een *.pet bestand uit uw bestandssysteem te importeren.',
-    'LBL_PMSE_EMAIL_TEMPLATES_IMPORT_SUCCESS' => 'E-mailsjabloon verwerken is succesvol geïmporteerd in het systeem.',
-    'LBL_PMSE_EMAIL_TEMPLATES_EMPTY_WARNING' => 'Selecteer een geldig *.pet bestand.',
-
-    'LBL_PMSE_IMPORT_EMAIL_TEMPLATES_FAILURE' => 'Aanmaken E-mailsjabloon verwerken uit bestand mislukt',
-    'LBL_PMSE_PROCESS_EMAIL_TEMPLATES_EDIT' => 'Dit e-mailsjabloon wordt momenteel in een procesdefinitie gebruikt. Wilt u dit e-mailsjabloon bewerken?',
-    'LBL_PMSE_PROCESS_EMAIL_TEMPLATES_DELETE' => "U kunt dit e-mailsjabloon niet verwijderen omdat het in een procesdefinitie wordt gebruikt.",
-
-    'LBL_SUGAR_LINK_SELECTOR' => 'Record Link Selector',
-    'LBL_RELATED_TO_TARGET_MODULE' => 'Related to Target Module',
-    'LBL_SELECT_BUTTON_LABEL' => 'Kies',
+  'LBL_BASE_MODULE' => 'Doel Module:',
+  'LBL_BODY_HTML' => 'Body',
+  'LBL_MODULE_NAME' => 'Process E-mail Templates',
+  'LBL_MODULE_NAME_SINGULAR' => 'Process E-mail Template',
+  'LBL_MODULE_TITLE' => 'Process E-mail Templates',
+  'LBL_PMSE_ALL_EMAIL_TEMPLATES' => 'Alle Process E-mail Templates',
+  'LBL_PMSE_EMAIL_TEMPLATES_EMPTY_WARNING' => 'Please select a valid *.pet file.',
+  'LBL_PMSE_EMAIL_TEMPLATES_IMPORT_SUCCESS' => 'Process Email Template was successfully imported into the system.',
+  'LBL_PMSE_EMAIL_TEMPLATES_IMPORT_TEXT' => 'Automatically create a new Process Email Template record by importing a *.pet file from your file system.',
+  'LBL_PMSE_IMPORT_BUTTON_LABEL' => 'Importeer',
+  'LBL_PMSE_IMPORT_EMAIL_TEMPLATES_FAILURE' => 'Failed to create Process Email Template from file',
+  'LBL_PMSE_LABEL_DELETE' => 'Verwijder',
+  'LBL_PMSE_LABEL_DESIGN' => 'Design',
+  'LBL_PMSE_LABEL_EXPORT' => 'Export',
+  'LBL_PMSE_MY_EMAIL_TEMPLATES' => 'Mijn Process E-mail Templates',
+  'LBL_PMSE_SAVE_DESIGN_BUTTON_LABEL' => 'Save & Design',
+  'LBL_PMSE_SAVE_EXIT_BUTTON_LABEL' => 'Save & Exit',
+  'LBL_PMSE_SHOW_MORE_VARIABLES' => 'Toon meer variabelen',
+  'LNK_LIST' => 'Bekijk Process E-mail Templates',
 );
+

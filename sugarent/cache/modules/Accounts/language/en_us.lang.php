@@ -1,23 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:22
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_ANY_EMAIL' => 'Email:',
-  'LBL_EMAIL' => 'Email Address:',
-  'LBL_PRIMARY_EMAIL' => 'Primary Email',
-  'LBL_LIST_EMAIL_ADDRESS' => 'Email Address',
-  'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
-  'LBL_EMAIL_ADDRESS' => 'Email Address',
-  'LBL_EMAIL_ADDRESSES' => 'Email Addresses',
-  'LBL_INVALID_EMAIL' => 'Invalid Email:',
-  'LBL_EMAIL_OPT_OUT' => 'Email Opt Out:',
-  'LBL_EMAIL_NON_PRIMARY' => 'Non-primary emails',
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team Id',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User:',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created:',
   'LBL_DATE_MODIFIED' => 'Date Modified:',
@@ -37,6 +20,20 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit  ',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User:',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team Id',
+  'LBL_ANY_EMAIL' => 'Email:',
+  'LBL_EMAIL' => 'Email Address:',
+  'LBL_LIST_EMAIL_ADDRESS' => 'Email Address',
+  'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
+  'LBL_EMAIL_ADDRESS' => 'Email Address',
+  'LBL_EMAIL_ADDRESSES' => 'Email Addresses',
+  'LBL_INVALID_EMAIL' => 'Invalid Email:',
+  'LBL_EMAIL_OPT_OUT' => 'Email Opt Out:',
+  'LBL_EMAIL_NON_PRIMARY' => 'Non-primary emails',
   'ACCOUNT_REMOVE_PROJECT_CONFIRM' => 'Are you sure you want to remove this Account from the project?',
   'ERR_DELETE_RECORD' => 'You must specify a record number in order to delete the Account.',
   'LBL_ACCOUNT_NAME' => 'Account Name:',
@@ -127,8 +124,6 @@ $mod_strings = array (
   'LBL_CONTRACTS_SUBPANEL_TITLE' => 'Contracts',
   'LBL_RLI_SUBPANEL_TITLE' => 'Revenue Line Items',
   'LBL_QUOTES_SUBPANEL_TITLE' => 'Quotes',
-  'LBL_QUOTES_BILLTO' => 'Quotes (Bill To)',
-  'LBL_QUOTES_SHIPTO' => 'Quotes (Ship To)',
   'LNK_ACCOUNT_REPORTS' => 'View Account Reports',
   'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documents',
   'LBL_CHARTS' => 'Charts',
@@ -193,6 +188,8 @@ To create an {{module_name}}:
 1. Provide values for the fields as desired.
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
-2. Click "Save" to finalize the new record and return to the previous page.',
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
   'LBL_FILTER_ACCOUNTS_REPORTS' => 'Accounts\' reports',
 );

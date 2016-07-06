@@ -528,7 +528,6 @@ AdamCanvas.prototype.getContextMenu = function () {
         fieldHeight: 80,
         decimalSeparator: SUGAR.App.config.defaultDecimalSeparator,
         numberGroupingSeparator: SUGAR.App.config.defaultNumberGroupingSeparator,
-        currencies: project.getMetadata("currencies"),
         operators: {
             logic: true,
             group: true
@@ -639,6 +638,7 @@ AdamCanvas.prototype.getContextMenu = function () {
 
         },
         'submit' : function (data) {
+
             if (processName.value !== project.name) {
                 url = App.api.buildURL('pmse_Project', null, null, {
                     filter: [{'name':processName.value}]
@@ -657,8 +657,78 @@ AdamCanvas.prototype.getContextMenu = function () {
                         }
                     }
                 });
+                //project.restClient.getCall({
+                //    url: 'pmse_Project/CrmData/validateProjectName',
+                //    id: processName.value,
+                //    data: {},
+                //    success: function (xhr, response) {
+                //        if (response.result) {
+                //            /*data = {
+                //                prj_name: processName.value,
+                //                prj_description: processDescription.value,
+                //                pro_locked_variables: comboModules.value,
+                //                pro_module: comboModules.value
+                //            };
+                //            project.setDescription(PROJECT_DESCRIPTION = processDescription.value);
+                //            project.setName(PROJECT_NAME = processName.value);
+                //            proxyModule.sendData(data);
+                //            //NAME MODULE
+                //            PROJECT_MODULE = comboModules.value;
+                //            //LOCKED VARIABLES
+                //            PROJECT_LOCKED_VARIABLES = itemMatrix.getLockedField();*/
+                //            checkModuleAndSaveData(data);
+                //            /*if (comboModules.value !== oldModule) {
+                //                wAlert.show();
+                //            } else {
+                //                data = {
+                //                    prj_description: processDescription.value,
+                //                    pro_locked_variables: comboModules.value,
+                //                };
+                //                project.setDescription(PROJECT_DESCRIPTION = processDescription.value);
+                //                proxyModule.sendData(data);
+                //                //LOCKED VARIABLES
+                //                PROJECT_LOCKED_VARIABLES = itemMatrix.getLockedField();
+                //                w.close();
+                //            }*/
+                //        } else {
+                //            var mp = new MessagePanel({
+                //                title: 'Error',
+                //                wtype: 'Error',
+                //                message: response.message
+                //            });
+                //            mp.show();
+                //        }
+                //    },
+                //    failure: function (xhr, response) {
+                //        //TODO Process HERE error at loading project
+                //    }
+                //});
             } else {
+                /*data = {
+                    prj_description: processDescription.value,
+                    pro_locked_variables: comboModules.value,
+                    pro_module: comboModules.value
+                };
+                project.setDescription(PROJECT_DESCRIPTION = processDescription.value);
+                proxyModule.sendData(data);
+                //NAME MODULE
+                PROJECT_MODULE = comboModules.value;
+                //LOCKED VARIABLES
+                PROJECT_LOCKED_VARIABLES = itemMatrix.getLockedField();*/
                 checkModuleAndSaveData(data);
+                /*if (comboModules.value !== oldModule) {
+                    wAlert.show();
+                } else {
+                    data = {
+                        prj_description: processDescription.value,
+                        pro_locked_variables: comboModules.value,
+                    };
+                    project.setDescription(PROJECT_DESCRIPTION = processDescription.value);
+                    proxyModule.sendData(data);
+                    //LOCKED VARIABLES
+                    PROJECT_LOCKED_VARIABLES = itemMatrix.getLockedField();
+                    w.close();
+                }*/
             }
         }
     };
@@ -812,6 +882,8 @@ AdamCanvas.prototype.getContextMenu = function () {
         ],
         //closeContainerOnSubmit: true,
         buttons: [
+           // { jtype: 'submit', caption: 'Save' },
+
             {
                 jtype: 'normal',
                 caption: translate('LBL_PMSE_BUTTON_SAVE'),
@@ -895,7 +967,7 @@ AdamCanvas.prototype.getContextMenu = function () {
             jCore.getActiveCanvas().applyZoom(1);
             $('#zoom').val(1);
         },
-        selected: (jCore.getActiveCanvas().getZoomFactor() === 0.5)
+        disabled: (jCore.getActiveCanvas().getZoomFactor() === 0.5)
     });
 
     zoom75Action = new Action({
@@ -905,7 +977,7 @@ AdamCanvas.prototype.getContextMenu = function () {
             jCore.getActiveCanvas().applyZoom(2);
             $('#zoom').val(2);
         },
-        selected: (jCore.getActiveCanvas().getZoomFactor() === 0.75)
+        disabled: (jCore.getActiveCanvas().getZoomFactor() === 0.75)
     });
 
     zoom100Action = new Action({
@@ -915,7 +987,7 @@ AdamCanvas.prototype.getContextMenu = function () {
             jCore.getActiveCanvas().applyZoom(3);
             $('#zoom').val(3);
         },
-        selected: (jCore.getActiveCanvas().getZoomFactor() === 1)
+        disabled: (jCore.getActiveCanvas().getZoomFactor() === 1)
     });
 
     zoom125Action = new Action({
@@ -925,7 +997,7 @@ AdamCanvas.prototype.getContextMenu = function () {
             jCore.getActiveCanvas().applyZoom(4);
             $('#zoom').val(4);
         },
-        selected: (jCore.getActiveCanvas().getZoomFactor() === 1.25)
+        disabled: (jCore.getActiveCanvas().getZoomFactor() === 1.25)
     });
 
     zoom150Action = new Action({
@@ -935,7 +1007,7 @@ AdamCanvas.prototype.getContextMenu = function () {
             jCore.getActiveCanvas().applyZoom(5);
             $('#zoom').val(5);
         },
-        selected: (jCore.getActiveCanvas().getZoomFactor() === 1.5)
+        disabled: (jCore.getActiveCanvas().getZoomFactor() === 1.5)
     });
 
     return {
@@ -1069,13 +1141,11 @@ AdamCanvas.prototype.onRemoveElementHandler = function (element) {
     this.bpmnValidation();
     if (countErrors){
         if (listPanelError.getItems().length){
-            $("#error-div").show();
-            countErrors.style.display = "block";
-            sizeItems = listPanelError.getAllErros();
-            countErrors.textContent = sizeItems === 1 ? sizeItems + translate('LBL_PMSE_BPMN_WARNING_SINGULAR_LABEL') : sizeItems + translate('LBL_PMSE_BPMN_WARNING_LABEL');
+                countErrors.style.display = "block";
+                sizeItems = listPanelError.getAllErros();
+                countErrors.textContent =  sizeItems === 1 ? sizeItems + translate('LBL_PMSE_BPMN_WARNING_SINGULAR_LABEL') : sizeItems + translate('LBL_PMSE_BPMN_WARNING_LABEL');
         } else {
             countErrors.textContent = "0" + translate('LBL_PMSE_BPMN_WARNING_SINGULAR_LABEL');
-            $("#error-div").hide();
         }
     }
 };
@@ -1156,7 +1226,6 @@ AdamCanvas.prototype.triggerTextChangeEvent = function (element, oldText, newTex
     this.updatedElement = [{
         id : element.parent.id,
         type : element.parent.type,
-        relatedObject: element.parent,
         fields : [{
             field : "name",
             oldVal : oldText,
@@ -1165,7 +1234,24 @@ AdamCanvas.prototype.triggerTextChangeEvent = function (element, oldText, newTex
     }];
     element.parent.setName(nText);
     $(this.html).trigger("changeelement");
-};
+};/*
+AdamCanvas.prototype.triggerMarkerChangeEvent = function (shape, oldMarker,
+                                                      newMarker, field) {
+
+    this.updatedElement = [{
+        id : shape.id,
+        type : shape.type,
+        fields : [
+            {
+                field : field,
+                oldVal : oldMarker,
+                newVal : newMarker
+            }
+        ],
+        relatedObject: shape
+    }];
+    $(this.html).trigger('changeelement');
+};*/
 
 AdamCanvas.prototype.triggerDefaultFlowChangeEvent = function (elements) {
     this.updatedElement = elements;

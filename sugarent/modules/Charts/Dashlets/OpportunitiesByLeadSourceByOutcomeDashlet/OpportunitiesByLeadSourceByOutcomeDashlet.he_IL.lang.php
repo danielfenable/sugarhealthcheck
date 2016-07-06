@@ -10,11 +10,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+ /*********************************************************************************
+ * Hebrew vertion by:
+ * Menahem Lurie Consultancy and IT Management,SugarCRM partner - Israel
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * *******************************************************************************/
 
- // $Id: MyPipelineBySalesStageDashlet.en_us.lang.php 16286 2006-08-22 20:14:45Z wayne $
 
 
-$dashletStrings['OpportunitiesByLeadSourceByOutcomeDashlet'] = array('LBL_TITLE'       => 'כל ההזדמנויות לפי מקור מוביל לפי תוצאה',
+
+
+$dashletStrings['OpportunitiesByLeadSourceByOutcomeDashlet'] = array('LBL_TITLE'       => 'כל ההזדמניות ממוין לפי מקור הליד ולפי התוצאה',
                                                  'LBL_DESCRIPTION' => 'טבלת ערימות אופקית ממיונת לפי מקור הליד והתוצאות',
-                                                 'LBL_REFRESH'     => 'רענן טבלה');
-?>
+                                                 'LBL_REFRESH'     => 'רענון נתונים');

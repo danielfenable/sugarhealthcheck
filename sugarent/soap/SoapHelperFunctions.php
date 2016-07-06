@@ -875,27 +875,14 @@ function filter_return_list(&$output_list, $select_fields, $module_name){
 			}
 		}
 
-        if (!empty($output_list[$sug]['name_value_list'])
-            && is_array($output_list[$sug]['name_value_list'])
-            && !empty($select_fields) && is_array($select_fields)
-        ) {
-            foreach ($output_list[$sug]['name_value_list'] as $name => $value) {
-                if (!in_array($value['name'], $select_fields)) {
-                    unset($output_list[$sug]['name_value_list'][$name]);
-                    unset($output_list[$sug]['field_list'][$name]);
-                }
-            }
-            // MAR-2033 - The Soap-based Outlook Plugin was written to assume that the select_field order
-            // would be preserved on output. The following code ensures that order is preserved.
-            if ($module_name === 'Contacts' || $module_name === 'Users') {
-                $entryList = array();
-                foreach ($select_fields as $fieldName) {
-                    $entryList[$fieldName] = isset($output_list[$sug]['name_value_list'][$fieldName]) ? $output_list[$sug]['name_value_list'][$fieldName] : '';
-                }
-                $output_list[$sug]['name_value_list'] = $entryList;
-            }
-        }
-    }
+		if( !empty($output_list[$sug]['name_value_list']) && is_array($output_list[$sug]['name_value_list']) && !empty($select_fields) && is_array($select_fields)){
+			foreach($output_list[$sug]['name_value_list'] as $name=>$value)
+					if(!in_array($value['name'], $select_fields)){
+						unset($output_list[$sug]['name_value_list'][$name]);
+						unset($output_list[$sug]['field_list'][$name]);
+					}
+		}
+	}
 	return $output_list;
 }
 

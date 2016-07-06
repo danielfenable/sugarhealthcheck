@@ -11,15 +11,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: JotPadDashlet.en_us.lang.php 24343 2007-07-15 21:24:15Z awu $
-
-
-$dashletStrings['InvadersDashlet'] = array(
-    'LBL_TITLE'         => 'Hyökkääjiä!',
-    'LBL_DESCRIPTION'   => 'Kuvaus',
-    'LBL_DBLCLICK_HELP' => 'Käytä A ja D liikkumiseen, S ampumiseen.',
-    'LBL_START'         => 'Napsauta aloittaaksesi',
-    'LBL_GAME_OVER'     => 'Peli loppui <br /> (Napsauta pelaaksesi uudestaan)',
-
-);
-?>
+$dashletStrings['InvadersDashlet'] = 
+  array(
+        'LBL_TITLE'         => 'Invaders!',
+        'LBL_DESCRIPTION'   => 'Kuvaus',
+        'LBL_DBLCLICK_HELP' => 'Käytä A ja D liikkumiseen, S ampumiseen.',
+        'LBL_START' => 'Napsauta aloittaaksesi',
+        'LBL_GAME_OVER' => 'Peli loppui <br /> (Napsauta pelaaksesi uudestaan)',
+        );

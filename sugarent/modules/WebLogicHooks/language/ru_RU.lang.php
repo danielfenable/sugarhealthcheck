@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-    'LBL_MODULE_NAME' => 'Веб-расширения логики модулей (Web Logic Hooks)',
-    'LBL_MODULE_NAME_SINGULAR' => 'Веб-расширения логики модулей (Web Logic Hooks)',
-    'LBL_MODULE_TITLE' => 'Веб-расширения логики модулей (Web Logic Hooks)',
-    'LNK_NEW_LOGIC_HOOK' => 'Создать Web Logic Hook',
-    'LNK_LOGIC_HOOK_LIST' => 'Просмотреть Web Logic Hooks',
-    'LBL_TARGET_NAME' => 'Название объекта (модуля)',
-    'LBL_REQUEST_METHOD' => 'Запрашивать Метод',
-    'LBL_TRIGGER_EVENT' => 'Инициировать Событие',
-    'LBL_URL' => 'URL',
+$mod_strings = array (
+  'LBL_MODULE_NAME' => 'Web Logic Hooks',
+  'LBL_MODULE_NAME_SINGULAR' => 'Web Logic Hook',
+  'LBL_MODULE_TITLE' => 'Web Logic Hooks',
+  'LBL_REQUEST_METHOD' => 'Запрашивать Метод',
+  'LBL_TARGET_NAME' => 'Название объекта (модуля)',
+  'LBL_TRIGGER_EVENT' => 'Инициировать Событие',
+  'LBL_URL' => 'URL',
+  'LNK_LOGIC_HOOK_LIST' => 'Просмотреть Web Logic Hooks',
+  'LNK_NEW_LOGIC_HOOK' => 'Создать Web Logic Hook',
 );
+

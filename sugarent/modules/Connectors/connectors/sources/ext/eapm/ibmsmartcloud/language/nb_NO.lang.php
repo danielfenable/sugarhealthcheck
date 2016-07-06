@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,23 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Skaff en nøkkel og en hemmelig nøkkel fra IBM SmartCloud ved å registrere Sugar-forekomsten din som en ny applikasjon.<br>
-&nbsp;<br>
-Fremgangsmåte for å registrere forekomsten din:<br>
-&nbsp;<br>
-<ol>
-<li>Logg på IBM SmartCloud-kontoen din (du må være administrator)</li>
-<li>Gå til «Administration» -> «Manage Organization»</li>
-<li>Gå til koblingen «Integrated Third-Party Apps» på sidemenyen og aktiver SugarCRM for alle brukere.</li>
-<li>Gå til «Internal Apps» på sidemenyen og «Register App»</li>
-<li>Gi denne applikasjonen navnet du ønsker å bruke (f.eks. «SugarCRM Production»), og sørg for at du _IKKE_ markerer avkrysningsboksen OAuth 2.x nederst i sprettoppvinduet.</li>
-<li>Når du har opprettet applikasjonen, klikker du på den lille trekanten til høyre for applikasjonsnavnet og velger «Show Credentials» fra rullegardinmenyen.</li>
-<li>Legg inn denne informasjonen nedenfor.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'OAuth-forbrukernøkkel',
-    'oauth_consumer_secret' => 'OAuth-forbrukerhemmelighet',
+  'LBL_LICENSING_INFO' => 'Skaff en Key og Secret fra IBM Smartcloud© ved å registrere din Sugar instans som en ny søknad.<br /><br />Trinnene for å registrere instansen:<br /><br />1. Logg deg på IBM Smartcloud-konto (du må være administrator)<br />2. Gå til Administrasjon -> Administrer organisasjon<br />3. Gå til "Integrert tredjeparts Apps" linken på sidepanelet og aktiver SugarCRM for alle brukere.<br />4. Gå til "Intern Apps" på sidelinjen og "Registrer App"<br />5. Navngi appen hva du vil (si "SugarCRM Produksjon"), og være sikker på å _IKKE_ sjekk av for avkrysningsboksen OAuth 2.x nederst i pop up vindu.<br />6. Etter at appen har blitt opprettet, klikker du på den lille trekanten til høyre for appnavnet og velg "Vis påloggingsopplysninger" fra rullegardinmenyen.<br />7. Kopier påloggingsopplysninger nedenfor.',
+  'oauth_consumer_key' => 'OAuth Consumer Key',
+  'oauth_consumer_secret' => 'OAuth Consumer Secret',
 );
 

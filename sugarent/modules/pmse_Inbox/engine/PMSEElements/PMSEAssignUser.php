@@ -33,19 +33,19 @@ class PMSEAssignUser extends PMSEScriptTask
      * $response['flow_filters'] = array('first_id', 'second_id'); //This attribute is used to filter the execution of the following elements
      * $response['flow_id'] = $flowData['id']; // The flowData id if present
      *
-     * @param array $flowData
-     * @param null $bean
-     * @param string $externalAction
-     * @param array $arguments
-     * @return array
+     *
+     * @param type $flowData
+     * @param type $bean
+     * @param type $externalAction
+     * @return type
      */
     public function run($flowData, $bean = null, $externalAction = '', $arguments = array())
     {
-        switch ($externalAction) {
+         switch ($externalAction) {
             case 'RESUME_EXECUTION':
                 $flowAction = 'UPDATE';
                 break;
-            default:
+            default :
                 $flowAction = 'CREATE';
                 break;
         }
@@ -56,27 +56,34 @@ class PMSEAssignUser extends PMSEScriptTask
 
         if (isset($bean->field_name_map['assigned_user_id']) && (isset($userData->id) && $userData->id == $act_assign_user)) {
             $this->logger->debug("Assign user to '$act_assign_user'");
-
+            $bean->skipPartialUpdate = true;
             $historyData = $this->retrieveHistoryData($flowData['cas_sugar_module']);
             $historyData->savePreData('assigned_user_id', $flowData['cas_user_id']);
-
+            //$bean->assigned_user_id = $act_assign_user;
             if (isset($bpmnElement['act_update_record_owner']) && $bpmnElement['act_update_record_owner'] == 1) {
                 $bean->assigned_user_id = $act_assign_user;
-                PMSEEngineUtils::saveAssociatedBean($bean);
+                $bean->save();
             }
             $flowData['cas_user_id'] = $act_assign_user;
             $historyData->savePostData('assigned_user_id', $act_assign_user);
-
+            //$bean->team_id = '1';
             $params = array();
+
             $params['cas_id'] = $flowData['cas_id'];
             $params['cas_index'] = $flowData['cas_index'];
             $params['act_id'] = $bpmnElement['id'];
             $params['pro_id'] = $bpmnElement['pro_id'];
             $params['user_id'] = $this->currentUser->id;
-            $params['frm_action'] = translate('LBL_PMSE_ASSIGN_USER', 'pmse_Inbox');
-            $params['frm_comment'] = translate('LBL_PMSE_ASSIGN_USER_APPLIED', 'pmse_Inbox');
+            $params['frm_action'] = 'Assing user';
+            $params['frm_comment'] = 'Assing user Applied';
             $params['log_data'] = $historyData->getLog();
             $this->caseFlowHandler->saveFormAction($params);
+            // just update the record instead
+
+            //$query = "update pmse_bpm_flow set " .
+            //    " cas_user_id = '$act_assign_user' " .
+            //    " where cas_id = {$flowData['cas_id']} and cas_index = {$flowData['cas_index']} ";
+            //$bean->db->query($query);
         }
 
         return $this->prepareResponse($flowData, 'ROUTE', $flowAction);

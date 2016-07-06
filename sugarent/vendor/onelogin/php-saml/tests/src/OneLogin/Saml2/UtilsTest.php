@@ -116,20 +116,12 @@ class OneLogin_Saml2_UtilsTest extends PHPUnit_Framework_TestCase
 
         $metadataOk = file_get_contents(TEST_ROOT .'/data/metadata/metadata_settings1.xml');
         $res2 = OneLogin_Saml2_Utils::validateXML($metadataOk, 'saml-schema-metadata-2.0.xsd');
-        $this->assertTrue($res2 instanceof DOMDocument);
-
-        $metadataBadOrder = file_get_contents(TEST_ROOT .'/data/metadata/metadata_bad_order_settings1.xml');
-        $res3 = OneLogin_Saml2_Utils::validateXML($metadataBadOrder, 'saml-schema-metadata-2.0.xsd');
-        $this->assertFalse($res3 instanceof DOMDocument);
-
-        $metadataSigned = file_get_contents(TEST_ROOT .'/data/metadata/signed_metadata_settings1.xml');
-        $res4 = OneLogin_Saml2_Utils::validateXML($metadataSigned, 'saml-schema-metadata-2.0.xsd');
-        $this->assertTrue($res4 instanceof DOMDocument);
+        $this->assertTrue($res instanceof DOMDocument);
 
         $dom = new DOMDocument;
-        OneLogin_Saml2_Utils::loadXML($dom, $metadataOk);
-        $res5 = OneLogin_Saml2_Utils::validateXML($dom, 'saml-schema-metadata-2.0.xsd');
-        $this->assertTrue($res5 instanceof DOMDocument);
+        $dom->load($metadataOk);
+        $res2 = OneLogin_Saml2_Utils::validateXML($dom, 'saml-schema-metadata-2.0.xsd');
+        $this->assertTrue($res instanceof DOMDocument);
     }
 
     /**
@@ -264,15 +256,6 @@ class OneLogin_Saml2_UtilsTest extends PHPUnit_Framework_TestCase
 
         $targetUrl7 = OneLogin_Saml2_Utils::redirect($url, $parameters2, true);
         $this->assertEquals("http://$hostname/example?alphavalue=a&numvalue[]=1&numvalue[]=2&testing", $targetUrl7);
-
-        $parameters3 = array (
-            'alphavalue' => 'a',
-            'emptynumvaluelist' => array (),
-            'numvaluelist' => array (''),
-        );
-
-        $targetUrl8 = OneLogin_Saml2_Utils::redirect($url, $parameters3, true);
-        $this->assertEquals("http://$hostname/example?alphavalue=a&numvaluelist[]=", $targetUrl8);
     }
 
     /**
@@ -605,11 +588,10 @@ class OneLogin_Saml2_UtilsTest extends PHPUnit_Framework_TestCase
 
     /**
     * Tests the generateNameId method of the OneLogin_Saml2_Utils
-    * Adding a SPNameQualifier
     *
     * @covers OneLogin_Saml2_Utils::generateNameId
     */
-    public function testGenerateNameIdWithSPNameQualifier()
+    public function testGenerateNameId()
     {
         //$xml = '<root xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'.$decrypted.'</root>';
         //$newDoc = new DOMDocument();
@@ -637,47 +619,6 @@ class OneLogin_Saml2_UtilsTest extends PHPUnit_Framework_TestCase
         $nameIdEnc = OneLogin_Saml2_Utils::generateNameId(
             $nameIdValue,
             $entityId,
-            $nameIDFormat,
-            $key
-        );
-
-        $nameidExpectedEnc = '<saml:EncryptedID><xenc:EncryptedData xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" Type="http://www.w3.org/2001/04/xmlenc#Element"><xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc"/><dsig:KeyInfo xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"><xenc:EncryptedKey><xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/><xenc:CipherData><xenc:CipherValue>';
-        $this->assertContains($nameidExpectedEnc, $nameIdEnc);
-    }
-
-    /**
-    * Tests the generateNameId method of the OneLogin_Saml2_Utils
-    * 
-    * @covers OneLogin_Saml2_Utils::generateNameId
-    */
-    public function testGenerateNameIdWithoutSPNameQualifier()
-    {
-        //$xml = '<root xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'.$decrypted.'</root>';
-        //$newDoc = new DOMDocument();
-
-        $nameIdValue = 'ONELOGIN_ce998811003f4e60f8b07a311dc641621379cfde';
-        $entityId = 'http://stuff.com/endpoints/metadata.php';
-        $nameIDFormat = 'urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified';
-
-        $nameId = OneLogin_Saml2_Utils::generateNameId(
-            $nameIdValue,
-            null,
-            $nameIDFormat
-        );
-
-        $expectedNameId = '<saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified">ONELOGIN_ce998811003f4e60f8b07a311dc641621379cfde</saml:NameID>';
-
-        $this->assertEquals($nameId, $expectedNameId);
-
-        $settingsDir = TEST_ROOT .'/settings/';
-        include $settingsDir.'settings1.php';
-
-        $x509cert = $settingsInfo['idp']['x509cert'];
-        $key = OneLogin_Saml2_Utils::formatCert($x509cert);
-
-        $nameIdEnc = OneLogin_Saml2_Utils::generateNameId(
-            $nameIdValue,
-            null,
             $nameIDFormat,
             $key
         );
@@ -746,14 +687,6 @@ class OneLogin_Saml2_UtilsTest extends PHPUnit_Framework_TestCase
         $this->assertNull(OneLogin_Saml2_Utils::calculateX509Fingerprint($key));
 
         $this->assertEquals('afe71c28ef740bc87425be13a2263d37971da1f9', OneLogin_Saml2_Utils::calculateX509Fingerprint($cert));
-
-        $this->assertEquals('afe71c28ef740bc87425be13a2263d37971da1f9', OneLogin_Saml2_Utils::calculateX509Fingerprint($cert, 'sha1'));
-
-        $this->assertEquals('c51cfa06c7a49767f6eab18238eae1c56708e29264da3d11f538a12cd2c357ba', OneLogin_Saml2_Utils::calculateX509Fingerprint($cert, 'sha256'));
-
-        $this->assertEquals('bc5826e6f9429247254bae5e3c650e6968a36a62d23075eb168134978d88600559c10830c28711b2c29c7947c0c2eb1d', OneLogin_Saml2_Utils::calculateX509Fingerprint($cert, 'sha384'));
-
-        $this->assertEquals('3db29251b97559c67988ea0754cb0573fc409b6f75d89282d57cfb75089539b0bbdb2dcd9ec6e032549ecbc466439d5992e18db2cf5494ca2fe1b2e16f348dff', OneLogin_Saml2_Utils::calculateX509Fingerprint($cert, 'sha512'));
     }
 
     /**
@@ -925,14 +858,10 @@ class OneLogin_Saml2_UtilsTest extends PHPUnit_Framework_TestCase
         $idpData = $settings->getIdPData();
         $cert = $idpData['x509cert'];
         $fingerprint = OneLogin_Saml2_Utils::calculateX509Fingerprint($cert);
-        $fingerprint256 = OneLogin_Saml2_Utils::calculateX509Fingerprint($cert, 'sha256');
 
         $xmlMetadataSigned = file_get_contents(TEST_ROOT . '/data/metadata/signed_metadata_settings1.xml');
         $this->assertTrue(OneLogin_Saml2_Utils::validateSign($xmlMetadataSigned, $cert));
         $this->assertTrue(OneLogin_Saml2_Utils::validateSign($xmlMetadataSigned, null, $fingerprint));
-        $this->assertTrue(OneLogin_Saml2_Utils::validateSign($xmlMetadataSigned, null, $fingerprint, 'sha1'));
-        $this->assertFalse(OneLogin_Saml2_Utils::validateSign($xmlMetadataSigned, null, $fingerprint, 'sha256'));
-        $this->assertTrue(OneLogin_Saml2_Utils::validateSign($xmlMetadataSigned, null, $fingerprint256, 'sha256'));
 
         $xmlResponseMsgSigned = base64_decode(file_get_contents(TEST_ROOT . '/data/responses/signed_message_response.xml.base64'));
         $this->assertTrue(OneLogin_Saml2_Utils::validateSign($xmlResponseMsgSigned, $cert));

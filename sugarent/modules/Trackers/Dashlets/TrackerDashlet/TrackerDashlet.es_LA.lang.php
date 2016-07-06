@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +11,40 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Informes de Seguimiento',
-                                          'LBL_DESCRIPTION'      => 'Un dashlet para ejecutar consultas sobre datos de Seguimiento',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+
+$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Informes de Monitorización',
+                                          'LBL_DESCRIPTION'      => 'Un dashlet para ejecutar consultas sobre datos de Monitorización',
                                           'LBL_SAVING'           => 'Ejecutando Consulta ...',
                                           'LBL_SAVED'            => 'Consulta Completada',
-                                          'LBL_CLEAR'            => 'Borrar',
-                                          'LBL_CLEAR_TOOLTIP'    => 'Elimine el valor del campo de fecha',
+                                          'LBL_CLEAR'            => 'Limpiar',
+                                          'LBL_CLEAR_TOOLTIP'    => 'Limpia el valor del campo de fecha',
                                           'LBL_CONFIGURE_TITLE'  => 'Título',
                                           'LBL_CONFIGURE_HEIGHT' => 'Altura (1 - 300)',
 										  'LBL_SELECT_QUERY'     => 'Seleccionar Consulta...',
 										  'LBL_FILTER'              => 'Filtro',
-										  'LBL_FILTER_TOOLTIP'      => 'Filtra por el valor en el campo de fecha',
+										  'LBL_FILTER_TOOLTIP'      => 'Filtra por el valor del campo de fecha',
 										  'LBL_SINCE'            => 'Desde: ',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
-										                               '  The date value entered will replace the default date value for the report.' .
-										                               '  For example, in the "My Activity (This Week)" report, the' .
-										                               ' value will be used to display all records after the filter date' .
-										                               ' instead of the default time period of one week.',
+										  'LBL_CHOOSE_DATE_TOOLTIP' => 'Para informes de selección, puede proporcionar un filtro de datos.' .
+										                               '  El valor de fecha introducido reemplazará la fecha por defecto del informe.' .
+										                               '  Por ejemplo, en el informe "Mi Actividad (Esta Semana)", el' .
+										                               ' valor será usado para mostrar todos los registros tras la fecha de filtrado' .
+										                               ' en lugar del período por defecto de una semana.',
 );

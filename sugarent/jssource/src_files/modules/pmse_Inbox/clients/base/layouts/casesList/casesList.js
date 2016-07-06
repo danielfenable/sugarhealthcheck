@@ -160,16 +160,7 @@
      */
     search: function(modules, term) {
         // reset offset to 0 on a search. make sure that it resets and does not update.
-        this.context.set('query', term);
-        this.context.set('module_list', modules);
-        var sortOptions = this.context.get('sortOptions') || {};
-        sortOptions.query = term;
-        sortOptions.module_list = modules;
-        sortOptions.offset = 0;
-        sortOptions.update = false;
-        this.context.resetLoadFlag(false);
-        this.context.set('skipFetch', false);
-        this.context.loadData(sortOptions);
+        this.collection.fetch({query: term, module_list: modules, offset: 0, update: false});
     },
     reloadList: function() {
         var self = this;

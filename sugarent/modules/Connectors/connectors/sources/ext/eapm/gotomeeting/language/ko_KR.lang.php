@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,9 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">새 어플리케이션을 등록하여 Citrix Online GoToMeeting에 API Key를 얻으십시오.<br> &nbsp;<br> 인스턴스 등록 단계는 다음과 같습니다:<br> &nbsp;<br> <ol> <li>Citrix Online 개발자 계정에 로그인합니다. <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li> <li>개발자 키 신청 를 클릭합니다.</li> <li>제품 API 에서 GoToMeeting을 선택한 후 어플리케이션 URL 에 자신의 인스턴스 URL을 입력합니다.</li> <li>자신의 어플리케이션 에서 API Key라는 열이 표시됩니다.</li> <li>아래에 복사합니다.</li> </ol> </td></tr></table>',
-    'oauth_consumer_key' => 'API 키',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => '새 응용 프로그램을 등록하여 시트릭스 온라인(Citrix Online) GoToMeeting에서 API 키를 가져옵니다. <br /><br />인스턴스 등록하기 위한 단계 : <br /><br />1. 시트릭스 온라인 개발자 계정에 로그인합니다: https://developer.citrixonline.com/ <br /><br />2. 개발자 키에 대한 신청을 클릭합니다 <br /><br />3. 제품 API에서 GoToMeeting을 선택하고, 응용 프로그램의 URL에서 인스턴스의 URL 입력합니다  <br /><br />4. 응용 프로그램에서 API 키 열을 볼 수 있습니다 <br /><br />5. 다음 아래에서 복사합니다.',
+  'oauth_consumer_key' => '소비자키',
 );
+

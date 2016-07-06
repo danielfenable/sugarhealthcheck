@@ -52,6 +52,7 @@ $mod_strings = array (
     'LBL_SOURCE_BOOTSTRAP' => 'Twitterbootstrap - HTML, CSS, and JS toolkit from Twitter.',
     'LBL_SOURCE_ASYNC' => 'Async - Async utilities for node and the browser.',
     'LBL_SOURCE_PHPEXCEL' => 'PHPExcel - A pure PHP library for reading and writing spreadsheet files.', 
+    'LBL_SOURCE_TIMEAGO' => 'jquery timeago - A jQuery plugin that makes it easy to support automatically updating fuzzy timestamps.',
   'LNK_NEW_LEAD' => 'Create Lead',
   'LNK_NEW_CASE' => 'Create Case',
   'LNK_NEW_NOTE' => 'Create Note or Attachment',
@@ -134,7 +135,7 @@ $mod_strings = array (
   'LBL_DASHLET_WEBPAGE_URL' => 'URL',
   'LBL_DASHLET_WEBPAGE_URL_HELP' => 'Some sites may not load correctly due to insecure content or policies.',
 
-  'LBL_DASHLET_ADD' => 'Add a',
+  'LBL_DASHLET_ADD' => 'Add a Sugar Dashlet®',
   'LBL_DASHLET_DELETE' => 'Delete Sugar Dashlet',
   'LBL_DASHLET_REFRESH' => 'Refresh Sugar Dashlet',
   'LBL_DASHLET_EDIT' => 'Edit Sugar Dashlet',
@@ -211,7 +212,7 @@ $mod_strings = array (
   'LBL_FORUMS' => 'Forums',
   'LBL_DETAILS_FORUMS' => 'Discuss Sugar with expert community users and developers',
   'LBL_WIKI' => 'Wiki',
-  'LBL_DETAILS_WIKI' => 'Search the knowledge base of user and developer categories',
+  'LBL_DETAILS_WIKI' => 'Search the knowledge base of user and developer topics',
   'LBL_DEVSITE' => 'Developer Site',
   'LBL_DETAILS_DEVSITE' => 'Discover resources, tutorials, and helpful links to get you up to speed on Sugar development',
   'LBL_GET_SUGARCRM_RSS' => 'Get SugarCRM RSS',
@@ -223,7 +224,7 @@ $mod_strings = array (
   'LBL_LINK_CURRENT_CONTRIBUTORS' => 'Click this link for a current list of Sugar contributors!',
   'LBL_SOURCE_CODE' => 'Source Code',
   'LBL_SOURCE_SUGAR' => 'Sugar - The world\'s most popular sales force automation application created by SugarCRM Inc.',
-  'LBL_SOURCE_XTEMPLATE' => 'XTemplate - A template engine for PHP created by BarnabÃ¡s Debreceni',
+  'LBL_SOURCE_XTEMPLATE' => 'XTemplate - A template engine for PHP created by Barnabás Debreceni',
   'LBL_SOURCE_NUSOAP' => 'NuSOAP - A set of PHP classes that allow developers to create and consume web services created by NuSphere Corporation and Dietrich Ayala',
   'LBL_SOURCE_JSCALENDAR' => 'JS Calendar - A calendar for entering dates created by Mihai Bazon',
   'LBL_SOURCE_PHPPDF' => 'PHP PDF - A library for creating PDF documents created by Wayne Munro',
@@ -290,5 +291,4 @@ $mod_strings = array (
 
 The Help Dashboard is available for all Sugar 7 modules and can be toggled "open" and "closed" by clicking the Help icon in the application footer.',
 
-    'LBL_FACETS_DASHBOARD_TITLE' => 'Filter',
 );

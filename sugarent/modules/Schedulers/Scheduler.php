@@ -361,7 +361,7 @@ class Scheduler extends SugarBean {
 		//_pp($hrName);
 		// derive minutes
 		//$currentMin = date('i');
-		$currentMin = $timedate->getNow()->format('i');
+		$currentMin = $timedate->getNow()->minute;
 		if(substr($currentMin, 0, 1) == '0') {
 			$currentMin = substr($currentMin, 1, 1);
 		}
@@ -376,13 +376,13 @@ class Scheduler extends SugarBean {
 			}
 		} elseif(strstr($mins,'*/')) {
 			$mult = str_replace('*/','',$mins);
-			$startMin = $timedate->fromDb($focus->date_time_start)->format('i');
-			$startFrom = $startMin - $startMin % $mult;
-			for($i=0; $i<=59; $i) {
-				if(($startFrom + $i) > 59) {
-					$minName[] = ($i + $startFrom - 60);
+			$startMin = $timedate->fromDb($focus->date_time_start)->minute;
+			$startFrom = ($startMin % $mult);
+			for($i=$startFrom; $i<=59; $i) {
+				if(($currentMin + $i) > 59) {
+					$minName[] = ($i + $currentMin - 60);
 				} else {
-					$minName[] = ($i+$startFrom);
+					$minName[] = ($i+$currentMin);
 				}
 				$i += $mult;
 			}
@@ -1014,19 +1014,6 @@ class Scheduler extends SugarBean {
         $scheduler->created_by = '1';
         $scheduler->modified_user_id = '1';
         $scheduler->catch_up = '1';
-        $schedulers[$scheduler->job] = $scheduler;
-
-        // Update expired KB Articles
-        $scheduler = BeanFactory::getBean('Schedulers');
-        $scheduler->name               = $mod_strings['LBL_OOTB_KBSCONTENT_EXPIRE'];
-        $scheduler->job                = 'class::SugarJobKBContentUpdateArticles';
-        $scheduler->date_time_start    = create_date(2005, 1, 1) . ' ' . create_time(0, 0, 1);
-        $scheduler->date_time_end      = create_date(2030, 12, 31) . ' ' . create_time(23, 59, 59);
-        $scheduler->job_interval       = '0::5::*::*::*';
-        $scheduler->status             = 'Active';
-        $scheduler->created_by         = '1';
-        $scheduler->modified_user_id   = '1';
-        $scheduler->catch_up           = '1';
         $schedulers[$scheduler->job] = $scheduler;
 
         return $schedulers;

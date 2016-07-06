@@ -93,7 +93,6 @@ class SugarFieldDatetimecombo extends SugarFieldBase {
         return $this->fetch($this->findTemplate('SearchView'));
     }
 
-
     function getWirelessEditViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex) {
     	global $timedate;
     	$datetime_prefs = $GLOBALS['current_user']->getUserDateTimePreferences();

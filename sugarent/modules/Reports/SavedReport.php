@@ -321,9 +321,9 @@ class SavedReport extends SugarBean
 			$unpublish = $unpublish_line;
 			$publish_my_reports = $publish_line;
 		} else {
-			$delete = "<!--not_in_theme!--><img src=\"".getJSPath("include/images/blank.gif")."\" width=\"1\" height=\"1\" alt=\"\">";
-			$unpublish = "<!--not_in_theme!--><img src=\"".getJSPath("include/images/blank.gif")."\" width=\"1\" height=\"1\" alt=\"\">";
-			$publish_my_reports = "<!--not_in_theme!--><img src=\"".getJSPath("include/images/blank.gif")."\" width=\"1\" height=\"1\" alt=\"\">";
+			$delete = "<!--not_in_theme!--><img src=\"include/images/blank.gif\" width=\"1\" height=\"1\" alt=\"\">";
+			$unpublish = "<!--not_in_theme!--><img src=\"include/images/blank.gif\" width=\"1\" height=\"1\" alt=\"\">";
+			$publish_my_reports = "<!--not_in_theme!--><img src=\"include/images/blank.gif\" width=\"1\" height=\"1\" alt=\"\">";
 		}
 
 		$delete_my_reports = $delete_line;
@@ -439,7 +439,7 @@ class SavedReport extends SugarBean
 function getACLAllowedModules($ignoreSessionCache = false) {
 
 	if ($ignoreSessionCache === false && isset($_SESSION['reports_getACLAllowedModules'])) {
-        return (array) $_SESSION['reports_getACLAllowedModules'];
+        return $_SESSION['reports_getACLAllowedModules'];
     }
 
      require_once('modules/Reports/config.php');

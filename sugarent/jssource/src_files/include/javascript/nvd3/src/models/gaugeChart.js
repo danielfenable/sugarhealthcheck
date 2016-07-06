@@ -23,7 +23,7 @@ nv.models.gaugeChart = function() {
         controls: {close: 'Hide controls', open: 'Show controls'},
         noData: 'No Data Available.'
       },
-      dispatch = d3.dispatch('chartClick', 'tooltipShow', 'tooltipHide', 'tooltipMove');
+      dispatch = d3.dispatch('tooltipShow', 'tooltipHide', 'tooltipMove');
 
   //============================================================
   // Private Variables
@@ -33,11 +33,13 @@ nv.models.gaugeChart = function() {
       legend = nv.models.legend()
         .align('center');
 
-  var showTooltip = function(eo, offsetElement) {
-    var y = gauge.valueFormat()((eo.point.y1 - eo.point.y0)),
-        content = tooltipContent(eo.point.key, y, eo, chart);
+  var showTooltip = function(e, offsetElement) {
+    var left = e.pos[0],
+        top = e.pos[1],
+        y = gauge.valueFormat()((e.point.y1 - e.point.y0)),
+        content = tooltipContent(e.point.key, y, e, chart);
 
-    tooltip = nv.tooltip.show(eo.e, content, null, null, offsetElement);
+    tooltip = nv.tooltip.show([left, top], content, null, null, offsetElement);
   };
 
   //============================================================
@@ -102,11 +104,9 @@ nv.models.gaugeChart = function() {
       gEnter.append('rect').attr('class', 'nv-background')
         .attr('x', -margin.left)
         .attr('y', -margin.top)
-        .attr('fill', '#FFF');
-
-      g.select('.nv-background')
         .attr('width', availableWidth + margin.left + margin.right)
-        .attr('height', availableHeight + margin.top + margin.bottom);
+        .attr('height', availableHeight + margin.top + margin.bottom)
+        .attr('fill', '#FFF');
 
       gEnter.append('g').attr('class', 'nv-titleWrap');
       var titleWrap = g.select('.nv-titleWrap');
@@ -120,10 +120,9 @@ nv.models.gaugeChart = function() {
       //------------------------------------------------------------
       // Title & Legend
 
-      var titleBBox = {width: 0, height: 0};
-      titleWrap.select('.nv-title').remove();
-
       if (showTitle && properties.title) {
+        titleWrap.select('.nv-title').remove();
+
         titleWrap
           .append('text')
             .attr('class', 'nv-title')
@@ -135,17 +134,16 @@ nv.models.gaugeChart = function() {
             .attr('stroke', 'none')
             .attr('fill', 'black');
 
-        titleBBox = nv.utils.getTextBBox(g.select('.nv-title'));
-
-        innerMargin.top += titleBBox.height + 12;
+        innerMargin.top += parseInt(g.select('.nv-title').node().getBoundingClientRect().height / 1.15, 10) +
+          parseInt(g.select('.nv-title').style('margin-top'), 10) +
+          parseInt(g.select('.nv-title').style('margin-bottom'), 10);
       }
-
-      var legendLinkBBox = {width: 0, height: 0};
 
       if (showLegend) {
         legend
           .id('legend_' + chart.id())
           .strings(chart.strings().legend)
+          .margin({top: 10, right: 10, bottom: 10, left: 10})
           .align('center')
           .height(availableHeight - innerMargin.top);
         legendWrap
@@ -154,25 +152,14 @@ nv.models.gaugeChart = function() {
 
         legend
           .arrange(availableWidth);
-
-        var legendLinkBBox = nv.utils.getTextBBox(legendWrap.select('.nv-legend-link')),
-            legendSpace = availableWidth - titleBBox.width - 6,
-            legendTop = showTitle && legend.collapsed() && legendSpace > legendLinkBBox.width ? true : false,
-            xpos = direction === 'rtl' || !legend.collapsed() ? 0 : availableWidth - legend.width(),
-            ypos = titleBBox.height;
-        if (legendTop) {
-          ypos = titleBBox.height - legend.height() / 2 - legendLinkBBox.height / 2;
-        } else if (!showTitle) {
-          ypos = - legend.margin().top;
-        }
-
         legendWrap
-          .attr('transform', 'translate(' + xpos + ',' + ypos + ')');
-
-        innerMargin.top += legendTop ? 0 : legend.height() - 12;
+          .attr('transform', 'translate(0,' + innerMargin.top + ')');
       }
 
+      //------------------------------------------------------------
       // Recalc inner margins
+
+      innerMargin.top += legend.height() + 4;
       innerHeight = availableHeight - innerMargin.top - innerMargin.bottom;
 
       //------------------------------------------------------------
@@ -194,15 +181,9 @@ nv.models.gaugeChart = function() {
       // Event Handling/Dispatching (in chart's scope)
       //------------------------------------------------------------
 
-      dispatch.on('tooltipShow', function(eo) {
+      dispatch.on('tooltipShow', function(e) {
         if (tooltips) {
-          showTooltip(eo, that.parentNode);
-        }
-      });
-
-      dispatch.on('tooltipMove', function(e) {
-        if (tooltip) {
-          nv.tooltip.position(that.parentNode, tooltip, e);
+          showTooltip(e);
         }
       });
 
@@ -212,9 +193,9 @@ nv.models.gaugeChart = function() {
         }
       });
 
-      dispatch.on('chartClick', function() {
-        if (legend.enabled()) {
-          legend.dispatch.closeMenu();
+      dispatch.on('tooltipMove', function(e) {
+        if (tooltip) {
+          nv.tooltip.position(tooltip, e.pos);
         }
       });
 
@@ -227,16 +208,16 @@ nv.models.gaugeChart = function() {
   // Event Handling/Dispatching (out of chart's scope)
   //------------------------------------------------------------
 
-  gauge.dispatch.on('elementMouseover.tooltip', function(eo) {
-    dispatch.tooltipShow(eo);
+  gauge.dispatch.on('elementMouseover.tooltip', function(e) {
+    dispatch.tooltipShow(e);
+  });
+
+  gauge.dispatch.on('elementMouseout.tooltip', function(e) {
+    dispatch.tooltipHide(e);
   });
 
   gauge.dispatch.on('elementMousemove.tooltip', function(e) {
     dispatch.tooltipMove(e);
-  });
-
-  gauge.dispatch.on('elementMouseout.tooltip', function() {
-    dispatch.tooltipHide();
   });
 
   //============================================================

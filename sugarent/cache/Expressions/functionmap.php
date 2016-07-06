@@ -72,10 +72,6 @@ $FUNCTION_MAP = array(
 						'class'	=>	'RelatedFieldExpression',
 						'src'	=>	'include/Expressions/Expression/Generic/RelatedFieldExpression.php',
 			),
-			'forecastIncludedCommitStages' => array(
-						'class'	=>	'ForecastIncludedCommitStagesExpression',
-						'src'	=>	'include/Expressions/Expression/Enum/ForecastIncludedCommitStagesExpression.php',
-			),
 			'getDropdownKeySet' => array(
 						'class'	=>	'SugarDropDownExpression',
 						'src'	=>	'include/Expressions/Expression/Enum/SugarDropDownExpression.php',
@@ -107,10 +103,6 @@ $FUNCTION_MAP = array(
 			'getTransDD' => array(
 						'class'	=>	'SugarTranslatedDropDownExpression',
 						'src'	=>	'include/Expressions/Expression/Enum/SugarTranslatedDropDownExpression.php',
-			),
-			'forecastCommitStage' => array(
-						'class'	=>	'ForecastCommitStageExpression',
-						'src'	=>	'include/Expressions/Expression/String/ForecastCommitStageExpression.php',
 			),
 			'charAt' => array(
 						'class'	=>	'CharacterAtExpression',

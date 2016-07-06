@@ -16,7 +16,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdocs}
      *
      * Sets up the file field to edit mode
      *
@@ -42,7 +42,7 @@
         } else {
             app.file.checkFileFieldsAndProcessUpload(self, {
                     success: function (data) {
-                        var route = app.router.buildRoute(self.module, data.project_import.id);
+                        var route = app.router.buildRoute(self.module, data.project_import);
                         route = route + '/layout/designer';
                         app.router.navigate(route, {trigger: true});
                         app.alert.show('process-import-saved', {
@@ -50,13 +50,6 @@
                             messages: app.lang.get('LBL_PMSE_PROCESS_DEFINITION_IMPORT_SUCCESS', self.module),
                             autoClose: true
                         });
-                        if (data.project_import.br_warning) {
-                            app.alert.show('process-import-save-with-br', {
-                                level: 'warning',
-                                messages: app.lang.get('LBL_PMSE_PROCESS_DEFINITION_IMPORT_BR', self.module),
-                                autoClose: false
-                            });
-                        }
                     },
                     error: function (error) {
                         app.alert.show('process-import-saved', {

@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({events:{'click [data-action=show-more]':'paginate'},_loadTemplate:function(options){this.tplName='list-bottom';this.template=app.template.getView(this.tplName);},_renderHtml:function(){if((this.collection.next_offset===-1)&&(this.collection.length>0)){this.$el.addClass('hide');}else{this.dataFetched=this.collection.dataFetched;this.showMoreLabel=app.lang.get('TPL_SHOW_MORE_MODULE',this.module);this.showLoadMsg=true;this._super('_renderHtml');this.$el.removeClass('hide');}},bindDataChange:function(){this.collection.on('reset add',this.render,this);},paginate:function(){this.context.trigger('activitystream:paginate',true);}})
+({bindDataChange:function(){this.collection.on('reset',this.render,this);}})

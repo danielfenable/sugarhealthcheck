@@ -12,7 +12,7 @@
     extendsFrom: "RowactionField",
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     initialize: function(options) {
         this.plugins = _.clone(this.plugins) || [];
@@ -24,5 +24,31 @@
         }
 
         this._super("initialize", [options]);
+        this.context.on("record:deleted", function(){
+            this.deleteCommitWarning();
+        }, this);
+    },
+    
+    /**
+     * Shows a warning message if a RLI that is included in a forecast is deleted.
+     * @return string message
+     */
+    deleteCommitWarning: function(){
+        var message = null
+        if (this.model.get("commit_stage") == "include") {
+            var forecastModuleSingular = app.lang.getModuleName('Forecasts');
+            message = app.lang.get("WARNING_DELETED_RECORD_RECOMMIT_1", "RevenueLineItems")
+                + '<a href="#Forecasts">' + forecastModuleSingular + '</a>.  '
+                + app.lang.get("WARNING_DELETED_RECORD_RECOMMIT_2", "RevenueLineItems")
+                + '<a href="#Forecasts">' + forecastModuleSingular + '</a>.';
+            app.alert.show("included_delete_warning", {
+                level: "warning",
+                messages: message,
+                onLinkClick: function() {
+                    app.alert.dismissAll();
+                }
+            });
+        }
+        return message;
     }
 })

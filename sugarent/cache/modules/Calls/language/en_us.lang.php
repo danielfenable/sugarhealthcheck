@@ -1,13 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:23
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team Id',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -27,6 +20,11 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'rem',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team Id',
   'LBL_BLANK' => ' ',
   'LBL_MODULE_NAME' => 'Calls',
   'LBL_MODULE_NAME_SINGULAR' => 'Call',
@@ -45,7 +43,6 @@ $mod_strings = array (
   'LBL_LIST_DIRECTION' => 'Direction',
   'LBL_SUBJECT' => 'Subject:',
   'LBL_CONTACT_NAME' => 'Contact:',
-  'LBL_CONTACT_ID' => 'Contact Id',
   'LBL_DESCRIPTION_INFORMATION' => 'Description Information',
   'LBL_STATUS' => 'Status:',
   'LBL_DIRECTION' => 'Direction:',
@@ -174,5 +171,7 @@ To create a {{calls_singular_module}}:
 2. Add invitees to the {{calls_singular_module}}.
     - Click "Select an Attendee" to add an existing user, contact, or lead to the {{calls_singular_module}}.
     - Click the plus icon to the right of "Select an Attendee" to create a {{calls_singular_module}} attendee as a new Sugar record.
-3. Click "Save" to finalize the new record and return to the previous page.',
+3. Click "Save" to finalize the new record and return to the previous page.
+    - Choose "Save and view" to open the new {{calls_singular_module}} in record view.
+    - Choose "Save and create new" to immediately create another new {{calls_singular_module}}.',
 );

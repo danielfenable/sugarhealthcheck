@@ -145,7 +145,7 @@
              *
              * Since oauth server implementation might throw 401 (as well as 400)
              * we route this to the {@link Core.Error#_handleFineGrainedError}.
-             * If no match for oauth error then handleOAuthError will try to use
+             * If no match for oauth error then handleOAuthError will try to use 
              * handleInvalidRequestError if supplied.
              *
              * Provide custom `handleInvalidRequestError` handler.

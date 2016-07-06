@@ -42,7 +42,6 @@ $viewdefs['Opportunities']['EditView'] = array(
         'LBL_PANEL_ASSIGNMENT' => array(
             array(
                 'assigned_user_name',
-
                 array('name'=>'team_name'),
             ),
         ),

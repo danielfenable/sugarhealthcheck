@@ -128,7 +128,7 @@
     moduleIsAvailable: true,
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Append lastStateID on metadata in order to active user cache.
      */
@@ -251,7 +251,7 @@
                 this.saveDashletFilter();
                 // NOTE: This prevents the drawer from closing prematurely.
                 return false;
-            }, this);
+            }, null, this);
 
         } else if (this.moduleIsAvailable) {
             var filterId = this.settings.get('filter_id');
@@ -264,17 +264,11 @@
             filters.setModuleName(this.settings.get('module'));
             filters.load({
                 success: _.bind(function() {
-                    if (this.disposed) {
-                        return;
-                    }
                     var filter = filters.collection.get(filterId);
                     var filterDef = filter && filter.get('filter_definition');
                     this._displayDashlet(filterDef);
                 }, this),
                 error: _.bind(function(err) {
-                    if (this.disposed) {
-                        return;
-                    }
                     this._displayDashlet();
                 }, this)
             });
@@ -285,14 +279,15 @@
      * Fetch the next pagination records.
      */
     showMoreRecords: function() {
-        // Show alerts for this request
-        this.getNextPagination();
+        //Show alerts for this request
+        // Override default collection options if they exist
+        this.getNextPagination(this.context.get('collectionOptions'));
     },
 
     /**
      * Returns a custom label for this dashlet.
      *
-     * @return {string}
+     * @returns {String}
      */
     getLabel: function() {
         var module = this.settings.get('module') || this.context.get('module'),
@@ -519,7 +514,7 @@
             return;
         }
 
-        this.layout.initComponents([{
+        this.layout._addComponentsFromDef([{
             layout: 'dashablelist-filter'
         }]);
     },
@@ -652,8 +647,8 @@
      * preview and the default dashablelist's that are defined. All columns for
      * the selected module are shown in these cases.
      *
-     * @return {Object[]} Array of objects defining the field metadata for
-     *   each column.
+     * @returns {Object[]} Array of objects defining the field metadata for
+     *                     each column.
      * @private
      */
     _getColumnsForDisplay: function() {
@@ -728,7 +723,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Calls {@link BaseDashablelistView#_stopAutoRefresh} so that the refresh will
      * not continue after the view is disposed.

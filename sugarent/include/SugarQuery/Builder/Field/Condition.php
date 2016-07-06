@@ -19,7 +19,6 @@
 class SugarQuery_Builder_Field_Condition extends SugarQuery_Builder_Field
 {
     protected $rNameExists = false;
-    protected $fieldCompare;
 
     public function __construct($field, SugarQuery $query)
     {
@@ -145,32 +144,5 @@ class SugarQuery_Builder_Field_Condition extends SugarQuery_Builder_Field
             return $forPrepared ? $value : $db->quoteType($dbtype, $value);
         }
         return $forPrepared ? $value : $db->quoted($value);
-    }
-
-    /**
-     * Set compare field.
-     * @param $value
-     */
-    public function setFieldCompare($value)
-    {
-        $this->fieldCompare = $value;
-    }
-
-    /**
-     * Get compare field.
-     * @return mixed|bool
-     */
-    public function getFieldCompare()
-    {
-        return $this->fieldCompare;
-    }
-
-    /**
-     * Check if field is comparable.
-     * @return bool
-     */
-    public function isFieldCompare()
-    {
-        return (bool)$this->fieldCompare;
     }
 }

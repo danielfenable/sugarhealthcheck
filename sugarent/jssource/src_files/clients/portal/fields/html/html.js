@@ -19,7 +19,7 @@
     /**
      * This is overridden by portal in order to prepend site url to src attributes of img tag
      * @param {String} value
-     * @return {string} formatted value
+     * @returns {String} formatted value
      */
     format: function(value) {
         return value ?

@@ -11,12 +11,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 $dashletStrings['CalendarDashlet'] = array(
 					'LBL_TITLE'            => 'לוח השנה שלי',
-                         'LBL_DESCRIPTION'      => 'חלונית לוח שנה',
+                         'LBL_DESCRIPTION'      => 'Calendar dashlet',
                          'LBL_CONFIGURE_TITLE'  => 'כותרת',
                          'LBL_CONFIGURE_VIEW'  => 'צפה',
-                         'LBL_SAVE_BUTTON_LABEL' => 'שמירה',
+                         'LBL_SAVE_BUTTON_LABEL' => 'שמור',
                          
                          'LBL_VIEW_DAY' => 'יום',
                          'LBL_VIEW_WEEK' => 'שבוע',

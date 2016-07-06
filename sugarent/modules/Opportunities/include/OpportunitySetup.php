@@ -21,13 +21,6 @@ abstract class OpportunitySetup
     protected $bean;
 
     /**
-     * A flag to indicate if it's from upgrade
-     *
-     * @var boolean
-     */
-    protected $isUpgrade = false;
-
-    /**
      * Field Vardef setup
      *
      * @var array
@@ -96,15 +89,6 @@ abstract class OpportunitySetup
     }
 
     /**
-     * Set the flag to indicate if it's in upgrade.
-     * @param boolean $isUpgrade the flag value
-     */
-    public function setIsUpgrade($isUpgrade = false)
-    {
-        $this->isUpgrade = $isUpgrade;
-    }
-
-    /**
      * Process the field vardefs as setup by the extending classes
      */
     protected function processFields()
@@ -119,7 +103,7 @@ abstract class OpportunitySetup
             $field_defs = $this->bean->getFieldDefinition($field);
             // load the field type up
             $f = get_widget($field_defs['type']);
-
+    
             $diff = array();
             foreach ($new_defs as $k => $v) {
                 if (!isset($field_defs[$k])) {
@@ -145,12 +129,6 @@ abstract class OpportunitySetup
                 continue;
             }
 
-            // the TemplateCurrency has a default of 0, but out OOB files, they are required
-            // to not have a default value of 0, so it's set to null here
-            if ($field_defs['type'] === 'currency' && !isset($field_defs['default'])) {
-                $diff['default'] = null;
-            }
-
             // populate the row from the vardefs that were loaded and the new_defs
             $f->populateFromRow(array_merge($field_defs, $diff));
 
@@ -165,9 +143,6 @@ abstract class OpportunitySetup
             // after the field has been saved in Studio
             if (!isset($f->vardef_map['studio'])) {
                 $f->vardef_map['studio'] = 'studio';
-            }
-            if (!isset($f->vardef_map['convertToBase'])) {
-                $f->vardef_map['convertToBase'] = 'convertToBase';
             }
 
             $f->save($df);
@@ -203,15 +178,9 @@ abstract class OpportunitySetup
         $this->bean = BeanFactory::getBean('Opportunities');
 
         $rnr_modules = $this->fixRevenueLineItemModule();
-        SugarBean::clearLoadedDef('RevenueLineItem');
 
-        // hide/show reports
-        $this->handleReports();
-
-        if ($this->isUpgrade === false) {
-            // lets fix the workflows module
-            $this->processWorkFlows();
-        }
+        // lets fix the workflows module
+        $this->processWorkFlows();
 
         // r&r the rli + related modules
         $this->runRepairAndRebuild($rnr_modules);
@@ -231,31 +200,8 @@ abstract class OpportunitySetup
         $rac->show_output = false;
         $rac->module_list = $modules;
         $rac->clearVardefs();
-        $rac->clearMetadataAPICache();
         $rac->rebuildExtensions($modules);
     }
-
-    /**
-     * Fix the module Filters
-     *
-     * @param array $fieldMap The list of fields to add or remove from the filter.
-     */
-    protected function fixFilter(array $fieldMap)
-    {
-        /* @var $filterDefParser SidecarFilterLayoutMetaDataParser */
-        $filterDefParser = ParserFactory::getParser(MB_BASICSEARCH, 'Opportunities', null, null, 'base');
-
-        foreach($fieldMap as $field => $add) {
-            if ($add === true) {
-                $filterDefParser->addField($field);
-            } else {
-                $filterDefParser->removeField($field);
-            }
-        }
-
-        $filterDefParser->handleSave(false);
-    }
-
 
     /**
      * Add and Remove fields from the Record View
@@ -355,11 +301,7 @@ abstract class OpportunitySetup
         $tabs = $newTB->get_system_tabs();
 
         if ($show) {
-            // if this is in the upgrade and RevenueLineItem is disabled in the tab before the upgrade,
-            // it should not be enabled in the tab.
-            if ( !$this->isUpgrade || isset($tabs['RevenueLineItems'])) {
-                $tabs['RevenueLineItems'] = 'RevenueLineItems';
-            }
+            $tabs['RevenueLineItems'] = 'RevenueLineItems';
         } else {
             unset($tabs['RevenueLineItems']);
         }
@@ -384,25 +326,21 @@ abstract class OpportunitySetup
 
         while ($row = $db->fetchRow($results)) {
             $tabArray = unserialize(base64_decode($row['value']));
-
-            // in the setup, this might not be set yet.
-            if (is_array($tabArray)) {
-                // find the key
-                $key = array_search($value, $tabArray);
-                if ($key === false && $show === true) {
-                    $tabArray[] = $value;
-                } elseif ($key !== false & $show === false) {
-                    unset($tabArray[$key]);
-                }
-
-                $sql = "UPDATE config
-                    SET value = '" . base64_encode(serialize($tabArray)) . "'
-                    WHERE category = 'MySettings'
-                    AND name = '" . $setting . "'
-                    AND (platform = 'base' OR platform IS NULL OR platform = '')";
-                $db->query($sql);
-                $db->commit();
+            // find the key
+            $key = array_search($value, $tabArray);
+            if ($key === false && $show === true) {
+                $tabArray[] = $value;
+            } elseif ($key !== false & $show === false) {
+                unset($tabArray[$key]);
             }
+
+            $sql = "UPDATE config
+                SET value = '" . base64_encode(serialize($tabArray)) . "'
+                WHERE category = 'MySettings'
+                AND name = '" . $setting . "'
+                AND (platform = 'base' OR platform IS NULL OR platform = '')";
+            $db->query($sql);
+            $db->commit();
         }
     }
 
@@ -414,8 +352,13 @@ abstract class OpportunitySetup
     protected function setRevenueLineItemInParentRelateDropDown($add = true)
     {
         $rli = BeanFactory::getBean('RevenueLineItems');
-        $all_languages = get_languages();
-        $old_request = $_REQUEST;
+
+        // get the default system language
+        $default_lang = SugarConfig::getInstance()->get('default_language');
+
+        // get the default app_list_strings and the default language for Revenue Line Items
+        $app_list_stings = return_app_list_strings_language($default_lang);
+        $module_lang = return_module_language($default_lang, 'RevenueLineItems');
 
         // What lists need updating
         $listsToUpdate = array(
@@ -429,56 +372,45 @@ abstract class OpportunitySetup
         SugarAutoLoader::load('modules/ModuleBuilder/parsers/parser.dropdown.php');
         $dd_parser = new ParserDropDown();
 
-        foreach ($all_languages as $current_lang => $current_lang_name) {
-            // get the default app_list_strings and the default language for Revenue Line Items
-            $app_list_stings = return_app_list_strings_language($current_lang);
-            $module_lang = return_module_language($current_lang, 'RevenueLineItems');
+        foreach($listsToUpdate as $list_key) {
+            $list = $app_list_stings[$list_key];
+            $hasRLI = isset($list[$rli->module_name]);
 
-            foreach ($listsToUpdate as $list_key) {
-                $list = $app_list_stings[$list_key];
-                $hasRLI = isset($list[$rli->module_name]);
-
-                if ($add && (!$hasRLI || $list[$rli->module_name] !== $module_lang['LBL_MODULE_NAME'])) {
-                    // get the translated value
-                    $list[$rli->module_name] = $module_lang['LBL_MODULE_NAME'];
-                    $GLOBALS['app_list_strings'][$list_key][$rli->module_name] = $module_lang['LBL_MODULE_NAME'];
-                } elseif (!$add && $hasRLI) {
-                    unset($GLOBALS['app_list_strings'][$list_key][$rli->module_name]);
-                    unset($list[$rli->module_name]);
-                } else {
-                    // nothing changed, we can continue
-                    continue;
-                }
-
-                // the parser need all the values to be in their own array with the key first then the value
-                $new_list = array();
-                foreach ($list as $k => $v) {
-                    $new_list[] = array($k, $v);
-                }
-
-                $params = array(
-                    'dropdown_name' => $list_key,
-                    'dropdown_lang' => $current_lang,
-                    'list_value' => json_encode($new_list),
-                    'view_package' => 'studio',
-                    'use_push' => ($list_key == 'moduleList'),
-                    'skipSaveExemptDropdowns' => true,
-                    'skip_sync' => true,
-                );
-                // for some reason, the ParserDropDown class uses $_REQUEST vs getting it from what
-                // was passed in.
-                $_REQUEST['view_package'] = 'studio';
-                $_REQUEST['dropdown_lang'] = $current_lang;
-
-                $dd_parser->saveDropDown($params);
-
-                // clean up the request object
-                unset($_REQUEST['dropdown_lang']);
-                unset($_REQUEST['view_package']);
+            if ($add && !$hasRLI) {
+            // get the translated value
+                $list[$rli->module_name] = $module_lang['LBL_MODULE_NAME'];
+                $GLOBALS['app_list_strings'][$list_key][$rli->module_name] = $module_lang['LBL_MODULE_NAME'];
+            } elseif (!$add && $hasRLI) {
+                unset($GLOBALS['app_list_strings'][$list_key][$rli->module_name]);
+                unset($list[$rli->module_name]);
+            } else {
+                // nothing changed, we can continue
+                continue;
             }
-        }
 
-        $_REQUEST = $old_request;
+            // the parser need all the values to be in their own array with the key first then the value
+            $new_list = array();
+            foreach($list as $k => $v) {
+                $new_list[] = array($k, $v);
+            }
+
+            $params = array(
+                'dropdown_name' => $list_key,
+                'dropdown_lang' => $default_lang,
+                'list_value' => json_encode($new_list),
+                'view_package' => 'studio',
+                'use_push' => ($list_key == 'moduleList'),
+                'skipSaveExemptDropdowns' => true,
+            );
+            // for some reason, the ParserDropDown class uses $_REQUEST vs getting it from what
+            // was passed in.
+            $_REQUEST['view_package'] = 'studio';
+
+            $dd_parser->saveDropDown($params);
+
+            // clean up the request object
+            unset($_REQUEST['view_package']);
+        }
     }
 
     protected function toggleRevenueLineItemQuickCreate($enable = false)
@@ -495,10 +427,7 @@ abstract class OpportunitySetup
 
         $hasRLI = isset($enModules['RevenueLineItems']);
         if ($enable === true && $hasRLI === false) {
-            // if it's upgrade, RLI must be disabled and $hasRLI is false. Hence it won't be enabled.
-            if (!$this->isUpgrade) {
-                $enModules['RevenueLineItems'] = count($enModules);
-            }
+            $enModules['RevenueLineItems'] = count($enModules);
         } elseif ($enable === false && $hasRLI === true) {
             unset($enModules['RevenueLineItems']);
         } else {
@@ -643,48 +572,6 @@ EOL;
         }
 
         return $rnr_modules;
-    }
-
-    /**
-     * Cleanup the Unified Search Files
-     */
-    protected function cleanupUnifiedSearchCache()
-    {
-        // since we changed the unified search setting remove the cache file
-        $file = sugar_cached('modules/unified_search_modules.php');
-        if (SugarAutoLoader::fileExists($file)) {
-            SugarAutoLoader::unlink($file);
-        }
-        // remove the unified search display settings
-        $file = 'custom/modules/unified_search_modules_display.php';
-        if (SugarAutoLoader::fileExists($file)) {
-            SugarAutoLoader::unlink($file);
-        }
-    }
-
-    /**
-     * Show/hide reports based on mode.
-     */
-    protected function handleReports()
-    {
-        require_once('modules/Reports/SeedReports.php');
-
-        $db = DBManagerFactory::getInstance();
-
-        $func = function($item) use ($db) {
-            return($db->quoted($item));
-        };
-
-        $hide = !empty($this->reportchange['hide']) ? array_map($func, $this->reportchange['hide']): array();
-
-        if (!empty($hide)) {
-            $sql = 'UPDATE saved_reports SET deleted = 1 WHERE name IN (' . implode(',', $hide) . ') AND deleted = 0';
-            $db->query($sql);
-        }
-
-        if (!empty($this->reportchange['show'])) {
-            create_default_reports(false, $this->reportchange['show']);
-        }
     }
 
     abstract public function doDataConvert();

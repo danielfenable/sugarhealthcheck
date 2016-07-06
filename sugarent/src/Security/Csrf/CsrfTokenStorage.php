@@ -12,7 +12,6 @@
 
 namespace Sugarcrm\Sugarcrm\Security\Csrf;
 
-use Sugarcrm\Sugarcrm\Session\SessionStorage;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
@@ -32,27 +31,15 @@ class CsrfTokenStorage implements TokenStorageInterface
     const SESSION_NAMESPACE = 'csrf_tokens';
 
     /**
-     * @var Sugarcrm\Sugarcrm\Util\Arrays\TrackableArray\TrackableArray
-     */
-    protected $sessionStore;
-
-    public function __construct(SessionStorage $store) {
-        if(!$store->offsetExists(static::SESSION_NAMESPACE)) {
-            $store->offsetSet(static::SESSION_NAMESPACE, array());
-        }
-        $this->sessionStore = $store->offsetGet(static::SESSION_NAMESPACE);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getToken($tokenId)
     {
-        if (!$this->sessionStore->offsetExists($tokenId)) {
+        if (!isset($_SESSION[self::SESSION_NAMESPACE][$tokenId])) {
             throw new TokenNotFoundException('The CSRF token with ID '.$tokenId.' does not exist.');
         }
 
-        return (string) $this->sessionStore->offsetGet($tokenId);
+        return (string) $_SESSION[self::SESSION_NAMESPACE][$tokenId];
     }
 
     /**
@@ -60,7 +47,7 @@ class CsrfTokenStorage implements TokenStorageInterface
      */
     public function setToken($tokenId, $token)
     {
-        $this->sessionStore->offsetSet($tokenId, (string) $token);
+        $_SESSION[self::SESSION_NAMESPACE][$tokenId] = (string) $token;
     }
 
     /**
@@ -68,7 +55,7 @@ class CsrfTokenStorage implements TokenStorageInterface
      */
     public function hasToken($tokenId)
     {
-        return $this->sessionStore->offsetExists($tokenId);
+        return isset($_SESSION[self::SESSION_NAMESPACE][$tokenId]);
     }
 
     /**
@@ -76,9 +63,11 @@ class CsrfTokenStorage implements TokenStorageInterface
      */
     public function removeToken($tokenId)
     {
-        $token = $this->hasToken($tokenId) ? $this->getToken($tokenId) : null;
+        $token = isset($_SESSION[self::SESSION_NAMESPACE][$tokenId])
+            ? (string) $_SESSION[self::SESSION_NAMESPACE][$tokenId]
+            : null;
 
-        $this->sessionStore->offsetUnset($tokenId);
+        unset($_SESSION[self::SESSION_NAMESPACE][$tokenId]);
 
         return $token;
     }

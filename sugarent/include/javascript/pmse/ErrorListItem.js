@@ -12,7 +12,7 @@ var ErrorListItem=function(options){ListContainer.call(this,options);this.messag
 this.onClick=handler;return this;};ErrorListItem.prototype.attachListeners=function(){var that=this,item;jQuery(this.html).click(function(e){if(typeof that.onClick==='function'){if(that.parent){that.onClick(that.parent,that,that.errorType,that.errorId);}else{that.onClick(that,that.errorType,that.errorId);}
 that.select();}});return this;};ErrorListItem.prototype.setSelect=function(value){if(!(typeof value==="boolean")){throw new Error("ErrorListItem.select(): error in parameter");}
 this.selected=value;if(this.html){if(this.selected){this.select();}else{this.deselect();}}
-return this;};ErrorListItem.prototype.select=function(){if(this.html){if(this.parent){item=this.parent.getSelectedItem();if(item&&typeof(item.deselect)!='undefined'){item.deselect();}
+return this;};ErrorListItem.prototype.select=function(){if(this.html){if(this.parent){item=this.parent.getSelectedItem();if(item){item.deselect();}
 this.parent.setSelectedItem(this);}
 jQuery(this.getHTML()).css("background","#f3f8fe");}
 return this;};ErrorListItem.prototype.deselect=function(){if(this.html){jQuery(this.getHTML()).css("background","inherit")}

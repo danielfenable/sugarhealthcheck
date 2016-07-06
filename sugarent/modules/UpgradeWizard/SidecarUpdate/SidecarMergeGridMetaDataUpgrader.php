@@ -826,9 +826,9 @@ END;
             $origFields = array();
             // replace viewdefs with defaults, since parser's viewdefs can be already customized by other parts
             // of the upgrade
-            $parser->_viewdefs['panels'] = $parser->convertFromCanonicalForm($defaultDefs['panels']);
+            $parser->_viewdefs['panels'] = $parser->convertFromCanonicalForm($defaultDefs['panels'], $parser->_fielddefs);
             // get field list
-            $origData = $parser->getFieldsFromPanels($defaultDefs['panels']);
+            $origData = $parser->getFieldsFromPanels($defaultDefs['panels'], $parser->_fielddefs);
             // Go through existing fields and remove those not in the new data
             foreach($origData as $fname => $fielddef) {
                 if (!$this->isValidField($fname)) {
@@ -1127,17 +1127,17 @@ END;
     protected function addNewFieldsToLayout(array $newDefs) {
         $defaultDefs = $this->loadDefaultMetadata();
         $parser = ParserFactory::getParser($this->viewtype, $this->module, $this->package, null, $this->client);
-        $defaultFields = $parser->getFieldsFromPanels($defaultDefs['panels']);
-        $currentFields = $parser->getFieldsFromPanels($newDefs['panels']);
+        $defaultFields = $parser->getFieldsFromPanels($defaultDefs['panels'], $parser->_fielddefs);
+        $currentFields = $parser->getFieldsFromPanels($newDefs['panels'], $parser->_fielddefs);
         $origFields = array();
         foreach($this->originalLegacyViewdefs as $lViewtype => $data) {
             // We will need a parser no matter what
             $legacyParser = $this->getLegacyParser($lViewtype);
             // replace viewdefs with defaults, since parser's viewdefs can be already customized by other parts
             // of the upgrade
-            $legacyParser->_viewdefs['panels'] = $legacyParser->convertFromCanonicalForm($data['panels']);
+            $legacyParser->_viewdefs['panels'] = $legacyParser->convertFromCanonicalForm($data['panels'], $legacyParser->_fielddefs);
             // get field list
-            $origData = $legacyParser->getFieldsFromPanels($data['panels']);
+            $origData = $legacyParser->getFieldsFromPanels($data['panels'], $legacyParser->_fielddefs);
             $origFields = array_merge($origFields, $origData);
         }
         //Add fields always defaults to the bottom of the first panel.
@@ -1316,12 +1316,9 @@ END;
     protected function getLegacyParser($lViewtype)
     {
         if ($this->sidecar) {
-            $parser = ParserFactory::getParser($lViewtype, $this->module, $this->package, null, $this->client);
-        } elseif ($this->client == 'portal') {
-            require_once 'modules/ModuleBuilder/parsers/parser.portallupgrade.php';
-            $parser = new ParserPortalUpgrade();
+            $parser = ParserFactory::getParser($lViewtype, $this->module, $this->package, null, $this->client, array(), true);
         } else {
-            $parser = ParserFactory::getParser($lViewtype, $this->module, $this->package);
+            $parser = ParserFactory::getParser($lViewtype, $this->module, $this->package, null, null, array(), true);
         }
 
         return $parser;

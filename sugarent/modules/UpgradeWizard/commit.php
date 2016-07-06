@@ -14,8 +14,6 @@ if(!defined('sugarEntry') || !sugarEntry)
 sugar_die($app_strings['ERR_UW_RETIRED']);
 require_once('include/SugarLogger/SugarLogger.php');
 
-use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
-
 $trackerManager = TrackerManager::getInstance();
 $trackerManager->pause();
 $trackerManager->unsetMonitors();
@@ -64,7 +62,7 @@ else{
 	set_upgrade_progress('commit','in_progress','commit','in_progress');
 }
 //Initialize session errors array
-if(!isset($_SESSION['sqlSkippedQueries']) && !ArrayFunctions::is_array_access($_SESSION['sqlSkippedQueries'])){
+if(!isset($_SESSION['sqlSkippedQueries']) && !is_array($_SESSION['sqlSkippedQueries'])){
 	$_SESSION['sqlSkippedQueries'] = array();
 }
 // prevent "REFRESH" double commits
@@ -546,9 +544,7 @@ $rebuildResult .= "<a href='javascript:void(0); toggleRebuild();'>{$mod_strings[
 $rebuildResult = '';
 
 $skipped_queries_Desc='';
-if(isset($_SESSION['sqlSkippedQueries']) && $_SESSION['sqlSkippedQueries'] != null
-    && ArrayFunctions::is_array_access($_SESSION['sqlSkippedQueries']) && sizeof($_SESSION['sqlSkippedQueries'])>0
-){
+if(isset($_SESSION['sqlSkippedQueries']) && $_SESSION['sqlSkippedQueries'] != null && is_array($_SESSION['sqlSkippedQueries']) && sizeof($_SESSION['sqlSkippedQueries'])>0){
 	$skipped_queries_Desc .= "<b>{$mod_strings['LBL_UW_SKIPPED_QUERIES_ALREADY_EXIST']}</b><br />";
 	$skipped_queries_Desc .= "<a href='javascript:void(0); toggleNwFiles(\"skippedQueries\");'>{$mod_strings['LBL_UW_SHOW']}</a>";
 	$skipped_queries_Desc .= "<div id='skippedQueries' style='display:none;'>";

@@ -521,7 +521,7 @@ EOCSS;
             $print_required_array .= "required['$name'] = '". sanitize($display) . "';\n";
         }
         $sqsWaitImage = SugarThemeRegistry::current()->getImageURL('sqsWait.gif');
-        $removeButtonImage = "index.php?entryPoint=getImage&themeName=Sugar&imageName=id-ff-remove.png&v=".getVersionedPath('');
+
         return <<<EOJAVASCRIPT
 
     document.getElementById('goback').onclick = function()
@@ -642,7 +642,7 @@ document.getElementById('addrow').onclick = function(){
     removeButton.id = 'deleterow_' + rownum;
     removeButton.className = "removeButton";
     var imgButton = document.createElement("img");
-    imgButton.src = "{$removeButtonImage}";
+    imgButton.src = "index.php?entryPoint=getImage&themeName=Sugar&imageName=id-ff-remove.png";
     removeButton.appendChild(imgButton);
 
 

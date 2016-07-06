@@ -21,10 +21,11 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);
+
         //shortcut keys
         app.shortcuts.register('AuditHeaderPanel:Close', ['esc','ctrl+alt+l'], function() {
             var $closeButton = this.$('a[name=close_button]');

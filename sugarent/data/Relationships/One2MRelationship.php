@@ -73,7 +73,7 @@ class One2MRelationship extends M2MRelationship
             );
             if (!isset($this->lhsLinkDef['name']) && isset($this->lhsLinkDef[0]))
             {
-                $this->lhsLinkDef = $this->lhsLinkDef[0];
+              $this->lhsLinkDef = $this->lhsLinkDef[0];
             }
             if (!isset($this->rhsLinkDef['name']) && isset($this->rhsLinkDef[0])) {
                 $this->rhsLinkDef = $this->rhsLinkDef[0];
@@ -105,40 +105,27 @@ class One2MRelationship extends M2MRelationship
         //If the current data matches the existing data, don't do anything
         if (!$this->checkExisting($dataToInsert))
         {
-            // Pre-load the RHS relationship, which is used later in the add() function and expects a Bean
-            // and we also use it for clearing relationships in case of non self-referencing O2M relations
-            // (should be preloaded because when using the relate_to field for updating/saving relationships,
-            // only the bean id is loaded into $rhs->$rhsLinkName)
-            $success = true;
-            $rhsLinkName = $this->rhsLink;
-            $rhs->load_relationship($rhsLinkName);
+			// Pre-load the RHS relationship, which is used later in the add() function and expects a Bean
+			// and we also use it for clearing relationships in case of non self-referencing O2M relations
+			// (should be preloaded because when using the relate_to field for updating/saving relationships,
+			// only the bean id is loaded into $rhs->$rhsLinkName)
+			$rhsLinkName = $this->rhsLink;
+			$rhs->load_relationship($rhsLinkName);
 
             // For self-referencing from 6.5.x
             // The left side is one, and right side is many
             if ($this->isRHSMany()) {
                 $lhsLinkName = $this->lhsLink;
                 $lhs->load_relationship($lhsLinkName);
-                if ($this->removeAll($lhs->$lhsLinkName) === false) {
-                    $success = false;
-                    LoggerManager::getLogger()->error("Warning: failed calling removeAll() on lhsLinkName: $lhsLinkName for relationship {$this->name} within One2MRelationship->add().");
-                }
+                $this->removeAll($lhs->$lhsLinkName);
             } else { // For non self-referencing, remove all the relationships from the many (RHS) side
-                if($this->removeAll($rhs->$rhsLinkName) === false) {
-                    $success = false;
-                    LoggerManager::getLogger()->error("Warning: failed calling removeAll() on rhsLinkName: $rhsLinkName for relationship {$this->name} within One2MRelationship->add().");
-                }
+                $this->removeAll($rhs->$rhsLinkName);
             }
-
+            
             // Add relationship
-            if (parent::add($lhs, $rhs, $additionalFields) === false) {
-                $success = false;
-                LoggerManager::getLogger()->error("Warning: failed calling parent add() for relationship {$this->name} within One2MRelationship->add().");
-            }
-
-            return $success;
+            parent::add($lhs, $rhs, $additionalFields);
         }
     }
-
 
     /**
      * Just overriding the function from M2M to prevent it from occuring

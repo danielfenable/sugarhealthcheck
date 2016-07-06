@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.ForecastParetoChartField
  * @alias SUGAR.App.view.fields.BaseForecastParetoChartField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
@@ -41,7 +41,7 @@
     throttledSetServerData: false,
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     initialize: function(options) {
         this.once('render', function() {
@@ -65,7 +65,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     bindDataChange: function() {
         app.events.on('preview:open', function() {
@@ -97,7 +97,7 @@
     /**
      * Utility method to check is the dashlet is visible
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     isDashletVisible: function() {
         return (!this.disposed && this.state === 'open' &&
@@ -107,7 +107,7 @@
     /**
      * Utility method to resize dashlet with check for visibility
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     resize: function() {
         if (this.isDashletVisible() && this.paretoChart && _.isFunction(this.paretoChart.update)) {
@@ -194,7 +194,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * Clean up!
      */
     unbindData: function() {
@@ -244,7 +244,7 @@
                 // Format the value using currency class and user settings
                 var val = app.currency.formatAmountLocale(e.value),
                     lbl = app.lang.get('LBL_SALES_STAGE', 'Forecasts');
-                if (this.model.get('group_by') == 'probability') {
+                if(this.model.get('group_by') == 'probability') {
                     lbl = app.lang.get('LBL_OW_PROBABILITY', 'Forecasts') + ' (%)';
                 }
 
@@ -255,43 +255,10 @@
             .colorData('default')
             .colorFill('default')
             .yAxisTickFormat(function(d) {
-                var si = d3.formatPrefix(d, 2);
-                return app.currency.getCurrencySymbol(app.currency.getBaseCurrencyId()) + d3.round(si.scale(d), 2) + si.symbol;
+                return app.currency.getCurrencySymbol(app.currency.getBaseCurrencyId()) + d3.format(',.2s')(d);
             })
             .quotaTickFormat(function(d) {
-                var si = d3.formatPrefix(d, 2);
-                return app.currency.getCurrencySymbol(app.currency.getBaseCurrencyId()) + d3.round(si.scale(d), 2) + si.symbol;
-            })
-            //TODO: only do barClick if dashlet in Forecasts intelligence pane
-            .barClick(function(data, eo, chart, container) {
-                var d = eo.series,
-                    selectedSeries = eo.seriesIndex;
-
-                d.disabled = !d.disabled;
-
-                chart.dispatch.tooltipHide();
-
-                if (!chart.stacked()) {
-                    data.filter(function(d) {
-                        return d.series === selectedSeries && d.type === 'line';
-                    }).map(function(d) {
-                        d.disabled = !d.disabled;
-                        return d;
-                    });
-                }
-
-                // if there are no enabled data series, enable them all
-                if (!data.filter(function(d) {
-                    return !d.disabled && d.type === 'bar';
-                }).length) {
-                    data.map(function(d) {
-                        d.disabled = false;
-                        container.selectAll('.nv-series').classed('disabled', false);
-                        return d;
-                    });
-                }
-
-                container.call(chart);
+                return app.currency.getCurrencySymbol(app.currency.getBaseCurrencyId()) + d3.format(',.3s')(d);
             })
             .id(this.chartId)
             .strings({
@@ -605,7 +572,7 @@
 
     /**
      * Do we have serverData yet?
-     * @return {boolean}
+     * @returns {boolean}
      */
     hasServerData: function() {
         return !_.isUndefined(this._serverData);
@@ -613,7 +580,7 @@
 
     /**
      * Return the data that was passed back from the server
-     * @return {Object}
+     * @returns {Object}
      */
     getServerData: function() {
         return this._serverData;
@@ -657,7 +624,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _dispose: function() {
         this.handlePrinting('off');

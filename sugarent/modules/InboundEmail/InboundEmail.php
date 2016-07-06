@@ -1042,6 +1042,7 @@ class InboundEmail extends SugarBean {
 	 * This will fetch only partial emails for POP3 and hence needs to be call again and again based on status it returns
 	 */
 	function pop3_checkPartialEmail($synch = false) {
+		require_once('include/utils/array_utils.php');
 		global $current_user;
 		global $sugar_config;
 
@@ -3449,7 +3450,7 @@ class InboundEmail extends SugarBean {
 		$imapDecode => stdClass Object
 			(
 				[charset] => utf-8
-				[text] => wï¿½hlen.php
+				[text] => w�hlen.php
 			)
 
 					OR
@@ -4176,9 +4177,6 @@ class InboundEmail extends SugarBean {
 			$email->description_html= $this->getMessageText($msgNo, 'HTML', $structure, $fullHeader,$clean_email); // runs through handleTranserEncoding() already
 			$email->description	= $this->getMessageText($msgNo, 'PLAIN', $structure, $fullHeader,$clean_email); // runs through handleTranserEncoding() already
 			$this->imagePrefix = $oldPrefix;
-            if (empty($email->description)) {
-                $email->description = strip_tags($email->description_html);
-            }
 
 			// empty() check for body content
 			if(empty($email->description)) {
@@ -4224,6 +4222,7 @@ class InboundEmail extends SugarBean {
 					$email->team_set_id = $_REQUEST['team_set_id'];
 				} // if
 			}
+
 
 	        //Assign Parent Values if set
 	        if (!empty($_REQUEST['parent_id']) && !empty($_REQUEST['parent_type'])) {
@@ -5905,13 +5904,10 @@ eoq;
 		// body
         if (empty($this->email->description_html)) {
             $description = nl2br($this->email->description);
-            $description_html = '';
         } else {
             $description = SugarCleaner::cleanHtml(from_html($this->email->description_html, false), false);
-            $description_html  = $this->getHTMLDisplay($description);
         }
 		$meta['email']['description'] = $description;
-        $meta['email']['description_html'] = $description_html;
 
 		// meta-metadata
 		$meta['is_sugarEmail'] = ($exMbox[0] == 'sugar') ? true : false;
@@ -5922,11 +5918,9 @@ eoq;
 			}
 		} else {
 			if( $this->email->status != 'sent' ){
-                $email = BeanFactory::getBean('Emails', $uid);
-                if (!empty($email->id)) {
-                    $email->status = 'read';
-                    $email->save();
-                }
+				// mark SugarEmail read
+				$q = "UPDATE emails SET status = 'read' WHERE id = '{$uid}'";
+				$r = $this->db->query($q);
 			}
 		}
 
@@ -6602,40 +6596,6 @@ eoq;
         }
         $GLOBALS['log']->debug('-----> getNewEmailsForSyncedMailbox() got '.count($result).' unsynced messages');
         return $result;
-    }
-
-    /**
-     * Perform specialized Windows Outlook fixup to remove unnwanted blank lines caused from empty paragraphs
-     * left behind by HTML Purifier when MSOffice namespaces and Embedded styles are removed.
-     *
-     * Issue reported: https://sugarcrm.atlassian.net/browse/MAR-2297  (SI Bug number: 66022)
-     *
-     * Note: this fixup is enabled when the 'mso_fixup_paragraph_tags' config option has been added and is set to true.
-     *
-     * @param string $html
-     * @return string $html
-     */
-    public function getHTMLDisplay($html)
-    {
-        if (!empty($GLOBALS['sugar_config']['mso_fixup_paragraph_tags'])
-            && $GLOBALS['sugar_config']['mso_fixup_paragraph_tags'] === true
-            && (strpos($html, 'class="MsoNormal"') !== false ||
-                strpos($html, "<o:p>") !== false)
-        ) {
-                $replaceStrings = array(
-                    '<p></p>' => '',
-                    '<p> </p>' => '<br/>',
-                    '<p>&nbsp;</p>' => '<br/>',
-                    '<p>' . chr(0xC2) . chr(0xA0) . '</p>' => '<br/>',
-                    '<p class="MsoNormal"></p>' => '',
-                    '<p class="MsoNormal"> </p>' => '',
-                    '<p class="MsoNormal">&nbsp;</p>' => '',
-                    '<p class="MsoNormal">' . chr(0xC2) . chr(0xA0) . '</p>' => '',
-                );
-                $html = str_replace(array_keys($replaceStrings), array_values($replaceStrings), $html);
-                $html = "<style>p.MsoNormal {margin: 0;}</style>\n" . $html;
-        }
-        return $html;
     }
 
 } // end class definition

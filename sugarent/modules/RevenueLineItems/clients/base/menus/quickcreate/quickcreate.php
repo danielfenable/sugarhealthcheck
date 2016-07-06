@@ -12,7 +12,7 @@
 
 $module_name = 'RevenueLineItems';
 $viewdefs[$module_name]['base']['menu']['quickcreate'] = array(
-    'layout' => 'create',
+    'layout' => 'create-actions',
     'label' => 'LNK_NEW_REVENUELINEITEM',
     'visible' => true,
     'order' => 10,

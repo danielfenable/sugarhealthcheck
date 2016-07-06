@@ -34,7 +34,7 @@
     //SUGAR.email2.composeLayout.teamsSettingsFolder = {$teamsSettingsFolder};
 
     var isAdmin = {$is_admin};
-    var loadingSprite = app_strings.LBL_EMAIL_LOADING + " <img src='{sugar_getjspath file='include/javascript/yui/build/assets/skins/sam/wait.gif'}' alt=$mod_strings.LBL_WAIT height='14' align='absmiddle'>";
+    var loadingSprite = app_strings.LBL_EMAIL_LOADING + " <img src='include/javascript/yui/build/assets/skins/sam/wait.gif' alt=$mod_strings.LBL_WAIT height='14' align='absmiddle'>";
 </script>
 <div class="email">
 <form id="emailUIForm" name="emailUIForm">
@@ -57,9 +57,9 @@
 <table cellpadding="0" cellspacing="0" border="0" width="100%">
     <tr>
         <td NOWRAP style="padding-bottom: 2px;">
-            <button class="button" id="checkEmailButton" onclick="SUGAR.email2.folders.startEmailAccountCheck();"><img src="{sugar_getjspath file='themes/default/images/icon_email_check.gif'}" alt=$mod_strings.LBL_CHECKEMAIL align="absmiddle" border="0"> {$app_strings.LBL_EMAIL_CHECK}</button>
-            <button class="button" id="composeButton" onclick="SUGAR.email2.composeLayout.c0_composeNewEmail();"><img src="{sugar_getjspath file='themes/default/images/icon_email_compose.gif'}" alt=$mod_strings.LBL_COMPOSEEMAIL align="absmiddle" border="0"> {$mod_strings.LNK_NEW_SEND_EMAIL}</button>
-            <button class="button" id="settingsButton" onclick="SUGAR.email2.settings.showSettings();"><img src="{sugar_getjspath file='themes/default/images/icon_email_settings.gif'}" alt=$mod_strings.LBL_EMAILSETTINGS align="absmiddle" border="0"> {$app_strings.LBL_EMAIL_SETTINGS}</button>
+            <button class="button" id="checkEmailButton" onclick="SUGAR.email2.folders.startEmailAccountCheck();"><img src="themes/default/images/icon_email_check.gif" alt=$mod_strings.LBL_CHECKEMAIL align="absmiddle" border="0"> {$app_strings.LBL_EMAIL_CHECK}</button>
+            <button class="button" id="composeButton" onclick="SUGAR.email2.composeLayout.c0_composeNewEmail();"><img src="themes/default/images/icon_email_compose.gif" alt=$mod_strings.LBL_COMPOSEEMAIL align="absmiddle" border="0"> {$mod_strings.LNK_NEW_SEND_EMAIL}</button>
+            <button class="button" id="settingsButton" onclick="SUGAR.email2.settings.showSettings();"><img src="themes/default/images/icon_email_settings.gif" alt=$mod_strings.LBL_EMAILSETTINGS align="absmiddle" border="0"> {$app_strings.LBL_EMAIL_SETTINGS}</button>
         </td>
     </tr>
 </table>

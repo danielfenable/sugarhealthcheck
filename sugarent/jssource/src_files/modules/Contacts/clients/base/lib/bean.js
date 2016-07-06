@@ -40,7 +40,7 @@
                 }
             } else {
                 // If not new and portal name has not changed since last sync, skip checking portal_name
-                if (_.isUndefined(this.changedAttributes(this.getSynced())["portal_name"])) {
+                if(_.isUndefined(this.changedAttributes(this.getSyncedAttributes())["portal_name"])){
                     skip = true;
                 }
             }

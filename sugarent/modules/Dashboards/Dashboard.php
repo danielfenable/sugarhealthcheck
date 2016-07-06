@@ -31,13 +31,10 @@ class Dashboard extends Basic
     /**
      * This overrides the default retrieve function setting the default to encode to false
      */
-    function retrieve($id='-1', $encode=false, $deleted=true)
+    function retrieve($id='-1', $encode=false,$deleted=true)
     {
-        $dashboard = parent::retrieve($id, $encode, $deleted);
+        $dashboard = parent::retrieve($id, false, $deleted);
 
-        if ($dashboard === null) {
-            return null;
-        }
         // Expand the metadata for processing.
         $metadata = json_decode($dashboard->metadata);
 
@@ -102,8 +99,7 @@ class Dashboard extends Basic
     public function getDashboardsForUser(User $user, array $options = array())
     {
         $order = !empty($options['order_by']) ? $options['order_by'] : 'date_entered desc';
-        $from = "{$this->table_name}.assigned_user_id = '".$this->db->quote($user->id)."'
-                 AND {$this->table_name}.dashboard_module ='".$this->db->quote($options['dashboard_module'])."'";
+        $from = "assigned_user_id = '".$this->db->quote($user->id)."' and dashboard_module ='".$this->db->quote($options['dashboard_module'])."'";
         if (isset($options['view']) && !isset($options['view_name'])) {
             $options['view_name'] = $options['view'];
         }

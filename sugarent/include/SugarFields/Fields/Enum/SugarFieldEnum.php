@@ -39,7 +39,6 @@ class SugarFieldEnum extends SugarFieldBase {
     	}
     }
     
-
     function getWirelessDetailViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex) {
     	if ( is_array($vardef['options']) )
             $this->ss->assign('value', $vardef['options'][$vardef['value']]);
@@ -53,7 +52,6 @@ class SugarFieldEnum extends SugarFieldBase {
     	}
     }
     
-
     function getWirelessEditViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex){
     	$this->ss->assign('field_options', is_array($vardef['options']) ? $vardef['options'] : $GLOBALS['app_list_strings'][$vardef['options']]);
     	$this->ss->assign('selected', isset($vardef['value'])?$vardef['value']:'');
@@ -80,7 +78,6 @@ class SugarFieldEnum extends SugarFieldBase {
     	}
     }
     
-
     function getWirelessSearchViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex) {
     	if(!empty($vardef['function']['returns']) && $vardef['function']['returns']== 'html'){
     		  $this->setup($parentFieldArray, $vardef, $displayParams, $tabindex);
@@ -115,36 +112,34 @@ class SugarFieldEnum extends SugarFieldBase {
         ImportFieldSanitize $settings
         )
     {
+        global $app_list_strings;
+        
         // Bug 27467 - Trim the value given
         $value = trim($value);
-
-        $options = $this->getOptions($vardef);
-        if (!is_array($options)) {
-            return false;
-        }
-           // Bug 23485/23198 - Check to see if the value passed matches the display value
-        if (($tmp = array_search($value, $options)) !== false) {
-            return $tmp;
-
-        }
-        // Bug 33328 - Check for a matching key in a different case
-        foreach ($options as $optionkey => $optionvalue) {
-            if (!strcasecmp($value, $optionkey) || !strcasecmp($value, $optionvalue)) {
-                return $optionkey;
+        
+        if ( isset($vardef['options'])
+                && isset($app_list_strings[$vardef['options']])
+                && !isset($app_list_strings[$vardef['options']][$value]) ) {
+            // Bug 23485/23198 - Check to see if the value passed matches the display value
+            if ( in_array($value,$app_list_strings[$vardef['options']]) )
+                $value = array_search($value,$app_list_strings[$vardef['options']]);
+            // Bug 33328 - Check for a matching key in a different case
+            elseif ( in_array(strtolower($value), array_keys(array_change_key_case($app_list_strings[$vardef['options']]))) ) {
+                foreach ( $app_list_strings[$vardef['options']] as $optionkey => $optionvalue )
+                    if ( strtolower($value) == strtolower($optionkey) )
+                        $value = $optionkey;
             }
+            // Bug 33328 - Check for a matching value in a different case
+            elseif ( in_array(strtolower($value), array_map('strtolower', $app_list_strings[$vardef['options']])) ) {
+                foreach ( $app_list_strings[$vardef['options']] as $optionkey => $optionvalue )
+                    if ( strtolower($value) == strtolower($optionvalue) )
+                        $value = $optionkey;
+            }
+            else
+                return false;
         }
-        return false;
-    }
-
-    /**
-     * Get options for a field, based on it's definition.
-     * @see \ModuleApi::getEnumValues
-     * @param array $vardef Field definition.
-     * @return array|bool Options for the field, or false otherwise.
-     */
-    public function getOptions($vardef)
-    {
-        return getOptionsFromVardef($vardef);
+        
+        return $value;
     }
     
 	public function formatField($rawField, $vardef){

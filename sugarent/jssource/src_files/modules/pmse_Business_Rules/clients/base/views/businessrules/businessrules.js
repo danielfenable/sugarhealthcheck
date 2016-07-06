@@ -27,7 +27,7 @@
         this.context.on("businessRules:cancel:button", this.cancelBusinessRules, this);
 
         this.myDefaultLayout = this.closestComponent('sidebar');
-        app.routing.before('route', this.beforeRouteChange, this);
+        app.routing.before('route', this.beforeRouteChange, this, true);
         this._currentUrl = Backbone.history.getFragment();
     },
 
@@ -37,11 +37,11 @@
     },
 
     saveBusinessRules: function() {
-        saveBR(App.router.buildRoute("pmse_Business_Rules"), this.model.id);
+        saveBR(App.router.buildRoute("pmse_Business_Rules"));
     },
 
     saveOnlyBusinessRules: function() {
-        saveBR(null, this.model.id);
+        saveBR();
     },
 
     cancelBusinessRules: function () {

@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,35 +12,26 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-	'LBL_MODULE_TITLE' => 'Minhas pesquisas salvas',
-	'LBL_SEARCH_FORM_TITLE' => 'Minhas pesquisas salvas: Pesquisar',
-	'LBL_LIST_FORM_TITLE' => 'Lista de Minhas pesquisas salvas', 
-	'LBL_DELETE_CONFIRM' => 'Tem certeza de que deseja excluir as pesquisas salvas selecionadas?',
-	'LBL_UPDATE_BUTTON_TITLE' => 'Atualizar esta pesquisa salva',
-	'LBL_DELETE_BUTTON_TITLE' => 'Excluir esta pesquisa salva',
-	'LBL_SAVE_BUTTON_TITLE' => 'Salvar a pesquisa atual',
-	'LBL_LIST_NAME' => 'Nome',
-	'LBL_LIST_MODULE' => 'Módulo',
-    'LBL_ORDER_BY_COLUMNS' => 'Ordenar por coluna:',
-    'LBL_DIRECTION' => 'Direção:',
-    'LBL_SAVE_SEARCH_AS' => 'Salvar pesquisa como:',
-    'LBL_SAVE_SEARCH_AS_HELP' => 'Esta operação salva suas configurações de visualização e qualquer filtro na guia de Pesquisa avançada.',
-    'LBL_PREVIOUS_SAVED_SEARCH' => 'Pesquisas salvas anteriormente:',
-    'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Editar ou excluir uma Pesquisa salva.',
-    'LBL_ASCENDING' => 'Ascendente', 
-    'LBL_DESCENDING' => 'Descendente',
-    'LBL_MODIFY_CURRENT_SEARCH'=> 'Modificar pesquisa atual',
-
+  'LBL_MODULE_TITLE' => 'Minhas Pesquisas Gravadas',
+  'LBL_SEARCH_FORM_TITLE' => 'Minhas Pesquisas Gravadas: Pesquisar',
+  'LBL_LIST_FORM_TITLE' => 'Minha Lista de Pesquisas Gravadas',
+  'LBL_DELETE_CONFIRM' => 'Tem certeza que deseja eliminar as pesquisas gravadas selecionadas?',
+  'LBL_UPDATE_BUTTON_TITLE' => 'Atualizar esta Pesquisa Gravada',
+  'LBL_DELETE_BUTTON_TITLE' => 'Apagar esta Pesquisa Gravada',
+  'LBL_SAVE_BUTTON_TITLE' => 'Gravar a Pesquisa atual',
+  'LBL_LIST_NAME' => 'Nome',
+  'LBL_LIST_MODULE' => 'Módulo',
+  'LBL_ORDER_BY_COLUMNS' => 'Ordenar por coluna:',
+  'LBL_DIRECTION' => 'Direção:',
+  'LBL_SAVE_SEARCH_AS' => 'Gravar esta Pesquisa como:',
+  'LBL_SAVE_SEARCH_AS_HELP' => 'Esta operação grava as suas configurações de visualização e qualquer filtro do tabulador do Pesquisa Avançada.',
+  'LBL_PREVIOUS_SAVED_SEARCH' => 'Pesquisas anteriormente gravadas:',
+  'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Editar e Eliminar uma Pesquisa Gravada.',
+  'LBL_ASCENDING' => 'Ascendente',
+  'LBL_DESCENDING' => 'Descendente',
+  'LBL_MODIFY_CURRENT_SEARCH' => 'Modificar pesquisa atual',
 );
 
-
-?>

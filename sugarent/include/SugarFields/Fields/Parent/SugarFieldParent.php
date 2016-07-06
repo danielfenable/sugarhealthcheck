@@ -210,40 +210,8 @@ class SugarFieldParent extends SugarFieldRelate {
         } else {
         	$data[$fieldName] = $this->formatField($bean->$fieldName, $properties);
         }
-
-        $this->formatParentField($bean, $data, $fieldName, $service);
     }
-
-    /**
-     * Formats the field representing the parent record
-     *
-     * @param SugarBean $bean Primary bean
-     * @param array $data Resulting representation
-     * @param string $fieldName Parent field name
-     * @param ServiceBase $service The calling API service
-     */
-    protected function formatParentField(SugarBean $bean, array &$data, $fieldName, ServiceBase $service)
-    {
-        if ($bean->parent_type && $bean->parent_id) {
-            // trying to reconstruct the parent bean from the fetched data
-            $parent = BeanFactory::getBean($bean->parent_type);
-            $parent->id = $bean->parent_id;
-            if (isset($bean->parent_name_owner)) {
-                $parent->assigned_user_id = $bean->parent_name_owner;
-            }
-
-            $mm = MetaDataManager::getManager($service->platform);
-            $data['parent'] = array(
-                '_acl' => $mm->getAclForModule($parent->module_dir, $service->user, $parent),
-                'id' => $bean->parent_id,
-                'type' => $bean->parent_type,
-                'name' => $data[$fieldName],
-            );
-        } else {
-            $data['parent'] = array();
-        }
-    }
-
+    
     /**
      * Run a secondary query and populate the results into the array of beans
      *
@@ -277,5 +245,8 @@ class SugarFieldParent extends SugarFieldRelate {
                 }
             }
         }
+
+        return;
     }
+    
 }

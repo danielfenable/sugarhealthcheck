@@ -121,46 +121,46 @@ function email2init() {
 	                           'delete' : 6,'print' : 7,'mark' : 8,'assignTo' : 9, 'relateTo' : 10};
 	emailMenu.addItems([
         {
-            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_relate.gif&v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_VIEW_RELATIONSHIPS,
+            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_relate.gif'/>" + app_strings.LBL_EMAIL_VIEW_RELATIONSHIPS,
             id: 'showDetailView',
             onclick: { fn: SEC.showDetailView }
         },
         {
-            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=open_multiple.gif&v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_OPEN_ALL,
+            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=open_multiple.gif'/>" + app_strings.LBL_EMAIL_OPEN_ALL,
             onclick: { fn: SEC.openMultiple }
         },
         {
-            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_archive.gif&v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_ARCHIVE_TO_SUGAR,
+            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_archive.gif'/>" + app_strings.LBL_EMAIL_ARCHIVE_TO_SUGAR,
             onclick: { fn: SEC.archiveToSugar }
         },
         {
-            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_reply.gif&v="+SUGAR.VERSION_MARK+"'/>"+ app_strings.LBL_EMAIL_REPLY,
+            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_reply.gif'/>"+ app_strings.LBL_EMAIL_REPLY,
             id: 'reply',
             onclick: { fn: SEC.replyForwardEmailContext }
         },
         {
-            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_replyall.gif&v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_REPLY_ALL,
+            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_replyall.gif'/>" + app_strings.LBL_EMAIL_REPLY_ALL,
             id: 'replyAll',
             onclick: { fn: SEC.replyForwardEmailContext }
         },
         {
-            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_forward.gif&v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_FORWARD,
+            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_forward.gif'/>" + app_strings.LBL_EMAIL_FORWARD,
             id: 'forward',
             onclick: { fn: SEC.replyForwardEmailContext }
         },
         {
-            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_delete.gif&v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_DELETE,
+            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_delete.gif'/>" + app_strings.LBL_EMAIL_DELETE,
             id: 'delete',
             onclick: { fn: SEC.markDeleted }
         },
         {
-            text: "<img src='themes/default/images/Print_Email.gif?v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_PRINT,
+            text: "<img src='themes/default/images/Print_Email.gif'/>" + app_strings.LBL_EMAIL_PRINT,
             id: 'print',
             onclick: { fn: SEC.viewPrintable }
         },                
         // Mark... submenu
         {
-            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_mark.gif&v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_MARK,
+            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_mark.gif'/>" + app_strings.LBL_EMAIL_MARK,
             submenu: {
         		id: "markEmailMenu",
                 itemdata : [
@@ -184,12 +184,12 @@ function email2init() {
             }
          },
         {
-            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_assign.gif&v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_ASSIGN_TO,
+            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_assign.gif'/>" + app_strings.LBL_EMAIL_ASSIGN_TO,
         	id: 'assignTo',
         	onclick: { fn: SEC.assignEmailsTo }
          },
          {
-            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_relate.gif&v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_RELATE_TO,
+            text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_relate.gif'/>" + app_strings.LBL_EMAIL_RELATE_TO,
             id: 'relateTo',
             onclick: { fn: SEC.relateTo }
          }
@@ -206,7 +206,7 @@ function email2init() {
 		lazyload: true 
 	});
     SEC.frameFoldersContextMenu.addItems([
-		{   text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_check.gif&v="+SUGAR.VERSION_MARK+"'/>" + app_strings.LBL_EMAIL_CHECK,
+		{   text: "<img src='index.php?entryPoint=getImage&themeName="+SUGAR.themes.theme_name+"&imageName=icon_email_check.gif'/>" + app_strings.LBL_EMAIL_CHECK,
 		    //helptext: "<i>" + app_strings.LBL_EMAIL_MENU_HELP_ADD_FOLDER + "</i>",
 			onclick: {  fn: function() {
 		        var node = SUGAR.email2.clickedFolderNode;

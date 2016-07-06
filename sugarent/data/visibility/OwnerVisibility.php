@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,40 +12,40 @@
  */
 
 /**
- *
  * Adds visibility for owner only.
- *
  */
 class OwnerVisibility extends SugarVisibility
 {
     /**
-     * {@inheritdoc}
+     * (non-PHPdoc)
+     * @see SugarVisibility::addVisibilityWhere()
      */
     public function addVisibilityWhere(&$query)
     {
         $owner_where = $this->bean->getOwnerWhere($GLOBALS['current_user']->id, $this->getOption('table_alias'));
-
-        if (!empty($query)) {
+        
+        if(!empty($query)) {
             $query .= " AND $owner_where";
         } else {
             $query = $owner_where;
         }
-
+            
         return $query;
     }
 
     /**
-     * {@inheritdoc}
+     * (non-PHPdoc)
+     * @see SugarVisibility::addVisibilityWhereQuery()
      */
-    public function addVisibilityWhereQuery(SugarQuery $sugarQuery, $options = array())
+    public function addVisibilityWhereQuery(SugarQuery $sugarQuery, $options = array()) 
     {
         $where = null;
         $this->addVisibilityWhere($where, $options);
-
-        if (!empty($where)) {
+        
+        if(!empty($where)) {
             $sugarQuery->where()->queryAnd()->addRaw($where);
         }
-
+        
         return $sugarQuery;
     }
 }

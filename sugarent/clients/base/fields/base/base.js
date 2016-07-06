@@ -8,6 +8,7 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({plugins:['EllipsisInline','Tooltip','MetadataEventDriven'],initialize:function(options){this.events=_.extend({},this.events,options.def.events);this._super('initialize',arguments);this.ellipsis=_.isUndefined(this.def.ellipsis)||this.def.ellipsis;},_render:function(){var action='view';if(this.def.link&&this.def.route){action=this.def.route.action;}
-if(this.def.link&&app.acl.hasAccessToModel(action,this.model)){this.href=this.buildHref();}
-app.view.Field.prototype._render.call(this);},buildHref:function(){var defRoute=this.def.route?this.def.route:{},module=this.model.module||this.context.get('module');return'#'+app.router.buildRoute(module,this.model.get('id'),defRoute.action,this.def.bwcLink);},unformat:function(value){return _.isString(value)?value.trim():value;}})
+({plugins:['EllipsisInline','Tooltip','MetadataEventDriven'],initialize:function(options){this.events=_.extend({},this.events,options.def.events);this._super('initialize',arguments);},_render:function(){var action='view';if(this.def.link&&this.def.route){action=this.def.route.action;}
+if(!app.acl.hasAccessToModel(action,this.model)){this.def.link=false;}
+if(this.def.link){this.href=this.buildHref();}
+app.view.Field.prototype._render.call(this);},buildHref:function(){var defRoute=this.def.route?this.def.route:{},module=this.model.module||this.context.get('module');return'#'+app.router.buildRoute(module,this.model.id,defRoute.action,this.def.bwcLink);},unformat:function(value){return _.isString(value)?value.trim():value;}})

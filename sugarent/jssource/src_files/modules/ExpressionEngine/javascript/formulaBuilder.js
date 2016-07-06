@@ -61,7 +61,6 @@ SUGAR.expressions.getDisplayFunctionList = function() {
         case "charAt":
         case "formatName":
         case "sugarField":
-		case "forecastCommitStage":
         case "currencyRate":
             continue;
             break;
@@ -997,13 +996,6 @@ SUGAR.expressions.GridToolTip = {
             fb_ac_open = true;
             //Set the content of the spacer to the same as the formula input to offset the autocomplete location by that amount
             updateACSpacer();
-
-            $('#fb_ac_wrapper ul.ui-autocomplete').addClass('fb_ac_menu');
-            $('.fb_ac_menu').css('z-index', maxZ + 3);
-            var liDiff = $('.fb_ac_menu li').outerWidth() - $('.fb_ac_menu li').width();
-            var ulDiff = parseInt($('.fb_ac_menu').css("border-left-width")) + parseInt($('.fb_ac_menu').css("border-right-width"));
-            $('.fb_ac_menu li').width($('.fb_ac_menu li').width() - ulDiff - liDiff);
-
             hideACHelp();
         },
         close: function(){
@@ -1091,12 +1083,7 @@ SUGAR.expressions.GridToolTip = {
     })
 
     //Allow the user to click out of the autocomplete
-    $("body").mousedown(function() {
-        var $input = $("#fb_ac_input");
-        if ($input.autocomplete("instance")) {
-            $input.autocomplete("close");
-        }
-    });
+    $("body").mousedown(function(){$( "#fb_ac_input" ).autocomplete("close");});
     //Need to prevent the body from seeing mousedown events to the AC widget
     $("#fb_ac_wrapper").mousedown(function(){return false});
 

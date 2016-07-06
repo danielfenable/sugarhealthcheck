@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.Forecasts.LastcommitField
  * @alias SUGAR.App.view.fields.BaseForecastsLastcommitField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
 

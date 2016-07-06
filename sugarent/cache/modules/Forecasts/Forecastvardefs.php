@@ -85,6 +85,25 @@
       'comment' => 'Weighted amount of all opportunities represented by this forecast',
       'reportable' => false,
     ),
+    'currency_id' => 
+    array (
+      'name' => 'currency_id',
+      'vname' => 'LBL_CURRENCY',
+      'type' => 'currency_id',
+      'dbType' => 'id',
+      'default' => '-99',
+      'required' => true,
+      'function' => 'getCurrencies',
+      'function_bean' => 'Currencies',
+    ),
+    'base_rate' => 
+    array (
+      'name' => 'base_rate',
+      'vname' => 'LBL_BASE_RATE',
+      'type' => 'decimal',
+      'len' => '26,6',
+      'reportable' => false,
+    ),
     'best_case' => 
     array (
       'name' => 'best_case',
@@ -203,70 +222,6 @@
       'source' => 'non-db',
       'comment' => 'This is used by the commit code to determine how many closed opps exist for the pipeline calc',
     ),
-    'currency_id' => 
-    array (
-      'name' => 'currency_id',
-      'dbType' => 'id',
-      'vname' => 'LBL_CURRENCY_ID',
-      'type' => 'currency_id',
-      'function' => 'getCurrencies',
-      'function_bean' => 'Currencies',
-      'required' => false,
-      'reportable' => false,
-      'default' => '-99',
-    ),
-    'base_rate' => 
-    array (
-      'name' => 'base_rate',
-      'vname' => 'LBL_CURRENCY_RATE',
-      'type' => 'text',
-      'dbType' => 'decimal',
-      'len' => '26,6',
-    ),
-    'currency_name' => 
-    array (
-      'name' => 'currency_name',
-      'rname' => 'name',
-      'id_name' => 'currency_id',
-      'vname' => 'LBL_CURRENCY_NAME',
-      'type' => 'relate',
-      'link' => 'currencies',
-      'isnull' => true,
-      'table' => 'currencies',
-      'module' => 'Currencies',
-      'source' => 'non-db',
-      'studio' => false,
-      'duplicate_merge' => 'disabled',
-      'function' => 'getCurrencies',
-      'function_bean' => 'Currencies',
-      'massupdate' => false,
-    ),
-    'currency_symbol' => 
-    array (
-      'name' => 'currency_symbol',
-      'rname' => 'symbol',
-      'id_name' => 'currency_id',
-      'vname' => 'LBL_CURRENCY_SYMBOL',
-      'type' => 'relate',
-      'link' => 'currencies',
-      'isnull' => true,
-      'table' => 'currencies',
-      'module' => 'Currencies',
-      'source' => 'non-db',
-      'studio' => false,
-      'duplicate_merge' => 'disabled',
-      'function' => 'getCurrencySymbols',
-      'function_bean' => 'Currencies',
-      'massupdate' => false,
-    ),
-    'currencies' => 
-    array (
-      'name' => 'currencies',
-      'type' => 'link',
-      'relationship' => 'forecasts_currencies',
-      'source' => 'non-db',
-      'vname' => 'LBL_CURRENCIES',
-    ),
   ),
   'relationships' => 
   array (
@@ -278,16 +233,6 @@
       'rhs_module' => 'Forecasts',
       'rhs_table' => 'forecasts',
       'rhs_key' => 'user_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'forecasts_currencies' => 
-    array (
-      'lhs_module' => 'Currencies',
-      'lhs_table' => 'currencies',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Forecasts',
-      'rhs_table' => 'forecasts',
-      'rhs_key' => 'currency_id',
       'relationship_type' => 'one-to-many',
     ),
   ),
@@ -318,18 +263,8 @@
   array (
     'SugarACLStatic' => true,
   ),
-  'name_format_map' => 
-  array (
-  ),
-  'visibility' => 
-  array (
-  ),
-  'templates' => 
-  array (
-    'currency' => 'currency',
-  ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

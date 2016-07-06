@@ -11,7 +11,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
 require_once('include/Sugarpdf/Sugarpdf.php');
 
 class ProjectSugarpdfProjectgrid extends Sugarpdf{
@@ -165,7 +164,7 @@ class ProjectSugarpdfProjectgrid extends Sugarpdf{
                     if ($_REQUEST['is_milestone_' . $i])  
                         $item[$actualRow][$mod_strings['LBL_TASK_ID']] .= '*';
                     $item[$actualRow][$mod_strings['LBL_PERCENT_COMPLETE']] = $_REQUEST['percent_complete_' . $i]; 
-                    $taskName =  str_replace("&amp;nbsp;"," ",$_REQUEST['description_divlink_input_' . $i]);
+                    $taskName =  str_replace("&nbsp;"," ",$_REQUEST['description_divlink_input_' . $i]);
                     $item[$actualRow][$mod_strings['LBL_TASK_NAME']] = $taskName;
                     $item[$actualRow][$mod_strings['LBL_DURATION']]['value'] = $_REQUEST["duration_" . $i] . " " . $app_list_strings['project_duration_units_dom'][$_REQUEST["duration_unit_hidden_" . $i]]; 
                     $item[$actualRow][$mod_strings['LBL_DURATION']]['options']=array("align"=>"R");

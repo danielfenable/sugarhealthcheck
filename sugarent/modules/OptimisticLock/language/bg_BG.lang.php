@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,23 +10,30 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 $mod_strings = array (
-   'LBL_YOURS' => 'Ваш',
-   'LBL_IN_DATABASE' => 'В базата данни',
-   'LBL_CONFLICT_EXISTS' => 'Съществува конфликт - ',
-   'LBL_ACCEPT_DATABASE' => 'Приемане на базата данни',
-   'LBL_ACCEPT_YOURS' => 'Приемам Вашите',
-   'LBL_RECORDS_MATCH' => 'Запис на среща',
-   'LBL_NO_LOCKED_OBJECTS' => 'Няма заклучени обекти',
-   
+  'LBL_NO_LOCKED_OBJECTS' => 'Няма заклучени обекти',
+  'LBL_YOURS' => 'Ваш',
+  'LBL_IN_DATABASE' => 'В базата данни',
+  'LBL_CONFLICT_EXISTS' => 'Съществува конфликт - ',
+  'LBL_ACCEPT_DATABASE' => 'Приемане на базата данни',
+  'LBL_ACCEPT_YOURS' => 'Приемам Вашите',
+  'LBL_RECORDS_MATCH' => 'Запис на среща',
 );
 
-?>

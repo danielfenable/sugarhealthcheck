@@ -8,18 +8,9 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/**
- * @class View.Views.Base.pmse_Inbox.PreviewView
- * @alias SUGAR.App.view.views.Basepmse_InboxPreviewView
- * @extends View.Views.Base.PreviewView
- */
 ({
     extendsFrom: 'PreviewView',
-
-    events: {
-        'click .minify': 'toggleMinify'
-    },
-
+    events:{"click .minify":"toggleMinify"},
     toggleMinify: function(evt) {
         var $el = this.$('.dashlet-toggle > i'),
             collapsed = $el.is('.icon-chevron-up');
@@ -33,18 +24,6 @@
         $('.dashlet').toggleClass('collapsed');
         $('.dashlet-content').toggleClass('hide');
     },
-
-    /**
-     * Renders the preview dialog with the data from the current model and collection.
-     * @param model Model for the object to preview
-     * @param collection Collection of related objects to the current model
-     * @param {Boolean} fetch Optional Indicates if model needs to be synched with server to populate with latest data
-     * @param {Number|String} previewId Optional identifier use to determine event origin. If event origin is not the same
-     * but the model id is the same, preview should still render the same model.
-     *
-     * @override we load the preview image of the process design instead of the usual fields from the record
-     * @private
-     */
     _renderPreview: function(model, collection, fetch, previewId){
         var self = this;
 
@@ -77,10 +56,6 @@
             }
             this.meta = this._previewifyMetadata(_.extend({}, recordMeta, previewMeta));
 
-            //only use id2 if it's available
-            if (model.get('id2')) {
-                model.set('id', model.get('id2'));
-            }
             if (fetch) {
                 model.fetch({
                     //Show alerts for this request

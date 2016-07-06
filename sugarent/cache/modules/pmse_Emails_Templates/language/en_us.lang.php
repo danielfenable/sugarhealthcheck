@@ -1,13 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:27
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team Id',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -27,6 +20,11 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team Id',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
   'LBL_BODY_HTML' => 'Body',
   'LBL_BASE_MODULE' => 'Target Module',
   'LBL_MODULE_TITLE' => 'Process Email Templates',
@@ -48,9 +46,4 @@ $mod_strings = array (
   'LBL_PMSE_EMAIL_TEMPLATES_IMPORT_SUCCESS' => 'Process Email Template was successfully imported into the system.',
   'LBL_PMSE_EMAIL_TEMPLATES_EMPTY_WARNING' => 'Please select a valid *.pet file.',
   'LBL_PMSE_IMPORT_EMAIL_TEMPLATES_FAILURE' => 'Failed to create Process Email Template from file',
-  'LBL_PMSE_PROCESS_EMAIL_TEMPLATES_EDIT' => 'This Email Template is currently being used in a Process Definition. Do you still want to edit this Email Template?',
-  'LBL_PMSE_PROCESS_EMAIL_TEMPLATES_DELETE' => 'You cannot delete this Email Template because it is currently used in a Process Definition.',
-  'LBL_SUGAR_LINK_SELECTOR' => 'Record Link Selector',
-  'LBL_RELATED_TO_TARGET_MODULE' => 'Related to Target Module',
-  'LBL_SELECT_BUTTON_LABEL' => 'Select',
 );

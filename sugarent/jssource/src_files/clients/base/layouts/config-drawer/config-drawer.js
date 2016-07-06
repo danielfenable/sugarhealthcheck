@@ -16,10 +16,15 @@
 ({
 
     /**
+     * Holds the current module the user is in when config is called
+     */
+    currentModule: undefined,
+
+    /**
      * Holds an object with the current module in it for parsing language strings
      *
      * <pre><code>
-     *  { module: this.module }
+     *  { module: currentModule }
      * </pre></code>
      */
     moduleLangObj: undefined,
@@ -48,29 +53,15 @@
      * @inheritdoc
      */
     initialize: function(options) {
-        this._super('initialize', [options]);
-
-        Object.defineProperty(this, 'currentModule', {
-            /**
-             * @property {string}
-             * @deprecated since 7.7.0.0 and will be removed in 7.8.0.0.
-             *   Please use {@link #module} instead.
-             */
-            get: function () {
-                app.logger.warn('ConfigDrawerLayout\'s `currentModule` property is deprecated since 7.7.0 and will be removed in 7.8.0. ' +
-                    'Please use `module` instead.');
-                return this.module;
-            }
-        });
-
+        this.currentModule = app.controller.context.get('module');
         this.moduleLangObj = {
-            module: this.module
+            module: this.currentModule
         };
 
         if (this.checkAccess()) {
             // get the context model
             var ctxModel = options.context.get('model'),
-                metadata = app.metadata.getModule(this.module);
+                metadata = app.metadata.getModule(this.currentModule);
             // empty the model
             ctxModel.clear({silent: true});
 
@@ -80,27 +71,18 @@
             }
 
             this.loadConfig(options);
-        }
-    },
-
-    /**
-     * @inheritdoc
-     * @private
-     */
-    _render: function() {
-        if (this.checkAccess()) {
-            this._super('_render');
         } else {
-            this.blockModule();
+            this.blockModule()
         }
     },
 
     /**
      * Continues initializing Config and loads data
      *
-     * @param {Object} [options] The `options` param passed in to initialize
+     * @param {Object} options The `options` param passed in to initialize
      */
     loadConfig: function(options) {
+        this._super('initialize', [options]);
         this._super('loadData');
     },
 
@@ -108,7 +90,7 @@
      * Checks if User has access to this module
      * Should be overridden in modules to provide module-specific access requirements
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     checkAccess: function() {
         this.configMetadataOK = this._checkConfigMetadata();
@@ -121,28 +103,28 @@
     /**
      * Checks if there's actually config in the metadata for the current module
      *
-     * @return {boolean}
+     * @returns {boolean}
      * @private
      */
     _checkConfigMetadata: function() {
-        return !_.isEmpty(app.metadata.getModule(this.module, 'config'));
+        return !_.isEmpty(app.metadata.getModule(this.currentModule, 'config'));
     },
 
     /**
      * Checks if the User has access to the current module
      *
-     * @return {boolean}
+     * @returns {boolean}
      * @private
      */
     _checkUserAccess: function() {
-        return !_.has(app.user.getAcls()[this.module], 'access');
+        return !_.has(app.user.getAcls()[this.currentModule], 'access');
     },
 
     /**
      * Allow modules to have specific access checks to allow configuration
      * Ex. Forecasts is only configurable by SystemAdmins & Forecasts Developers, not Forecasts admins
      *
-     * @return {boolean}
+     * @returns {boolean}
      * @private
      */
     _checkModuleAccess: function() {
@@ -153,7 +135,7 @@
      * Adds an extra level for if the config cannot be loaded because of some module-specific case
      * Ex. Forecasts config doesn't have the right Sales Stage Won/Lost
      *
-     * @return {boolean}
+     * @returns {boolean}
      * @private
      */
     _checkModuleConfig: function() {
@@ -164,17 +146,17 @@
      * Blocks config from continuing to load
      */
     blockModule: function() {
-        var title = app.lang.get('LBL_CONFIG_BLOCKED_TITLE', this.module, this.moduleLangObj),
+        var title = app.lang.get('LBL_CONFIG_BLOCKED_TITLE', this.currentModule, this.moduleLangObj),
             msg;
 
         if (!this.configMetadataOK) {
-            msg = app.lang.get('LBL_CONFIG_BLOCKED_DESC_NO_CONFIG_METADATA', this.module, this.moduleLangObj);
+            msg = app.lang.get('LBL_CONFIG_BLOCKED_DESC_NO_CONFIG_METADATA', this.currentModule, this.moduleLangObj);
         } else if (!this.accessUserOK) {
-            msg = app.lang.get('LBL_CONFIG_BLOCKED_DESC_USER_ACCESS', this.module, this.moduleLangObj);
+            msg = app.lang.get('LBL_CONFIG_BLOCKED_DESC_USER_ACCESS', this.currentModule, this.moduleLangObj);
         } else if (!this.accessModuleOK) {
-            msg = app.lang.get('LBL_CONFIG_BLOCKED_DESC_MODULE_ACCESS', this.module, this.moduleLangObj);
+            msg = app.lang.get('LBL_CONFIG_BLOCKED_DESC_MODULE_ACCESS', this.currentModule, this.moduleLangObj);
         } else if (!this.accessConfigOK) {
-            msg = app.lang.get('LBL_CONFIG_BLOCKED_DESC_CONFIG_ACCESS', this.module, this.moduleLangObj);
+            msg = app.lang.get('LBL_CONFIG_BLOCKED_DESC_CONFIG_ACCESS', this.currentModule, this.moduleLangObj);
         }
 
         this.displayNoAccessAlert(title, msg);
@@ -187,7 +169,7 @@
      * @param {String} msg Already-translated language string for the Alert's message
      */
     displayNoAccessAlert: function(title, msg) {
-        var alert = app.alert.show('no_access_to_module_' + this.module, {
+        var alert = app.alert.show('no_access_to_module_' + this.currentModule, {
             level: 'error',
             title: title,
             messages: [msg]
@@ -199,8 +181,6 @@
             app.router.navigate('#Home', {trigger: true});
         });
         app.accessibility.run($close, 'click');
-
-        app.drawer.close(this.context, this.module);
     },
 
     /**

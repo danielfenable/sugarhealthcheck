@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.11, created on 2016-07-04 13:55:46
+<?php /* Smarty version 2.6.11, created on 2016-07-06 08:11:09
          compiled from include/MVC/View/tpls/sidecar.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_getjspath', 'include/MVC/View/tpls/sidecar.tpl', 20, false),array('function', 'sugar_getscript', 'include/MVC/View/tpls/sidecar.tpl', 29, false),array('modifier', 'cat', 'include/MVC/View/tpls/sidecar.tpl', 68, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_getjspath', 'include/MVC/View/tpls/sidecar.tpl', 20, false),array('function', 'sugar_getscript', 'include/MVC/View/tpls/sidecar.tpl', 28, false),array('modifier', 'cat', 'include/MVC/View/tpls/sidecar.tpl', 62, false),)), $this); ?>
 
 <!DOCTYPE HTML>
 <html class="no-js">
@@ -12,7 +12,6 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_getjs
         <link rel="shortcut icon" href="<?php echo smarty_function_sugar_getjspath(array('file' => 'themes/default/images/sugar_icon.ico'), $this);?>
 ">
         <!-- CSS -->
-        <link rel="stylesheet" href="styleguide/assets/css/loading.css" type="text/css">
         <?php $_from = $this->_tpl_vars['css_url']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['url']):
 ?>
@@ -30,15 +29,10 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_getjs
         <div id="sugarcrm">
             <div id="sidecar">
                 <div id="alerts" class="alert-top">
-                    <div class="alert-wrapper">
-                        <div class="alert alert-process">
-                            <strong>
-                                <div class="loading">
-                                    <?php echo $this->_tpl_vars['LBL_LOADING']; ?>
-<i class="l1">&#46;</i><i class="l2">&#46;</i><i class="l3">&#46;</i>
-                                </div>
-                            </strong>
-                        </div>
+                    <div class="loading gate">
+                        <strong><?php echo $this->_tpl_vars['LBL_LOADING']; ?>
+</strong>
+                        <i class="fa fa-circle l1"></i><i class="fa fa-circle l2"></i><i class="fa fa-circle l3"></i>
                     </div>
                     <noscript>
                         <div class="alert-top">
@@ -57,7 +51,7 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_getjs
             </div>
         </div>
         <!-- App Scripts -->
-        <?php if (empty ( $this->_tpl_vars['shouldResourcesBeMinified'] )): ?>
+        <?php if (! empty ( $this->_tpl_vars['developerMode'] )): ?>
             <?php echo smarty_function_sugar_getscript(array('file' => "sidecar/minified/sidecar.js"), $this);?>
 
         <?php else: ?>
@@ -83,20 +77,14 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'sugar_getjs
                 ';  if ($this->_tpl_vars['authorization']): ?>
                 SUGAR.App.cache.set("<?php echo $this->_tpl_vars['appPrefix']; ?>
 AuthAccessToken", "<?php echo $this->_tpl_vars['authorization']['access_token']; ?>
-");
+")
                 <?php if ($this->_tpl_vars['authorization']['refresh_token']): ?>
                 SUGAR.App.cache.set("<?php echo $this->_tpl_vars['appPrefix']; ?>
 AuthRefreshToken", "<?php echo $this->_tpl_vars['authorization']['refresh_token']; ?>
-");
+")
                 <?php endif; ?>
                 if (window.SUGAR.App.config.siteUrl != '') {
-                    history.replaceState(null, 'SugarCRM', window.SUGAR.App.config.siteUrl+"/"+window.location.hash);
-                } else {
-                    history.replaceState(
-                            null,
-                            'SugarCRM',
-                            window.location.origin + window.location.pathname + window.location.hash
-                    );
+                    history.replaceState(null, 'SugarCRM', window.SUGAR.App.config.siteUrl+"/"+window.location.hash)
                 }
                 <?php endif;  echo '
                 App = SUGAR.App.init({
@@ -106,7 +94,7 @@ AuthRefreshToken", "<?php echo $this->_tpl_vars['authorization']['refresh_token'
                         app.once("app:view:change", function(){
                             app.progress.done();
                         });
-                        app.alert.dismissAll();
+                        $(\'#alerts\').empty();
                         app.start();
                     }
                 });

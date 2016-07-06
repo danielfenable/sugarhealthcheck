@@ -1,7 +1,8 @@
 CACHE MANIFEST
-# Fri, 08 Apr 2016 00:24:16 GMT
-# Version: 3.0.2
-# Build: 340/336
+# Thu, 28 Jan 2016 19:16:12 GMT
+# Version: 2.6.0
+# Build: 298/1292
+
 index.html
 
 # cache fonts
@@ -14,18 +15,25 @@ img/touch-icon.png
 img/touch-icon-152.png
 img/touch-icon-196.png
 img/logo.svg
-img/logo-login.svg
+img/sugarcrmLogoBlackBackground_RGB.svg
+img/triangles.png
+img/spinner_color-1.svg
+img/spinner_color-2.svg
 img/offline-list.svg
 img/offline-detail.svg
 img/offline-edit.svg
 
+#styles
+css/mobile.css
+
 # javascripts
-js/lib.js
-js/sidecar.js
-js/nomad.js
-js/templates.js
+lib.js
+sidecar.js
+templates.js
+nomad.js
 
 #other resources
+tutorial.json
 
 NETWORK:
 *

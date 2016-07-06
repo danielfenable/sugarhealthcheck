@@ -155,7 +155,7 @@ class SugarFieldCurrency extends SugarFieldFloat
     public function unformatField($formattedField, $vardef)
     {
         if ($formattedField === '' || $formattedField === null) {
-            return '';
+            return null;
         }
         if (is_array($formattedField)) {
             $formattedField = array_shift($formattedField);

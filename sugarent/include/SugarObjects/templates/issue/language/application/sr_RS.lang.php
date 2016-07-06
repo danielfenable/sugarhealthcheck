@@ -1,5 +1,8 @@
 <?php
- /*
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+/*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
  * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
@@ -9,44 +12,39 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*
- * Created on Aug 14, 2007
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
-$object_name = strtolower($object_name);
- $app_list_strings = array (
+	
 
-  $object_name.'_type_dom' =>
+$object_name = strtolower($object_name);
+$app_list_strings = array (
+  $object_name.'_type_dom' => 
   array (
-  	'Administration' => 'Administration',
+    'Administration' => 'Administracija',
     'Product' => 'Proizvod',
     'User' => 'Korisnik',
   ),
-   $object_name.'_status_dom' =>
+  $object_name.'_status_dom' => 
   array (
     'New' => 'Novo',
     'Assigned' => 'Dodeljeno',
-    'Closed' => 'Zatvoren',
+    'Closed' => 'Zatvoreno',
     'Pending Input' => 'Unos na čekanju',
     'Rejected' => 'Odbijen',
-    'Duplicate' => 'Napravi duplikat',
+    'Duplicate' => 'Duplikat',
   ),
-  $object_name.'_priority_dom' =>
+  $object_name.'_priority_dom' => 
   array (
     'P1' => 'Visok',
     'P2' => 'Srednje',
     'P3' => 'Nizak',
   ),
-  $object_name.'_resolution_dom' =>
+  $object_name.'_resolution_dom' => 
   array (
-  	'' => '',
-  	'Accepted' => 'Prihvaćeno',
-    'Duplicate' => 'Napravi duplikat',
-    'Closed' => 'Zatvoren',
+    '' => '',
+    'Accepted' => 'Prihvaćeno',
+    'Duplicate' => 'Duplikat',
+    'Closed' => 'Zatvoreno',
     'Out of Date' => 'Van roka važnosti',
     'Invalid' => 'Nevažeći',
   ),
-  );
-?>
+);
+

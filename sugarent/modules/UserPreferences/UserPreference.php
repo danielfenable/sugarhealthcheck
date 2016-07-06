@@ -45,8 +45,6 @@ class UserPreference extends SugarBean
     public $field_defs_map = array();
     public $new_schema = true;
 
-    protected $cache;
-
     protected $_userFocus;
 
     /**
@@ -61,13 +59,14 @@ class UserPreference extends SugarBean
     }
 
     // Do not actually declare, use the functions statically
-    public function __construct(User $user = null)
+    public function __construct(
+        User $user = null
+        )
     {
         parent::__construct();
 
         $this->_userFocus = $user;
         $this->tracker_visibility = false;
-        $this->cache = SugarCache::instance();
     }
 
     /**
@@ -77,27 +76,29 @@ class UserPreference extends SugarBean
      * @param string $category name of the category to retreive, defaults to global scope
      * @return mixed the value of the preference (string, array, int etc)
      */
-    public function getPreference($name, $category = 'global')
+    public function getPreference(
+        $name,
+        $category = 'global'
+        )
     {
         global $sugar_config;
 
-        $cachedPrefs = $this->getFromCache($category);
+        $user = $this->_userFocus;
+
         // if the unique key in session doesn't match the app or prefereces are empty
-        if (!isset($cachedPrefs) || (!empty($_SESSION['unique_key']) && $_SESSION['unique_key'] != $sugar_config['unique_key'])) {
+        if(!isset($_SESSION[$user->user_name.'_PREFERENCES'][$category]) || (!empty($_SESSION['unique_key']) && $_SESSION['unique_key'] != $sugar_config['unique_key'])) {
             $this->loadPreferences($category);
-            $cachedPrefs = $this->getFromCache($category);
         }
-        if (isset($cachedPrefs[$name])) {
-            return $cachedPrefs[$name];
+        if(isset($_SESSION[$user->user_name.'_PREFERENCES'][$category][$name])) {
+            return $_SESSION[$user->user_name.'_PREFERENCES'][$category][$name];
         }
 
         // check to see if a default preference ( i.e. $sugar_config setting ) exists for this value )
         // if so, return it
-        $value = $this->getDefaultPreference($name, $category);
-        if (!is_null($value)) {
+        $value = $this->getDefaultPreference($name,$category);
+        if ( !is_null($value) ) {
             return $value;
         }
-
         return null;
     }
 
@@ -108,7 +109,10 @@ class UserPreference extends SugarBean
      * @param string $category name of the category to retreive, defaults to global scope
      * @return mixed the value of the preference (string, array, int etc)
      */
-    public function getDefaultPreference($name, $category = 'global')
+    public function getDefaultPreference(
+        $name,
+        $category = 'global'
+        )
     {
         global $sugar_config;
 
@@ -134,12 +138,10 @@ class UserPreference extends SugarBean
 
     }
 
-    public function removePreference($name, $category = 'global')
-    {
-        $cached = $this->getFromCache($category);
-        if (isset($cached[$name])) {
-            unset($cached[$name]);
-            $this->storeToCache($cached, $category);
+    public function removePreference($name, $category='global') {
+        $user = $this->_userFocus;
+        if(isset($_SESSION[$user->user_name . '_PREFERENCES'][$category][$name])) {
+            unset($_SESSION[$user->user_name . '_PREFERENCES'][$category][$name]);
         }
 
         $this->savePreferencesToDB(true);
@@ -152,33 +154,31 @@ class UserPreference extends SugarBean
      * @param mixed $value value of the preference to set
      * @param string $category name of the category to retreive, defaults to global scope
      */
-    public function setPreference($name, $value, $category = 'global')
+    public function setPreference(
+        $name,
+        $value,
+        $category = 'global'
+        )
     {
-        if (empty($this->_userFocus->id)) {
+        $user = $this->_userFocus;
+
+        if ( empty($user->user_name) )
             return;
-        }
 
-        $cachedPrefs = $this->getFromCache($category);
-
-        if (!is_array($cachedPrefs)) {
-            $this->loadPreferences($category);
-            $cachedPrefs = $this->getFromCache($category);
-        }
-        if (!is_array($cachedPrefs)) {
-            $cachedPrefs = array();
+        if(!isset($_SESSION[$user->user_name.'_PREFERENCES'][$category])) {
+            if(!$user->loadPreferences($category))
+                $_SESSION[$user->user_name.'_PREFERENCES'][$category] = array();
         }
 
         // preferences changed or a new preference, save it to DB
-        if (!isset($cachedPrefs[$name]) || (isset($cachedPrefs[$name]) && $cachedPrefs[$name] != $value)) {
-            $GLOBALS['savePreferencesToDB'] = true;
-            if (!isset($GLOBALS['savePreferencesToDBCats'])) {
-                $GLOBALS['savePreferencesToDBCats'] = array();
-            }
-            $GLOBALS['savePreferencesToDBCats'][$category] = true;
+        if(!isset($_SESSION[$user->user_name.'_PREFERENCES'][$category][$name])
+            || (isset($_SESSION[$user->user_name.'_PREFERENCES'][$category][$name]) && $_SESSION[$user->user_name.'_PREFERENCES'][$category][$name] != $value)) {
+                $GLOBALS['savePreferencesToDB'] = true;
+                if(!isset($GLOBALS['savePreferencesToDBCats'])) $GLOBALS['savePreferencesToDBCats'] = array();
+                $GLOBALS['savePreferencesToDBCats'][$category] = true;
         }
 
-        $cachedPrefs[$name] = $value;
-        $this->storeToCache($cachedPrefs, $category);
+        $_SESSION[$user->user_name.'_PREFERENCES'][$category][$name] = $value;
     }
 
     /**
@@ -187,25 +187,21 @@ class UserPreference extends SugarBean
      * @param string $category name of the category to retreive, defaults to global scope
      * @return bool successful?
      */
-    public function loadPreferences($category = 'global')
+    public function loadPreferences(
+        $category = 'global'
+        )
     {
         global $sugar_config;
+
         $user = $this->_userFocus;
 
-        if ($user->object_name != 'User') {
-            return null;
-        }
-
-        $cachedPrefs = $this->getFromCache($category);
-
-        if (!empty($user->id) && (!isset($cachedPrefs)
-                || (!empty($_SESSION['unique_key']) && $_SESSION['unique_key'] != $sugar_config['unique_key']))
-        ) {
+        if($user->object_name != 'User')
+            return;
+        if(!empty($user->id) && (!isset($_SESSION[$user->user_name . '_PREFERENCES'][$category]) || (!empty($_SESSION['unique_key']) && $_SESSION['unique_key'] != $sugar_config['unique_key']))) {
             // cn: moving this to only log when valid - throwing errors on install
             return $this->reloadPreferences($category);
         }
-
-        return null;
+        return false;
     }
 
     /**
@@ -217,67 +213,23 @@ class UserPreference extends SugarBean
     {
         $user = $this->_userFocus;
 
-        if ($user->object_name != 'User' || empty($user->id)) {
+        if($user->object_name != 'User' || empty($user->id) || empty($user->user_name)) {
             return false;
         }
-        $GLOBALS['log']->debug('Loading Preferences DB ' . $user->id);
-
-        if (!isset($user->user_preferences) || !is_array($user->user_preferences)) {
-            $user->user_preferences = array();
-        }
-        $db = DBManagerFactory::getInstance();
-        $result = $db->query(
-            "SELECT contents FROM user_preferences WHERE assigned_user_id='$user->id' "
-            . "AND category = " . $db->quoted($category) . " AND deleted = 0",
-            false,
-            'Failed to load user preferences'
-        );
+        $GLOBALS['log']->debug('Loading Preferences DB ' . $user->user_name);
+        if(!isset($_SESSION[$user->user_name . '_PREFERENCES'])) $_SESSION[$user->user_name . '_PREFERENCES'] = array();
+        if(!isset($user->user_preferences) || !is_array($user->user_preferences)) $user->user_preferences = array();
+        $result = $GLOBALS['db']->query("SELECT contents FROM user_preferences WHERE assigned_user_id='$user->id' AND category = '" . $category . "' AND deleted = 0", false, 'Failed to load user preferences');
         $row = $GLOBALS['db']->fetchByAssoc($result);
-
-        $value = array();
         if ($row) {
-            $value = unserialize(base64_decode($row['contents']));
+            $_SESSION[$user->user_name . '_PREFERENCES'][$category] = unserialize(base64_decode($row['contents']));
+            $user->user_preferences[$category] = unserialize(base64_decode($row['contents']));
+            return true;
+        } else {
+            $_SESSION[$user->user_name . '_PREFERENCES'][$category] = array();
+            $user->user_preferences[$category] = array();
         }
-
-        $this->storeToCache($value, $category);
-        $user->user_preferences[$category] = $value;
-
-        return !empty($row);
-    }
-
-    protected function storeToCache($value, $category = null)
-    {
-        $cacheKey = $this->_userFocus->id . '_PREFERENCES';
-        if (!empty($category)) {
-            $stored = $this->getFromCache();
-            if (!is_array($stored)) {
-                $stored = array();
-            }
-            if (is_null($value)) {
-                unset($stored[$category]);
-            } else {
-                $stored[$category] = $value;
-            }
-            $value = $stored;
-        }
-        $ttl = SugarConfig::getInstance()->get('oauth2.max_session_lifetime', ini_get('session.gc_maxlifetime'));
-        $this->cache->set($cacheKey, $value, $ttl);
-    }
-
-    protected function getFromCache($category = null)
-    {
-        $cacheKey = $this->_userFocus->id . '_PREFERENCES';
-        //SugarCache has a mem layer that ensures we only actually load from external cache once per request,
-        //even if grabbing multiple categories.
-        $prefs = $this->cache->$cacheKey;
-        if (empty($category)) {
-            return $prefs;
-        }
-        if (isset($prefs[$category])) {
-            return $prefs[$category];
-        }
-
-        return null;
+        return false;
     }
 
     /**
@@ -343,7 +295,9 @@ class UserPreference extends SugarBean
      * @param bool $all save all of the preferences? (Dangerous)
      *
      */
-    public function savePreferencesToDB($all = false)
+    public function savePreferencesToDB(
+        $all = false
+        )
     {
         global $sugar_config;
         $GLOBALS['savePreferencesToDB'] = false;
@@ -351,27 +305,21 @@ class UserPreference extends SugarBean
         $user = $this->_userFocus;
 
         // these are not the preferences you are looking for [ hand waving ]
-        if (empty($GLOBALS['installing']) && !empty($_SESSION['unique_key'])
-            && $_SESSION['unique_key'] != $sugar_config['unique_key']
-        ) {
-            return;
-        }
+        if(empty($GLOBALS['installing']) && !empty($_SESSION['unique_key']) && $_SESSION['unique_key'] != $sugar_config['unique_key']) return;
 
-        $cached = $this->getFromCache();
-
-        $GLOBALS['log']->debug('Saving Preferences to DB ' . $user->id);
-        if (isset($cached)) {
-            $GLOBALS['log']->debug("Saving Preferences to DB: {$user->id}");
+        $GLOBALS['log']->debug('Saving Preferences to DB ' . $user->user_name);
+        if(isset($_SESSION[$user->user_name. '_PREFERENCES']) && is_array($_SESSION[$user->user_name. '_PREFERENCES'])) {
+             $GLOBALS['log']->debug("Saving Preferences to DB: {$user->user_name}");
             // only save the categories that have been modified or all?
-            if (!$all && isset($GLOBALS['savePreferencesToDBCats']) && is_array($GLOBALS['savePreferencesToDBCats'])) {
+            if(!$all && isset($GLOBALS['savePreferencesToDBCats']) && is_array($GLOBALS['savePreferencesToDBCats'])) {
                 $catsToSave = array();
-                foreach ($GLOBALS['savePreferencesToDBCats'] as $category => $value) {
-                    if (isset($cached[$category])) {
-                        $catsToSave[$category] = $cached[$category];
-                    }
+                foreach($GLOBALS['savePreferencesToDBCats'] as $category => $value) {
+                    if ( isset($_SESSION[$user->user_name. '_PREFERENCES'][$category]) )
+                        $catsToSave[$category] = $_SESSION[$user->user_name. '_PREFERENCES'][$category];
                 }
-            } else {
-                $catsToSave = $cached;
+            }
+            else {
+                $catsToSave = $_SESSION[$user->user_name. '_PREFERENCES'];
             }
 
             foreach ($catsToSave as $category => $contents) {
@@ -379,7 +327,7 @@ class UserPreference extends SugarBean
                 $result = $focus->retrieve_by_string_fields(array(
                     'assigned_user_id' => $user->id,
                     'category' => $category,
-                ));
+                    ));
                 $focus->assigned_user_id = $user->id; // MFH Bug #13862
                 $focus->deleted = 0;
                 $focus->contents = base64_encode(serialize($contents));
@@ -394,11 +342,13 @@ class UserPreference extends SugarBean
      *
      * @param string $category category to reset
      */
-    public function resetPreferences($category = null)
+    public function resetPreferences(
+        $category = null
+        )
     {
         $user = $this->_userFocus;
 
-        $GLOBALS['log']->debug('Reseting Preferences for user ' . $user->id);
+        $GLOBALS['log']->debug('Reseting Preferences for user ' . $user->user_name);
 
         $remove_tabs = $this->getPreference('remove_tabs');
         $favorite_reports = $this->getPreference('favorites', 'Reports');
@@ -408,20 +358,20 @@ class UserPreference extends SugarBean
         $timezone = $this->getPreference('timezone');
 
         $query = "UPDATE user_preferences SET deleted = 1 WHERE assigned_user_id = '" . $user->id . "'";
-        if ($category) {
+        if($category)
             $query .= " AND category = '" . $category . "'";
-        }
         $this->db->query($query);
 
-        $this->storeToCache(null, $category);
-
-        if (!$category) {
-            if (!empty($_COOKIE['sugar_user_theme']) && !headers_sent()) {
+        if($category) {
+            unset($_SESSION[$user->user_name."_PREFERENCES"][$category]);
+        }
+        else {
+        	if(!empty($_COOKIE['sugar_user_theme']) && !headers_sent()){
                 setcookie('sugar_user_theme', '', time() - 3600); // expire the sugar_user_theme cookie
             }
-
+            unset($_SESSION[$user->user_name."_PREFERENCES"]);
             // only call session_destroy() when we have a valid session_id
-            if ($user->id == $GLOBALS['current_user']->id && session_id() != "") {
+            if($user->id == $GLOBALS['current_user']->id && session_id() != "") {
                 session_destroy();
             }
             $this->setPreference('remove_tabs', $remove_tabs);
@@ -454,11 +404,10 @@ class UserPreference extends SugarBean
         }
 
         // we can skip this if we've already upgraded to the user_preferences format.
-        if (!array_key_exists('user_preferences', $db->get_columns('users'))) {
+        if ( !array_key_exists('user_preferences',$db->getHelper()->get_columns('users')) )
             return;
-        }
 
-        $result = $db->query("SELECT id, user_preferences FROM users");
+        $result = $db->query("SELECT id, user_preferences, user_name FROM users");
         while ($row = $db->fetchByAssoc($result)) {
             $prefs = array();
             $newprefs = array();

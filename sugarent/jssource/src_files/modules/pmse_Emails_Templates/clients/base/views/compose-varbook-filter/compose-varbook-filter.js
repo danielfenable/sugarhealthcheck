@@ -48,7 +48,7 @@
         //url = api.buildURL('pmse_Project', 'CrmData/fields/' + this.collection.baseModule, null, {base_module: 'Leads'});
         app.api.call('read', url, null, {
             success:function (result){
-                if (result.success && self.collection) {
+                if (result.success) {
                     _.each(result.result, function(module) {
                         if(module.value!=self.collection.baseModule){
                             self._moduleFilterList.push({id: module.value, text: module.text});

@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,21 +10,33 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 
 $mod_strings = array (
    'LBL_YOURS' => 'Ihre',
-   'LBL_IN_DATABASE' => 'In Datenbank',
+   'LBL_IN_DATABASE' => 'In der Datenbank',
    'LBL_CONFLICT_EXISTS' => 'Ein Konflikt existiert für -',
    'LBL_ACCEPT_DATABASE' => 'Datenbank akzeptieren',
-   'LBL_ACCEPT_YOURS' => 'Ihre akzeptieren',
-   'LBL_RECORDS_MATCH' => 'Datensätze-Übereinstimmung',
+   'LBL_ACCEPT_YOURS' => 'Akzeptiere Ihre',
+   'LBL_RECORDS_MATCH' => 'Datensätze Match',
    'LBL_NO_LOCKED_OBJECTS' => 'Keine gesperrten Objekte',
    
 );

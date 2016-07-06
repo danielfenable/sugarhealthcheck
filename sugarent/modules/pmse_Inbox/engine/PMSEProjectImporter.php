@@ -60,16 +60,6 @@ class PMSEProjectImporter extends PMSEImporter
     protected $targetModule;
 
     /**
-     * @var
-     */
-    protected $warningBR = false;
-
-    /**
-     * @var
-     */
-    protected $warningET = false;
-
-    /**
      * The class constructor
      * @codeCoverageIgnore
      */
@@ -187,12 +177,12 @@ class PMSEProjectImporter extends PMSEImporter
      * @param $projectData
      * @return bool|void
      */
-    public function saveProjectData($projectData, $isCopy = false)
+    public function saveProjectData($projectData)
     {
         global $current_user;
         $projectBean = $this->getBean();
         $keysArray = array();
-        $result = array('success' => false);
+
         // This will be needed down the road
         $this->setTargetModule($projectData[$this->module]);
 
@@ -221,10 +211,7 @@ class PMSEProjectImporter extends PMSEImporter
         unset($projectData['diagram'], $projectData['process'], $projectData['definition'], $projectData['dynaforms']);
 
         $projectData['prj_uid'] = PMSEEngineUtils::generateUniqueID();
-
-        if (!$isCopy) {
-            $projectData['prj_status'] = 'INACTIVE';
-        }
+        $projectData['prj_status'] = 'INACTIVE';
 
         foreach ($projectData as $key => $value) {
             if (isset($projectBean->field_defs[$key])){
@@ -268,28 +255,16 @@ class PMSEProjectImporter extends PMSEImporter
         $processDefinitionBean->id = $keysArray['pro_id'];
         $processDefinitionBean->pro_status = 'INACTIVE';
         $processDefinitionBean->new_with_id = true;
-        // by default an imported project should be disabled
-        $processDefinitionBean->pro_status = 'INACTIVE';
         $processDefinitionBean->save();
-
-        // terminate fields
-        if (!empty($processDefinitionBean->pro_terminate_variables) && $processDefinitionBean->pro_terminate_variables != '[]'){
-            $this->createRelatedDependencyTerminateProcess($processDefinitionBean->id, $processDefinitionBean->pro_terminate_variables);
-        }
 
         $this->saveProjectActivitiesData($diagramData['activities'], $keysArray);
         $this->saveProjectEventsData($diagramData['events'], $keysArray);
         $this->saveProjectGatewaysData($diagramData['gateways'], $keysArray);
         $this->saveProjectArtifactsData($diagramData['artifacts'], $keysArray);
         $this->saveProjectFlowsData($diagramData['flows'], $keysArray);
-        $this->saveProjectDynaFormsData($dynaFormData, $keysArray);
+        $this->saveProjectDynaFormsData($diagramData['flows'], $keysArray);
         $this->processDefaultFlows();
-
-        $result['success'] = true;
-        $result['id'] = $keysArray['prj_id'];
-        $result['br_warning'] = $this->warningBR;
-        $result['et_warning'] = $this->warningET;
-        return $result;
+        return $keysArray['prj_id'];
     }
 
     /**
@@ -360,7 +335,6 @@ class PMSEProjectImporter extends PMSEImporter
                 $element['act_script_type'] == 'BUSINESS_RULE') {
                 //TODO implement automatic import for business rules
                 $definition['act_fields'] = '';
-                $this->warningBR = true;
             }
             foreach ($definition as $key => $value) {
                 if (isset($definitionBean->field_defs[$key])){
@@ -427,7 +401,6 @@ class PMSEProjectImporter extends PMSEImporter
                 $element['evn_behavior'] == 'THROW' ) {
                 //TODO implement automatic import for emails templates
                 $definition['evn_criteria'] = '';
-                $this->warningET = true;
             }
             foreach ($definition as $key => $value) {
                 if (isset($definitionBean->field_defs[$key])){
@@ -583,34 +556,6 @@ class PMSEProjectImporter extends PMSEImporter
                         case 'flo_element_dest':
                             if (!empty($value)) {
                                 $flowBean->$key = $this->savedElements[$element['flo_element_dest_type']][$value];
-                            }
-                            break;
-                        case 'flo_condition':
-                            if (!empty($value)) {
-                                $tokenExpression = json_decode($value);
-                                if (is_array($tokenExpression) && !empty($tokenExpression)) {
-                                    foreach ($tokenExpression as $_key => $_value) {
-                                        switch ($_value->expType) {
-                                            case 'MODULE':
-                                                if (!empty($_value->expSubtype) &&
-                                                    (strtolower($_value->expSubtype) == 'currency') &&
-                                                    (empty($_value->expCurrency))
-                                                ) {
-                                                    PMSEEngineUtils::fixCurrencyType($tokenExpression[$_key]);
-                                                    $flowBean->$key = json_encode($tokenExpression);
-                                                } else {
-                                                    $flowBean->$key = $value;
-                                                }
-                                                break;
-                                            case 'CONTROL':
-                                                $tokenExpression[$_key]->expField = $this->changedUidElements[$_value->expField]['new_uid'];
-                                                $flowBean->$key = json_encode($tokenExpression);
-                                                break;
-                                            default:
-                                                $flowBean->$key = $value;
-                                        }
-                                    }
-                                }
                             }
                             break;
                         default:
@@ -797,15 +742,4 @@ class PMSEProjectImporter extends PMSEImporter
         return array($element, $definition, $bound);
     }
 
-    private function createRelatedDependencyTerminateProcess($pro_id, $pro_terminate_variables)
-    {
-        $fakeEventData = array(
-            'id' => 'TERMINATE',
-            'evn_type' => 'GLOBAL_TERMINATE',
-            'evn_criteria' => $pro_terminate_variables,
-            'evn_behavior' => 'CATCH',
-            'pro_id' => $pro_id
-        );
-        $this->dependenciesWrapper->processRelatedDependencies($fakeEventData);
-    }
 }

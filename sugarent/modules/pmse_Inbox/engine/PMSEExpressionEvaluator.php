@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-require_once 'PMSEExceptions/PMSEExpressionEvaluationException.php';
+
 /**
  * Description of PMSEExpressionEvaluator
  *
@@ -95,65 +95,31 @@ class PMSEExpressionEvaluator
         $resultToken = new stdClass();
         $resultToken->expType = 'CONSTANT';
 
-        if (strtolower($firstToken->expSubtype) == 'currency' || strtolower($secondToken->expSubtype) == 'currency') {
-            $resultToken->expSubtype = 'currency';
-            $operationGroup = $this->checkCurrencyEvaluation(
-                $groupKey,
-                $firstToken,
-                $token,
-                $secondToken
-            );
-            $resultToken = $this->routeCurrencyFunctionOperator(
-                $operationGroup,
-                $firstToken,
-                $token->expValue,
-                $secondToken
-            );
-        } else {
-            $operationGroup = $this->checkDateEvaluation(
-                $groupKey,
-                $firstToken,
-                $token,
-                $secondToken
-            );
-            $resultToken->expValue = $this->routeFunctionOperator(
-                $operationGroup,
-                $firstToken->expValue,
-                $token->expValue,
-                $secondToken->expValue
-            );
-            $this->processTokenAttributes($resultToken);
-        }
-
+        $operationGroup = $this->checkDateEvaluation(
+            $groupKey,
+            $firstToken,
+            $token,
+            $secondToken
+        );
+        $resultToken->expValue = $this->routeFunctionOperator(
+            $operationGroup,
+            $firstToken->expValue,
+            $token->expValue,
+            $secondToken->expValue
+        );
+        $this->processTokenAttributes($resultToken);
         return $resultToken;
     }
 
     public function checkDateEvaluation($key, $firstToken, $operator, $secondToken)
     {
-        if ((strtolower($firstToken->expSubtype)=='date' || strtolower($firstToken->expSubtype)=='datetime') &&
-            strtolower($secondToken->expSubtype)=='timespan') {
+        if ((strtolower($firstToken->expSubtype)=='date' || strtolower($firstToken->expSubtype)=='datetime') && strtolower($secondToken->expSubtype)=='timespan') {
             switch ($operator->expValue) {
                 case '+':
                     $key = 'dateAdd';
                     break;
                 case '-':
                     $key = 'dateSubstract';
-                    break;
-            }
-        }
-        return $key;
-    }
-
-    public function checkCurrencyEvaluation($key, $firstToken, $operator, $secondToken) {
-        if (strtolower($firstToken->expSubtype)  == 'currency' || strtolower($secondToken->expSubtype) == 'currency') {
-            switch ($operator->expValue) {
-                case '+':
-                case '-':
-                    $key = 'currencyAddSubstract';
-                    break;
-                case 'x':
-                case '/':
-                    $key = 'currencyMultiplyDivide';
                     break;
             }
         }
@@ -233,25 +199,6 @@ class PMSEExpressionEvaluator
         return $result;
     }
 
-    public function routeCurrencyFunctionOperator (
-        $operation,
-        $firstOperand,
-        $operator,
-        $secondOperand) {
-        switch ($operation) {
-            case 'currencyAddSubstract':
-                $result = $this->executeAddSubstractCurrency($firstOperand, $operator, $secondOperand);
-                break;
-            case 'currencyMultiplyDivide':
-                $result = $this->executeMultiplyDivideCurrency($firstOperand, $operator, $secondOperand);
-                break;
-            default:
-                $result = 0;
-                break;
-        }
-        return $result;
-    }
-
     public function processTokenAttributes($token)
     {
         switch (true) {
@@ -313,43 +260,6 @@ class PMSEExpressionEvaluator
         return $result;
     }
 
-    public function isScalar ($expression) {
-        return ($expression->expType == 'CONSTANT' && $expression->expSubtype == 'number') ||
-        ($expression->expType == 'VARIABLE' && ($expression->expSubtype == 'Currency' ||
-                $expression->expSubtype == 'Decimal' || $expression->expSubtype == 'Float' ||
-                $expression->expSubtype == 'Integer'));
-    }
-
-    public function executeMultiplyDivideCurrency($value1, $operator, $value2) {
-        if ((strtolower($value1->expSubtype) == 'currency' && $this->isScalar($value2)) ||
-            (strtolower($value2->expSubtype) == 'currency' && $this->isScalar($value1))) {
-            switch ($operator) {
-                case 'x':
-                    $result = $value1->expValue * $value2->expValue;
-                    break;
-                case '/':
-                    if (strtolower($value1->expSubtype) == 'currency') {
-                        $result = $value1->expValue / $value2->expValue;
-                    } else {
-                        $error = "Impossible to divide an scalar value by a currency.";
-                    }
-                    break;
-            }
-        } else {
-            $error = "Mutiply|Divide Currency - At least one operand must be currency type.";
-        }
-        if (isset($error)) {
-            throw new PMSEExpressionEvaluationException($error, func_get_args());
-        }
-        $currency_id = strtolower($value1->expSubtype) == 'currency' ? $value1->expField : $value2->expField;
-        $newCurrency = new stdClass();
-        $newCurrency->expType = 'CONSTANT';
-        $newCurrency->expSubtype = 'currency';
-        $newCurrency->expField = $currency_id;
-        $newCurrency->expValue = $result;
-        return $newCurrency;
-    }
-
     public function executeAddSubstractOp($value1, $operator, $value2)
     {
         $result = 0;
@@ -362,47 +272,6 @@ class PMSEExpressionEvaluator
                 break;
         }
         return $result;
-    }
-
-    public function executeAddSubstractCurrency($value1, $operator, $value2) {
-        global $current_user;
-
-        if (!(strtolower($value1->expSubtype) == 'currency' && strtolower($value2->expSubtype) == 'currency')) {
-            throw new PMSEExpressionEvaluationException("Add|Substract Currency - ".
-                "Both operands must be currency types.", func_get_args());
-        }
-
-        if ($value1->expField == $value2->expField) {
-            $num1 = $value1->expValue;
-            $num2 = $value2->expValue;
-            $resCurrency = $value1->expField;
-        } else {
-            $resCurrency = SugarCurrency::getUserLocaleCurrency();
-            $resCurrency = $resCurrency->id;
-            $num1 = SugarCurrency::convertAmount($value1->expValue, $value1->expField, $resCurrency);
-            $num2 = SugarCurrency::convertAmount($value2->expValue, $value2->expField, $resCurrency);
-        }
-
-        switch ($operator) {
-            case '+':
-                $result = $num1 + $num2;
-                break;
-            case '-':
-                $result = $num1 - $num2;
-                break;
-        }
-
-        if ($result < 0) {
-            throw new PMSEExpressionEvaluationException("Currency Subtraction - The result is a negative currency.",
-                func_get_args());
-        }
-
-        $resultCurrency = new stdClass();
-        $resultCurrency->expType = 'CONSTANT';
-        $resultCurrency->expSubtype = 'currency';
-        $resultCurrency->expField = $resCurrency;
-        $resultCurrency->expValue = $result;
-        return $resultCurrency;
     }
 
     public function executeDateOp($value1, $operator, $value2)

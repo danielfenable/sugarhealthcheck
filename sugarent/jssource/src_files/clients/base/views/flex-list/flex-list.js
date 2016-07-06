@@ -20,7 +20,7 @@
     _previewed: null,
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initialize: function(options) {
         this.plugins = _.union(this.plugins, ['Tooltip']);
@@ -90,7 +90,6 @@
         this.on('list:toggle:column', this.saveCurrentState, this);
         this.on('list:save:laststate', this.saveCurrentState, this);
         this.on('list:column:resize:save', this.saveCurrentWidths, this);
-        this.on('list:scrollLock', this.scrollLock, this);
     },
 
     // fn to turn off event listeners and reenable tooltips
@@ -662,7 +661,7 @@
     addActions: function() {
         var meta = this.meta;
         if (_.isObject(meta.selection)) {
-            this.isSearchAndSelectAction = meta.selection.isSearchAndSelectAction;
+            this.isLinkAction = meta.selection.isLinkAction;
             switch (meta.selection.type) {
                 case 'single':
                     this.addSingleSelectionAction();
@@ -697,23 +696,25 @@
      * Add multi selection field to left column
      */
     addMultiSelectionAction: function() {
-        var _generateMeta = function(buttons, disableSelectAllAlert) {
+        var _generateMeta = function(buttons, disableSelectAllAlert, isLinkAction) {
             return {
                 'type': 'fieldset',
                 'fields': [
                     {
                         'type': 'actionmenu',
                         'buttons': buttons || [],
-                        'disable_select_all_alert': !!disableSelectAllAlert
+                        'disable_select_all_alert': !!disableSelectAllAlert,
+                        'isLinkAction': !!isLinkAction
                     }
                 ],
                 'value': false,
                 'sortable': false
             };
         };
-        var buttons = this.meta.selection.actions;
-        var disableSelectAllAlert = !!this.meta.selection.disable_select_all_alert;
-        this.leftColumns.push(_generateMeta(buttons, disableSelectAllAlert));
+        var buttons = this.meta.selection.actions,
+            disableSelectAllAlert = !!this.meta.selection.disable_select_all_alert,
+            isLinkAction = !!this.meta.selection.isLinkAction;
+        this.leftColumns.push(_generateMeta(buttons, disableSelectAllAlert, isLinkAction));
     },
     /**
      * Add fieldset of rowactions to the right column
@@ -747,7 +748,7 @@
             this._previewed = model;
             this.$("tr.highlighted").removeClass("highlighted current above below");
             if (model) {
-                var rowName = model.module + "_" + model.id;
+                var rowName = model.module + "_" + model.get("id");
                 var curr = this.$("tr[name='" + rowName + "']");
                 curr.addClass("current highlighted");
                 curr.prev("tr").addClass("highlighted above");
@@ -757,7 +758,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _renderHtml: function() {
         this.colSpan = this._fields.visible.length || 0;
@@ -793,7 +794,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _render: function() {
         this._super('_render');
@@ -999,7 +1000,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     unbind: function() {
         $('#content, .main-pane').off('scroll.' + this.cid);
@@ -1019,19 +1020,6 @@
 
     bindResize: function() {
         $(window).on("resize.flexlist-" + this.cid, _.bind(this.resize, this));
-    },
-
-    /**
-     * Temporarily overwrites the css from the .scroll-width class so that
-     * row field dropdown menues aren't clipped by overflow-x property.
-     */
-    scrollLock: function(lock) {
-        var $content = this.$('.flex-list-view-content');
-        if (lock) {
-            $content.css({'overflow-y': 'visible', 'overflow-x': 'hidden'});
-        } else {
-            $content.removeAttr('style');
-        }
     },
 
     /**

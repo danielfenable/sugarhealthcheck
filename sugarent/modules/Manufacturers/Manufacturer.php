@@ -153,28 +153,7 @@ class Manufacturer extends SugarBean {
 	return $the_where;
 }
 
-    /**
-     * Indicate this module implements ACL.
-     * @param string $interface the interface name
-     * @return bool
-     */
-    public function bean_implements($interface)
-    {
-        switch($interface)
-        {
-            case 'ACL':
-                return true;
-        }
-        return false;
-    }
 
-	/**
-	 *  override default behavior
-	 * {@inheritDoc}
-	 */
-	public function isACLRoleEditable(){
-		return false;
-	}
 }
 
 ?>

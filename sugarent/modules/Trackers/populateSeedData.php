@@ -103,8 +103,10 @@ function populate_tracker_sessions() {
 
 	    if(($row = $this->db->fetchByAssoc($result))) {
 		    $monitor3->setValue('date_start', $this->db->fromConvert($row['date_start'], 'datetime'));
+	    	$monitor3->setValue('round_trips', $row['round_trips'] + 1);
 	    } else {
 			$monitor3->setValue('date_start', TimeDate::getInstance()->nowDb());
+	        $monitor3->setValue('round_trips', 1);
 	    }
 	    //$monitor3->setValue('date_end', $monitor3->date_start);
 

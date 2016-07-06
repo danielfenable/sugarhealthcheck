@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,25 +10,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-require_once 'include/SugarSearchEngine/Interface.php';
-require_once 'include/SearchForm/SugarSpot.php';
+require_once("include/SugarSearchEngine/Interface.php");
+require_once('include/SearchForm/SugarSpot.php');
 
 /**
  * This class is an adapter to the existing SugarSpot/UnifiedSearch capabilities and is the default
  * search engine if no other external engines have been configured.
- *
- *                      !!! DEPRECATION WARNING !!!
- *
- * All code in include/SugarSearchEngine is going to be deprecated in a future
- * release. Do not use any of its APIs for code customizations as there will be
- * no guarantee of support and/or functionality for it. Use the new framework
- * located in the directories src/SearchEngine and src/Elasticsearch.
- *
- * @deprecated
+ * @api
  */
-class SugarSearchEngine implements SugarSearchEngineInterface
-{
+class SugarSearchEngine implements SugarSearchEngineInterface{
+
+
     public function search($query, $offset = 0, $limit = 20, $options = array() )
     {
         $sugarSpot = new SugarSpot();

@@ -1387,7 +1387,7 @@ function template_list_view(&$args)
 	</td>
         </tr>
         <tr>
-		<td COLSPAN="<?php echo $colspan; ?>" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH'].getVersionedPath('blank.gif'); ?>"></td>
+		<td COLSPAN="<?php echo $colspan; ?>" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH']; ?>blank.gif"></td>
 	</tr>
 	<tr height="20" >
 <?php 
@@ -1396,15 +1396,15 @@ function template_list_view(&$args)
 foreach ($header_row as $header_cell) 
 { 
 ?>
-       		<td WIDTH="1" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH'].getVersionedPath('blank.gif'); ?>"></td>
+       		<td WIDTH="1" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH']; ?>blank.gif"></td>
                 <td align='center' ><?php echo $header_cell; ?></td>
 <?php 
 } 
 ?>
-		<td WIDTH="1" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH'].getVersionedPath('blank.gif'); ?>">
+		<td WIDTH="1" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH']; ?>blank.gif">
 	</tr>
 	<tr>
-		<td COLSPAN="<?php echo $colspan; ?>" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH'].getVersionedPath('blank.gif'); ?>"></td>
+		<td COLSPAN="<?php echo $colspan; ?>" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH']; ?>blank.gif"></td>
 	</tr>
 <?php 
 $oddRow = true;
@@ -1421,13 +1421,13 @@ while (( $row = $reporter->get_next_row() ) != 0 )
 ?>
 	<tr height=20 class="<?php echo $row_color; ?>">
 	<?php foreach ($row as $cell) { ?>
-		<td WIDTH="1" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH'].getVersionedPath('blank.gif'); ?>"></td>
+		<td WIDTH="1" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH']; ?>blank.gif"></td>
 		<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" ><?php echo  $cell; ?></td>
 	<?php } ?>
-        	<td WIDTH="1" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH'].getVersionedPath('blank.gif'); ?>"></td>
+        	<td WIDTH="1" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH']; ?>blank.gif"></td>
 	</tr>
 <?php } ?>
-	<tr><td COLSPAN="<?php echo $colspan; ?>" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH'].getVersionedPath('blank.gif'); ?>"></td></tr>
+	<tr><td COLSPAN="<?php echo $colspan; ?>" class="blackLine"><IMG SRC="<?php echo $args['IMAGE_PATH']; ?>blank.gif"></td></tr>
 </table>
 <?php
 

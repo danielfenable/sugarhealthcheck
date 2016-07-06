@@ -19,7 +19,7 @@
     plugins: ['EllipsisInline', 'Tooltip', 'MetadataEventDriven'],
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Some plugins use events which prevents {@link View.Field#delegateEvents}
      * to fallback to metadata defined events.
@@ -31,28 +31,20 @@
         this.events = _.extend({}, this.events, options.def.events);
 
         this._super('initialize', arguments);
-
-        /**
-         * Property to add or not the `ellipsis_inline` class when rendering the
-         * field in the `list` template. `true` to add the class, `false`
-         * otherwise.
-         *
-         * Defaults to `true`.
-         *
-         * @property {boolean}
-         */
-        this.ellipsis = _.isUndefined(this.def.ellipsis) || this.def.ellipsis;
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _render: function() {
         var action = 'view';
         if (this.def.link && this.def.route) {
             action = this.def.route.action;
         }
-        if (this.def.link && app.acl.hasAccessToModel(action, this.model)) {
+        if (!app.acl.hasAccessToModel(action, this.model)) {
+            this.def.link = false;
+        }
+        if (this.def.link) {
             this.href = this.buildHref();
         }
         app.view.Field.prototype._render.call(this);
@@ -72,11 +64,11 @@
         var defRoute = this.def.route ? this.def.route : {},
             module = this.model.module || this.context.get('module');
         // FIXME remove this.def.bwcLink functionality (not yet removed due to Portal need for Documents)
-        return '#' + app.router.buildRoute(module, this.model.get('id'), defRoute.action, this.def.bwcLink);
+        return '#' + app.router.buildRoute(module, this.model.id, defRoute.action, this.def.bwcLink);
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Trim whitespace from value if it is a String.
      */

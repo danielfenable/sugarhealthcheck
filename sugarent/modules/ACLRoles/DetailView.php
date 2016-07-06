@@ -46,7 +46,7 @@ foreach ($categories as $name => $category) {
 $categories2 = array();
 $categories2=$categories;
 $hidden_categories = array(
-"Campaigns","Forecasts",
+"KBDocuments", "Campaigns","Forecasts",
 "Emails","EmailTemplates","EmailMarketing","Reports","PdfManager");
 foreach($hidden_categories as $v){
 	if (isset($categories2[$v])) {

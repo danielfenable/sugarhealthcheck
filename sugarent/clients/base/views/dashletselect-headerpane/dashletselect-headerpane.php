@@ -1,4 +1,5 @@
 <?php
+ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -14,9 +15,8 @@ $viewdefs["base"]["view"]["dashletselect-headerpane"] = array(
     'fields' => array(
         array(
             'name' => 'title',
-            'type' => 'sugar-dashlet-label',
-            'module' => 'Home',
-            'label' => 'LBL_DASHLET_ADD',
+            'type' => 'label',
+            'default_value' => 'LBL_DASHLET_ADD',
         ),
     ),
     "buttons" => array(

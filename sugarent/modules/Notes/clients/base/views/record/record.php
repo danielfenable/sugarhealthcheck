@@ -1,6 +1,5 @@
 <?php
 
-
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -20,9 +19,6 @@ $viewdefs['Notes']['base']['view']['record'] = array(
             'label' => 'LBL_CANCEL_BUTTON_LABEL',
             'css_class' => 'btn-invisible btn-link',
             'showOn' => 'edit',
-            'events' => array(
-                'click' => 'button:cancel_button:click',
-            ),
         ),
         array(
             'type' => 'rowaction',
@@ -75,6 +71,13 @@ $viewdefs['Notes']['base']['view']['record'] = array(
                     'name' => 'duplicate_button',
                     'label' => 'LBL_DUPLICATE_BUTTON_LABEL',
                     'acl_action' => 'create',
+                ),
+                array(
+                    'type' => 'rowaction',
+                    'event' => 'button:audit_button:click',
+                    'name' => 'audit_button',
+                    'label' => 'LNK_VIEW_CHANGE_LOG',
+                    'acl_action' => 'view',
                 ),
                 array(
                     'type' => 'divider',
@@ -143,10 +146,6 @@ $viewdefs['Notes']['base']['view']['record'] = array(
                     ),
                 ),
                 'assigned_user_name',
-                array(
-                    'name' => 'tag',
-                    'span' => 12,
-                ),
             ),
         ),
         array(

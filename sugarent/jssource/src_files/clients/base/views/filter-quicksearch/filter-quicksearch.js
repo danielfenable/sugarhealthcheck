@@ -45,38 +45,13 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Changes `this.$el` to point to the `<input>` element.
      */
     _renderHtml: function() {
         this._super('_renderHtml');
         this.setElement(this.$('input'));
-    },
-
-    /**
-     * For customers with large datasets, allow customization to disable
-     * the automatic filtering in the omnibar.
-     *
-     * @inheritdoc
-     */
-    delegateEvents: function(events) {
-        if (app.config.disableOmnibarTypeahead) {
-            // Remove the keyup and paste events from this.events.
-            // This is before the call to this._super('delegateEvents'),
-            // so they have not been registered.
-            delete this.events.keyup;
-            delete this.events.paste;
-
-            // On enter key press, apply the quicksearch.
-            this.events.keydown = _.bind(function(evt) {
-                // Enter key code is 13
-                if (evt.keyCode === 13) {
-                    this.applyQuickSearch();
-                }
-            }, this);
-        }
-        this._super('delegateEvents', [events]);
     },
 
     /**
@@ -118,8 +93,7 @@
         var label;
         this.toggleInput();
         if (!this.$el.hasClass('hide') && linkModule !== 'all_modules') {
-            var filtersBeanPrototype = app.data.getBeanClass('Filters').prototype,
-                fields = filtersBeanPrototype.getModuleQuickSearchMeta(linkModuleName).fieldNames,
+            var fields = this.getModuleQuickSearchFields(linkModuleName),
                 fieldLabels = this.getFieldLabels(linkModuleName, fields);
             label = app.lang.get('LBL_SEARCH_BY') + ' ' + fieldLabels.join(', ') + '...';
         } else {

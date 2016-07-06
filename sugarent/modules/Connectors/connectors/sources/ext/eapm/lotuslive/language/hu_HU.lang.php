@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,24 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" 
-class="dataLabel">A Sugar termék új alkalmazásként való regisztrálásával IBM SmartCloud fogyasztói kulcshoz és titokhoz juthat. A regisztráció 2011. március 8-tól lehetséges.<br>
-&nbsp;<br>
-A regisztrálás lépései:<br>
-&nbsp;<br>
-<ol>
-<li>Jelentkezzen be az IBM SmartCloud fiókjába (Önnek adminisztrátornak kell lennie)</li> 
-<li>Kattintson az Adminisztráció felületre, majd válassza ki a Manage Organization opciót</li>
- <li>Válassza az "Integrated Third-Party Apps" opciót az oldalsávon, majd engedélyezze a SugarCRM-et az összes felhasználó számára!</li>
-<li>Menjen az "Internal Apps" pontra az oldalsávon, majd ott kattintson a "Register App" gombra!</li>
-<li>Nevezze el új alkalmazását (pl. "SugarCRM Production"), továbbá ügyeljen arra, hogy NE JELÖLJE BE az OAuth 2.x jelölőnégyzetet az előugró ablak alján.</li>
-<li>Miután létrehozta az alkalmazást, kattintson a nevétől jobbra szereplő háromszög jelzésre, majd a legördülő menüből válassza "Show Credentials" pontot!</li>
-<li>Másolja ki a megjelenő adatokat.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'OAuth Fogyasztói kulcs',
-    'oauth_consumer_secret' => 'OAuth Fogyasztói titok',
+  'LBL_LICENSING_INFO' => 'A Sugar termék LotusLive© felületen való regisztrálásával fogyasztói kulcshoz és fogyasztói titokhoz juthat. A regisztráció 2011. március 8-tól lehetséges.<br /><br />A regisztrálás lépései:<br /><br />1. Jelentkezzen be a LotusLive© fiókjába (Önnek LotusLive adminisztrátornak kell lennie) az alábbi linken: https://www.lotuslive.com/<br />2. Kattintson az Adminisztráció felületre a lap tetején található navigációs sávban!<br />3. Kattintson a Cég alkalmazások szerkesztése gombra!<br />4. Kattintson az Alkalmazás regisztrálása gombra!<br />5. Adjon nevet az alkalmazásnak, majd készítse el a leírását! Ezek a későbbiekben megváltoztathatók lesznek a Tulajdonságok megváltoztatása opció menüsorból való lehívásával.<br />6. A regisztráció során a rendszer kioszt egy fogyasztói kulcsot és egy fogyasztói titkot. A regisztrált alkalmazások az Egyéni alkalmazások szerkesztése menüpont alatt találhatók. A fogyasztói kulcs és a fogyasztói titok megtekintéséhez kattintson az alkalmazás menüjére és válassza ki a Hitelesítés opciót!',
+  'oauth_consumer_key' => 'Fogyasztói kulcs',
+  'oauth_consumer_secret' => 'Fogyasztói titok',
 );
 

@@ -1,26 +1,44 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-/*
- * Your installation or use of this SugarCRM file is subject to the applicable
- * terms available at
- * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
- * If you do not agree to all of the applicable terms or do not have the
- * authority to bind the entity as an authorized representative, then do not
- * install or use this SugarCRM file.
- *
- * Copyright (C) SugarCRM Inc. All rights reserved.
- */
+if(!defined('sugarEntry') || !sugarEntry) die('Neoprávnený prístup!');
 /*********************************************************************************
- * $Id: en_us.lang.php 13782 2006-06-06 17:58:55 +0000 (Tue, 06 Jun 2006) majed $
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
+ * Obsah tohto súboru je predmetom obchodnej dohody 
+ * SugarCRM Enterprise Subscription Agreement ("Licencie"), 
+ * ktorá je k dispozícii na adrese:
+ * http://www.sugarcrm.com/crm/products/sugar-enterprise-eula.html
+ * Pri inštalácii alebo pri používaní tohto súboru musíte bezpodmienečne súhlasiť
+ * s podmienkami Licencie a nesmiete použiť tento súbor inak, než je uvedené  
+ * v Licenčných podmienkach.  Podľa podmienok licencie nesmiete, okrem iného: 
+ * 1) poskytovať sublicencie, predávať, prenajímať ďalej rozširovať, priradiť
+ * alebo inak previesť Vaše práva k softvéru a 
+ * 2) použiť softvér na zdieľanie alebo účely služby, kancelárie, ako je hosťovanie 
+ * Softvéru pre komerčný zisk a / alebo v prospech tretej osoby. Používanie softvéru
+ * môže byť predmetom príslušných poplatkov a používanie softvéru bez zaplatenia 
+ * príslušných poplatkov je striktne zakázané. Nemáte právo 
+ * odstrániť autorské práva SugarCRM - copyrights zo zdrojového kódu 
+ * alebo užívateľského rozhrania.
+ *
+ * Všetky kópie chráneného kódu musia obsahovať na každej obrazovke užívateľského rozhrania: 
+ *  (i) logo s titulkom "Powered by SugarCRM" 
+ *  (ii) a autorské práva SugarCRM copyright
+ * v rovnakej forme, aká je použitá v distribúcii. Viac informácií k splneniu požiadaviek
+ * nájdete v plnej Licencii.
+ *
+ * Vaše záruky, obmedzenia zodpovednosti a odškodnenia sú výslovne uvedené v licencii. 
+ * Pozrite sa licenciu vo svojom jazyku, hlavne tieto práva a obmedzenia v rámci licencie. 
+ * Časti vytvoril SugarCRM sú Copyright (C) 2004-2011 SugarCRM, Inc 
+ * Všetky práva vyhradené. 
+ ********************************************************************************/ 
+ 
+ /* Popis: Definuje balik Slovenčiny pre aplikačnú základňu.  
+ * Časti vytvoril SugarCRM sú Copyright (C) 2004-2011 SugarCRM, Inc 
+ * Všetky práva vyhradené. 
+ * Riešitelia:
+ * Preklad do slovenčiny Slavomír Piar (C) 2011, slapia@mvplus.info
  ********************************************************************************/
 
-$mod_strings = array (
 
-);
+$mod_strings = array();
 
 
-?>
+
+

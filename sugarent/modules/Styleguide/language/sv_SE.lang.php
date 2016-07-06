@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,18 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-	'LBL_MODULE_NAME' => 'Stilguide',
-    'LBL_MODULE_NAME_SINGULAR'	=> 'Stilguide: singular',
-	'LBL_MODULE_TITLE' => 'Stilguide: titel',
+  'LBL_MODULE_NAME' => 'Stilguide',
+  'LBL_MODULE_NAME_SINGULAR' => 'Stilguide: singular',
+  'LBL_MODULE_TITLE' => 'Stilguide: titel',
 );
 
-?>

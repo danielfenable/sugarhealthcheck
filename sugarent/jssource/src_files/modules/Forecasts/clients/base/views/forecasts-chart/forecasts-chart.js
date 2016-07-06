@@ -37,20 +37,15 @@
     forecastWorksheetContext: undefined,
 
     /**
-     * Track if current user is manager.
-     */
-    isManager: false,
-    
-    /**
      * @inheritdoc
      */
     initialize: function(options) {
+        this.values.clear({silent: true});
         // after we init, find and bind to the Worksheets Contexts
         this.once('init', this.findWorksheetContexts, this);
         this.once('render', function() {
             this.parseCollectionForData();
         }, this);
-        this.isManager = app.user.get('is_manager');
         this._super('initialize', [options]);
         if (!this.meta.config) {
             var ctx = this.context.parent,
@@ -370,7 +365,7 @@
             if (dashToolbar) {
                 field.before('chart:pareto:render', function() {
                     this.$("[data-action=loading]").removeClass(this.cssIconDefault).addClass(this.cssIconRefresh);
-                }, dashToolbar);
+                }, {}, dashToolbar);
                 field.on('chart:pareto:rendered', function() {
                     this.$("[data-action=loading]").removeClass(this.cssIconRefresh).addClass(this.cssIconDefault);
                 }, dashToolbar);

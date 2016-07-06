@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,19 +13,21 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
 
+$dashletStrings = array (
+  'RSSDashlet' => 
+  array (
+    'ERR_LOADING_FEED' => 'Αποτυχία φόρτωσης RSS Feed',
+    'LBL_AUTO_SCROLL' => 'Αυτόματη Κύλιση',
+    'LBL_CONFIGURE_HEIGHT' => 'Ύψος (1 - 300)',
+    'LBL_CONFIGURE_RSSURL' => 'Url RSS',
+    'LBL_CONFIGURE_TITLE' => 'Τίτλος',
+    'LBL_DBLCLICK_HELP' => 'Βοήθεια',
+    'LBL_DESCRIPTION' => 'Ειδήσεις Feed',
+    'LBL_SAVED' => 'Ολοκληρωμένο',
+    'LBL_SAVING' => 'Ανάλυση...',
+    'LBL_SCROLL_SPEED' => 'Ταχύτητα Κύλισης (%)',
+    'LBL_TITLE' => 'Ειδήσεις Feed',
+  ),
+);
 
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Ειδησεογραφία',
-                                         'LBL_DESCRIPTION'      => 'Ειδησεογραφία',
-                                         'LBL_SAVING'           => 'Ανάλυση...',
-                                         'LBL_SAVED'            => 'Ολοκλήρωση',
-                                         'LBL_AUTO_SCROLL'      => 'Αυτόματη Κύλιση',
-                                          'LBL_SCROLL_SPEED'      => 'Ταχύτητα Κύλισης (%)',
-                                         'LBL_CONFIGURE_TITLE'  => 'Τίτλος',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Ύψος (1 - 300)',
-                                         'LBL_CONFIGURE_RSSURL' => 'Url RSS',
-                                         'LBL_DBLCLICK_HELP'    => '',
-                                         'ERR_LOADING_FEED'     => 'Αποτυχία φόρτωσης RSS Feed',
-                                         );
-?>

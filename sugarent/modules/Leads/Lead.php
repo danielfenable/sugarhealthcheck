@@ -128,7 +128,6 @@ class Lead extends Person {
 		global $current_user;
 		if(!empty($current_user)) {
 			$this->team_id = $current_user->default_team;	//default_team is a team id
-			$this->team_set_id = $current_user->team_set_id;
 		} else {
 			$this->team_id = 1; // make the item globally accessible
 		}
@@ -506,6 +505,8 @@ class Lead extends Person {
 	}
 
 	function save($check_notify = false) {
+		if(empty($this->status))
+			$this->status = 'New';
 		// call save first so that $this->id will be set
 		$value = parent::save($check_notify);
 		return $value;

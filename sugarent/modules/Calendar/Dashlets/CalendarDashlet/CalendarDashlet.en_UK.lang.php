@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +12,19 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$dashletStrings['CalendarDashlet'] = array(
-					'LBL_TITLE'            => 'My Calendar',
-                         'LBL_DESCRIPTION'      => 'Calendar dashlet',
-                         'LBL_CONFIGURE_TITLE'  => 'Title',
-                         'LBL_CONFIGURE_VIEW'  => 'View',
-                         'LBL_SAVE_BUTTON_LABEL' => 'Save',
-                         
-                         'LBL_VIEW_DAY' => 'Day',
-                         'LBL_VIEW_WEEK' => 'Week',
-                         'LBL_VIEW_MONTH' => 'Month',
-
+$dashletStrings = array (
+  'CalendarDashlet' => 
+  array (
+    'LBL_CONFIGURE_TITLE' => 'Title',
+    'LBL_CONFIGURE_VIEW' => 'View',
+    'LBL_DESCRIPTION' => 'Calendar dashlet',
+    'LBL_SAVE_BUTTON_LABEL' => 'Save',
+    'LBL_TITLE' => 'My Calendar',
+    'LBL_VIEW_DAY' => 'Day',
+    'LBL_VIEW_MONTH' => 'Month',
+    'LBL_VIEW_WEEK' => 'Week',
+  ),
 );
-?>
+

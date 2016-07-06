@@ -10,10 +10,15 @@ use Elastica\Exception\InvalidException;
  * @category Xodoa
  * @package Elastica
  * @author Nicolas Ruflin <spam@ruflin.com>
- * @link http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl-bool-filter.html
+ * @link http://www.elasticsearch.org/guide/reference/query-dsl/bool-query.html
  */
 class Bool extends AbstractFilter
 {
+    /**
+     * @var float
+     */
+    protected $_boost = 1.0;
+
     /**
      * Must
      *
@@ -39,7 +44,7 @@ class Bool extends AbstractFilter
      * Adds should filter
      *
      * @param  array|\Elastica\Filter\AbstractFilter $args Filter data
-     * @return \Elastica\Filter\Bool                 Current object
+     * @return \Elastica\Filter\Bool           Current object
      */
     public function addShould($args)
     {
@@ -50,7 +55,7 @@ class Bool extends AbstractFilter
      * Adds must filter
      *
      * @param  array|\Elastica\Filter\AbstractFilter $args Filter data
-     * @return \Elastica\Filter\Bool                 Current object
+     * @return \Elastica\Filter\Bool           Current object
      */
     public function addMust($args)
     {
@@ -61,7 +66,7 @@ class Bool extends AbstractFilter
      * Adds mustNot filter
      *
      * @param  array|\Elastica\Filter\AbstractFilter $args Filter data
-     * @return \Elastica\Filter\Bool                 Current object
+     * @return \Elastica\Filter\Bool           Current object
      */
     public function addMustNot($args)
     {
@@ -71,28 +76,30 @@ class Bool extends AbstractFilter
     /**
      * Adds general filter based on type
      *
-     * @param  string                                $type Filter type
+     * @param  string                               $type Filter type
      * @param  array|\Elastica\Filter\AbstractFilter $args Filter data
      * @throws \Elastica\Exception\InvalidException
-     * @return \Elastica\Filter\Bool                 Current object
+     * @return \Elastica\Filter\Bool           Current object
      */
     protected function _addFilter($type, $args)
     {
         if ($args instanceof AbstractFilter) {
             $args = $args->toArray();
-        } elseif (!is_array($args)) {
+        }
+        else if (!is_array($args)) {
             throw new InvalidException('Invalid parameter. Has to be array or instance of Elastica\Filter');
-        } else {
+        }
+        else{
             $parsedArgs = array();
-            foreach ($args as $filter) {
-                if ($filter instanceof AbstractFilter) {
+            foreach($args as $filter){
+                if($filter instanceof AbstractFilter){
                     $parsedArgs[] = $filter->toArray();
                 }
             }
             $args = $parsedArgs;
         }
 
-        $varName = '_'.$type;
+        $varName = '_' . $type;
         $this->{$varName}[] = $args;
 
         return $this;
@@ -120,10 +127,20 @@ class Bool extends AbstractFilter
             $args['bool']['must_not'] = $this->_mustNot;
         }
 
-        if (isset($args['bool'])) {
-            $args['bool'] = array_merge($args['bool'], $this->getParams());
-        }
-
         return $args;
     }
+
+    /**
+     * Sets the boost value for this filter
+     *
+     * @param  float                      $boost Boost
+     * @return \Elastica\Filter\Bool Current object
+     */
+    public function setBoost($boost)
+    {
+        $this->_boost = $boost;
+
+        return $this;
+    }
+
 }

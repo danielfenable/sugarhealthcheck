@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'Разгледай направените промени',
-    'LBL_FIELD_NAME' => 'Поле',
-    'LBL_OLD_NAME' => 'Предишна стойност',
-    'LBL_NEW_VALUE' => 'Нова стойност',
-    'LBL_CREATED_BY' => 'Променено от',
-    'LBL_LIST_DATE' => 'Променено на',
-    'LBL_AUDITED_FIELDS' => 'Полета в този модул, чиято промяна се записва в базата:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'Няма полета в този модул, чиято промяна се записва в базата',
-    'LBL_CHANGE_LOG' => 'Дневник на промените за записа',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'Когато променените валутни полета се записват във валута, която не е дефинирана по подразбиране от системата, регистърът на промените ще покаже новите и старите стойности в конвертираната, дефинирана от системата валута по подразбиране.'
+	
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Полета в този модул, чиято промяна се записва в базата:',
+  'LBL_AUDIT_TITLE' => 'Разгледай направените промени',
+  'LBL_CHANGE_LOG' => 'Дневник на промените за записа',
+  'LBL_CREATED_BY' => 'Променено от',
+  'LBL_FIELD_NAME' => 'Поле',
+  'LBL_LIST_DATE' => 'Променено на',
+  'LBL_NEW_VALUE' => 'Нова стойност',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'Няма полета в този модул, чиято промяна се записва в базата',
+  'LBL_OLD_NAME' => 'Предишна стойност',
 );
+

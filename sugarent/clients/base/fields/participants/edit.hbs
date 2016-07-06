@@ -52,9 +52,6 @@
                     {{str "LBL_CALENDAR_EVENT_SCHEDULE_UNAVAILABLE" ../../module}}
                 </div>
             {{/notEq}}
-            {{#eq module 'Users'}}
-                <div class="start_end_overlay"></div>
-            {{/eq}}
             <div class="container">
                 <div class="timeblock">
                     <span></span>
@@ -113,15 +110,19 @@
             </div>
         </div>
         <div class="cell buttons">
-            <div class="btn-toolbar pull-right">
-                <button type="button" class="btn{{#unless deletable}} disabled{{/unless}}" data-action="removeRow" data-id="{{id}}">
-                    <i class="fa fa-minus"></i>
-                </button>
-                {{#if last}}
-                <button type="button" class="btn" data-action="addRow">
-                    <i class="fa fa-plus"></i>
-                </button>
-                {{/if}}
+            <div class="btn-toolbar" style="display: table-cell;">
+                <div class="btn-group">
+                    <button type="button" class="btn{{#unless deletable}} disabled{{/unless}}" data-action="removeRow" data-id="{{id}}">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <div class="btn-group">
+                    {{#if last}}
+                    <button type="button" class="btn" data-action="addRow">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    {{/if}}
+                </div>
             </div>
         </div>
     </div>
@@ -137,13 +138,17 @@
             </div>
         </div>
         <div class="cell buttons">
-            <div class="btn-toolbar pull-right">
-                <button type="button" class="btn" data-action="removeRow">
-                    <i class="fa fa-minus"></i>
-                </button>
+            <div class="btn-toolbar" style="display: table-cell;">
+                <div class="btn-group"></div>
+                <div class="btn-group">
+                    <button type="button" class="btn" data-action="removeRow">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <div class="btn-group"></div>
             </div>
         </div>
     </div>
 </div>
-<button class="btn btn-link btn-invisible more" data-action="show-more">{{showMoreTemplate}}</button>
+<button class="btn btn-link btn-invisible more padded" data-action="show-more">{{showMoreTemplate}}</button>
 {{/if}}

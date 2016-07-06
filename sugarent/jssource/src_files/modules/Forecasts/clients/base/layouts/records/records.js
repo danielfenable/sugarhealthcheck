@@ -56,31 +56,18 @@
 
         var acls = app.user.getAcls().Forecasts,
             hasAccess = (!_.has(acls, 'access') || acls.access == 'yes');
-        if (hasAccess) {
-            // check the module we are forecasting by for access
-            var forecastByAcl = app.user.getAcls()[app.metadata.getModule('Forecasts', 'config').forecast_by] || {};
-            if (_.has(forecastByAcl, 'access') && forecastByAcl.access === 'no') {
-                // the user doesn't have access to what is being forecast by
-                this.codeBlockForecasts('LBL_FORECASTS_ACLS_NO_ACCESS_TITLE', 'LBL_FORECASTS_RECORDS_ACLS_NO_ACCESS_MSG');
+        if(hasAccess) {
+            // Check to make sure users have proper values in their sales_stage_won/_lost cfg values
+            if(app.utils.checkForecastConfig()) {
+                // correct config exists, continue with syncInitData
+                this.syncInitData();
             } else {
-                // Check to make sure users have proper values in their sales_stage_won/_lost cfg values
-                if (app.utils.checkForecastConfig()) {
-                    // correct config exists, continue with syncInitData
-                    this.syncInitData();
-                } else {
-                    // codeblock this sucka
-                    this.codeBlockForecasts('LBL_FORECASTS_MISSING_STAGE_TITLE', 'LBL_FORECASTS_MISSING_SALES_STAGE_VALUES');
-                }
+                // codeblock this sucka
+                this.codeBlockForecasts('LBL_FORECASTS_MISSING_STAGE_TITLE', 'LBL_FORECASTS_MISSING_SALES_STAGE_VALUES');
             }
         } else {
             this.codeBlockForecasts('LBL_FORECASTS_ACLS_NO_ACCESS_TITLE', 'LBL_FORECASTS_ACLS_NO_ACCESS_MSG');
         }
-    },
-
-    /**
-     * @override
-     */
-    initComponents: function() {
     },
 
     /**
@@ -110,7 +97,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     bindDataChange: function() {
         // we need this here to track when the selectedTimeperiod changes and then also move it up to the context
@@ -284,18 +271,7 @@
         this.trigger("data:sync:start", 'read', model, options);
 
         url = app.api.buildURL("Forecasts/init", null, null, options.params);
-
-        var params = {},
-            cfg = app.metadata.getModule('Forecasts', 'config');
-        if (cfg && cfg.is_setup === 0) {
-            // add no-cache header if forecasts isnt set up yet
-            params = {
-                headers: {
-                    'Cache-Control': 'no-cache'
-                }
-            };
-        }
-        app.api.call("read", url, null, callbacks, params);
+        app.api.call("read", url, null, callbacks);
     },
 
     /**
@@ -345,7 +321,6 @@
     _onceInitSelectedUser: function(model, change) {
         // init the recordlist view
         app.view.Layout.prototype.initialize.call(this, this.initOptions);
-        app.view.Layout.prototype.initComponents.call(this);
 
         // set the selected user and forecast type on the model
         this.model.set('selectedUserId', change.id, {silent: true});
@@ -401,12 +376,6 @@
         }, this);
 
         callbacks = app.data.getSyncCallbacks(method, model, options);
-
-        // if there's a 412 error dismiss the custom loading alert
-        this.collection.once('data:sync:error', function() {
-            app.alert.dismiss('worksheet_loading');
-        }, this);
-
         this.collection.trigger("data:sync:start", method, model, options);
 
         url = app.api.buildURL("Forecasts/filter", null, null, options.params);

@@ -294,7 +294,7 @@ ExpressionContainer.prototype.handleCriteriaBuilder = function (globalParent, pa
                 constants: true,
                 variables: {
                     dataRoot: null,
-                    data: parentVariable.inputFields,
+                    data: parentVariable.fields,
                     dataFormat: "tabular",
                     textField: "label",
                     moduleTextField: "moduleText",
@@ -324,7 +324,7 @@ ExpressionContainer.prototype.handleCriteriaBuilder = function (globalParent, pa
                         },
                         variables: {
                             dataRoot: null,
-                            data: parentVariable.inputFields,
+                            data: parentVariable.fields,
                             dataFormat: "tabular",
                             textField: "label",
                             typeFilter: parentVariable.fieldType,
@@ -346,7 +346,7 @@ ExpressionContainer.prototype.handleCriteriaBuilder = function (globalParent, pa
                         },
                         variables: {
                             dataRoot: null,
-                            data: parentVariable.inputFields,
+                            data: parentVariable.fields,
                             dataFormat: "tabular",
                             textField: "label",
                             typeFilter: parentVariable.fieldType,
@@ -364,13 +364,8 @@ ExpressionContainer.prototype.handleCriteriaBuilder = function (globalParent, pa
                         };
                     }
                     break;
-                case 'Currency':
-                    $.extend(true, config, {
-                        constants: {
-                            currency: true
-                        }
-                    })
                 case 'Integer':
+                case 'Currency':
                     $.extend(true, config, {
                         operators: {
                             arithmetic: true,
@@ -383,7 +378,7 @@ ExpressionContainer.prototype.handleCriteriaBuilder = function (globalParent, pa
                         },
                         variables: {
                             dataRoot: null,
-                            data: parentVariable.inputFields,
+                            data: parentVariable.fields,
                             dataFormat: "tabular",
                             textField: "label",
                             typeFilter: parentVariable.fieldType,
@@ -409,7 +404,7 @@ ExpressionContainer.prototype.handleCriteriaBuilder = function (globalParent, pa
                             },
                             variables: {
                                 dataRoot: null,
-                                data: parentVariable.inputFields,
+                                data: parentVariable.fields,
                                 dataFormat: "tabular",
                                 textField: "label",
                                 typeFilter: parentVariable.fieldType,
@@ -480,17 +475,12 @@ ExpressionContainer.prototype.handleUserList = function (globalParent, parentVar
             } else {
                 queryObject.callback(result);
             }
-        },
-        formatNoMatches: function (term) {
-            return (term && (term !== '')) ? translate('LBL_PA_FORM_COMBO_NO_MATCHES_FOUND') : '';
         }
     }).select2("data", {
         value: (this.expression && this.expression[0] && this.expression[0].expValue) || "",
         text: (this.expression && this.expression[0] && this.expression[0].expLabel) || ""
     }).select2("open");
-    $input.attr("placeholder", translate('LBL_PA_FORM_COMBO_ASSIGN_TO_USER_HELP_TEXT', 'pmse_Project'));
-    $input.data("select2").setPlaceholder();
-    $('.select2-chosen').attr('align', 'left');
+
     return this;
 };
 

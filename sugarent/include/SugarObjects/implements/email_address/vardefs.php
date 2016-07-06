@@ -32,14 +32,13 @@ $vardefs = array(
             'duplicate_on_record_copy' => 'always',
             'len' => 100,
             'importable' => false,
+            'function' => array(
+                'name' => 'getEmailAddressWidget',
+                'returns' => 'html',
+            ),
             'link' => 'email_addresses_primary',
             'rname' => 'email_address',
             'module' => 'EmailAddresses',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 1.50,
-            ),
         ),
         'email1' => array(
 			'name'		=> 'email1',
@@ -56,6 +55,11 @@ $vardefs = array(
             'merge_filter' => 'enabled',
             'module' => 'EmailAddresses',
 		    'studio' => false,
+            'full_text_search' => array(
+                'enabled' => true,
+                'boost' => 3,
+                'type' => 'email',
+            ),
             'duplicate_on_record_copy' => 'always',
         ),
         'email2' => array(
@@ -103,7 +107,6 @@ $vardefs = array(
             'source' => 'non-db',
             'vname' => 'LBL_EMAIL_ADDRESS_PRIMARY',
             'duplicate_merge' => 'disabled',
-            'primary_only' => true,
         ),
         'email_addresses' => array (
             'name' => 'email_addresses',
@@ -152,9 +155,7 @@ $vardefs = array(
             'join_table'=> 'email_addr_bean_rel',
             'join_key_lhs'=>'bean_id',
             'join_key_rhs'=>'email_address_id',
-            'relationship_role_column' => 'bean_module',
-            'relationship_role_column_value' => $module,
-            'primary_flag_column' => 'primary_address',
+            'relationship_role_columns'=>array('primary_address' => '1', 'bean_module' => $module),
         ),
     ),
     'indices' => array(

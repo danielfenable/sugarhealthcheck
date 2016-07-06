@@ -48,7 +48,7 @@ class SugarLogicFunctionsApi extends SugarApi
      * @param array       $args
      */
     public function getSugarLogicFunctions($api, $args){
-        $useDebug = (!shouldResourcesBeMinified() || !empty($args['debug']));
+        $useDebug = (inDeveloperMode() || !empty($args['debug']));
         $phpCacheFile = sugar_cached("Expressions/functionmap.php");
         $jsCacheFile = $useDebug ?
             sugar_cached("Expressions/functions_cache_debug.js") :

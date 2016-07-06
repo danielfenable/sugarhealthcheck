@@ -13,7 +13,6 @@
 namespace Sugarcrm\Sugarcrm\Security\Csrf;
 
 use Sugarcrm\Sugarcrm\Logger\LoggerTransition;
-use Sugarcrm\Sugarcrm\Session\SessionStorage;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -123,7 +122,7 @@ class CsrfAuthenticator
             $tokenGenerator->setSize($config->get('csrf.token_size', 32));
 
             // setup token storage using sessions
-            $tokenStorage = new CsrfTokenStorage(SessionStorage::getInstance());
+            $tokenStorage = new CsrfTokenStorage();
 
             $manager = new CsrfTokenManager($tokenGenerator, $tokenStorage);
             $logger = new LoggerTransition(\LoggerManager::getLogger());

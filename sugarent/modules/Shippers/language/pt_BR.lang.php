@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,41 +12,33 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Transportadores',
-  'LBL_MODULE_NAME_SINGULAR' => 'Transportador',
-  'LBL_MODULE_TITLE' => 'Transportador: Tela Principal',
-  'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Transportadores',
+  'ERR_DELETE_RECORD' => 'Um número de registro necessita ser especificado para eliminar o Transportador.',
+  'LBL_EDITLAYOUT' => 'Editar Layout',
   'LBL_LIST_FORM_TITLE' => 'Lista de Transportadores',
-  'LBL_NEW_FORM_TITLE' => 'Novo Transportador',
-  'LBL_SHIPPER' => 'Transportadores:',
-  'LBL_LIST_NAME' => 'Transportador',
-  'LBL_NAME' => 'Transportadores:',
   'LBL_LIST_LIST_ORDER' => 'Ordem',
+  'LBL_LIST_NAME' => 'Transportadores',
   'LBL_LIST_ORDER' => 'Ordem:',
-  'LBL_LIST_STATUS' => 'Estado',
-  'LBL_STATUS' => 'Estado:',
+  'LBL_LIST_STATUS' => 'Status',
+  'LBL_MODULE_NAME' => 'Transportadores',
+  'LBL_MODULE_NAME_SINGULAR' => 'Shipper',
+  'LBL_MODULE_TITLE' => 'Transportadores: Tela Principal',
+  'LBL_NAME' => 'Transportadores:',
+  'LBL_NEW_FORM_TITLE' => 'Novo Transportador',
+  'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Transportadores',
+  'LBL_SHIPPER' => 'Transportadores:',
+  'LBL_STATUS' => 'Status:',
   'LNK_NEW_SHIPPER' => 'Lista de Transportadores',
   'LNK_NEW_TAXRATE' => 'Lista de Taxas de Imposto',
-  'NTC_DELETE_CONFIRMATION' => 'Tem certeza de que deseja excluir este registro?',
-  'ERR_DELETE_RECORD' => 'Um número de registro deve ser especificado para excluir o transportador.',
-  'NTC_STATUS' => 'Defina o status como Inativo para remover este transportador das listas suspensas de transportador',
-  'NTC_LIST_ORDER' => 'Defina a ordem pela qual este transportador aparece nas listas suspensas de transportador',
+  'NTC_DELETE_CONFIRMATION' => 'Tem a certeza de que pretende eliminar este registo?',
+  'NTC_LIST_ORDER' => 'Definir a ordem pela qual esta Transportador aparece na lista de entradas possíveis do campo Transportadores',
+  'NTC_STATUS' => 'Definir o Status como Inativo para remover este Transportador da lista de entradas possíveis para o campo Transportadores',
   'shipper_status_dom' => 
   array (
-    'Active' => 'Ativo',
-    'Inactive' => 'Inativo',
-),
-	'LBL_EDITLAYOUT' => 'Editar Layout' /*for 508 compliance fix*/,
+    'Active' => 'Activo',
+    'Inactive' => 'Inactivo',
+  ),
 );
 
-
-?>

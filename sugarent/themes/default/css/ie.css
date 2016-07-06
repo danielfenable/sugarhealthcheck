@@ -43,10 +43,6 @@ table.reorderable-columns th[data-fieldname] > div > div[data-draggable="true"] 
   padding-right: 0;
 }
 
-li > a.ellipsis_inline:before { /* UIUX-2035 ie9 hack */
-  content: '';
-}
-
 @media (max-width: 768px) {
   .row-fluid .span8.main-pane {
     width: 100%;

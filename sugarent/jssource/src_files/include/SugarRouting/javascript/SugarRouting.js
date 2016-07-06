@@ -8,7 +8,6 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
 /*
 if(!SUGAR) {
 	SUGAR = new Object();

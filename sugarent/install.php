@@ -257,6 +257,7 @@ if (!isset($_SESSION['cache_dir']) || empty($_SESSION['cache_dir'])) {
             $_SESSION['oc_install'] = false;
         }
     }
+
   $workflow[] = 'confirmSettings.php';
   $workflow[] = 'performSetup.php';
 

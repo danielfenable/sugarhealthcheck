@@ -75,7 +75,6 @@ $viewdefs['Contacts']['base']['filter']['default'] = array(
         'campaign_name' => array(),
         'date_entered' => array(),
         'date_modified' => array(),
-        'tag' => array(),
         '$owner' => array(
             'predefined_filter' => true,
             'vname' => 'LBL_CURRENT_USER_FILTER',

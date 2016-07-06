@@ -63,7 +63,7 @@
      */
     addComponent: function(component, def) {
         component = this._addButtonsForComponent(component);
-        if (_.result(component, 'showPage')) {
+        if (component.showPage()) {
             this._super('addComponent', [component, def]);
         }
     },
@@ -85,11 +85,11 @@
                     //next button only
                     buttons.push(this.meta.buttons[1]);
                 } else if (i === this.meta.components.length-1) {
-                    // previous/start sugar buttons
+                    //prevous/start sugar buttons
                     buttons.push(this.meta.buttons[0]);
                     buttons.push(this.meta.buttons[2]);
                 } else {
-                    // previous/next buttons
+                    //prevous/next buttons
                     buttons.push(this.meta.buttons[0]);
                     buttons.push(this.meta.buttons[1]);
                 }
@@ -98,13 +98,11 @@
         component.meta.buttons = buttons;
         return component;
     },
-
     /**
      * Renders a different page from the wizard
-     * @param {number} newIndex New page index to select
-     * @return {Object} How far the user has progressed through the wizard
-     * @return {number} return.page The current page number
-     * @return {number} return.lastPage The last page number
+     * @param {Number} newIndex New page index to select
+     * @returns {{page: number, lastPage: number}} Current page number and the
+     * last page number
      */
     setPage: function(newIndex){
         if (newIndex !== this._currentIndex &&
@@ -123,13 +121,12 @@
         }
         return this.getProgress();
     },
-
     /**
      * Only render the current component (WizardPageView) instead of each component in layout
      * @override
      * @private
      */
-    _renderHtml: function() {
+    _render: function(){
         if (Modernizr.touch) {
             app.$contentEl.addClass('content-overflow-visible');
         }
@@ -137,12 +134,10 @@
             this._components[this._currentIndex].render();
         }
     },
-
     /**
      * Returns current progress through wizard
-     * @return {Object} How far the user has progressed through the wizard
-     * @return {number} return.page The current page number
-     * @return {number} return.lastPage The last page number
+     * @returns {{page: number, lastPage: number}} Current page number and the
+     * last page number
      */
     getProgress: function(){
         return {
@@ -150,24 +145,20 @@
             lastPage: this._components.length
         };
     },
-
     /**
      * Moves to previous page, if possible.
-     * @return {Object} How far the user has progressed through the wizard
-     * @return {number} return.page The current page number
-     * @return {number} return.lastPage The last page number
+     * @returns {{page: number, lastPage: number}} Current page number and the
+     * last page number
      */
     previousPage: function(){
         // We're navigating, don't get any more keypresses.
         $(window).off('keypress.' + this.cid);
         return this.setPage(this._currentIndex - 1);
     },
-
     /**
      * Moves to next page, if possible.
-     * @return {Object} How far the user has progressed through the wizard
-     * @return {number} return.page The current page number
-     * @return {number} return.lastPage The last page number
+     * @returns {{page: number, lastPage: number}} Current page number and the
+     * last page number
      */
     nextPage: function(){
         // We're navigating, don't get any more keypresses.

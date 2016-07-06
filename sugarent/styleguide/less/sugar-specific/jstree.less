@@ -37,9 +37,6 @@
     > ins {
       height: 16px;
       width: 16px;
-      &.jstree-icon:before {
-        content: "\f007";
-      }
     }
     > .jstree-icon {
       margin-right: 3px;
@@ -93,7 +90,7 @@ li.jstree-closed > ul {
   }
   li.jstree-open > a > ins,
   li.jstree-closed > a > ins,
-  li.jstree-leaf > a > ins {
+  li.jstree-leaf > ins {
     display: none;
   }
   .jstree-open > ins:before {
@@ -102,6 +99,7 @@ li.jstree-closed > ul {
   .jstree-closed > ins:before {
     content: "\f07b";
   }
+  .jstree-leaf > ins:before {}
   .jstree-closed > ins:hover,
   .jstree-open > ins:hover {
     cursor: pointer;
@@ -121,7 +119,10 @@ li.jstree-closed > ul {
   li, a  {
     color: @blue !important;
   }
-  .jstree-leaf.parent > ins:before {
+  a .jstree-icon:before {
+    content: "\f007";
+  }
+  .jstree-leaf.parent a .jstree-icon:before {
     content: "\f062";
   }
   a.jstree-loading .jstree-icon {

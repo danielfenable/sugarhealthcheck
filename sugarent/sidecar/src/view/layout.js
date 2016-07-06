@@ -111,49 +111,12 @@
              */
             this.layout = this.options.layout;
 
+            this._addComponentsFromDef(this.meta.components);
+            this.trigger("init");
+
             app.events.on('app:locale:change', function() {
                 this.render();
             }, this);
-        },
-
-        /**
-         * Creates subcomponents in the layout and appends them to the layout's
-         * {@link #_components}. It recursively initializes all components
-         * within the specified subcomponents.
-         *
-         * Calls {@link #_addComponentsFromDef} to help add components.
-         * Triggers `init` on this layout once all subcomponent initializes.
-         *
-         * Immediate subcomponent will default to the passed in context and
-         * module.
-         *
-         * Subsequent subcomponents will default to their parents' context and
-         * module.
-         *
-         * @param {Array} [components=this.meta.components] The definitions of
-         *   the subcomponents.
-         * @param {Object} [context] Context to pass to the new components.
-         * @param {string} [module] Module to create the components from.
-         */
-        initComponents: function(components, context, module) {
-            if (this.disposed) {
-                return;
-            }
-
-            var newSubComponents, initialLength;
-            components = components || this.meta.components;
-
-            initialLength = this._components.length;
-            this._addComponentsFromDef(components, context, module);
-            newSubComponents = this._components.slice(initialLength);
-
-            _.each(newSubComponents, function(comp) {
-                if (_.isFunction(comp.initComponents)) {
-                    comp.initComponents();
-                }
-            });
-
-            this.trigger('init');
         },
 
         /**
@@ -161,7 +124,7 @@
          * @param def array metadata defining this component
          * @param context default context to pass to the new component (unless overriden by the metadata)
          * @param module defualt module to create this component from (unless overriden by the metadata)
-         * @return {Mixed}
+         * @return {*}
          */
         createComponentFromDef: function(def, context, module){
             context = context || this.context;
@@ -227,20 +190,8 @@
             }
         },
 
-        /**
-         * Creates and adds components to the current layout.
-         *
-         * Calls {@link #addComponent} to help add components.
-         * Calls {@link #createComponentFromDef} to help create components.
-         *
-         * @param {Array} [components=[]] The components to be created.
-         * @param {Object} [context] Context to pass to the new components.
-         * @param {string} [module] Module to create the components from.
-         * @protected
-         */
         _addComponentsFromDef: function(components, context, module) {
-            components = components || [];
-            _.each(components, function(def) {
+            _.each(components || {}, function(def) {
                 if (def.view || def.layout) {
                     this.addComponent(this.createComponentFromDef(def, context, module), def);
                 }
@@ -325,11 +276,8 @@
          * This method sets context's `fields` property beforehand.
          *
          * Override this method to provide custom fetch algorithm.
-         *
-         * @param {Object} [options] Options that are passed to
-         *   collection/model's fetch method.
-         * @param {boolean} [setFields=true] If `true`, the layout will update
-         *   the set of fields used on the current context.
+         * @param options(optional) Options that are passed to collection/model's fetch method.
+         * * @params setFields(optional) Boolean if true, the layout will update the set of fields used on the current context
          */
         loadData: function(options, setFields) {
             if (this.disposed) {
@@ -380,7 +328,7 @@
         },
 
         /**
-         * @inheritdoc
+         * @inheritDoc
          */
         closestComponent: function(name) {
             if (!this.layout) {
@@ -390,27 +338,6 @@
                 return this.layout;
             }
             return this.layout.closestComponent(name);
-        },
-
-
-        /**
-         * @inheritdoc
-         */
-        _show: function() {
-            this._super('_show');
-            _.each(this._components, function(component) {
-                component.updateVisibleState(true);
-            });
-        },
-
-        /**
-         * @inheritdoc
-         */
-        _hide: function() {
-            this._super('_hide');
-            _.each(this._components, function(component) {
-                component.updateVisibleState(true);
-            });
         },
 
         /**

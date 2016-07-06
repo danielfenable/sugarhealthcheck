@@ -1,8 +1,12 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("editor-br",function(e,t){var n=function(){n.superclass.constructor.apply(this,arguments)},r="host",i="li";e.extend(n,e.Base,{_onKeyDown:function(t){if(t.stopped){t.halt();return}if(t.keyCode===13){var n=this.get(r),s=n.getInstance(),o=new s.EditorSelection;o&&(e.UA.ie&&(!o.anchorNode||!o.anchorNode.test(i)&&!o.anchorNode.ancestor(i))&&(n.execCommand("inserthtml",s.EditorSelection.CURSOR),t.halt()),e.UA.webkit&&(!o.anchorNode||!o.anchorNode.test(i)&&!o.anchorNode.ancestor(i))&&(n.frame._execCommand("insertlinebreak",null),t.halt()))}},_afterEditorReady:function(){var t=this.get(r).getInstance(),n;try{t.config.doc.execCommand("insertbronreturn",null,!0)}catch(i){}if(e.UA.ie||e.UA.webkit)n=t.EditorSelection.ROOT,n.test("body")&&(n=t.config.doc),t.on("keydown",e.bind(this._onKeyDown,this),n)},_onNodeChange:function(e){switch(e.changedType){case"backspace-up":case"backspace-down":case"delete-up":var t=this.get(r).getInstance(),n=e.changedNode,i=t.config.doc.createTextNode(" ");n.appendChild(i),n.removeChild(i)}},initializer:function(){var t=this.get(r);if(t.editorPara){e.error("Can not plug EditorBR and EditorPara at the same time.");return}t.after("ready",e.bind(this._afterEditorReady,this)),e.UA.gecko&&t.on("nodeChange",e.bind(this._onNodeChange,this))}},{NAME:"editorBR",NS:"editorBR",ATTRS:{host:{value:!1}}}),e.namespace("Plugin"),e.Plugin.EditorBR=n},"3.15.0",{requires:["editor-base"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('editor-br',function(Y,NAME){var EditorBR=function(){EditorBR.superclass.constructor.apply(this,arguments);},HOST='host',LI='li';Y.extend(EditorBR,Y.Base,{_onKeyDown:function(e){if(e.stopped){e.halt();return;}
+if(e.keyCode===13){var host=this.get(HOST),inst=host.getInstance(),sel=new inst.EditorSelection();if(sel){if(Y.UA.ie){if(!sel.anchorNode||(!sel.anchorNode.test(LI)&&!sel.anchorNode.ancestor(LI))){host.execCommand('inserthtml',inst.EditorSelection.CURSOR);e.halt();}}
+if(Y.UA.webkit){if(!sel.anchorNode||(!sel.anchorNode.test(LI)&&!sel.anchorNode.ancestor(LI))){host.frame._execCommand('insertlinebreak',null);e.halt();}}}}},_afterEditorReady:function(){var inst=this.get(HOST).getInstance(),container;try{inst.config.doc.execCommand('insertbronreturn',null,true);}catch(bre){}
+if(Y.UA.ie||Y.UA.webkit){container=inst.EditorSelection.ROOT;if(container.test('body')){container=inst.config.doc;}
+inst.on('keydown',Y.bind(this._onKeyDown,this),container);}},_onNodeChange:function(e){switch(e.changedType){case'backspace-up':case'backspace-down':case'delete-up':var inst=this.get(HOST).getInstance(),d=e.changedNode,t=inst.config.doc.createTextNode(' ');d.appendChild(t);d.removeChild(t);break;}},initializer:function(){var host=this.get(HOST);if(host.editorPara){Y.error('Can not plug EditorBR and EditorPara at the same time.');return;}
+host.after('ready',Y.bind(this._afterEditorReady,this));if(Y.UA.gecko){host.on('nodeChange',Y.bind(this._onNodeChange,this));}}},{NAME:'editorBR',NS:'editorBR',ATTRS:{host:{value:false}}});Y.namespace('Plugin');Y.Plugin.EditorBR=EditorBR;},'3.15.0',{"requires":["editor-base"]});

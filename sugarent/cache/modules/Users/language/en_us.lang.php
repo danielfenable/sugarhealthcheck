@@ -1,5 +1,5 @@
 <?php
-// created: 2016-07-04 13:56:30
+// created: 2016-07-06 08:10:22
 $mod_strings = array (
   'LBL_ASSIGN_PRIVATE_TEAM' => '(private team on save)',
   'LBL_ASSIGN_TEAM' => 'Assign To Team',
@@ -48,7 +48,8 @@ If you are not setting up Inbound Email, please clear all fields in that section
   'ERR_REPORT_LOOP' => 'The system detected a reporting loop. A user cannot report to themselves, nor can any of their managers report to them.',
   'ERR_RULES_NOT_MET' => 'The password you entered did not meet the password requirements.  Please try again.',
   'ERR_USER_INFO_NOT_FOUND' => 'User Information not found',
-  'ERR_USER_NAME_EXISTS' => 'The user name {0} already exists. Duplicate user names are not allowed. Change the user name to be unique.',
+  'ERR_USER_NAME_EXISTS_1' => 'The user name ',
+  'ERR_USER_NAME_EXISTS_2' => ' already exists.	Duplicate user names are not allowed.	Change the user name to be unique.',
   'ERR_USER_IS_LOCKED_OUT' => 'This user is locked out of the Sugar application and cannot log in using his/her existing password.',
   'LBL_PASSWORD_SENT' => 'Password Updated',
   'LBL_CANNOT_SEND_PASSWORD' => 'Cannot send password',
@@ -321,7 +322,7 @@ If you are not setting up Inbound Email, please clear all fields in that section
   'LBL_TIME_FORMAT' => 'Time Format',
   'LBL_TIMEZONE_DST_TEXT' => 'Observe Daylight Savings',
   'LBL_TIMEZONE_DST' => 'Daylight Savings',
-  'LBL_TIMEZONE_TEXT' => 'Set the current time zone. <br/><br/>Please note: this setting is only used by legacy modules and Import/Export functions. Sugar 7 modules automatically use the browser time zone. To avoid time zone conflicts, please set the time zone to match your browser time zone.',
+  'LBL_TIMEZONE_TEXT' => 'Set the current time zone',
   'LBL_TIMEZONE' => 'Time Zone',
   'LBL_TITLE' => 'Title',
   'LBL_USE_REAL_NAMES' => 'Show Full Names',

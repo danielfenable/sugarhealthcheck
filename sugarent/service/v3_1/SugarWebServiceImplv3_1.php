@@ -14,8 +14,6 @@ if(!defined('sugarEntry'))define('sugarEntry', true);
 require_once('service/v3/SugarWebServiceImplv3.php');
 require_once('SugarWebServiceUtilv3_1.php');
 
-use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
-
 /**
  * This class is an implemenatation class for all the rest services
  */
@@ -206,46 +204,20 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3 {
                     continue;
             }
 
-            if (is_array($value)) {
-                $name = $value['name'];
-                $value = $value['value'];
+            if(!is_array($value)){
+                $seed->$name = $value;
+                $return_fields[] = $name;
+            }else{
+                $seed->$value['name'] = $value['value'];
+                $return_fields[] = $value['name'];
             }
-
-            if (!self::$helperObject->checkFieldValue($seed, $name, $value)) {
-                $error->set_error('invalid_data_format');
-                self::$helperObject->setFaultObject($error);
-                $GLOBALS['log']->info('End: SugarWebServiceImpl->set_entry');
-                return;
-            }
-
-            $seed->$name = $value;
-            $return_fields[] = $name;
-
         }
         if (!self::$helperObject->checkACLAccess($seed, 'Save', $error, 'no_access') || ($seed->deleted == 1  && !self::$helperObject->checkACLAccess($seed, 'Delete', $error, 'no_access'))) {
             $GLOBALS['log']->info('End: SugarWebServiceImpl->set_entry');
             return;
         } // if
 
-        try{
-            $seed->save(self::$helperObject->checkSaveOnNotify());
-        } catch (SugarApiExceptionNotAuthorized $ex) {
-            $GLOBALS['log']->info('End: SugarWebServiceImplv3_1->set_entry');
-            switch($ex->messageLabel) {
-                case 'ERR_USER_NAME_EXISTS':
-                    $error_string = 'duplicates';
-                    break;
-                case 'ERR_REPORT_LOOP':
-                    $error_string = 'user_loop';
-                    break;
-                default:
-                    $error_string = 'error_user_create_update';
-            }
-            $error->set_error($error_string);
-            self::$helperObject->setFaultObject($error);
-            return;
-        }
-
+        $seed->save(self::$helperObject->checkSaveOnNotify());
 
         $return_entry_list = self::$helperObject->get_name_value_list_for_fields($seed, $return_fields );
 
@@ -374,7 +346,8 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3 {
 
             if($application == 'mobile')
             {
-                $availModules = ArrayFunctions::array_access_keys($_SESSION['avail_modules']); //ACL check already performed.
+                $modules = $availModuleNames = array();
+                $availModules = array_keys($_SESSION['avail_modules']); //ACL check already performed.
                 $modules = self::$helperObject->get_visible_mobile_modules($availModules);
                 $nameValueArray['available_modules'] = $modules;
                 //Get the vardefs md5
@@ -416,7 +389,8 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3 {
     		return;
     	} // if
 
-    	$availModules = ArrayFunctions::array_access_keys($_SESSION['avail_modules']); //ACL check already performed.
+    	$modules = array();
+    	$availModules = array_keys($_SESSION['avail_modules']); //ACL check already performed.
     	switch ($filter){
     	    case 'default':
     	        $modules = self::$helperObject->get_visible_modules($availModules);

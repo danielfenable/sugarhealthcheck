@@ -17,7 +17,6 @@ if (!defined('sugarEntry') || !sugarEntry) {
 $viewdefs['Prospects']['base']['view']['list'] = array(
     'panels' => array(
         array(
-            'label' => 'LBL_PANEL_DEFAULT',
             'fields' => array(
                 array(
                     'name' => 'full_name',

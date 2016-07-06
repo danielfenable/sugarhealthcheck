@@ -15,7 +15,6 @@ $viewdefs['Quotes']['base']['filter']['default'] = array(
         'name' => array(),
         'quote_num' => array(),
         'quote_type' => array(),
-        'quote_stage' => array(),
         'account_name' => array(),
         'total' => array(),
         'date_quote_expected_closed' => array(),

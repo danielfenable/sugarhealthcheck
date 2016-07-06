@@ -63,8 +63,9 @@ class TemplateInt extends TemplateRange
 			$vardef['auto_increment'] = $this->auto_increment;
 			if ((empty($this->autoinc_next)) && isset($this->module) && isset($this->module->table_name))
 			{
-                $db = DBManagerFactory::getInstance();
-                $auto = $db->getAutoIncrement($this->module->table_name, $this->name);
+				global $db;
+                $helper = $db->gethelper();
+                $auto = $helper->getAutoIncrement($this->module->table_name, $this->name);
                 $this->autoinc_next = $vardef['autoinc_next'] = $auto;
 			}
 		}
@@ -80,13 +81,14 @@ class TemplateInt extends TemplateRange
 				$this->autoinc_next = $this->autoinc_start;
 			}
 			if(isset($this->module->table_name)){
-                $db = DBManagerFactory::getInstance();
-                //Check that the new value is greater than the old value
-                $oldNext = $db->getAutoIncrement($this->module->table_name, $this->name);
-                if ($this->autoinc_next > $oldNext)
-                {
-                    $db->setAutoIncrementStart($this->module->table_name, $this->name, $this->autoinc_next);
-                }
+				global $db;
+	            $helper = $db->gethelper();
+	            //Check that the new value is greater than the old value
+	            $oldNext = $helper->getAutoIncrement($this->module->table_name, $this->name);
+	            if ($this->autoinc_next > $oldNext)
+	            {
+	                $helper->setAutoIncrementStart($this->module->table_name, $this->name, $this->autoinc_next);
+				}
 			}
 			$next = $this->autoinc_next;
 			$this->autoinc_next = false;

@@ -36,7 +36,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,
@@ -62,7 +66,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,
@@ -88,6 +96,10 @@ $dictionary['pmse_BpmFlow'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '36',
     'size' => '36',
@@ -110,7 +122,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,
@@ -136,7 +152,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,
@@ -162,6 +182,10 @@ $dictionary['pmse_BpmFlow'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '36',
     'size' => '36',
@@ -184,28 +208,10 @@ $dictionary['pmse_BpmFlow'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
-    'calculated' => false,
-    'len' => '32',
-    'size' => '32',
-  ),
-'cas_assignment_method' =>
-  array (
-    'required' => true,
-    'name' => 'cas_assignment_method',
-    'vname' => '',
-    'type' => 'varchar',
-    'massupdate' => false,
-    'default' => '',
-    'no_default' => false,
-    'comments' => '',
-    'help' => '',
-    'importable' => 'true',
-    'duplicate_merge' => 'disabled',
-    'duplicate_merge_dom_value' => '0',
-    'audited' => false,
-    'reportable' => true,
-    'unified_search' => false,
-    'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '32',
     'size' => '32',
@@ -228,6 +234,10 @@ $dictionary['pmse_BpmFlow'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '40',
     'size' => '40',
@@ -250,7 +260,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,
@@ -276,6 +290,10 @@ $dictionary['pmse_BpmFlow'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '32',
     'size' => '32',
@@ -298,6 +316,10 @@ $dictionary['pmse_BpmFlow'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '128',
     'size' => '128',
@@ -320,6 +342,10 @@ $dictionary['pmse_BpmFlow'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '40',
     'size' => '40',
@@ -342,6 +368,10 @@ $dictionary['pmse_BpmFlow'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '40',
     'size' => '40',
@@ -364,6 +394,10 @@ $dictionary['pmse_BpmFlow'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '40',
     'size' => '40',
@@ -548,7 +582,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,
@@ -574,7 +612,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,
@@ -600,7 +642,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,
@@ -626,7 +672,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,
@@ -652,7 +702,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,
@@ -678,7 +732,11 @@ $dictionary['pmse_BpmFlow'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,

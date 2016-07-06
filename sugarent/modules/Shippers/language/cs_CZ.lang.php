@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,41 +12,33 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'ERR_DELETE_RECORD' => 'Musite zadat záznam, abyste mohl vymazat tohoto doručovatele.',
+  'LBL_EDITLAYOUT' => 'Úprava rozvržení',
+  'LBL_LIST_FORM_TITLE' => 'List doručovatelů',
+  'LBL_LIST_LIST_ORDER' => 'Objednávka',
+  'LBL_LIST_NAME' => 'Doručovatel',
+  'LBL_LIST_ORDER' => 'Objednávka:',
+  'LBL_LIST_STATUS' => 'Stav',
   'LBL_MODULE_NAME' => 'Doručovatelé',
   'LBL_MODULE_NAME_SINGULAR' => 'Doručovatel',
   'LBL_MODULE_TITLE' => 'Doručovatelé: Hlavní stránka',
-  'LBL_SEARCH_FORM_TITLE' => 'Vyhledat doručovatele',
-  'LBL_LIST_FORM_TITLE' => 'List dodavatelů',
-  'LBL_NEW_FORM_TITLE' => 'Nový doručovatel',
-  'LBL_SHIPPER' => 'Doručovatel:',
-  'LBL_LIST_NAME' => 'Doručovatel',
   'LBL_NAME' => 'Doručovatel:',
-  'LBL_LIST_LIST_ORDER' => 'Příkaz',
-  'LBL_LIST_ORDER' => 'Nabídka:',
-  'LBL_LIST_STATUS' => 'Stav',
-  'LBL_STATUS' => 'Stav:',
-  'LNK_NEW_SHIPPER' => 'List dodavatelů',
-  'LNK_NEW_TAXRATE' => 'Výpis daňových sazeb',
-  'NTC_DELETE_CONFIRMATION' => 'Jste si jist, že chcete smazat tento záznam?',
-  'ERR_DELETE_RECORD' => 'Musite zadat záznam, abyste mohl vymazat tohoto doručovatele.',
-  'NTC_STATUS' => 'Nastavte status na NEAKTIVNÍ, abyste mohl odstranit tohoto doručovatele',
+  'LBL_NEW_FORM_TITLE' => 'Nový doručovatel',
+  'LBL_SEARCH_FORM_TITLE' => 'Vyhledat doručovatele',
+  'LBL_SHIPPER' => 'Doručovatel:',
+  'LBL_STATUS' => 'Sta:',
+  'LNK_NEW_SHIPPER' => 'List doručovatelů',
+  'LNK_NEW_TAXRATE' => 'List daňových sazeb',
+  'NTC_DELETE_CONFIRMATION' => 'Jste si jist, že chcete odstranit tento záznam?',
   'NTC_LIST_ORDER' => 'Nastavit umístění doručovatele v dropdownu v objednávce',
+  'NTC_STATUS' => 'Nastavte status na NEAKTIVNÍ, abyste mohl odstranit tohoto doručovatele',
   'shipper_status_dom' => 
   array (
     'Active' => 'Aktivní',
     'Inactive' => 'Neaktivní',
-),
-	'LBL_EDITLAYOUT' => 'Úprava rozvržení' /*for 508 compliance fix*/,
+  ),
 );
 
-
-?>

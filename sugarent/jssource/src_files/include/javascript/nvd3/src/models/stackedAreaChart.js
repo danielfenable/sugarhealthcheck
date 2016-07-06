@@ -14,7 +14,8 @@ nv.models.stackedAreaChart = function() {
       tooltip = null,
       tooltips = true,
       tooltipContent = function (key, x, y, e, graph) {
-        return '<h3>' + key + '</h3>';
+        return '<h3>' + key + '</h3>' +
+               '<p>' +  y + ' on ' + x + '</p>';
       },
       x,
       y,
@@ -54,10 +55,14 @@ nv.models.stackedAreaChart = function() {
       return !!Math.round(stacked.y()(d) * 100);
     });
 
-  var showTooltip = function(eo, offsetElement) {
-    var content = tooltipContent(eo.series, eo, chart);
+  var showTooltip = function (e, offsetElement) {
+    var left = e.pos[0],
+        top = e.pos[1],
+        x = xAxis.tickFormat()(stacked.x()(e.point, e.pointIndex)),
+        y = yAxis.tickFormat()(stacked.y()(e.point, e.pointIndex)),
+        content = tooltipContent(e.series.key, x, y, e, chart);
 
-    tooltip = nv.tooltip.show(eo.e, content, null, null, offsetElement);
+    tooltip = nv.tooltip.show([left, top], content, null, null, offsetElement);
   };
 
   //============================================================
@@ -77,9 +82,7 @@ nv.models.stackedAreaChart = function() {
           innerMargin = {top: 0, right: 0, bottom: 0, left: 0},
           maxControlsWidth = 0,
           maxLegendWidth = 0,
-          widthRatio = 0,
-          controlsHeight = 0,
-          legendHeight = 0;
+          widthRatio = 0;
 
       chart.update = function () {
         container.transition().duration(chart.delay()).call(chart);
@@ -156,11 +159,9 @@ nv.models.stackedAreaChart = function() {
       gEnter.append('rect').attr('class', 'nv-background')
         .attr('x', -margin.left)
         .attr('y', -margin.top)
-        .attr('fill', '#FFF');
-
-      g.select('.nv-background')
         .attr('width', availableWidth + margin.left + margin.right)
-        .attr('height', availableHeight + margin.top + margin.bottom);
+        .attr('height', availableHeight + margin.top + margin.bottom)
+        .attr('fill', '#FFF');
 
       gEnter.append('g').attr('class', 'nv-titleWrap');
       var titleWrap = g.select('.nv-titleWrap');
@@ -180,10 +181,9 @@ nv.models.stackedAreaChart = function() {
       //------------------------------------------------------------
       // Title & Legend & Controls
 
-      var titleBBox = {width: 0, height: 0};
-      titleWrap.select('.nv-title').remove();
-
       if (showTitle && properties.title) {
+        titleWrap.select('.nv-title').remove();
+
         titleWrap
           .append('text')
             .attr('class', 'nv-title')
@@ -195,15 +195,16 @@ nv.models.stackedAreaChart = function() {
             .attr('stroke', 'none')
             .attr('fill', 'black');
 
-        titleBBox = nv.utils.getTextBBox(g.select('.nv-title'));
-
-        innerMargin.top += titleBBox.height + 12;
+        innerMargin.top += parseInt(g.select('.nv-title').node().getBoundingClientRect().height / 1.15, 10) +
+          parseInt(g.select('.nv-title').style('margin-top'), 10) +
+          parseInt(g.select('.nv-title').style('margin-bottom'), 10);
       }
 
       if (showControls) {
         controls
           .id('controls_' + chart.id())
           .strings(chart.strings().controls)
+          .margin({top: 10, right: 10, bottom: 10, left: 10})
           .align('left')
           .height(availableHeight - innerMargin.top);
         controlsWrap
@@ -217,6 +218,7 @@ nv.models.stackedAreaChart = function() {
         legend
           .id('legend_' + chart.id())
           .strings(chart.strings().legend)
+          .margin({top: 10, right: 10, bottom: 10, left: 10})
           .align('right')
           .height(availableHeight - innerMargin.top);
         legendWrap
@@ -243,31 +245,17 @@ nv.models.stackedAreaChart = function() {
       }
 
       if (showControls) {
-        var xpos = direction === 'rtl' ? availableWidth - controls.width() : 0,
-            ypos = showTitle ? titleBBox.height : - legend.margin().top;
         controlsWrap
-          .attr('transform', 'translate(' + xpos + ',' + ypos + ')');
-        controlsHeight = controls.height();
+          .attr('transform', 'translate(' + (direction === 'rtl' ? availableWidth - controls.width() : 0) + ',' + innerMargin.top + ')');
       }
 
       if (showLegend) {
-        var legendLinkBBox = nv.utils.getTextBBox(legendWrap.select('.nv-legend-link')),
-            legendSpace = availableWidth - titleBBox.width - 6,
-            legendTop = showTitle && !showControls && legend.collapsed() && legendSpace > legendLinkBBox.width ? true : false,
-            xpos = direction === 'rtl' ? 0 : availableWidth - legend.width(),
-            ypos = titleBBox.height;
-        if (legendTop) {
-          ypos = titleBBox.height - legend.height() / 2 - legendLinkBBox.height / 2;
-        } else if (!showTitle) {
-          ypos = - legend.margin().top;
-        }
         legendWrap
-          .attr('transform', 'translate(' + xpos + ',' + ypos + ')');
-        legendHeight = legendTop ? 0 : legend.height() - 12;
+          .attr('transform', 'translate(' + (direction === 'rtl' ? 0 : availableWidth - legend.width()) + ',' + innerMargin.top + ')');
       }
 
       // Recalc inner margins based on legend and control height
-      innerMargin.top += Math.max(controlsHeight, legendHeight);
+      innerMargin.top += Math.max(legend.height(), controls.height()) + 4;
       innerHeight = availableHeight - innerMargin.top - innerMargin.bottom;
 
       //------------------------------------------------------------
@@ -401,28 +389,28 @@ nv.models.stackedAreaChart = function() {
         container.transition().duration(chart.delay()).call(chart);
       });
 
-      dispatch.on('tooltipShow', function(eo) {
+      dispatch.on('tooltipShow', function (e) {
         if (tooltips) {
-          showTooltip(eo, that.parentNode);
+          showTooltip(e, that.parentNode);
         }
       });
 
-      dispatch.on('tooltipMove', function(e) {
-        if (tooltip) {
-          nv.tooltip.position(that.parentNode, tooltip, e, 's');
-        }
-      });
-
-      dispatch.on('tooltipHide', function() {
+      dispatch.on('tooltipHide', function () {
         if (tooltips) {
           nv.tooltip.cleanup();
         }
       });
 
+      dispatch.on('tooltipMove', function (e) {
+        if (tooltip) {
+          nv.tooltip.position(tooltip, e.pos, 's');
+        }
+      });
+
       // Update chart from a state object passed to event handler
-      dispatch.on('changeState', function(e) {
+      dispatch.on('changeState', function (e) {
         if (typeof e.disabled !== 'undefined') {
-          data.forEach(function(series, i) {
+          data.forEach(function (series,i) {
             series.disabled = e.disabled[i];
           });
           state.disabled = e.disabled;
@@ -436,12 +424,12 @@ nv.models.stackedAreaChart = function() {
         container.transition().duration(chart.delay()).call(chart);
       });
 
-      dispatch.on('chartClick', function() {
+      dispatch.on('chartClick', function (e) {
         if (controls.enabled()) {
-          controls.dispatch.closeMenu();
+          controls.dispatch.closeMenu(e);
         }
         if (legend.enabled()) {
-          legend.dispatch.closeMenu();
+          legend.dispatch.closeMenu(e);
         }
       });
 
@@ -454,24 +442,24 @@ nv.models.stackedAreaChart = function() {
   // Event Handling/Dispatching (out of chart's scope)
   //------------------------------------------------------------
 
-  stacked.dispatch.on('areaMouseover.tooltip', function(eo) {
-    dispatch.tooltipShow(eo);
+  stacked.dispatch.on('areaMouseover.tooltip', function (e) {
+    //dispatch.tooltipShow(e);
   });
 
-  stacked.dispatch.on('areaMousemove.tooltip', function(e) {
-    dispatch.tooltipMove(e);
+  stacked.dispatch.on('areaMouseout.tooltip', function (e) {
+    //dispatch.tooltipHide(e);
   });
 
-  stacked.dispatch.on('areaMouseout.tooltip', function() {
-    dispatch.tooltipHide();
+  stacked.dispatch.on('areaMousemove.tooltip', function (e) {
+    //dispatch.tooltipMove(e);
   });
 
-  stacked.dispatch.on('tooltipShow', function(eo) {
-    dispatch.tooltipShow(eo);
+  stacked.dispatch.on('tooltipShow', function (e) {
+    dispatch.tooltipShow(e);
   });
 
-  stacked.dispatch.on('tooltipHide', function(e) {
-    dispatch.tooltipHide();
+  stacked.dispatch.on('tooltipHide', function (e) {
+    dispatch.tooltipHide(e);
   });
 
 

@@ -275,5 +275,6 @@ $layout_defs['Accounts'] = array(
 				array('widget_class' => 'SubPanelTopButtonQuickCreate'),
 			),
 		),
+
 	),
 );

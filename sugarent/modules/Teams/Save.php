@@ -114,7 +114,6 @@ else {
 //sugar_die();
 
 $return_module = (!empty($_POST['return_module'])) ? $_POST['return_module'] : "Teams";
-$return_id = (!empty($_POST['return_id'])) ? $_POST['return_id'] : $return_id;
 $return_action = ($_POST['return_action']!='index') ? $_POST['return_action'] : "DetailView";
 
 $GLOBALS['log']->debug("Saved record with id of {$return_id}");

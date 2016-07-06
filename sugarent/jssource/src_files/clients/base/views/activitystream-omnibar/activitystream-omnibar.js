@@ -23,7 +23,7 @@
 
     className: "omnibar",
 
-    plugins: ['DragdropAttachments', 'QuickSearchFilter', 'Taggable', 'Tooltip'],
+    plugins: ['DragdropAttachments', 'QuickSearchFilter', 'Taggable', 'Tooltip', 'Pagination'],
 
     initialize: function(options) {
         // regular expression to find all non-breaking spaces
@@ -127,7 +127,7 @@
      * Retrieve the post entered inside content editable and translate any tags into text format
      * so that it can be saved in the database as JSON string.
      *
-     * @return {string}
+     * @returns {String}
      */
     getPost: function() {
         var post = this.unformatTags(this.$('div.sayit'));

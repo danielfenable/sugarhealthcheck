@@ -1,8 +1,9 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("editor-para-base",function(e,t){var n=function(){n.superclass.constructor.apply(this,arguments)},r="host",i="> p",s="p",o="<br>";e.extend(n,e.Base,{_getRoot:function(){return this.get(r).getInstance().EditorSelection.ROOT},_fixFirstPara:function(){var e=this.get(r),t=e.getInstance(),n,u,a=this._getRoot(),f=a.getHTML(),l=f.length?!0:!1;f===o&&(f="",l=!1),a.setHTML("<"+s+">"+f+t.EditorSelection.CURSOR+"</"+s+">"),u=a.one(i),n=new t.EditorSelection,n.selectNode(u,!0,l)},_afterEditorReady:function(){var e=this.get(r),t=e.getInstance(),n;t&&(t.EditorSelection.filterBlocks(),n=t.EditorSelection.DEFAULT_BLOCK_TAG,i="> "+n,s=n)},_afterContentChange:function(){var e=this.get(r),t=e.getInstance();t&&t.EditorSelection&&t.EditorSelection.filterBlocks()},_afterPaste:function(){var t=this.get(r),n=t.getInstance();e.later(50,t,function(){n.EditorSelection.filterBlocks()})},initializer:function(){var t=this.get(r);if(t.editorBR){e.error("Can not plug EditorPara and EditorBR at the same time.");return}t.after("ready",e.bind(this._afterEditorReady,this)),t.after("contentChange",e.bind(this._afterContentChange,this)),e.Env.webkit&&t.after("dom:paste",e.bind(this._afterPaste,this))}},{NAME:"editorParaBase",NS:"editorParaBase",ATTRS:{host:{value:!1}}}),e.namespace("Plugin"),e.Plugin.EditorParaBase=n},"3.15.0",{requires:["editor-base"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('editor-para-base',function(Y,NAME){var EditorParaBase=function(){EditorParaBase.superclass.constructor.apply(this,arguments);},HOST='host',FIRST_P='> p',P='p',BR='<br>';Y.extend(EditorParaBase,Y.Base,{_getRoot:function(){return this.get(HOST).getInstance().EditorSelection.ROOT;},_fixFirstPara:function(){var host=this.get(HOST),inst=host.getInstance(),sel,n,root=this._getRoot(),html=root.getHTML(),col=((html.length)?true:false);if(html===BR){html='';col=false;}
+root.setHTML('<'+P+'>'+html+inst.EditorSelection.CURSOR+'</'+P+'>');n=root.one(FIRST_P);sel=new inst.EditorSelection();sel.selectNode(n,true,col);},_afterEditorReady:function(){var host=this.get(HOST),inst=host.getInstance(),btag;if(inst){inst.EditorSelection.filterBlocks();btag=inst.EditorSelection.DEFAULT_BLOCK_TAG;FIRST_P='> '+btag;P=btag;}},_afterContentChange:function(){var host=this.get(HOST),inst=host.getInstance();if(inst&&inst.EditorSelection){inst.EditorSelection.filterBlocks();}},_afterPaste:function(){var host=this.get(HOST),inst=host.getInstance();Y.later(50,host,function(){inst.EditorSelection.filterBlocks();});},initializer:function(){var host=this.get(HOST);if(host.editorBR){Y.error('Can not plug EditorPara and EditorBR at the same time.');return;}
+host.after('ready',Y.bind(this._afterEditorReady,this));host.after('contentChange',Y.bind(this._afterContentChange,this));if(Y.Env.webkit){host.after('dom:paste',Y.bind(this._afterPaste,this));}}},{NAME:'editorParaBase',NS:'editorParaBase',ATTRS:{host:{value:false}}});Y.namespace('Plugin');Y.Plugin.EditorParaBase=EditorParaBase;},'3.15.0',{"requires":["editor-base"]});

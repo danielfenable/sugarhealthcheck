@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,9 +11,58 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: JotPadDashlet.en_us.lang.php 51719 2009-10-22 17:18:00Z mitani $
 
-$defaultText = "";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$defaultText = 
+<<<EOQ
+Welcome to Sugar 5.0<br /><br />
+
+New features include:<br />
+* Multiple homepages with customizable dashlets<br />
+* Improved Dashboards and Charts<br />
+* New Email Client for smoother communication<br />
+* Module Builder to extend your SugarCRM deployment<br />
+* Improved Sugar Studio and Access Control Features<br /><br />
+
+For more information on getting started, please visit Sugar University.
+EOQ
+;
+
+
 $dashletStrings['JotPadDashlet'] = array('LBL_TITLE'            => 'JotPad',
                                          'LBL_DESCRIPTION'      => 'En dashlet för dina anteckningar',
                                          'LBL_SAVING'           => 'Sparar JotPad ...',

@@ -19,7 +19,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Update searchable fields.
      */

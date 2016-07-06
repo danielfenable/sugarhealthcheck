@@ -1,8 +1,14 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("dataschema-array",function(e,t){var n=e.Lang,r={apply:function(e,t){var i=t,s={results:[],meta:{}};return n.isArray(i)?e&&n.isArray(e.resultFields)?s=r._parseResults.call(this,e.resultFields,i,s):s.results=i:s.error=new Error("Array schema parse failure"),s},_parseResults:function(t,r,i){var s=[],o,u,a,f,l,c,h,p;for(h=r.length-1;h>-1;h--){o={},u=r[h],a=n.isObject(u)&&!n.isFunction(u)?2:n.isArray(u)?1:n.isString(u)?0:-1;if(a>0)for(p=t.length-1;p>-1;p--)f=t[p],l=n.isUndefined(f.key)?f:f.key,c=n.isUndefined(u[l])?u[p]:u[l],o[l]=e.DataSchema.Base.parse.call(this,c,f);else a===0?o=u:o=null;s[h]=o}return i.results=s,i}};e.DataSchema.Array=e.mix(r,e.DataSchema.Base)},"3.15.0",{requires:["dataschema-base"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('dataschema-array',function(Y,NAME){var LANG=Y.Lang,SchemaArray={apply:function(schema,data){var data_in=data,data_out={results:[],meta:{}};if(LANG.isArray(data_in)){if(schema&&LANG.isArray(schema.resultFields)){data_out=SchemaArray._parseResults.call(this,schema.resultFields,data_in,data_out);}
+else{data_out.results=data_in;}}
+else{data_out.error=new Error("Array schema parse failure");}
+return data_out;},_parseResults:function(fields,array_in,data_out){var results=[],result,item,type,field,key,value,i,j;for(i=array_in.length-1;i>-1;i--){result={};item=array_in[i];type=(LANG.isObject(item)&&!LANG.isFunction(item))?2:(LANG.isArray(item))?1:(LANG.isString(item))?0:-1;if(type>0){for(j=fields.length-1;j>-1;j--){field=fields[j];key=(!LANG.isUndefined(field.key))?field.key:field;value=(!LANG.isUndefined(item[key]))?item[key]:item[j];result[key]=Y.DataSchema.Base.parse.call(this,value,field);}}
+else if(type===0){result=item;}
+else{result=null;}
+results[i]=result;}
+data_out.results=results;return data_out;}};Y.DataSchema.Array=Y.mix(SchemaArray,Y.DataSchema.Base);},'3.15.0',{"requires":["dataschema-base"]});

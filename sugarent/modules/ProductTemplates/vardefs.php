@@ -14,7 +14,6 @@ $dictionary['ProductTemplate'] = array(
     'table' => 'product_templates',
     'comment' => 'The Admin view of a Product in Product Catalog; used as template for a product instance',
     'audited' => true,
-    'favorites' => false,
     'fields' => array(
         'type_id' => array(
             'name' => 'type_id',
@@ -222,6 +221,42 @@ $dictionary['ProductTemplate'] = array(
             'calculated' => true,
             'enforced' => true,
         ),
+        'currency_id' => array(
+            'name' => 'currency_id',
+            'vname' => 'LBL_CURRENCY',
+            'type' => 'currency_id',
+            'dbType' => 'id',
+            'function' => 'getCurrencies',
+            'function_bean' => 'Currencies',
+            'javascript' => 'onchange="ConvertItems(this.options[selectedIndex].value);"',
+            'required' => false,
+            'reportable' => false,
+            'importable' => 'true',
+            'default' => '-99',
+            'comment' => 'Currency of the product',
+        ),
+        'base_rate' => array(
+            'name' => 'base_rate',
+            'vname' => 'LBL_CURRENCY_RATE',
+            'type' => 'decimal',
+            'len' => '26,6',
+            'studio' => false,
+        ),
+        'currency_symbol' => array(
+            'name' => 'currency_symbol',
+            'type' => 'varchar',
+            'vname' => 'LBL_CURRENCY_SYMBOL_NAME',
+            'source' => 'non-db',
+        ),
+        'currency' => array(
+            'name' => 'currency',
+            'vname' => 'LBL_CURRENCY',
+            'type' => 'varchar',
+            'required' => false,
+            'reportable' => false,
+            'importable' => 'false',
+            'comment' => 'Currency of the product',
+        ),
         'status' => array(
             'name' => 'status',
             'vname' => 'LBL_STATUS',
@@ -303,11 +338,6 @@ $dictionary['ProductTemplate'] = array(
             'options' => 'pricing_formula_dom',
             'len' => 100,
             'comment' => 'Pricing formula (ex: Fixed, Markup over Cost)',
-            'studio' => array(
-                'field' => array(
-                    'options' => false,
-                ),
-            ),
             'related_fields' => array(
                 'pricing_factor',
             ),
@@ -403,6 +433,5 @@ VardefManager::createVardef(
     array(
         'default',
         'assignable',
-        'currency'
     )
 );

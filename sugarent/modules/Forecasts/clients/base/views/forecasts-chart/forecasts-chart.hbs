@@ -10,23 +10,20 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 --}}
-
-<div class="control-group dashlet-options">
-    <div class="controls{{#if isManager}} controls-two btn-group-fit{{/if}}">
-        <div class="row-fluid">
-            <div class="span6 groupByOptions">
-                {{#with dashletConfig.group_by}}
-                    {{field ../this model=../this.values}}
-                {{/with}}
-            </div>
-            {{#if dashletConfig.show_dataset}}
-            <div class="span6">
-                {{#with dashletConfig.dataset}}
-                    {{field ../this model=../this.values}}
-                {{/with}}
-            </div>
-            {{/if}}
+<div class="dashlet-options">
+    <div class="row-fluid">
+        <div class="span4 groupByOptions">
+            {{#with dashletConfig.group_by}}
+                {{field ../this model=../this.values}}
+            {{/with}}
         </div>
+        {{#if dashletConfig.show_dataset}}
+        <div class="span3">
+            {{#with dashletConfig.dataset}}
+                {{field ../this model=../this.values}}
+            {{/with}}
+        </div>
+        {{/if}}
     </div>
 </div>
 {{#with dashletConfig.chart}}

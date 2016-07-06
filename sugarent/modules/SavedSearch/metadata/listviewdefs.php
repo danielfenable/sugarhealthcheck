@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: listviewdefs.php 54005 2010-01-25 20:32:59Z jmertic $
+
 
 $listViewDefs['SavedSearch'] = array(
 	'NAME' => array(

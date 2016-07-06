@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +13,16 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-    'LBL_MODULE_NAME'			=> 'Användarsignaturer',
-    'LBL_MODULE_NAME_SINGULAR'		=> 'Användarsignatur',
-    'LBL_EMAIL_SIGNATURE_ERROR1' => 'Signaturen kräver ett namn.',
-    'LBL_SIGNATURE_NAME'         => 'Namn',
-    'LBL_SIGNATURE'              => 'Signatur',
-    'LBL_SIGNATURE_HTML'         => 'HTML signatur',
-    'LBL_SIGNATURE_DEFAULT'      => 'Använd signatur?',
-    'LBL_SIGNATURE_PREPEND'      => 'Signatur ovanför svar?',
-    'LBL_SIGNATURES'             => 'Signaturer',
+
+$mod_strings = array (
+  'LBL_EMAIL_SIGNATURE_ERROR1' => 'Signaturen kräver ett namn.',
+  'LBL_MODULE_NAME' => 'Användarsignaturer',
+  'LBL_MODULE_NAME_SINGULAR' => 'Användarsignatur',
+  'LBL_SIGNATURE' => 'Signatur',
+  'LBL_SIGNATURES' => 'Signaturer',
+  'LBL_SIGNATURE_DEFAULT' => 'Använd signatur?',
+  'LBL_SIGNATURE_HTML' => 'HTML signatur',
+  'LBL_SIGNATURE_NAME' => 'Namn',
+  'LBL_SIGNATURE_PREPEND' => 'Signatur ovanför svar?',
 );
+

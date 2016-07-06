@@ -19,5 +19,5 @@ $mod_strings = array(
     'LBL_TARGET_NAME' => 'اسم الوحدة',
     'LBL_REQUEST_METHOD' => 'الطريقة المطلوبة',
     'LBL_TRIGGER_EVENT' => 'بدء الحدث',
-    'LBL_URL' => 'عنوان URL',
+    'LBL_URL' => 'URL',
 );

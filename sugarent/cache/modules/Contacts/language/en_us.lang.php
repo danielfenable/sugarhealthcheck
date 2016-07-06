@@ -1,23 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:22
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_ANY_EMAIL' => 'Email:',
-  'LBL_EMAIL' => 'Email Address:',
-  'LBL_PRIMARY_EMAIL' => 'Primary Email',
-  'LBL_LIST_EMAIL_ADDRESS' => 'Email',
-  'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
-  'LBL_EMAIL_ADDRESS' => 'Email Address:',
-  'LBL_EMAIL_ADDRESSES' => 'Email Address(es)',
-  'LBL_INVALID_EMAIL' => 'Invalid Email:',
-  'LBL_EMAIL_OPT_OUT' => 'Email Opt Out:',
-  'LBL_EMAIL_NON_PRIMARY' => 'Non-primary emails',
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team ID:',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID:',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified:',
@@ -37,6 +20,20 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team ID:',
+  'LBL_ANY_EMAIL' => 'Email:',
+  'LBL_EMAIL' => 'Email Address:',
+  'LBL_LIST_EMAIL_ADDRESS' => 'Email',
+  'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
+  'LBL_EMAIL_ADDRESS' => 'Email Address:',
+  'LBL_EMAIL_ADDRESSES' => 'Email Address(es)',
+  'LBL_INVALID_EMAIL' => 'Invalid Email:',
+  'LBL_EMAIL_OPT_OUT' => 'Email Opt Out:',
+  'LBL_EMAIL_NON_PRIMARY' => 'Non-primary emails',
   'LBL_SALUTATION' => 'Salutation:',
   'LBL_FIRST_NAME' => 'First Name:',
   'LBL_LAST_NAME' => 'Last Name:',
@@ -261,7 +258,9 @@ To create a {{module_name}}:
 1. Provide values for the fields as desired.
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
-2. Click "Save" to finalize the new record and return to the previous page.',
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
   'LBL_MKTO_SYNC' => 'Sync to Marketo&reg;',
   'LBL_MKTO_ID' => 'Marketo Lead ID',
   'LBL_MKTO_LEAD_SCORE' => 'Lead Score',

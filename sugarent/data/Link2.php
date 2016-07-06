@@ -13,7 +13,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
 /*********************************************************************************
-* $Id: Link.php
+
 * Description:  Represents a relationship from a single bean's perspective.
 * Does not actively do work but is used by sugarbean to manipulate relationships.
 * Work is deferred to the relationship classes.
@@ -227,10 +227,6 @@ class Link2 {
      */
     public function getType()
     {
-        if (isset($this->def['link_type'])) {
-            return $this->def['link_type'];
-        }
-
         return $this->relationship->getType($this->getSide());
     }
 
@@ -815,7 +811,8 @@ class Link2 {
 
         $GLOBALS['log']->debug("relationship_exists query(".$query.')');
 
-        $row = $this->_db->fetchOne($query, true);
+        $result=$this->_db->query($query, true);
+        $row = $this->_db->fetchByAssoc($result);
 
         if ($row == null) {
             return false;

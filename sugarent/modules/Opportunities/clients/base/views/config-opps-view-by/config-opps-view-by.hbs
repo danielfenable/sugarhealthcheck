@@ -21,7 +21,7 @@
                 <div class="row-fluid">
                     <div class="span12 record-cell">
                         <label for="{{name}}" data-name="{{name}}" class="record-label">
-                            {{str label ../../module}}
+                            {{str label ../../currentModule}}
                         </label>
                         <span class="normal">
                             {{field ../../this model=../../model}}
@@ -31,7 +31,7 @@
             {{/each}}
         {{/each}}
         <div id="sales-stage-text">
-            {{partial 'sales-stage-text' this this}}
+            {{partial 'sales-stage-text' this}}
         </div>
     </div>
 </div>

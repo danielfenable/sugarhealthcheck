@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -12,7 +11,7 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id$
+
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
@@ -28,11 +27,13 @@ $viewdefs['Notes']['mobile']['view']['list'] = array(
                     'default' => true,
                     'enabled' => true,
                     'link' => true,
+                    'width' => '10%',
                 ),
                 array(
                     'name' => 'date_modified',
                     'label' => 'LBL_DATE_MODIFIED',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                     'readonly' => true,
                 ),
@@ -40,6 +41,7 @@ $viewdefs['Notes']['mobile']['view']['list'] = array(
                     'name' => 'filename',
                     'label' => 'LBL_FILENAME',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
             ),

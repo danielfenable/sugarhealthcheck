@@ -134,60 +134,54 @@ class RevenueLineItemsCurrencyRateUpdate extends CurrencyRateUpdateAbstract
      */
     public function doPostUpdateAction()
     {
-        $oppConfig = Opportunity::getSettings();
-        if ($oppConfig['opps_view_by'] === 'RevenueLineItems') {
-            $sql = "SELECT opportunity_id               AS opp_id,
-                              Sum(likely_case)             AS likely,
-                              Sum(worst_case)              AS worst,
-                              Sum(best_case)               AS best
-                       FROM   (SELECT rli.opportunity_id,
-                                      (rli.likely_case/rli.base_rate) AS likely_case,
-                                      (rli.worst_case/rli.base_rate) AS worst_case,
-                                      (rli.best_case/rli.base_rate) AS best_case
-                               FROM   revenue_line_items rli
-                               WHERE  rli.deleted = 0) T
-                       GROUP  BY opp_id";
-            $results = $this->db->query($sql);
+        $sql = "SELECT opportunity_id               AS opp_id,
+                          Sum(likely_case)             AS likely,
+                          Sum(worst_case)              AS worst,
+                          Sum(best_case)               AS best
+                   FROM   (SELECT rli.opportunity_id,
+                                  (rli.likely_case/rli.base_rate) as likely_case,
+                                  (rli.worst_case/rli.base_rate) as worst_case,
+                                  (rli.best_case/rli.base_rate) as best_case
+                           FROM   revenue_line_items AS rli
+                           WHERE  rli.deleted = 0) AS T
+                   GROUP  BY opp_id";
+        $results = $this->db->query($sql);
 
-            $stages = $this->getClosedStages();
+        $stages = $this->getClosedStages();
 
-            $queries = array();
-            // skip closed opps
-            $sql_tpl = "UPDATE opportunities SET
-                            amount = '%s'*base_rate,
-                            best_case = '%s'*base_rate,
-                            worst_case = '%s'*base_rate
-                        WHERE id = '%s' AND sales_status NOT IN ('%s')";
-            while ($row = $this->db->fetchRow($results)) {
-                $queries[] = sprintf(
-                    $sql_tpl,
-                    $row['likely'],
-                    $row['best'],
-                    $row['worst'],
-                    $row['opp_id'],
-                    implode("','", $stages)
-                );
+        $queries = array();
+        // skip closed opps
+        $sql_tpl = "UPDATE opportunities SET amount = '%s', best_case = '%s', worst_case = '%s' WHERE id = '%s' AND sales_status NOT IN ('%s')";
+        while ($row = $this->db->fetchRow($results)) {
+            $queries[] = sprintf(
+                $sql_tpl,
+                $row['likely'],
+                $row['best'],
+                $row['worst'],
+                $row['opp_id'],
+                implode("','", $stages)
+            );
+        }
+        if (count($queries) < self::CHUNK_SIZE) {
+            // do queries in this process
+            foreach ($queries as $query) {
+                $this->db->query($query);
             }
-            if (count($queries) < self::CHUNK_SIZE) {
-                // do queries in this process
-                foreach ($queries as $query) {
-                    $this->db->query($query);
-                }
-            } else {
-                // schedule queries to SQLRunner job scheduler
-                $chunks = array_chunk($queries, self::CHUNK_SIZE);
-                global $timedate, $current_user;
-                foreach ($chunks as $chunk) {
-                    $job = BeanFactory::getBean('SchedulersJobs');
-                    $job->name = "SugarJobSQLRunner: " . $timedate->getNow()->asDb();
-                    $job->target = "class::SugarJobSQLRunner";
-                    $job->data = serialize($chunk);
-                    $job->retry_count = 0;
-                    $job->assigned_user_id = $current_user->id;
-                    $jobQueue = new SugarJobQueue();
-                    $jobQueue->submitJob($job);
-                }
+        } else {
+            // schedule queries to SQLRunner job scheduler
+            $chunks = array_chunk($queries, self::CHUNK_SIZE);
+            global $timedate, $current_user;
+            foreach ($chunks as $chunk) {
+                $job = BeanFactory::getBean('SchedulersJobs');
+                $job->name = "SugarJobSQLRunner: " . $timedate->getNow()->asDb();
+                $job->target = "class::SugarJobSQLRunner";
+                $job->data = serialize($chunk);
+                $job->retry_count = 0;
+                $job->assigned_user_id = $current_user->id;
+                $jobQueue = new SugarJobQueue();
+                $jobQueue->submitJob($job);
             }
+
         }
 
         return true;

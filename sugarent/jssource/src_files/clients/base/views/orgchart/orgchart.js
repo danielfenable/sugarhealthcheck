@@ -33,7 +33,6 @@
     slider: null,
     sliderZoomIn: null,
     sliderZoomOut: null,
-    container: null,
 
     /**
      * Initialize the View
@@ -45,6 +44,8 @@
         var self = this;
         this._super('initialize', [options]);
 
+        // custom renderer for tree node
+        this.nodetemplate = app.template.getView(this.name + '.orgchartnode');
         //TODO: change api to accept id as param or attrib as object to produce
         this.reporteesEndpoint = app.api.buildURL('Forecasts', 'orgtree/' + app.user.get('id'), null, {'level': 2});
         this.zoomExtents = {'min': 0.25, 'max': 1.75};
@@ -53,7 +54,9 @@
         this.chart = nv.models.tree()
                 .duration(300)
                 .nodeSize(this.nodeSize)
-                .nodeRenderer(self.nodeRenderer)
+                .nodeRenderer(function(d) {
+                    return self.nodetemplate(d.metadata);
+                })
                 .zoomExtents(self.zoomExtents)
                 .zoomCallback(function(scale) {
                     self.moveSlider(scale);
@@ -61,27 +64,6 @@
                 .horizontal(false)
                 .getId(function(d) {
                     return d.metadata.id;
-                })
-                .nodeClick(function() {
-                    var route = d3.select(this).select('.nv-org-name').attr('data-url');
-                    app.router.navigate(route, {trigger: true});
-                })
-                .nodeCallback(function(d) {
-                    d.selectAll('text').text(function() {
-                        var text = d3.select(this).text();
-                        return nv.utils.stringEllipsify(text, self.container, 96);
-                    });
-                    d.selectAll('image')
-                        .on('error', function(d) {
-                            d3.select(this).attr('xlink:href', 'include/images/user.svg');
-                        });
-                    d.select('.nv-org-name')
-                        .on('mouseover', function(d) {
-                            d3.select(this).classed('hover', true);
-                        })
-                        .on('mouseout', function(d, i) {
-                            d3.select(this).classed('hover', false);
-                        });
                 });
     },
 
@@ -92,42 +74,6 @@
      */
     _buildUserUrl: function(id) {
         return '#' + app.bwc.buildRoute('Employees', id);
-    },
-
-    /**
-     * Appends the node content to the tree
-     * This should be extended by each implementation
-     * @param {String} content tree content container.
-     * @param {Object} d tree node metadata.
-     * @param {Int} w tree node width.
-     * @param {Int} h tree node height.
-     */
-    nodeRenderer: function(content, d, w, h) {
-        if (!d.metadata.img || d.metadata.img === '') {
-            d.metadata.img = 'include/images/user.svg';
-        }
-        var node = content.append('g').attr('class', 'nv-org-node');
-        node.append('rect').attr('class', 'nv-org-bkgd')
-            .attr('x', 0)
-            .attr('y', 0)
-            .attr('rx', 2)
-            .attr('ry', 2)
-            .attr('width', w)
-            .attr('height', h);
-        node.append('image').attr('class', 'nv-org-avatar')
-            .attr('xlink:href', d.metadata.img)
-            .attr('width', '32px')
-            .attr('height', '32px')
-            .attr('transform', 'translate(3, 3)');
-        node.append('text').attr('class', 'nv-org-name')
-            .attr('data-url', d.url)
-            .attr('transform', 'translate(38, 11)')
-            .text(d.metadata.full_name);
-        node.append('text').attr('class', 'nv-org-title')
-            .attr('data-url', d.url)
-            .attr('transform', 'translate(38, 21)')
-            .text(d.metadata.title);
-        return node;
     },
 
     /**
@@ -211,14 +157,16 @@
         });
         app.accessibility.run(this.jsTree, 'click');
 
-        this.container = d3.select('svg#' + this.cid);
-
         d3.select('svg#' + this.cid)
             .datum(this.chartCollection[0])
             .transition().duration(500)
             .call(this.chart);
 
         this.chart.reset();
+
+        this.$('img').error(function() {
+            $(this).attr('src', 'include/images/user.svg');
+        });
 
         this.forceRepaint();
 
@@ -391,7 +339,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     loadData: function(options) {
         var self = this;

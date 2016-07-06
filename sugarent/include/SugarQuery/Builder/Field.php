@@ -25,11 +25,6 @@ require_once 'include/SugarQuery/Builder/Field/Select.php';
 class SugarQuery_Builder_Field
 {
     /**
-     * @var SugarQuery
-     */
-    public $query;
-
-    /**
      * @var string Field
      */
     public $field;
@@ -173,15 +168,17 @@ class SugarQuery_Builder_Field
      */
     public function checkCustomField($bean = null)
     {
-        $defs = empty($bean->field_defs) ? VardefManager::getFieldDefs($this->moduleName) : $bean->field_defs;
-        if (!empty($defs)) {
+        if (empty($bean)) {
+            $bean = BeanFactory::getBean($this->moduleName);
+        }
+        if (!empty($bean)) {
             // Initialize def for now, in case $this->field isn't in field_defs
             $def = array();
-            if (isset($defs[$this->field])) {
-                $def = $defs[$this->field];
+            if (isset($bean->field_defs[$this->field])) {
+                $def = $bean->field_defs[$this->field];
             }
+
             if ((isset($def['source']) && $def['source'] == 'custom_fields') || $this->field == 'id_c') {
-                $bean = empty($bean) ? BeanFactory::getBean($this->moduleName) : $bean;
                 $this->custom = true;
                 $this->custom_bean_table = $bean->get_custom_table_name();
                 $this->bean_table = $bean->getTableName();
@@ -205,16 +202,7 @@ class SugarQuery_Builder_Field
         if(!isset($this->def['source']) || $this->def['source'] == 'db') {
             return false;
         }
-        $related = false;
-        $bean = $this->query->getFromBean();
-        if (isset($this->def['type'])) {
-            if ($bean instanceof SugarBean) {
-                $related = in_array($this->def['type'], $bean::$relateFieldTypes);
-            } else {
-                $related = ($this->def['type'] == 'related');
-            }
-        }
-        if ($related
+        if (isset($this->def['type']) && $this->def['type'] == 'relate'
             || (isset($this->def['source']) && $this->def['source'] == 'non-db'
                 // For some reason the full_name field has 'link' => true
                 && isset($this->def['link']) && $this->def['link'] !== true)
@@ -246,7 +234,7 @@ class SugarQuery_Builder_Field
                     //Now actually join the related table
                     $jta = $this->query->getJoinTableAlias($this->def['name']);
                     $join = $this->query->joinRaw(
-                        " LEFT JOIN {$farBean->table_name} {$jta} ON ({$idField->table}.{$this->def['id_name']} = {$jta}.id AND {$jta}.deleted = 0) ",
+                        " LEFT JOIN {$farBean->table_name} {$jta} ON {$idField->table}.{$this->def['id_name']} = {$jta}.id ",
                         array('alias' => $jta)
                     );
                     $join->bean = $farBean;
@@ -303,10 +291,7 @@ class SugarQuery_Builder_Field
      */
     public function shouldMarkNonDb()
     {
-        if ((isset($this->def['source']) && $this->def['source'] == 'non-db')
-            && empty($this->def['rname_link'])
-            && empty($this->def['db_concat_fields'])
-        ) {
+        if ((isset($this->def['source']) && $this->def['source'] == 'non-db') && empty($this->def['rname_link'])) {
             $this->markNonDb();
         }
     }

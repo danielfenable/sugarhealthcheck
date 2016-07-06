@@ -15,10 +15,11 @@ use Elastica\Response;
  */
 class PartialShardFailureException extends ResponseException
 {
+
     /**
      * Construct Exception
      *
-     * @param \Elastica\Request  $request
+     * @param \Elastica\Request $request
      * @param \Elastica\Response $response
      */
     public function __construct(Request $request, Response $response)
@@ -28,4 +29,5 @@ class PartialShardFailureException extends ResponseException
         $shardsStatistics = $response->getShardsStatistics();
         $this->message = JSON::stringify($shardsStatistics['failed']);
     }
+
 }

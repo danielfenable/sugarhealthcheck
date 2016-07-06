@@ -45,13 +45,10 @@ $mod_strings = array (
 
     'LBL_PMSE_PROCESS_DEFINITIONS_ENABLED' => 'Enabled',
     'LBL_PMSE_PROCESS_DEFINITIONS_DISABLED' => 'Disabled',
-    'LBL_PMSE_PROCESS_DEFINITIONS_EDIT' => 'There are active processes running against this Process Definition. Updating it could impact these processes. Do you still want to edit this Process Definition?',
-    'LBL_PMSE_DISABLE_CONFIRMATION_PD' => 'There are active processes running against this Process Definition. Updating it could impact these processes. Do you still want to disable this Process Definition?',
 
     'LBL_PMSE_PROCESS_DEFINITION_IMPORT_TEXT' => 'Automatically create a new Process Definitions record by importing a *.bpm file from your file system.',
     'LBL_PMSE_PROCESS_DEFINITION_IMPORT_SUCCESS' => 'Process Definitions was successfully imported into the system.',
     'LBL_PMSE_PROCESS_DEFINITION_EMPTY_WARNING' => 'Please select a valid *.bpm file.',
-    'LBL_PMSE_PROCESS_DEFINITION_IMPORT_BR' => 'The Process Definition has been imported but contains one or more Business Rule actions for which business rules have not been selected.',
 
 
 //    /*PMSE*/
@@ -122,7 +119,7 @@ $mod_strings = array (
     'LBL_PMSE_FORM_OPTION_DAYS' => 'Days',
     'LBL_PMSE_FORM_OPTION_HOURS' => 'Hours',
     'LBL_PMSE_FORM_OPTION_MINUTES' => 'Minutes',
-    'LBL_PMSE_MESSAGE_CANNOTDROPOUTSIDECANVAS' => 'Cannot drop element outside of canvas',
+
     'LBL_PMSE_FORM_TOOLTIP_DURATION' => 'Defines the duration of the timer event',
 
     /**PROCESSDEFINTION**/
@@ -153,8 +150,6 @@ $mod_strings = array (
     'LBL_PMSE_CONTEXT_MENU_ASSIGN_TEAM' => 'Round Robin',
     'LBL_PMSE_CONTEXT_MENU_CHANGE_FIELD' => 'Change Field',
     'LBL_PMSE_CONTEXT_MENU_ADD_RELATED_RECORD' => 'Add Related Record',
-    // CONFIRMATIONS
-    'LBL_PMSE_CHANGE_ACTION_TYPE_CONFIRMATION' => 'By changing the action type all the previous settings for this action will be lost. Do you want to proceed?',
     // FORMS
     'LBL_PMSE_FORM_TITLE_ACTIVITY' => 'Activity',
     'LBL_PMSE_FORM_LABEL_READ_ONLY_FIELDS' => 'Readonly fields',
@@ -177,8 +172,6 @@ $mod_strings = array (
     'LBL_PMSE_FORM_OPTION_STATIC_ASSIGNMENT' => 'Static Assignment',
     'LBL_PMSE_FORM_LABEL_ASSIGN_TO_TEAM' => 'Assign to Team',
     'LBL_PMSE_FORM_LABEL_ASSIGN_TO_USER' => 'Assign to User',
-    'LBL_PA_FORM_COMBO_ASSIGN_TO_USER_HELP_TEXT' => 'Select...',
-    'LBL_PA_FORM_COMBO_NO_MATCHES_FOUND' => 'No matches found',
     'LBL_PA_FORM_LABEL_ASSIGN_TO_TEAM' => 'Select Process User from Team',
     'LBL_PA_FORM_LABEL_ASSIGN_TO_USER' => 'Select Process User',
     'LBL_PMSE_FORM_OPTION_CURRENT_USER' => 'Current user',
@@ -277,38 +270,29 @@ $mod_strings = array (
     'LBL_PMSE_EXPCONTROL_USER_EVALUATION_SUPERVISOR' => 'Supervisor',
     'LBL_PMSE_EXPCONTROL_USER_EVALUATION_OWNER' => 'Record Owner',
     'LBL_PMSE_EXPCONTROL_USER_EVALUATION_OPERATOR' => 'Operator',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_ADMIN' => 'is admin',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_ADMIN_FULL' => '%TARGET% is admin',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_ROLE' => 'has role of',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_ROLE_FULL' => '%TARGET% has role of %VALUE%',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_USER' => 'is user',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_USER_FULL' => '%TARGET% is user %VALUE%',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_ADMIN' => 'is not admin',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_ADMIN_FULL' => '%TARGET% is not admin',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_ROLE' => 'does not have role of',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_ROLE_FULL' => '%TARGET% does not have role of %VALUE%',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_USER' => 'is not user',
-    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_USER_FULL' => '%TARGET% is not user %VALUE%',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_ADMIN' => 'Is admin',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_ROLE' => 'Is role',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_USER' => 'Is user',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_ADMIN' => 'Is not admin',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_ROLE' => 'Is not role',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_USER' => 'Is not user',
     'LBL_PMSE_EXPCONTROL_USER_EVALUATION_VALUE' => 'Value',
     'LBL_PMSE_EXPCONTROL_CONSTANTS_FIXED_DATE' => 'Fixed Date',
     'LBL_PMSE_EXPCONTROL_CONSTANTS_FIXED_DATETIME' => 'Fixed Datetime',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_TITLE' => 'Time Span',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_AMOUNT' => 'Value',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_UNIT' => 'Unit',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_YEARS' => 'years',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_MONTHS' => 'months',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_WEEKS' => 'weeks',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_DAYS' => 'days',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_HOURS' => 'hours',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_MINUTES' => 'minutes',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_TITLE' => 'Time Span',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_AMOUNT' => 'Value',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_UNIT' => 'Unit',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_YEARS' => 'years',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_MONTHS' => 'months',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_WEEKS' => 'weeks',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_DAYS' => 'days',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_HOURS' => 'hours',
+    'LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_MINUTES' => 'minutes',
     'LBL_PMSE_EXPCONTROL_CONSTANTS_BASIC' => 'String, Number and Boolean',
     'LBL_PMSE_EXPCONTROL_CONSTANTS_BASIC_VALUE' => 'Value',
     'LBL_PMSE_EXPCONTROL_CONSTANTS_BASIC_ADD_STRING' => 'add string',
     'LBL_PMSE_EXPCONTROL_CONSTANTS_BASIC_ADD_NUMBER' => 'add number',
     'LBL_PMSE_EXPCONTROL_CONSTANTS_BASIC_ADD_BOOLEAN' => 'add boolean',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_CURRENCY' => 'Currency',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_CURRENCY_CURRENCY' => 'Currency',
-    'LBL_PMSE_EXPCONTROL_CONSTANTS_CURRENCY_AMOUNT' => 'Amount',
     'LBL_PMSE_EXPCONTROL_EVALUATIONS_TITLE' => 'Evaluations',
     'LBL_PMSE_EXPCONTROL_CONSTANTS_TITLE' => 'Constants',
     'LBL_PMSE_EXPCONTROL_OPERATOR_MINOR_THAN' => 'is less than',
@@ -319,12 +303,8 @@ $mod_strings = array (
     'LBL_PMSE_EXPCONTROL_OPERATOR_MAJOR_EQUAL' => 'is greater than or equal to',
     'LBL_PMSE_EXPCONTROL_OPERATOR_MAJOR' => 'is greater than',
     'LBL_PMSE_EXPCONTROL_OPERATOR_MAJOR_DATE' => 'after',
-
-    'LBL_PMSE_EXPCONTROL_OPERATOR_MAJOR_EQUAL_DATE' => 'on or after',
-    'LBL_PMSE_EXPCONTROL_OPERATOR_MINOR_EQUAL_DATE' => 'on or before',
     'LBL_PMSE_EXPCONTROL_OPERATOR_NOT_EQUAL' => 'is not equal to',
     'LBL_PMSE_EXPCONTROL_OPERATOR_NOT_EQUAL_TEXT' => 'is not',
-    'LBL_PMSE_EXPCONTROL_OPERATOR_NOT_EQUAL_DATE' => 'not equal to',
 
     'LBL_PMSE_FORMPANEL_SUBMIT' => 'Submit',
 
@@ -346,7 +326,6 @@ $mod_strings = array (
     'LBL_PMSE_EMAILPICKER_USER_IS_ASIGNEE' => 'is assigned to the record',
 
     'LBL_PMSE_UPDATERFIELD_VARIABLES_LIST_TITLE' => '%MODULE% fields',
-    'LBL_PMSE_UPDATERFIELD_ADD_TEAM' => 'Add team...',
 
     //ERRORS ELEMENTS MESSAGE
     'LBL_PMSE_MESSAGE_ERROR_START_EVENT_OUTGOING' => 'Start Event must have an outgoing sequence flow',
@@ -366,9 +345,6 @@ $mod_strings = array (
     'LBL_PMSE_MESSAGE_ERROR_ANNOTATION' => 'Text Annotation must have an association line',
 
     'LBL_PMSE_IMPORT_PROCESS_DEFINITION_FAILURE' => 'Failed to create Process Definition from file',
-    'LBL_PMSE_CANNOT_CONFIGURE_ADD_RELATED_RECORD' => 'There are no related modules available for this target module',
+    'LBL_PMSE_CANNOT_CONFIGURE_ADD_RELATED_RECORD' => '"Add Related Record" actions are not available for this module because it does not have any related modules.',
     'LBL_PMSE_PROJECT_NAME_EMPTY' => 'Process Definition Name should not be saved as blank as it is required field.',
-
-    'LBL_PMSE_INVALID_EXPRESSION_SYNTAX' => 'Invalid expression syntax.',
-    'LBL_PMSE_MESSAGE_ERROR_CURRENCIES_MIX' => 'Can\'t use two different currencies in the same expression.',
 );

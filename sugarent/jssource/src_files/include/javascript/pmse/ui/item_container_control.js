@@ -294,16 +294,7 @@ ItemContainer.prototype._onRemoveItemHandler = function () {
 	};
 };
 
-
-/**
- * Adds a item to the list
- * @param item
- * @param index
- * @param noFocusNext
- * @param skipCallback if this is true, callback call will be skipped
- * @returns {ItemContainer}
- */
-ItemContainer.prototype.addItem = function(item, index, noFocusNext, skipCallback) {
+ItemContainer.prototype.addItem = function(item, index, noFocusNext) {
 	if (!(item instanceof SingleItem || typeof item === "object")) {
 		throw new Error("The paremeter must be an object literal or null.");
 	}
@@ -330,7 +321,7 @@ ItemContainer.prototype.addItem = function(item, index, noFocusNext, skipCallbac
 		}
 	}
 
-        if (typeof this.onAddItem === 'function' && !skipCallback) {
+	if (typeof this.onAddItem === 'function') {
 		if(typeof index === 'number' && index >= 0) {
 			item = this._items.get(index);
 		} else {

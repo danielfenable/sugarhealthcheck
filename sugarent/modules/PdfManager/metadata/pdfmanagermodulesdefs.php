@@ -104,5 +104,6 @@ $bannedPdfManagerFieldsAndLinks['Users'] = array (
 );
 
 // For $bannedPdfManagerModules, list of banned modules for PdfManager
+$bannedPdfManagerModules[] = 'KBDocuments';
 $bannedPdfManagerModules[] = 'Users';
 $bannedPdfManagerModules[] = 'Employees';

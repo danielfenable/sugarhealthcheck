@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +12,19 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: JotPadDashlet.en_us.lang.php 51719 2009-10-22 17:18:00Z mitani $
-
-$defaultText = "";
-$dashletStrings['JotPadDashlet'] = array('LBL_TITLE'            => 'Мини-блокнот',
-                                         'LBL_DESCRIPTION'      => 'Раздел для заметок',
-                                         'LBL_SAVING'           => 'Сохранение...',
-                                         'LBL_SAVED'            => 'Сохранено',
-                                         'LBL_CONFIGURE_TITLE'  => 'Название',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Высота (1 - 300)',
-                                         'LBL_DBLCLICK_HELP'    => 'Для редактирования текста кликните на нем дважды мышкой.',
-                                         'LBL_DEFAULT_TEXT'     => $defaultText,
+$dashletStrings = array (
+  'JotPadDashlet' => 
+  array (
+    'LBL_CONFIGURE_HEIGHT' => 'Высота (1 - 300)',
+    'LBL_CONFIGURE_TITLE' => 'Заголовок',
+    'LBL_DBLCLICK_HELP' => 'Для редактирования текста кликните на нем дважды мышкой.',
+    'LBL_DEFAULT_TEXT' => ' ',
+    'LBL_DESCRIPTION' => 'Раздел для заметок',
+    'LBL_SAVED' => 'Сохранено',
+    'LBL_SAVING' => 'Сохранение...',
+    'LBL_TITLE' => 'Мини-блокнот',
+  ),
 );
-?>
+

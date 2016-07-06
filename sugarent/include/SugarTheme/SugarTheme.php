@@ -950,14 +950,14 @@ EOHTML;
         // if this is the style.css file, prepend the base.css and calendar-win2k-cold-1.css
         // files before the theme styles
         if ( $cssFileName == 'style.css' && !isset($this->parentTheme) ) {
-            $baseCssPath = shouldResourcesBeMinified()
-                ? 'include/javascript/yui/build/base/base-min.css'
-                : 'include/javascript/yui/build/base/base.css';
-            $cssFileContents = file_get_contents($baseCssPath) . $cssFileContents;
+            if ( inDeveloperMode() )
+                $cssFileContents = file_get_contents('include/javascript/yui/build/base/base.css') . $cssFileContents;
+            else
+                $cssFileContents = file_get_contents('include/javascript/yui/build/base/base-min.css') . $cssFileContents;
         }
 
         // minify the css
-        if (shouldResourcesBeMinified() && !sugar_is_file($cssFilePath)) {
+        if ( !inDeveloperMode() && !sugar_is_file($cssFilePath) ) {
             $cssFileContents = cssmin::minify($cssFileContents);
         }
 
@@ -1025,7 +1025,7 @@ EOHTML;
         $jsFilePath = create_cache_directory($fullFileName);
 
         // minify the js
-        if (shouldResourcesBeMinified() && !sugar_is_file(str_replace('.js', '-min.js', $jsFilePath))) {
+        if ( !inDeveloperMode()&& !sugar_is_file(str_replace('.js','-min.js',$jsFilePath)) ) {
             $jsFileContents = SugarMin::minify($jsFileContents);
             $jsFilePath = str_replace('.js','-min.js',$jsFilePath);
             $fullFileName = str_replace('.js','-min.js',$fullFileName);

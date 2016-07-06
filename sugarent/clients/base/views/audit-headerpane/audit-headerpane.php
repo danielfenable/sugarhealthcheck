@@ -23,7 +23,7 @@ $viewdefs['base']['view']['audit-headerpane'] = array(
             'name' => 'close_button',
             'type' => 'button',
             'label' => 'LBL_CLOSE_BUTTON_TITLE',
-            'css_class' => 'btn btn-primary',
+            'css_class' => 'btn-invisible btn-link',
         ),
     ),
 );

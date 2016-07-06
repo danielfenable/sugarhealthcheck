@@ -12,7 +12,7 @@
     extendsFrom: 'EditmodalView',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Sets the `portal_flag` attribute to `true` on the model.
      */

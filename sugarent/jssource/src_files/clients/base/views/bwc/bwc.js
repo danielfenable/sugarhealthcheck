@@ -60,17 +60,13 @@
 
         app.events.on("api:refreshtoken:success", this._refreshSession, this);
 
-        this._super('initialize', [options]);
+        app.view.View.prototype.initialize.call(this, options);
         this.bwcModel = app.data.createBean('bwc');
-
-        // because loadView disposes the old layout when the bwc iFrame is no
-        // longer in the DOM, it causes a memory leak unless we unbind it
-        // before the new layout is loaded.
-        app.before('app:view:load', this.unbindDom, this);
+        app.routing.before('route', this.beforeRoute, null, this);
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Inspect changes on current HTML input elements with initial values.
      */
@@ -105,7 +101,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Override {@link View.View#_render} method to
      * extend ACL check for Administration module in BWC mode.
@@ -268,7 +264,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Opens the appropriate sidecar create layout in a drawer.
      *
@@ -280,7 +276,7 @@
             model = this.createLinkModel(parentModel, link),
             self = this;
         app.drawer.open({
-            layout: 'create',
+            layout: 'create-actions',
             context: {
                 create: true,
                 module: model.module,
@@ -556,7 +552,7 @@
                 return memo + _.where(_.flatten(events), {namespace: 'bwc.sugarcrm'}).length;
             }, 0);
 
-            return 'Clear ' + registered + ' event(s) in `bwc.sugarcrm`.';
+            return 'Clear ' + registered + ' event(s) in `bwc.sugarcrm`.'
         });
     },
 
@@ -578,15 +574,10 @@
      * The custom route `route: "bwc/*url"` is ignoring the reload of the view
      * based on the same logic used here.
      *
-     * @deprecated since 7.7, will be removed in 7.8.
-     *
      * @param {Object} route Route object being passed from
      *   {@link Core.Routing#beforeRoute}.
      */
     beforeRoute: function(route) {
-
-        app.log.warn('`app.bwc.beforeRoute()` is deprecated since 7.7. This method will be removed in 7.8.');
-
         var bwcUrl = route && route.args && route.args[0];
 
         if (bwcUrl && this._currentUrl.replace('#bwc/', '') === bwcUrl) {
@@ -598,18 +589,17 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _dispose: function() {
         app.events.off("api:refreshtoken:success", this._refreshSession, this);
 
-        this.unbindDom();
-        app.offBefore(null, null, this);
+        app.routing.offBefore('route', this.beforeRoute, this);
         if (this.bwcModel) {
             this.bwcModel.off();
             this.bwcModel = null;
         }
-        this._super('_dispose');
+        app.view.View.prototype._dispose.call(this);
     },
 
     /**

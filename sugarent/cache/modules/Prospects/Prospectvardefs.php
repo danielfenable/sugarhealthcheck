@@ -2,9 +2,54 @@
  $GLOBALS["dictionary"]["Prospect"]=array (
   'table' => 'prospects',
   'unified_search' => true,
-  'full_text_search' => true,
   'fields' => 
   array (
+    'my_favorite' => 
+    array (
+      'massupdate' => false,
+      'name' => 'my_favorite',
+      'vname' => 'LBL_FAVORITE',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Favorite for the user',
+      'studio' => 
+      array (
+        'list' => false,
+        'recordview' => false,
+      ),
+      'link' => 'favorite_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'favorite_link' => 
+    array (
+      'name' => 'favorite_link',
+      'type' => 'link',
+      'relationship' => 'prospects_favorite',
+      'source' => 'non-db',
+      'vname' => 'LBL_FAVORITE',
+    ),
+    'following' => 
+    array (
+      'massupdate' => false,
+      'name' => 'following',
+      'vname' => 'LBL_FOLLOWING',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Is user following this record',
+      'studio' => 'false',
+      'link' => 'following_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'following_link' => 
+    array (
+      'name' => 'following_link',
+      'type' => 'link',
+      'relationship' => 'prospects_following',
+      'source' => 'non-db',
+      'vname' => 'LBL_FOLLOWING',
+    ),
     'id' => 
     array (
       'name' => 'id',
@@ -19,8 +64,10 @@
     'name' => 
     array (
       'name' => 'name',
+      'rname' => 'name',
       'vname' => 'LBL_NAME',
       'type' => 'fullname',
+      'link' => true,
       'fields' => 
       array (
         0 => 'first_name',
@@ -55,18 +102,6 @@
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_entered' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'date_modified' => 
     array (
@@ -76,18 +111,6 @@
       'group' => 'modified_by_name',
       'comment' => 'Date record last modified',
       'enable_range_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_modified' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
       'studio' => 
       array (
         'portaleditview' => false,
@@ -113,20 +136,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'modified_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'modified_by_name' => 
     array (
@@ -165,20 +174,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'created_by' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_CREATED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'created_by_name' => 
     array (
@@ -203,18 +198,44 @@
       ),
       'exportable' => true,
     ),
+    'doc_owner' => 
+    array (
+      'name' => 'doc_owner',
+      'vname' => 'LBL_DOC_OWNER',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
+    'user_favorites' => 
+    array (
+      'name' => 'user_favorites',
+      'vname' => 'LBL_USER_FAVORITES',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
     'description' => 
     array (
       'name' => 'description',
       'vname' => 'LBL_DESCRIPTION',
       'type' => 'text',
       'comment' => 'Full text of the note',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.42999999999999999,
-      ),
       'rows' => 6,
       'cols' => 80,
       'duplicate_on_record_copy' => 'always',
@@ -262,690 +283,6 @@
       'bean_name' => 'Activity',
       'source' => 'non-db',
     ),
-    'salutation' => 
-    array (
-      'name' => 'salutation',
-      'vname' => 'LBL_SALUTATION',
-      'type' => 'enum',
-      'options' => 'salutation_dom',
-      'massupdate' => false,
-      'len' => '255',
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'Contact salutation (e.g., Mr, Ms)',
-    ),
-    'first_name' => 
-    array (
-      'name' => 'first_name',
-      'vname' => 'LBL_FIRST_NAME',
-      'type' => 'varchar',
-      'len' => '100',
-      'unified_search' => true,
-      'duplicate_on_record_copy' => 'always',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 1.3700000000000001,
-      ),
-      'comment' => 'First name of the contact',
-      'merge_filter' => 'selected',
-    ),
-    'last_name' => 
-    array (
-      'name' => 'last_name',
-      'vname' => 'LBL_LAST_NAME',
-      'type' => 'varchar',
-      'len' => '100',
-      'unified_search' => true,
-      'duplicate_on_record_copy' => 'always',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 1.3600000000000001,
-      ),
-      'comment' => 'Last name of the contact',
-      'merge_filter' => 'selected',
-      'required' => true,
-      'importable' => 'required',
-    ),
-    'full_name' => 
-    array (
-      'name' => 'full_name',
-      'vname' => 'LBL_NAME',
-      'type' => 'fullname',
-      'fields' => 
-      array (
-        0 => 'first_name',
-        1 => 'last_name',
-        2 => 'salutation',
-        3 => 'title',
-      ),
-      'sort_on' => 'last_name',
-      'source' => 'non-db',
-      'group' => 'last_name',
-      'db_concat_fields' => 
-      array (
-        0 => 'first_name',
-        1 => 'last_name',
-      ),
-      'studio' => 
-      array (
-        'listview' => false,
-      ),
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'title' => 
-    array (
-      'name' => 'title',
-      'vname' => 'LBL_TITLE',
-      'type' => 'varchar',
-      'len' => '100',
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'The title of the contact',
-    ),
-    'facebook' => 
-    array (
-      'name' => 'facebook',
-      'vname' => 'LBL_FACEBOOK',
-      'type' => 'varchar',
-      'len' => '100',
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'The facebook name of the user',
-    ),
-    'twitter' => 
-    array (
-      'name' => 'twitter',
-      'vname' => 'LBL_TWITTER',
-      'type' => 'varchar',
-      'len' => '100',
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'The twitter name of the user',
-    ),
-    'googleplus' => 
-    array (
-      'name' => 'googleplus',
-      'vname' => 'LBL_GOOGLEPLUS',
-      'type' => 'varchar',
-      'len' => '100',
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'The google plus id of the user',
-    ),
-    'department' => 
-    array (
-      'name' => 'department',
-      'vname' => 'LBL_DEPARTMENT',
-      'type' => 'varchar',
-      'len' => '255',
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'The department of the contact',
-      'merge_filter' => 'enabled',
-    ),
-    'do_not_call' => 
-    array (
-      'name' => 'do_not_call',
-      'vname' => 'LBL_DO_NOT_CALL',
-      'type' => 'bool',
-      'default' => '0',
-    ),
-    'phone_home' => 
-    array (
-      'name' => 'phone_home',
-      'vname' => 'LBL_HOME_PHONE',
-      'type' => 'phone',
-      'dbType' => 'varchar',
-      'len' => 100,
-      'duplicate_on_record_copy' => 'always',
-      'unified_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.89000000000000001,
-      ),
-      'comment' => 'Home phone number of the contact',
-      'merge_filter' => 'enabled',
-    ),
-    'phone_mobile' => 
-    array (
-      'name' => 'phone_mobile',
-      'vname' => 'LBL_MOBILE_PHONE',
-      'type' => 'phone',
-      'dbType' => 'varchar',
-      'len' => 100,
-      'unified_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.88,
-      ),
-      'comment' => 'Mobile phone number of the contact',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'phone_work' => 
-    array (
-      'name' => 'phone_work',
-      'vname' => 'LBL_OFFICE_PHONE',
-      'type' => 'phone',
-      'dbType' => 'varchar',
-      'len' => 100,
-      'audited' => true,
-      'unified_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.87,
-      ),
-      'comment' => 'Work phone number of the contact',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'phone_other' => 
-    array (
-      'name' => 'phone_other',
-      'vname' => 'LBL_OTHER_PHONE',
-      'type' => 'phone',
-      'dbType' => 'varchar',
-      'len' => 100,
-      'unified_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.85999999999999999,
-      ),
-      'comment' => 'Other phone number for the contact',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'phone_fax' => 
-    array (
-      'name' => 'phone_fax',
-      'vname' => 'LBL_FAX_PHONE',
-      'type' => 'phone',
-      'dbType' => 'varchar',
-      'len' => 100,
-      'unified_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.84999999999999998,
-      ),
-      'comment' => 'Contact fax number',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'primary_address_street' => 
-    array (
-      'name' => 'primary_address_street',
-      'vname' => 'LBL_PRIMARY_ADDRESS_STREET',
-      'type' => 'text',
-      'dbType' => 'varchar',
-      'len' => '150',
-      'comment' => 'The street address used for primary address',
-      'group' => 'primary_address',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.22,
-      ),
-    ),
-    'primary_address_street_2' => 
-    array (
-      'name' => 'primary_address_street_2',
-      'vname' => 'LBL_PRIMARY_ADDRESS_STREET_2',
-      'type' => 'varchar',
-      'len' => '150',
-      'source' => 'non-db',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'primary_address_street_3' => 
-    array (
-      'name' => 'primary_address_street_3',
-      'vname' => 'LBL_PRIMARY_ADDRESS_STREET_3',
-      'type' => 'varchar',
-      'len' => '150',
-      'source' => 'non-db',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'primary_address_city' => 
-    array (
-      'name' => 'primary_address_city',
-      'vname' => 'LBL_PRIMARY_ADDRESS_CITY',
-      'type' => 'varchar',
-      'len' => '100',
-      'group' => 'primary_address',
-      'comment' => 'City for primary address',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'primary_address_state' => 
-    array (
-      'name' => 'primary_address_state',
-      'vname' => 'LBL_PRIMARY_ADDRESS_STATE',
-      'type' => 'varchar',
-      'len' => '100',
-      'group' => 'primary_address',
-      'comment' => 'State for primary address',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'primary_address_postalcode' => 
-    array (
-      'name' => 'primary_address_postalcode',
-      'vname' => 'LBL_PRIMARY_ADDRESS_POSTALCODE',
-      'type' => 'varchar',
-      'len' => '20',
-      'group' => 'primary_address',
-      'comment' => 'Postal code for primary address',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'primary_address_country' => 
-    array (
-      'name' => 'primary_address_country',
-      'vname' => 'LBL_PRIMARY_ADDRESS_COUNTRY',
-      'type' => 'varchar',
-      'group' => 'primary_address',
-      'comment' => 'Country for primary address',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'alt_address_street' => 
-    array (
-      'name' => 'alt_address_street',
-      'vname' => 'LBL_ALT_ADDRESS_STREET',
-      'type' => 'text',
-      'dbType' => 'varchar',
-      'len' => '150',
-      'group' => 'alt_address',
-      'comment' => 'Street address for alternate address',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.20999999999999999,
-      ),
-    ),
-    'alt_address_street_2' => 
-    array (
-      'name' => 'alt_address_street_2',
-      'vname' => 'LBL_ALT_ADDRESS_STREET_2',
-      'type' => 'varchar',
-      'len' => '150',
-      'source' => 'non-db',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'alt_address_street_3' => 
-    array (
-      'name' => 'alt_address_street_3',
-      'vname' => 'LBL_ALT_ADDRESS_STREET_3',
-      'type' => 'varchar',
-      'len' => '150',
-      'source' => 'non-db',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'alt_address_city' => 
-    array (
-      'name' => 'alt_address_city',
-      'vname' => 'LBL_ALT_ADDRESS_CITY',
-      'type' => 'varchar',
-      'len' => '100',
-      'group' => 'alt_address',
-      'comment' => 'City for alternate address',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'alt_address_state' => 
-    array (
-      'name' => 'alt_address_state',
-      'vname' => 'LBL_ALT_ADDRESS_STATE',
-      'type' => 'varchar',
-      'len' => '100',
-      'group' => 'alt_address',
-      'comment' => 'State for alternate address',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'alt_address_postalcode' => 
-    array (
-      'name' => 'alt_address_postalcode',
-      'vname' => 'LBL_ALT_ADDRESS_POSTALCODE',
-      'type' => 'varchar',
-      'len' => '20',
-      'group' => 'alt_address',
-      'comment' => 'Postal code for alternate address',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'alt_address_country' => 
-    array (
-      'name' => 'alt_address_country',
-      'vname' => 'LBL_ALT_ADDRESS_COUNTRY',
-      'type' => 'varchar',
-      'group' => 'alt_address',
-      'comment' => 'Country for alternate address',
-      'merge_filter' => 'enabled',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'assistant' => 
-    array (
-      'name' => 'assistant',
-      'type' => 'varchar',
-      'len' => 75,
-      'vname' => 'LBL_ASSISTANT',
-    ),
-    'assistant_phone' => 
-    array (
-      'name' => 'assistant_phone',
-      'type' => 'varchar',
-      'len' => 100,
-      'vname' => 'LBL_ASSISTANT_PHONE',
-    ),
-    'picture' => 
-    array (
-      'name' => 'picture',
-      'vname' => 'LBL_PICTURE_FILE',
-      'type' => 'image',
-      'dbtype' => 'varchar',
-      'massupdate' => false,
-      'reportable' => false,
-      'comment' => 'Avatar',
-      'len' => '255',
-      'width' => '42',
-      'height' => '42',
-      'border' => '',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'tracker_key' => 
-    array (
-      'name' => 'tracker_key',
-      'vname' => 'LBL_TRACKER_KEY',
-      'type' => 'int',
-      'len' => '11',
-      'required' => true,
-      'auto_increment' => true,
-      'readonly' => true,
-      'importable' => 'false',
-      'studio' => 
-      array (
-        'editview' => false,
-      ),
-    ),
-    'birthdate' => 
-    array (
-      'name' => 'birthdate',
-      'vname' => 'LBL_BIRTHDATE',
-      'massupdate' => false,
-      'type' => 'date',
-    ),
-    'lead_id' => 
-    array (
-      'name' => 'lead_id',
-      'type' => 'id',
-      'reportable' => false,
-      'vname' => 'LBL_LEAD_ID',
-    ),
-    'account_name' => 
-    array (
-      'name' => 'account_name',
-      'vname' => 'LBL_ACCOUNT_NAME',
-      'type' => 'varchar',
-      'len' => '150',
-    ),
-    'campaign_id' => 
-    array (
-      'name' => 'campaign_id',
-      'comment' => 'Campaign that generated lead',
-      'vname' => 'LBL_CAMPAIGN_ID',
-      'rname' => 'id',
-      'id_name' => 'campaign_id',
-      'type' => 'id',
-      'table' => 'campaigns',
-      'isnull' => 'true',
-      'module' => 'Campaigns',
-      'reportable' => false,
-      'massupdate' => false,
-      'duplicate_merge' => 'disabled',
-    ),
-    'email_addresses' => 
-    array (
-      'name' => 'email_addresses',
-      'type' => 'link',
-      'relationship' => 'prospects_email_addresses',
-      'source' => 'non-db',
-      'vname' => 'LBL_EMAIL_ADDRESSES',
-      'reportable' => false,
-      'unified_search' => true,
-      'rel_fields' => 
-      array (
-        'primary_address' => 
-        array (
-          'type' => 'bool',
-        ),
-      ),
-    ),
-    'email_addresses_primary' => 
-    array (
-      'name' => 'email_addresses_primary',
-      'type' => 'link',
-      'relationship' => 'prospects_email_addresses_primary',
-      'source' => 'non-db',
-      'vname' => 'LBL_EMAIL_ADDRESS_PRIMARY',
-      'duplicate_merge' => 'disabled',
-      'primary_only' => true,
-    ),
-    'campaigns' => 
-    array (
-      'name' => 'campaigns',
-      'type' => 'link',
-      'relationship' => 'prospect_campaign_log',
-      'module' => 'CampaignLog',
-      'bean_name' => 'CampaignLog',
-      'source' => 'non-db',
-      'vname' => 'LBL_CAMPAIGNLOG',
-    ),
-    'prospect_lists' => 
-    array (
-      'name' => 'prospect_lists',
-      'type' => 'link',
-      'relationship' => 'prospect_list_prospects',
-      'module' => 'ProspectLists',
-      'source' => 'non-db',
-      'vname' => 'LBL_PROSPECT_LIST',
-    ),
-    'calls' => 
-    array (
-      'name' => 'calls',
-      'type' => 'link',
-      'relationship' => 'prospect_calls',
-      'source' => 'non-db',
-      'vname' => 'LBL_CALLS',
-      'module' => 'Calls',
-    ),
-    'meetings' => 
-    array (
-      'name' => 'meetings',
-      'type' => 'link',
-      'relationship' => 'prospect_meetings',
-      'source' => 'non-db',
-      'vname' => 'LBL_MEETINGS',
-      'module' => 'Meetings',
-    ),
-    'notes' => 
-    array (
-      'name' => 'notes',
-      'type' => 'link',
-      'relationship' => 'prospect_notes',
-      'source' => 'non-db',
-      'vname' => 'LBL_NOTES',
-    ),
-    'dnb_principal_id' => 
-    array (
-      'name' => 'dnb_principal_id',
-      'vname' => 'LBL_DNB_PRINCIPAL_ID',
-      'type' => 'varchar',
-      'len' => 30,
-      'comment' => 'Unique Id For D&B Contact',
-    ),
-    'tasks' => 
-    array (
-      'name' => 'tasks',
-      'type' => 'link',
-      'relationship' => 'prospect_tasks',
-      'source' => 'non-db',
-      'vname' => 'LBL_TASKS',
-    ),
-    'emails' => 
-    array (
-      'name' => 'emails',
-      'type' => 'link',
-      'relationship' => 'emails_prospects_rel',
-      'source' => 'non-db',
-      'vname' => 'LBL_EMAILS',
-    ),
-    'archived_emails' => 
-    array (
-      'name' => 'archived_emails',
-      'type' => 'link',
-      'link_file' => 'modules/Emails/ArchivedEmailsLink.php',
-      'link_class' => 'ArchivedEmailsLink',
-      'source' => 'non-db',
-      'vname' => 'LBL_EMAILS',
-      'module' => 'Emails',
-      'link_type' => 'many',
-      'relationship' => '',
-      'hideacl' => true,
-      'readonly' => true,
-    ),
-    'lead' => 
-    array (
-      'name' => 'lead',
-      'type' => 'link',
-      'relationship' => 'lead_prospect',
-      'module' => 'Leads',
-      'source' => 'non-db',
-      'vname' => 'LBL_LEAD',
-    ),
-    'following' => 
-    array (
-      'massupdate' => false,
-      'name' => 'following',
-      'vname' => 'LBL_FOLLOWING',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Is user following this record',
-      'studio' => 'false',
-      'link' => 'following_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'following_link' => 
-    array (
-      'name' => 'following_link',
-      'type' => 'link',
-      'relationship' => 'prospects_following',
-      'source' => 'non-db',
-      'vname' => 'LBL_FOLLOWING',
-      'reportable' => false,
-    ),
-    'my_favorite' => 
-    array (
-      'massupdate' => false,
-      'name' => 'my_favorite',
-      'vname' => 'LBL_FAVORITE',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Favorite for the user',
-      'studio' => 
-      array (
-        'list' => false,
-        'recordview' => false,
-        'basic_search' => false,
-        'advanced_search' => false,
-      ),
-      'link' => 'favorite_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'favorite_link' => 
-    array (
-      'name' => 'favorite_link',
-      'type' => 'link',
-      'relationship' => 'prospects_favorite',
-      'source' => 'non-db',
-      'vname' => 'LBL_FAVORITE',
-      'reportable' => false,
-      'workflow' => false,
-      'full_text_search' => 
-      array (
-        'type' => 'favorites',
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'favorite_link' => 
-          array (
-            'type' => 'MyItems',
-            'options' => 
-            array (
-              'field' => 'user_favorites',
-            ),
-          ),
-        ),
-      ),
-    ),
-    'tag' => 
-    array (
-      'name' => 'tag',
-      'vname' => 'LBL_TAGS',
-      'type' => 'tag',
-      'link' => 'tag_link',
-      'source' => 'non-db',
-      'module' => 'Tags',
-      'relate_collection' => true,
-      'studio' => 
-      array (
-        'portal' => false,
-        'base' => 
-        array (
-          'popuplist' => false,
-        ),
-        'mobile' => 
-        array (
-          'wirelesseditview' => true,
-          'wirelessdetailview' => true,
-        ),
-      ),
-      'massupdate' => true,
-      'exportable' => true,
-      'sortable' => false,
-      'rname' => 'name',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-      ),
-    ),
-    'tag_link' => 
-    array (
-      'name' => 'tag_link',
-      'type' => 'link',
-      'vname' => 'LBL_TAGS_LINK',
-      'relationship' => 'prospects_tags',
-      'source' => 'non-db',
-      'exportable' => false,
-      'duplicate_merge' => 'disabled',
-    ),
     'assigned_user_id' => 
     array (
       'name' => 'assigned_user_id',
@@ -960,19 +297,6 @@
       'duplicate_merge' => 'disabled',
       'mandatory_fetch' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'assigned_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_ASSIGNED_TO_ME',
-          ),
-        ),
-      ),
     ),
     'assigned_user_name' => 
     array (
@@ -1031,6 +355,10 @@
       'studio' => 'false',
       'dbType' => 'id',
       'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
     ),
     'team_count' => 
     array (
@@ -1150,15 +478,14 @@
       'duplicate_on_record_copy' => 'always',
       'len' => 100,
       'importable' => false,
+      'function' => 
+      array (
+        'name' => 'getEmailAddressWidget',
+        'returns' => 'html',
+      ),
       'link' => 'email_addresses_primary',
       'rname' => 'email_address',
       'module' => 'EmailAddresses',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 1.3500000000000001,
-      ),
     ),
     'email1' => 
     array (
@@ -1177,6 +504,12 @@
       'merge_filter' => 'enabled',
       'module' => 'EmailAddresses',
       'studio' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 3,
+        'type' => 'email',
+      ),
       'duplicate_on_record_copy' => 'always',
     ),
     'email2' => 
@@ -1221,6 +554,31 @@
       'studio' => 'false',
       'duplicate_on_record_copy' => 'always',
     ),
+    'email_addresses_primary' => 
+    array (
+      'name' => 'email_addresses_primary',
+      'type' => 'link',
+      'relationship' => 'prospects_email_addresses_primary',
+      'source' => 'non-db',
+      'vname' => 'LBL_EMAIL_ADDRESS_PRIMARY',
+      'duplicate_merge' => 'disabled',
+    ),
+    'email_addresses' => 
+    array (
+      'name' => 'email_addresses',
+      'type' => 'link',
+      'relationship' => 'prospects_email_addresses',
+      'source' => 'non-db',
+      'vname' => 'LBL_EMAIL_ADDRESSES',
+      'reportable' => false,
+      'rel_fields' => 
+      array (
+        'primary_address' => 
+        array (
+          'type' => 'bool',
+        ),
+      ),
+    ),
     'email_addresses_non_primary' => 
     array (
       'name' => 'email_addresses_non_primary',
@@ -1230,6 +588,556 @@
       'studio' => false,
       'reportable' => false,
       'massupdate' => false,
+    ),
+    'salutation' => 
+    array (
+      'name' => 'salutation',
+      'vname' => 'LBL_SALUTATION',
+      'type' => 'enum',
+      'options' => 'salutation_dom',
+      'massupdate' => false,
+      'len' => '255',
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'Contact salutation (e.g., Mr, Ms)',
+    ),
+    'first_name' => 
+    array (
+      'name' => 'first_name',
+      'vname' => 'LBL_FIRST_NAME',
+      'type' => 'varchar',
+      'len' => '100',
+      'unified_search' => true,
+      'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 3,
+      ),
+      'comment' => 'First name of the contact',
+      'merge_filter' => 'selected',
+    ),
+    'last_name' => 
+    array (
+      'name' => 'last_name',
+      'vname' => 'LBL_LAST_NAME',
+      'type' => 'varchar',
+      'len' => '100',
+      'unified_search' => true,
+      'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 3,
+      ),
+      'comment' => 'Last name of the contact',
+      'merge_filter' => 'selected',
+      'required' => true,
+      'importable' => 'required',
+    ),
+    'full_name' => 
+    array (
+      'name' => 'full_name',
+      'rname' => 'full_name',
+      'vname' => 'LBL_NAME',
+      'type' => 'fullname',
+      'link' => true,
+      'fields' => 
+      array (
+        0 => 'first_name',
+        1 => 'last_name',
+        2 => 'salutation',
+        3 => 'title',
+      ),
+      'sort_on' => 'last_name',
+      'source' => 'non-db',
+      'group' => 'last_name',
+      'db_concat_fields' => 
+      array (
+        0 => 'first_name',
+        1 => 'last_name',
+      ),
+      'studio' => 
+      array (
+        'listview' => false,
+      ),
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'title' => 
+    array (
+      'name' => 'title',
+      'vname' => 'LBL_TITLE',
+      'type' => 'varchar',
+      'len' => '100',
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'The title of the contact',
+    ),
+    'facebook' => 
+    array (
+      'name' => 'facebook',
+      'vname' => 'LBL_FACEBOOK',
+      'type' => 'varchar',
+      'len' => '100',
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'The facebook name of the user',
+    ),
+    'twitter' => 
+    array (
+      'name' => 'twitter',
+      'vname' => 'LBL_TWITTER',
+      'type' => 'varchar',
+      'len' => '100',
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'The twitter name of the user',
+    ),
+    'googleplus' => 
+    array (
+      'name' => 'googleplus',
+      'vname' => 'LBL_GOOGLEPLUS',
+      'type' => 'varchar',
+      'len' => '100',
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'The google plus id of the user',
+    ),
+    'department' => 
+    array (
+      'name' => 'department',
+      'vname' => 'LBL_DEPARTMENT',
+      'type' => 'varchar',
+      'len' => '255',
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'The department of the contact',
+      'merge_filter' => 'enabled',
+    ),
+    'do_not_call' => 
+    array (
+      'name' => 'do_not_call',
+      'vname' => 'LBL_DO_NOT_CALL',
+      'type' => 'bool',
+      'default' => '0',
+    ),
+    'phone_home' => 
+    array (
+      'name' => 'phone_home',
+      'vname' => 'LBL_HOME_PHONE',
+      'type' => 'phone',
+      'dbType' => 'varchar',
+      'len' => 100,
+      'duplicate_on_record_copy' => 'always',
+      'unified_search' => true,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 1,
+      ),
+      'comment' => 'Home phone number of the contact',
+      'merge_filter' => 'enabled',
+    ),
+    'phone_mobile' => 
+    array (
+      'name' => 'phone_mobile',
+      'vname' => 'LBL_MOBILE_PHONE',
+      'type' => 'phone',
+      'dbType' => 'varchar',
+      'len' => 100,
+      'unified_search' => true,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 1,
+      ),
+      'comment' => 'Mobile phone number of the contact',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'phone_work' => 
+    array (
+      'name' => 'phone_work',
+      'vname' => 'LBL_OFFICE_PHONE',
+      'type' => 'phone',
+      'dbType' => 'varchar',
+      'len' => 100,
+      'audited' => true,
+      'unified_search' => true,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 1,
+      ),
+      'comment' => 'Work phone number of the contact',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'phone_other' => 
+    array (
+      'name' => 'phone_other',
+      'vname' => 'LBL_OTHER_PHONE',
+      'type' => 'phone',
+      'dbType' => 'varchar',
+      'len' => 100,
+      'unified_search' => true,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 1,
+      ),
+      'comment' => 'Other phone number for the contact',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'phone_fax' => 
+    array (
+      'name' => 'phone_fax',
+      'vname' => 'LBL_FAX_PHONE',
+      'type' => 'phone',
+      'dbType' => 'varchar',
+      'len' => 100,
+      'unified_search' => true,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 1,
+      ),
+      'comment' => 'Contact fax number',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'primary_address_street' => 
+    array (
+      'name' => 'primary_address_street',
+      'vname' => 'LBL_PRIMARY_ADDRESS_STREET',
+      'type' => 'text',
+      'dbType' => 'varchar',
+      'len' => '150',
+      'comment' => 'The street address used for primary address',
+      'group' => 'primary_address',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'primary_address_street_2' => 
+    array (
+      'name' => 'primary_address_street_2',
+      'vname' => 'LBL_PRIMARY_ADDRESS_STREET_2',
+      'type' => 'varchar',
+      'len' => '150',
+      'source' => 'non-db',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'primary_address_street_3' => 
+    array (
+      'name' => 'primary_address_street_3',
+      'vname' => 'LBL_PRIMARY_ADDRESS_STREET_3',
+      'type' => 'varchar',
+      'len' => '150',
+      'source' => 'non-db',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'primary_address_city' => 
+    array (
+      'name' => 'primary_address_city',
+      'vname' => 'LBL_PRIMARY_ADDRESS_CITY',
+      'type' => 'varchar',
+      'len' => '100',
+      'group' => 'primary_address',
+      'comment' => 'City for primary address',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'primary_address_state' => 
+    array (
+      'name' => 'primary_address_state',
+      'vname' => 'LBL_PRIMARY_ADDRESS_STATE',
+      'type' => 'varchar',
+      'len' => '100',
+      'group' => 'primary_address',
+      'comment' => 'State for primary address',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'primary_address_postalcode' => 
+    array (
+      'name' => 'primary_address_postalcode',
+      'vname' => 'LBL_PRIMARY_ADDRESS_POSTALCODE',
+      'type' => 'varchar',
+      'len' => '20',
+      'group' => 'primary_address',
+      'comment' => 'Postal code for primary address',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'primary_address_country' => 
+    array (
+      'name' => 'primary_address_country',
+      'vname' => 'LBL_PRIMARY_ADDRESS_COUNTRY',
+      'type' => 'varchar',
+      'group' => 'primary_address',
+      'comment' => 'Country for primary address',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'alt_address_street' => 
+    array (
+      'name' => 'alt_address_street',
+      'vname' => 'LBL_ALT_ADDRESS_STREET',
+      'type' => 'text',
+      'dbType' => 'varchar',
+      'len' => '150',
+      'group' => 'alt_address',
+      'comment' => 'Street address for alternate address',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'alt_address_street_2' => 
+    array (
+      'name' => 'alt_address_street_2',
+      'vname' => 'LBL_ALT_ADDRESS_STREET_2',
+      'type' => 'varchar',
+      'len' => '150',
+      'source' => 'non-db',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'alt_address_street_3' => 
+    array (
+      'name' => 'alt_address_street_3',
+      'vname' => 'LBL_ALT_ADDRESS_STREET_3',
+      'type' => 'varchar',
+      'len' => '150',
+      'source' => 'non-db',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'alt_address_city' => 
+    array (
+      'name' => 'alt_address_city',
+      'vname' => 'LBL_ALT_ADDRESS_CITY',
+      'type' => 'varchar',
+      'len' => '100',
+      'group' => 'alt_address',
+      'comment' => 'City for alternate address',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'alt_address_state' => 
+    array (
+      'name' => 'alt_address_state',
+      'vname' => 'LBL_ALT_ADDRESS_STATE',
+      'type' => 'varchar',
+      'len' => '100',
+      'group' => 'alt_address',
+      'comment' => 'State for alternate address',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'alt_address_postalcode' => 
+    array (
+      'name' => 'alt_address_postalcode',
+      'vname' => 'LBL_ALT_ADDRESS_POSTALCODE',
+      'type' => 'varchar',
+      'len' => '20',
+      'group' => 'alt_address',
+      'comment' => 'Postal code for alternate address',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'alt_address_country' => 
+    array (
+      'name' => 'alt_address_country',
+      'vname' => 'LBL_ALT_ADDRESS_COUNTRY',
+      'type' => 'varchar',
+      'group' => 'alt_address',
+      'comment' => 'Country for alternate address',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'assistant' => 
+    array (
+      'name' => 'assistant',
+      'vname' => 'LBL_ASSISTANT',
+      'type' => 'varchar',
+      'len' => '75',
+      'unified_search' => true,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 2,
+      ),
+      'comment' => 'Name of the assistant of the contact',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'assistant_phone' => 
+    array (
+      'name' => 'assistant_phone',
+      'vname' => 'LBL_ASSISTANT_PHONE',
+      'type' => 'phone',
+      'dbType' => 'varchar',
+      'len' => 100,
+      'group' => 'assistant',
+      'unified_search' => true,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 1,
+      ),
+      'comment' => 'Phone number of the assistant of the contact',
+      'merge_filter' => 'enabled',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'picture' => 
+    array (
+      'name' => 'picture',
+      'vname' => 'LBL_PICTURE_FILE',
+      'type' => 'image',
+      'dbtype' => 'varchar',
+      'massupdate' => false,
+      'reportable' => false,
+      'comment' => 'Avatar',
+      'len' => '255',
+      'width' => '42',
+      'height' => '42',
+      'border' => '',
+      'duplicate_on_record_copy' => 'always',
+    ),
+    'tracker_key' => 
+    array (
+      'name' => 'tracker_key',
+      'vname' => 'LBL_TRACKER_KEY',
+      'type' => 'int',
+      'len' => '11',
+      'required' => true,
+      'auto_increment' => true,
+      'readonly' => true,
+      'importable' => 'false',
+      'studio' => 
+      array (
+        'editview' => false,
+      ),
+    ),
+    'birthdate' => 
+    array (
+      'name' => 'birthdate',
+      'vname' => 'LBL_BIRTHDATE',
+      'massupdate' => false,
+      'type' => 'date',
+    ),
+    'lead_id' => 
+    array (
+      'name' => 'lead_id',
+      'type' => 'id',
+      'reportable' => false,
+      'vname' => 'LBL_LEAD_ID',
+    ),
+    'account_name' => 
+    array (
+      'name' => 'account_name',
+      'vname' => 'LBL_ACCOUNT_NAME',
+      'type' => 'varchar',
+      'len' => '150',
+    ),
+    'campaign_id' => 
+    array (
+      'name' => 'campaign_id',
+      'comment' => 'Campaign that generated lead',
+      'vname' => 'LBL_CAMPAIGN_ID',
+      'rname' => 'id',
+      'id_name' => 'campaign_id',
+      'type' => 'id',
+      'table' => 'campaigns',
+      'isnull' => 'true',
+      'module' => 'Campaigns',
+      'reportable' => false,
+      'massupdate' => false,
+      'duplicate_merge' => 'disabled',
+    ),
+    'campaigns' => 
+    array (
+      'name' => 'campaigns',
+      'type' => 'link',
+      'relationship' => 'prospect_campaign_log',
+      'module' => 'CampaignLog',
+      'bean_name' => 'CampaignLog',
+      'source' => 'non-db',
+      'vname' => 'LBL_CAMPAIGNLOG',
+    ),
+    'prospect_lists' => 
+    array (
+      'name' => 'prospect_lists',
+      'type' => 'link',
+      'relationship' => 'prospect_list_prospects',
+      'module' => 'ProspectLists',
+      'source' => 'non-db',
+      'vname' => 'LBL_PROSPECT_LIST',
+    ),
+    'calls' => 
+    array (
+      'name' => 'calls',
+      'type' => 'link',
+      'relationship' => 'prospect_calls',
+      'source' => 'non-db',
+      'vname' => 'LBL_CALLS',
+      'module' => 'Calls',
+    ),
+    'meetings' => 
+    array (
+      'name' => 'meetings',
+      'type' => 'link',
+      'relationship' => 'prospect_meetings',
+      'source' => 'non-db',
+      'vname' => 'LBL_MEETINGS',
+      'module' => 'Meetings',
+    ),
+    'notes' => 
+    array (
+      'name' => 'notes',
+      'type' => 'link',
+      'relationship' => 'prospect_notes',
+      'source' => 'non-db',
+      'vname' => 'LBL_NOTES',
+    ),
+    'dnb_principal_id' => 
+    array (
+      'name' => 'dnb_principal_id',
+      'vname' => 'LBL_DNB_PRINCIPAL_ID',
+      'type' => 'varchar',
+      'len' => 30,
+      'comment' => 'Unique Id For D&B Contact',
+    ),
+    'tasks' => 
+    array (
+      'name' => 'tasks',
+      'type' => 'link',
+      'relationship' => 'prospect_tasks',
+      'source' => 'non-db',
+      'vname' => 'LBL_TASKS',
+    ),
+    'emails' => 
+    array (
+      'name' => 'emails',
+      'type' => 'link',
+      'relationship' => 'emails_prospects_rel',
+      'source' => 'non-db',
+      'vname' => 'LBL_EMAILS',
+    ),
+    'archived_emails' => 
+    array (
+      'name' => 'archived_emails',
+      'type' => 'link',
+      'link_file' => 'modules/Emails/ArchivedEmailsLink.php',
+      'link_class' => 'ArchivedEmailsLink',
+      'source' => 'non-db',
+      'vname' => 'LBL_EMAILS',
+      'module' => 'Emails',
+      'link_type' => 'many',
+      'relationship' => '',
+      'hideacl' => true,
+      'readonly' => true,
+    ),
+    'lead' => 
+    array (
+      'name' => 'lead',
+      'type' => 'link',
+      'relationship' => 'lead_prospect',
+      'module' => 'Leads',
+      'source' => 'non-db',
+      'vname' => 'LBL_LEAD',
     ),
   ),
   'indices' => 
@@ -1271,14 +1179,13 @@
         0 => 'date_entered',
       ),
     ),
-    'name_del' => 
+    'team_set_prospects' => 
     array (
-      'name' => 'idx_prospects_name_del',
+      'name' => 'idx_prospects_tmst_id',
       'type' => 'index',
       'fields' => 
       array (
-        0 => 'name',
-        1 => 'deleted',
+        0 => 'team_set_id',
       ),
     ),
     0 => 
@@ -1329,28 +1236,41 @@
         0 => 'title',
       ),
     ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'idx_prospects_assigned_del',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'deleted',
-        1 => 'assigned_user_id',
-      ),
-    ),
-    'team_set_prospects' => 
-    array (
-      'name' => 'idx_prospects_tmst_id',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'team_set_id',
-      ),
-    ),
   ),
   'relationships' => 
   array (
+    'prospects_favorite' => 
+    array (
+      'lhs_module' => 'Prospects',
+      'lhs_table' => 'prospects',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'sugarfavorites',
+      'join_key_lhs' => 'record_id',
+      'join_key_rhs' => 'modified_user_id',
+      'relationship_role_column' => 'module',
+      'relationship_role_column_value' => 'Prospects',
+      'user_field' => 'created_by',
+    ),
+    'prospects_following' => 
+    array (
+      'lhs_module' => 'Prospects',
+      'lhs_table' => 'prospects',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'subscriptions',
+      'join_key_lhs' => 'parent_id',
+      'join_key_rhs' => 'created_by',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'Prospects',
+      'user_field' => 'created_by',
+    ),
     'prospects_modified_user' => 
     array (
       'lhs_module' => 'Users',
@@ -1386,124 +1306,6 @@
       'join_key_rhs' => 'activity_id',
       'relationship_role_column' => 'parent_type',
       'relationship_role_column_value' => 'Prospects',
-    ),
-    'prospect_tasks' => 
-    array (
-      'lhs_module' => 'Prospects',
-      'lhs_table' => 'prospects',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Tasks',
-      'rhs_table' => 'tasks',
-      'rhs_key' => 'parent_id',
-      'relationship_type' => 'one-to-many',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'Prospects',
-    ),
-    'prospect_notes' => 
-    array (
-      'lhs_module' => 'Prospects',
-      'lhs_table' => 'prospects',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Notes',
-      'rhs_table' => 'notes',
-      'rhs_key' => 'parent_id',
-      'relationship_type' => 'one-to-many',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'Prospects',
-    ),
-    'prospect_meetings' => 
-    array (
-      'lhs_module' => 'Prospects',
-      'lhs_table' => 'prospects',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Meetings',
-      'rhs_table' => 'meetings',
-      'rhs_key' => 'parent_id',
-      'relationship_type' => 'one-to-many',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'Prospects',
-    ),
-    'prospect_calls' => 
-    array (
-      'lhs_module' => 'Prospects',
-      'lhs_table' => 'prospects',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Calls',
-      'rhs_table' => 'calls',
-      'rhs_key' => 'parent_id',
-      'relationship_type' => 'one-to-many',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'Prospects',
-    ),
-    'prospect_emails' => 
-    array (
-      'lhs_module' => 'Prospects',
-      'lhs_table' => 'prospects',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Emails',
-      'rhs_table' => 'emails',
-      'rhs_key' => 'parent_id',
-      'relationship_type' => 'one-to-many',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'Prospects',
-    ),
-    'prospect_campaign_log' => 
-    array (
-      'lhs_module' => 'Prospects',
-      'lhs_table' => 'prospects',
-      'lhs_key' => 'id',
-      'rhs_module' => 'CampaignLog',
-      'rhs_table' => 'campaign_log',
-      'rhs_key' => 'target_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'prospects_following' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Prospects',
-      'rhs_table' => 'prospects',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'subscriptions',
-      'join_key_lhs' => 'created_by',
-      'join_key_rhs' => 'parent_id',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'Prospects',
-      'user_field' => 'created_by',
-    ),
-    'prospects_favorite' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Prospects',
-      'rhs_table' => 'prospects',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'sugarfavorites',
-      'join_key_lhs' => 'modified_user_id',
-      'join_key_rhs' => 'record_id',
-      'relationship_role_column' => 'module',
-      'relationship_role_column_value' => 'Prospects',
-      'user_field' => 'created_by',
-    ),
-    'prospects_tags' => 
-    array (
-      'lhs_module' => 'Prospects',
-      'lhs_table' => 'prospects',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Tags',
-      'rhs_table' => 'tags',
-      'rhs_key' => 'id',
-      'relationship_type' => 'many-to-many',
-      'join_table' => 'tag_bean_rel',
-      'join_key_lhs' => 'bean_id',
-      'join_key_rhs' => 'tag_id',
-      'relationship_role_column' => 'bean_module',
-      'relationship_role_column_value' => 'Prospects',
-      'dynamic_subpanel' => true,
     ),
     'prospects_assigned_user' => 
     array (
@@ -1575,9 +1377,81 @@
       'join_table' => 'email_addr_bean_rel',
       'join_key_lhs' => 'bean_id',
       'join_key_rhs' => 'email_address_id',
-      'relationship_role_column' => 'bean_module',
+      'relationship_role_columns' => 
+      array (
+        'primary_address' => '1',
+        'bean_module' => 'Prospects',
+      ),
+    ),
+    'prospect_tasks' => 
+    array (
+      'lhs_module' => 'Prospects',
+      'lhs_table' => 'prospects',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Tasks',
+      'rhs_table' => 'tasks',
+      'rhs_key' => 'parent_id',
+      'relationship_type' => 'one-to-many',
+      'relationship_role_column' => 'parent_type',
       'relationship_role_column_value' => 'Prospects',
-      'primary_flag_column' => 'primary_address',
+    ),
+    'prospect_notes' => 
+    array (
+      'lhs_module' => 'Prospects',
+      'lhs_table' => 'prospects',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Notes',
+      'rhs_table' => 'notes',
+      'rhs_key' => 'parent_id',
+      'relationship_type' => 'one-to-many',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'Prospects',
+    ),
+    'prospect_meetings' => 
+    array (
+      'lhs_module' => 'Prospects',
+      'lhs_table' => 'prospects',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Meetings',
+      'rhs_table' => 'meetings',
+      'rhs_key' => 'parent_id',
+      'relationship_type' => 'one-to-many',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'Prospects',
+    ),
+    'prospect_calls' => 
+    array (
+      'lhs_module' => 'Prospects',
+      'lhs_table' => 'prospects',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Calls',
+      'rhs_table' => 'calls',
+      'rhs_key' => 'parent_id',
+      'relationship_type' => 'one-to-many',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'Prospects',
+    ),
+    'prospect_emails' => 
+    array (
+      'lhs_module' => 'Prospects',
+      'lhs_table' => 'prospects',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Emails',
+      'rhs_table' => 'emails',
+      'rhs_key' => 'parent_id',
+      'relationship_type' => 'one-to-many',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'Prospects',
+    ),
+    'prospect_campaign_log' => 
+    array (
+      'lhs_module' => 'Prospects',
+      'lhs_table' => 'prospects',
+      'lhs_key' => 'id',
+      'rhs_module' => 'CampaignLog',
+      'rhs_table' => 'campaign_log',
+      'rhs_key' => 'target_id',
+      'relationship_type' => 'one-to-many',
     ),
   ),
   'duplicate_check' => 
@@ -1679,17 +1553,16 @@
   'templates' => 
   array (
     'person' => 'person',
+    'email_address' => 'email_address',
+    'team_security' => 'team_security',
+    'assignable' => 'assignable',
     'basic' => 'basic',
     'following' => 'following',
     'favorite' => 'favorite',
-    'taggable' => 'taggable',
-    'assignable' => 'assignable',
-    'team_security' => 'team_security',
-    'email_address' => 'email_address',
   ),
   'favorites' => true,
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

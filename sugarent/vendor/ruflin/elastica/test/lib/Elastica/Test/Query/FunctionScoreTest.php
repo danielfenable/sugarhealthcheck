@@ -4,6 +4,7 @@
  * Date: 9/16/13
  * Time: 5:05 PM
  */
+
 namespace Elastica\Test\Query;
 
 use Elastica\Document;
@@ -29,26 +30,32 @@ class FunctionScoreTest extends BaseTest
     protected function setUp()
     {
         parent::setUp();
-        $this->index = $this->_createIndex();
+        $this->index = $this->_createIndex('test_functionscore');
         $this->type = $this->index->getType('test');
         $this->type->setMapping(array(
             'name' => array('type' => 'string', 'index' => 'not_analyzed'),
             'location' => array('type' => 'geo_point'),
-            'price' => array('type' => 'float'),
+            'price' => array('type' => 'float')
         ));
 
         $this->type->addDocument(new Document(1, array(
             'name' => "Mr. Frostie's",
             'location' => array('lat' => 32.799605, 'lon' => -117.243027),
-            'price' => 4.5,
+            'price' => 4.5
         )));
         $this->type->addDocument(new Document(2, array(
             'name' => "Miller's Field",
             'location' => array('lat' => 32.795964, 'lon' => -117.255028),
-            'price' => 9.5,
+            'price' => 9.5
         )));
 
         $this->index->refresh();
+    }
+
+    protected function tearDown()
+    {
+        $this->index->delete();
+        parent::tearDown();
     }
 
     public function testToArray()
@@ -69,66 +76,20 @@ class FunctionScoreTest extends BaseTest
                         'gauss' => array(
                             'location' => array(
                                 'origin' => $this->locationOrigin,
-                                'scale' => $locationScale,
-                            ),
-                        ),
+                                'scale' => $locationScale
+                            )
+                        )
                     ),
                     array(
                         'gauss' => array(
                             'price' => array(
                                 'origin' => $priceOrigin,
-                                'scale' => $priceScale,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
-        $this->assertEquals($expected, $query->toArray());
-    }
-
-    public function testDecayWeight()
-    {
-        $priceOrigin = 0;
-        $locationScale = '2mi';
-        $priceScale = 9.25;
-        $query = new FunctionScore();
-        $childQuery = new \Elastica\Query\MatchAll();
-        $query->setQuery($childQuery);
-        $query->addDecayFunction(
-            FunctionScore::DECAY_GAUSS,
-            'location',
-            $this->locationOrigin,
-            $locationScale,
-            null,
-            null,
-            .5
-        );
-        $query->addDecayFunction(FunctionScore::DECAY_GAUSS, 'price', $priceOrigin, $priceScale, null, null, 2);
-        $expected = array(
-            'function_score' => array(
-                'query' => $childQuery->toArray(),
-                'functions' => array(
-                    array(
-                        'gauss' => array(
-                            'location' => array(
-                                'origin' => $this->locationOrigin,
-                                'scale' => $locationScale,
-                            ),
-                        ),
-                        'weight' => .5,
-                    ),
-                    array(
-                        'gauss' => array(
-                            'price' => array(
-                                'origin' => $priceOrigin,
-                                'scale' => $priceScale,
-                            ),
-                        ),
-                        'weight' => 2,
-                    ),
-                ),
-            ),
+                                'scale' => $priceScale
+                            )
+                        )
+                    )
+                )
+            )
         );
         $this->assertEquals($expected, $query->toArray());
     }
@@ -146,7 +107,7 @@ class FunctionScoreTest extends BaseTest
         $this->assertEquals("Mr. Frostie's", $result0['name']);
     }
 
-    public function testWeight()
+    public function testBoostFactor()
     {
         $filter = new Term(array('price' => 4.5));
         $query = new FunctionScore();
@@ -155,15 +116,15 @@ class FunctionScoreTest extends BaseTest
             'function_score' => array(
                 'functions' => array(
                     array(
-                        'weight' => 5.0,
+                        'boost_factor' => 5.0,
                         'filter' => array(
                             'term' => array(
-                                'price' => 4.5,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
+                                'price' => 4.5
+                            )
+                        )
+                    )
+                )
+            )
         );
 
         $this->assertEquals($expected, $query->toArray());
@@ -186,16 +147,16 @@ class FunctionScoreTest extends BaseTest
                 'functions' => array(
                     array(
                         'random_score' => array(
-                            'seed' => 2,
+                            'seed' => 2
                         ),
                         'filter' => array(
                             'term' => array(
-                                'price' => 4.5,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
+                                'price' => 4.5
+                            )
+                        )
+                    )
+                )
+            )
         );
 
         $this->assertEquals($expected, $query->toArray());
@@ -204,45 +165,9 @@ class FunctionScoreTest extends BaseTest
         $results = $response->getResults();
 
         // the document with the random score should have a score > 1, means it is the first result
-        $result0 = $results[0]->getData();
-
+        $result0 = $results[1]->getData();
+        
         $this->assertEquals("Miller's Field", $result0['name']);
-    }
-
-    public function testRandomScoreWeight()
-    {
-        $filter = new Term(array('price' => 4.5));
-        $query = new FunctionScore();
-        $query->addRandomScoreFunction(2, $filter, 2);
-        $expected = array(
-            'function_score' => array(
-                'functions' => array(
-                    array(
-                        'random_score' => array(
-                            'seed' => 2,
-                        ),
-                        'filter' => array(
-                            'term' => array(
-                                'price' => 4.5,
-                            ),
-                        ),
-                        'weight' => 2,
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertEquals($expected, $query->toArray());
-    }
-
-    public function testRandomScoreWithoutSeed()
-    {
-        $query = new FunctionScore();
-        $query->setRandomScore();
-
-        $response = $this->type->search($query);
-
-        $this->assertEquals(2, $response->count());
     }
 
     public function testScriptScore()
@@ -256,11 +181,11 @@ class FunctionScoreTest extends BaseTest
                 'functions' => array(
                     array(
                         'script_score' => array(
-                            'script' => $scriptString,
-                        ),
-                    ),
-                ),
-            ),
+                            'script' => $scriptString
+                        )
+                    )
+                )
+            )
         );
 
         $this->assertEquals($expected, $query->toArray());

@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,37 +12,32 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * $Id$
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
- 
+
+
+$object_name = strtolower($object_name);
 $app_list_strings = array (
-strtolower($object_name).'_category_dom' =>
-    array (
-    '' => '',
-    'Marketing' => 'Μάρκετινγκ',
+  $object_name.'_category_dom' => 
+  array (
+    '' => '[-κενό-]',
     'Knowledege Base' => 'Βάση Γνώσεων',
+    'Marketing' => 'Μάρκετινγκ',
     'Sales' => 'Πωλήσεις',
   ),
-
-    strtolower($object_name).'_subcategory_dom' =>
-    array (
-    '' => '',
+  $object_name.'_status_dom' => 
+  array (
+    'Active' => 'Ενεργό',
+    'Draft' => 'Πρόχειρο',
+    'Expired' => 'Ληγμένο',
+    'FAQ' => 'Συχνές Ερωτήσεις',
+    'Pending' => 'Εκκρεμής',
+    'Under Review' => 'Σε Αναθεώρηση',
+  ),
+  $object_name.'_subcategory_dom' => 
+  array (
+    '' => '[-κενό-]',
+    'FAQ' => 'Συχνές Ερωτήσεις',
     'Marketing Collateral' => 'Υλικό Μάρκετινγκ',
     'Product Brochures' => 'Φυλλάδια Προϊόντων',
-    'FAQ' => 'Συχνές Ερωτήσεις',
   ),
+);
 
-    strtolower($object_name).'_status_dom' =>
-    array (
-    'Active' => 'Ενεργός',
-    'Draft' => 'Πρόχειρο',
-    'FAQ' => 'Συχνές Ερωτήσεις',
-    'Expired' => 'Ληγμένο',
-    'Under Review' => 'Σε Αναθεώρηση',
-    'Pending' => 'Σε Εκκρεμότητα',
-  ),
-  );

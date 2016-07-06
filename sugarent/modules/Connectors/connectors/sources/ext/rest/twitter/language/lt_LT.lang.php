@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-/*********************************************************************************
-* Description:
-* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
-* Reserved. Contributor(s): contact@synolia.com - www.synolia.com
-* *******************************************************************************/
-
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => 'Vartotojo raktas ir slaptas raktas gaunami kuriant Twitter© aplikaciją. Pradėti eikite į: http://dev.twitter.com/apps/new.',
-    'LBL_NAME' => 'Twitter vartotojo vardas',
-    'LBL_ID' => 'Twitter vartotojo vardas',
-	'company_url' => 'URL',
-    'oauth_consumer_key' => 'Vartotojo raktas',
-    'oauth_consumer_secret' => 'Vartotojo slaptas raktas',
+  'LBL_LICENSING_INFO' => 'Vartotojo raktas ir slaptas raktas gaunami kuriant Twitter© aplikaciją. Pradėti eikite į: http://dev.twitter.com/apps/new.',
+  'oauth_consumer_key' => 'Vartotojo raktas',
+  'oauth_consumer_secret' => 'Vartotojo slaptas raktas',
+  'LBL_NAME' => 'Twitter vartotojo vardas',
+  'LBL_ID' => 'Twitter vartotojo vardas',
+  'company_url' => 'Tinklapio nuoroda',
 );
 
-?>

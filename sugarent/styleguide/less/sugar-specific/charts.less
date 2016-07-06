@@ -4,6 +4,7 @@
 //HOMEPAGE
 .dashboard {
   .thumbnail.dashlet:not(.collapsed) {
+    max-height: 500px;
     //500 (max) - 34 (menubar) = 466
     .dashlet-content > div {
       max-height: 466px;
@@ -45,6 +46,7 @@
 //SIDEBAR
 .sidebar-content {
   .thumbnail.dashlet:not(.collapsed) {
+    max-height: 400px;
     &.dashlet-dnb-tall {
       max-height: 615px;
       .dashlet-content > div {
@@ -74,14 +76,12 @@
     .forecasts-chart-wrapper .nv-chart {
       height: 309px;
     }
-    //366 (max) - 67 (tabs) - 22 (chart margins) = 277
     .opportunity-metrics-wrapper .nv-chart {
       height: 277px;
       margin-bottom: 14px;
     }
-    //366 (max) - 60 (tabs) - 16 (chart margins) = 288
     .nv-chart-cases {
-      height: 288px;
+      height: 250px;
     }
     .saved-reports-chart .nv-chart {
       max-height: 348px;
@@ -137,43 +137,36 @@ span.count {
 
 // for org chart demo renderer
 .nv-chart-org {
-  .nv-org-bkgd {
-    stroke: darken(@grayLighter, 15%);
-    stroke-width: 2px;
+  .nv-foreign-object body {
+    width: 100px;
+    height: 32px;
+    padding: 5px;
+    margin: 5px;
+    border: 2px solid darken(@grayLighter, 10%);
+    .border-radius(4px);
+    background-color: #E9EFEF;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    overflow: visible;
   }
-  .nv-org-node {
-    text {
-      font-style: normal;
-      font-variant: normal;
-      font-weight: 300;
-      font-stretch: normal;
-      font-size: 10px;
-      line-height: normal;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      &.nv-org-name {
-        font-size: 10px;
-        fill: @linkColor;
-        &.hover {
-          text-decoration: underline;
-        }
-      }
-      &.nv-org-title {
-        font-size: 8px;
-      }
+  .nv-foreign-object img.rep-avatar {
+    float: left;
+    margin-right: 4px;
+    width: 32px;
+    height: 32px;
+    &.loaded {
+      -webkit-animation: animaopacity .5s;
+      animation: animaopacity .5s;
     }
+  }
+  .nv-foreign-object div.rep-name {
+    font-size: 10px;
+    color: steelblue;
+  }
+  .nv-foreign-object div.rep-title {
+    font-size: 8px;
   }
 }
 
-.nv-chart.nv-chart-donut.dnb-meter {
-  min-width: 118px;
-  min-height: 50px;
-  display: inline-block;
-}
-.sidebar-content .thumbnail.dashlet:not(.collapsed) .nv-chart.nv-chart-donut.dnb-meter {
-  height: 118px;
-  .calcWidth(~"50% - 2px");
-  margin: 0;
-}
 // org chart zoom control
 .btn-slider {
   display: inline-block;

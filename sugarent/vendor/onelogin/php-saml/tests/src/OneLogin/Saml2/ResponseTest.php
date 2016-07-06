@@ -532,52 +532,13 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $xml = file_get_contents(TEST_ROOT . '/data/responses/invalids/encrypted_attrs.xml.base64');
         $response = new OneLogin_Saml2_Response($this->_settings, $xml);
 
-        $this->assertFalse($response->isValid());
-        $this->assertEquals('No Signature found. SAML Response rejected', $response->getError());
+        $this->assertTrue($response->isValid());
 
         $this->_settings->setStrict(true);
         $response2 = new OneLogin_Saml2_Response($this->_settings, $xml);
 
         $this->assertFalse($response2->isValid());
         $this->assertEquals('There is an EncryptedAttribute in the Response and this SP not support them', $response2->getError());
-    }
-
-    /**
-    * Tests the isValid method of the OneLogin_Saml2_Response
-    * Case invalid xml
-    *
-    * @covers OneLogin_Saml2_Response::isValid
-    */
-    public function testIsInValidWrongXML()
-    {
-        $settingsDir = TEST_ROOT .'/settings/';
-        include $settingsDir.'settings1.php';
-
-        $settingsInfo['security']['wantXMLValidation'] = false;
-
-        $settings = new OneLogin_Saml2_Settings($settingsInfo);
-        $settings->setStrict(false);
-
-        $xml = file_get_contents(TEST_ROOT . '/data/responses/invalids/invalid_xml.xml.base64');
-        $response = new OneLogin_Saml2_Response($settings, $xml);
-
-        $this->assertTrue($response->isValid());
-
-        $settings->setStrict(true);
-        $response2 = new OneLogin_Saml2_Response($settings, $xml);
-        $response2->isValid();
-        $this->assertNotEquals('Invalid SAML Response. Not match the saml-schema-protocol-2.0.xsd', $response2->getError());
-
-        $settingsInfo['security']['wantXMLValidation'] = true;
-        $settings2 = new OneLogin_Saml2_Settings($settingsInfo);
-        $settings2->setStrict(false);
-        $response3 = new OneLogin_Saml2_Response($settings2, $xml);
-        $this->assertTrue($response3->isValid());
-
-        $settings2->setStrict(true);
-        $response4 = new OneLogin_Saml2_Response($settings2, $xml);
-        $this->assertFalse($response4->isValid());
-        $this->assertEquals('Invalid SAML Response. Not match the saml-schema-protocol-2.0.xsd', $response4->getError());
     }
 
     /**
@@ -591,8 +552,7 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $xml = file_get_contents(TEST_ROOT . '/data/responses/unsigned_response.xml.base64');
 
         $response = new OneLogin_Saml2_Response($this->_settings, $xml);
-        $response->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response->getError());
+        $this->assertTrue($response->isValid());
 
         $this->_settings->setStrict(true);
         $response2 = new OneLogin_Saml2_Response($this->_settings, $xml);
@@ -617,8 +577,7 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $message = base64_encode($plainMessage);
 
         $response = new OneLogin_Saml2_Response($this->_settings, $message);
-        $response->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response->getError());
+        $this->assertTrue($response->isValid());
 
         $this->_settings->setStrict(true);
         $response2 = new OneLogin_Saml2_Response($this->_settings, $message);
@@ -650,12 +609,10 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $message2 = base64_encode($plainMessage2);
 
         $response = new OneLogin_Saml2_Response($this->_settings, $message);
-        $response->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response->getError());
+        $this->assertTrue($response->isValid());
 
         $response2 = new OneLogin_Saml2_Response($this->_settings, $message2);
-        $response2->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response2->getError());
+        $this->assertTrue($response2->isValid());
 
         $this->_settings->setStrict(true);
         $response3 = new OneLogin_Saml2_Response($this->_settings, $message);
@@ -685,8 +642,7 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $message = base64_encode($plainMessage);
 
         $response = new OneLogin_Saml2_Response($this->_settings, $message);
-        $response->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response->getError());
+        $this->assertTrue($response->isValid());
 
         $this->_settings->setStrict(true);
         $response2 = new OneLogin_Saml2_Response($this->_settings, $message);
@@ -736,28 +692,22 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $message6 = base64_encode($plainMessage6);
 
         $response = new OneLogin_Saml2_Response($this->_settings, $message);
-        $response->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response->getError());
+        $this->assertTrue($response->isValid());
 
         $response2 = new OneLogin_Saml2_Response($this->_settings, $message2);
-        $response2->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response2->getError());
+        $this->assertTrue($response2->isValid());
 
         $response3 = new OneLogin_Saml2_Response($this->_settings, $message3);
-        $response3->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response3->getError());
+        $this->assertTrue($response3->isValid());
 
         $response4 = new OneLogin_Saml2_Response($this->_settings, $message4);
-        $response3->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response3->getError());
+        $this->assertTrue($response4->isValid());
 
         $response5 = new OneLogin_Saml2_Response($this->_settings, $message5);
-        $response5->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response3->getError());
+        $this->assertTrue($response5->isValid());
 
         $response6 = new OneLogin_Saml2_Response($this->_settings, $message6);
-        $response6->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response3->getError());
+        $this->assertTrue($response6->isValid());
 
         $this->_settings->setStrict(true);
 
@@ -796,8 +746,7 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
     {
         $xml = file_get_contents(TEST_ROOT . '/data/responses/unsigned_response_with_miliseconds.xm.base64');
         $response = new OneLogin_Saml2_Response($this->_settings, $xml);
-        $response->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response->getError());
+        $this->assertTrue($response->isValid());
 
         $this->_settings->setStrict(true);
 
@@ -808,8 +757,7 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
 
         $response2 = new OneLogin_Saml2_Response($this->_settings, $message);
 
-        $response2->isValid();
-        $this->assertEquals('No Signature found. SAML Response rejected', $response2->getError());
+        $this->assertTrue($response2->isValid());
     }
 
     /**
@@ -830,18 +778,15 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $response = new OneLogin_Saml2_Response($this->_settings, $message);
 
         $requestId = 'invalid';
-        $response->isValid($requestId);
-        $this->assertEquals('No Signature found. SAML Response rejected', $response->getError());
+        $this->assertTrue($response->isValid($requestId));
 
         $this->_settings->setStrict(true);
 
-        $response2 = new OneLogin_Saml2_Response($this->_settings, $message);
-        $response2->isValid($requestId);
-        $this->assertContains('The InResponseTo of the Response', $response2->getError());
+        $this->assertFalse($response->isValid($requestId));
+        $this->assertContains('The InResponseTo of the Response', $response->getError());
         
         $validRequestId = '_57bcbf70-7b1f-012e-c821-782bcb13bb38';
-        $response2->isValid($validRequestId);
-        $this->assertContains('No Signature found. SAML Response rejected', $response2->getError());
+        $this->assertTrue($response->isValid($validRequestId));
     }
 
 
@@ -865,21 +810,18 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $settingsInfo['security']['wantAssertionsSigned'] = false;
         $settings = new OneLogin_Saml2_Settings($settingsInfo);
         $response = new OneLogin_Saml2_Response($settings, $message);
-        $response->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response->getError());
+        $this->assertTrue($response->isValid());
 
         $settingsInfo['security']['wantAssertionsSigned'] = true;
         $settings2 = new OneLogin_Saml2_Settings($settingsInfo);
         $response2 = new OneLogin_Saml2_Response($settings2, $message);
-        $response2->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response2->getError());
+        $this->assertTrue($response2->isValid());
 
         $settingsInfo['strict'] = true;
         $settingsInfo['security']['wantAssertionsSigned'] = false;
         $settings3 = new OneLogin_Saml2_Settings($settingsInfo);
         $response3 = new OneLogin_Saml2_Response($settings3, $message);
-        $response3->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response3->getError());
+        $this->assertTrue($response3->isValid());
 
         $settingsInfo['security']['wantAssertionsSigned'] = true;
         $settings4 = new OneLogin_Saml2_Settings($settingsInfo);
@@ -894,21 +836,18 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $settingsInfo['security']['wantMessagesSigned'] = false;
         $settings5 = new OneLogin_Saml2_Settings($settingsInfo);
         $response5 = new OneLogin_Saml2_Response($settings5, $message);
-        $response5->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response5->getError());
+        $this->assertTrue($response5->isValid());
 
         $settingsInfo['security']['wantMessagesSigned'] = true;
         $settings6 = new OneLogin_Saml2_Settings($settingsInfo);
         $response6 = new OneLogin_Saml2_Response($settings6, $message);
-        $response6->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response6->getError());
+        $this->assertTrue($response6->isValid());
 
         $settingsInfo['strict'] = true;
         $settingsInfo['security']['wantMessagesSigned'] = false;
         $settings7 = new OneLogin_Saml2_Settings($settingsInfo);
         $response7 = new OneLogin_Saml2_Response($settings7, $message);
-        $response7->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response7->getError());
+        $this->assertTrue($response7->isValid());
 
         $settingsInfo['security']['wantMessagesSigned'] = true;
         $settings8 = new OneLogin_Saml2_Settings($settingsInfo);
@@ -938,15 +877,13 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $settingsInfo['security']['wantAssertionsEncrypted'] = true;
         $settings = new OneLogin_Saml2_Settings($settingsInfo);
         $response = new OneLogin_Saml2_Response($settings, $message);
-        $response->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response->getError());
+        $this->assertTrue($response->isValid());
 
         $settingsInfo['strict'] = true;
         $settingsInfo['security']['wantAssertionsEncrypted'] = false;
         $settings = new OneLogin_Saml2_Settings($settingsInfo);
         $response2 = new OneLogin_Saml2_Response($settings, $message);
-        $response2->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response2->getError());
+        $this->assertTrue($response2->isValid());
 
         $settingsInfo['security']['wantAssertionsEncrypted'] = true;
         $settings = new OneLogin_Saml2_Settings($settingsInfo);
@@ -960,14 +897,13 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $settingsInfo['strict'] = false;
         $settings = new OneLogin_Saml2_Settings($settingsInfo);
         $response4 = new OneLogin_Saml2_Response($settings, $message);
-        $response4->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response4->getError());
+        $this->assertTrue($response4->isValid());
 
         $settingsInfo['strict'] = true;
         $settings = new OneLogin_Saml2_Settings($settingsInfo);
-        $response5 = new OneLogin_Saml2_Response($settings, $message);
-        $this->assertFalse($response5->isValid());
-        $this->assertEquals('The NameID of the Response is not encrypted and the SP requires it', $response5->getError());
+        $response4 = new OneLogin_Saml2_Response($settings, $message);
+        $this->assertFalse($response4->isValid());
+        $this->assertEquals('The NameID of the Response is not encrypted and the SP requires it', $response4->getError());
     }
 
     /**
@@ -1011,37 +947,6 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($response->isValid());
         $this->assertEquals('Signature validation failed. SAML Response rejected', $response->getError());
     }
-
-    /**
-    * Tests the isValid method of the OneLogin_Saml2_Response
-    * Case response with different namespace
-    *
-    * @covers OneLogin_Saml2_Response::isValid
-    */
-    public function testNamespaceIsValid()
-    {
-        $xml = file_get_contents(TEST_ROOT . '/data/responses/response_namespaces.xml.base64');
-        $response = new OneLogin_Saml2_Response($this->_settings, $xml);
-
-        $response->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response->getError());
-    }
-
-    /**
-    * Tests the isValid method of the OneLogin_Saml2_Response
-    * Case response from ADFS
-    *
-    * @covers OneLogin_Saml2_Response::isValid
-    */
-    public function testADFSValid()
-    {
-        $xml = file_get_contents(TEST_ROOT . '/data/responses/response_adfs1.xml.base64');
-        $response = new OneLogin_Saml2_Response($this->_settings, $xml);
-
-        $response->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response->getError());
-    }
-
 
     /**
     * Tests the isValid method of the OneLogin_Saml2_Response
@@ -1115,8 +1020,7 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
 
         $response4 = new OneLogin_Saml2_Response($settings, $message4);
 
-        $response4->isValid();
-        $this->assertContains('No Signature found. SAML Response rejected', $response4->getError());
+        $this->assertTrue($response4->isValid());
     }
 
     /**
@@ -1165,19 +1069,5 @@ class OneLogin_Saml2_ResponseTest extends PHPUnit_Framework_TestCase
         $response6 = new OneLogin_Saml2_Response($this->_settings, $xml6);
         $this->assertFalse($response6->isValid());
         $this->assertEquals('Reference validation failed', $response6->getError());
-    }
-
-    public function testIsValidSignWithEmptyReferenceURI()
-    {
-        $xml = file_get_contents(TEST_ROOT . '/data/responses/response_without_reference_uri.xml.base64');
-
-        $settingsDir = TEST_ROOT .'/settings/';
-        include $settingsDir.'settings1.php';
-        $settingsInfo['idp']['certFingerprint'] = "194d97e4d8c9c8cfa4b721e5ee497fd9660e5213";
-        $settingsInfo['idp']['x509cert'] = null;
-
-        $settings = new OneLogin_Saml2_Settings($settingsInfo);
-        $response = new OneLogin_Saml2_Response($settings, $xml);
-        $this->assertTrue($response->isValid());
     }
 }

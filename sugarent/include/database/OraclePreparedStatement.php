@@ -113,12 +113,6 @@ class OraclePreparedStatement extends PreparedStatement
             'bool'             => SQLT_INT,
     );
 
-    public function __destruct() {
-        if(is_resource($this->stmt)){
-            oci_free_statement($this->stmt);
-        }
-    }
-
     public function preparePreparedStatement( $msg = '' )
     {
         if(empty($this->parsedSQL)) {
@@ -204,7 +198,6 @@ class OraclePreparedStatement extends PreparedStatement
         }
         $this->DBM->countQuery($this->parsedSQL);
         $GLOBALS['log']->info("Executing Query: {$this->parsedSQL} with ".var_export($data, true));
-        $this->bound_data = $data;
 
         $this->DBM->query_time = microtime(true);
 

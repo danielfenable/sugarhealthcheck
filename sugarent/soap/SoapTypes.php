@@ -610,6 +610,7 @@ $server->wsdl->addComplexType(
 		'error' => array('name' =>'error', 'type'=>'tns:error_value'),
 	)
 );
+
 $server->wsdl->addComplexType(
     'document_revision',
     'complexType',
@@ -815,5 +816,56 @@ $server->wsdl->addComplexType(
 		'name_value_lists' => array('name'=>'name_value_lists', 'type'=>'tns:name_value_lists'),
 		'error' => array('name' =>'error', 'type'=>'tns:error_value'),
 	)
+);
+
+$server->wsdl->addComplexType(
+    'kbtag',
+	'complexType',
+   	 'struct',
+   	 'all',
+  	  '',
+		array(
+			'id' => array('name'=>'id', 'type'=>'xsd:string'),
+			'parent_id' => array('name'=>'parent_id', 'type'=>'xsd:string'),
+			'name' => array('name'=>'name', 'type'=>'xsd:string'),
+		)
+);
+
+$server->wsdl->addComplexType(
+    'kbtag_list',
+    'complexType',
+     'array',
+     '',
+      'SOAP-ENC:Array',
+    array(),
+    array(
+		 array('ref'=>'SOAP-ENC:arrayType','wsdl:arrayType'=>'tns:kbtag[]')
+    ),
+	'tns:kbtag'
+);
+
+$server->wsdl->addComplexType(
+    'kbtag_doc',
+	'complexType',
+   	 'struct',
+   	 'all',
+  	  '',
+		array(
+			'doc_id' => array('name'=>'id', 'type'=>'xsd:string'),
+			'doc_name' => array('name'=>'name', 'type'=>'xsd:string'),
+		)
+);
+
+$server->wsdl->addComplexType(
+    'kbtag_docs_list',
+    'complexType',
+     'array',
+     '',
+      'SOAP-ENC:Array',
+    array(),
+     array(
+		 array('ref'=>'SOAP-ENC:arrayType','wsdl:arrayType'=>'tns:kbtag_doc[]')
+    ),
+	'tns:kbtag_doc'
 );
 ?>

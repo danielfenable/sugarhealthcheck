@@ -267,12 +267,12 @@ class PMSEPreProcessor
         $verifiedProcesses = array();
         foreach ($flows as $flow) {
             if (empty($data) || $flow['pro_id'] == $data['pro_id']) {
-                if (!array_key_exists($flow['cas_id'], $verifiedProcesses)) {
-                    $verifiedProcesses[$flow['cas_id']] = true;
+                if (!array_key_exists($flow['pro_id'], $verifiedProcesses)) {
+                    $verifiedProcesses[$flow['pro_id']] = true;
                 }
-                if ($verifiedProcesses[$flow['cas_id']]) {
+                if ($verifiedProcesses[$flow['pro_id']]) {
                     $this->caseFlowHandler->terminateCase($flow, $processBean, "TERMINATED");
-                    $verifiedProcesses[$flow['cas_id']] = false;
+                    $verifiedProcesses[$flow['pro_id']] = false;
                 }
             }
         }
@@ -321,8 +321,7 @@ class PMSEPreProcessor
             'pro_module',
             'pro_status',
             'pro_locked_variables',
-            'pro_terminate_variables',
-            'date_entered',
+            'pro_terminate_variables'
         );
 
         $relatedDependency = $this->retrieveBean('pmse_BpmRelatedDependency');
@@ -456,31 +455,6 @@ class PMSEPreProcessor
                 $flows = $this->getFlowsByCasId($args['cas_id']);
                 break;
         }
-
-//      Sort flows
-        usort($flows, function ($a, $b) {
-            $valueA = $a["evn_params"] == 'new' ? 1 : ($a["evn_params"] == 'updated' ? 2 : 3);
-            $valueB = $b["evn_params"] == 'new' ? 1 : ($b["evn_params"] == 'updated' ? 2 : 3);
-            if ($valueA == $valueB) {
-                if (!empty($a["date_entered"]) && !empty($b["date_entered"])) {
-                    $timedate = TimeDate::getInstance();
-                    $date_a = $timedate->fromString($a["date_entered"]);
-                    $date_b = $timedate->fromString($b["date_entered"]);
-                    if ($date_a < $date_b) {
-                        return -1;
-                    } else if ($date_a > $date_b) {
-                        return 1;
-                    }
-                }
-                return 0;
-            }
-            if ($valueA < $valueB) {
-                return -1;
-            } else {
-                return 1;
-            }
-        });
-
         return $flows;
     }
 

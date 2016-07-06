@@ -27,7 +27,7 @@
     extendsFrom: 'TabbedDashletView',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * @property {Object} _defaultSettings
      * @property {Number} _defaultSettings.limit Maximum number of records to
@@ -42,7 +42,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initialize: function(options) {
         options.meta = options.meta || {};
@@ -58,12 +58,11 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _initEvents: function() {
         this._super('_initEvents');
         this.on('active-tasks:close-task:fire', this.closeTask, this);
-        this.on('linked-model:create', this.loadData, this);
         this.on('render:rows', this._renderAvatars, this);
         return this;
     },
@@ -92,7 +91,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * FIXME: This should be removed when metadata supports date operators to
      * allow one to define relative dates for date filters.
@@ -130,7 +129,7 @@
         } else {
             var self = this;
             app.drawer.open({
-                layout: 'create',
+                layout: 'create-actions',
                 context: {
                     create: true,
                     module: params.module
@@ -168,7 +167,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * New model related properties are injected into each model:
      *

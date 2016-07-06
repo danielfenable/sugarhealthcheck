@@ -151,7 +151,7 @@ class SugarUpgradeRenameModules extends UpgradeScript
      */
     protected function getAppListStrings($lang)
     {
-        return return_app_list_strings_language($lang, false);
+        return return_app_list_strings_language($lang);
     }
 
     /**

@@ -20,7 +20,6 @@
 						'basic_search' => array(
 						 	'name',
 						 	
-
 		      array ('name' => 'favorites_only','label' => 'LBL_FAVORITES_FILTER','type' => 'bool',),
 							),
 						'advanced_search' => array(
@@ -35,7 +34,6 @@
 							'support_term',
 							'website',	
 							
-
 		      array ('name' => 'favorites_only','label' => 'LBL_FAVORITES_FILTER','type' => 'bool',),
 						),
 					),

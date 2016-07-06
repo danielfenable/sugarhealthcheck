@@ -10,7 +10,6 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
 global $mod_strings, $sugar_config, $app_strings;
 
 if(SugarACL::checkAccess('PdfManager', 'edit', true))$module_menu[] =Array("index.php?module=PdfManager&action=EditView&return_module=PdfManager&return_action=DetailView", $mod_strings['LNK_NEW_RECORD'],"CreatePdfManager");

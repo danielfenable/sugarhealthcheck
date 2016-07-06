@@ -10,11 +10,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
- // $Id: MyPipelineBySalesStageDashlet.en_us.lang.php 16286 2006-08-22 20:14:45Z wayne $
-
-
-$dashletStrings['OutcomeByMonthDashlet'] = array('LBL_TITLE'       => 'Tulot kuukausittain',
-                                                 'LBL_DESCRIPTION' => 'Kaavio kuukausittaistuloista',
-                                                 'LBL_REFRESH'     => 'Päivitä kuvio');
-?>
+ 
+$dashletStrings['OutcomeByMonthDashlet'] = 
+  array(
+        'LBL_TITLE'       => 'Tulot kuukausittain',
+        'LBL_DESCRIPTION' => 'Kaavio kuukausittaistuloista',
+        'LBL_REFRESH' => 'Päivitä kuvio',
+        );

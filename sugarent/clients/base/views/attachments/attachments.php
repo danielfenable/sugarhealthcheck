@@ -33,7 +33,6 @@ $viewdefs['base']['view']['attachments'] = array(
                     'Bugs',
                     'Cases',
                     'RevenueLineItems',
-                    'KBContents',
                 ),
                 'view' => 'record',
             ),

@@ -17,7 +17,7 @@
     extendsFrom: 'DateField',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Add `ClickToEdit` plugin to the list of required plugins.
      */

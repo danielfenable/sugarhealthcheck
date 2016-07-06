@@ -110,19 +110,6 @@ textarea {
 	background-color: #ffffff;
 	}
 	
-
-pre a:link {
-    font: inherit;
-}
-
-pre.license {
-    border: 1px solid #888888;
-    font-size: 11px;
-    width: 52em;
-    height: 8em;
-    overflow-y:scroll;
-}
-
 .checkbox {
 	border:0px;
 	background-color: transparent;

@@ -22,11 +22,7 @@ $dictionary['Task'] = array(
             'type' => 'name',
             'len' => '50',
             'unified_search' => true,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 1.45,
-            ),
+            'full_text_search' => array('enabled' => true, 'boost' => 3),
             'importable' => 'required',
             'required' => true,
         ),
@@ -39,10 +35,6 @@ $dictionary['Task'] = array(
             'required' => true,
             'default' => 'Not Started',
             'duplicate_on_record_copy' => 'no',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-            ),
         ),
         'date_due_flag' => array(
             'name' => 'date_due_flag',
@@ -62,11 +54,6 @@ $dictionary['Task'] = array(
             'studio' => array('required' => true, 'no_duplicate' => true),
             'enable_range_search' => true,
             'options' => 'date_range_search_dom',
-            'full_text_search' => array(
-                'type' => 'datetime',
-                'enabled' => true,
-                'searchable' => false,
-            ),
         ),
         'time_due' => array(
             'name' => 'time_due',
@@ -286,13 +273,6 @@ $dictionary['Task'] = array(
             'vname' => 'LBL_CALLS',
             'reportable' => false,
         ),
-        'project' => array(
-            'name' => 'project',
-            'type' => 'link',
-            'relationship' => 'projects_tasks',
-            'source' => 'non-db',
-            'vname' => 'LBL_PROJECTS',
-        ),
     ),
     'relationships' => array(
         'tasks_notes' => array(
@@ -404,6 +384,3 @@ VardefManager::createVardef(
         'team_security',
     )
 );
-
-//boost value for full text search
-$dictionary['Task']['fields']['description']['full_text_search']['boost'] = 0.56;

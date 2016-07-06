@@ -16,11 +16,6 @@
             {{#if auditedFields}}
                 {{str "LBL_AUDITED_FIELDS" this.module}}
                 {{arrayJoin auditedFields ", "}}
-
-                {{#if hasCurrencyFields}}
-                <br />
-                {{str "LBL_CURRENCY_CONVERSION_TEXT" this.module}}
-                {{/if}}
             {{else}}
                 {{str "LBL_NO_AUDITED_FIELDS_TEXT" this.module}}
             {{/if}}

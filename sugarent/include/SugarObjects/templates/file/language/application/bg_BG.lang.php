@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,37 +12,32 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * $Id$
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
- 
+	
+
+$object_name = strtolower($object_name);
 $app_list_strings = array (
-strtolower($object_name).'_category_dom' =>
-    array (
-    '' => '',
+  $object_name.'_category_dom' => 
+  array (
+    '' => '-празен-',
+    'Knowledege Base' => 'База знания',
     'Marketing' => 'Маркетинг',
-    'Knowledege Base' => 'База от знания',
     'Sales' => 'Продажби',
   ),
-
-    strtolower($object_name).'_subcategory_dom' =>
-    array (
-    '' => '',
-    'Marketing Collateral' => 'Маркетингови материали',
-    'Product Brochures' => 'Брошури',
-    'FAQ' => 'Често задавани въпроси',
-  ),
-
-    strtolower($object_name).'_status_dom' =>
-    array (
+  $object_name.'_status_dom' => 
+  array (
     'Active' => 'Активен',
     'Draft' => 'Работен вариант',
-    'FAQ' => 'Често задавани въпроси',
     'Expired' => 'С изтекъл срок на валидност',
-    'Under Review' => 'В процес на обработка',
+    'FAQ' => 'Често задавани въпроси',
     'Pending' => 'Висяща',
+    'Under Review' => 'В процес на обработка',
   ),
-  );
+  $object_name.'_subcategory_dom' => 
+  array (
+    '' => '-празен-',
+    'FAQ' => 'Често задавани въпроси',
+    'Marketing Collateral' => 'Маркетингови материали',
+    'Product Brochures' => 'Брошури',
+  ),
+);
+

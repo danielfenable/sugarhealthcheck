@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,25 +10,9 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+require_once('include/SearchForm/SugarSpot.php');
+require_once('include/api/SugarListApi.php');
 
-require_once 'include/SearchForm/SugarSpot.php';
-require_once 'include/api/SugarListApi.php';
-
-use Sugarcrm\Sugarcrm\SearchEngine\SearchEngine;
-
-/**
- *
- * UnifiedSearchApi for /search entry point
- *
- * The /search entry point uses a hybrid approach wrapping around full text
- * search (using Elasticearch) and spot search (using the database backend).
- *
- * A new entry point /globalsearch is available (see GlobalSearchApi) which
- * solely uses the Elasticsearch backend. It is encouraged to use this new
- * /globalsearch end point as the current /search will be deprecated in a
- * future release.
- *
- */
 class UnifiedSearchApi extends SugarListApi {
     public function registerApiRest() {
         return array(
@@ -254,9 +239,6 @@ class UnifiedSearchApi extends SugarListApi {
             4 - not order by
         */
 
-        $engine = SearchEngine::getInstance()->getEngine();
-        $metaDataHelper = $engine->getMetaDataHelper();
-
         /*
          * If a module isn't FTS switch to spot search.  Global Search should be done with either the enabled modules
          * Using the new ServerInfo endpoint OR passing in a blank module list.
@@ -265,9 +247,8 @@ class UnifiedSearchApi extends SugarListApi {
         {
             foreach($options['moduleList'] AS $module)
             {
-                //A module enabled in unified search but disabled in the new FTS (Elastic) search should also
-                //use the local database search, i.e., return 'SugarSearchEngine' here.
-                if (!$metaDataHelper->isModuleEnabled($module)) {
+                if(!SugarSearchEngineMetadataHelper::isModuleFtsEnabled($module))
+                {
                     return 'SugarSearchEngine';
                 }
             }
@@ -303,63 +284,101 @@ class UnifiedSearchApi extends SugarListApi {
      */
     protected function globalSearchFullText(ServiceBase $api, array $args, SugarSearchEngineAbstractBase $searchEngine, array $options)
     {
-        $api->action = 'list';
-        $returnedRecords = array();
+        $options['append_wildcard'] = 1;
+        if(empty($options['moduleList']))
+        {
+            require_once('modules/ACL/ACLController.php');
+            $moduleList = SugarSearchEngineMetadataHelper::getSystemEnabledFTSModules();
+            // filter based on User Access if Blank
+            $ACL = new ACLController();
+            // moduleList is passed by reference
+            $ACL->filterModuleList($moduleList);
 
-        // SugarSearchEngine uses moduleFilter instead of moduleList, pass it along
-        $options['moduleFilter'] = empty($options['moduleList']) ? array() : $options['moduleList'];
+            $options['moduleList'] = $moduleList;
+        }
+
+        if (!empty($options['searchFields'])) {
+            $customWhere = array();
+            foreach ($options['moduleList'] as $module) {
+                $seed = BeanFactory::getBean($module);
+                $fields = array_keys($seed->field_defs);
+                $existingfields = array_intersect($fields, $options['searchFields']);
+                if (!empty($existingfields)) {
+                    foreach ($existingfields as $field) {
+                        if (empty($seed->field_defs[$field]['full_text_search'])) {
+                            continue;
+                        }
+                        $prefix = $seed->module_name;
+                        if (!isset($seed->field_defs[$field]['source']) || $seed->field_defs[$field]['source'] != 'non-db') {
+                            $customWhere[] = "{$prefix}.{$field}";
+                        }
+                    }
+                }
+            }
+            $options['searchFields'] = $customWhere;
+        }
+
+        $options['moduleFilter'] = $options['moduleList'];
 
         $results = $searchEngine->search($options['query'], $options['offset'], $options['limit'], $options);
 
-        if (empty($results)) {
-            return array('next_offset' => -1, 'records' => array());
+        $returnedRecords = array();
+
+        $total = 0;
+
+        $api->action = 'list';
+
+        if(is_object($results)) {
+            foreach ( $results as $result ) {
+                $record = BeanFactory::retrieveBean($result->getModule(), $result->getId());
+
+                // if we can't get the bean skip it
+                if(!$record) {
+                    continue;
+                }
+                $module = $record->module_dir;
+                // Need to override the filter arg so that it looks like something formatBean expects
+                if ( !empty($options['fieldFilters'][$module]) ) {
+                    $moduleFields = $options['fieldFilters'][$module];
+                } else if ( !empty($options['fieldFilters']['_default']) ) {
+                    $moduleFields = $options['fieldFilters']['_default'];
+                } else {
+                    $moduleFields = array();
+                }
+                
+                if (!empty($moduleFields) && !in_array('id', $moduleFields)) {
+                    $moduleFields[] = 'id';
+                }
+                
+                $moduleArgs['fields'] = implode(',',$moduleFields);
+                $formattedRecord = $this->formatBean($api,$moduleArgs,$record);
+                $formattedRecord['_module'] = $module;
+                // The SQL based search engine doesn't know how to score records, so set it to 1
+                $formattedRecord['_search']['score'] = $result->getScore();
+
+                //Add highlighted text
+                $formattedRecord['_search']['highlighted'] = $result->getHighlightedHitText();
+
+                $returnedRecords[] = $formattedRecord;
+            }
+
+            $total = $results->getTotalHits();
+
         }
 
-        // format results
-        foreach ($results as $result) {
 
-            $bean = $result->getBean();
-
-            // if we can't get the bean skip it
-            if (empty($bean)) {
-                continue;
-            }
-
-            $module = $bean->module_dir;
-
-            // Need to override the filter arg so that it looks like something formatBean expects
-            if (!empty($options['fieldFilters'][$module])) {
-                $moduleFields = $options['fieldFilters'][$module];
-            } elseif (!empty($options['fieldFilters']['_default'])) {
-                $moduleFields = $options['fieldFilters']['_default'];
-            } else {
-                $moduleFields = array();
-            }
-
-            if (!empty($moduleFields) && !in_array('id', $moduleFields)) {
-                $moduleFields[] = 'id';
-            }
-
-            $moduleArgs['fields'] = implode(',', $moduleFields);
-            $formattedRecord = $this->formatBean($api, $moduleArgs, $bean);
-
-            // add additional parameters expected to be returned
-            //$formattedRecord['_module'] = $module;
-            $formattedRecord['_search']['score'] = $result->getScore();
-            $formattedRecord['_search']['highlighted'] = $result->getHighlightedHitText();
-
-            $returnedRecords[] = $formattedRecord;
-        }
-
-        // calculate next offset
-        $total = $results->getTotalHits();
-        if ($total > ($options['limit'] + $options['offset'])) {
+        if ( $total > ($options['limit'] + $options['offset']))
+        {
             $nextOffset = $options['offset']+$options['limit'];
-        } else {
+        }
+        else
+        {
             $nextOffset = -1;
         }
 
-        return array('next_offset' => $nextOffset, 'records' => $returnedRecords);
+
+
+        return array('next_offset'=>$nextOffset,'records'=>$returnedRecords);
     }
 
     /**

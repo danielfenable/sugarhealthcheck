@@ -11,15 +11,20 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: JotPadDashlet.en_us.lang.php 24343 2007-07-15 21:24:15Z awu $
-
+/*********************************************************************************
+ * pl_pl.lang.php for SugarCRM 6.5.0
+ * Translator: eVolpe
+ * All Rights Reserved.
+ * Any bugs report welcome: support@evolpe.pl
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
 
 $dashletStrings['InvadersDashlet'] = array(
-    'LBL_TITLE'         => 'Najeźdźcy!',
-    'LBL_DESCRIPTION'   => 'Ciekawy sposób spędzania czasu',
-    'LBL_DBLCLICK_HELP' => 'Użyj A i D do poruszania się i S do strzelania.',
-    'LBL_START'         => 'Kliknij, aby rozpocząć',
-    'LBL_GAME_OVER'     => 'Koniec<br>(Kliknij, aby zagrać jeszcze raz)',
+'LBL_TITLE'            => 'Najeźdźcy!',
+'LBL_DESCRIPTION'      => 'Ciekawy sposób spędzania czasu :)',
+'LBL_DBLCLICK_HELP'    => 'Użyj A i D do poruszania się i S do strzelania.',
+'LBL_START'         => 'Kliknij, aby rozpocząć',
+'LBL_GAME_OVER'     => 'Koniec<br>(Kliknij, aby zagrać jeszcze raz)',
 
 );
-?>
+ 

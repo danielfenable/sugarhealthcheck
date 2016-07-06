@@ -423,14 +423,7 @@ SE.accounts = {
 	},
 
 	smtp_setDefaultSMTPPort : function() {
-        var useSSLPort = false;
-        var ssl = document.getElementById("mail_smtpssl");
-        for (var j = 0; j < ssl.options.length; j++) {
-            if (ssl.options[j].text == 'SSL' && ssl.options[j].selected) {
-                useSSLPort = true;
-                break;
-            }
-        }
+		useSSLPort = !document.getElementById("mail_smtpssl").options[0].selected;
 
         if ( useSSLPort && document.getElementById("mail_smtpport").value == '25' ) {
             document.getElementById("mail_smtpport").value = '465';
@@ -1278,10 +1271,7 @@ SE.contextMenus = {
     markEmailCleanup : function() {
         SE.accounts.renderTree();
         SUGAR.hideMessageBox();
-
-        // Run pagination with the current state
-        var currentState = SE.grid.getState();
-        SE.grid.onPaginatorChangeRequest(currentState.pagination);
+        SE.listView.refreshGrid();
     },
 
 	showAssignmentDialog : function() {
@@ -1497,8 +1487,7 @@ SE.detailView = {
         }
 
         var displayFrame = document.getElementById('displayEmailFrame' + targetDiv.id);
-        description = email.description_html || SE.util.nl2br(email.description);
-        displayFrame.contentWindow.document.write(description);
+        displayFrame.contentWindow.document.write(email.description);
         displayFrame.contentWindow.document.close();
 
         displayFrame.contentWindow.setTargetAttributeForUrls = function() {
@@ -1566,8 +1555,7 @@ SE.detailView = {
         });
 
         var displayFrame = document.getElementById('displayEmailFramePreview');
-        description = email.description_html || SE.util.nl2br(email.description);
-        displayFrame.contentWindow.document.write(description);
+        displayFrame.contentWindow.document.write(email.description);
         displayFrame.contentWindow.document.close();
 
         displayFrame.contentWindow.setTargetAttributeForUrls = function() {
@@ -1747,14 +1735,14 @@ SE.detailView = {
         if(mboxStr.substring(0,7) == 'sugar::') {
             // display an email from Sugar
             document.getElementById('emailUIAction').value = 'getMultipleMessagesFromSugar';
+            document.getElementById('uid').value = uids;
         } else {
             // display an email from an email server
             document.getElementById('emailUIAction').value = 'getMultipleMessages';
+            document.getElementById('mbox').value = mbox;
+            document.getElementById('ieId').value = ieId;
+            document.getElementById('uid').value = uids;
         }
-
-        document.getElementById('mbox').value = mbox;
-        document.getElementById('ieId').value = ieId;
-        document.getElementById('uid').value = uids;
 
         var formObject = document.getElementById('emailUIForm');
         YAHOO.util.Connect.setForm(formObject);

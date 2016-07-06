@@ -1,13 +1,8 @@
 <?php
-// created: 2016-07-04 12:09:24
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
-  'LBL_ASSIGNED_TO_NAME' => 'User',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ANY_EMAIL' => 'Email',
   'LBL_EMAIL' => 'Email Address:',
-  'LBL_PRIMARY_EMAIL' => 'Primary Email',
   'LBL_LIST_EMAIL_ADDRESS' => 'Email Address',
   'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
   'LBL_EMAIL_ADDRESS' => 'Email Address(es)',
@@ -53,6 +48,7 @@ $mod_strings = array (
   'LBL_COUNTRY' => 'Country',
   'LBL_ADDRESS_INFORMATION' => 'Address(es)',
   'LBL_CONTACT_INFORMATION' => 'Contact Information',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
   'LBL_ASSISTANT' => 'Assistant',
   'LBL_ASSISTANT_PHONE' => 'Assistant Phone',
   'LBL_WORK_PHONE' => 'Work Phone',
@@ -83,6 +79,7 @@ $mod_strings = array (
   'LBL_MODIFIED_USER' => 'Modified by User',
   'LBL_LIST_NAME' => 'Name',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
   'LBL_MODULE_NAME' => 'Styleguide',
   'LBL_MODULE_NAME_SINGULAR' => 'Styleguide: singular',
   'LBL_MODULE_TITLE' => 'Styleguide: title',

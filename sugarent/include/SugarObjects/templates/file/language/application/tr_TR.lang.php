@@ -10,8 +10,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
 /*********************************************************************************
- * $Id$
+
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
@@ -31,7 +32,7 @@ strtolower($object_name).'_category_dom' =>
     '' => '',
     'Marketing Collateral' => 'Pazarlama Teminatı',
     'Product Brochures' => 'Ürün Broşürleri',
-    'FAQ' => 'SSS',
+    'FAQ' => 'FAQ',
   ),
 
     strtolower($object_name).'_status_dom' =>
@@ -44,3 +45,4 @@ strtolower($object_name).'_category_dom' =>
     'Pending' => 'Beklemede',
   ),
   );
+?>

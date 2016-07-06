@@ -2,25 +2,16 @@
 
 namespace Elastica\Test\Filter;
 
-use Elastica\Document;
+use \Elastica\Query;
 use Elastica\Filter\Bool;
-use Elastica\Filter\Ids;
 use Elastica\Filter\Term;
-use Elastica\Filter\Terms;
-use Elastica\Query;
+use Elastica\Filter\Ids;
 use Elastica\Test\Base as BaseTest;
 
 class BoolTest extends BaseTest
 {
-
-    /**
-     * @return array
-     */
-    public function getTestToArrayData()
+    public function testToArray()
     {
-        $out = array();
-
-        // case #0
         $mainBool = new Bool();
 
         $idsFilter1 = new Ids();
@@ -43,64 +34,31 @@ class BoolTest extends BaseTest
                                 'should' => array(
                                     array(
                                         $idsFilter1->toArray(),
-                                        $idsFilter2->toArray(),
-                                    ),
-                                ),
-                            ),
+                                        $idsFilter2->toArray()
+                                    )
+                                )
+                            )
                         ),
-                        $idsFilter3->toArray(),
-                    ),
-                ),
-            ),
+                        $idsFilter3->toArray()
+                    )
+                )
+            )
         );
-        $out[] = array($mainBool, $expectedArray);
 
-        // case #1 _cache parameter should be supported
-        $bool = new Bool();
-        $terms = new Terms('field1', array('value1', 'value2'));
-        $termsNot = new Terms('field2', array('value1', 'value2'));
-        $bool->addMust($terms);
-        $bool->addMustNot($termsNot);
-        $bool->setCached(true);
-        $bool->setCacheKey('my-cache-key');
-        $expected = array(
-            'bool' => array(
-                'must' => array(
-                    $terms->toArray(),
-                ),
-                'must_not' => array(
-                    $termsNot->toArray(),
-                ),
-                '_cache' => true,
-                '_cache_key' => 'my-cache-key',
-            ),
-        );
-        $out[] = array($bool, $expected);
-
-        return $out;
-    }
-
-    /**
-     * @dataProvider getTestToArrayData()
-     * @param Bool  $bool
-     * @param array $expectedArray
-     */
-    public function testToArray(Bool $bool, $expectedArray)
-    {
-        $this->assertEquals($expectedArray, $bool->toArray());
+        $this->assertEquals($expectedArray, $mainBool->toArray());
     }
 
     public function testBoolFilter()
     {
-        $index = $this->_createIndex();
+        $index = $this->_createIndex('bool_filter_test');
         $type = $index->getType('book');
 
         //index some test data
-        $type->addDocument(new Document(1, array('author' => 'Michael Shermer', 'title' => 'The Believing Brain', 'publisher' => 'Robinson')));
-        $type->addDocument(new Document(2, array('author' => 'Jared Diamond', 'title' => 'Guns, Germs and Steel', 'publisher' => 'Vintage')));
-        $type->addDocument(new Document(3, array('author' => 'Jared Diamond', 'title' => 'Collapse', 'publisher' => 'Penguin')));
-        $type->addDocument(new Document(4, array('author' => 'Richard Dawkins', 'title' => 'The Selfish Gene', 'publisher' => 'OUP Oxford')));
-        $type->addDocument(new Document(5, array('author' => 'Anthony Burges', 'title' => 'A Clockwork Orange', 'publisher' => 'Penguin')));
+        $type->addDocument(new \Elastica\Document(1, array('author' => 'Michael Shermer', 'title' => 'The Believing Brain', 'publisher' => 'Robinson')));
+        $type->addDocument(new \Elastica\Document(2, array('author' => 'Jared Diamond', 'title' => 'Guns, Germs and Steel', 'publisher' => 'Vintage')));
+        $type->addDocument(new \Elastica\Document(3, array('author' => 'Jared Diamond', 'title' => 'Collapse', 'publisher' => 'Penguin')));
+        $type->addDocument(new \Elastica\Document(4, array('author' => 'Richard Dawkins', 'title' => 'The Selfish Gene', 'publisher' => 'OUP Oxford')));
+        $type->addDocument(new \Elastica\Document(5, array('author' => 'Anthony Burges', 'title' => 'A Clockwork Orange', 'publisher' => 'Penguin')));
 
         $index->refresh();
 
@@ -129,7 +87,7 @@ class BoolTest extends BaseTest
         $mustNotFilter->addMustNot($publisherFilter);
 
         $mainBoolFilter->addMust(array($shouldFilter, $mustNotFilter));
-        $query->setPostFilter($mainBoolFilter);
+        $query->setFilter($mainBoolFilter);
         //execute the query
         $results = $index->search($query);
 
@@ -139,38 +97,11 @@ class BoolTest extends BaseTest
         //count compare the id's
         $ids = array();
         /** @var \Elastica\Result $result **/
-        foreach ($results as $result) {
+        foreach($results as $result){
             $ids[] = $result->getId();
         }
-        $this->assertEquals($ids, array("2", "4"), 'Bool filter with child Bool filters: result ID check');
+        $this->assertEquals($ids, array("2","4"), 'Bool filter with child Bool filters: result ID check');
 
         $index->delete();
-    }
-
-    /**
-     * @expectedException \Elastica\Exception\InvalidException
-     */
-    public function testAddMustInvalidException()
-    {
-        $filter = new Bool();
-        $filter->addMust('fail!');
-    }
-
-    /**
-     * @expectedException \Elastica\Exception\InvalidException
-     */
-    public function testAddMustNotInvalidException()
-    {
-        $filter = new Bool();
-        $filter->addMustNot('fail!');
-    }
-
-    /**
-     * @expectedException \Elastica\Exception\InvalidException
-     */
-    public function testAddShouldInvalidException()
-    {
-        $filter = new Bool();
-        $filter->addShould('fail!');
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -30,23 +29,11 @@ class ForecastTreeSeedData {
      */
     public function populateUserSeedData()
     {
-        global $dictionary;
-        require_once 'modules/TableDictionary.php';
-
         $results = $GLOBALS['db']->query("SELECT id, user_name, reports_to_id FROM users WHERE status = 'Active'");
         while(($row = $GLOBALS['db']->fetchByAssoc($results)))
         {
-            $GLOBALS['db']->insertParams(
-                $dictionary['forecast_tree']['table'],
-                $dictionary['forecast_tree']['fields'],
-                array(
-                    'id' => $row['id'],
-                    'name' => $row['user_name'],
-                    'hierarchy_type' => 'users',
-                    'user_id' => $row['id'],
-                    'parent_id' => $row['reports_to_id'],
-                )
-            );
+            $query = "INSERT INTO forecast_tree (id, name, hierarchy_type, user_id, parent_id) VALUES ('{$row['id']}', '{$row['user_name']}', 'users', '{$row['id']}', '{$row['reports_to_id']}')";
+            $GLOBALS['db']->query($query);
         }
     }
 

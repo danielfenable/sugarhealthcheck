@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-function build_related_list_by_user_id($bean, $user_id,$where, $fill_additional_column_fields = true) {
+function build_related_list_by_user_id($bean, $user_id,$where) {
     $bean_id_name = strtolower($bean->object_name).'_id';
 
     $select = "SELECT {$bean->table_name}.* from {$bean->rel_users_table},{$bean->table_name} ";
@@ -39,10 +39,6 @@ function build_related_list_by_user_id($bean, $user_id,$where, $fill_additional_
 
         $newbean->processed_dates_times = array();
         $newbean->check_date_relationships_load();
-
-        if (method_exists($newbean, 'setFillAdditionalColumnFields')) {
-            $newbean->setFillAdditionalColumnFields($fill_additional_column_fields);
-        }
         $newbean->fill_in_additional_detail_fields();
 
         $list[] = $newbean;

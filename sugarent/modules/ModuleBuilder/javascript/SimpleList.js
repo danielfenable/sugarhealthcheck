@@ -94,7 +94,7 @@ if(typeof(SimpleList) == 'undefined'){
         text1.name = 'value_' + liObj.id;
         text1.value = YAHOO.lang.escapeHTML(drop_value.value);
 
-        var html = "<table width='100%'><tr><td class='first'><b>"+liObj.id+"</b><input id='value_"+liObj.id+"' value=\""+YAHOO.lang.escapeHTML(drop_value.value)+"\" type = 'hidden'><span class='fieldValue' id='span_"+liObj.id+"'>";
+        var html = "<table width='100%'><tr><td><b>"+liObj.id+"</b><input id='value_"+liObj.id+"' value=\""+YAHOO.lang.escapeHTML(drop_value.value)+"\" type = 'hidden'><span class='fieldValue' id='span_"+liObj.id+"'>";
         if(drop_value.value == ""){
             html += "[" + SUGAR.language.get('ModuleBuilder', 'LBL_BLANK') + "]";
         }else{

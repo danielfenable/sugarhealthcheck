@@ -48,7 +48,7 @@
  *
  * @class View.Fields.Base.FieldsetField
  * @alias SUGAR.App.view.fields.BaseFieldsetField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
@@ -56,7 +56,7 @@
      *
      * Initializes the fields property.
      *
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);
@@ -78,7 +78,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Looks for the fallback template as specified by the view. Returns the
      * `detail` template if it's not found.
@@ -95,7 +95,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Loads the `record-detail` template if the view is `record`.
      * FIXME: This is a quick hack and will be fixed by SC-3364.
@@ -103,8 +103,8 @@
     _loadTemplate: function() {
         this._super('_loadTemplate');
 
-        if ((this.view.name === 'record' || this.view.name === 'create'
-            || this.view.name === 'create-nodupecheck' || this.view.name === 'pmse-case')
+        if ((this.view.name === 'record' || this.view.name === 'create' || this.view.name === 'create-actions'
+            || this.view.name === 'create-nodupecheck')
             && this.type === 'fieldset' && !_.contains(this.fallbackActions, this.action)) {
 
             this.template = app.template.getField('fieldset', 'record-detail', this.model.module);
@@ -112,7 +112,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * If current fieldset is not readonly, it always falls back to false
      * (nodata unsupportable).
@@ -134,7 +134,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * We set the result from `field.getPlaceholder()` into a property named
      * `placeholder` for each of the child fields. These placeholders help us
@@ -183,7 +183,7 @@
     /**
      * Gets the child field definitions that are defined in the metadata.
      *
-     * @return {Object} Metadata of the child fields.
+     * @returns {Object} Metadata of the child fields.
      * @protected
      */
     _getChildFieldsMeta: function() {
@@ -193,7 +193,7 @@
     /**
      * Creates the children fields that are specified in the definitions.
      *
-     * @return {Array} Children fields that are created.
+     * @returns {Array} Children fields that are created.
      * @protected
      */
     _getChildFields: function() {
@@ -214,7 +214,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     clearErrorDecoration: function() {
         _.each(this.fields, function(field) {
@@ -261,7 +261,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     setDisabled: function(disable) {
         disable = _.isUndefined(disable) ? true : disable;
@@ -272,7 +272,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     setViewName: function(view) {
         this._super('setViewName', [view]);
@@ -282,7 +282,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Set action name of child fields of this field set.
      * Reset current focus index to the first item when it switches to different mode.
@@ -307,7 +307,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * We need this empty so it won't affect the nested fields that have the
      * same `fieldTag` of this fieldset due the usage of `find()` method.
@@ -316,7 +316,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Keep empty because you cannot set a value of a type `fieldset`.
      */
@@ -324,7 +324,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * We need this empty so it won't affect the nested fields that have the
      * same `fieldTag` of this fieldset due the usage of `find()` method.
@@ -333,7 +333,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _dispose: function() {
         //fields inside fieldset need to be disposed before the fielset itself is disposed.

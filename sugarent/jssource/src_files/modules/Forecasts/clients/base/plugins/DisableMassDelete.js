@@ -37,95 +37,15 @@
              * @return {String} message
              */
             _warnDelete: function() {
-                // get the mass_collection
-                var massCollection = this.context.get('mass_collection');
-                if (!massCollection) {
-                    return;
-                }
-
-                var massUpdateModel = this.getMassUpdateModel(this.module),
-                    closedModelObj = this._getClosedModels(massUpdateModel, true),
-                    closedModels = closedModelObj.closedModels,
-                    message = closedModelObj.message;
-
-                if (closedModels.length) {
-                    this._uncheckClosedModels(massCollection, closedModels, 'delete_warning', message);
-                } else if (massUpdateModel.models.length > 0) {
-                    this.warnDelete();
-                }
-                return message;
-            },
-
-            /**
-             * Gets the MassUpdate model collection and checks it for closed models for Mass Update
-             *
-             * @returns {boolean} True if there are closed models, false if not
-             */
-            checkMassUpdateClosedModels: function() {
-                // get the mass_collection
-                var massCollection = this.context.get('mass_collection');
-                if (!massCollection) {
-                    return;
-                }
-
-                var massUpdateModel = this.getMassUpdateModel(this.module),
-                    closedModelObj = this._getClosedModels(massUpdateModel, false),
-                    closedModels = closedModelObj.closedModels,
-                    message = closedModelObj.message;
-
-                if (closedModels.length) {
-                    // uncheck items
-                    this._uncheckClosedModels(massCollection, closedModels, 'massupdate_closed_models_warning', message);
-                }
-
-                return !!closedModels.length;
-            },
-
-            /**
-             * Unchecks any closed model rows and displays a warning message to the user
-             *
-             * @param {BeanCollection} massCollection The context's mass_collection
-             * @param {Array} closedModels An array of models with Closed Won/Lost Status/Stages
-             * @param {String} alertId The ID of the alert message
-             * @param {String} message The alert message to display to the user
-             * @protected
-             */
-            _uncheckClosedModels: function(massCollection, closedModels, alertId, message) {
-                var progressView = this.getProgressView();
-
-                // remove the closed models from the massCollection
-                massCollection.remove(closedModels);
-                _.each(closedModels, function(item) {
-                    var id = item.module + '_' + item.id;
-                    $("[name='" + id + "'] input").attr('checked', false);
-                });
-
-                app.alert.show(alertId, {
-                    level: 'warning',
-                    messages: message
-                });
-
-                //remove progressView since there is no progress
-                progressView.dispose();
-                this.layout.removeComponent(progressView);
-            },
-
-            /**
-             *
-             * @param {BeanCollection} massUpdateModel The Mass Update model collection
-             * @param {Boolean} isDelete True if this is a delete check, false if mass update
-             * @returns {{closedModels, message: *}}
-             * @protected
-             */
-            _getClosedModels: function(massUpdateModel, isDelete) {
                 var config = app.metadata.getModule('Forecasts', 'config') || {},
                     sales_stage_won = config.sales_stage_won || ['Closed Won'],
                     sales_stage_lost = config.sales_stage_lost || ['Closed Lost'],
                     closed_RLI_count = 0,
-                    lang_key = isDelete ? 'WARNING_NO_DELETE_' : 'WARNING_NO_MASSUPDATE_',
                     label_key = '_STAGE',
                     message = null,
                     status = null,
+                    massUpdateModel = this.getMassUpdateModel(this.module),
+                    progressView = this.getProgressView(),
                     opp_view_by = app.metadata.getModule('Opportunities', 'config').opps_view_by,
                     closedModels = _.filter(massUpdateModel.models, function(model) {
                         status = null;
@@ -145,22 +65,41 @@
                         }
 
                         if (_.contains(sales_stage_won, status) || _.contains(sales_stage_lost, status)) {
-                            message = app.lang.get(lang_key + 'SELECTED' + label_key);
+                            message = app.lang.get('WARNING_NO_DELETE_SELECTED' + label_key);
                             return true;
                         }
 
                         if (closed_RLI_count > 0) {
-                            message = app.lang.get(lang_key + 'CLOSED_SELECTED' + label_key, 'Opportunities');
+                            message = app.lang.get('WARNING_NO_DELETE_CLOSED_SELECTED' + label_key, 'Opportunities');
                             return true;
                         }
 
                         return false;
                     });
 
-                return {
-                    closedModels: closedModels,
-                    message: message
-                };
+                if (closedModels.length > 0) {
+                    // get the mass_collection from actionmenu.js
+                    var massCollection = this.context.get('mass_collection');
+                    // remove the closed models from the massCollection
+                    massCollection.remove(closedModels);
+
+                    // uncheck items
+                    _.each(closedModels, function(item) {
+                        var id = item.module + '_' + item.id;
+                        $("[name='" + id + "'] input").attr('checked', false);
+                    });
+                    app.alert.show('delete_warning', {
+                        level: 'warning',
+                        messages: message
+                    });
+
+                    //remove progressView since there is no progress
+                    progressView.dispose();
+                    this.layout.removeComponent(progressView);
+                } else if (massUpdateModel.models.length > 0) {
+                    this.warnDelete();
+                }
+                return message;
             }
         });
     });

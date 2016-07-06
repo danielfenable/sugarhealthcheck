@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,19 +11,35 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
 
 
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Nové Feed',
-                                         'LBL_DESCRIPTION'      => 'Nové Feed',
-                                         'LBL_SAVING'           => 'Parsuji',
-                                         'LBL_SAVED'            => 'Kompletní',
-                                         'LBL_AUTO_SCROLL'      => 'Automatické skrolování',
-                                          'LBL_SCROLL_SPEED'      => 'Rychlost skrolování (%)',
-                                         'LBL_CONFIGURE_TITLE'  => 'Titul',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Výška (1-300)',
-                                         'LBL_CONFIGURE_RSSURL' => 'Adresa URL kanálu RSS',
-                                         'LBL_DBLCLICK_HELP'    => '',
-                                         'ERR_LOADING_FEED'     => 'Nepodařilo se načíst zdroj RSS',
-                                         );
-?>
+
+
+
+
+
+
+
+
+
+
+
+
+	
+$dashletStrings = array (
+  'RSSDashlet' => 
+  array (
+    'LBL_TITLE' => 'Novinky',
+    'LBL_DESCRIPTION' => 'Novinky',
+    'LBL_SAVING' => 'Parsuji',
+    'LBL_SAVED' => 'Dokončeno',
+    'LBL_AUTO_SCROLL' => 'Automatické skrolování',
+    'LBL_SCROLL_SPEED' => 'Rychlost skrolování (%)',
+    'LBL_CONFIGURE_TITLE' => 'Název',
+    'LBL_CONFIGURE_HEIGHT' => 'Výška (1-300)',
+    'LBL_CONFIGURE_RSSURL' => 'RSS Url',
+    'LBL_DBLCLICK_HELP' => ' ',
+    'ERR_LOADING_FEED' => 'Nepodařilo se načíst zdroj RSS',
+  ),
+);
+

@@ -110,7 +110,7 @@ CheckboxItem.prototype.attachListeners = function () {
 };
 
 CheckboxItem.prototype.setActiveItem = function (value) {
-    if (!this.disabled && !this.unavailable) {
+    if (!this.disabled) {
         if (value) {
             this.style.addClasses(['adam-item-active']);
             this.style.applyStyle();

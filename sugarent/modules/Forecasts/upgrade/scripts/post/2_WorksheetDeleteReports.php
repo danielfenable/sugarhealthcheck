@@ -24,7 +24,7 @@ class SugarUpgradeWorksheetDeleteReports extends UpgradeScript
 
         // we only need to remove these files if the from_version is less than 7.0 but greater or equal than 6.7.0
         if (version_compare($this->from_version, '7.0', '<')) {
-            $sql = "UPDATE saved_reports SET deleted = 1 WHERE module = 'Worksheet'";
+            $sql = "UPDATE saved_reports SET deleted = 1 WHERE module = 'Worksheet';";
             $this->db->query($sql);
         }
     }

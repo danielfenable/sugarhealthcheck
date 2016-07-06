@@ -20,7 +20,7 @@
     _profileActionsTag: '[data-menu="user-actions"]',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         var self = this;
@@ -35,7 +35,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _renderHtml: function(){
         this._super('_renderHtml');

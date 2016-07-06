@@ -20,6 +20,7 @@
     },
 
     initiateCancel : function() {
-        app.router.navigate(app.router.buildRoute(this.module), {trigger: true});
+        //app.router.navigate(app.router.buildRoute('Home'), {trigger: true});
+        app.router.goBack();
     }
 })

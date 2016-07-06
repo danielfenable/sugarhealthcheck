@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,13 +10,22 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
- /*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $mod_strings = array (
   'LBL_ID' => 'ID связи',
@@ -33,8 +42,7 @@ $mod_strings = array (
   'LBL_RELATIONSHIP_TYPE' => 'Тип связи',
   'LBL_RELATIONSHIP_ROLE_COLUMN' => 'Название колонки роли связи',
   'LBL_RELATIONSHIP_ROLE_COLUMN_VALUE' => 'Значение колонки роли связи',
-  'LBL_REVERSE' => 'Наоборот' ,
+  'LBL_REVERSE' => 'Наоборот',
   'LBL_DELETED' => 'Удалено',
 );
-  
-?>
+

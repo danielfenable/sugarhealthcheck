@@ -17,29 +17,29 @@
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     className: 'subpanel-header',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     attributes: {
         'data-sortable-subpanel': 'true'
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     events: {
         'click': 'togglePanel',
-        'click a[name=create_button]:not(".disabled")': 'createRelatedClicked'
+        'click a[name=create_button]:not(".disabled")': 'createRelatedClicked',
     },
 
     plugins: ['LinkedModel', 'Tooltip'],
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         // FIXME: SC-3594 will address having child views extending metadata
@@ -56,12 +56,6 @@
         // This is in place to get the lang strings from the right module. See
         // if there is a better way to do this later.
         this.parentModule = this.context.parent.get('module');
-
-        // FIXME: Revisit with SC-4775.
-        this.on('linked-model:create', function() {
-            this.context.set('skipFetch', false);
-            this.context.reloadData();
-        }, this);
     },
 
     /**
@@ -70,7 +64,7 @@
      * @param {Event} event The click event.
      */
     createRelatedClicked: function(event) {
-        this.createRelatedRecord(this.module);
+        this.createRelatedRecord(this.module)
     },
 
     /**
@@ -79,7 +73,7 @@
     *
     * Triggers the `panel:toggle` event to toggle the subpanel.
     *
-    * @param {Event} The `click` event.
+    * @param evt The `click` event.
     */
     togglePanel: function(evt) {
         if (_.isNull(this.$el)) {
@@ -93,6 +87,8 @@
             return;
         }
 
-        this.context.set('collapsed', !this.context.get('collapsed'));
+        if (!this.layout.disposed) {
+            this.layout.toggle();
+        }
     }
 })

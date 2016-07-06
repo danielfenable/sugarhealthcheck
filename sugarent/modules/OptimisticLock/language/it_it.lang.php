@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,23 +10,21 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
-   'LBL_YOURS' => 'Tuoi',
-   'LBL_IN_DATABASE' => 'Nel Database',
-   'LBL_CONFLICT_EXISTS' => 'Esiste un conflitto per -',
-   'LBL_ACCEPT_DATABASE' => 'Database Accettato',
-   'LBL_ACCEPT_YOURS' => 'Accetta i tuoi',
-   'LBL_RECORDS_MATCH' => 'Records Trovati',
-   'LBL_NO_LOCKED_OBJECTS' => 'Nessun oggetto bloccato',
-   
+  'LBL_YOURS' => 'Tuoi',
+  'LBL_IN_DATABASE' => 'Nel Database',
+  'LBL_CONFLICT_EXISTS' => 'Esiste un conflitto per -',
+  'LBL_ACCEPT_DATABASE' => 'Database Accettato',
+  'LBL_ACCEPT_YOURS' => 'Accetta i tuoi',
+  'LBL_RECORDS_MATCH' => 'Records Trovati',
+  'LBL_NO_LOCKED_OBJECTS' => 'Nessun oggetto bloccato',
 );
 
-?>

@@ -172,7 +172,19 @@ if(linkDef.relId&&linkDef.relId!=linkId)
 AH.clearRelatedFieldCache(link);}}
 return AH.getRelatedField(link,ftype,field);},getAppListStrings:function(list){return SUGAR.language.get('app_list_strings',list);},parseDate:function(date,type){return SUGAR.util.DateUtils.parse(date,type);},getElement:function(variable){return AH.getElement(variable,this.formName);},_math:function(operator,n1,n2,decimals,fixed){decimals=(_.isFinite(decimals)&&decimals>=0)?parseInt(decimals):6;fixed=fixed||false;var result;var divisor=Math.pow(10,decimals);var r1=parseFloat(n1)*divisor;var r2=!_.isUndefined(n2)?(parseFloat(n2)*divisor):undefined;switch(operator){case'round':result=Math.round(r1)/ divisor;break;case'add':result=(r1+r2)/ divisor;break;case'sub':result=(r1-r2)/ divisor;break;case'mul':result=this.round(r1*r2 / divisor / divisor,decimals,fixed);break;case'div':result=this.round(r1 / r2,decimals,fixed);break;default:return n1;break;}
 return(fixed&&!_.isString(result))?result.toFixed(decimals):result;},add:function(start,add){return this._math('add',start,add,6,true);},subtract:function(start,subtract){return this._math('sub',start,subtract,6,true);},multiply:function(start,multiply){return this._math('mul',start,multiply,6,true);},divide:function(start,divide){return this._math('div',start,divide,6,true);},round:function(start,precision){return this._math('round',start,precision,true);}});SUGAR.forms.DefaultExpressionParser=new SUGAR.expressions.ExpressionParser();SUGAR.forms.evalVariableExpression=function(expression,varmap,view)
-{return SUGAR.forms.DefaultExpressionParser.evaluate(expression,new SUGAR.forms.FormExpressionContext(view));}
+{return SUGAR.forms.DefaultExpressionParser.evaluate(expression,new SUGAR.forms.FormExpressionContext(view));if(!view)view=AH.lastView;var SE=SUGAR.expressions;expression=SUGAR.forms._performRangeReplace(expression);var handler=AH;if(typeof(varmap)=='undefined')
+{varmap=new Array();for(v in AH.VARIABLE_MAP[view]){if(v!=""){varmap[varmap.length]=v;}}}
+if(expression==SE.Expression.TRUE||expression==SE.Expression.FALSE)
+var vars=SUGAR.forms.getFieldsFromExpression(expression);for(var i in vars)
+{var v=vars[i];var value=AH.getValue(v);if(value==null){continue;}
+var regex=new RegExp("\\$"+v,"g");if(value===null)
+{value="";}
+if(typeof(value)=="string")
+{value=value.replace(/\n/g,"");if((/^(\s*)$/).exec(value)!=null||value==="")
+{expression=expression.replace(regex,'""');}
+else if(SE.isNumeric(value)){expression=expression.replace(regex,SE.unFormatNumber(value));}
+else{expression=expression.replace(regex,'"'+value+'"');}}else if(typeof(value)=="object"&&value.getTime){value="date("+value.getTime()+")";expression=expression.replace(regex,value);}}
+return SUGAR.forms.DefaultExpressionParser.evaluate(expression);}
 SUGAR.forms._performRangeReplace=function(expression)
 {this.generateRange=function(prefix,start,end){var str="";var i=parseInt(start);if(typeof(end)=='undefined')
 while(AH.getElement(prefix+''+i)!=null)
@@ -206,7 +218,7 @@ parse(this.actions);parse(this.falseActions);return fields;}
 SUGAR.forms.AbstractAction=function(target){this.target=target;};SUGAR.forms.AbstractAction.prototype.exec=function(){}
 SUGAR.forms.AbstractAction.prototype.setContext=function(context){this.context=context;}
 SUGAR.forms.AbstractAction.prototype.evalExpression=function(exp,context){return SUGAR.forms.DefaultExpressionParser.evaluate(exp,context).evaluate();}
-SUGAR.forms.AbstractAction.prototype.canSetValue=function(context){return true;};SUGAR.forms.Trigger=function(variables,condition){this.variables=variables;this.condition=condition;this.dependency={};this._attachListeners();}
+SUGAR.forms.Trigger=function(variables,condition){this.variables=variables;this.condition=condition;this.dependency={};this._attachListeners();}
 SUGAR.forms.Trigger.prototype._attachListeners=function(){var handler=AH;if(!(this.variables instanceof Array)){this.variables=[this.variables];}
 for(var i=0;i<this.variables.length;i++){var el=handler.getCollection(this.variables[i]);if(!el){var el=handler.getElement(this.variables[i]);}
 if(!el)continue;if(el.type&&el.type.toUpperCase()=="CHECKBOX"){YAHOO.util.Event.addListener(el,"click",SUGAR.forms.Trigger.fire,this,true);}else{YAHOO.util.Event.addListener(el,"change",SUGAR.forms.Trigger.fire,this,true);}}}

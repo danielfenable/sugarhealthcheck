@@ -35,6 +35,18 @@ $viewdefs['base']['layout']['dnb-bal'] = array(
                         'layout' => array(
                             'components' => array(
                                 array(
+                                    'layout' => 'sidebar',
+                                ),
+                            ),
+                            'type' => 'simple',
+                            'name' => 'side-pane',
+                            'span' => 4,
+                        ),
+                    ),
+                    array(
+                        'layout' => array(
+                            'components' => array(
+                                array(
                                     'view' =>
                                         array (
                                             'name' => 'dnb-bal-results',

@@ -1,5 +1,8 @@
 <?php
- /*
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+/*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
  * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
@@ -9,44 +12,39 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*
- * Created on Aug 14, 2007
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
-$object_name = strtolower($object_name);
- $app_list_strings = array (
 
-  $object_name.'_type_dom' =>
-  array (
-  	'Administration' => 'Administration',
-    'Product' => 'Продукт',
-    'User' => 'Користувач',
-  ),
-   $object_name.'_status_dom' =>
-  array (
-    'New' => 'Новий',
-    'Assigned' => 'Призначений',
-    'Closed' => 'Закритий',
-    'Pending Input' => 'Очікує рішення',
-    'Rejected' => 'Відхилений',
-    'Duplicate' => 'Дублікат',
-  ),
-  $object_name.'_priority_dom' =>
+
+$object_name = strtolower($object_name);
+$app_list_strings = array (
+  $object_name.'_priority_dom' => 
   array (
     'P1' => 'Високий',
     'P2' => 'Середній',
     'P3' => 'Низький',
   ),
-  $object_name.'_resolution_dom' =>
+  $object_name.'_resolution_dom' => 
   array (
-  	'' => '',
-  	'Accepted' => 'Прийнятий',
-    'Duplicate' => 'Дублікат',
+    '' => '',
+    'Accepted' => 'Прийнятий',
     'Closed' => 'Закритий',
-    'Out of Date' => 'Застарілий',
+    'Duplicate' => 'Дублікат',
     'Invalid' => 'Недійсний',
+    'Out of Date' => 'Застарілий',
   ),
-  );
-?>
+  $object_name.'_status_dom' => 
+  array (
+    'Assigned' => 'Призначений',
+    'Closed' => 'Закритий',
+    'Duplicate' => 'Дублікат',
+    'New' => 'Новий',
+    'Pending Input' => 'Очікує рішення',
+    'Rejected' => 'Відхилений',
+  ),
+  $object_name.'_type_dom' => 
+  array (
+    'Administration' => 'Адміністрування',
+    'Product' => 'Продукт',
+    'User' => 'Користувач',
+  ),
+);
+

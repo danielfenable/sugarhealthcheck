@@ -4,14 +4,14 @@ namespace Elastica\Test;
 
 use Elastica\Bulk;
 use Elastica\Bulk\Action;
-use Elastica\Bulk\Action\AbstractDocument;
 use Elastica\Client;
 use Elastica\Document;
 use Elastica\Exception\Bulk\ResponseException;
 use Elastica\Exception\InvalidException;
 use Elastica\Exception\NotFoundException;
-use Elastica\Filter\Script;
 use Elastica\Test\Base as BaseTest;
+use Elastica\Bulk\Action\AbstractDocument;
+use Elastica\Filter\Script;
 
 class BulkTest extends BaseTest
 {
@@ -19,7 +19,6 @@ class BulkTest extends BaseTest
     public function testSend()
     {
         $index = $this->_createIndex();
-        $indexName = $index->getName();
         $type = $index->getType('bulk_test');
         $type2 = $index->getType('bulk_test2');
         $client = $index->getClient();
@@ -36,7 +35,7 @@ class BulkTest extends BaseTest
             $newDocument1,
             $newDocument2,
             $newDocument3,
-            $newDocument4,
+            $newDocument4
         );
 
         $bulk = new Bulk($client);
@@ -64,29 +63,29 @@ class BulkTest extends BaseTest
         $data = $bulk->toArray();
 
         $expected = array(
-            array('index' => array('_index' => $indexName, '_type' => 'bulk_test', '_id' => 1, '_percolate' => '*')),
+            array('index' => array('_index' => 'elastica_test', '_type' => 'bulk_test', '_id' => 1, '_percolate' => '*')),
             array('name' => 'Mister Fantastic'),
             array('index' => array('_id' => 2)),
             array('name' => 'Invisible Woman'),
-            array('create' => array('_index' => $indexName, '_type' => 'bulk_test', '_id' => 3)),
+            array('create' => array('_index' => 'elastica_test', '_type' => 'bulk_test', '_id' => 3)),
             array('name' => 'The Human Torch'),
-            array('index' => array('_index' => $indexName, '_type' => 'bulk_test')),
+            array('index' => array('_index' => 'elastica_test', '_type' => 'bulk_test')),
             array('name' => 'The Thing'),
         );
         $this->assertEquals($expected, $data);
 
-        $expected = '{"index":{"_index":"'.$indexName.'","_type":"bulk_test","_id":1,"_percolate":"*"}}
+        $expected = '{"index":{"_index":"elastica_test","_type":"bulk_test","_id":1,"_percolate":"*"}}
 {"name":"Mister Fantastic"}
 {"index":{"_id":2}}
 {"name":"Invisible Woman"}
-{"create":{"_index":"'.$indexName.'","_type":"bulk_test","_id":3}}
+{"create":{"_index":"elastica_test","_type":"bulk_test","_id":3}}
 {"name":"The Human Torch"}
-{"index":{"_index":"'.$indexName.'","_type":"bulk_test"}}
+{"index":{"_index":"elastica_test","_type":"bulk_test"}}
 {"name":"The Thing"}
 ';
 
         $expected = str_replace(PHP_EOL, "\n", $expected);
-        $this->assertEquals($expected, (string) str_replace(PHP_EOL, "\n", (string) $bulk));
+        $this->assertEquals($expected, (string)str_replace(PHP_EOL, "\n", (string)$bulk));
 
         $response = $bulk->send();
 
@@ -108,13 +107,14 @@ class BulkTest extends BaseTest
         $this->assertEquals(3, $type->count());
         $this->assertEquals(1, $type2->count());
 
+
         $bulk = new Bulk($client);
         $bulk->addDocument($newDocument3, Action::OP_TYPE_DELETE);
 
         $data = $bulk->toArray();
 
         $expected = array(
-            array('delete' => array('_index' => $indexName, '_type' => 'bulk_test', '_id' => 3)),
+            array('delete' => array('_index' => 'elastica_test', '_type' => 'bulk_test', '_id' => 3)),
         );
         $this->assertEquals($expected, $data);
 
@@ -146,7 +146,7 @@ class BulkTest extends BaseTest
         $documents = array(
             $newDocument1,
             $newDocument2,
-            $newDocument3,
+            $newDocument3
         );
 
         $bulk = new Bulk($client);
@@ -216,7 +216,7 @@ class BulkTest extends BaseTest
 
         $actions = array(
             $action1,
-            $action2,
+            $action2
         );
 
         $bulk->addActions($actions);
@@ -298,7 +298,7 @@ class BulkTest extends BaseTest
                     array('user' => array('name' => 'hans')),
                     array('user' => array('name' => 'mans')),
                 ),
-                'Two sources for one action',
+                'Two sources for one action'
             ),
             array(
                 array(
@@ -306,26 +306,26 @@ class BulkTest extends BaseTest
                     array('user' => array('name' => 'hans')),
                     array('upsert' => array('_index' => 'test', '_type' => 'user', '_id' => '2')),
                 ),
-                'Invalid optype for action',
+                'Invalid optype for action'
             ),
             array(
                 array(
                     array('user' => array('name' => 'mans')),
                 ),
-                'Source without action',
+                'Source without action'
             ),
             array(
                 array(
                     array(),
                 ),
-                'Empty array',
+                'Empty array'
             ),
             array(
                 array(
                     'dummy',
                 ),
-                'String as data',
-            ),
+                'String as data'
+            )
         );
     }
 
@@ -609,11 +609,11 @@ class BulkTest extends BaseTest
         $indexName = 'testIndex';
 
         $bulk->setIndex($indexName);
-        $this->assertEquals($indexName.'/_bulk', $bulk->getPath());
+        $this->assertEquals($indexName . '/_bulk', $bulk->getPath());
 
         $typeName = 'testType';
         $bulk->setType($typeName);
-        $this->assertEquals($indexName.'/'.$typeName.'/_bulk', $bulk->getPath());
+        $this->assertEquals($indexName . '/' . $typeName . '/_bulk', $bulk->getPath());
     }
 
     public function testRetry()
@@ -634,7 +634,7 @@ class BulkTest extends BaseTest
         $metadata = $actions[0]->getMetadata();
         $this->assertEquals(5, $metadata[ '_retry_on_conflict' ]);
 
-        $script = new \Elastica\Script('');
+        $script = new \Elastica\Script( '' );
         $script->setRetryOnConflict(5);
 
         $bulk = new Bulk($client);
@@ -652,59 +652,59 @@ class BulkTest extends BaseTest
             array(
                 array(),
                 null,
-                null,
+                null
             ),
             array(
                 array(),
                 'localhost',
-                null,
+                null
             ),
             array(
                 array(),
                 null,
-                9700,
+                9700
             ),
             array(
                 array(),
                 'localhost',
-                9700,
+                9700
             ),
             array(
                 array(
                     'udp' => array(
                         'host' => 'localhost',
                         'port' => 9700,
-                    ),
+                    )
                 ),
                 null,
-                null,
+                null
             ),
             array(
                 array(
                     'udp' => array(
                         'host' => 'localhost',
                         'port' => 9800,
-                    ),
+                    )
                 ),
                 'localhost',
-                9700,
+                9700
             ),
             array(
                 array(
                     'udp' => array(
                         'host' => 'localhost',
                         'port' => 9800,
-                    ),
+                    )
                 ),
                 null,
                 null,
-                true,
+                true
             ),
             array(
                 array(),
                 'localhost',
                 9800,
-                true,
+                true
             ),
         );
     }

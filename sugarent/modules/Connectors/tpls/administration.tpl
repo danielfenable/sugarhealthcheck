@@ -10,14 +10,12 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 *}
-<link rel="stylesheet" type="text/css" href="{sugar_getjspath file='modules/Connectors/tpls/administration.css'}"/>
-
 <table class='edit view small' width="100%" border="0" cellspacing="1" cellpadding="0" >
 	<tr valign="top">
 		<td width="35%">
 			<table  border="0" cellspacing="2" cellpadding="0" >
 				<tr valign='top'>
-					<td><img src="{$IMG}icon_ConnectorConfig.gif" class="connector-img" name="connectorConfig" onclick="document.location.href='index.php?module=Connectors&action=ModifyProperties';"></td>
+					<td><img src="{$IMG}icon_ConnectorConfig.gif" name="connectorConfig" onclick="document.location.href='index.php?module=Connectors&action=ModifyProperties';"></td>
 					<td>&nbsp;&nbsp;</td>
 					<td><b>{$mod.LBL_MODIFY_PROPERTIES_TITLE}</b><br/>
 						{$mod.LBL_MODIFY_PROPERTIES_DESC}
@@ -27,7 +25,7 @@
 					<td colspan=2>&nbsp;</td>
 				</tr>
 				<tr valign='top'>
-					<td><img src="{$IMG}icon_ConnectorEnable.gif" class="connector-img" name="enableImage" onclick="document.location.href='index.php?module=Connectors&action=ModifyDisplay';"></td>
+					<td><img src="{$IMG}icon_ConnectorEnable.gif" name="enableImage" onclick="document.location.href='index.php?module=Connectors&action=ModifyDisplay';"></td>
 					<td>&nbsp;&nbsp;</td>
 					<td><b>{$mod.LBL_MODIFY_DISPLAY_TITLE}</b><br/>
 						{$mod.LBL_MODIFY_DISPLAY_DESC}
@@ -39,7 +37,7 @@
 		<td width="35%">
 			<table  border="0" cellspacing="2" cellpadding="0">
 				<tr valign='top'>
-					<td><img src="{$IMG}icon_ConnectorMap.gif" class="connector-img" name="connectorMapImg" onclick="document.location.href='index.php?module=Connectors&action=ModifyMapping';"></td>
+					<td><img src="{$IMG}icon_ConnectorMap.gif" name="connectorMapImg" onclick="document.location.href='index.php?module=Connectors&action=ModifyMapping';"></td>
 					<td>&nbsp;&nbsp;</td>
 					<td><b>{$mod.LBL_MODIFY_MAPPING_TITLE}</b><br/>
 						{$mod.LBL_MODIFY_MAPPING_DESC}
@@ -53,7 +51,7 @@
 
 				<tr valign='top'>
 					<td>
-					    <img src="{$IMG}icon_ConnectorSearchFields.gif" class="connector-img" name="connectorSearchImg" onclick="document.location.href='index.php?module=Connectors&action=ModifySearch';">
+					    <img src="{$IMG}icon_ConnectorSearchFields.gif" name="connectorSearchImg" onclick="document.location.href='index.php?module=Connectors&action=ModifySearch';">
 				    </td>
 					<td>&nbsp;&nbsp;</td>
 					<td>

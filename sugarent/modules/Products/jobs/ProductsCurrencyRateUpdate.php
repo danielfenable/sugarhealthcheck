@@ -67,11 +67,6 @@ class ProductsCurrencyRateUpdate extends CurrencyRateUpdateAbstract
 
         $ids = $this->getProductsWithNonClosedQuote();
 
-        if (empty($ids)) {
-            // we have no records, just ignore this module
-            return true;
-        }
-
         // setup SQL statement
         $query = sprintf("UPDATE %s SET %s = %s
         WHERE id IN (%s)
@@ -111,11 +106,6 @@ class ProductsCurrencyRateUpdate extends CurrencyRateUpdateAbstract
     public function doCustomUpdateUsDollarRate($tableName, $usDollarColumn, $amountColumn, $currencyId)
     {
         $ids = $this->getProductsWithNonClosedQuote();
-
-        if (empty($ids)) {
-            // we have no records, just ignore this module
-            return true;
-        }
 
         // setup SQL statement
         $query = sprintf("UPDATE %s SET %s = %s / base_rate

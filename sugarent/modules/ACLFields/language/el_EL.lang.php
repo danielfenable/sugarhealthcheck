@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
+
 $mod_strings = array (
-'LBL_DEFAULT'=>'Δεν Ορίστηκε',
-'LBL_READ_WRITE'=>'Ανάγνωση/Εγγραφή',
-'LBL_READ_OWNER_WRITE'=>'Ανάγνωση/Ιδιοκτήτης Εγγραφή',
-'LBL_READ_ONLY'=>'Μόνο για Ανάγνωση',
-'LBL_OWNER_READ_WRITE'=>'Ιδιοκτήτης Ανάγνωση/Ιδιοκτήτης Εγγραφή',
-'LBL_ALLOW_NONE'=>'Κανένα',
-'LBL_FIELDS'=>'Δικαιώματα Πεδίου',
-'LBL_NOT_DEFINED' => 'Δεν Καθορίστηκε',
-)
-?>
+  'LBL_ALLOW_NONE' => 'Κανένα',
+  'LBL_DEFAULT' => 'Δεν Ορίστηκε',
+  'LBL_FIELDS' => 'Δικαιώματα Πεδίου',
+  'LBL_NOT_DEFINED' => 'Δεν Καθορίστηκε',
+  'LBL_OWNER_READ_WRITE' => 'Ιδιοκτήτης Ανάγνωση/Ιδιοκτήτης Εγγραφή',
+  'LBL_READ_ONLY' => 'Μόνο για Ανάγνωση',
+  'LBL_READ_OWNER_WRITE' => 'Ανάγνωση/Ιδιοκτήτης Εγγραφή',
+  'LBL_READ_WRITE' => 'Ανάγνωση/Εγγραφή',
+);
+

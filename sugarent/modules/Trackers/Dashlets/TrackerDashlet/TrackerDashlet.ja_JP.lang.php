@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,22 +12,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'トラッカーレポート',
-                                          'LBL_DESCRIPTION'      => 'トラッカーデータを検索するダッシュレット',
-                                          'LBL_SAVING'           => 'クエリを実行中...',
-                                          'LBL_SAVED'            => 'クエリ完了',
-                                          'LBL_CLEAR'            => 'クリア',
-                                          'LBL_CLEAR_TOOLTIP'    => '日付フィールド値をクリア',
-                                          'LBL_CONFIGURE_TITLE'  => '職位',
-                                          'LBL_CONFIGURE_HEIGHT' => '高さ（1 - 300）',
-										  'LBL_SELECT_QUERY'     => 'クエリを選択...',
-										  'LBL_FILTER'              => '絞り込み',
-										  'LBL_FILTER_TOOLTIP'      => '日付フィールド値によって絞り込む',
-										  'LBL_SINCE'            => '以後:',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
-										                               '  The date value entered will replace the default date value for the report.' .
-										                               '  For example, in the "My Activity (This Week)" report, the' .
-										                               ' value will be used to display all records after the filter date' .
-										                               ' instead of the default time period of one week.',
+$dashletStrings = array (
+  'TrackerDashlet' => 
+  array (
+    'LBL_TITLE' => 'トラッカーレポート',
+    'LBL_DESCRIPTION' => 'トラッカーデータを検索するダッシュレット',
+    'LBL_SAVING' => 'クエリを実行中...',
+    'LBL_SAVED' => 'クエリ完了',
+    'LBL_CLEAR' => 'クリア',
+    'LBL_CLEAR_TOOLTIP' => '日付フィールド値をクリア',
+    'LBL_CONFIGURE_TITLE' => 'タイトル',
+    'LBL_CONFIGURE_HEIGHT' => '高さ（1 - 300）',
+    'LBL_SELECT_QUERY' => 'クエリを選択...',
+    'LBL_FILTER' => '絞り込み',
+    'LBL_FILTER_TOOLTIP' => '日付フィールド値によって絞り込む',
+    'LBL_SINCE' => '以後:',
+    'LBL_CHOOSE_DATE_TOOLTIP' => '選択されたレポートに対して日付で絞り込むことができます。レポートのデフォルトの日付は、入力した日付で置き換えられます。例えば、「私の活動（今週）」レポートのデフォルト期間は１週間ですが、絞り込み日付として入力された日付以後のすべてのレコードが表示されるようになります。',
+  ),
 );
+

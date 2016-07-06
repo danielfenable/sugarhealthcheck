@@ -21,8 +21,6 @@ require_once('include/utils/zip_utils.php');
 require_once('modules/UpgradeWizard/uw_utils.php');
 require_once('modules/Administration/UpgradeHistory.php');
 
-use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
-
 $GLOBALS['top_message'] = '';
 
 if (empty($locale)) {
@@ -61,7 +59,7 @@ $showDone = '';
 $showExit = '';
 $disableNextForLicense='';
 
-if(!isset($_SESSION['step']) || !ArrayFunctions::is_array_access($_SESSION['step'])){
+if(!isset($_SESSION['step']) || !is_array($_SESSION['step'])){
 	$_SESSION['step'] = array();
 }
 

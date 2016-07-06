@@ -20,6 +20,7 @@ require_once('include/entryPoint.php');
 require_once('include/upload_file.php');
 require_once('vendor/ytree/Tree.php');
 require_once('vendor/ytree/Node.php');
+require_once('modules/KBTags/TreeData.php');
 
 $json = getJSONobj();
 $selectedTable = $json->decode(html_entity_decode($_REQUEST['selectedTable']));

@@ -18,6 +18,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
+
+
+
 class SubPanelViewTeams {
 
 	var $users_list = null;

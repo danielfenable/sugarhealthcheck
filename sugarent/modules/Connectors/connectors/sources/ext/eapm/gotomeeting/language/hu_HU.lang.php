@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-Egy új alkalmazás regisztrálásával Citrix Online GoToMeeting API ügyfélkódot szerezhet.<br>
-&nbsp;<br>
-A regisztrálás lépései:<br>
-&nbsp;<br>
-<ol>
-<li>Jelentkezzen be az Online Citrix fejlesztői fiókjába: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>Kattintson a következőre: Apply for Developer Key</li>
-<li>Az API Terméknél válassza ki a GoToMeeting opciót, és írja be a példa URL-jét az almalmazás URL-jébe </li>
-<li>Az alkalmazásai alatt megjelenik majd egy API Key nevű oszlop</li>
-<li>Másolja be alulra.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'API Fogyasztói kulcs',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => 'Szerezze be a Citrix Online GoToMeeting API kulcsát az új alkalmazás regisztrációjával!<br /><br />A regisztráció lépési:<br /><br />1. Jelentkezzen be a Citrix Online fejlesztői fiókjába: https://developer.citrixonline.com/<br />2. Kattintson az "Apply for Developer Key" opcióra!<br />3. A "Product API" felületen válassza a GoToMeeting opciót, majd adja meg URL-jét az "Application URL" sorban!<br />4. Az API kulcs ekkor meg fog jelenni a "Your Applications" pontban.<br />5. Másolja be ezt alább!',
+  'oauth_consumer_key' => 'API kulcs',
 );
+

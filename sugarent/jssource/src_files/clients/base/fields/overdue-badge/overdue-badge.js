@@ -15,14 +15,13 @@
  *
  * @class View.Fields.Base.OverdueBadgeField
  * @alias SUGAR.App.view.fields.BaseOverdueBadgeField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     _render: function() {
         var now = new Date(),
-            due_date = this.model.get(this.name),
-            date = new Date(due_date);
-        this.model.set('overdue', !_.isNull(due_date) && date < now);
+            date = new Date(this.model.get(this.name));
+        this.model.set('overdue', date < now);
         this._super('_render');
     }
 })

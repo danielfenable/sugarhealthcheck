@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'Zobrazit seznam změn',
-    'LBL_FIELD_NAME' => 'Pole',
-    'LBL_OLD_NAME' => 'Stará hodnota',
-    'LBL_NEW_VALUE' => 'Nová hodnota',
-    'LBL_CREATED_BY' => 'Upraveno kým',
-    'LBL_LIST_DATE' => 'Datup upravení',
-    'LBL_AUDITED_FIELDS' => 'Položky auditované v tomto modulu:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'V tomto modulu nejsou žádné kontrolované položky',
-    'LBL_CHANGE_LOG' => 'Změna profilu',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'Když jsou kontrolovaná pole měny uložena v měně, která není výchozí měnou systému, budou v protokolu změn zobrazeny staré a nové hodnoty v převedené, systémem definované výchozí měně.'
+	
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Položky auditované v tomto modulu:',
+  'LBL_AUDIT_TITLE' => 'Zobrazit seznam změn',
+  'LBL_CHANGE_LOG' => 'Log změn',
+  'LBL_CREATED_BY' => 'Upraveno kým',
+  'LBL_FIELD_NAME' => 'Pole',
+  'LBL_LIST_DATE' => 'Datup upravení',
+  'LBL_NEW_VALUE' => 'Nová hodnota',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'V tomto modulu nejsou žádné kontrolované položky',
+  'LBL_OLD_NAME' => 'Stará hodnota',
 );
+

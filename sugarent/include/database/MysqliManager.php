@@ -82,18 +82,6 @@ class MysqliManager extends MysqlManager
 	public $preparedStatementClass = 'MysqliPreparedStatement';
 
     /**
-     * Array of options used for mysqli::real_connect()
-     * @var array
-     */
-    protected $connectOptions = array();
-
-    /**
-     * Connection status flag
-     * @var bool
-     */
-    protected $connected = false;
-
-    /**
      * Create DB Driver
      */
 	public function __construct()
@@ -101,7 +89,6 @@ class MysqliManager extends MysqlManager
         parent::__construct();
         $this->capabilities["recursive_query"] = true;
         $this->capabilities["prepared_statements"] = true;
-        $this->capabilities["ssl"] = true;
 	}
 
 	/**
@@ -134,7 +121,7 @@ class MysqliManager extends MysqlManager
         static $queryMD5 = array();
 
         parent::countQuery($sql);
-        $this->log->info('Query:' . $sql);
+        $GLOBALS['log']->info('Query:' . $sql);
         $this->checkConnection();
         $this->query_time = microtime(true);
         $this->lastsql = $sql;
@@ -158,7 +145,7 @@ class MysqliManager extends MysqlManager
             $queryMD5[$md5] = true;
 
         $this->query_time = microtime(true) - $this->query_time;
-        $this->log->info('Query Execution Time:'.$this->query_time);
+        $GLOBALS['log']->info('Query Execution Time:'.$this->query_time);
 
         // slow query logging
         $this->dump_slow_queries($sql);
@@ -184,7 +171,7 @@ class MysqliManager extends MysqlManager
                                  array(' ',     ' ',    ' ',   ' ',  ' ', ' ', ' ', ' ',),
                                  $sql);
 
-        $this->log->fatal("{$line['file']}:{$line['line']} ${line['function']} \nQuery: $dumpQuery\n");
+        $GLOBALS['log']->fatal("{$line['file']}:{$line['line']} ${line['function']} \nQuery: $dumpQuery\n");
         */
 
 		if($keepResult) {
@@ -192,7 +179,7 @@ class MysqliManager extends MysqlManager
         }
 
         if ($this->database && mysqli_errno($this->database) == 2006 && $this->retryCount < 1) {
-            $this->log->fatal('mysqli has gone away, retrying');
+            $GLOBALS['log']->fatal('mysqli has gone away, retrying');
             $this->retryCount++;
             $this->disconnect();
             $this->connect();
@@ -231,29 +218,26 @@ class MysqliManager extends MysqlManager
 
 
     /**
-     * Disconnects from the database
-     *
-     * Also handles any cleanup needed
-     */
-    public function disconnect()
-    {
-        $this->log->debug('Calling MySQLi::disconnect()');
-
-        if (!empty($this->database)) {
-            $this->freeResult();
-            mysqli_close($this->database);
-            $this->database = null;
-        }
-
-        $this->connected = false;
-    }
+	 * Disconnects from the database
+	 *
+	 * Also handles any cleanup needed
+	 */
+	public function disconnect()
+	{
+		$GLOBALS['log']->debug('Calling MySQLi::disconnect()');
+		if(!empty($this->database)){
+			$this->freeResult();
+			mysqli_close($this->database);
+			$this->database = null;
+		}
+	}
 
 	/**
 	 * @see DBManager::freeDbResult()
 	 */
 	protected function freeDbResult($dbResult)
 	{
-		if(is_resource($dbResult))
+		if(!empty($dbResult))
 			mysqli_free_result($dbResult);
 	}
 
@@ -304,153 +288,74 @@ class MysqliManager extends MysqlManager
 		return mysqli_real_escape_string($this->getDatabase(),$this->quoteInternal($string));
 	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function connect(array $configOptions = null, $dieOnError = false)
-    {
-        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+	/**
+	 * @see DBManager::connect()
+	 */
+	public function connect(array $configOptions = null, $dieOnError = false)
+	{
+		global $sugar_config;
 
-        $this->initDatabase();
-        $this->setupConnectOptions($configOptions);
+		if (is_null($configOptions))
+			$configOptions = $sugar_config['dbconfig'];
 
-        if (!$this->connected) {
-            try {
-              $this->connected = mysqli_real_connect(
-                  $this->database,
-                  $this->connectOptions['db_host_name'],
-                  $this->connectOptions['db_user_name'],
-                  $this->connectOptions['db_password'],
-                  $this->connectOptions['db_name'],
-                  $this->connectOptions['db_port'],
-                  $this->connectOptions['db_socket'],
-                  $this->connectOptions['db_client_flags']
-              );
-            } catch (mysqli_sql_exception $e) {
-                $message = "Could not connect to DB server with options ".
-                $this->connectOptions['db_host_name']." as ".
-                $this->connectOptions['db_user_name'].". port " .
-                $this->connectOptions['db_port'].": ".$e->getMessage();
+		if(!isset($this->database)) {
 
-                $this->registerError('', $message, $dieOnError);
-                return false;
-            }
-        }
-        
-        if (!empty($this->connectOptions['db_name'])) {
-            try {
-                $this->selectDb($this->connectOptions['db_name']);
-            } catch (mysqli_sql_exception $e) {
-                $this->registerError('', "Unable to select database ".$this->connectOptions['db_name'].": ".$e->getMessage(), $dieOnError);
-                return false;
-            }
-        }
+			//mysqli connector has a separate parameter for port.. We need to separate it out from the host name
+			$dbhost=$configOptions['db_host_name'];
+			$dbport=null;
+			$pos=strpos($configOptions['db_host_name'],':');
+			if ($pos !== false) {
+				$dbhost=substr($configOptions['db_host_name'],0,$pos);
+				$dbport=substr($configOptions['db_host_name'],$pos+1);
+			}
 
-        $this->setCharset();
+			if (ini_get('mysqli.allow_persistent') && $this->getOption('persistent')) {
+				$dbhost = "p:" . $dbhost;
+			}
 
-        if ($this->checkError('Could Not Connect', $dieOnError)) {
-            $this->log->info("connected to db");
-        }
+			$this->database = mysqli_connect($dbhost,$configOptions['db_user_name'],$configOptions['db_password'],isset($configOptions['db_name'])?$configOptions['db_name']:'',$dbport);
+			if(empty($this->database)) {
+				$GLOBALS['log']->fatal("Could not connect to DB server ".$dbhost." as ".$configOptions['db_user_name'].". port " .$dbport . ": " . mysqli_connect_error());
+				if($dieOnError) {
+					if(isset($GLOBALS['app_strings']['ERR_NO_DB'])) {
+						sugar_die($GLOBALS['app_strings']['ERR_NO_DB']);
+					} else {
+						sugar_die("Could not connect to the database. Please refer to sugarcrm.log for details.");
+					}
+				} else {
+					return false;
+				}
+			}
+		}
 
-        mysqli_report(MYSQLI_REPORT_OFF);
-        return true;
-    }
+		if(!empty($configOptions['db_name']) && !@mysqli_select_db($this->database,$configOptions['db_name'])) {
+			$GLOBALS['log']->fatal( "Unable to select database {$configOptions['db_name']}: " . mysqli_connect_error());
+			if($dieOnError) {
+					if(isset($GLOBALS['app_strings']['ERR_NO_DB'])) {
+						sugar_die($GLOBALS['app_strings']['ERR_NO_DB']);
+					} else {
+						sugar_die("Could not connect to the database. Please refer to sugarcrm.log for details.");
+					}
+			} else {
+				return false;
+			}
+	    }
 
-    /**
-     * Setup a database with mysqli::init()
-     */
-    protected function initDatabase()
-    {
-        if (empty($this->database)) {            
-            $this->database = mysqli_init();
-        }
-    }
+		// cn: using direct calls to prevent this from spamming the Logs
+	    mysqli_query($this->database,"SET CHARACTER SET utf8");
+	    $names = "SET NAMES 'utf8'";
+	    $collation = $this->getOption('collation');
+	    if(!empty($collation)) {
+	        $names .= " COLLATE '$collation'";
+		}
+	    mysqli_query($this->database,$names);
 
-    /**
-     * Setup a database connection params
-     *
-     * configOptions must include
-     * db_host_name - server ip
-     * db_user_name - database user name
-     * db_password - database password
-     *
-     * @param array   $configOptions
-     */
-    protected function setupConnectOptions(array $configOptions = null)
-    {
-        if (is_null($configOptions)) {            
-            $this->connectOptions = SugarConfig::getInstance()->get('dbconfig');
-        } else {
-            $this->connectOptions = $configOptions;
-        }
+		if($this->checkError('Could Not Connect', $dieOnError))
+			$GLOBALS['log']->info("connected to db");
 
-        //mysqli connector has a separate parameter for port.. We need to separate it out from the host name
-        $this->connectOptions['db_port'] = null;
-        $pos = strpos($this->connectOptions['db_host_name'],':');
-        if ($pos !== false) {
-            $this->connectOptions['db_host_name'] = substr($this->connectOptions['db_host_name'],0,$pos);
-            $this->connectOptions['db_port'] = substr($this->connectOptions['db_host_name'],$pos+1);
-        }
-
-        if (ini_get('mysqli.allow_persistent') && $this->getOption('persistent')) {
-            $this->connectOptions['db_host_name'] = "p:" . $this->connectOptions['db_host_name'];
-        }
-
-        if (!isset($this->connectOptions['db_name'])) {
-            $this->connectOptions['db_name'] = '';
-        }
-
-        if (!isset($this->connectOptions['db_socket'])) {
-            $this->connectOptions['db_socket'] = null;
-        }
-
-        if (!isset($this->connectOptions['db_client_flags'])) {
-            $this->connectOptions['db_client_flags'] = 0;
-        }
-
-        if ($this->getOption('ssl')) {
-            $this->setupSSL();
-        }
-    }
-
-    /**
-     * Setup a SSL connection params
-     *
-     * If SSL options are provided use them with mysqli::ssl_set() or just set client flags to MYSQLI_CLIENT_SSL
-     *
-     * @param array   $configOptions
-     */
-    protected function setupSSL() 
-    {
-        $sslOptions = $this->getOption('ssl_options');
-
-        if (isset($sslOptions['ssl_ca']) && $sslOptions['ssl_ca']) {
-            mysqli_ssl_set($this->database,
-                isset($sslOptions['ssl_key']) ? $sslOptions['ssl_key'] : null,
-                isset($sslOptions['ssl_cert']) ? $sslOptions['ssl_cert'] : null,
-                isset($sslOptions['ssl_ca'])  ? $sslOptions['ssl_ca'] : null,
-                isset($sslOptions['ssl_capath']) ? $sslOptions['ssl_capath'] : null,
-                isset($sslOptions['ssl_cipher']) ? $sslOptions['ssl_cipher'] : null
-            );
-        } else {
-            $this->connectOptions['db_client_flags'] = $this->connectOptions['db_client_flags'] | MYSQLI_CLIENT_SSL;
-        }
-    }
-
-    /**
-     * Setup character set and collation
-     */
-    protected function setCharset()
-    {
-        // cn: using direct calls to prevent this from spamming the Logs
-        mysqli_query($this->getDatabase(),"SET CHARACTER SET utf8");
-        $names = "SET NAMES 'utf8'";
-        $collation = $this->getOption('collation');
-        if (!empty($collation)) {
-            $names .= " COLLATE '$collation'";
-        }
-        mysqli_query($this->getDatabase(),$names);
-    }
+		$this->connectOptions = $configOptions;
+		return true;
+	}
 
 	/**
 	 * (non-PHPdoc)
@@ -684,7 +589,7 @@ class MysqliManager extends MysqlManager
         // Now build the sql to return that allows the caller to execute sql in a way to simulate the CTE of the other dbs,
         // i.e. return sql that is a combination of the callers sql and a join against the temp hierarchy table
         $sql = "SELECT $fields FROM _hierarchy_return_set hrs INNER JOIN $tablename t ON hrs._id = t." ."$key";
-        $sql = "$sql ORDER BY hrs._level";  // try and mimic other DB return orders for consistency. breaks unit test otherwise
+        $sql = "$sql ORDER BY hrs._id DESC";  // try and mimic other DB return orders for consistancy. breaks unit test otherwise
         return $sql;
     }
 }

@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id: dbConfig.php 15268 2006-08-01 01:12:01 +0000 (Tue, 01 Aug 2006) eddy $
+
 global $sugar_version, $js_custom_version;
 
 
@@ -192,10 +192,8 @@ $out2 .=<<<EOQ2
 <tr>
     <td>&nbsp;</td>
     <td nowrap><b>{$mod_strings['LBL_DBCONF_DB_PASSWORD']}</b></td>
-    <td nowrap align="left">
-        <input type="password" name="setup_db_sugarsales_password_entry" value="{$setup_db_sugarsales_password}" />
-        <input type="hidden" name="setup_db_sugarsales_password" value="{$setup_db_sugarsales_password}" />
-    </td>
+    <td nowrap align="left"><input type="password" name="setup_db_sugarsales_password_entry" value="{$setup_db_sugarsales_password}" /><input type="hidden" name="setup_db_sugarsales_password" value="{$setup_db_sugarsales_password}" /></td>
+    <input type="hidden" name="setup_db_sugarsales_password" value="{$_SESSION['setup_db_sugarsales_password']}" /></td>
 </tr>
 <tr>
     <td>&nbsp;</td>
@@ -223,7 +221,6 @@ $out3 =<<<EOQ3
 </tr>
 </table>
 EOQ3;
-
 
 $GLOBALS['sugar_config']['default_language'] = 'en_us';
 $app_list_strings = return_app_list_strings_language($GLOBALS['sugar_config']['default_language']);
@@ -394,11 +391,7 @@ function callDBCheck(){
                     postData += "&dbUSRData="+document.getElementById('dbUSRData').value;
                 }
 
-                if(typeof(document.setConfig.setup_db_ssl_is_enabled) != 'undefined') {
-                    postData += "&setup_db_ssl_is_enabled="+document.getElementById('setup_db_ssl_is_enabled').value;
-                }
 EOQ4;
-
 
 $out4 .= <<<FTSTEST
     postData += "&setup_fts_type=" + $('#setup_fts_type').val();
@@ -474,14 +467,7 @@ function confirm_drop_tables(yes_no){
 
 EOQ5;
 
-$sslDD = "<select name='setup_db_ssl_is_enabled' id='setup_db_ssl_is_enabled'><option value='no' >".$mod_strings['LBL_NO']."</option><option value='yes' ".(!empty($_SESSION['setup_db_options']['ssl'])?'selected':'').">".$mod_strings['LBL_YES']."</option>";
-$sslDD .= "</select><br>&nbsp;";
 
-$outSSL=<<<SSL
-<table width="100%" cellpadding="0" cellpadding="0" border="0" class="StyleDottedHr">
-<tr><td width='1%'>&nbsp;</td><td width='60%'><div id='sugarDBSSL'><b>{$mod_strings['LBL_DBCONF_SSL_ENABLED']}</b></div>&nbsp;</td><td width='35%'>$sslDD</td></tr>
-</table>
-SSL;
 
 
 ////	END PAGE OUTPUT
@@ -491,20 +477,13 @@ SSL;
 
 echo $out;
 echo $out2;
-
-if ($db->supports("ssl")) {
-    echo $outSSL;
-}
 if(!isset($_SESSION['oc_install']) || $_SESSION['oc_install'] == false){
     echo $out3;
-
     echo $outFTS;
 }
 echo $out4;
-
 if(!isset($_SESSION['oc_install']) || $_SESSION['oc_install'] == false){
     echo $out_dd;
-
 }
 echo $out5;
 

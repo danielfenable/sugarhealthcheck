@@ -109,11 +109,11 @@ class RenameModules
 
         $selected_dropdown = $my_list_strings['moduleList'];
         $selected_dropdown_singular = $my_list_strings['moduleListSingular'];
-        $authenticated_user_language = !empty($_SESSION['authenticated_user_language']) ? $_SESSION['authenticated_user_language'] : null;
+
 
         foreach ($selected_dropdown as $key=>$value) {
             $singularValue = isset($selected_dropdown_singular[$key]) ? $selected_dropdown_singular[$key] : $value;
-            if ($selected_lang != $authenticated_user_language && !empty($app_list_strings['moduleList']) && isset($app_list_strings['moduleList'][$key])) {
+            if ($selected_lang != $_SESSION['authenticated_user_language'] && !empty($app_list_strings['moduleList']) && isset($app_list_strings['moduleList'][$key])) {
                 $selected_dropdown[$key] = array(
                     'lang' => $value,
                     'user_lang' => '['.$app_list_strings['moduleList'][$key].']',
@@ -182,13 +182,13 @@ class RenameModules
         MetaDataManager::enableCacheRefreshQueue();
 
         //Change module, appStrings, subpanels, and related links.
-        $this->changeAppStringEntries();
-        $this->changeAllModuleModStrings();
-        $this->renameAllRelatedLinks();
-        $this->renameAllSubpanels();
-        $this->renameAllDashlets();
-        $this->changeStringsInRelatedModules();
-        $this->changeGlobalAppStrings();
+        $this->changeAppStringEntries()
+             ->changeAllModuleModStrings()
+             ->renameAllRelatedLinks()
+             ->renameAllSubpanels()
+             ->renameAllDashlets()
+             ->changeStringsInRelatedModules()
+             ->changeGlobalAppStrings();
 
         // Run the metadata cache refresh queue so changes take effect
         MetaDataManager::runCacheRefreshQueue();
@@ -230,7 +230,10 @@ class RenameModules
 
     /**
      * Changes module names in related module strings
+     *
+     * @return RenameModules
      */
+
     public function changeStringsInRelatedModules()
     {
         $this->setRenameDefs();
@@ -239,10 +242,14 @@ class RenameModules
                 $this->renameCertainModuleModStrings($module, $defs);
             }
         }
+
+        return $this;
     }
 
     /**
      * Changes module name in global app and app list strings
+     *
+     * @return RenameModules
      */
     protected function changeGlobalAppStrings()
     {
@@ -294,6 +301,7 @@ class RenameModules
 
         // Save the new strings now
         $this->saveCustomLanguageStrings($new);
+        return $this;
     }
 
     /**
@@ -347,6 +355,9 @@ class RenameModules
 
     /**
      * Rename all subpanels within the application.
+     *
+     *
+     * @return RenameModules
      */
     private function renameAllSubpanels()
     {
@@ -359,6 +370,9 @@ class RenameModules
                 $GLOBALS['log']->error("Class $beanName does not exist, unable to rename.");
             }
         }
+
+        return $this;
+
     }
 
     /**
@@ -399,7 +413,15 @@ class RenameModules
                         continue;
                     }
                     $oldStringValue = $mod_strings[$replaceKey];
-                    $replacementStrings[$replaceKey] = $this->renameModuleRelatedStrings($oldStringValue, $renameFields);
+                    //At this point we don't know if we should replace the string with the plural or singular version of the new
+                    //strings so we'll try both but with the plural version first since it should be longer than the singular.
+                    // The saved old strings are html decoded, so we need to decode the new string first before str_replace.
+                    $replacedString = str_replace($renameFields['prev_plural'], html_entity_decode_utf8($renameFields['plural'], ENT_QUOTES), $oldStringValue);
+                    if ($replacedString === $oldStringValue) {
+                        // continue to replace singular only if nothing been replaced yet
+                        $replacedString = str_replace($renameFields['prev_singular'], html_entity_decode_utf8($renameFields['singular'], ENT_QUOTES), $replacedString);
+                    }
+                    $replacementStrings[$replaceKey] = $replacedString;
                 }
             }
         }
@@ -516,6 +538,8 @@ class RenameModules
 
     /**
      * Rename all related linked within the application
+     *
+     * @return RenameModules
      */
     private function renameAllRelatedLinks()
     {
@@ -524,46 +548,8 @@ class RenameModules
         foreach($beanList as $moduleName => $beanName) {
             $this->renameModuleRelatedLinks($moduleName, $beanName);
         }
-    }
 
-    /**
-     * Rename module-related strings such as links and dashlet strings.
-     *
-     * @param string $oldString The original language string.
-     * @param array $renameFields Array of strings containing new singular/plural
-     *  labels (from rename modules form) and previous singular/plural fields.
-     * @param boolean $pluralFirst Set to true to replace plural first, otherwise, singular first.
-     * @return string The language string with the new singular/plural replacements.
-     */
-    public function renameModuleRelatedStrings($oldString, $renameFields, $pluralFirst = true)
-    {
-        // Ignore empty fields. If we get to the body of this condition there is a problem...
-        if ($renameFields['prev_singular'] === '' || $renameFields['prev_plural'] === '') {
-            return $oldString;
-        }
-
-        // This pattern searches for whole words to replace in the old string. Also,
-        // make sure characters like $, ^, /, etc. are escaped before being embedded into the pattern.
-        // Note: 'u' modifier is for UTF-8 support.
-        $replacePatterns = array(
-            'singular' => '/(?<=\W|^)(' . preg_quote($renameFields['prev_singular'], '/') . ')(?=\W|$)/u',
-            'plural' => '/(?<=\W|^)(' . preg_quote($renameFields['prev_plural'], '/') . ')(?=\W|$)/u'
-        );
-        $replacedString = null;
-        // Replace by plural or singular first depending on $pluralFirst.
-        $field = $pluralFirst ? 'plural' : 'singular';
-        if ($renameFields[$field] !== '') {
-            $replacedString = preg_replace($replacePatterns[$field], $renameFields[$field], $oldString);
-        }
-
-        // Swap fields and do the second replacement.
-        $field = $pluralFirst ? 'singular' : 'plural';
-        if (!is_null($replacedString) && $renameFields[$field] !== '') {
-            $replacedString = preg_replace($replacePatterns[$field], $renameFields[$field], $replacedString);
-        }
-
-        // If any expression fails, revert to old language string.
-        return (!is_null($replacedString) ? $replacedString : $oldString);
+        return $this;
     }
 
     /**
@@ -598,9 +584,16 @@ class RenameModules
 
                     $replaceKey = $linkEntry['vname'];
                     $oldStringValue = $mod_strings[$replaceKey];
-                    // If the plural string is longer than singular fall-back to singular replacements first.
-                    $pluralFirst = strlen($renameFields['prev_plural']) > strlen($renameFields['prev_singular']);
-                    $replacementStrings[$replaceKey] = $this->renameModuleRelatedStrings($oldStringValue, $renameFields, $pluralFirst);
+                   // Use the plural value of the two only if it's longer and the old language string contains it,
+                   // singular otherwise
+                    if (strlen($renameFields['prev_plural']) > strlen($renameFields['prev_singular']) && strpos($oldStringValue, $renameFields['prev_plural']) !== false) {
+                        $key = 'plural';
+                    } else {
+                       $key = 'singular';
+
+                    }
+                    $replacedString = str_replace(html_entity_decode_utf8($renameFields['prev_' . $key], ENT_QUOTES), $renameFields[$key], $oldStringValue);
+                    $replacementStrings[$replaceKey] = $replacedString;
                 }
             }
         }
@@ -629,6 +622,8 @@ class RenameModules
 
     /**
      * Rename all module strings within the application for dashlets.
+     *
+     * @return RenameModules
      */
     private function renameAllDashlets()
     {
@@ -644,6 +639,8 @@ class RenameModules
         foreach ($this->changedModules as $moduleName => $replacementLabels) {
             $this->changeModuleDashletStrings($moduleName, $replacementLabels, $dashletsFiles);
         }
+
+        return $this;
     }
 
     /*
@@ -662,7 +659,11 @@ class RenameModules
                 $currentModuleStrings = return_module_language($this->selectedLanguage, $moduleName);
                 $modStringKey = array_search($dashletTitle,$currentModuleStrings);
                 if ($modStringKey !== FALSE) {
-                    $replacementStrings[$modStringKey] = $this->renameModuleRelatedStrings($dashletTitle, $replacementLabels);
+                    $replacedString = str_replace(html_entity_decode_utf8($replacementLabels['prev_plural'], ENT_QUOTES), $replacementLabels['plural'], $dashletTitle);
+                    if ($replacedString == $dashletTitle) {
+                        $replacedString = str_replace(html_entity_decode_utf8($replacementLabels['prev_singular'], ENT_QUOTES), $replacementLabels['singular'], $replacedString);
+                    }
+                    $replacementStrings[$modStringKey] = $replacedString;
                 }
             }
         }
@@ -676,12 +677,16 @@ class RenameModules
 
     /**
      * Rename all module strings within the application.
+     *
+     * @return RenameModules
      */
     private function changeAllModuleModStrings()
     {
         foreach ($this->changedModules as $moduleName => $replacementLabels) {
             $this->changeModuleModStrings($moduleName, $replacementLabels);
         }
+
+        return $this;
     }
 
     /**
@@ -689,6 +694,7 @@ class RenameModules
       *
       * @param  string $targetModule The name of the module that owns the labels to be changed.
       * @param  array $labelKeysToReplace The labels to be changed.
+      * @return RenameModules
       */
      private function renameCertainModuleModStrings($targetModule, $labelKeysToReplace)
      {
@@ -696,6 +702,8 @@ class RenameModules
          foreach ($this->changedModules as $moduleName => $replacementLabels) {
              $this->changeCertainModuleModStrings($moduleName, $replacementLabels, $targetModule, $labelKeysToReplace);
          }
+
+         return $this;
      }
 
     /**
@@ -767,7 +775,6 @@ class RenameModules
             array('name' => 'LBL_SEARCH_FORM_TITLE', 'type' => 'singular'), //Popup title
             array('name' => 'LNK_###MODULE_SINGULAR###_PROCESS_MANAGEMENT', 'type' => 'singular'), //PA title
             array('name' => 'LNK_###MODULE_SINGULAR###_UNATTENDED_PROCESSES', 'type' => 'plural'), //PA title
-            array('name' => 'LBL_###MODULE_PLURAL###_SUBPANEL_TITLE', 'type' => 'plural'),
         );
 
         $replacedLabels = array();
@@ -862,7 +869,15 @@ class RenameModules
             // include links in their strings.
             $oldStringValue = str_replace("#{$search}/", "____TEMP_ROUTER_HOLDER____", $oldStringValue);
 
-            $result = str_replace($search, $replace, $oldStringValue);
+            // Bug 47957
+            // If nothing was replaced - try to replace original string
+            $replaceCount = 0;
+            $result = str_replace($search, $replace, $oldStringValue, $replaceCount);
+            if (!$replaceCount){
+                $replaceKey = 'key_' . $replacementMetaData['type'];
+                $search = $replacementLabels[$replaceKey];
+                $result = str_replace($search, $replace, $oldStringValue, $replaceCount);
+            }
 
             // Add the route back in if it was found
             $result = str_replace("____TEMP_ROUTER_HOLDER____", "#{$search}/", $result);
@@ -875,6 +890,8 @@ class RenameModules
 
     /**
      * Save changes to the module names to the app string entries for both the moduleList and moduleListSingular entries.
+     *
+     * @return RenameModules
      */
     private function changeAppStringEntries()
     {
@@ -883,15 +900,11 @@ class RenameModules
         DropDownHelper::saveDropDown($_REQUEST);
 
         //Save changes to the moduleListSingular app string entry
-        $newParams = array(
-            'use_push' => true,
-            'dropdown_lang' => isset($_REQUEST['dropdown_lang']) ? $_REQUEST['dropdown_lang'] : null,
-        );
-
-        $singularNames = array_map(function ($data) {
-            return $data['singular'];
-        }, $this->getAllModulesFromRequest());
-        $this->updateModuleList('moduleListSingular', $singularNames, $newParams['dropdown_lang']);
+        $newParams = array();
+        $newParams['dropdown_name'] = 'moduleListSingular';
+        $newParams['dropdown_lang'] = isset($_REQUEST['dropdown_lang']) ? $_REQUEST['dropdown_lang'] : '';
+        $newParams['use_push'] = true;
+        DropDownHelper::saveDropDown($this->createModuleListSingularPackage($newParams, $this->getAllModulesFromRequest()));
 
         //Save changes to the "*type_display*" app_list_strings entry.
         global $app_list_strings;
@@ -903,9 +916,7 @@ class RenameModules
             foreach ($typeDisplayList as $typeDisplay) {
                 if (isset($app_list_strings[$typeDisplay]) && isset($app_list_strings[$typeDisplay][$moduleName])) {
                     $newParams['dropdown_name'] = $typeDisplay;
-                    DropDownHelper::saveDropDown($this->createModuleListPackage($newParams, array(
-                        $moduleName => $this->changedModules[$moduleName]['singular'],
-                    )));
+                    DropDownHelper::saveDropDown($this->createModuleListSingularPackage($newParams, array($moduleName => $this->changedModules[$moduleName])));
                  }
             }
             //save changes to moduleIconList
@@ -921,52 +932,36 @@ class RenameModules
 
                 //save modified moduleIconList array
                 $newIconList[$moduleName] = $this->changedModules[$moduleName];
-                $singularNames = array_map(function ($data) {
-                    return $data['singular'];
-                }, $newIconList);
-                DropDownHelper::saveDropDown($this->createModuleListPackage($newParams, $singularNames));
+                DropDownHelper::saveDropDown($this->createModuleListSingularPackage($newParams, $newIconList));
             }
         }
-    }
-
-    /**
-     * Update list of modules with the given labels
-     *
-     * @param string $name List name
-     * @param array $labels Module labels
-     * @param string $language Language ley
-     */
-    public function updateModuleList($name, array $labels, $language)
-    {
-        $params = array(
-            'dropdown_name' => $name,
-            'dropdown_lang' => $language,
-            'use_push' => true,
-        );
-        $params = $this->createModuleListPackage($params, $labels);
-        DropDownHelper::saveDropDown($params);
+        return $this;
     }
 
     /**
      * Create an array entry that can be passed to the DropDownHelper:saveDropDown function so we can re-utilize
      * the save logic.
      *
-     * @param array $params
-     * @param array $data
-     * @return array
+     * @param  array $params
+     * @param  array $changedModules
+     * @return
      */
-    private function createModuleListPackage(array $params, array $data)
+    private function createModuleListSingularPackage($params, $changedModules)
     {
         $count = 0;
-        foreach ($data as $key => $value) {
+        foreach ($changedModules as $moduleName => $package) {
+            $singularString = $package['singular'];
+
             $params['slot_' . $count] = $count;
-            $params['key_' . $count] = $key;
-            $params['value_' . $count] = $value;
+            $params['key_' . $count] = $moduleName;
+            $params['value_' . $count] = $singularString;
             $params['delete_' . $count] = '';
+
             $count++;
         }
 
         return $params;
+
     }
 
     /**

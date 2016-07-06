@@ -958,28 +958,6 @@ AdamActivity.prototype.getActivityType = function () {
     return this.act_type;
 };
 
-AdamActivity.prototype._getScriptTypeActionHandler = function (newScriptAction) {
-    var self = this;
-    return function () {
-        if (self.act_script_type === 'NONE') {
-            self.updateScriptType(newScriptAction);
-            self.getCanvas().project.save();
-        } else {
-            App.alert.show(
-                'change_script_type_confirmation',
-                {
-                    level: 'confirmation',
-                    messages: translate('LBL_PMSE_CHANGE_ACTION_TYPE_CONFIRMATION'),
-                    onConfirm: function () {
-                        self.updateScriptType(newScriptAction);
-                        self.getCanvas().project.save();
-                    }
-                }
-            );
-        }
-    };
-};
-
 AdamActivity.prototype.getContextMenu = function () {
     var self = this,
         deleteAction,
@@ -1023,45 +1001,55 @@ AdamActivity.prototype.getContextMenu = function () {
     noneAction = new Action({
         text: translate('LBL_PMSE_CONTEXT_MENU_UNASSIGNED'),
         cssStyle: 'adam-menu-script-none',
-        handler: self._getScriptTypeActionHandler('NONE'),
-        selected: (this.act_script_type === 'NONE')
+        handler: function () {
+            self.updateScriptType('NONE');
+        },
+        disabled: (this.act_script_type === 'NONE')
     });
 
     assignUserAction = new Action({
         text: translate('LBL_PMSE_CONTEXT_MENU_ASSIGN_USER'),
         cssStyle: 'adam-menu-script-assign_user',
-        handler: self._getScriptTypeActionHandler('ASSIGN_USER'),
-        selected: (this.act_script_type === 'ASSIGN_USER')
+        handler: function () {
+            self.updateScriptType('ASSIGN_USER');
+        },
+        disabled: (this.act_script_type === 'ASSIGN_USER')
     });
 
     assignTeamAction = new Action({
         text: translate('LBL_PMSE_CONTEXT_MENU_ASSIGN_TEAM'),
         cssStyle: 'adam-menu-script-assign_team',
-        handler: self._getScriptTypeActionHandler('ASSIGN_TEAM'),
-        selected: (this.act_script_type === 'ASSIGN_TEAM')
+        handler: function () {
+            self.updateScriptType('ASSIGN_TEAM');
+        },
+        disabled: (this.act_script_type === 'ASSIGN_TEAM')
     });
 
     changeFieldAction = new Action({
         text: translate('LBL_PMSE_CONTEXT_MENU_CHANGE_FIELD'),
         cssStyle: 'adam-menu-script-change_field',
-        handler: self._getScriptTypeActionHandler('CHANGE_FIELD'),
-        selected: (this.act_script_type === 'CHANGE_FIELD')
+        handler: function () {
+            self.updateScriptType('CHANGE_FIELD');
+        },
+        disabled: (this.act_script_type === 'CHANGE_FIELD')
     });
 
     addRelatedRecordAction = new Action({
         text: translate('LBL_PMSE_CONTEXT_MENU_ADD_RELATED_RECORD'),
         cssStyle: 'adam-menu-script-add_related_record',
-        toolTip: _.isEmpty(this.canvas.project.script_tasks.add_related_record) ? translate('LBL_PMSE_CANNOT_CONFIGURE_ADD_RELATED_RECORD') : null,
-        disabled: _.isEmpty(this.canvas.project.script_tasks.add_related_record) ? true : false,
-        handler: self._getScriptTypeActionHandler('ADD_RELATED_RECORD'),
-        selected: (this.act_script_type === 'ADD_RELATED_RECORD')
+        handler: function () {
+            self.updateScriptType('ADD_RELATED_RECORD');
+        },
+        disabled: (this.act_script_type === 'ADD_RELATED_RECORD')
     });
 
     businessRuleAction = new Action({
         text: translate('LBL_PMSE_CONTEXT_MENU_BUSINESS_RULE'),
         cssStyle: 'adam-menu-script-business_rule',
-        handler: self._getScriptTypeActionHandler('BUSINESS_RULE'),
-        selected: (this.act_script_type === 'BUSINESS_RULE')
+        handler: function () {
+            self.updateScriptType('BUSINESS_RULE');
+        },
+        disabled: (this.act_script_type === 'BUSINESS_RULE')
     });
 
     if (this.act_task_type === 'USERTASK') {
@@ -1083,7 +1071,7 @@ AdamActivity.prototype.getContextMenu = function () {
             text: translate('LBL_PMSE_CONTEXT_MENU_NONE'),
             cssStyle : 'adam-menu-icon-none',
             handler: handle(""),
-            selected: (self.act_default_flow !== 0) ? false : true
+            disabled: (self.act_default_flow !== 0) ? false : true
         });
 
         defaultflowItems.push(defaultflownoneAction);
@@ -1110,7 +1098,7 @@ AdamActivity.prototype.getContextMenu = function () {
                         text: name,
                         cssStyle : self.getCanvas().getTreeItem(shape).icon,
                         handler: handle(connection.getID()),
-                        selected: (self.act_default_flow === connection.getID()) ? true : false
+                        disabled: (self.act_default_flow === connection.getID()) ? true : false
                     })
                 );
 
@@ -1120,7 +1108,7 @@ AdamActivity.prototype.getContextMenu = function () {
         defaultflowAction = {
             label: translate('LBL_PMSE_CONTEXT_MENU_DEFAULT_FLOW'),
             icon: 'adam-menu-icon-default-flow',
-            selected: defaultflowActive,
+            disabled: defaultflowActive,
             menu: {
                 items: defaultflowItems
             }
@@ -1858,15 +1846,7 @@ AdamActivity.prototype.createConfigurateAction = function () {
         text: actionName,
         cssStyle : actionCSS,
         handler: function () {
-            root.canvas.showModal();
-            App.alert.show('upload', {level: 'process', title: 'LBL_LOADING', autoClose: false});
-            root.canvas.project.save({
-                success: function () {
-                    root.canvas.hideModal();
-                    w.show();
-                    w.html.style.display = 'none';
-                }
-            });
+            root.saveProject(root, App, w);
         },
         disabled: disabled
     });
@@ -1917,11 +1897,11 @@ AdamActivity.prototype.createAssignUsersAction = function () {
 
     hiddenFn = function () {
         if (combo_method.value === 'static') {
-            combo_users.enable().setRequired(true);
-            combo_teams.disable();
+            combo_users.enable();
+            combo_teams.setReadOnly(true);
         } else {
-            combo_users.disable().setValue("")
-            combo_teams.enable().setRequired(true);;
+            combo_users.disable().setValue("");
+            combo_teams.setReadOnly(false);
         }
     };
 
@@ -1952,14 +1932,7 @@ AdamActivity.prototype.createAssignUsersAction = function () {
         submit: false,
         change: hiddenUpdateFn,
         disabled: true,
-        required: true,
         searchURL: 'pmse_Project/CrmData/users?filter={TERM}',
-        placeholder: translate('LBL_PA_FORM_COMBO_ASSIGN_TO_USER_HELP_TEXT'),
-        searchMore: {
-            module: "Users",
-            fields: ["id", "full_name"],
-            filterOptions: null
-        },
         options: [
             {'text': translate('LBL_PMSE_FORM_OPTION_CURRENT_USER'), 'value': 'currentuser'},
             {'text': translate('LBL_PMSE_FORM_OPTION_RECORD_OWNER'), 'value': 'owner'},
@@ -1973,7 +1946,6 @@ AdamActivity.prototype.createAssignUsersAction = function () {
         name: 'combo_teams',
         submit: false,
         change: hiddenUpdateFn,
-        required: true,
         proxy: new SugarProxy({
             url: 'pmse_Project/CrmData/teams/public',
             uid: 'public',
@@ -2055,11 +2027,11 @@ AdamActivity.prototype.createAssignUsersAction = function () {
                         if (data.act_assignment_method === 'static') {
                             combo_users.setValue(data.act_assign_user);
                             combo_users.enable();
-                            combo_teams.disable();
+                            combo_teams.setReadOnly(true);
                         } else {
                             combo_teams.setValue(data.act_assign_team);
                             combo_users.disable();
-                            combo_teams.enable();
+                            combo_teams.setReadOnly(false);
                         }
                     }
                     f.proxy = null;
@@ -2167,8 +2139,7 @@ AdamActivity.prototype.actionFactory = function (type) {
                 name: 'act_assign_user',
                 submit: true,
                 searchURL: 'pmse_Project/CrmData/users?filter={TERM}',
-                required: true,
-                placeholder: translate('LBL_PA_FORM_COMBO_ASSIGN_TO_USER_HELP_TEXT')
+                required: true
             });
             //here add checkbox
             updateRecordOwner = new CheckboxField({
@@ -2552,7 +2523,7 @@ AdamActivity.prototype.actionFactory = function (type) {
                             if (rules && rules.success) {
                                 aRules = aRules.concat(rules.result);
                                 combo_business.setOptions(aRules);
-                                if (data && data.act_fields) {
+                                if (data) {
                                     combo_business.setValue(data.act_fields || '');
                                 }
                             }

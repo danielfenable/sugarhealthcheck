@@ -1,4 +1,5 @@
 <?php
+
 namespace Elastica\Test\Exception;
 
 use Elastica\Document;
@@ -7,14 +8,6 @@ use Elastica\Test\Base as BaseTest;
 
 class ResponseExceptionTest extends BaseTest
 {
-    public function testInheritance()
-    {
-        $exception = $this->getMockBuilder('Elastica\Exception\ResponseException')
-                          ->disableOriginalConstructor()
-                          ->getMock();
-        $this->assertInstanceOf('Exception', $exception);
-        $this->assertInstanceOf('Elastica\Exception\ExceptionInterface', $exception);
-    }
 
     public function testCreateExistingIndex()
     {
@@ -31,13 +24,13 @@ class ResponseExceptionTest extends BaseTest
 
     public function testBadType()
     {
-        $index = $this->_createIndex();
+        $index = $this->_createIndex('woo');
         $type  = $index->getType('test');
 
         $type->setMapping(array(
             'num' => array(
-                'type' => 'long',
-            ),
+                'type' => 'long'
+            )
         ));
 
         try {
@@ -53,7 +46,7 @@ class ResponseExceptionTest extends BaseTest
 
     public function testWhatever()
     {
-        $index = $this->_createIndex();
+        $index = $this->_createIndex('woo');
         $index->delete();
 
         try {
@@ -63,4 +56,5 @@ class ResponseExceptionTest extends BaseTest
             $this->assertEquals(404, $ex->getElasticsearchException()->getCode());
         }
     }
+
 }

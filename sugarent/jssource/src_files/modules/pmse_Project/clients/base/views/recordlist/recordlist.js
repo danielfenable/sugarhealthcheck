@@ -19,37 +19,15 @@
         this.contextEvents = _.extend({}, this.contextEvents, {
             "list:opendesigner:fire": "openDesigner",
             "list:exportprocess:fire": "showExportingWarning",
-            "list:enabledDisabledRow:fire": "enableDisableProcess"
+            "list:enabledRow:fire": "enabledProcess",
+            "list:disabledRow:fire": "disabledProcess"
         });
 
         app.view.invokeParent(this, {type: 'view', name: 'recordlist', method: 'initialize', args:[options]});
     },
 
     openDesigner: function(model) {
-        var verifyURL = app.api.buildURL(
-                this.module,
-                'verify',
-                {
-                    id : model.get('id')
-                }
-            ),
-            self = this;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    app.navigate(this.context, model, 'layout/designer');
-                } else {
-                    app.alert.show('project-design-confirmation',  {
-                        level: 'confirmation',
-                        messages: App.lang.get('LBL_PMSE_PROCESS_DEFINITIONS_EDIT', model.module),
-                        onConfirm: function () {
-                            app.navigate(this.context, model, 'layout/designer');
-                        },
-                        onCancel: $.noop
-                    });
-                }
-            }
-        });
+        app.navigate(this.context, model, 'layout/designer');
     },
 
     showExportingWarning: function (model) {
@@ -96,135 +74,71 @@
             }
         });
     },
-    _showSuccessAlert: function () {
-        app.alert.show("data:sync:success", {
-            level: "success",
-            messages: App.lang.get('LBL_RECORD_SAVED'),
+    _updateProStatusEnabled: function(model) {
+        var self = this;
+        url = App.api.buildURL(model.module, null, {id: model.id});
+        attributes = {prj_status: 'ACTIVE'};
+        app.api.call('update', url, attributes,{
+            success:function(){
+                self.reloadList();
+            }
+        });
+        app.alert.show(model.id + ':refresh', {
+            level:"process",
+            title: app.lang.get('LBL_PRO_ENABLE', model.module),
             autoClose: true
         });
-    },
-    _updateProStatusEnabled: function(model) {
-        model.set('prj_status', 'ACTIVE');
-        model.save();
-        this._showSuccessAlert();
+//        self.reloadList();
     },
     disabledProcess: function(model) {
         var self = this;
         var name = model.get('name') || '';
-
-        var verifyURL = app.api.buildURL(
-                this.module,
-                'verify',
-                {
-                    id : model.get('id')
-                }
-            );
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    app.alert.show('project_disable', {
-                        level: 'confirmation',
-                        messages: app.utils.formatString(app.lang.get('LBL_PRO_DISABLE_CONFIRMATION', model.module),[name.trim()]),
-                        onConfirm: function() {
-                            self._updateProStatusDisabled(model);
-                        }
-                    });
-                } else {
-                    app.alert.show('project-disable-confirmation',  {
-                        level: 'confirmation',
-                        messages: App.lang.get('LBL_PMSE_DISABLE_CONFIRMATION_PD', model.module),
-                        onConfirm: function () {
-                            self._updateProStatusDisabled(model);
-                        },
-                        onCancel: $.noop
-                    });
-                }
+        app.alert.show(model.get('id') + ':deleted', {
+            level: 'confirmation',
+            messages: app.utils.formatString(app.lang.get('LBL_PRO_DISABLE_CONFIRMATION', model.module),[name.trim()]),
+            onConfirm: function() {
+                self._updateProStatusDisabled(model);
             }
         });
     },
     _updateProStatusDisabled: function(model) {
-        model.set('prj_status', 'INACTIVE');
-        model.save();
-        this._showSuccessAlert();
+        var self = this;
+        url = App.api.buildURL(model.module, null, {id: model.id});
+        attributes = {prj_status: 'INACTIVE'};
+        app.api.call('update', url, attributes,{
+            success:function(){
+                self.reloadList();
+            }
+        });
+        app.alert.show(model.id + ':refresh', {
+            level:"process",
+            title: app.lang.get('LBL_PRO_DISABLE', model.module),
+            autoClose: true
+        });
+//        self.reloadList();
     },
-    enableDisableProcess: function (model) {
-        var status = model.get("prj_status");
-        if (status === 'ACTIVE') {
-            this.disabledProcess(model);
-        } else {
-            this.enabledProcess(model);
-        }
-    },
-    getDeleteMessages: function(model) {
-        var messages = {};
-        var name = Handlebars.Utils.escapeExpression(app.utils.getRecordName(model)).trim();
-        var context = app.lang.getModuleName(model.module).toLowerCase() + ' ' + name;
-
-        messages.confirmation = app.utils.formatString(app.lang.get('NTC_DELETE_CONFIRMATION_FORMATTED'), [context]);
-        messages.success = app.utils.formatString(app.lang.get('NTC_DELETE_SUCCESS'), [context]);
-        return messages;
-    },
-    deleteModel: function() {
-        var self = this,
-            model = this._modelToDelete;
-
-        model.destroy({
-
-            //Show alerts for this request
-            showAlerts: {
-                'process': true,
-                'success': {
-                    messages: self.getDeleteMessages(model).success
-                }
-            },
-            success: function() {
-                var redirect = self._targetUrl !== self._currentUrl;
-                self._modelToDelete = null;
-                self.collection.remove(model, { silent: redirect });
-                if (redirect) {
-                    self.unbindBeforeRouteDelete();
-                    //Replace the url hash back to the current staying page
-                    app.router.navigate(self._targetUrl, {trigger: true});
-                    return;
-                }
-                app.events.trigger("preview:close");
-                if (!self.disposed) {
-                    self.render();
-                }
-
-                self.layout.trigger("list:record:deleted", model);
+    reloadList: function() {
+        var self = this;
+        self.context.reloadData({
+            recursive:false,
+            error:function(error){
+                console.log(error);
             }
         });
     },
     warnDelete: function(model) {
         var verifyURL = app.api.buildURL(
-                this.module,
-                'verify',
-                {
-                    id : model.get('id')
-                }
-            ),
+            this.module,
+            'verify',
+            {
+                id : model.get('id')
+            }
+        ),
             self = this;
         app.api.call('read', verifyURL, null, {
             success: function(data) {
                 if (!data) {
-                    namePd = Handlebars.Utils.escapeExpression(app.utils.getRecordName(model)).trim();
-                    if ( (namePd !== '') && (app.lastNamePdDel !== namePd) ) {
-                        self._targetUrl = Backbone.history.getFragment();
-                        //Replace the url hash back to the current staying page
-                        if (self._targetUrl !== self._currentUrl) {
-                            app.router.navigate(self._currentUrl, {trigger: false, replace: true});
-                        }
-                        app.alert.show('delete_confirmation', {
-                            level: 'confirmation',
-                            messages: self.getDeleteMessages(model).confirmation,
-                            onConfirm: function() {
-                                self._modelToDelete = model;
-                                self.deleteModel();
-                                app.lastNamePdDel = namePd;
-                            }
-                        });
-                    }
+                    self._super('warnDelete', [model]);
                 } else {
                     app.alert.show('message-id', {
                         level: 'warning',

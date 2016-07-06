@@ -26,7 +26,6 @@ $viewdefs['Products']['base']['filter']['default'] = array(
         'support_term'=> array(),
         'date_entered' => array(),
         'date_modified' => array(),
-        'tag' => array(),
         '$favorite' => array(
             'predefined_filter' => true,
             'vname' => 'LBL_FAVORITES_FILTER',

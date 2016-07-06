@@ -20,37 +20,37 @@ class SugarForecasting_ReportingUsers extends SugarForecasting_AbstractForecast
      */
     public function process()
     {
-        $userId = $this->getArg('user_id');
-        $isManager = User::isManager($userId);
-        $loggedInUserId = $GLOBALS['current_user']->id;
-        $loggedInUserIsManager = User::isManager($loggedInUserId);
-        $children = array();
-        $userBean = BeanFactory::getBean('Users', $userId);
-        $tree = null;
 
-        //if manager, get the children nodes. else, load the user's manager and children (if the logged in user is a
-        //manager)
-        if ($isManager) {
-            $children = $this->getChildren($userBean);
-        } else if (!$isManager && $loggedInUserIsManager) {
+        // check if the current user is a manager, if they are not, we will load up their reports to
+        // as the starting user
+        $getReportsTo = (!User::isManager($this->getArg('user_id')));
+
+        /* @var $userBean User */
+        $userBean = BeanFactory::getBean('Users', $this->getArg('user_id'));
+
+        if($getReportsTo === true) {
             $userBean = BeanFactory::getBean('Users', $userBean->reports_to_id);
-            $children = $this->getChildren($userBean);
+            $this->setArg('user_id', $userBean->id);
         }
 
-        //generate base tree
+        if (User::isManager($userBean->id)) {
+            $children = $this->getChildren($userBean);
+        } else {
+            $children = array();
+        }
+
         $tree = $this->formatForTree($userBean, $children);
 
-        //if the passed in user isn't who is logged in, we need to generate a top level parent link.  This is only
-        //generated if the top level link isn't the same as the folder view that we loaded above if the person
-        //is a manager.
-        if ($loggedInUserId != $userId && $loggedInUserIsManager && $userBean->id != $loggedInUserId) {
+        if ($GLOBALS['current_user']->id != $this->getArg('user_id')) {
             // we need to create a parent record
-                $parent = $this->getParentLink($loggedInUserId);
+            if (!empty($userBean->reports_to_id)) {
+                $parent = $this->getParentLink($userBean->reports_to_id);
                 // the open user should be marked as a manager now
                 $tree['attr']['rel'] = 'manager';
 
                 // put the parent link and the tree in the same level
                 $tree = array($parent, $tree);
+            }
         }
 
         return $tree;

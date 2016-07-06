@@ -178,7 +178,7 @@ class ThemeApi extends SugarApi
         foreach ($urls as $key => $url) {
             $urls[$key] = $GLOBALS['sugar_config']['site_url'] . '/' . $url;
         }
-        $GLOBALS ['system_config']->saveSetting($platform, 'css', $urls);
+        $GLOBALS ['system_config']->saveSetting($platform, 'css', json_encode($urls));
 
         return $urls;
     }

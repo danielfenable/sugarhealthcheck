@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({extendsFrom:'PanelTopView',initialize:function(options){this._super('initialize',[options]);this.context.set('collapsed',false);},createRelatedClicked:function(event){},togglePanel:function(){}})
+({extendsFrom:'PanelTopView',createRelatedClicked:function(event){},togglePanel:function(){}})

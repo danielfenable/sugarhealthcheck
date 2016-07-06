@@ -1,8 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:22
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -38,8 +36,6 @@ $mod_strings = array (
   'LBL_OOTB_CLEANUP_QUEUE' => 'Clean Jobs Queue',
   'LBL_OOTB_CREATE_NEXT_TIMEPERIOD' => 'Create Future TimePeriods',
   'LBL_OOTB_HEARTBEAT' => 'Sugar Heartbeat',
-  'LBL_OOTB_KBCONTENT_UPDATE' => 'Update KBContent articles.',
-  'LBL_OOTB_KBSCONTENT_EXPIRE' => 'Publish approved articles & Expire KB Articles.',
   'LBL_OOTB_PROCESS_AUTHOR_JOB' => 'Process Author Scheduled Job',
   'LBL_LIST_JOB_INTERVAL' => 'Interval:',
   'LBL_LIST_LIST_ORDER' => 'Schedulers:',

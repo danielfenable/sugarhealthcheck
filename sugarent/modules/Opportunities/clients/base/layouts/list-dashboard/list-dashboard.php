@@ -30,7 +30,6 @@ $viewdefs['Opportunities']['base']['layout']['list-dashboard'] = array(
                             array(
                                 'module' => 'Forecasts',
                             ),
-                            'width' => 12,
                         ),
                     ),
                 ),

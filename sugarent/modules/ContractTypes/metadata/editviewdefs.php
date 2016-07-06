@@ -34,7 +34,7 @@ $viewdefs['ContractTypes']['EditView'] = array(
 	         ),
 	         array(array('name'=>'list_order',
 	                     'label'=>'LBL_LIST_ORDER',
-	                     'displayParams'=>array('size'=>4)
+	                     'displayParams'=>array('required'=>true, 'size'=>4)
 	               ),
 	         ),
          ),

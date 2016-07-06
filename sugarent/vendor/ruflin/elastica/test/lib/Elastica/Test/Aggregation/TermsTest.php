@@ -2,6 +2,7 @@
 
 namespace Elastica\Test\Aggregation;
 
+
 use Elastica\Aggregation\Terms;
 use Elastica\Document;
 use Elastica\Query;
@@ -11,7 +12,7 @@ class TermsTest extends BaseAggregationTest
     protected function setUp()
     {
         parent::setUp();
-        $this->_index = $this->_createIndex();
+        $this->_index = $this->_createIndex("terms");
         $docs = array(
             new Document("1", array("color" => "blue")),
             new Document("2", array("color" => "blue")),
@@ -35,3 +36,4 @@ class TermsTest extends BaseAggregationTest
         $this->assertEquals("blue", $results['buckets'][0]['key']);
     }
 }
+ 

@@ -52,9 +52,6 @@ class SugarUpgradeUpgradeCustomViews extends UpgradeScript
         if (version_compare($this->from_version, '7.6', '<')) {
             $this->addStickyResizableColumnsFlag('recordlist');
             $this->addStickyResizableColumnsFlag('history-summary');
-
-            $this->fixRecordListIcons();
-            $this->fixQuickCreateIcons();
         }
     }
 
@@ -63,7 +60,9 @@ class SugarUpgradeUpgradeCustomViews extends UpgradeScript
      * list.
      */
     private function fixQuickCreateOrder() {
+
         global $moduleList;
+        $enabledModules = array();
 
         foreach ($moduleList as $module) {
 
@@ -88,82 +87,6 @@ class SugarUpgradeUpgradeCustomViews extends UpgradeScript
             write_array_to_file(
                 "viewdefs['$module']['base']['menu']['quickcreate']",
                 $customMeta,
-                $customQuickCreateFile
-            );
-        }
-    }
-
-    /**
-     * Fix icons for recordlist, because 7.6 changed the icon names
-     */
-    private function fixRecordListIcons()
-    {
-        global $moduleList;
-
-        $iconMap = array(
-            'icon-eye-open' => 'fa-eye',
-        );
-
-        foreach ($moduleList as $module) {
-            $customQuickCreateFile = "custom/modules/$module/clients/base/views/recordlist/recordlist.php";
-
-            if (!file_exists($customQuickCreateFile)) {
-                continue;
-            }
-
-            require $customQuickCreateFile;
-
-            $defs = $viewdefs[$module]['base']['view']['recordlist'];
-
-            foreach ($defs['rowactions']['actions'] as $key => $action) {
-                if (!empty($action['icon'])) {
-                    if (in_array($action['icon'], array_keys($iconMap))) {
-                        $defs['rowactions']['actions'][$key]['icon'] = $iconMap[$action['icon']];
-                    }
-                }
-            }
-
-            write_array_to_file(
-                "viewdefs['$module']['base']['view']['recordlist']",
-                $defs,
-                $customQuickCreateFile
-            );
-        }
-    }
-
-    /**
-     * Fix icons for quick create menu, because 7.6 changed the icon names
-     */
-    private function fixQuickCreateIcons()
-    {
-        global $moduleList;
-
-        $iconMap = array(
-            'icon-plus' => 'fa-plus',
-            'icon-phone' => 'fa-phone',
-            'icon-calendar' => 'fa-calendar',
-        );
-
-        foreach ($moduleList as $module) {
-            $customQuickCreateFile = "custom/modules/$module/clients/base/menus/quickcreate/quickcreate.php";
-
-            if (!file_exists($customQuickCreateFile)) {
-                continue;
-            }
-
-            require $customQuickCreateFile;
-
-            $defs = $viewdefs[$module]['base']['menu']['quickcreate'];
-
-            if (!empty($defs['icon'])) {
-                if (in_array($defs['icon'], array_keys($iconMap))) {
-                    $defs['icon'] = $iconMap[$defs['icon']];
-                }
-            }
-
-            write_array_to_file(
-                "viewdefs['$module']['base']['menu']['quickcreate']",
-                $defs,
                 $customQuickCreateFile
             );
         }

@@ -12,7 +12,7 @@
     app.events.on('app:init', function() {
         app.plugins.register('Audit', ['view'], {
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              *
              * Bind the audit button handler.
              */
@@ -27,10 +27,8 @@
              */
             auditClicked: function() {
                 var context = this.context.getChildContext({
-                    module: 'Audit',
-                    model: this.context && this.context.get('model') || this.model
+                    module: 'Audit'
                 });
-
                 app.drawer.open({
                     layout: 'audit',
                     context: context
@@ -38,7 +36,7 @@
             },
 
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              *
              * Clean up associated event handlers.
              */

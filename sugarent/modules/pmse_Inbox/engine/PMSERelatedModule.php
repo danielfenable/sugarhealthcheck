@@ -12,31 +12,7 @@
 require_once 'modules/pmse_Inbox/engine/PMSELogger.php';
 require_once 'modules/pmse_Inbox/engine/PMSEEngineUtils.php';
 
-class PMSERelatedModule
-{
-    /**
-     * List of fields that need to set a property on the bean to prevent being
-     * overridden on save
-     * @var array
-     */
-    protected $automaticFields = array(
-        'created_by' => array(
-            'property' => 'set_created_by',
-            'value' => false,
-        ),
-        'modified_user_id' => array(
-            'property' => 'update_modified_by',
-            'value' => false,
-        ),
-        'modified_by_name' => array(
-            'property' => 'update_modified_by',
-            'value' => false,
-        ),
-        'date_modified' => array(
-            'property' => 'update_date_modified',
-            'value' => false,
-        ),
-    );
+class PMSERelatedModule {
 
     private $logger;
 
@@ -99,7 +75,7 @@ class PMSERelatedModule
 
     public function getRelatedBeans($filter, $relationship = 'all')
     {
-        global $beanList, $app_list_strings;
+        global $beanList;
         if (isset($beanList[$filter])) {
             $newModuleFilter = $filter;
         } else {
@@ -117,9 +93,6 @@ class PMSERelatedModule
                     continue;
                 }
                 if (in_array($link, PMSEEngineUtils::$relatedBlacklistedLinks)) {
-                    continue;
-                }
-                if (!empty(PMSEEngineUtils::$relatedBlacklistedLinksByModule[$filter]) && in_array($link, PMSEEngineUtils::$relatedBlacklistedLinksByModule[$filter])) {
                     continue;
                 }
                 $relType = $moduleBean->$link->getType(); //returns 'one' or 'many' for the cardinality of the link
@@ -160,26 +133,15 @@ class PMSERelatedModule
                 break;
         }
 
-
         // Needed to multisort on the label
-        $labels = array();
         foreach ($output as $k => $o) {
             $labels[$k] = $o['text'];
         }
 
         // Sort on the label
         array_multisort($labels, SORT_ASC, $output);
-        
-        
-        // Send text with pluralized module name
-        $filterText = isset($app_list_strings['moduleList'][$filter]) ? $app_list_strings['moduleList'][$filter] : $filter;
-        $filterArray = array(
-            'value' => $filter,
-            'text' => '<' . $filterText . '>',
-            'module' => $filter, 
-            'relationship' => $filter
-        );
-        
+        $moduleName = (translate("LBL_MODULE_NAME", $filter) == "LBL_MODULE_NAME") ? $filter : translate("LBL_MODULE_NAME", $filter);
+        $filterArray = array('value' => $filter, 'text' => '<' . $moduleName . '>', 'module' => $filter, 'relationship' => $filter);
         array_unshift($output, $filterArray);
 
         $res['search'] = $filter;
@@ -205,14 +167,6 @@ class PMSERelatedModule
         return $value;
     }
 
-    /**
-     * Creates a new Related Record
-     * @param $moduleBean
-     * @param $linkField
-     * @param $fields
-     * @return null|SugarBean
-     * @throws Exception
-     */
     public function addRelatedRecord($moduleBean, $linkField, $fields)
     {
         $fieldName = $linkField;
@@ -228,28 +182,7 @@ class PMSERelatedModule
 
         foreach ($fields as $key => $value) {
             if (isset($relatedModuleBean->field_defs[$key])) {
-                // check if is of type link
-                if ((isset($relatedModuleBean->field_defs[$key]['type'])) &&
-                    ($relatedModuleBean->field_defs[$key]['type'] == 'link') &&
-                    !(empty($relatedModuleBean->field_defs[$key]['name']))) {
-
-                    // if its a link then go through cases on basis of "name" here.
-                    // Currently only supporting teams
-                    switch ($relatedModuleBean->field_defs[$key]['name']) {
-                        case 'teams':
-                            PMSEEngineUtils::changeTeams($relatedModuleBean, $value);
-                            break;
-                    }
-                } else {
-                    // Certain fields require that a property on the bean be set
-                    // in order for the change to take. This handles that.
-                    if (isset($this->automaticFields[$key])) {
-                        $set = $this->automaticFields[$key];
-                        $relatedModuleBean->{$set['property']} = $set['value'];
-                    }
-
-                    $relatedModuleBean->$key = $value;
-                }
+                $relatedModuleBean->$key = $value;
             }
         }
 
@@ -258,20 +191,11 @@ class PMSERelatedModule
             $relatedModuleBean->parent_id = $moduleBean->id;
         }
 
-        if ($moduleBean->module_name == $rModule) {
-            $relatedModuleBean->pa_related_module_save = true;
-        }
-
-        // Save the new Related Record
-        PMSEEngineUtils::saveAssociatedBean($relatedModuleBean);
-
+        $relatedModuleBean->save();
 
         if (!$relatedModuleBean->in_save) {
             $rel_id = $relatedModuleBean->id;
             $moduleBean->$fieldName->add($rel_id);
-            if (!$moduleBean->$fieldName->beansAreLoaded()) {
-                $moduleBean->$fieldName->getBeans();
-            }
             return $relatedModuleBean;
         } else {
             return null;

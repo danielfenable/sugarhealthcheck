@@ -10,11 +10,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+ 
+/*********************************************************************************
+ * pl_pl.lang.php,v for SugarCRM 6.5.0
+ * Translator: eVolpe
+ * All Rights Reserved.
+ * Any bugs report welcome: support@evolpe.pl
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
 
- // $Id: MyPipelineBySalesStageDashlet.en_us.lang.php 16286 2006-08-22 20:14:45 +0000 (Tue, 22 Aug 2006) wayne $
 
-
-$dashletStrings['PipelineBySalesStageDashlet'] = array('LBL_TITLE'       => 'Raporty etapów sprzedaży',
-                                                         'LBL_DESCRIPTION' => 'Pionowy wykres kolumnowy raportu szans sprzedaży',
+$dashletStrings['PipelineBySalesStageDashlet'] = array('LBL_TITLE'       => 'Raport szans sprzedaży',
+                                                         'LBL_DESCRIPTION' => 'Wykres kolumnowy poziomy raportu szans sprzedaży',
                                                          'LBL_REFRESH'     => 'Odśwież wykres');
-?>

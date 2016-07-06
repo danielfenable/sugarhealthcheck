@@ -10,5 +10,5 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 --}}
-<input type="hidden" name="{{name}}" class="select2 inherit-width" value="{{formattedIds}}"{{#if def.tabindex}} tabindex="{{def.tabindex}}"{{/if}} data-rname="{{formattedRname}}">
+<input type="hidden" name="{{name}}" class="select2 inherit-width" value="{{value}}"{{#if def.tabindex}} tabindex="{{def.tabindex}}"{{/if}} data-id="{{fieldValue this.model this.def.id_name}}">
 {{#unless hideHelp}}{{#if def.help}}<p class="help-block">{{str def.help module}}</p>{{/if}}{{/unless}}

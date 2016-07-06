@@ -1,8 +1,9 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("event-mousewheel",function(e,t){var n="DOMMouseScroll",r=function(t){var r=e.Array(t,0,!0),i;return e.UA.gecko?(r[0]=n,i=e.config.win):i=e.config.doc,r.length<3?r[2]=i:r.splice(2,0,i),r};e.Env.evt.plugins.mousewheel={on:function(){return e.Event._attach(r(arguments))},detach:function(){return e.Event.detach.apply(e.Event,r(arguments))}}},"3.15.0",{requires:["node-base"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('event-mousewheel',function(Y,NAME){var DOM_MOUSE_SCROLL='DOMMouseScroll',fixArgs=function(args){var a=Y.Array(args,0,true),target;if(Y.UA.gecko){a[0]=DOM_MOUSE_SCROLL;target=Y.config.win;}else{target=Y.config.doc;}
+if(a.length<3){a[2]=target;}else{a.splice(2,0,target);}
+return a;};Y.Env.evt.plugins.mousewheel={on:function(){return Y.Event._attach(fixArgs(arguments));},detach:function(){return Y.Event.detach.apply(Y.Event,fixArgs(arguments));}};},'3.15.0',{"requires":["node-base"]});

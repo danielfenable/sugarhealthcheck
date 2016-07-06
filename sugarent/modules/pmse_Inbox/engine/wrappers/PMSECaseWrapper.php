@@ -382,35 +382,6 @@ class PMSECaseWrapper //extends FilterApi
         }
         return $returnArray;
     }
-
-    /*
-     * Calculates if the due date on a process is greater or less than the current time.
-     * Accordingly it sets a expected time message and warning
-     * @param string - datetime in string format
-     * @return array
-     */
-    public function processDueDateTime($dueDateTimeStr)
-    {
-        global $timedate;
-        global $current_user;
-
-        $currentDate = new DateTime($timedate->nowDb());
-        $returnArray = array();
-        $returnArray['expected_time_warning'] = false;
-        $returnArray['expected_time_message'] = false;
-        $returnArray['expected_time_view'] = false;
-        $returnArray['expected_time'] = '';
-
-        if (!empty($dueDateTimeStr)) {
-            $dueDateTime = new DateTime($dueDateTimeStr);
-            if ($currentDate > $dueDateTime) {
-                $returnArray['expected_time_warning'] = true;
-                $returnArray['expected_time_message'] = true;
-            }
-            $returnArray['expected_time'] = $timedate->to_display_date_time($dueDateTimeStr, true, true, $current_user);
-        }
-        return $returnArray;
-    }
     
     public function hasStaticFilter($filters)
     {

@@ -26,7 +26,6 @@ $viewdefs['RevenueLineItems']['base']['filter']['default'] = array(
         'best_case' => array(),
         'date_entered' => array(),
         'date_modified' => array(),
-        'tag' => array(),
         '$owner' => array(
             'predefined_filter' => true,
             'vname' => 'LBL_CURRENT_USER_FILTER',

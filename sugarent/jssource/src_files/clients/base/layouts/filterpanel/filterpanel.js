@@ -17,7 +17,7 @@
     extendsFrom: 'TogglepanelLayout',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Certain options can be set in the filterpanel metadata:
      *     - `auto_apply`: this will determine whether or not to apply the

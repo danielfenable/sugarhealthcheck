@@ -21,8 +21,7 @@ class InfoController extends Controller
         $system = Session::get('system')->name;
         $info = new CallSystemInfo($system);
         $result = $info->contractFields($system);
-        if (!isset($result['records'][0])) return 'No record results returned via api call to,
-                                                   likely connection issue.';
+        if (!isset($result['records'][0])) return 'No contract records results returned via api call';
 
         $output['flavor'] = $result['records'][0]['sugar_version_c'];
         $output['version'] = $result['records'][0]['version_c'];

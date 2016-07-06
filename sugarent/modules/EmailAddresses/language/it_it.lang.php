@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,21 +10,22 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
-    'LBL_EMAIL_ADDRESS_ID' => 'ID',
-    'LBL_EMAIL_ADDRESS' => 'Email',
-    'LBL_EMAIL_ADDRESS_CAPS' => 'Indirizzo Email caps',
-    'LBL_INVALID_EMAIL' => 'Email non valida',
-    'LBL_OPT_OUT' => 'Optato per l&#39;uscita',
-    'LBL_DATE_CREATE' => 'Data Inserimento',
-    'LBL_DATE_MODIFIED' => 'Data Modifica',
-    'LBL_DELETED' => 'Cancella',
+  'LBL_EMAIL_ADDRESS_ID' => 'ID',
+  'LBL_OPT_OUT' => 'Opted Out',
+  'LBL_EMAIL_ADDRESS' => 'Email',
+  'LBL_EMAIL_ADDRESS_CAPS' => 'Indirizzo Email caps',
+  'LBL_INVALID_EMAIL' => 'Email non valida',
+  'LBL_DATE_CREATE' => 'Data Inserimento',
+  'LBL_DATE_MODIFIED' => 'Data Modifica',
+  'LBL_DELETED' => 'Cancella',
 );
+

@@ -19,7 +19,7 @@
     showProcesses: null,
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);
@@ -115,7 +115,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     loadData: function(options) {
         var self = this,

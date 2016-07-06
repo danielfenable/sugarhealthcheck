@@ -631,7 +631,6 @@ class MailApi extends ModuleApi
      */
     public function saveAttachment($api, $args)
     {
-        $this->checkPostRequestBody();
         $email = $this->getEmailBean();
         $email->email2init();
         $metadata = $email->email2saveAttachment();

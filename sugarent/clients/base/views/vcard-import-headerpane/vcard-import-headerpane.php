@@ -29,22 +29,11 @@ $viewdefs['base']['view']['vcard-import-headerpane'] = array(
             'css_class' => 'btn-invisible btn-link',
         ),
         array(
-            'type' => 'actiondropdown',
-            'name' => 'main_dropdown',
-            'primary' => true,
+            'name'    => 'vcard_finish_button',
+            'type'    => 'button',
+            'label'   => 'LBL_CREATE_BUTTON_LABEL',
             'acl_action' => 'create',
-            'buttons' => array(
-                array(
-                    'name' => 'vcard_finish_button',
-                    'type' => 'rowaction',
-                    'label' => 'LBL_CREATE_BUTTON_LABEL',
-                    'acl_action' => 'create',
-                    'css_class' => 'btn-primary',
-                    'events' => array(
-                        'click' => 'vcard:import:finish',
-                    ),
-                ),
-            ),
+            'css_class' => 'btn-primary',
         ),
         array(
             'name' => 'sidebar_toggle',

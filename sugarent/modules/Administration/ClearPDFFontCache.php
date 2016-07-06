@@ -10,7 +10,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
 global $current_user;
 $silent = isset($_REQUEST['silent']) ? true : false;
 if(is_admin($current_user)){

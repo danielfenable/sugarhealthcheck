@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,17 +11,20 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array ( 
-	'LBL_MODULE_NAME'			=> 'Grupid',
-	'LBL_MODULE_NAME_SINGULAR'		=> 'Grupp',
-	'LBL_GROUP_NAME'			=> 'Grupi nimi:',
-	'LBL_DESCRIPTION'			=> 'Kirjeldus:',
-	'LBL_TEAM'					=> 'Meeskond:',
-	// ListView
-	'LBL_LIST_TITLE'			=> 'Grupid',
-	// Links
-	'LNK_ALL_GROUPS'			=> 'Kõik grupid',
-	'LNK_NEW_GROUP'				=> 'Loo grupp',
-	'LNK_CONVERT_USER'			=> 'Konverteeri kasutaja gruppi', 
+
+
+
+
+
+	
+$mod_strings = array (
+  'LBL_MODULE_NAME' => 'Grupid',
+  'LBL_GROUP_NAME' => 'Grupi nimi:',
+  'LBL_DESCRIPTION' => 'Kirjeldus:',
+  'LBL_TEAM' => 'Meeskond:',
+  'LBL_LIST_TITLE' => 'Grupid',
+  'LNK_ALL_GROUPS' => 'Kõik grupid',
+  'LNK_NEW_GROUP' => 'Loo grupp',
+  'LNK_CONVERT_USER' => 'Konverteeri kasutaja gruppi',
 );
-?>
+

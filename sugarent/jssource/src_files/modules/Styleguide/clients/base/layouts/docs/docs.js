@@ -13,6 +13,18 @@
     className: 'row-fluid',
 
     initialize: function(options) {
+        var self = this,
+            request = {
+                file: '',
+                keys: [],
+                page: {},
+                page_data: {},
+                parent_link: '',
+                section: {},
+                section_page: false
+            },
+            main;
+
         this._super('initialize', [options]);
 
         // trigger initial close of side bar
@@ -29,25 +41,6 @@
                 })
                 .appendTo('head');
         }
-    },
-
-    /**
-     * @inheritdoc
-     */
-    initComponents: function(components, context, module) {
-        var self = this,
-            request = {
-                file: '',
-                keys: [],
-                page: {},
-                page_data: {},
-                parent_link: '',
-                section: {},
-                section_page: false
-            },
-            main;
-
-        this._super('initComponents', [components, context, module]);
 
         // load page_data index from metadata (defined in layout/docs.php)
         request.page_data = app.metadata.getLayout(this.module, 'docs').page_data;

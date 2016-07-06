@@ -17,15 +17,12 @@ $vardefs = array(
         array(
             'name' => 'name',
             'type' => 'name',
+            'link' => true, // bug 39288
             'dbType' => 'varchar',
             'vname' => 'LBL_NAME',
             'comment' => 'Name of the Sale',
             'unified_search' => true,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 1.63,
-            ),
+            'full_text_search' => array('enabled' => true, 'boost' => 3),
             'audited' => true,
             'merge_filter' => 'selected',
             'required' => true,
@@ -51,11 +48,6 @@ $vardefs = array(
             'rows' => 6,
             'cols' => 80,
             'duplicate_on_record_copy' => 'always',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 0.58,
-            ),
         ),
         'lead_source' =>
         array(
@@ -106,6 +98,58 @@ $vardefs = array(
             'calculated' => true,
             'enforced' => true,
         ),
+        'currency_id' =>
+        array(
+            'name' => 'currency_id',
+            'type' => 'currency_id',
+            'dbType' => 'id',
+            'group' => 'currency_id',
+            'vname' => 'LBL_CURRENCY',
+            'function' => 'getCurrencies',
+            'function_bean' => 'Currencies',
+            'reportable' => false,
+            'default' => '-99',
+            'duplicate_on_record_copy' => 'always',
+            'comment' => 'Currency used for display purposes'
+        ),
+        'base_rate' => array(
+            'name' => 'base_rate',
+            'vname' => 'LBL_CURRENCY_RATE',
+            'type' => 'decimal',
+            'len' => '26,6',
+            'studio' => false
+        ),
+        'currency_name' =>
+        array(
+            'name' => 'currency_name',
+            'rname' => 'name',
+            'id_name' => 'currency_id',
+            'vname' => 'LBL_CURRENCY_NAME',
+            'type' => 'relate',
+            'isnull' => 'true',
+            'table' => 'currencies',
+            'module' => 'Currencies',
+            'source' => 'non-db',
+            'function' => 'getCurrencies',
+            'function_bean' => 'Currencies',
+            'studio' => 'false',
+            'duplicate_on_record_copy' => 'always',
+        ),
+        'currency_symbol' =>
+        array(
+            'name' => 'currency_symbol',
+            'rname' => 'symbol',
+            'id_name' => 'currency_id',
+            'vname' => 'LBL_CURRENCY_SYMBOL',
+            'type' => 'relate',
+            'isnull' => 'true',
+            'table' => 'currencies',
+            'module' => 'Currencies',
+            'source' => 'non-db',
+            'function' => 'getCurrencySymbols',
+            'function_bean' => 'Currencies',
+            'duplicate_on_record_copy' => 'always',
+        ),
         'date_closed' =>
         array(
             'name' => 'date_closed',
@@ -117,10 +161,6 @@ $vardefs = array(
             'enable_range_search' => true,
             'options' => 'date_range_search_dom',
             'duplicate_on_record_copy' => 'always',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-            ),
         ),
         'next_step' =>
         array(
@@ -131,11 +171,6 @@ $vardefs = array(
             'comment' => 'The next step in the sales process',
             'duplicate_on_record_copy' => 'always',
             'merge_filter' => 'enabled',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 0.73,
-            ),
         ),
         'sales_stage' =>
         array(
@@ -164,9 +199,6 @@ $vardefs = array(
             'merge_filter' => 'enabled',
         )
     ),
-    'uses' => array(
-        'taggable',
-    ),
     'duplicate_check' => array(
         'enabled' => true,
         'FilterDuplicateCheck' => array(
@@ -177,8 +209,5 @@ $vardefs = array(
                 array('in_field_name' => 'name', 'dupe_field_name' => 'name'),
             )
         )
-    ),
-    'uses' => array(
-        'currency'
     )
 );

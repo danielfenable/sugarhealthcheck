@@ -33,7 +33,6 @@
 		<tr>
 		<td width="15%" scope="col"><span sugar='slot3'>{$MOD.LBL_CAMPAIGN_STATUS} <span class="required">{$APP.LBL_REQUIRED_SYMBOL}</span></span sugar='slot'></td>
 		<td width="35%" ><span sugar='slot3b'><select id='status' name='wiz_step1_status'  aria-required="true" title='{$MOD.LBL_CAMPAIGN_STATUS}'>{$STATUS_OPTIONS}</select></span sugar='slot'></td>
-
 		<td width="15%" scope="col"><span sugar='slot4'>{$APP.LBL_TEAM} <span class="required">{$APP.LBL_REQUIRED_SYMBOL}</span></span sugar='slot'></td>
 		<td width="35%" ><span sugar='slot4b'>{$TEAM_SET_FIELD}</span sugar='slot'></td>
 		</tr>
@@ -93,7 +92,6 @@
         fields[0] = 'name'; 
         fields[1] = 'status';
         fields[2] = 'end_date';
-
         fields[3] = 'team_name';
         
         var field_value = ''; 
@@ -114,15 +112,13 @@
         //add fields to validation and call generic validation script 
         if(validate['wizform']!='undefined'){delete validate['wizform']};
         addToValidate('wizform', 'name', 'alphanumeric', true,  document.getElementById('name').title);
-
 		addToValidate('wizform', 'team_name', 'alphanumeric', true,  document.getElementById('team_name').title);
         addToValidate('wizform', 'status', 'alphanumeric', true,  document.getElementById('status').title);
         addToValidate('wizform', 'end_date', 'date', true,  document.getElementById('end_date').title);
         addToValidate('wizform', 'start_date', 'date', false,  document.getElementById('start_date').title);
         addToValidate('wizform', 'currency_id', 'alphanumeric', false,  document.getElementById('currency_id').title);
 
-
-		addToValidate('wizform', 'team_name', 'teamset', true, SUGAR.language.get('app_strings', 'LBL_TEAMS'));
+		addToValidate('wizform', 'team_name', 'teamset', true, SUGAR.language.get('app_strings', 'LBL_TEAMS'));      
 
         return check_form('wizform');
     }    

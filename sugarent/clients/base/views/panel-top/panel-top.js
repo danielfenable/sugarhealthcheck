@@ -8,6 +8,6 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({className:'subpanel-header',attributes:{'data-sortable-subpanel':'true'},events:{'click':'togglePanel','click a[name=create_button]:not(".disabled")':'createRelatedClicked'},plugins:['LinkedModel','Tooltip'],initialize:function(options){options.meta=_.extend({},app.metadata.getView(null,'panel-top'),app.metadata.getView(options.module,'panel-top'),options.meta);this._super('initialize',[options]);this.parentModule=this.context.parent.get('module');this.on('linked-model:create',function(){this.context.set('skipFetch',false);this.context.reloadData();},this);},createRelatedClicked:function(event){this.createRelatedRecord(this.module);},togglePanel:function(evt){if(_.isNull(this.$el)){return;}
+({className:'subpanel-header',attributes:{'data-sortable-subpanel':'true'},events:{'click':'togglePanel','click a[name=create_button]:not(".disabled")':'createRelatedClicked',},plugins:['LinkedModel','Tooltip'],initialize:function(options){options.meta=_.extend({},app.metadata.getView(null,'panel-top'),app.metadata.getView(options.module,'panel-top'),options.meta);this._super('initialize',[options]);this.parentModule=this.context.parent.get('module');},createRelatedClicked:function(event){this.createRelatedRecord(this.module)},togglePanel:function(evt){if(_.isNull(this.$el)){return;}
 var $target=this.$(evt.target),isLink=$target.closest('a, button').length;if(isLink){return;}
-this.context.set('collapsed',!this.context.get('collapsed'));}})
+if(!this.layout.disposed){this.layout.toggle();}}})

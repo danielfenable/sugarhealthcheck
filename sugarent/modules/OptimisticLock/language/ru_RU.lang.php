@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,23 +10,30 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $mod_strings = array (
-   'LBL_YOURS' => 'Ваш',
-   'LBL_IN_DATABASE' => 'В базе данных',
-   'LBL_CONFLICT_EXISTS' => 'Существует конфликт для -',
-   'LBL_ACCEPT_DATABASE' => 'Принять из базы данных',
-   'LBL_ACCEPT_YOURS' => 'Принять Ваш',
-   'LBL_RECORDS_MATCH' => 'Совпадение записей',
-   'LBL_NO_LOCKED_OBJECTS' => 'Нет заблокированных объектов',
-   
+  'LBL_YOURS' => 'Ваш',
+  'LBL_IN_DATABASE' => 'В базе данных',
+  'LBL_CONFLICT_EXISTS' => 'Существует конфликт для -',
+  'LBL_ACCEPT_DATABASE' => 'Принять из базы данных',
+  'LBL_ACCEPT_YOURS' => 'Принять Ваш',
+  'LBL_RECORDS_MATCH' => 'Совпадение записей',
+  'LBL_NO_LOCKED_OBJECTS' => 'Нет заблокированных объектов',
 );
 
-?>

@@ -176,10 +176,7 @@ abstract class UpgradeDriver
 
             // If we're running on a case-insensitive file-system, delete
             // the file first to ensure we pick up filename case changes.
-            if ($this->context['case_insensitive_fs']
-                && pathinfo(realpath($file), PATHINFO_BASENAME) !== $file
-            ) {
-                $this->log("Warning: delete file: {$file} before copy it in the case insensitive fs");
+            if ($this->context['case_insensitive_fs']) {
                 $this->unlink($target_dir . '/' . $file);
             }
 
@@ -345,9 +342,6 @@ abstract class UpgradeDriver
             ) . "-restore";
         if (isset($this->context['script_mask'])) {
             $this->script_mask &= $this->context['script_mask'];
-        }
-        if (isset($this->state['extract_dir'])) {
-            $this->context['extract_dir'] = $this->state['extract_dir'];
         }
         if (empty($this->context['health_check_path'])) {
             $this->context['health_check_path'] =
@@ -946,11 +940,9 @@ abstract class UpgradeDriver
         // validate manifest
         list($this->from_version, $this->from_flavor) = $this->getFromVersion();
         $db = DBManagerFactory::getInstance();
-        
-        // if (version_compare($this->from_version, 7, '<') && !$db instanceof MysqlManager) {
-        //    return $this->error("Can't upgrade version 6.x on non-Mysql database", true);
-        // }
-        
+        if (version_compare($this->from_version, 7, '<') && !$db instanceof MysqlManager) {
+            return $this->error("Can't upgrade version 6.x on non-Mysql database", true);
+        }
         $res = $this->validateManifest();
         if ($res !== true) {
             if ($this->clean_on_fail) {
@@ -1193,21 +1185,7 @@ abstract class UpgradeDriver
      */
     protected function getUser()
     {
-        //Set globals installing to true to prevent bean_implements check for some modules
-        if (isset($GLOBALS['installing'])) {
-            $installing = $GLOBALS['installing'];
-        }
-
-        $GLOBALS['installing'] = true;
-
         $user = BeanFactory::getBean('Users');
-
-        if (isset($installing)) {
-            $GLOBALS['installing'] = $installing;
-        } else {
-            unset($GLOBALS['installing']);
-        }
-
         $user_id = $this->db->getOne(
             "select id from users where deleted=0 AND user_name = " . $this->db->quoted($this->context['admin']),
             false
@@ -1714,8 +1692,6 @@ abstract class UpgradeDriver
      */
     public function saveConfig()
     {
-        global $sugar_version;
-
         //read the existing configs from the file config.php & config_override.php
         list($oldConfig, $overrideConfig) = $this->readConfigFiles();
 
@@ -1724,7 +1700,7 @@ abstract class UpgradeDriver
 
         //write to the file "config.php"
         ksort($configs);
-        return rebuildConfigFile($configs, $sugar_version);
+        return write_array_to_file("sugar_config", $configs, $this->context['source_dir'] . "/config.php");
     }
 
     protected $stages = array('unpack', 'healthcheck', 'pre', 'commit', 'post', 'cleanup');
@@ -1802,12 +1778,10 @@ abstract class UpgradeDriver
                     break;
                 case "unpack":
                     // Verify package
-                    unset($this->state['extract_dir']);
                     if (!$this->verify($this->context['zip'], $this->context['extract_dir'])) {
                         $this->error("Package verificaition failed");
                         return false;
                     }
-                    $this->state['extract_dir'] = $this->context['extract_dir'];
                     break;
                 case "pre":
                     // Run pre-upgrade

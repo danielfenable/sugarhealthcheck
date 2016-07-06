@@ -17,12 +17,27 @@
     extendsFrom: 'RecordView',
     editAllMode: false,
 
+    SAVEACTIONS: {
+        SAVE_AND_CREATE: 'saveAndCreate',
+        SAVE_AND_VIEW: 'saveAndView'
+    },
+
     enableDuplicateCheck: false,
     dupecheckList: null, //duplicate list layout
 
     saveButtonName: 'save_button',
     cancelButtonName: 'cancel_button',
+    saveAndCreateButtonName: 'save_create_button',
+    saveAndViewButtonName: 'save_view_button',
     restoreButtonName: 'restore_button',
+
+    /**
+     * An array of the {@link #alerts alert} names in this view.
+     *
+     * @protected
+     * @type {Array}
+     */
+    _viewAlerts: [],
 
     /**
      * If this create view has subpanel models to save
@@ -53,19 +68,6 @@
             app.alert.show(name, {
                 level: 'error',
                 messages: 'ERR_RESOLVE_ERRORS'
-            });
-        },
-        showServerError: function() {
-            if (!this instanceof app.view.View) {
-                app.logger.error('This method should be invoked by Function.prototype.call(), passing in as argument' +
-                    'an instance of this view.');
-                return;
-            }
-            var name = 'server-error';
-            this._viewAlerts.push(name);
-            app.alert.show(name, {
-                level: 'error',
-                messages: 'ERR_GENERIC_SERVER_ERROR'
             });
         },
         showSuccessButDeniedAccess: function() {
@@ -105,53 +107,6 @@
         options.meta = _.extend({}, app.metadata.getView(null, 'create'), options.meta);
 
         this._super("initialize", [options]);
-
-        // FIXME: SC-3451 will refactor this `alerts` structure.
-        this.alerts = _.extend({}, this.alerts, {
-            showServerError: function() {
-                if (!this instanceof app.view.View) {
-                    app.logger.error('This method should be invoked by Function.prototype.call(), passing in as argument' +
-                    'an instance of this view.');
-                    return;
-                }
-                var name = 'server-error';
-                this._viewAlerts.push(name);
-                app.alert.show(name, {
-                    level: 'error',
-                    messages: 'ERR_GENERIC_SERVER_ERROR'
-                });
-            },
-            showNoAccessError: function() {
-                if (!this instanceof app.view.View) {
-                    app.logger.error('This method should be invoked by Function.prototype.call(), passing in as argument' +
-                    'an instance of this view.');
-                    return;
-                }
-                var name = 'server-error';
-                this._viewAlerts.push(name);
-                this.cancel();
-                app.alert.show(name, {
-                    level: 'error',
-                    messages: 'ERR_HTTP_404_TEXT_LINE1'
-                });
-            },
-            showSuccessButDeniedAccess: function() {
-                if (!this instanceof app.view.View) {
-                    app.logger.error('This method should be invoked by Function.prototype.call(), passing in as argument' +
-                    'an instance of this view.');
-                    return;
-                }
-                var name = 'invalid-data';
-                this._viewAlerts.push(name);
-                app.alert.show(name, {
-                    level: 'warning',
-                    messages: 'LBL_RECORD_SAVED_ACCESS_DENIED',
-                    autoClose: true,
-                    autoCloseDelay: 9000
-                });
-            }
-        });
-
         this.model.off("change", null, this);
 
         //keep track of what post-save action was chosen in case user chooses to ignore dupes
@@ -159,9 +114,6 @@
 
         //listen for the select and edit button
         this.context.on('list:dupecheck-list-select-edit:fire', this.editExisting, this);
-
-        //enable buttons if there is an error
-        this.model.on('error:validation', this.enableButtons, this);
 
         //extend the record view definition
         this.meta = _.extend({}, app.metadata.getView(this.module, 'record'), this.meta);
@@ -196,6 +148,11 @@
             this.model.relatedAttributes.assigned_user_name = app.user.get('full_name');
         }
 
+        this.model.on('error:validation', function() {
+            this.alerts.showInvalidModel.call(this);
+            this.enableButtons();
+        }, this);
+
         // need to reset the default attributes because the plugin may have
         // calculated default values.
         this.on('sugarlogic:initialize', function() {
@@ -211,7 +168,7 @@
      * be `create` at all times but doing the proper fix may have bad impacts on
      * ACLs/non editable fields. Follow up in SC-4511.
      *
-     * @inheritdoc
+     * @inheritDoc
      */
     _renderFields: function() {
         var current = this.action;
@@ -221,7 +178,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     /**
      * Check unsaved changes.
@@ -231,19 +188,10 @@
      *  `false` otherwise.
      */
     hasUnsavedChanges: function() {
-        var defaults,
-            nonDefaultedAttributesChanged,
-            defaultedAttributesChanged;
-
         if (this.resavingAfterMetadataSync) {
             return false;
         }
-
-        defaults = this.model.getDefault() || {};
-        nonDefaultedAttributesChanged = !_.isEqual(_.keys(defaults), _.keys(this.model.attributes));
-        defaultedAttributesChanged = !_.isEmpty(this.model.changedAttributes(defaults));
-
-        return (this.model.isNew() && (nonDefaultedAttributesChanged || defaultedAttributesChanged));
+        return this.model.isNew() && !_.isEqual(this.model.getDefault(), this.model.attributes);
     },
 
     handleSync: function () {
@@ -257,6 +205,8 @@
      */
     delegateButtonEvents: function() {
         this.context.on('button:' + this.saveButtonName + ':click', this.save, this);
+        this.context.on('button:' + this.saveAndCreateButtonName + ':click', this.saveAndCreate, this);
+        this.context.on('button:' + this.saveAndViewButtonName + ':click', this.saveAndView, this);
         this.context.on('button:' + this.cancelButtonName + ':click', this.cancel, this);
         this.context.on('button:' + this.restoreButtonName + ':click', this.restoreModel, this);
     },
@@ -279,10 +229,20 @@
     },
 
     /**
-     * Defaults to {@link #saveAndClose}.
+     * Determine appropriate save action and execute it
+     * Default to saveAndClose
      */
-    save: function() {
-        this.saveAndClose();
+    save: function () {
+        switch (this.context.lastSaveAction) {
+            case this.SAVEACTIONS.SAVE_AND_CREATE:
+                this.saveAndCreate();
+                break;
+            case this.SAVEACTIONS.SAVE_AND_VIEW:
+                this.saveAndView();
+                break;
+            default:
+                this.saveAndClose();
+        }
     },
 
     /**
@@ -290,10 +250,8 @@
      */
     saveAndClose: function () {
         this.initiateSave(_.bind(function () {
-            if (this.closestComponent('drawer')) {
+            if(app.drawer){
                 app.drawer.close(this.context, this.model);
-            } else {
-                app.navigate(this.context, this.model);
             }
         }, this));
     },
@@ -305,12 +263,47 @@
         //Clear unsaved changes on cancel.
         app.events.trigger('create:model:changed', false);
         this.$el.off();
-        if (app.drawer.count()) {
+        if(app.drawer){
             app.drawer.close(this.context);
             this._dismissAllAlerts();
-        } else {
-            app.router.navigate(this.module, {trigger: true});
         }
+    },
+
+    /**
+     * Handle click on save and create another link
+     */
+    saveAndCreate: function() {
+        this.context.lastSaveAction = this.SAVEACTIONS.SAVE_AND_CREATE;
+        this.initiateSave(_.bind(
+            function() {
+                this.clear();
+                // set the default attributes and the relatedAttributes back
+                // on the model since it's been cleared out
+                this.model.set(_.extend(this.model.getDefault(), this.model.relatedAttributes));
+                this.resetDuplicateState();
+
+                if (this.hasSubpanelModels) {
+                    // loop through subpanels and call resetCollection on create subpanels
+                    _.each(this.context.children, function(child) {
+                        if (child.get('isCreateSubpanel')) {
+                            this.context.trigger('subpanel:resetCollection:' + child.get('link'), true);
+                        }
+                    }, this);
+
+                    // reset the hasSubpanelModels flag
+                    this.hasSubpanelModels = false;
+                }
+        }, this));
+    },
+
+    /**
+     * Handle click on save and view link
+     */
+    saveAndView: function () {
+        this.context.lastSaveAction = this.SAVEACTIONS.SAVE_AND_VIEW;
+        this.initiateSave(_.bind(function () {
+                app.navigate(this.context, this.model);
+        }, this));
     },
 
     /**
@@ -379,7 +372,7 @@
      * And trigger an event to tell the subpanel to validate itself
      *
      * @param callback
-     * @return {Mixed}
+     * @returns {*}
      */
     validateSubpanelModelsWaterfall: function(callback) {
         this.hasSubpanelModels = false;
@@ -410,7 +403,6 @@
                     callback(true);
                 } else {
                     this.resetDuplicateState();
-                    this.disableButtons();
                     callback(false);
                 }
             }, this),
@@ -459,11 +451,6 @@
                 if (e.status == 412 && !e.request.metadataRetry) {
                     this.handleMetadataSyncError(e);
                 } else {
-                    if (e.status == 403) {
-                        this.alerts.showNoAccessError.call(this);
-                    } else {
-                        this.alerts.showServerError.call(this);
-                    }
                     callback(true);
                 }
             }, this);
@@ -581,7 +568,7 @@
     /**
      * Using the model returned from the API call, build the success message
      * @param model
-     * @return {string}
+     * @returns {*}
      */
     buildSuccessMessage: function(model) {
         var modelAttributes,
@@ -607,15 +594,10 @@
 
     /**
      * Check to see if we should skip duplicate check.
-     *
-     * Duplicate check should be skipped if we are displaying duplicates or user
-     * has switched over to editing an existing duplicate record.
-     *
      * @return {boolean}
      */
     skipDupeCheck: function () {
-        var skipStates = [this.STATE.DUPLICATE, this.STATE.SELECT];
-        return (_.contains(skipStates, this.getCurrentButtonState()));
+        return (this.getCurrentButtonState() === this.STATE.DUPLICATE);
     },
 
     /**
@@ -638,10 +620,6 @@
         this.model.clear();
         this.model.set(this.extendModel(model, origAttributes));
 
-        if (this.model.link) {
-            this.model.link.isNew = false;
-        }
-
         this.createMode = false;
         if (!this.disposed) {
             this.render();
@@ -656,7 +634,7 @@
      * Merge the selected record with the data entered in the form
      * @param newModel
      * @param origAttributes
-     * @return {Object}
+     * @return {*}
      */
     extendModel: function (newModel, origAttributes) {
         var modelAttributes = _.clone(newModel.attributes);
@@ -673,7 +651,7 @@
 
     /**
      * Save the data entered in the form
-     * @return {Object}
+     * @return {*}
      */
     saveFormData: function () {
         this._origAttributes = _.clone(this.model.attributes);
@@ -702,7 +680,6 @@
                 name: 'create-dupecheck',
                 module: this.module
             });
-            this.dupecheckList.initComponents();
             this.addToLayoutComponents(this.dupecheckList);
         }
 
@@ -760,5 +737,19 @@
                 $cancelButton.get(0).click();
             }
         }, this, true);
+    },
+
+    /**
+     * Dismisses all {@link #_viewAlerts alerts} defined in this view.
+     *
+     * @private
+     */
+    _dismissAllAlerts: function() {
+        if (_.isEmpty(this._viewAlerts)) {
+            return;
+        }
+        _.each(_.uniq(this._viewAlerts), function(alert) {
+            app.alert.dismiss(alert);
+        });
     }
 })

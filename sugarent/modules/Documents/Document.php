@@ -70,16 +70,14 @@ class Document extends SugarBean {
 	 );
 
     /**
-     * This is deprecated since 7.7.0 and will be removed in 7.9.0.
-     * Please use __construct() instead.
-     * @deprecated 7.7.0
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
      * @see __construct
+     * @deprecated
      */
     public function Document()
     {
         self::__construct();
-        $GLOBALS['log']->deprecated('Document::Document() is deprecated since 7.7.0. and will be removed in 7.9.0. ' .
-            'Please use Document::__construct() instead.');
     }
 
 

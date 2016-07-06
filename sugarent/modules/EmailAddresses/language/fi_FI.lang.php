@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,21 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-    'LBL_EMAIL_ADDRESS_ID' => 'id',
-    'LBL_EMAIL_ADDRESS' => 'Sähköpostiosoite',
-    'LBL_EMAIL_ADDRESS_CAPS' => 'Sähköpostiosoite isoin kirjaimin',
-    'LBL_INVALID_EMAIL' => 'Virheellinen osoite',
-    'LBL_OPT_OUT' => 'Jättäytynyt (opt-out)',
-    'LBL_DATE_CREATE' => 'Luotu',
-    'LBL_DATE_MODIFIED' => 'Muokattu viimeksi',
-    'LBL_DELETED' => 'Poistettu',
+  'LBL_DATE_CREATE' => 'Luotu',
+  'LBL_DATE_MODIFIED' => 'Muokattu viimeksi',
+  'LBL_DELETED' => 'Poistettu',
+  'LBL_EMAIL_ADDRESS' => 'Sähköpostiosoite',
+  'LBL_EMAIL_ADDRESS_CAPS' => 'Sähköpostiosoite isoin kirjaimin',
+  'LBL_EMAIL_ADDRESS_ID' => 'id',
+  'LBL_INVALID_EMAIL' => 'Virheellinen osoite',
+  'LBL_OPT_OUT' => 'Jättäytynyt (opt-out)',
 );
+

@@ -395,33 +395,10 @@ class SugarUpgradeMerge7Templates extends UpgradeScript
             $merged = MergeUtils::deepMergeDef($oDefs, $nDefs, $cDefs);
             if (!empty($merged) && $merged != $cDefs) {
                 $this->needSave = true;
-                // Sanitize the top level viewdefs elements, remove if empty
-                $merged = $this->sanitizeTopLevelDefElements($merged);
                 $customDefs[$this->moduleName][$this->clientType]['view'][$this->viewName] = $merged;
             }
         }
 
         return $customDefs;
-    }
-
-    /**
-     * Sanitize the top level view defs elements, remove it if it is empty.
-     *
-     * @param array $viewdefs The merged view defs elements
-     *
-     * @return array A new sanitized viewdefs
-     */
-    public function sanitizeTopLevelDefElements($viewdefs)
-    {
-        // Sanitize our top level view def elements. If there is an empty value
-        // at the highest levels then we should not keep them. e.g. buttons, etc.
-        foreach (array_keys($viewdefs) as $key) {
-            if (empty($viewdefs[$key])) {
-                $this->log("*** Top level empty viewdefs removed: $key ***");
-                unset($viewdefs[$key]);
-            }
-        }
-
-        return $viewdefs;
     }
 }

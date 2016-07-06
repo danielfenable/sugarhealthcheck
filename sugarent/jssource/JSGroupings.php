@@ -244,15 +244,12 @@
                    'include/javascript/sugar7/plugins/Select2.js'  => 'include/javascript/sugar_sidecar.min.js',
                    'include/javascript/jquery/jquery.timepicker.js'=> 'include/javascript/sugar_sidecar.min.js',
                    'include/javascript/jquery/jquery.jstree.js' => 'include/javascript/sugar_sidecar.min.js',
-                   'include/javascript/jquery/jstree.state.js' => 'include/javascript/sugar_sidecar.min.js',
                    'include/javascript/jquery/jquery.popoverext.js'           => 'include/javascript/sugar_sidecar.min.js',
                    'include/javascript/jquery/jquery.effects.custombounce.js'           => 'include/javascript/sugar_sidecar.min.js',
                    'include/javascript/jquery/jquery.nouislider.js' => 'include/javascript/sugar_sidecar.min.js',
                    'include/javascript/nprogress/nprogress.js' => 'include/javascript/sugar_sidecar.min.js',
 
-                   'include/javascript/select2/language.js' => 'include/javascript/sugar_sidecar.min.js',
                    'sidecar/lib/momentjs/min/langs.min.js' => 'include/javascript/sugar_sidecar.min.js',
-                   'include/javascript/favicon.js' => 'include/javascript/sugar_sidecar.min.js',
 
                    //Expression Engine
                    'sidecar/lib/sugarlogic/expressions.js'              => 'include/javascript/sugar_sidecar.min.js',
@@ -264,7 +261,6 @@
                     'include/javascript/sugar7/plugins/Connector.js' => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/Tooltip.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/Audit.js'  => 'include/javascript/sugar_sidecar.min.js',
-                    'include/javascript/sugar7/plugins/CommittedDeleteWarning.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/FindDuplicates.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/MergeDuplicates.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/DragdropAttachments.js'  => 'include/javascript/sugar_sidecar.min.js',
@@ -272,9 +268,7 @@
                     'include/javascript/sugar7/plugins/Dropdown.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/EllipsisInline.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/ListColumnEllipsis.js'  => 'include/javascript/sugar_sidecar.min.js',
-                    'include/javascript/sugar7/plugins/MassCollection.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/ReorderableColumns.js'  => 'include/javascript/sugar_sidecar.min.js',
-                    'include/javascript/jquery/jquery.rtl-scroll.js' => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/jquery/sugar.resizableColumns.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/ResizableColumns.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/ToggleMoreLess.js'  => 'include/javascript/sugar_sidecar.min.js',
@@ -302,32 +296,33 @@
                     'include/javascript/sugar7/plugins/ToggleVisibility.js' => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/Pagination.js' => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/ShortcutSession.js' => 'include/javascript/sugar_sidecar.min.js',
-                    'modules/Categories/clients/base/plugins/JSTree.js'  => 'include/javascript/sugar_sidecar.min.js',
                     // Support Portal features for Sugar7
                     'modules/Contacts/clients/base/lib/bean.js' => 'include/javascript/sugar_sidecar.min.js',
-                    'modules/Categories/clients/base/plugins/NestedSetCollection.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/DirtyCollection.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/Prettify.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/Chart.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/EmailClientLaunch.js'  => 'include/javascript/sugar_sidecar.min.js',
-                    'modules/KBContents/clients/base/plugins/KBContent.js'  => 'include/javascript/sugar_sidecar.min.js',
-                    'include/javascript/sugar7/plugins/Tinymce.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/VirtualCollection.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/SearchForMore.js'  => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/EditAllRecurrences.js' => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/sugar7/plugins/AddAsInvitee.js' => 'include/javascript/sugar_sidecar.min.js',
-                    'include/javascript/sugar7/plugins/DragdropSelect2.js' => 'include/javascript/sugar_sidecar.min.js',
-                    'include/javascript/sugar7/plugins/ReminderTimeDefaults.js' => 'include/javascript/sugar_sidecar.min.js',
                     'include/javascript/fuse/fuse.js' => 'include/javascript/sugar_sidecar.min.js',
                 )
            ),
+            $sugar_grp_portal2 = array_merge(
+                array('sidecar/lib/jquery-placeholder/jquery.placeholder.js' => 'portal2/portal.min.js'), // preserve ordering
+                array(
+                    'portal2/error.js'               => 'portal2/portal.min.js',
+                    'portal2/user.js'                => 'portal2/portal.min.js',
+                    'portal2/portal.js'              => 'portal2/portal.min.js',
+                )
+            ),
 
             $sugar_grp_sugar7 = array(
                 'include/javascript/sugar7.js' => 'include/javascript/sugar_grp7.min.js',
                 'include/javascript/sugar7/bwc.js' => 'include/javascript/sugar_grp7.min.js',
                 'include/javascript/sugar7/utils.js' => 'include/javascript/sugar_grp7.min.js',
                 'include/javascript/sugar7/utils-filters.js' => 'include/javascript/sugar_grp7.min.js',
-                'include/javascript/sugar7/utils-search.js' => 'include/javascript/sugar_grp7.min.js',
                 'include/javascript/sugar7/field.js' => 'include/javascript/sugar_grp7.min.js',
                 'include/javascript/sugar7/hacks.js' => 'include/javascript/sugar_grp7.min.js',
                 'include/javascript/sugar7/alert.js' => 'include/javascript/sugar_grp7.min.js',
@@ -341,22 +336,18 @@
                 'include/javascript/sugar7/import-export-warnings.js' => 'include/javascript/sugar_grp7.min.js',
             ),
 
-            $sugar_grp_portal2 = array(
-                'portal2/error.js' => 'portal2/portal.min.js',
-                'portal2/user.js' => 'portal2/portal.min.js',
-                'portal2/portal.js' => 'portal2/portal.min.js',
-            ),
-
             $sugar_grp_sugar7_portal2 = array(
+                'include/javascript/sugar7/bwc.js' => 'portal2/sugar_portal.min.js',
                 'include/javascript/sugar7/utils.js' => 'portal2/sugar_portal.min.js',
                 'include/javascript/sugar7/utils-filters.js' => 'portal2/sugar_portal.min.js',
                 'include/javascript/sugar7/field.js' => 'portal2/sugar_portal.min.js',
                 'include/javascript/sugar7/hacks.js' => 'portal2/sugar_portal.min.js',
                 'include/javascript/sugar7/alert.js' => 'portal2/sugar_portal.min.js',
                 'include/javascript/sugar7/hbs-helpers.js' => 'portal2/sugar_portal.min.js',
-                'include/javascript/sugar7/language.js' => 'portal2/sugar_portal.min.js',
+                'include/javascript/sugar7/language.js' => 'portal2/portal.min.js',
                 'custom/include/javascript/voodoo.js' => 'portal2/sugar_portal.min.js',
             ),
+
 
             $pmse_br = array(
                 'include/javascript/pmse/ui/utils.js' => 'include/javascript/pmse.br.min.js',

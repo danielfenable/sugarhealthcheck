@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,19 +13,21 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
 
+$dashletStrings = array (
+  'RSSDashlet' => 
+  array (
+    'ERR_LOADING_FEED' => 'Не удалось загрузить RSS-канал',
+    'LBL_AUTO_SCROLL' => 'Автоматическая прокрутка',
+    'LBL_CONFIGURE_HEIGHT' => 'Высота (1 - 300)',
+    'LBL_CONFIGURE_RSSURL' => 'RSS Url',
+    'LBL_CONFIGURE_TITLE' => 'Заголовок',
+    'LBL_DBLCLICK_HELP' => '',
+    'LBL_DESCRIPTION' => 'Ленты новостей',
+    'LBL_SAVED' => 'Готово',
+    'LBL_SAVING' => 'Обработка ...',
+    'LBL_SCROLL_SPEED' => 'Скорость прокрутки (%)',
+    'LBL_TITLE' => 'Ленты новостей',
+  ),
+);
 
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Ленты новостей',
-                                         'LBL_DESCRIPTION'      => 'Ленты новостей',
-                                         'LBL_SAVING'           => 'Обработка ...',
-                                         'LBL_SAVED'            => 'Выполнено',
-                                         'LBL_AUTO_SCROLL'      => 'Автоматическая прокрутка',
-                                          'LBL_SCROLL_SPEED'      => 'Скорость прокрутки (%)',
-                                         'LBL_CONFIGURE_TITLE'  => 'Название',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Высота (1 - 300)',
-                                         'LBL_CONFIGURE_RSSURL' => 'RSS Url',
-                                         'LBL_DBLCLICK_HELP'    => '',
-                                         'ERR_LOADING_FEED'     => 'Не удалось загрузить RSS-канал',
-                                         );
-?>

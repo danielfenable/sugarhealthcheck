@@ -135,7 +135,6 @@ $mod_strings = array(
     'LBL_COMMITTED' => 'Committed',
     'LBL_FORECAST' => 'Include in Forecast',
     'LBL_COMMIT_STAGE' => 'Commit Stage',
-    'LBL_COMMIT_STAGE_FORECAST' => 'Forecast',
     'LBL_WORKSHEET' => 'Worksheet',
 
     'TPL_RLI_CREATE' => 'An Opportunity must have an associated Revenue Line Item.',
@@ -147,7 +146,6 @@ $mod_strings = array(
     'LBL_CLOSED_RLIS' => '# of Closed Revenue Line Items',
     'NOTICE_NO_DELETE_CLOSED_RLIS' => 'You cannot delete Opportunities that contain closed Revenue Line Items',
     'WARNING_NO_DELETE_CLOSED_SELECTED' => 'One or more of the selected records contains closed Revenue Line Items and cannot be deleted.',
-    'LBL_INCLUDED_RLIS' => '# of Included Revenue Line Items',
 
     'LBL_QUOTE_SUBPANEL_TITLE' => 'Quotes',
 
@@ -197,6 +195,8 @@ To create an {{module_name}}:
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
 2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.
 3. After saving, use the {{revenuelineitems_module}} subpanel to add line items to the {{module_name}}.',
 
 // END ENT/ULT

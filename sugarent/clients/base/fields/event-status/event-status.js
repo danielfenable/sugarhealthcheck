@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({extendsFrom:'BadgeSelectField',initialize:function(options){this._super('initialize',[options]);this.statusClasses={'Held':'label-success','Not Held':'label-important','Planned':'label-pending'};this.type='badge-select';}})
+({extendsFrom:'BadgeSelectField',initialize:function(options){this._super('initialize',[options]);this.type='badge-select';},_render:function(){this._super('_render');this.styleLabel(this.model.get(this.name));},styleLabel:function(status){var $label;if(this.action!=='edit'){$label=this.$('.label');switch(status){case'Held':$label.addClass('label-success');break;case'Not Held':$label.addClass('label-important');break;case'Planned':$label.addClass('label-pending');break;default:break;}}}})

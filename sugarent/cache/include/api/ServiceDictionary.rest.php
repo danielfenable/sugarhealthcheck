@@ -130,6 +130,7 @@ $apiDictionary['rest'] = array (
               'method' => 'userPreferencesSave',
               'shortHelp' => 'Mass Save Updated Preferences For a User',
               'longHelp' => 'include/api/help/me_preferences_put_help.html',
+              'keepSession' => true,
               'file' => 'clients/mobile/api/CurrentUserMobileApi.php',
               'className' => 'CurrentUserMobileApi',
               'score' => 8.75,
@@ -233,6 +234,7 @@ $apiDictionary['rest'] = array (
               'method' => 'userPreferencesSave',
               'shortHelp' => 'Mass Save Updated Preferences For a User',
               'longHelp' => 'include/api/help/me_preferences_put_help.html',
+              'keepSession' => true,
               'file' => 'clients/portal/api/CurrentUserPortalApi.php',
               'className' => 'CurrentUserPortalApi',
               'score' => 8.75,
@@ -364,6 +366,7 @@ $apiDictionary['rest'] = array (
               'method' => 'userPreferencesSave',
               'shortHelp' => 'Mass Save Updated Preferences For a User',
               'longHelp' => 'include/api/help/me_preferences_put_help.html',
+              'keepSession' => true,
               'file' => 'clients/base/api/CurrentUserApi.php',
               'className' => 'CurrentUserApi',
               'score' => 8.75,
@@ -419,26 +422,6 @@ $apiDictionary['rest'] = array (
               'longHelp' => 'include/api/help/module_config_put_help.html',
               'file' => 'clients/base/api/ConfigModuleApi.php',
               'className' => 'ConfigModuleApi',
-              'score' => 8,
-            ),
-            1 => 
-            array (
-              'reqType' => 'PUT',
-              'path' => 
-              array (
-                0 => '<module>',
-                1 => 'config',
-              ),
-              'pathVars' => 
-              array (
-                0 => 'module',
-                1 => '',
-              ),
-              'method' => 'configSave',
-              'shortHelp' => 'Updates the config entries for given module',
-              'longHelp' => 'include/api/help/module_config_put_help.html',
-              'file' => 'modules/KBContents/clients/base/api/KBContentsConfigApi.php',
-              'className' => 'KBContentsConfigApi',
               'score' => 8,
             ),
           ),
@@ -518,32 +501,6 @@ $apiDictionary['rest'] = array (
             ),
           ),
         ),
-        'Tags' => 
-        array (
-          '?' => 
-          array (
-            0 => 
-            array (
-              'reqType' => 'PUT',
-              'path' => 
-              array (
-                0 => 'Tags',
-                1 => '?',
-              ),
-              'pathVars' => 
-              array (
-                0 => 'module',
-                1 => 'record',
-              ),
-              'method' => 'updateRecord',
-              'shortHelp' => 'This method updates a record of the specified type',
-              'longHelp' => 'include/api/help/module_record_put_help.html',
-              'file' => 'modules/Tags/clients/base/api/TagsApi.php',
-              'className' => 'TagsApi',
-              'score' => 7.75,
-            ),
-          ),
-        ),
         'Forecasts' => 
         array (
           'config' => 
@@ -593,32 +550,6 @@ $apiDictionary['rest'] = array (
               'file' => 'modules/ForecastWorksheets/clients/base/api/ForecastWorksheetsApi.php',
               'className' => 'ForecastWorksheetsApi',
               'score' => 7.75,
-            ),
-          ),
-        ),
-        'KBContents' => 
-        array (
-          'config' => 
-          array (
-            0 => 
-            array (
-              'reqType' => 'PUT',
-              'path' => 
-              array (
-                0 => 'KBContents',
-                1 => 'config',
-              ),
-              'pathVars' => 
-              array (
-                0 => 'module',
-                1 => '',
-              ),
-              'method' => 'configSave',
-              'shortHelp' => 'Updates the config entries for the KBContents module',
-              'longHelp' => 'modules/KBContents/clients/base/api/help/kb_config_put_help.html',
-              'file' => 'modules/KBContents/clients/base/api/KBContentsConfigApi.php',
-              'className' => 'KBContentsConfigApi',
-              'score' => 8.75,
             ),
           ),
         ),
@@ -921,37 +852,64 @@ $apiDictionary['rest'] = array (
             ),
           ),
         ),
-        '<module>' => 
+        'oauth2' => 
         array (
-          'globalsearch' => 
+          'token' => 
           array (
             0 => 
             array (
               'reqType' => 'POST',
               'path' => 
               array (
-                0 => '<module>',
-                1 => 'globalsearch',
+                0 => 'oauth2',
+                1 => 'token',
               ),
               'pathVars' => 
               array (
-                0 => 'module',
+                0 => '',
                 1 => '',
               ),
-              'method' => 'globalSearch',
-              'shortHelp' => 'Global search',
-              'longHelp' => 'include/api/help/globalsearch_get_help.html',
-              'exceptions' => 
-              array (
-                0 => 'SugarApiExceptionNotAuthorized',
-                1 => 'SugarApiExceptionSearchUnavailable',
-                2 => 'SugarApiExceptionSearchRuntime',
-              ),
-              'file' => 'clients/base/api/GlobalSearchApi.php',
-              'className' => 'GlobalSearchApi',
-              'score' => 8,
+              'method' => 'token',
+              'shortHelp' => 'OAuth2 token requests.',
+              'longHelp' => 'include/api/help/oauth2_token_post_help.html',
+              'noLoginRequired' => true,
+              'keepSession' => true,
+              'ignoreMetaHash' => true,
+              'ignoreSystemStatusError' => true,
+              'file' => 'clients/base/api/OAuth2Api.php',
+              'className' => 'OAuth2Api',
+              'score' => 8.75,
             ),
           ),
+          'logout' => 
+          array (
+            0 => 
+            array (
+              'reqType' => 'POST',
+              'path' => 
+              array (
+                0 => 'oauth2',
+                1 => 'logout',
+              ),
+              'pathVars' => 
+              array (
+                0 => '',
+                1 => '',
+              ),
+              'method' => 'logout',
+              'shortHelp' => 'OAuth2 logout.',
+              'longHelp' => 'include/api/help/oauth2_logout_post_help.html',
+              'keepSession' => true,
+              'ignoreMetaHash' => true,
+              'ignoreSystemStatusError' => true,
+              'file' => 'clients/base/api/OAuth2Api.php',
+              'className' => 'OAuth2Api',
+              'score' => 8.75,
+            ),
+          ),
+        ),
+        '<module>' => 
+        array (
           'duplicateCheck' => 
           array (
             0 => 
@@ -995,26 +953,6 @@ $apiDictionary['rest'] = array (
               'longHelp' => 'include/api/help/module_config_post_help.html',
               'file' => 'clients/base/api/ConfigModuleApi.php',
               'className' => 'ConfigModuleApi',
-              'score' => 8,
-            ),
-            1 => 
-            array (
-              'reqType' => 'POST',
-              'path' => 
-              array (
-                0 => '<module>',
-                1 => 'config',
-              ),
-              'pathVars' => 
-              array (
-                0 => 'module',
-                1 => '',
-              ),
-              'method' => 'configSave',
-              'shortHelp' => 'Creates the config entries for the given module',
-              'longHelp' => 'include/api/help/module_config_post_help.html',
-              'file' => 'modules/KBContents/clients/base/api/KBContentsConfigApi.php',
-              'className' => 'KBContentsConfigApi',
               'score' => 8,
             ),
           ),
@@ -1071,62 +1009,6 @@ $apiDictionary['rest'] = array (
               'file' => 'clients/base/api/RecordListApi.php',
               'className' => 'RecordListApi',
               'score' => 8,
-            ),
-          ),
-        ),
-        'oauth2' => 
-        array (
-          'token' => 
-          array (
-            0 => 
-            array (
-              'reqType' => 'POST',
-              'path' => 
-              array (
-                0 => 'oauth2',
-                1 => 'token',
-              ),
-              'pathVars' => 
-              array (
-                0 => '',
-                1 => '',
-              ),
-              'method' => 'token',
-              'shortHelp' => 'OAuth2 token requests.',
-              'longHelp' => 'include/api/help/oauth2_token_post_help.html',
-              'noLoginRequired' => true,
-              'keepSession' => true,
-              'ignoreMetaHash' => true,
-              'ignoreSystemStatusError' => true,
-              'file' => 'clients/base/api/OAuth2Api.php',
-              'className' => 'OAuth2Api',
-              'score' => 8.75,
-            ),
-          ),
-          'logout' => 
-          array (
-            0 => 
-            array (
-              'reqType' => 'POST',
-              'path' => 
-              array (
-                0 => 'oauth2',
-                1 => 'logout',
-              ),
-              'pathVars' => 
-              array (
-                0 => '',
-                1 => '',
-              ),
-              'method' => 'logout',
-              'shortHelp' => 'OAuth2 logout.',
-              'longHelp' => 'include/api/help/oauth2_logout_post_help.html',
-              'keepSession' => true,
-              'ignoreMetaHash' => true,
-              'ignoreSystemStatusError' => true,
-              'file' => 'clients/base/api/OAuth2Api.php',
-              'className' => 'OAuth2Api',
-              'score' => 8.75,
             ),
           ),
         ),
@@ -1202,7 +1084,7 @@ $apiDictionary['rest'] = array (
                 0 => 'filter',
               ),
               'shortHelp' => 'Filter records from a single module',
-              'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastManagerWorksheetFilter.html',
+              'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetFilter.html',
               'file' => 'modules/ForecastManagerWorksheets/clients/base/api/ForecastManagerWorksheetsFilterApi.php',
               'className' => 'ForecastManagerWorksheetsFilterApi',
               'score' => 8.75,
@@ -1355,55 +1237,6 @@ $apiDictionary['rest'] = array (
               'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetFilter.html',
               'file' => 'modules/ForecastWorksheets/clients/base/api/ForecastWorksheetsFilterApi.php',
               'className' => 'ForecastWorksheetsFilterApi',
-              'score' => 8.75,
-            ),
-          ),
-        ),
-        'KBContents' => 
-        array (
-          'config' => 
-          array (
-            0 => 
-            array (
-              'reqType' => 'POST',
-              'path' => 
-              array (
-                0 => 'KBContents',
-                1 => 'config',
-              ),
-              'pathVars' => 
-              array (
-                0 => 'module',
-                1 => '',
-              ),
-              'method' => 'configSave',
-              'shortHelp' => 'Creates the config entries for the KBContents module.',
-              'longHelp' => 'modules/KBContents/clients/base/api/help/kb_config_put_help.html',
-              'file' => 'modules/KBContents/clients/base/api/KBContentsConfigApi.php',
-              'className' => 'KBContentsConfigApi',
-              'score' => 8.75,
-            ),
-          ),
-          'duplicateCheck' => 
-          array (
-            0 => 
-            array (
-              'reqType' => 'POST',
-              'path' => 
-              array (
-                0 => 'KBContents',
-                1 => 'duplicateCheck',
-              ),
-              'pathVars' => 
-              array (
-                0 => 'module',
-                1 => '',
-              ),
-              'method' => 'checkForDuplicates',
-              'shortHelp' => 'Check for duplicate records within a module',
-              'longHelp' => 'include/api/help/module_duplicatecheck_post_help.html',
-              'file' => 'modules/KBContents/clients/base/api/KBSDuplicateCheckApi.php',
-              'className' => 'KBSDuplicateCheckApi',
               'score' => 8.75,
             ),
           ),
@@ -1619,37 +1452,36 @@ $apiDictionary['rest'] = array (
             ),
           ),
         ),
-        '<module>' => 
+        'help' => 
         array (
-          'globalsearch' => 
+          'exceptions' => 
           array (
             0 => 
             array (
               'reqType' => 'GET',
               'path' => 
               array (
-                0 => '<module>',
-                1 => 'globalsearch',
+                0 => 'help',
+                1 => 'exceptions',
               ),
               'pathVars' => 
               array (
-                0 => 'module',
+                0 => '',
                 1 => '',
               ),
-              'method' => 'globalSearch',
-              'shortHelp' => 'Global search',
-              'longHelp' => 'include/api/help/globalsearch_get_help.html',
-              'exceptions' => 
-              array (
-                0 => 'SugarApiExceptionNotAuthorized',
-                1 => 'SugarApiExceptionSearchUnavailable',
-                2 => 'SugarApiExceptionSearchRuntime',
-              ),
-              'file' => 'clients/base/api/GlobalSearchApi.php',
-              'className' => 'GlobalSearchApi',
-              'score' => 8,
+              'method' => 'getExceptionsHelp',
+              'shortHelp' => 'Shows the exceptions thrown by the API',
+              'longHelp' => 'include/api/help/help_get_exceptions.html',
+              'rawReply' => true,
+              'noLoginRequired' => true,
+              'file' => 'clients/base/api/HelpApi.php',
+              'className' => 'HelpApi',
+              'score' => 8.75,
             ),
           ),
+        ),
+        '<module>' => 
+        array (
           'config' => 
           array (
             0 => 
@@ -1670,26 +1502,6 @@ $apiDictionary['rest'] = array (
               'longHelp' => 'include/api/help/module_config_get_help.html',
               'file' => 'clients/base/api/ConfigModuleApi.php',
               'className' => 'ConfigModuleApi',
-              'score' => 8,
-            ),
-            1 => 
-            array (
-              'reqType' => 'GET',
-              'path' => 
-              array (
-                0 => '<module>',
-                1 => 'config',
-              ),
-              'pathVars' => 
-              array (
-                0 => 'module',
-                1 => '',
-              ),
-              'method' => 'config',
-              'shortHelp' => 'Retrieves the config settings for a given module',
-              'longHelp' => 'include/api/help/module_config_get_help.html',
-              'file' => 'modules/KBContents/clients/base/api/KBContentsConfigApi.php',
-              'className' => 'KBContentsConfigApi',
               'score' => 8,
             ),
           ),
@@ -1744,7 +1556,7 @@ $apiDictionary['rest'] = array (
               array (
                 0 => 'filter',
               ),
-              'method' => 'getFilterListCount',
+              'method' => 'filterListCount',
               'shortHelp' => 'List of all records in this module',
               'longHelp' => 'include/api/help/module_filter_get_help.html',
               'exceptions' => 
@@ -1803,34 +1615,6 @@ $apiDictionary['rest'] = array (
             ),
           ),
         ),
-        'help' => 
-        array (
-          'exceptions' => 
-          array (
-            0 => 
-            array (
-              'reqType' => 'GET',
-              'path' => 
-              array (
-                0 => 'help',
-                1 => 'exceptions',
-              ),
-              'pathVars' => 
-              array (
-                0 => '',
-                1 => '',
-              ),
-              'method' => 'getExceptionsHelp',
-              'shortHelp' => 'Shows the exceptions thrown by the API',
-              'longHelp' => 'include/api/help/help_get_exceptions.html',
-              'rawReply' => true,
-              'noLoginRequired' => true,
-              'file' => 'clients/base/api/HelpApi.php',
-              'className' => 'HelpApi',
-              'score' => 8.75,
-            ),
-          ),
-        ),
         'password' => 
         array (
           'request' => 
@@ -1851,36 +1635,9 @@ $apiDictionary['rest'] = array (
               'shortHelp' => 'This method sends email requests to reset passwords',
               'longHelp' => 'include/api/help/password_request_get_help.html',
               'noLoginRequired' => true,
-              'ignoreSystemStatusError' => true,
               'file' => 'clients/base/api/PasswordApi.php',
               'className' => 'PasswordApi',
               'score' => 8.75,
-            ),
-          ),
-        ),
-        'collection' => 
-        array (
-          '?' => 
-          array (
-            0 => 
-            array (
-              'reqType' => 'GET',
-              'path' => 
-              array (
-                0 => 'collection',
-                1 => '?',
-              ),
-              'pathVars' => 
-              array (
-                0 => '',
-                1 => 'collection_name',
-              ),
-              'method' => 'getCollection',
-              'shortHelp' => 'Lists collection records.',
-              'longHelp' => 'include/api/help/collection_collection_name_get_help.html',
-              'file' => 'clients/base/api/ModuleCollectionApi.php',
-              'className' => 'ModuleCollectionApi',
-              'score' => 7.75,
             ),
           ),
         ),
@@ -2078,7 +1835,7 @@ $apiDictionary['rest'] = array (
               array (
               ),
               'shortHelp' => 'Filter records from a single module',
-              'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastManagerWorksheetGet.html',
+              'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetGet.html',
               'file' => 'modules/ForecastManagerWorksheets/clients/base/api/ForecastManagerWorksheetsFilterApi.php',
               'className' => 'ForecastManagerWorksheetsFilterApi',
               'score' => 7.75,
@@ -2131,7 +1888,7 @@ $apiDictionary['rest'] = array (
                 0 => 'filter',
               ),
               'shortHelp' => 'Filter records from a single module',
-              'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastManagerWorksheetFilter.html',
+              'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetFilter.html',
               'file' => 'modules/ForecastManagerWorksheets/clients/base/api/ForecastManagerWorksheetsFilterApi.php',
               'className' => 'ForecastManagerWorksheetsFilterApi',
               'score' => 8.75,
@@ -2474,41 +2231,6 @@ $apiDictionary['rest'] = array (
             ),
           ),
         ),
-        'KBContents' => 
-        array (
-          'filter' => 
-          array (
-            0 => 
-            array (
-              'reqType' => 'GET',
-              'path' => 
-              array (
-                0 => 'KBContents',
-                1 => 'filter',
-              ),
-              'pathVars' => 
-              array (
-                0 => 'module',
-                1 => '',
-              ),
-              'method' => 'filterList',
-              'jsonParams' => 
-              array (
-                0 => 'filter',
-              ),
-              'shortHelp' => 'Lists filtered records.',
-              'longHelp' => 'include/api/help/module_filter_get_help.html',
-              'exceptions' => 
-              array (
-                0 => 'SugarApiExceptionInvalidParameter',
-                1 => 'SugarApiExceptionNotAuthorized',
-              ),
-              'file' => 'modules/KBContents/clients/base/api/KBContentsFilterApi.php',
-              'className' => 'KBContentsFilterApi',
-              'score' => 8.75,
-            ),
-          ),
-        ),
         'Dashboards' => 
         array (
           '<module>' => 
@@ -2529,7 +2251,6 @@ $apiDictionary['rest'] = array (
               'method' => 'getDashboards',
               'shortHelp' => 'Get dashboards for a module',
               'longHelp' => 'include/api/help/get_dashboards.html',
-              'cacheEtag' => true,
               'file' => 'modules/Dashboards/clients/base/api/DashboardListApi.php',
               'className' => 'DashboardListApi',
               'score' => 8,
@@ -2553,7 +2274,6 @@ $apiDictionary['rest'] = array (
               'method' => 'getDashboards',
               'shortHelp' => 'Get dashboards for home',
               'longHelp' => 'include/api/help/get_dashboards.html',
-              'cacheEtag' => true,
               'file' => 'modules/Dashboards/clients/base/api/DashboardListApi.php',
               'className' => 'DashboardListApi',
               'score' => 8.75,
@@ -2903,69 +2623,6 @@ $apiDictionary['rest'] = array (
           ),
         ),
       ),
-      '?' => 
-      array (
-        'KBDocuments' => 
-        array (
-          '?' => 
-          array (
-            0 => 
-            array (
-              'reqType' => '?',
-              'path' => 
-              array (
-                0 => 'KBDocuments',
-                1 => '?',
-              ),
-              'pathVars' => 
-              array (
-                0 => 'module',
-                1 => '',
-              ),
-              'extraScore' => 1,
-              'method' => 'disableApi',
-              'shortHelp' => 'Disable KBDocuments',
-              'exceptions' => 
-              array (
-                0 => 'SugarApiExceptionNotFound',
-              ),
-              'file' => 'modules/KBContents/clients/base/api/KBContentsApi.php',
-              'className' => 'KBContentsApi',
-              'score' => 7.75,
-            ),
-          ),
-        ),
-        'KBArticles' => 
-        array (
-          '?' => 
-          array (
-            0 => 
-            array (
-              'reqType' => '?',
-              'path' => 
-              array (
-                0 => 'KBArticles',
-                1 => '?',
-              ),
-              'pathVars' => 
-              array (
-                0 => 'module',
-                1 => '',
-              ),
-              'extraScore' => 1,
-              'method' => 'disableApi',
-              'shortHelp' => 'Disable KBArticles',
-              'exceptions' => 
-              array (
-                0 => 'SugarApiExceptionNotFound',
-              ),
-              'file' => 'modules/KBContents/clients/base/api/KBContentsApi.php',
-              'className' => 'KBContentsApi',
-              'score' => 7.75,
-            ),
-          ),
-        ),
-      ),
     ),
   ),
   3 => 
@@ -3061,6 +2718,7 @@ $apiDictionary['rest'] = array (
                 'method' => 'userPreferenceSave',
                 'shortHelp' => 'Create a preference for the current user',
                 'longHelp' => 'include/api/help/me_preference_preference_name_post_help.html',
+                'keepSession' => true,
                 'file' => 'clients/mobile/api/CurrentUserMobileApi.php',
                 'className' => 'CurrentUserMobileApi',
                 'score' => 9.5,
@@ -3129,6 +2787,7 @@ $apiDictionary['rest'] = array (
                 'method' => 'userPreferenceSave',
                 'shortHelp' => 'Update a specific preference for the current user',
                 'longHelp' => 'include/api/help/me_preference_preference_name_put_help.html',
+                'keepSession' => true,
                 'file' => 'clients/mobile/api/CurrentUserMobileApi.php',
                 'className' => 'CurrentUserMobileApi',
                 'score' => 9.5,
@@ -3163,6 +2822,7 @@ $apiDictionary['rest'] = array (
                 'method' => 'userPreferenceDelete',
                 'shortHelp' => 'Delete a specific preference for the current user',
                 'longHelp' => 'include/api/help/me_preference_preference_name_delete_help.html',
+                'keepSession' => true,
                 'file' => 'clients/mobile/api/CurrentUserMobileApi.php',
                 'className' => 'CurrentUserMobileApi',
                 'score' => 9.5,
@@ -3234,6 +2894,7 @@ $apiDictionary['rest'] = array (
                 'method' => 'userPreferenceSave',
                 'shortHelp' => 'Create a preference for the current user',
                 'longHelp' => 'include/api/help/me_preference_preference_name_post_help.html',
+                'keepSession' => true,
                 'file' => 'clients/portal/api/CurrentUserPortalApi.php',
                 'className' => 'CurrentUserPortalApi',
                 'score' => 9.5,
@@ -3268,6 +2929,7 @@ $apiDictionary['rest'] = array (
                 'method' => 'userPreferenceSave',
                 'shortHelp' => 'Update a specific preference for the current user',
                 'longHelp' => 'include/api/help/me_preference_preference_name_put_help.html',
+                'keepSession' => true,
                 'file' => 'clients/portal/api/CurrentUserPortalApi.php',
                 'className' => 'CurrentUserPortalApi',
                 'score' => 9.5,
@@ -3302,6 +2964,7 @@ $apiDictionary['rest'] = array (
                 'method' => 'userPreferenceDelete',
                 'shortHelp' => 'Delete a specific preference for the current user',
                 'longHelp' => 'include/api/help/me_preference_preference_name_delete_help.html',
+                'keepSession' => true,
                 'file' => 'clients/portal/api/CurrentUserPortalApi.php',
                 'className' => 'CurrentUserPortalApi',
                 'score' => 9.5,
@@ -3466,157 +3129,6 @@ $apiDictionary['rest'] = array (
                 'score' => 8.75,
               ),
             ),
-            'tree' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => '?',
-                  2 => 'tree',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'root',
-                  2 => '',
-                ),
-                'method' => 'tree',
-                'noEtag' => true,
-                'shortHelp' => 'This method returns formatted tree for selected root',
-                'longHelp' => 'modules/Categories/clients/base/api/help/tree_get_tree_help.html',
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
-              ),
-            ),
-            'children' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => '?',
-                  2 => 'children',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'record',
-                  2 => '',
-                ),
-                'method' => 'children',
-                'shortHelp' => 'This method returns children categories for selected record',
-                'longHelp' => 'modules/Categories/clients/base/api/help/tree_get_children_help.html',
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
-              ),
-            ),
-            'next' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => '?',
-                  2 => 'next',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'record',
-                  2 => '',
-                ),
-                'method' => 'next',
-                'shortHelp' => 'This method returns next sibling of selected record',
-                'longHelp' => 'modules/Categories/clients/base/api/help/tree_get_next_help.html',
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
-              ),
-            ),
-            'prev' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => '?',
-                  2 => 'prev',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'record',
-                  2 => '',
-                ),
-                'method' => 'prev',
-                'shortHelp' => 'This method returns previous sibling of selected record',
-                'longHelp' => 'modules/Categories/clients/base/api/help/tree_get_prev_help.html',
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
-              ),
-            ),
-            'parent' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => '?',
-                  2 => 'parent',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'record',
-                  2 => '',
-                ),
-                'method' => 'getParent',
-                'shortHelp' => 'This method returns parent node of selected record',
-                'longHelp' => 'modules/Categories/clients/base/api/help/tree_get_parent_help.html',
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
-              ),
-            ),
-            'path' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => '?',
-                  2 => 'path',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'record',
-                  2 => '',
-                ),
-                'method' => 'path',
-                'shortHelp' => 'This method returns full path of selected record',
-                'longHelp' => 'modules/Categories/clients/base/api/help/tree_get_path_help.html',
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
-              ),
-            ),
             'audit' => 
             array (
               0 => 
@@ -3645,35 +3157,6 @@ $apiDictionary['rest'] = array (
           ),
           'filter' => 
           array (
-            'count' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => 'filter',
-                  2 => 'count',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => '',
-                  2 => '',
-                ),
-                'method' => 'getFilterListCount',
-                'shortHelp' => 'Lists filtered records.',
-                'longHelp' => 'include/api/help/module_filter_post_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotAuthorized',
-                ),
-                'file' => 'clients/base/api/FilterApi.php',
-                'className' => 'FilterApi',
-                'score' => 9.75,
-              ),
-            ),
             '?' => 
             array (
               0 => 
@@ -3792,38 +3275,6 @@ $apiDictionary['rest'] = array (
               ),
             ),
           ),
-          'tree' => 
-          array (
-            '?' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => 'tree',
-                  2 => '?',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => '',
-                  2 => 'link_name',
-                ),
-                'method' => 'filterTree',
-                'exception' => 
-                array (
-                  0 => 'SugarApiExceptionInvalidParameter',
-                  1 => 'SugarApiExceptionNotAuthorized',
-                  2 => 'SugarApiExceptionNotFound',
-                ),
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
-              ),
-            ),
-          ),
           'Activities' => 
           array (
             'filter' => 
@@ -3854,35 +3305,6 @@ $apiDictionary['rest'] = array (
         ),
         'connector' => 
         array (
-          'dnb' => 
-          array (
-            'meter' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => 'connector',
-                  1 => 'dnb',
-                  2 => 'meter',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'connector',
-                  1 => 'dnb',
-                  2 => 'meter',
-                ),
-                'method' => 'dnbMeter',
-                'shortHelp' => 'Invoke DNB API using GET',
-                'longHelp' => 'include/api/help/dnb_get_help.html',
-                'keepSession' => true,
-                'file' => 'clients/base/api/DnbApi.php',
-                'className' => 'DnbApi',
-                'score' => 10.5,
-              ),
-            ),
-          ),
           'twitter' => 
           array (
             'currentUser' => 
@@ -3932,37 +3354,6 @@ $apiDictionary['rest'] = array (
                 'longHelp' => 'include/api/help/twitter_get_help.html',
                 'file' => 'clients/base/api/TwitterApi.php',
                 'className' => 'TwitterApi',
-                'score' => 9.5,
-              ),
-            ),
-          ),
-        ),
-        'collection' => 
-        array (
-          '?' => 
-          array (
-            'count' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => 'collection',
-                  1 => '?',
-                  2 => 'count',
-                ),
-                'pathVars' => 
-                array (
-                  0 => '',
-                  1 => 'collection_name',
-                  2 => '',
-                ),
-                'method' => 'getCollectionCount',
-                'shortHelp' => 'Counts collection records.',
-                'longHelp' => 'include/api/help/collection_collection_name_count_get_help.html',
-                'file' => 'clients/base/api/ModuleCollectionApi.php',
-                'className' => 'ModuleCollectionApi',
                 'score' => 9.5,
               ),
             ),
@@ -4170,7 +3561,7 @@ $apiDictionary['rest'] = array (
                 array (
                 ),
                 'shortHelp' => 'Filter records from a single module',
-                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastManagerWorksheetGet.html',
+                'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetGet.html',
                 'file' => 'modules/ForecastManagerWorksheets/clients/base/api/ForecastManagerWorksheetsFilterApi.php',
                 'className' => 'ForecastManagerWorksheetsFilterApi',
                 'score' => 8.5,
@@ -4653,36 +4044,6 @@ $apiDictionary['rest'] = array (
             ),
           ),
         ),
-        'KBContents' => 
-        array (
-          '?' => 
-          array (
-            'related_documents' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => 'KBContents',
-                  1 => '?',
-                  2 => 'related_documents',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'record',
-                ),
-                'method' => 'relatedDocuments',
-                'shortHelp' => 'Get related documents for current record.',
-                'longHelp' => '',
-                'file' => 'modules/KBContents/clients/base/api/KBContentsApi.php',
-                'className' => 'KBContentsApi',
-                'score' => 9.5,
-              ),
-            ),
-          ),
-        ),
         'Leads' => 
         array (
           '?' => 
@@ -4943,181 +4304,6 @@ $apiDictionary['rest'] = array (
             ),
           ),
         ),
-        'Administration' => 
-        array (
-          'search' => 
-          array (
-            'status' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => 'Administration',
-                  1 => 'search',
-                  2 => 'status',
-                ),
-                'pathVars' => 
-                array (
-                  0 => '',
-                ),
-                'method' => 'searchStatus',
-                'shortHelp' => 'Search status',
-                'longHelp' => 'include/api/help/administration_search_status_get_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotAuthorized',
-                ),
-                'file' => 'modules/Administration/clients/base/api/AdministrationApi.php',
-                'className' => 'AdministrationApi',
-                'score' => 10.5,
-              ),
-            ),
-            'fields' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => 'Administration',
-                  1 => 'search',
-                  2 => 'fields',
-                ),
-                'pathVars' => 
-                array (
-                  0 => '',
-                ),
-                'method' => 'searchFields',
-                'shortHelp' => 'List search field configuration',
-                'longHelp' => 'include/api/help/administration_search_fields_get_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotAuthorized',
-                ),
-                'file' => 'modules/Administration/clients/base/api/AdministrationApi.php',
-                'className' => 'AdministrationApi',
-                'score' => 10.5,
-              ),
-            ),
-          ),
-          'elasticsearch' => 
-          array (
-            'queue' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => 'Administration',
-                  1 => 'elasticsearch',
-                  2 => 'queue',
-                ),
-                'pathVars' => 
-                array (
-                  0 => '',
-                ),
-                'method' => 'elasticSearchQueue',
-                'shortHelp' => 'Elasticsearch queue statistics',
-                'longHelp' => 'include/api/help/administration_elasticsearch_queue_get_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotAuthorized',
-                  1 => 'SugarApiExceptionSearchUnavailable',
-                ),
-                'file' => 'modules/Administration/clients/base/api/AdministrationApi.php',
-                'className' => 'AdministrationApi',
-                'score' => 10.5,
-              ),
-            ),
-            'routing' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => 'Administration',
-                  1 => 'elasticsearch',
-                  2 => 'routing',
-                ),
-                'pathVars' => 
-                array (
-                  0 => '',
-                ),
-                'method' => 'elasticSearchRouting',
-                'shortHelp' => 'Elasticsearch index routing',
-                'longHelp' => 'include/api/help/administration_elasticsearch_routing_get_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotAuthorized',
-                  1 => 'SugarApiExceptionSearchUnavailable',
-                ),
-                'file' => 'modules/Administration/clients/base/api/AdministrationApi.php',
-                'className' => 'AdministrationApi',
-                'score' => 10.5,
-              ),
-            ),
-            'indices' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => 'Administration',
-                  1 => 'elasticsearch',
-                  2 => 'indices',
-                ),
-                'pathVars' => 
-                array (
-                  0 => '',
-                ),
-                'method' => 'elasticSearchIndices',
-                'shortHelp' => 'Elasticsearch index statistics',
-                'longHelp' => 'include/api/help/administration_elasticsearch_indices_get_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotAuthorized',
-                  1 => 'SugarApiExceptionSearchUnavailable',
-                ),
-                'file' => 'modules/Administration/clients/base/api/AdministrationApi.php',
-                'className' => 'AdministrationApi',
-                'score' => 10.5,
-              ),
-            ),
-            'mapping' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => 'Administration',
-                  1 => 'elasticsearch',
-                  2 => 'mapping',
-                ),
-                'pathVars' => 
-                array (
-                  0 => '',
-                ),
-                'method' => 'elasticSearchMapping',
-                'shortHelp' => 'Elasticsearch index mappings',
-                'longHelp' => 'include/api/help/administration_elasticsearch_mapping_get_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotAuthorized',
-                  1 => 'SugarApiExceptionSearchUnavailable',
-                ),
-                'file' => 'modules/Administration/clients/base/api/AdministrationApi.php',
-                'className' => 'AdministrationApi',
-                'score' => 10.5,
-              ),
-            ),
-          ),
-        ),
         'pmse_Project' => 
         array (
           'project' => 
@@ -5309,36 +4495,6 @@ $apiDictionary['rest'] = array (
             ),
           ),
         ),
-        'ProcessBusinessRules' => 
-        array (
-          'fields' => 
-          array (
-            '?' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'GET',
-                'path' => 
-                array (
-                  0 => 'ProcessBusinessRules',
-                  1 => 'fields',
-                  2 => '?',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'data',
-                  2 => 'filter',
-                ),
-                'method' => 'getBRFields',
-                'acl' => 'view',
-                'file' => 'modules/pmse_Project/clients/base/api/PMSEProjectApi.php',
-                'className' => 'PMSEProjectApi',
-                'score' => 9.5,
-              ),
-            ),
-          ),
-        ),
       ),
       'POST' => 
       array (
@@ -5366,6 +4522,7 @@ $apiDictionary['rest'] = array (
                 'method' => 'userPreferenceSave',
                 'shortHelp' => 'Create a preference for the current user',
                 'longHelp' => 'include/api/help/me_preference_preference_name_post_help.html',
+                'keepSession' => true,
                 'file' => 'clients/base/api/CurrentUserApi.php',
                 'className' => 'CurrentUserApi',
                 'score' => 9.5,
@@ -5485,138 +4642,6 @@ $apiDictionary['rest'] = array (
                 'file' => 'clients/base/api/FilterApi.php',
                 'className' => 'FilterApi',
                 'score' => 9.75,
-              ),
-            ),
-          ),
-          'append' => 
-          array (
-            '?' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'POST',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => 'append',
-                  2 => '?',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'append',
-                  2 => 'target',
-                ),
-                'method' => 'append',
-                'shortHelp' => 'This method append record to target as last child',
-                'longHelp' => 'modules/Categories/clients/base/api/help/tree_post_append_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotFound',
-                  1 => 'SugarApiExceptionInvalidParameter',
-                ),
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
-              ),
-            ),
-          ),
-          'prepend' => 
-          array (
-            '?' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'POST',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => 'prepend',
-                  2 => '?',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'prepend',
-                  2 => 'target',
-                ),
-                'method' => 'prepend',
-                'shortHelp' => 'This method prepend record to target as first child',
-                'longHelp' => 'modules/Categories/clients/base/api/help/tree_post_prepend_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotFound',
-                  1 => 'SugarApiExceptionInvalidParameter',
-                ),
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
-              ),
-            ),
-          ),
-          'insertbefore' => 
-          array (
-            '?' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'POST',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => 'insertbefore',
-                  2 => '?',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'insertbefore',
-                  2 => 'target',
-                ),
-                'method' => 'insertBefore',
-                'shortHelp' => 'This method insert record as previous sibling of target',
-                'longHelp' => 'modules/Categories/clients/base/api/help/tree_post_insertbefore_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotFound',
-                  1 => 'SugarApiExceptionInvalidParameter',
-                ),
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
-              ),
-            ),
-          ),
-          'insertafter' => 
-          array (
-            '?' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'POST',
-                'path' => 
-                array (
-                  0 => '<module>',
-                  1 => 'insertafter',
-                  2 => '?',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'insertafter',
-                  2 => 'target',
-                ),
-                'method' => 'insertAfter',
-                'shortHelp' => 'This method insert record as next sibling of target',
-                'longHelp' => 'modules/Categories/clients/base/api/help/tree_post_insertafter_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotFound',
-                  1 => 'SugarApiExceptionInvalidParameter',
-                ),
-                'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                'className' => 'TreeApi',
-                'score' => 8.75,
               ),
             ),
           ),
@@ -6015,40 +5040,6 @@ $apiDictionary['rest'] = array (
             ),
           ),
         ),
-        'Administration' => 
-        array (
-          'search' => 
-          array (
-            'reindex' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'POST',
-                'path' => 
-                array (
-                  0 => 'Administration',
-                  1 => 'search',
-                  2 => 'reindex',
-                ),
-                'pathVars' => 
-                array (
-                  0 => '',
-                ),
-                'method' => 'searchReindex',
-                'shortHelp' => 'Perform a reindex',
-                'longHelp' => 'include/api/help/administration_search_reindex_post_help.html',
-                'exceptions' => 
-                array (
-                  0 => 'SugarApiExceptionNotAuthorized',
-                  1 => 'SugarApiExceptionSearchUnavailable',
-                ),
-                'file' => 'modules/Administration/clients/base/api/AdministrationApi.php',
-                'className' => 'AdministrationApi',
-                'score' => 10.5,
-              ),
-            ),
-          ),
-        ),
         'pmse_Project' => 
         array (
           'file' => 
@@ -6138,6 +5129,7 @@ $apiDictionary['rest'] = array (
                 'method' => 'userPreferenceSave',
                 'shortHelp' => 'Update a specific preference for the current user',
                 'longHelp' => 'include/api/help/me_preference_preference_name_put_help.html',
+                'keepSession' => true,
                 'file' => 'clients/base/api/CurrentUserApi.php',
                 'className' => 'CurrentUserApi',
                 'score' => 9.5,
@@ -6227,62 +5219,6 @@ $apiDictionary['rest'] = array (
                 'longHelp' => '',
                 'file' => 'modules/Filters/clients/base/api/PreviouslyUsedFiltersApi.php',
                 'className' => 'PreviouslyUsedFiltersApi',
-                'score' => 9.5,
-              ),
-            ),
-          ),
-        ),
-        'KBContents' => 
-        array (
-          '?' => 
-          array (
-            'useful' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'PUT',
-                'path' => 
-                array (
-                  0 => 'KBContents',
-                  1 => '?',
-                  2 => 'useful',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'record',
-                  2 => 'useful',
-                ),
-                'method' => 'voteUseful',
-                'shortHelp' => 'This method votes a record of the specified type as a useful',
-                'longHelp' => 'include/api/help/module_get_help.html',
-                'file' => 'modules/KBContents/clients/base/api/KBContentsUsefulnessApi.php',
-                'className' => 'KBContentsUsefulnessApi',
-                'score' => 9.5,
-              ),
-            ),
-            'notuseful' => 
-            array (
-              0 => 
-              array (
-                'reqType' => 'PUT',
-                'path' => 
-                array (
-                  0 => 'KBContents',
-                  1 => '?',
-                  2 => 'notuseful',
-                ),
-                'pathVars' => 
-                array (
-                  0 => 'module',
-                  1 => 'record',
-                  2 => 'notuseful',
-                ),
-                'method' => 'voteNotUseful',
-                'shortHelp' => 'This method votes a record of the specified type as a not useful',
-                'longHelp' => 'include/api/help/module_get_help.html',
-                'file' => 'modules/KBContents/clients/base/api/KBContentsUsefulnessApi.php',
-                'className' => 'KBContentsUsefulnessApi',
                 'score' => 9.5,
               ),
             ),
@@ -6459,6 +5395,7 @@ $apiDictionary['rest'] = array (
                 'method' => 'userPreferenceDelete',
                 'shortHelp' => 'Delete a specific preference for the current user',
                 'longHelp' => 'include/api/help/me_preference_preference_name_delete_help.html',
+                'keepSession' => true,
                 'file' => 'clients/base/api/CurrentUserApi.php',
                 'className' => 'CurrentUserApi',
                 'score' => 9.5,
@@ -6898,33 +5835,6 @@ $apiDictionary['rest'] = array (
             'score' => 7,
           ),
         ),
-        'globalsearch' => 
-        array (
-          0 => 
-          array (
-            'reqType' => 'GET',
-            'path' => 
-            array (
-              0 => 'globalsearch',
-            ),
-            'pathVars' => 
-            array (
-              0 => '',
-            ),
-            'method' => 'globalSearch',
-            'shortHelp' => 'Global search',
-            'longHelp' => 'include/api/help/globalsearch_get_help.html',
-            'exceptions' => 
-            array (
-              0 => 'SugarApiExceptionNotAuthorized',
-              1 => 'SugarApiExceptionSearchUnavailable',
-              2 => 'SugarApiExceptionSearchRuntime',
-            ),
-            'file' => 'clients/base/api/GlobalSearchApi.php',
-            'className' => 'GlobalSearchApi',
-            'score' => 7,
-          ),
-        ),
         'VCardDownload' => 
         array (
           0 => 
@@ -7258,7 +6168,7 @@ $apiDictionary['rest'] = array (
             array (
             ),
             'shortHelp' => 'Filter records from a single module',
-            'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastManagerWorksheetGet.html',
+            'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastWorksheetGet.html',
             'file' => 'modules/ForecastManagerWorksheets/clients/base/api/ForecastManagerWorksheetsFilterApi.php',
             'className' => 'ForecastManagerWorksheetsFilterApi',
             'score' => 7,
@@ -7277,42 +6187,11 @@ $apiDictionary['rest'] = array (
             array (
               0 => 'module_list',
             ),
-            'method' => 'filterList',
+            'method' => 'globalSearch',
             'shortHelp' => 'Search Reports',
             'longHelp' => 'include/api/help/getListModule.html',
             'file' => 'modules/Reports/clients/base/api/ReportsSearchApi.php',
             'className' => 'ReportsSearchApi',
-            'score' => 7,
-          ),
-        ),
-        'Notifications' => 
-        array (
-          0 => 
-          array (
-            'reqType' => 'GET',
-            'path' => 
-            array (
-              0 => 'Notifications',
-            ),
-            'pathVars' => 
-            array (
-              0 => 'module',
-            ),
-            'method' => 'filterList',
-            'jsonParams' => 
-            array (
-              0 => 'filter',
-            ),
-            'shortHelp' => 'List of all records in this module',
-            'longHelp' => 'include/api/help/module_filter_get_help.html',
-            'exceptions' => 
-            array (
-              0 => 'SugarApiExceptionInvalidParameter',
-              1 => 'SugarApiExceptionNotAuthorized',
-            ),
-            'cacheEtag' => true,
-            'file' => 'modules/Notifications/clients/base/api/NotificationsFilterApi.php',
-            'className' => 'NotificationsFilterApi',
             'score' => 7,
           ),
         ),
@@ -7333,37 +6212,6 @@ $apiDictionary['rest'] = array (
             'longHelp' => 'modules/Home/clients/base/api/help/MostActiveUsersApi.html',
             'file' => 'modules/Home/clients/base/api/MostActiveUsersApi.php',
             'className' => 'MostActiveUsersApi',
-            'score' => 7,
-          ),
-        ),
-        'PdfManager' => 
-        array (
-          0 => 
-          array (
-            'reqType' => 'GET',
-            'path' => 
-            array (
-              0 => 'PdfManager',
-            ),
-            'pathVars' => 
-            array (
-              0 => 'module',
-            ),
-            'method' => 'filterList',
-            'jsonParams' => 
-            array (
-              0 => 'filter',
-            ),
-            'shortHelp' => 'List of all records in this module',
-            'longHelp' => 'include/api/help/module_filter_get_help.html',
-            'exceptions' => 
-            array (
-              0 => 'SugarApiExceptionInvalidParameter',
-              1 => 'SugarApiExceptionNotAuthorized',
-            ),
-            'cacheEtag' => true,
-            'file' => 'modules/PdfManager/clients/base/api/PdfManagerFilterApi.php',
-            'className' => 'PdfManagerFilterApi',
             'score' => 7,
           ),
         ),
@@ -7442,37 +6290,6 @@ $apiDictionary['rest'] = array (
             'score' => 7,
           ),
         ),
-        'Filters' => 
-        array (
-          0 => 
-          array (
-            'reqType' => 'GET',
-            'path' => 
-            array (
-              0 => 'Filters',
-            ),
-            'pathVars' => 
-            array (
-              0 => 'module',
-            ),
-            'method' => 'filterList',
-            'jsonParams' => 
-            array (
-              0 => 'filter',
-            ),
-            'shortHelp' => 'List of all records in this module',
-            'longHelp' => 'include/api/help/module_filter_get_help.html',
-            'exceptions' => 
-            array (
-              0 => 'SugarApiExceptionInvalidParameter',
-              1 => 'SugarApiExceptionNotAuthorized',
-            ),
-            'cacheEtag' => true,
-            'file' => 'modules/Filters/clients/base/api/FiltersFilterApi.php',
-            'className' => 'FiltersFilterApi',
-            'score' => 7,
-          ),
-        ),
         'Activities' => 
         array (
           0 => 
@@ -7491,36 +6308,6 @@ $apiDictionary['rest'] = array (
             'longHelp' => 'modules/ActivityStream/clients/base/api/help/homeActivities.html',
             'file' => 'modules/ActivityStream/clients/base/api/ActivitiesApi.php',
             'className' => 'ActivitiesApi',
-            'score' => 7,
-          ),
-        ),
-        'KBContents' => 
-        array (
-          0 => 
-          array (
-            'reqType' => 'GET',
-            'path' => 
-            array (
-              0 => 'KBContents',
-            ),
-            'pathVars' => 
-            array (
-              0 => 'module',
-            ),
-            'method' => 'filterList',
-            'jsonParams' => 
-            array (
-              0 => 'filter',
-            ),
-            'shortHelp' => 'List of all records in this module',
-            'longHelp' => 'include/api/help/module_filter_get_help.html',
-            'exceptions' => 
-            array (
-              0 => 'SugarApiExceptionInvalidParameter',
-              1 => 'SugarApiExceptionNotAuthorized',
-            ),
-            'file' => 'modules/KBContents/clients/base/api/KBContentsFilterApi.php',
-            'className' => 'KBContentsFilterApi',
             'score' => 7,
           ),
         ),
@@ -7671,33 +6458,6 @@ $apiDictionary['rest'] = array (
             'ignoreSystemStatusError' => true,
             'file' => 'clients/base/api/MetadataApi.php',
             'className' => 'MetadataApi',
-            'score' => 7,
-          ),
-        ),
-        'globalsearch' => 
-        array (
-          0 => 
-          array (
-            'reqType' => 'POST',
-            'path' => 
-            array (
-              0 => 'globalsearch',
-            ),
-            'pathVars' => 
-            array (
-              0 => '',
-            ),
-            'method' => 'globalSearch',
-            'shortHelp' => 'Global search',
-            'longHelp' => 'include/api/help/globalsearch_get_help.html',
-            'exceptions' => 
-            array (
-              0 => 'SugarApiExceptionNotAuthorized',
-              1 => 'SugarApiExceptionSearchUnavailable',
-              2 => 'SugarApiExceptionSearchRuntime',
-            ),
-            'file' => 'clients/base/api/GlobalSearchApi.php',
-            'className' => 'GlobalSearchApi',
             'score' => 7,
           ),
         ),
@@ -7952,59 +6712,6 @@ $apiDictionary['rest'] = array (
           ),
         ),
       ),
-      '?' => 
-      array (
-        'KBDocuments' => 
-        array (
-          0 => 
-          array (
-            'reqType' => '?',
-            'path' => 
-            array (
-              0 => 'KBDocuments',
-            ),
-            'pathVars' => 
-            array (
-              0 => 'module',
-            ),
-            'method' => 'disableApi',
-            'extraScore' => 1,
-            'shortHelp' => 'Disable KBDocuments',
-            'exceptions' => 
-            array (
-              0 => 'SugarApiExceptionNotFound',
-            ),
-            'file' => 'modules/KBContents/clients/base/api/KBContentsApi.php',
-            'className' => 'KBContentsApi',
-            'score' => 7,
-          ),
-        ),
-        'KBArticles' => 
-        array (
-          0 => 
-          array (
-            'reqType' => '?',
-            'path' => 
-            array (
-              0 => 'KBArticles',
-            ),
-            'pathVars' => 
-            array (
-              0 => 'module',
-            ),
-            'method' => 'disableApi',
-            'extraScore' => 1,
-            'shortHelp' => 'Disable KBArticles',
-            'exceptions' => 
-            array (
-              0 => 'SugarApiExceptionNotFound',
-            ),
-            'file' => 'modules/KBContents/clients/base/api/KBContentsApi.php',
-            'className' => 'KBContentsApi',
-            'score' => 7,
-          ),
-        ),
-      ),
     ),
   ),
   4 => 
@@ -8169,8 +6876,8 @@ $apiDictionary['rest'] = array (
                   'method' => 'getCollection',
                   'shortHelp' => 'Lists collection records.',
                   'longHelp' => 'include/api/help/module_record_collection_collection_name_get_help.html',
-                  'file' => 'clients/base/api/RelateCollectionApi.php',
-                  'className' => 'RelateCollectionApi',
+                  'file' => 'clients/base/api/CollectionApi.php',
+                  'className' => 'CollectionApi',
                   'score' => 9.5,
                 ),
               ),
@@ -8203,40 +6910,6 @@ $apiDictionary['rest'] = array (
                   'longHelp' => 'include/api/help/module_record_file_field_get_help.html',
                   'file' => 'clients/base/api/FileApi.php',
                   'className' => 'FileApi',
-                  'score' => 9.5,
-                ),
-              ),
-            ),
-            'tree' => 
-            array (
-              '?' => 
-              array (
-                0 => 
-                array (
-                  'reqType' => 'GET',
-                  'path' => 
-                  array (
-                    0 => '<module>',
-                    1 => '?',
-                    2 => 'tree',
-                    3 => '?',
-                  ),
-                  'pathVars' => 
-                  array (
-                    0 => 'module',
-                    1 => 'record',
-                    2 => '',
-                    3 => 'link_name',
-                  ),
-                  'method' => 'filterSubTree',
-                  'exception' => 
-                  array (
-                    0 => 'SugarApiExceptionInvalidParameter',
-                    1 => 'SugarApiExceptionNotAuthorized',
-                    2 => 'SugarApiExceptionNotFound',
-                  ),
-                  'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                  'className' => 'TreeApi',
                   'score' => 9.5,
                 ),
               ),
@@ -8417,45 +7090,6 @@ $apiDictionary['rest'] = array (
                   'longHelp' => 'modules/Forecasts/clients/base/api/help/ForecastsWorksheetChartGet.html',
                   'file' => 'modules/ForecastWorksheets/clients/base/api/ForecastWorksheetsFilterApi.php',
                   'className' => 'ForecastWorksheetsFilterApi',
-                  'score' => 10.25,
-                ),
-              ),
-            ),
-          ),
-        ),
-        'EmbeddedFiles' => 
-        array (
-          '?' => 
-          array (
-            'file' => 
-            array (
-              '?' => 
-              array (
-                0 => 
-                array (
-                  'reqType' => 'GET',
-                  'path' => 
-                  array (
-                    0 => 'EmbeddedFiles',
-                    1 => '?',
-                    2 => 'file',
-                    3 => '?',
-                  ),
-                  'pathVars' => 
-                  array (
-                    0 => 'module',
-                    1 => 'record',
-                    2 => '',
-                    3 => 'field',
-                  ),
-                  'method' => 'getFile',
-                  'rawReply' => true,
-                  'allowDownloadCookie' => true,
-                  'shortHelp' => 'Gets the contents of a single file related to a field for a module record.',
-                  'longHelp' => 'include/api/help/module_record_file_field_get_help.html',
-                  'noLoginRequired' => true,
-                  'file' => 'modules/EmbeddedFiles/clients/base/api/EmbeddedFileApi.php',
-                  'className' => 'EmbeddedFileApi',
                   'score' => 10.25,
                 ),
               ),
@@ -8866,43 +7500,6 @@ $apiDictionary['rest'] = array (
             ),
           ),
         ),
-        'EmbeddedFiles' => 
-        array (
-          '?' => 
-          array (
-            'file' => 
-            array (
-              '?' => 
-              array (
-                0 => 
-                array (
-                  'reqType' => 'POST',
-                  'path' => 
-                  array (
-                    0 => 'EmbeddedFiles',
-                    1 => '?',
-                    2 => 'file',
-                    3 => '?',
-                  ),
-                  'pathVars' => 
-                  array (
-                    0 => 'module',
-                    1 => 'record',
-                    2 => '',
-                    3 => 'field',
-                  ),
-                  'method' => 'saveFilePost',
-                  'rawPostContents' => true,
-                  'shortHelp' => 'Saves a file. The file can be a new file or a file override.',
-                  'longHelp' => 'include/api/help/module_record_file_field_post_help.html',
-                  'file' => 'modules/EmbeddedFiles/clients/base/api/EmbeddedFileApi.php',
-                  'className' => 'EmbeddedFileApi',
-                  'score' => 10.25,
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
       'PUT' => 
       array (
@@ -8941,126 +7538,6 @@ $apiDictionary['rest'] = array (
                 ),
               ),
             ),
-            'movebefore' => 
-            array (
-              '?' => 
-              array (
-                0 => 
-                array (
-                  'reqType' => 'PUT',
-                  'path' => 
-                  array (
-                    0 => '<module>',
-                    1 => '?',
-                    2 => 'movebefore',
-                    3 => '?',
-                  ),
-                  'pathVars' => 
-                  array (
-                    0 => 'module',
-                    1 => 'record',
-                    2 => 'movebefore',
-                    3 => 'target',
-                  ),
-                  'method' => 'moveBefore',
-                  'shortHelp' => 'This method record as previous sibling of target',
-                  'longHelp' => 'modules/Categories/clients/base/api/help/tree_put_movebefore_help.html',
-                  'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                  'className' => 'TreeApi',
-                  'score' => 9.5,
-                ),
-              ),
-            ),
-            'moveafter' => 
-            array (
-              '?' => 
-              array (
-                0 => 
-                array (
-                  'reqType' => 'PUT',
-                  'path' => 
-                  array (
-                    0 => '<module>',
-                    1 => '?',
-                    2 => 'moveafter',
-                    3 => '?',
-                  ),
-                  'pathVars' => 
-                  array (
-                    0 => 'module',
-                    1 => 'record',
-                    2 => 'moveafter',
-                    3 => 'target',
-                  ),
-                  'method' => 'moveAfter',
-                  'shortHelp' => 'This method record as next sibling of target',
-                  'longHelp' => 'modules/Categories/clients/base/api/help/tree_put_moveafter_help.html',
-                  'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                  'className' => 'TreeApi',
-                  'score' => 9.5,
-                ),
-              ),
-            ),
-            'movefirst' => 
-            array (
-              '?' => 
-              array (
-                0 => 
-                array (
-                  'reqType' => 'PUT',
-                  'path' => 
-                  array (
-                    0 => '<module>',
-                    1 => '?',
-                    2 => 'movefirst',
-                    3 => '?',
-                  ),
-                  'pathVars' => 
-                  array (
-                    0 => 'module',
-                    1 => 'record',
-                    2 => 'movefirst',
-                    3 => 'target',
-                  ),
-                  'method' => 'moveFirst',
-                  'shortHelp' => 'This method record as first child of target',
-                  'longHelp' => 'modules/Categories/clients/base/api/help/tree_put_movefirst_help.html',
-                  'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                  'className' => 'TreeApi',
-                  'score' => 9.5,
-                ),
-              ),
-            ),
-            'movelast' => 
-            array (
-              '?' => 
-              array (
-                0 => 
-                array (
-                  'reqType' => 'PUT',
-                  'path' => 
-                  array (
-                    0 => '<module>',
-                    1 => '?',
-                    2 => 'movelast',
-                    3 => '?',
-                  ),
-                  'pathVars' => 
-                  array (
-                    0 => 'module',
-                    1 => 'record',
-                    2 => 'movelast',
-                    3 => 'target',
-                  ),
-                  'method' => 'moveLast',
-                  'shortHelp' => 'This method record as last child of target',
-                  'longHelp' => 'modules/Categories/clients/base/api/help/tree_put_movelast_help.html',
-                  'file' => 'modules/Categories/clients/base/api/TreeApi.php',
-                  'className' => 'TreeApi',
-                  'score' => 9.5,
-                ),
-              ),
-            ),
           ),
         ),
         'Documents' => 
@@ -9094,44 +7571,6 @@ $apiDictionary['rest'] = array (
                   'longHelp' => 'include/api/help/module_record_file_field_put_help.html',
                   'file' => 'modules/Documents/clients/base/api/DocumentsFileApi.php',
                   'className' => 'DocumentsFileApi',
-                  'score' => 10.25,
-                ),
-              ),
-            ),
-          ),
-        ),
-        'EmbeddedFiles' => 
-        array (
-          '?' => 
-          array (
-            'file' => 
-            array (
-              '?' => 
-              array (
-                0 => 
-                array (
-                  'reqType' => 'PUT',
-                  'path' => 
-                  array (
-                    0 => 'EmbeddedFiles',
-                    1 => '?',
-                    2 => 'file',
-                    3 => '?',
-                  ),
-                  'pathVars' => 
-                  array (
-                    0 => 'module',
-                    1 => 'record',
-                    2 => '',
-                    3 => 'field',
-                  ),
-                  'method' => 'saveFilePut',
-                  'rawPostContents' => true,
-                  'shortHelp' => 'Saves a file. The file can be a new file or a file override.
-                    (This is an alias of the POST method save.)',
-                  'longHelp' => 'include/api/help/module_record_file_field_put_help.html',
-                  'file' => 'modules/EmbeddedFiles/clients/base/api/EmbeddedFileApi.php',
-                  'className' => 'EmbeddedFileApi',
                   'score' => 10.25,
                 ),
               ),
@@ -9337,39 +7776,6 @@ $apiDictionary['rest'] = array (
                     'score' => 11.25,
                   ),
                 ),
-                'count' => 
-                array (
-                  0 => 
-                  array (
-                    'reqType' => 'GET',
-                    'path' => 
-                    array (
-                      0 => '<module>',
-                      1 => '?',
-                      2 => 'link',
-                      3 => '?',
-                      4 => 'count',
-                    ),
-                    'pathVars' => 
-                    array (
-                      0 => 'module',
-                      1 => 'record',
-                      2 => '',
-                      3 => 'link_name',
-                      4 => '',
-                    ),
-                    'jsonParams' => 
-                    array (
-                      0 => 'filter',
-                    ),
-                    'method' => 'filterRelatedCount',
-                    'shortHelp' => 'Counts all filtered related records.',
-                    'longHelp' => 'include/api/help/module_record_link_link_name_filter_get_help.html',
-                    'file' => 'clients/base/api/RelateApi.php',
-                    'className' => 'RelateApi',
-                    'score' => 11.25,
-                  ),
-                ),
                 '?' => 
                 array (
                   0 => 
@@ -9427,41 +7833,6 @@ $apiDictionary['rest'] = array (
                     'file' => 'modules/ActivityStream/clients/base/api/ActivitiesApi.php',
                     'className' => 'ActivitiesApi',
                     'score' => 12.25,
-                  ),
-                ),
-              ),
-            ),
-            'collection' => 
-            array (
-              '?' => 
-              array (
-                'count' => 
-                array (
-                  0 => 
-                  array (
-                    'reqType' => 'GET',
-                    'path' => 
-                    array (
-                      0 => '<module>',
-                      1 => '?',
-                      2 => 'collection',
-                      3 => '?',
-                      4 => 'count',
-                    ),
-                    'pathVars' => 
-                    array (
-                      0 => 'module',
-                      1 => 'record',
-                      2 => '',
-                      3 => 'collection_name',
-                      4 => '',
-                    ),
-                    'method' => 'getCollectionCount',
-                    'shortHelp' => 'Counts collection records.',
-                    'longHelp' => 'include/api/help/module_record_collection_collection_name_count_get_help.html',
-                    'file' => 'clients/base/api/RelateCollectionApi.php',
-                    'className' => 'RelateCollectionApi',
-                    'score' => 11.25,
                   ),
                 ),
               ),

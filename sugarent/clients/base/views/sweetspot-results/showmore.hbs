@@ -12,7 +12,7 @@
 --}}
 {{#if showMore}}
 <li data-sweetaction="true">
-  <a href{{#if term}}="#search/{{term}}?"{{/if}} data-showmore="true" track="click:sweetspot-action-showmore">
+  <a href{{#if term}}="#bwc/index.php?module=Home&append_wildcard=true&action=spot&full=true&q={{term}}&m="{{/if}} data-showmore="true" track="click:sweetspot-action-showmore">
     <div class="result-text">
       <div class="result-name">{{str 'LNK_SEARCH_FTS_VIEW_ALL'}}&hellip;</div>
     </div>

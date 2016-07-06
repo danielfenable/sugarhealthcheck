@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,23 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Sugar oluşumunuzu yeni bir uygulama olarak kaydedip IBM SmartCloud ağından bir Anahtar ve Şifre alın.<br>
-&nbsp;<br>
-Oluşumunuzu kaydetmek için gereken adımlar:<br>
-&nbsp;<br>
-<ol>
-<li>IBM SmartCloud hesabınıza giriş yapın (bir yönetici olmalısınız)</li>
-<li>Yönetim -> Organizasyonu Yönet  adresine gidin</li>
-<li>Kenar çubuğundaki "Entegre Üçüncü Parti Uygulamalar" bağlantısına gidin ve tüm kullanıcılar için SugarCRM uygulamasını etkinleştirin.</li>
-<li>Kenar çubuğunda "Dahili Uygulamalar” ve “Uygulama Kaydı” bağlantısına  gidin"</li>
-<li>Bu uygulamaya istediğiniz ismi verin (örneğin “SugarCRM Production”) ve açılan pencerenin altındaki OAuth 2.x seçeneğini İŞARETLEMEDİĞİNİZDEN emin olun.</li>
-<li>Uygulamanızı oluşturduktan sonra, uygulama isminin sağındaki üçgen şekle tıklayıp açılır menüden "Bilgileri Göster" seçeneğini seçin.</li>
-<li>Aşağıdaki bilgileri kopyalayın.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'OAuth Müşteri Anahtarı',
-    'oauth_consumer_secret' => 'OAuth Müşteri Şifresi',
+  'LBL_LICENSING_INFO' => '<table cellspacing="1" border="0"><br /><tbody><br /><tr><br /><td class="dataLabel" width="35%" valign="top"><br />Sugar kurulumunuzu IBM SmartCloud&copy; ağında yeni bir uygulama olarak kaydedip, Anahtar ve Şifre değeri elde edin.<br /><br><br /><br><br />Kayıt işleminde yapılması gereken adımlar:<br /><br><br /><br><br /><ol><br /><li>IBM SmartCloud sayfasına giriş yapın (yönetici olarak bağlanmak zorundasınız)</li><br /><li>Sistem Yönetimi -> Organizasyonu Yönet  adresine gidin</li><br /><li>Kenar çubuğundaki "Entegre Üçüncü Parti Uygulamalar" linkine gidip ve tüm kullanıcılar için SugarCRM uygulamasını etkinleştirin.</li><br /><li>Kenar çubuğunda "Dahili Uygulamalar” linkine gidip, “Uygulama Kaydı” seçeneğine tıklayınız,</li><br /><li>Uygulamaya istediğiniz ismi verin (örneğin “SugarCRM Canlı”) ve açılan sayfanın altındaki OAuth 2.x seçeneğini İŞARETLEMEDİĞİNİZDEN emin olun,</li><br /><li>Uygulamanız oluştuktan sonra, uygulama isminin sağındaki üçgen şekle tıklayıp, "Yetkileri Göster" opsiyonunu seçin.</li><br /><li>Aşağıdaki yetki bilgilerini kopyalayın.</li><br /></ol><br /></td><br /></tr><br /></tbody><br /></table>',
+  'oauth_consumer_key' => 'OAuth Müşteri Anahtarı',
+  'oauth_consumer_secret' => 'OAuth Müşteri Şifresi',
 );
 

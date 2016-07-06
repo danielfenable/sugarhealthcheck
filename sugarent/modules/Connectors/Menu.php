@@ -25,6 +25,7 @@ if(in_array($GLOBALS['action'], $actions)){
 
 	$module_menu[]=Array("index.php?module=Connectors&action=ModifySearch", $mod_strings['LBL_MODIFY_SEARCH_TITLE'],"icon_ConnectorSearchFields_16");
 
+
 }
 
 if(!empty($_REQUEST['merge_module']) && ($GLOBALS['action'] == 'Step1' || $GLOBALS['action'] == 'Step2')) {

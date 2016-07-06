@@ -245,9 +245,8 @@ class ViewModulefields extends SugarView
         }
     	if (empty($def ['source']) || $def ['source'] == 'db' || $def ['source'] == 'custom_fields')
 		{
-            if (strtolower($def['type']) != 'id' && (empty($def ['dbType']) || $def ['dbType'] != 'id')) {
-                return true;
-            }
+    		if ($def ['type'] != 'id' && (empty($def ['dbType']) || $def ['dbType'] != 'id'))
+		  return true;
 		}
 
 		return false;

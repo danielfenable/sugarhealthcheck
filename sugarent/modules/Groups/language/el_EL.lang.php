@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,18 +12,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array ( 
-	'LBL_MODULE_NAME'			=> 'Ομάδες',
-	'LBL_MODULE_NAME_SINGULAR'		=> 'Γκρουπ',
-	'LBL_GROUP_NAME'			=> 'Όνομα Γκρουπ:',
-	'LBL_DESCRIPTION'			=> 'Περιγραφή:',
-	'LBL_TEAM'					=> 'Ομάδα:',
-	// ListView
-	'LBL_LIST_TITLE'			=> 'Ομάδες',
-	// Links
-	'LNK_ALL_GROUPS'			=> 'Όλα τα Γκρουπς',
-	'LNK_NEW_GROUP'				=> 'Δημιουργία Γκρουπ',
-	'LNK_CONVERT_USER'			=> 'Μετατροπή Χρήστη σε Γκρουπ', 
+$mod_strings = array (
+  'LBL_DESCRIPTION' => 'Περιγραφή:',
+  'LBL_GROUP_NAME' => 'Όνομα Γκρουπ:',
+  'LBL_LIST_TITLE' => 'Γκρουπ',
+  'LBL_MODULE_NAME' => 'Γκρουπ',
+  'LBL_MODULE_NAME_SINGULAR' => 'Γκρουπ',
+  'LBL_TEAM' => 'Ομάδα:',
+  'LNK_ALL_GROUPS' => 'Όλα τα Γκρουπς',
+  'LNK_CONVERT_USER' => 'Μετατροπή Χρήστη σε Γκρουπ',
+  'LNK_NEW_GROUP' => 'Δημιουργία Γκρουπ',
 );
-?>
+

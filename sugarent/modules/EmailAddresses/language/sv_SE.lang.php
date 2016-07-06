@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,21 +10,22 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
-    'LBL_EMAIL_ADDRESS_ID' => 'ID',
-    'LBL_EMAIL_ADDRESS' => 'Emailadress',
-    'LBL_EMAIL_ADDRESS_CAPS' => 'Emailadress i stora bokstäver',
-    'LBL_INVALID_EMAIL' => 'Ogiltig emailadress',
-    'LBL_OPT_OUT' => 'Önskar ej utskick',
-    'LBL_DATE_CREATE' => 'Skapat datum',
-    'LBL_DATE_MODIFIED' => 'Senast ändrad',
-    'LBL_DELETED' => 'Radera',
+  'LBL_EMAIL_ADDRESS_ID' => 'ID',
+  'LBL_EMAIL_ADDRESS' => 'Epostadress',
+  'LBL_EMAIL_ADDRESS_CAPS' => 'Epostadress förkortningar',
+  'LBL_INVALID_EMAIL' => 'Ogiltig epostadress',
+  'LBL_OPT_OUT' => 'Önskar ej utskick',
+  'LBL_DATE_CREATE' => 'Skapat datum',
+  'LBL_DATE_MODIFIED' => 'Senast ändrad',
+  'LBL_DELETED' => 'Radera',
 );
+

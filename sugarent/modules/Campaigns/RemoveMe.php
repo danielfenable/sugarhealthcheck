@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: removeme.php 29835 2007-11-20 00:01:55Z ajay $
+
 
 require_once('modules/Campaigns/utils.php');
 

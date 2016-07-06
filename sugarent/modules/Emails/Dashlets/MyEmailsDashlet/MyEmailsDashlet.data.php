@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: MyEmailsDashlet.data.php 17070 2006-10-13 22:09:18Z awu $
+
 
 global $current_user, $app_strings;
 
@@ -19,8 +19,7 @@ $dashletData['MyEmailsDashlet']['searchFields'] = array(
 												 	   'date_sent'  => array('default' => ''),
                                                        'name'  => array('default' => ''),
 													   //'from_addr_name' => array('default' => ''),
-
-                                                       //'team_id'          => array('default' => '', 'label'=>'LBL_TEAMS'),													
+                                                       //'team_id'          => array('default' => '', 'label'=>'LBL_TEAMS'),
                                                        'assigned_user_id'   => array('default' => ''),
                                                        );
 $dashletData['MyEmailsDashlet']['columns'] = array(
@@ -37,7 +36,6 @@ $dashletData['MyEmailsDashlet']['columns'] = array(
                                                    'assigned_user_name' => array('width'   => '15',
                                                                          'label'   => 'LBL_LIST_ASSIGNED',
                                                                          'default' => false),
-
 
                                                    'team_name' => array('width'   => '15',
                                                                         'label'   => 'LBL_LIST_TEAM',

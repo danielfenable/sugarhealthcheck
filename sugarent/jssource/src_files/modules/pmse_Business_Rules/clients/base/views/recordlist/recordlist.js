@@ -18,97 +18,13 @@
     initialize: function(options) {
         this.contextEvents = _.extend({}, this.contextEvents, {
             "list:editbusinessrules:fire": "openBusinessRules",
-            "list:exportbusinessrules:fire": "warnExportBusinessRules",
-            "list:edit_businessrules:fire": "warnEditBusinessRules",
-            "list:deletebusinessrules:fire": "warnDeleteBusinessRules"
+            "list:exportbusinessrules:fire": "warnExportBusinessRules"
         });
         app.view.invokeParent(this, {type: 'view', name: 'recordlist', method: 'initialize', args:[options]});
     },
 
     openBusinessRules: function(model) {
-        var verifyURL = app.api.buildURL(
-                'pmse_Project',
-                'verify',
-                {id: model.get('id')},
-                {baseModule: this.module}),
-            self = this;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    app.navigate(this.context, model, 'layout/businessrules');
-                } else {
-                    app.alert.show('business-rule-design-confirmation',  {
-                        level: 'confirmation',
-                        messages: App.lang.get('LBL_PMSE_PROCESS_BUSINESS_RULES_EDIT', model.module),
-                        onConfirm: function () {
-                            app.navigate(this.context, model, 'layout/businessrules');
-                        },
-                        onCancel: $.noop
-                    });
-                }
-            }
-        });
-    },
-
-    warnEditBusinessRules: function(model){
-        var verifyURL = app.api.buildURL(
-                'pmse_Project',
-                'verify',
-                {id: model.get('id')},
-                {baseModule: this.module}),
-            self = this;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    self.toggleRow(model.id, true);
-                    self.resize();
-                } else {
-                    app.alert.show('business-rule-design-confirmation',  {
-                        level: 'confirmation',
-                        messages: App.lang.get('LBL_PMSE_PROCESS_BUSINESS_RULES_EDIT', model.module),
-                        onConfirm: function () {
-                            self.toggleRow(model.id, true);
-                            self.resize();
-                        },
-                        onCancel: $.noop
-                    });
-                }
-            }
-        });
-    },
-
-    warnDeleteBusinessRules: function (model) {
-        var verifyURL = app.api.buildURL(
-                'pmse_Project',
-                'verify',
-                {id: model.get('id')},
-                {baseModule: this.module}),
-            self = this;
-        this._modelToDelete = model;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    app.alert.show('delete_confirmation', {
-                        level: 'confirmation',
-                        messages: self.getDeleteMessages(model).confirmation,
-                        onConfirm: function () {
-                            self.deleteModel();
-                        },
-                        onCancel: function () {
-                            self._modelToDelete = null;
-                        }
-                    });
-                } else {
-                    app.alert.show('message-id', {
-                        level: 'warning',
-                        title: app.lang.get('LBL_WARNING'),
-                        messages: app.lang.get('LBL_PMSE_PROCESS_BUSINESS_RULES_DELETE', model.module),
-                        autoClose: false
-                    });
-                    self._modelToDelete = null;
-                }
-            }
-        });
+        app.navigate(this.context, model, 'layout/businessrules');
     },
 
     warnExportBusinessRules: function (model) {

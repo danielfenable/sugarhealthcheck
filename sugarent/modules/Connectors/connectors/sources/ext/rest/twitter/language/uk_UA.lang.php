@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,20 +13,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-/*********************************************************************************
-* Description:
-* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
-* Reserved. Contributor(s): contact@synolia.com - www.synolia.com
-* *******************************************************************************/
-
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Отримайте ключ користувача і секретний ключ від Twitter, зареєструвавши свій екземпляр Sugar як новий застосунок.<br/><br>Кроки для реєстрації екземпляру:<br/><br/><ol><li>Зайдіть на сайт для розробників Twitter: <a href=&#39;http://dev.twitter.com/apps/new&#39; target=&#39;_blank&#39;>http://dev.twitter.com/apps/new</a>.</li><li>Увійдіть в систему за допомогою облікового запису Twitter, під яким ви хочете зареєструвати застосунок.</li><li>У формі реєстрації введіть ім’я застосунку. Це ім’я будуть бачити користувачі, використовуючи свій обліковий запис в Twitter для аутентифікації в Sugar.</li><li>Введіть опис.</li><li>Введіть URL-адресу веб-сайту застосунку.</li><li>Введіть Callback URL (URL-адресу зворотного виклику) (може бути якою завгодно, оскільки Sugar не використовує її під час аутентифікації. Приклад: введіть свою URL-адресу веб-сайту Sugar).</li><li>Прийміть умови використання Twitter API.</li><li>Клацніть "Create your Twitter application" (Створити застосунок в Twitter).</li><li>На сторінці застосунку знайдіть API Key (Ключ користувача) та  API Secret (Секретний ключ) на вкладці "API Keys" (Ключі API). Введіть їх нижче.</li></ol></td></tr></table>',
-    'LBL_NAME' => 'Ім’я користувача в Twitter',
-    'LBL_ID' => 'Ім’я користувача в Twitter',
-	'company_url' => 'URL',
-    'oauth_consumer_key' => 'Ключ API',
-    'oauth_consumer_secret' => 'Секретний ключ API',
+  'LBL_ID' => 'Ім&#39;я користувача Twitter',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Отримати ключ API і секрет з  Twitter&#169;зареєструвавшись екземпляр Sugar в якості нового додатка.<br/><br>Кроки  реєстрації свого екземпляра:<br/><br/><ol><li>Перейти на сайт  Twitter&#169; розробників: <a href=&#39;http://dev.twitter.com/apps/new&#39; target=&#39;_blank&#39;>http://dev.twitter.com/apps/new</a>.</li><li>Зайти з використанням облікового запису Twitter, під яким ви хотіли б зареєструвати заяву.</li><li>У реєстраційній формі, введіть ім&#39;я програми. Це ім&#39;я користувачі будуть бачити при перевірці автентичності їхніх  Twitter акаунтів</li><li>Введіть опис.</li><li>Введіть URL веб-сайт додатку</li><li>Введіть  Callback URL (приклад: введіть Ваш Sugar URL).</li><li>Прийміть умови надання послуг Twitter API </li><li>Натисніть "Створити Ваш Twitter додаток".</li><li>В сторінці додатку, знайти ключ  API і секретний API на вкладці  "API ключі"  Введіть ключ і секрет нижче.</li></ol></td></tr></table>',
+  'LBL_NAME' => 'Ім&#39;я користувача Twitter',
+  'company_url' => 'URL',
+  'oauth_consumer_key' => 'Ключ API',
+  'oauth_consumer_secret' => 'Ключ API',
 );
 
-?>

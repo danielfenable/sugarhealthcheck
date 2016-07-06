@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-    'LBL_MODULE_NAME'			=> 'Nënshkrimet e përdoruesit',
-    'LBL_MODULE_NAME_SINGULAR'		=> 'Nënshkrimi i përdoruesit',
-    'LBL_EMAIL_SIGNATURE_ERROR1' => 'Ky nënshkrim kërkon një emër.',
-    'LBL_SIGNATURE_NAME'         => 'Emri',
-    'LBL_SIGNATURE'              => 'Nënshkrimi',
-    'LBL_SIGNATURE_HTML'         => 'HTML nënshkrimi',
-    'LBL_SIGNATURE_DEFAULT'      => 'Përdor nënshkrimin?',
-    'LBL_SIGNATURE_PREPEND'      => 'Nënshkrim mbi përgjigjen',
-    'LBL_SIGNATURES'             => 'Nënshkrimet',
+$mod_strings = array (
+  'LBL_EMAIL_SIGNATURE_ERROR1' => 'Ky nënshkrim kërkon një emër.',
+  'LBL_MODULE_NAME' => 'Nënshkrimet e përdoruesit',
+  'LBL_MODULE_NAME_SINGULAR' => 'Nënshkrimi i përdoruesit',
+  'LBL_SIGNATURE' => 'Nënshkrimi',
+  'LBL_SIGNATURES' => 'Nënshkrimet',
+  'LBL_SIGNATURE_DEFAULT' => 'Përdor nënshkrimin?',
+  'LBL_SIGNATURE_HTML' => 'HTML nënshkrimi',
+  'LBL_SIGNATURE_NAME' => 'Emri',
+  'LBL_SIGNATURE_PREPEND' => 'Nënshkrim mbi përgjigjen',
 );
+

@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 46086 2009-04-13 21:35:46Z maubert $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -39,7 +39,7 @@ $mod_strings = array (
   'LNK_NEW_PRODUCT_CATEGORY' => 'عرض فئات المنتج',
   'LNK_NEW_PRODUCT_TYPE' => 'عرض أنواع المنتج',
   'NTC_DELETE_CONFIRMATION' => 'هل تريد بالتأكيد حذف هذا السجل؟',
-  'ERR_DELETE_RECORD' => 'يجب تحديد رقم السجل لحذف نوع المنتج.',
+  'ERR_DELETE_RECORD' => 'يجب تحديد رقم سجل لحذف نوع المنتج.',
   'NTC_LIST_ORDER' => 'اضبط الترتيب الذي يتم عرض هذه الفئة به في القوائم المنسدلة لفئة المنتج',
   'LNK_IMPORT_PRODUCT_CATEGORIES'=>'استيراد فئات المنتج',
   'LBL_DISABLE_ALERT' => 'هذه الفئة ليست فئة رئيسية صالحة',

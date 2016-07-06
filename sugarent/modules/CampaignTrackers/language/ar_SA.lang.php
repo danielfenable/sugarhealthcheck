@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 13782 2006-06-06 17:58:55Z majed $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -39,7 +39,7 @@ $mod_strings = array (
 	'LBL_EDIT_TRACKER_URL'=>'عنوان URL للمتعقب:',
 	
 	'LBL_SUBPANEL_TRACKER_NAME'=>'الاسم',
-	'LBL_SUBPANEL_TRACKER_URL'=>'عنوان URL',
+	'LBL_SUBPANEL_TRACKER_URL'=>'URL',
 	'LBL_SUBPANEL_TRACKER_KEY'=>'المفتاح',
 	'LBL_EDIT_MESSAGE_URL'=>'عنوان URL لرسالة الحملة:',
 	'LBL_EDIT_TRACKER_KEY'=>'مفتاح المتعقب:',

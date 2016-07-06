@@ -16,6 +16,7 @@ $authController->authController->pre_login();
 global $current_language, $mod_strings, $app_strings;
 if(isset($_REQUEST['login_language'])){
     $lang = $_REQUEST['login_language'];
+    $_REQUEST['ck_login_language_20'] = $lang;
 	$current_language = $lang;
     $_SESSION['authenticated_user_language'] = $lang;
     $mod_strings = return_module_language($lang, "Users");
@@ -138,8 +139,11 @@ if(isset($_SESSION["waiting_error"])) {
     $sugar_smarty->assign('WAITING_ERROR', $_SESSION['waiting_error']);
 }
 
-$display_language = $sugar_config['default_language'];
-
+if (isset($_REQUEST['ck_login_language_20'])) {
+	$display_language = $_REQUEST['ck_login_language_20'];
+} else {
+	$display_language = $sugar_config['default_language'];
+}
 
 if (empty($GLOBALS['sugar_config']['passwordsetting']['forgotpasswordON']))
 	$sugar_smarty->assign('DISPLAY_FORGOT_PASSWORD_FEATURE','none');

@@ -67,6 +67,14 @@
       'type' => 'bool',
       'default' => '1',
     ),
+    'round_trips' => 
+    array (
+      'name' => 'round_trips',
+      'vname' => 'LBL_ROUNDTRIPS',
+      'type' => 'int',
+      'len' => '5',
+      'isnull' => 'false',
+    ),
     'deleted' => 
     array (
       'name' => 'deleted',
@@ -133,8 +141,8 @@
       'relationship_type' => 'one-to-many',
     ),
   ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

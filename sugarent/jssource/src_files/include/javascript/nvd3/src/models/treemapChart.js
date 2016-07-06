@@ -41,9 +41,11 @@ nv.models.treemapChart = function() {
   // Private Variables
   //------------------------------------------------------------
 
-  var showTooltip = function(eo, offsetElement) {
-    var content = tooltipContent(eo.point);
-    tooltip = nv.tooltip.show(eo.e, content, null, null, offsetElement);
+  var showTooltip = function(e, offsetElement) {
+    var left = e.pos[0],// + ( (offsetElement && offsetElement.offsetLeft) || 0 ),
+        top = e.pos[1],// + ( (offsetElement && offsetElement.offsetTop) || 0 ),
+        content = tooltipContent(e.point);
+    tooltip = nv.tooltip.show([left, top], content, null, null, offsetElement);
   };
 
   //============================================================
@@ -213,21 +215,9 @@ nv.models.treemapChart = function() {
         container.transition().duration(300).call(chart);
       });
 
-      dispatch.on('tooltipShow', function(eo) {
+      dispatch.on('tooltipShow', function(e) {
         if (tooltips) {
-          showTooltip(eo, that.parentNode);
-        }
-      });
-
-      dispatch.on('tooltipMove', function(e) {
-        if (tooltip) {
-          nv.tooltip.position(that.parentNode, tooltip, e);
-        }
-      });
-
-      dispatch.on('tooltipHide', function() {
-        if (tooltips) {
-          nv.tooltip.cleanup();
+          showTooltip(e, that.parentNode);
         }
       });
 
@@ -256,17 +246,30 @@ nv.models.treemapChart = function() {
   // Event Handling/Dispatching (out of chart's scope)
   //------------------------------------------------------------
 
-  treemap.dispatch.on('elementMouseover', function(eo) {
-    dispatch.tooltipShow(eo);
+  treemap.dispatch.on('elementMouseover', function(e) {
+    e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top];
+    dispatch.tooltipShow(e);
+  });
+
+  treemap.dispatch.on('elementMouseout', function(e) {
+    dispatch.tooltipHide(e);
+  });
+  dispatch.on('tooltipHide', function() {
+    if (tooltips) {
+      nv.tooltip.cleanup();
+    }
   });
 
   treemap.dispatch.on('elementMousemove', function(e) {
     dispatch.tooltipMove(e);
   });
-
-  treemap.dispatch.on('elementMouseout', function() {
-    dispatch.tooltipHide();
+  dispatch.on('tooltipMove', function(e) {
+    if (tooltip) {
+      nv.tooltip.position(tooltip, e.pos);
+    }
   });
+  //============================================================
+
 
   //============================================================
   // Expose Public Variables

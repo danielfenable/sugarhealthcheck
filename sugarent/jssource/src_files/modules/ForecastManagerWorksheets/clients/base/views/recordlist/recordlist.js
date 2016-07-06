@@ -43,16 +43,6 @@
  *  by: forecasts:worksheet:saved event
  *  when: only when the Assign Quota button is pressed
  *
- * forecasts:sync:start
- *  on: this.context.parent
- *  by: data:sync:start handler
- *  when: this.collection starts syncing
- *
- * forecasts:sync:complete
- *  on: this.context.parent
- *  by: data:sync:complete handler
- *  when: this.collection completes syncing
- *
  * @class View.Views.Base.ForecastsManagerWorksheets.RecordListView
  * @alias SUGAR.App.view.views.BaseForecastsManagerWorksheetsRecordListView
  * @extends View.Views.Base.RecordListView
@@ -156,7 +146,7 @@
     initialize: function(options) {
         // we need to make a clone of the plugins and then push to the new object. this prevents double plugin
         // registration across ExtendedComponents
-        this.plugins = _.without(this.plugins, 'ReorderableColumns', 'MassCollection');
+        this.plugins = _.without(this.plugins, 'ReorderableColumns');
         this.plugins.push('CteTabbing');
         this.plugins.push('DirtyCollection');
         this._super("initialize", [options]);
@@ -196,10 +186,14 @@
                     }
                 }, this);
                 // before render has happened, potentially stopping the render from happening
-                this.before('render', this.beforeRenderCallback, this);
+                this.before('render', function() {
+                    return this.beforeRenderCallback();
+                }, true);
 
                 // after render has completed
-                this.on('render', this.renderCallback, this);
+                this.on('render', function() {
+                    this.renderCallback();
+                }, this);
 
                 this.on('list:toggle:column', function(column, isVisible, columnMeta) {
                     // if we hide or show a column, recalculate totals
@@ -289,14 +283,10 @@
 
                 this.collection.on('data:sync:start', function() {
                     this.isCollectionSyncing = true;
-                    // Begin sync start for buttons
-                    this.context.parent.trigger('forecasts:sync:start');
                 }, this);
 
                 this.collection.on('data:sync:complete', function() {
                     this.isCollectionSyncing = false;
-                    // End sync start for buttons
-                    this.context.parent.trigger('forecasts:sync:complete');
                 }, this);
 
                 /**
@@ -357,7 +347,7 @@
                     this.refreshData();
                 }, this);
 
-                app.routing.before('route', this.beforeRouteHandler, this);
+                app.routing.before('route', this.beforeRouteHandler, {}, this);
 
                 $(window).bind("beforeunload." + this.worksheetType, _.bind(function() {
                     if (!this.disposed) {
@@ -367,10 +357,6 @@
                         }
                     }
                 }, this));
-
-                this.layout.on('hide', function() {
-                    this.hasCheckedForDraftRecords = false;
-                }, this);
             }
         }
 
@@ -438,7 +424,7 @@
                 return false;
             }
             return true;
-        }, this);
+        }, undefined, this);
 
         /**
          * On Collection Reset or Change, calculate the totals
@@ -535,11 +521,11 @@
      * Set the loading message and have a way to hide it
      */
     displayLoadingMessage: function() {
-        app.alert.show('worksheet_loading',
+        app.alert.show('workshet_loading',
             {level: 'process', title: app.lang.get('LBL_LOADING')}
         );
         this.collection.once('reset', function() {
-            app.alert.dismiss('worksheet_loading');
+            app.alert.dismiss('workshet_loading');
         }, this);
     },
 

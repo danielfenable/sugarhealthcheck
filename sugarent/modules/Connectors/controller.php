@@ -212,6 +212,7 @@ class ConnectorsController extends SugarController {
 		header("Location: index.php?action=$return_action&module=$return_module&record=$return_id");
 	}
 
+
     function action_CallConnectorFunc() {
         $this->view = 'ajax';
         $json = getJSONobj();
@@ -332,9 +333,9 @@ class ConnectorsController extends SugarController {
 				           $properties[$matches2[1]] = $val;
 				    	}
 					}
+					$source = SourceFactory::getSource($source_id);
 
-					if (!empty($properties)) {
-					    $source = SourceFactory::getSource($source_id);
+					if(!empty($properties)) {
 					    $source->setProperties($properties);
 					    $source->saveConfig();
 					}
@@ -550,7 +551,13 @@ class ConnectorsController extends SugarController {
 		    } //foreach
 
 		    // save eapm configs
-		    $this->handleEAPMSettings($connectors, $sources, $_REQUEST);
+		    foreach($connectors as $connector_name => $data) {
+		        if(isset($sources[$connector_name]) && !empty($data["eapm"])) {
+		            // if we touched it AND it has EAPM data
+		            $connectors[$connector_name]["eapm"]["enabled"] = !empty($_REQUEST[$connector_name."_external"]);
+		        }
+		    }
+		    ConnectorUtils::saveConnectors($connectors);
 
 		    ConnectorUtils::updateMetaDataFiles();
 
@@ -568,44 +575,7 @@ class ConnectorsController extends SugarController {
 		    // END SUGAR INT
 	}
 
-    public function handleEAPMSettings($connectors, $sources, $request)
-    {
-        foreach($connectors as $connector_name => $data) {
-            // if we touched it AND it has EAPM data
-            if(isset($sources[$connector_name]) && !empty($data["eapm"])) {
-                // Grab the old value if it is set
-                $oldValue = isset($connectors[$connector_name]["eapm"]["enabled"]) ?
-                            $connectors[$connector_name]["eapm"]["enabled"] :
-                            null;
 
-                // Set from the request
-                $connectors[$connector_name]["eapm"]["enabled"] = !empty($request[$connector_name."_external"]);
-
-                // If there is a difference, save the config. This will
-                // trigger a connectors save as well and update all relevent
-                // metadata.
-                if ($connectors[$connector_name]["eapm"]["enabled"] !== $oldValue) {
-                    // Get the source object
-                    $s = SourceFactory::getSource($sources[$connector_name]);
-
-                    // Get the existing config
-                    $sConfig = $s->getConfig();
-                    if (!isset($sConfig['eapm'])) {
-                        $sConfig['eapm'] = array();
-                    }
-
-                    // Merge what we have
-                    $sConfig['eapm'] = array_merge($sConfig['eapm'], $connectors[$connector_name]['eapm']);
-
-                    // Set and save... this will trigger a connector save call
-                    $s->setConfig($sConfig);
-                    $s->saveConfig();
-                }
-            }
-        }
-
-        return $connectors;
-    }
 
 	function action_SaveModifySearch() {
 		$search_sources = !empty($_REQUEST['search_sources']) ? explode(',', $_REQUEST['search_sources']) : array();
@@ -668,6 +638,7 @@ class ConnectorsController extends SugarController {
 	}
 
 
+
 	/**
 	 * action_SaveModifyMapping
 	 */
@@ -698,6 +669,7 @@ class ConnectorsController extends SugarController {
 
 		if ( isset($_SESSION['searchDefs']) )
 		    unset($_SESSION['searchDefs']);
+
 
 
 		require_once('include/connectors/utils/ConnectorUtils.php');
@@ -748,39 +720,36 @@ class ConnectorsController extends SugarController {
 	}
 
 
-    function action_RunTest() {
-        global $mod_strings;
+	function action_RunTest() {
+	    $this->view = 'ajax';
+	    $source_id = $_REQUEST['source_id'];
+	    $source = SourceFactory::getSource($source_id);
+	    $properties = array();
+	    foreach($_REQUEST as $name=>$value) {
+	    	    if(preg_match("/^{$source_id}_(.*?)$/", $name, $matches)) {
+	    	       $properties[$matches[1]] = $value;
+	    	    }
+	    }
+	    $source->setProperties($properties);
+	    $source->saveConfig();
 
-        $this->view = 'ajax';
+	    //Call again and call init
+	    $source = SourceFactory::getSource($source_id);
+	    $source->init();
 
-        // Get the source object and init it all at once
-        $source_id = $_REQUEST['source_id'];
-        $source = SourceFactory::getSource($source_id, true);
+	    global $mod_strings;
 
-        // Build a properties array
-        $properties = array();
-        foreach($_REQUEST as $name=>$value) {
-            if (preg_match("/^{$source_id}_(.*?)$/", $name, $matches)) {
-               $properties[$matches[1]] = $value;
-            }
-        }
-
-        // If there are properties, set them into the source for testing
-        if ($properties) {
-            $source->setProperties($properties);
-        }
-
-        try {
-            if ($source->isRequiredConfigFieldsForButtonSet() && $source->test()) {
-                echo $mod_strings['LBL_TEST_SOURCE_SUCCESS'];
-            } else {
-              echo $mod_strings['LBL_TEST_SOURCE_FAILED'];
-            }
-        } catch (Exception $ex) {
-            $GLOBALS['log']->fatal($ex->getMessage());
-            echo $ex->getMessage();
-        }
-    }
+	    try {
+		    if($source->isRequiredConfigFieldsForButtonSet() && $source->test()) {
+		      echo $mod_strings['LBL_TEST_SOURCE_SUCCESS'];
+		    } else {
+		      echo $mod_strings['LBL_TEST_SOURCE_FAILED'];
+		    }
+	    } catch (Exception $ex) {
+	    	$GLOBALS['log']->fatal($ex->getMessage());
+	    	echo $ex->getMessage();
+	    }
+	}
 
 
 	/**

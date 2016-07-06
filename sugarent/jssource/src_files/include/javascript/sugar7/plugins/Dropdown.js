@@ -21,10 +21,8 @@
 
             onAttach: function(component, plugin) {
                 this.on('init', function() {
-                    if (app.bwc) {
-                        this.listenTo(app.bwc, 'clicked', this.closeDropdown);
-                    }
-                    app.routing.before('route', this.closeDropdown, this);
+                    this.listenTo(app.bwc, 'clicked', this.closeDropdown);
+                    app.routing.before('route', this.closeDropdown, this, true);
                 });
             },
 
@@ -193,7 +191,7 @@
             },
 
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              * Unbind beforeHandlers.
              */
             onDetach: function() {

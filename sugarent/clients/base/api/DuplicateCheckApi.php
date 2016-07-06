@@ -48,7 +48,7 @@ class DuplicateCheckApi extends SugarApi
         }
 
         //populate bean
-        $options = array('acl' => 'read', 'find_duplicates' => true);
+        $options = array('acl' => 'read');
         $errors = $this->populateFromApi($api, $bean, $args, $options);
         if ($errors !== true) {
             $displayErrors = print_r($errors, true);
@@ -84,7 +84,7 @@ class DuplicateCheckApi extends SugarApi
 
     protected function populateFromApi($api, $bean, $args, $options=array())
     {
-        $errors = ApiHelper::getHelper($api, $bean)->populateFromApi($bean, $args, $options);
+        $errors = ApiHelper::getHelper($api,$bean)->populateFromApi($bean,$args,$options);
 
         // remove email_addr_bean_rel records created by SugarFieldEmail::apiSave() for new bean (empty id)
         if (empty($args['id']) && !empty($bean->emailAddress)) {

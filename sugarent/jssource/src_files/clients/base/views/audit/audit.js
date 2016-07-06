@@ -19,7 +19,7 @@
     fallbackFieldTemplate: 'list-header',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Assign base module and record id.
      * Override the new Audit collection
      * in order to fetch correct audit end-point.
@@ -74,7 +74,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Instead of fetching context, it fetches the collection directly.
      */
     loadData: function() {

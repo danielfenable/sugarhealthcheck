@@ -1,0 +1,110 @@
+/*
+ * Your installation or use of this SugarCRM file is subject to the applicable
+ * terms available at
+ * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
+ * If you do not agree to all of the applicable terms or do not have the
+ * authority to bind the entity as an authorized representative, then do not
+ * install or use this SugarCRM file.
+ *
+ * Copyright (C) SugarCRM Inc. All rights reserved.
+ */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+    color: #555;
+}
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../../styleguide/assets/fonts/fontawesome-webfont.eot?v=4.2.0');
+    src: url('../../styleguide/assets/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), url('../../styleguide/assets/fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'), url('../../styleguide/assets/fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), url('../../styleguide/assets/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.alert{
+    padding:5px 10px;
+    background-color: #f6f6f6;
+    border: 1px solid #d0d0d0;
+    -webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 2px 1px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 1px rgba(0,0,0,0.1);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.alert-top {
+    position: fixed;
+    top: 31px;
+    width: 100%;
+    text-align: center;
+}
+
+.alert-top> div {
+    display: table;
+    margin: auto;
+}
+
+.loading {
+  display: inline-block;
+  color: #717171;
+}
+
+.loading i {
+  color: #717171;
+  display: inline-block;
+  font-size: 4px;
+  margin: 0 2px;
+  -moz-animation: move 1s infinite linear;
+  -webkit-animation: move 1s infinite linear;
+  animation: move 1s infinite linear;
+}
+
+.fa-circle:before {
+    content: "\f111";
+}
+
+.loading .fa {
+    line-height: normal;
+    vertical-align: baseline;
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+    -webkit-font-smoothing: antialiased;
+}
+
+.loading .fa:before {
+    text-decoration: inherit;
+    display: inline-block;
+    speak: none;
+}
+
+.nav li .loading .fa-circle {
+    width: auto;
+}
+
+.loading .l1 {
+    -moz-animation-delay: .1s;
+    -webkit-animation-delay: .1s;
+    animation-delay: .1s;
+}
+
+.loading .l2 {
+    -moz-animation-delay: .2s;
+    -webkit-animation-delay: .2s;
+    animation-delay: .2s;
+}
+
+.loading .l3 {
+    -moz-animation-delay: .3s;
+    -webkit-animation-delay: .3s;
+    animation-delay: .3s;
+}
+
+@-moz-keyframes move{0%{opacity:1;}100%{opacity:0.1;}}
+@-webkit-keyframes move{0%{opacity:1;}100%{opacity:0.1;}}
+@keyframes move{0%{opacity:1;}100%{opacity:0.1;}}

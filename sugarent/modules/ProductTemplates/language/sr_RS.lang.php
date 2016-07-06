@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,21 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
   'ERR_DELETE_RECORD' => 'Morate navesti broj zapisa da bi obrisali proizvod.',
   'LBL_ACCOUNT_NAME' => 'Naziv kompanije:',
   'LBL_ASSIGNED_TO' => 'Dodeljeno:',
   'LBL_ASSIGNED_TO_ID' => 'ID broj dodeljenog korisnika',
-  'LBL_CATEGORY_NAME'=>'Naziv kategorije:',
   'LBL_CATEGORY' => 'Kategorija:',
+  'LBL_CATEGORY_ID' => 'ID broj kategorije',
+  'LBL_CATEGORY_NAME' => 'Naziv kategorije:',
   'LBL_CONTACT_NAME' => 'Ime kontakta:',
   'LBL_COST_PRICE' => 'Trošak:',
   'LBL_COST_USDOLLAR' => 'Trošak (Američki dolar):',
@@ -33,9 +30,16 @@ $mod_strings = array (
   'LBL_DATE_AVAILABLE' => 'Dostupno od:',
   'LBL_DATE_COST_PRICE' => 'Datum-Trošak-Cena:',
   'LBL_DESCRIPTION' => 'Opis:',
-  'LBL_DISCOUNT_PRICE_DATE' => 'Datum cene sa popustom:',
   'LBL_DISCOUNT_PRICE' => 'Jedinična cena:',
+  'LBL_DISCOUNT_PRICE_DATE' => 'Datum cene sa popustom:',
   'LBL_DISCOUNT_USDOLLAR' => 'Cena sa popustom (Američki dolar):',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID broj dodeljenog korisnika',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Ime dodeljenog korisnika',
+  'LBL_EXPORT_COST_PRICE' => 'Cena koštanja',
+  'LBL_EXPORT_CREATED_BY' => 'ID broj osobe koja je kreirala',
+  'LBL_EXPORT_CURRENCY' => 'Valuta',
+  'LBL_EXPORT_CURRENCY_ID' => 'ID broj valute',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'ID korisnika koji je promenio',
   'LBL_LIST_CATEGORY' => 'Kategorija:',
   'LBL_LIST_CATEGORY_ID' => 'ID broj kategorije:',
   'LBL_LIST_COST_PRICE' => 'Trošak:',
@@ -52,22 +56,27 @@ $mod_strings = array (
   'LBL_LIST_TYPE' => 'Tip:',
   'LBL_LIST_TYPE_ID' => 'Tip:',
   'LBL_LIST_USDOLLAR' => 'Cena (Američki dolar):',
-  'LBL_MANUFACTURER_NAME'=>'Naziv proizvođača:',
   'LBL_MANUFACTURER' => 'Proizvođač:',
+  'LBL_MANUFACTURERS' => 'Proizvođači',
+  'LBL_MANUFACTURER_ID' => 'ID broj proizvođača:',
+  'LBL_MANUFACTURER_NAME' => 'Naziv proizvođača:',
   'LBL_MFT_PART_NUM' => 'Broj dela proizvođača:',
+  'LBL_MODULE_ID' => 'Šabloni proizvoda',
   'LBL_MODULE_NAME' => 'Katalog proizvoda',
   'LBL_MODULE_NAME_SINGULAR' => 'Katalog proizvoda:',
-  'LBL_MODULE_ID' => 'Šabloni proizvoda',
   'LBL_MODULE_TITLE' => 'Katalog proizvoda: Početna strana',
   'LBL_NAME' => 'Naziv proizvoda:',
   'LBL_NEW_FORM_TITLE' => 'Kreiraj atikal',
   'LBL_PERCENTAGE' => 'Procenat(%):',
   'LBL_POINTS' => 'Bodovi',
   'LBL_POINTS_ABBR' => 'Pts.',
-  'LBL_PRICING_FORMULA' => 'Podrazumevana cenovna formula:',
   'LBL_PRICING_FACTOR' => 'Cenovni faktor',
+  'LBL_PRICING_FORMULA' => 'Podrazumevana cenovna formula:',
   'LBL_PRODUCT' => 'Proizvod:',
+  'LBL_PRODUCT_CATEGORIES' => 'Kategorije proizvoda',
   'LBL_PRODUCT_ID' => 'ID broj proizvoda:',
+  'LBL_PRODUCT_TYPES' => 'Tipovi proizvoda',
+  'LBL_QTY_IN_STOCK' => 'Količina zaliha',
   'LBL_QUANTITY' => 'Raspoloživa količina:',
   'LBL_RELATED_PRODUCTS' => 'Povezani proizvodi',
   'LBL_SEARCH_FORM_TITLE' => 'Pretraga kataloga proizvoda',
@@ -77,40 +86,21 @@ $mod_strings = array (
   'LBL_SUPPORT_NAME' => 'Naziv podrške:',
   'LBL_SUPPORT_TERM' => 'Uslovi podrške:',
   'LBL_TAX_CLASS' => 'Poreska stopa:',
-  'LBL_TYPE_NAME'=>'Naziv tipa',
   'LBL_TYPE' => 'Tip',
+  'LBL_TYPE_ID' => 'ID tipa',
+  'LBL_TYPE_NAME' => 'Naziv tipa',
   'LBL_URL' => 'URL proizvoda:',
   'LBL_VENDOR_PART_NUM' => 'Broj dela prodavca:',
+  'LBL_WEBSITE' => 'Web stranica',
   'LBL_WEIGHT' => 'Težina:',
-  'LNK_IMPORT_PRODUCTS'=>'Uvezi proizvode',
-  'LNK_IMPORT_PRODUCT_CATALOG'=>'Uvezi Linije Proizvodnog Kataloga',
+  'LNK_IMPORT_PRODUCTS' => 'Uvezi proizvode',
+  'LNK_IMPORT_PRODUCT_CATALOG' => 'Uvezi Linije Proizvodnog Kataloga',
   'LNK_NEW_MANUFACTURER' => 'Proizvođači',
+  'LNK_NEW_PRODUCT' => 'Kreiraj prozvod za Katalog',
   'LNK_NEW_PRODUCT_CATEGORY' => 'Kategorije proizvoda',
   'LNK_NEW_PRODUCT_TYPE' => 'Tipovi proizvoda',
-  'LNK_NEW_PRODUCT' => 'Kreiraj prozvod za Katalog',
   'LNK_NEW_SHIPPER' => 'Dostavljači',
   'LNK_PRODUCT_LIST' => 'Prikaži katalog proizvoda',
   'NTC_DELETE_CONFIRMATION' => 'Da li ste sigurni da želite da obrišete ovaj zapis?',
-
-
-    //For export labels
-  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Ime dodeljenog korisnika',
-  'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID broj dodeljenog korisnika',
-  'LBL_EXPORT_MODIFIED_USER_ID' => 'ID korisnika koji je promenio',
-  'LBL_EXPORT_CREATED_BY' => 'ID broj osobe koja je kreirala',
-  'LBL_TYPE_ID'=> 'ID tipa',
-  'LBL_MANUFACTURER_ID'=> 'ID broj proizvođača:',
-  'LBL_CATEGORY_ID'=> 'ID broj kategorije',
-  'LBL_WEBSITE'=> 'Web stranica',
-  'LBL_QTY_IN_STOCK'=> 'Količina zaliha',
-  'LBL_EXPORT_CURRENCY'=> 'Valuta',
-  'LBL_EXPORT_CURRENCY_ID'=> 'ID broj valute',
-  'LBL_EXPORT_COST_PRICE'=> 'Cena koštanja',
-  'LBL_PRODUCT_CATEGORIES' => 'Kategorije proizvoda',
-  'LBL_MANUFACTURERS' => 'Proizvođači',
-  'LBL_PRODUCT_TYPES' => 'Tipovi proizvoda',
-
 );
 
-
-?>

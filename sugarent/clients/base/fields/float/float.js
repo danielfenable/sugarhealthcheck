@@ -10,5 +10,5 @@
      */
 ({direction:'ltr',unformat:function(value){var unformattedValue=app.utils.unformatNumberStringLocale(value);if(_.isFinite(unformattedValue)&&this.def&&this.def.precision){unformattedValue=app.math.round(unformattedValue,this.def.precision,true);}
 return _.isFinite(unformattedValue)?unformattedValue:value;},format:function(value){if(this.def.disable_num_format||_.isNull(value)||_.isUndefined(value)||_.isNaN(value)){return value;}
-var number_grouping_separator=app.user.getPreference('number_grouping_separator')||',';var decimal_separator=app.user.getPreference('decimal_separator')||'.';if(_.isUndefined(this.def.precision)||!this.def.precision){return app.utils.addNumberSeparators(value.toString(),number_grouping_separator,decimal_separator);}
+var number_grouping_separator=app.user.getPreference('number_grouping_separator')||',';var decimal_separator=app.user.getPreference('decimal_separator')||'.';if(_.isUndefined(this.def.precision)||!this.def.precision){return app.utils.addNumberSeperators(value.toString(),number_grouping_separator,decimal_separator);}
 return app.utils.formatNumber(value,this.def.precision,this.def.precision,number_grouping_separator,decimal_separator);}})

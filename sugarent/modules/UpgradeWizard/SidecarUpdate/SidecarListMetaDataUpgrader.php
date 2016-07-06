@@ -104,13 +104,6 @@ class SidecarListMetaDataUpgrader extends SidecarAbstractMetaDataUpgrader
                 unset($defs['type']);
             }
 
-            // Fix email1 to email field change
-            // Also fix the label for this field
-            if ($defs['name'] === 'email1') {
-                $defs['name'] = 'email';
-                $defs['label'] = 'LBL_ANY_EMAIL';
-            }
-
             $newdefs[] = $defs;
         }
         $this->logUpgradeStatus("view defs converted, getting normalized module name");

@@ -61,7 +61,7 @@ class ModuleBuilder
 
         return $this->packages [ $name ] ;
     }
-
+    
     function getPackageKey ($name)
     {
         $manifestPath = MB_PACKAGE_PATH . '/' . $name . '/manifest.php' ;

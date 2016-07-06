@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
+$mod_strings = array (
 
     'LBL_ADD_MODULE' => 'إضافة',
     'LBL_ADDRCITY' => 'المدينة',
@@ -23,7 +23,7 @@ $mod_strings = array(
     'LBL_AVAILABLE' => 'متاح',
     'LBL_BACK' => '< السابق',
     'LBL_COMPANY_ID' => 'معرّف الشركة',
-    'LBL_CONFIRM_CONTINUE_SAVE' => 'تُركت بعض الحقول المطلوبة فارغة.  المتابعة لحفظ التغييرات؟',
+	'LBL_CONFIRM_CONTINUE_SAVE' => 'تُركت بعض الحقول المطلوبة فارغة.  المتابعة لحفظ التغييرات؟',
     'LBL_CONNECTOR' => 'الموصل',
     'LBL_CONNECTOR_FIELDS' => 'حقول الموصل',
     'LBL_DATA' => 'البيانات',
@@ -49,11 +49,11 @@ $mod_strings = array(
     'LBL_MODIFY_PROPERTIES_DESC' => 'تهيئة الخصائص لكل موصل، بما في ذلك عناوين URL ومفاتيح API.',
     'LBL_MODIFY_PROPERTIES_PAGE_TITLE' => 'إعدادات الموصل: تعيين خصائص الموصل',
     'LBL_MODIFY_SEARCH_TITLE' => 'إدارة بحث الموصل',
-    'LBL_MODIFY_SEARCH' => 'بحث',
+	'LBL_MODIFY_SEARCH' => 'بحث',
     'LBL_MODIFY_SEARCH_DESC' => 'حدد حقول الموصل لاستخدامها في البحث عن بيانات كل وحدة.',
     'LBL_MODIFY_SEARCH_PAGE_TITLE' => 'إعدادات الموصل: إدارة بحث الموصل',
-    'LBL_MODULE_NAME' => 'الموصلات',
-    'LBL_MODULE_NAME_SINGULAR' => 'الموصل',
+	'LBL_MODULE_NAME' => 'الموصلات',
+	'LBL_MODULE_NAME_SINGULAR' => 'الموصل',
     'LBL_NO_PROPERTIES' => 'لا توجد خصائص قابلة للتكوين لهذا الموصل.',
     'LBL_PARENT_DUNS' => 'DUNS الأصلي',
     'LBL_PREVIOUS' => '< السابق',
@@ -62,11 +62,11 @@ $mod_strings = array(
     'LBL_RESET_TO_DEFAULT' => 'إعادة التعيين إلى الافتراضي',
     'LBL_RESET_TO_DEFAULT_CONFIRM' => 'هل تريد بالتأكيد إعادة تعيين التهيئة الافتراضية؟',
     'LBL_RESET_BUTTON_TITLE' => 'إعادة تعيين',
-    'LBL_RESULT_LIST' => 'قائمة البيانات',
+	'LBL_RESULT_LIST' => 'قائمة البيانات',
     'LBL_RUN_WIZARD' => 'تشغيل المعالج',
     'LBL_SAVE' => 'حفظ',
-    'LBL_SEARCHING_BUTTON_LABEL' => 'يتم الآن البحث...',
-    'LBL_SHOW_IN_LISTVIEW' => 'إظهار في عرض القائمة للدمج',
+	'LBL_SEARCHING_BUTTON_LABEL' => 'يتم الآن البحث...',
+    'LBL_SHOW_IN_LISTVIEW' => 'إظهار في Listview للدمج',
     'LBL_SMART_COPY' => 'النسخ الذكي',
     'LBL_SUMMARY' => 'ملخص',
     'LBL_STEP1' => 'البحث وعرض البيانات',
@@ -77,6 +77,7 @@ $mod_strings = array(
     'LBL_TEST_SOURCE_SUCCESS' => 'نجاح الاختبار',
     'LBL_TITLE' => 'دمج البيانات',
     'LBL_ULTIMATE_PARENT_DUNS' => 'DUNS الأصل الفائق',
+
     'ERROR_RECORD_NOT_SELECTED' => 'خطأ: يُرجى تحديد سجل من القائمة قبل المتابعة.',
     'ERROR_EMPTY_WRAPPER' => 'خطأ: غير قادر على استرداد مثيل الغلاف للمصدر [{$source_id}]',
     'ERROR_EMPTY_SOURCE_ID' => 'خطأ: معرّف المصدر غير محدد أو فارغ.',
@@ -90,7 +91,8 @@ $mod_strings = array(
     'ERROR_NO_SEARCHDEFS_MAPPING' => 'خطأ: لا توجد حقول بحث محددة للوحدة والموصل.  يُرجى الاتصال بمسؤول النظام.',
     'ERROR_NO_FIELDS_MAPPED' => 'خطأ: يجب عليك تعيين حقل موصل واحد على الأقل لحقل وحدة لكل إدخال في الوحدة.',
     'ERROR_NO_DISPLAYABLE_MAPPED_FIELDS' => 'خطأ: لا توجد حقول وحدة محددة للعرض في النتائج.  يُرجى الاتصال بمسؤول النظام.',
-    'LBL_INFO_INLINE' => 'معلومات' /*for 508 compliance fix*/,
-    'LBL_CLOSE' => 'إغلاق' /*for 508 compliance fix*/,
+	'LBL_INFO_INLINE' => 'معلومات' /*for 508 compliance fix*/,
+	'LBL_CLOSE' => 'إغلاق' /*for 508 compliance fix*/,
 );
 
+?>

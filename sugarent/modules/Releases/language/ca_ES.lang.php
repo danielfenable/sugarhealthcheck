@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,41 +12,32 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Publicacions',
-  'LBL_MODULE_NAME_SINGULAR' => 'Versió',
-  'LBL_MODULE_TITLE' => 'Publicacions: inici',
-  'LBL_SEARCH_FORM_TITLE' => 'Cerca de publicacions',
-  'LBL_LIST_FORM_TITLE' => 'Llista de versions',
-  'LBL_NEW_FORM_TITLE' => 'Nova publicació',
-  'LBL_RELEASE' => 'Versió:',
-  'LBL_LIST_NAME' => 'Versió',
-  'LBL_NAME' => 'Versió de la publicació:',
+  'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre per eliminar la publicació.',
+  'LBL_EDITLAYOUT' => 'Editar disseny',
+  'LBL_LIST_FORM_TITLE' => 'Llista de Publicacions',
   'LBL_LIST_LIST_ORDER' => 'Ordre',
+  'LBL_LIST_NAME' => 'Publicació',
   'LBL_LIST_ORDER' => 'Ordre:',
   'LBL_LIST_STATUS' => 'Estat',
+  'LBL_MODULE_NAME' => 'Publicacions',
+  'LBL_MODULE_NAME_SINGULAR' => 'Publicació',
+  'LBL_MODULE_TITLE' => 'Publicacions: Inici',
+  'LBL_NAME' => 'Versió de la publicació:',
+  'LBL_NEW_FORM_TITLE' => 'Nova Publicació',
+  'LBL_RELEASE' => 'Publicació:',
+  'LBL_SEARCH_FORM_TITLE' => 'Recerca de Publicacions',
   'LBL_STATUS' => 'Estat:',
-  'LNK_NEW_RELEASE' => 'Llista de versions',
-  'NTC_DELETE_CONFIRMATION' => 'Esteu segur que voleu suprimir aquest registre?',
-  'ERR_DELETE_RECORD' => 'Per suprimir la publicació, heu d&#39;especificar un número de registre.',
-  'NTC_STATUS' => 'Estableix l´estat a Inactiva per eliminar aquesta publicació de les llistes desplegables de Publicacions',
+  'LNK_NEW_RELEASE' => 'Llista de Publicacions',
+  'NTC_DELETE_CONFIRMATION' => 'Està segur que desitja eliminar aquest registre?',
   'NTC_LIST_ORDER' => 'Estableix l´ordre en el qual aquesta publicació apareixerà en les llistes desplegables de Publicacions',
-  'LBL_ACTIVE_RELEASES' => 'Versions actives',
-  'release_status_dom' =>
+  'NTC_STATUS' => 'Estableix l´estat a Inactiva per eliminar aquesta publicació de les llistes desplegables de Publicacions',
+  'release_status_dom' => 
   array (
-    'Active' => 'Actiu',
-    'Inactive' => 'Inactiu',
-),
-	'LBL_EDITLAYOUT' => 'Editar disseny' /*for 508 compliance fix*/,
+    'Active' => 'Activa',
+    'Inactive' => 'Inactiva',
+  ),
 );
 
-
-?>

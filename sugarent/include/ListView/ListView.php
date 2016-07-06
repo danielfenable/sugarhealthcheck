@@ -1639,7 +1639,7 @@ $close_inline_img = SugarThemeRegistry::current()->getImage('close_inline', 'bor
                     $delete .= "<input type='hidden' name='return_action' value='index'>\n";
                     $delete .= "<input type='hidden' name='return_id' value=''>\n";
                     $delete .= "<input type='hidden' name='record' value='" . $fields['ID']. "'>\n";
-                    $delete .= "<input class='listViewTdToolsS1 button secondary' name='Delete' id='delete_" . $fields['ID'] . "' onclick='javascript: return confirm(\"" . $this->local_app_strings['NTC_DELETE_CONFIRMATION']. "\")' type='submit' value='" . $this->local_app_strings['LBL_DELETE_INLINE'] . "'>\n";
+                    $delete .= "<input class='listViewTdToolsS1 button secondary' name='Delete' onclick='javascript: return confirm(\"" . $this->local_app_strings['NTC_DELETE_CONFIRMATION']. "\")' type='submit' value='" . $this->local_app_strings['LBL_DELETE_INLINE'] . "'>\n";
                     $delete .= "</form>\n";
                     require_once('include/SugarSmarty/plugins/function.sugar_action_menu.php');
                     $fields['DELETE_BUTTON'] = smarty_function_sugar_action_menu(array(

@@ -60,7 +60,7 @@ class TeamSetManager {
 		$teamSetModule = BeanFactory::getBean('TeamSetModules');
 		//maintain a list of the team set ids we would like to remove
 		$setsToRemove = array();
-		$setsToKeep = array();
+		$setsToRemain = array();
 
 		$tsmResult = $teamSetModule->db->query('SELECT team_sets_modules.*  FROM team_sets_modules  where team_sets_modules.deleted=0',true,"Error retrieving TeamSetModule list: ");
 		while($tsmRow = $teamSetModule->db->fetchByAssoc($tsmResult)){
@@ -81,23 +81,28 @@ class TeamSetManager {
 						$team_set_id = SugarArray::staticGet($prefs, implode('.', array_slice($tokens, 2)));
 						if(!empty($team_set_id)){
 							//this is the team set id that is being used in user preferences we have to be sure to not remove it.
-							$setsToKeep[$team_set_id] = true;
+							$setsToRemain[$team_set_id] = true;
 						}
 					}//end while
 				}//fi
 			}else{
-                $moduleRecordsExist = self::doesRecordWithTeamSetExist($module_table_name, $team_set_id);
-                
-                if ($moduleRecordsExist) {
-                    $setsToKeep[$team_set_id] = true;
-                } else {
-                    $setsToRemove[$team_set_id] = true;
-                }
+                $query = "SELECT count(*) count FROM $module_table_name WHERE"
+                . " team_set_id = '$team_set_id' AND deleted = 0";
+				$result = $teamSetModule->db->query($query);
+
+	    		if($row = $teamSetModule->db->fetchByAssoc($result))
+	    		{
+	    			if(empty($row['count'])){
+	    				$setsToRemove[$team_set_id] = true;
+	    			}else{
+	    				$setsToRemain[$team_set_id] = true;
+	    			}
+	    		}
 			}
 		}
 
 		//compute the difference between the sets that have been designated to remain and those set to remove
-		$arrayDiff = array_diff_key($setsToRemove, $setsToKeep);
+		$arrayDiff = array_diff_key($setsToRemove, $setsToRemain);
 
 		//now we have our list of team_set_ids we would like to remove, let's go ahead and do it and remember
 		//to update the TeamSetModule table.
@@ -140,56 +145,6 @@ class TeamSetManager {
 			}
 		}
 	}
-
-    /**
-     * Check if one or more records attached to a team still exist in the database
-     *
-     * @param string $moduleTableName Module table name
-     * @param string $teamSetId       TeamSet id
-     * @param string $beanId          Record to exclude from search
-     * @return boolean
-     */
-    public static function doesRecordWithTeamSetExist($moduleTableName, $teamSetId, $beanId=false) 
-    {
-        $db = DBManagerFactory::getInstance();
-        $query = "SELECT COUNT(id) AS count FROM $moduleTableName WHERE team_set_id = '$teamSetId' AND deleted = 0";
-
-        if ($beanId) {
-            $query .= " AND id != '$beanId'";
-        }
-
-        $result = $db->query($query);
-
-        if ($row = $db->fetchByAssoc($result)) {
-            if (!empty($row['count'])) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Removes TeamSet module if no records exist
-     *
-     * @param SugarBean $focus
-     * @param String    $teamSetid Team set to remove
-     */
-    public static function removeTeamSetModule($focus, $teamSetId)
-    {
-        if (empty($teamSetId)) {
-            return;
-        }
-        
-        if (self::doesRecordWithTeamSetExist($focus->table_name, $teamSetId, $focus->id)) {
-            return;
-        }
-
-        $db = DBManagerFactory::getInstance();
-        $query = "DELETE FROM team_sets_modules WHERE team_set_id = '$teamSetId' AND module_table_name='$focus->table_name'";
-        $db->query($query);
-        self::flushBackendCache();
-    }
 
 	/**
 	 * The above method "save" will flush the entire cache, saveTeamSetModule will just save one entry.

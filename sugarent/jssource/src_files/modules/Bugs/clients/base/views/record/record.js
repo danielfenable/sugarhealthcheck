@@ -20,7 +20,7 @@
      * @inheritdoc
      */
     initialize: function(options) {
-        this.plugins = _.union(this.plugins || [], ['HistoricalSummary', 'KBContent']);
+        this.plugins = _.union(this.plugins || [], ['HistoricalSummary']);
         this._super('initialize', [options]);
     }
 })

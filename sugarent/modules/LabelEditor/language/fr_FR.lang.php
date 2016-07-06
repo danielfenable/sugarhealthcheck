@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,11 +12,12 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-'LBL_MODULE_NAME'=>'Éditeur de libellé',
-'LBL_MODULE_NAME_SINGULAR' => 'Éditeur de libellé',
-'LBL_KEY'=>'Clé:',
-'LBL_VALUE'=>'Valeur :',
+	
+
+$mod_strings = array (
+  'LBL_KEY' => 'Clé:',
+  'LBL_MODULE_NAME' => 'Editeur de libellé',
+  'LBL_MODULE_NAME_SINGULAR' => 'Editeur de libellé',
+  'LBL_VALUE' => 'Valeur:',
 );
 
-?>

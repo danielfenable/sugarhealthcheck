@@ -53,7 +53,9 @@ class PMSEEventDefinition
                 if ($token->expType == 'MODULE') {
                     $tmpObj = new stdClass();
                     $tmpObj->pro_id = $event->pro_id;
-                    $tmpBean = BeanFactory::getBean('pmse_BpmProcessDefinition', $tmpObj->pro_id);
+                    $tmpBean = BeanFactory::getBean('pmse_BpmProcessDefinition'); //$this->beanFactory->getBean('BpmProcessDefinition');
+
+                    $tmpBean->retrieve_by_string_fields(array('id' => $tmpObj->pro_id));
                     $tmpObj->rel_process_module = $tmpBean->pro_module;
                     $tmpObj->rel_element_id = $event->evn_id;
                     $tmpObj->rel_element_type = $event->evn_type . '_EVENT';

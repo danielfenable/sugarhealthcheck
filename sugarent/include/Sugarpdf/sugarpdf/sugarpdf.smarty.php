@@ -86,26 +86,5 @@ class SugarpdfSmarty extends Sugarpdf{
             $this->ss->assign('APP', $GLOBALS['app_strings']);
         }
     }
-
-    /*
-     * @see TCPDF::Image()
-     */
-    public function Image($file, $x = '', $y = '', $w = 0, $h = 0, $type = '', $link = '', $align = '', $resize = false, $dpi = 300, $palign = '', $ismask = false, $imgmask = false, $border = 0, $fitbox = false)
-    {
-        // strip query string from the image if it exists in the file name, tcpdf doesn't like 'query strings as part of the image file name
-        //a sample image string is:  http://d2owqhhe2x3j50.cloudfront.net/images/sugar7/home/concept1_1.png?version=3.0.3
-
-        //grab the base name and search for the '?' character
-        $fileinfo = pathinfo($file);
-        $q_pos = strpos($fileinfo['basename'], '?');
-
-        if (!empty($fileinfo['basename']) && $q_pos !== false ) {
-            //split the file name and reassemble
-            $splitName = substr($fileinfo['basename'], 0, $q_pos);
-            $file = $fileinfo['dirname'] . '/' . $splitName;
-        }
-
-        return parent::Image($file, $x, $y, $w, $h, $type, $link, $align, $resize, $dpi, $palign, $ismask, $imgmask, $border, $fitbox);
-    }
     
 }

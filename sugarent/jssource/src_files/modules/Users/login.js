@@ -48,7 +48,7 @@ function toggleDisplay(id){
 function generatepwd(){
 	document.getElementById('generate_pwd_button').value='Please Wait';
 	document.getElementById('generate_pwd_button').disabled =1;
-	document.getElementById('wait_pwd_generation').innerHTML = '<img src="themes/default/images/img_loading.gif?v='+SUGAR.VERSION_MARK+'" >';
+	document.getElementById('wait_pwd_generation').innerHTML = '<img src="themes/default/images/img_loading.gif" >';
 var callback;
        callback = {
 			success: function(o){

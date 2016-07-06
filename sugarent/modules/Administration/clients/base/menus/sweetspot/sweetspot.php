@@ -311,6 +311,7 @@ $viewdefs[$moduleName]['base']['menu']['sweetspot'] = array(
         'icon' => 'fa-cogs',
         'route' => $adminRoute . 'ConfigureShortcutBar',
     ),
+
     // Sugar Portal
     array(
         'label' => 'LBL_SUGARPORTAL',

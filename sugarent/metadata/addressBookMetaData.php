@@ -37,14 +37,6 @@ $dictionary['AddressBook'] = array ('table' => 'address_book',
 		),
 	),
 	'indices' => array (
-                array(
-                    'name' => 'idx_address_book_pk',
-                    'type' => 'primary',
-                    'fields' => array(
-                        'assigned_user_id',
-                        'bean_id',
-                    ),
-                ),
 		array(
 			'name' => 'ab_user_bean_idx',
 			'type' =>'index',
@@ -121,13 +113,13 @@ $dictionary['AddressBookMailingListItems'] = array ('table' => 'address_book_lis
 				'list_id',
 			)
 		),
-                array(
-                    'name' => 'idx_abli_pk',
-                    'type' =>'primary',
-                    'fields' => array(
-                        'list_id',
-                        'bean_id',
-                    )
-                ),
+		array(
+			'name' => 'abli_list_id_bean_idx',
+			'type' =>'index',
+			'fields' => array(
+				'list_id',
+				'bean_id',
+			)
+		),
 	), /* end indices */
 );

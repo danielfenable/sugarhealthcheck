@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,10 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Sugar 인스턴스를 새 어플리케이션으로 등록하여 IBM SmartCloud에서 Key 및 Secret를 얻으십시오. 등록은 2011년 5월 8일부터 가능합니다.<br>&nbsp;<br>인스턴스 등록 단계는 다음과 같습니다:<br>&nbsp;<br><ol><li>IBM SmartCloud 계정에 접속합니다(관리자만 접속 가능합니다).</li><li>관리 -> 조직 관리 으로 이동합니다.</li><li>사이드바의 "통합 타사 앱" 링크로 이동한 후 모든 사용자에 대해 SugarCRM을 사용으로 설정합니다.</li><li>사이드바의 "내부 앱"으로 이동한 후 "앱 등록"을 클릭합니다.</li><li>이 앱의 이름(“SugarCRM Production” 등)을 지정하고 팝업 창 하단에서 OAuth 2.x 선택란을 선택하지 _않도록_합니다.</li><li>앱을 생성한 후에는 앱 이름 오른쪽에 있는 작은 삼각형을 클릭한 후 드롭다운 메뉴에서 “자격증명 표시”를 선택합니다.</li><li>아래에 자격증명을 복사합니다.</li></ol></td></tr></table>',
-    'oauth_consumer_key' => 'OAuth Consumer Key',
-    'oauth_consumer_secret' => 'OAuth Consumer Secret',
+  'LBL_LICENSING_INFO' => 'LotusLive©에서 새 어플리케이션으로서 귀하의 Sugar예를 등록함으로써 키와 비밀을 얻습니다. 등록은 2011년 5월 8일부터 가능합니다. <br />예시 등록단계는 다음과 같습니다. <br />1. LotusLive계정에 로그인합니다.(LotusLive관리자여야 합니다.)https://www.lotuslive.com/ <br />2. 위의 탐색 바에 관리자를 클릭합니다 <br />3. 회사 관리 어플리케이션을 클릭합니다.<br />4. 등록 어플리케이션을 클릭합니다. <br />5. 즉시 어플리케이션을 위한 이름과 설명을 입력합니다. 귀하의 어플리케이션의 이름과 설명은 어플리케이션 옆 메뉴를 클릭후 소유권 편집을 선택하면 언제든지 바꿀수 있습니다. <br />6. 등록중 귀하의 어플리케이션이 인증키와 비밀이 지정됩니다. 등록된 어플리케이션은 고객관리 어플리케이션에 전시됩니다. 지정된 키와 비밀을 보려면 메뉴의 알맞은 어플리케이션과  자격얻기를 선택합니다.',
+  'oauth_consumer_key' => 'OAuth 소비자 키',
+  'oauth_consumer_secret' => 'OAuth 소비자 키',
 );
 

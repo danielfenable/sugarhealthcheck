@@ -18,30 +18,7 @@
     },
 
     openDesigner: function(model) {
-        var verifyURL = app.api.buildURL(
-                this.module,
-                'verify',
-                {
-                    id : this.model.get('id')
-                }
-            ),
-            self = this;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    app.navigate(this.context, model, 'layout/designer');
-                } else {
-                    app.alert.show('project-export-confirmation',  {
-                        level: 'confirmation',
-                        messages: App.lang.get('LBL_PMSE_PROCESS_DEFINITIONS_EDIT', model.module),
-                        onConfirm: function () {
-                            app.navigate(this.context, model, 'layout/designer');
-                        },
-                        onCancel: $.noop
-                    });
-                }
-            }
-        });
+        app.navigate(this.context, model, 'layout/designer');
     },
 
     showExportingWarning: function (model) {
@@ -101,30 +78,5 @@
                 }
             }
         });
-    },
-
-    duplicateClicked: function() {
-        var self = this,
-            prefill = app.data.createBean(this.model.module);
-
-        prefill.copy(this.model);
-        this._copyNestedCollections(this.model, prefill);
-        prefill.fields.prj_module.readonly = true;
-        self.model.trigger('duplicate:before', prefill);
-        prefill.unset('id');
-        app.drawer.open({
-            layout: 'create',
-            context: {
-                create: true,
-                model: prefill,
-                copiedFromModelId: this.model.get('id')
-            }
-        }, function(context, newModel) {
-            if (newModel && newModel.id) {
-                app.router.navigate(self.model.module + '/' + newModel.id, {trigger: true});
-            }
-        });
-
-        prefill.trigger('duplicate:field', self.model);
     }
 })

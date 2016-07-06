@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,28 +12,24 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-'LBL_ID'=>'ID',
-'LBL_DATE_ENTERED'=>'Sukurta',
-'LBL_DATE_MODIFIED'=>'Redaguota', 
-'LBL_MODIFIED'=>'Redagavo',
-'LBL_MODIFIED_ID'=>'Redaguotojo Id',
-'LBL_MODIFIED_NAME'=>'Redaguotojo vardas',
-'LBL_CREATED'=>'Sukūrė',
-'LBL_CREATED_ID'=>'Kūrėjo Id',
-'LBL_DOC_OWNER'=>'Document Owner',
-'LBL_USER_FAVORITES'=>'Users Who Favorite',
-'LBL_DESCRIPTION'=>'Aprašymas',
-'LBL_DELETED'=>'Ištrintas',
-'LBL_NAME'=>'Pavadinimas',
-'LBL_CREATED_USER'=>'Sukūrė',
-'LBL_MODIFIED_USER'=>'Redagavo',
-'LBL_LIST_NAME'=>'Pavadinimas',
-'LBL_EDIT_BUTTON' => 'Redaguoti',
- 'LBL_REMOVE' => 'Išimti',
-    //define label(s) to be used for overriding local values during import/export
-    'LBL_EXPORT_MODIFIED_BY_NAME' => 'Redaguotojo vardas',
-
-
+$mod_strings = array (
+  'LBL_CREATED' => 'Sukūrė',
+  'LBL_CREATED_ID' => 'Kūrėjo Id',
+  'LBL_CREATED_USER' => 'Sukūrė',
+  'LBL_DATE_ENTERED' => 'Sukurta',
+  'LBL_DATE_MODIFIED' => 'Redaguota',
+  'LBL_DELETED' => 'Ištrintas',
+  'LBL_DESCRIPTION' => 'Aprašymas',
+  'LBL_EDIT_BUTTON' => 'Redaguoti',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_NAME' => 'Pavadinimas',
+  'LBL_MODIFIED' => 'Redagavo',
+  'LBL_MODIFIED_ID' => 'Redaguotojo Id',
+  'LBL_MODIFIED_NAME' => 'Redaguotojo vardas',
+  'LBL_MODIFIED_USER' => 'Redagavo',
+  'LBL_NAME' => 'Pavadinimas',
+  'LBL_REMOVE' => 'Išimti',
 );
+

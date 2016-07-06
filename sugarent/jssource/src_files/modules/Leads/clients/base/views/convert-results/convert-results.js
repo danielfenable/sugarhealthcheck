@@ -42,23 +42,30 @@
     /**
      * Build an associated model based on given id & name fields on the Lead record
      *
-     * @param {String} moduleName
-     * @param {String} idField
-     * @param {String} nameField
+     * @param moduleName
+     * @param idField
+     * @param nameField
      * @return {*} model or false if id field is not set on the lead
      */
     buildAssociatedModel: function(moduleName, idField, nameField) {
-        var moduleSingular = app.lang.getAppListStrings('moduleListSingular'),
+        var moduleSingular = app.lang.getAppListStrings("moduleListSingular"),
+            rowTitle,
             model;
 
         if (_.isEmpty(this.model.get(idField))) {
             return false;
         }
 
+        rowTitle = app.lang.get(
+            'LBL_CONVERT_MODULE_ASSOCIATED',
+            this.module,
+            {'moduleName': moduleSingular[moduleName]}
+        );
+
         model = app.data.createBean(moduleName, {
             id: this.model.get(idField),
             name: this.model.get(nameField),
-            row_title: moduleSingular[moduleName],
+            row_title: rowTitle,
             _module: moduleName,
             target_module: moduleName
         });

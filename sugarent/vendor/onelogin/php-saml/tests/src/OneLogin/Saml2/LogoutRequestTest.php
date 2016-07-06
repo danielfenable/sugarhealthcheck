@@ -87,7 +87,7 @@ class OneLogin_Saml2_LogoutRequestTest extends PHPUnit_Framework_TestCase
         $settings = new OneLogin_Saml2_Settings($settingsInfo);
 
 
-        $logoutRequest = new OneLogin_Saml2_LogoutRequest($settings, null, null, $sessionIndex);
+        $logoutRequest = new OneLogin_Saml2_LogoutRequest($settings, null, $sessionIndex);
 
         $parameters = array('SAMLRequest' => $logoutRequest->getRequest());
         $logoutUrl = OneLogin_Saml2_Utils::redirect('http://idp.example.com/SingleLogoutService.php', $parameters, true);
@@ -323,44 +323,6 @@ class OneLogin_Saml2_LogoutRequestTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($logoutRequest2->isValid());
         $this->assertContains('Invalid issuer in the Logout Request', $logoutRequest2->getError());
-    }
-
-    /**
-    * Tests the isValid method of the OneLogin_Saml2_LogoutRequest
-    * Case invalid xml
-    *
-    * @covers OneLogin_Saml2_LogoutRequest::isValid
-    */
-    public function testIsInValidWrongXML()
-    {
-        $settingsDir = TEST_ROOT .'/settings/';
-        include $settingsDir.'settings1.php';
-
-        $settingsInfo['security']['wantXMLValidation'] = false;
-
-        $settings = new OneLogin_Saml2_Settings($settingsInfo);
-        $settings->setStrict(false);
-
-        $message = file_get_contents(TEST_ROOT . '/data/logout_requests/invalids/invalid_xml.xml.base64');
-        $response = new OneLogin_Saml2_LogoutRequest($settings, $message);
-
-        $this->assertTrue($response->isValid());
-
-        $settings->setStrict(true);
-        $response2 = new OneLogin_Saml2_LogoutRequest($settings, $message);
-        $response2->isValid();
-        $this->assertNotEquals('Invalid SAML Logout Request. Not match the saml-schema-protocol-2.0.xsd', $response2->getError());
-
-        $settingsInfo['security']['wantXMLValidation'] = true;
-        $settings2 = new OneLogin_Saml2_Settings($settingsInfo);
-        $settings2->setStrict(false);
-        $response3 = new OneLogin_Saml2_LogoutRequest($settings2, $message);
-        $this->assertTrue($response3->isValid());
-
-        $settings2->setStrict(true);
-        $response4 = new OneLogin_Saml2_LogoutRequest($settings2, $message);
-        $this->assertFalse($response4->isValid());
-        $this->assertEquals('Invalid SAML Logout Request. Not match the saml-schema-protocol-2.0.xsd', $response4->getError());
     }
 
     /**

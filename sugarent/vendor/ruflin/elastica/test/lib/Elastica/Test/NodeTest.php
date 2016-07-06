@@ -45,12 +45,40 @@ class NodeTest extends BaseTest
         $this->assertInstanceOf('Elastica\Node\Stats', $stats);
     }
 
-    public function testGetName()
+    /**
+     * Shuts one of two nodes down (if two available)
+     */
+    public function testShutdown()
     {
-        $nodes = $this->_getClient()->getCluster()->getNodes();
-        $this->assertCount(2, $nodes);
-        foreach ($nodes as $node) {
-            $this->assertContains($node->getName(), array('Silver Fox', 'Skywalker'));
+        $this->markTestSkipped('At least two nodes have to be running, because 1 node is shutdown');
+        $client = $this->_getClient();
+        $nodes = $client->getCluster()->getNodes();
+
+        $count = count($nodes);
+        if ($count < 2) {
+            $this->markTestSkipped('At least two nodes have to be running, because 1 node is shutdown');
         }
+
+           // Store node info of node with port 9200 for later
+        foreach ($nodes as $key => $node) {
+            if ($node->getInfo()->getPort() == 9200) {
+                $info = $node->getInfo();
+                unset($nodes[$key]);
+            }
+        }
+
+        // Select one of the not port 9200 nodes and shut it down
+        $node = array_shift($nodes);
+        $node->shutdown('2s');
+
+        // Wait until node is shutdown
+        sleep(5);
+
+        // Use still existing node
+        $client = new Client(array('host' => $info->getIp(), 'port' => $info->getPort()));
+        $names = $client->getCluster()->getNodeNames();
+
+        // One node less ...
+        $this->assertEquals($count - 1, count($names));
     }
 }

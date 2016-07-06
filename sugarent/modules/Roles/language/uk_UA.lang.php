@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,26 +13,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id: en_us.lang.php 13782 2006-06-06 17:58:55Z majed $
 
 $mod_strings = array (
-	'LBL_ROLE' => 'Роль:',
-	'LBL_LANGUAGE' => 'Мова:',
-	'LBL_MODULE_NAME' => 'Ролі',
-	'LBL_MODULE_NAME_SINGULAR' => 'Роль',
-	'LBL_MODULE_TITLE' => 'Ролі: Головна',
-	'LBL_SEARCH_FORM_TITLE' => 'Пошук ролей',
-	'LBL_LIST_FORM_TITLE' => 'Список ролей',
-	'LNK_NEW_ROLE' => 'Створити роль',
-	'LNK_ROLES' => 'Ролі',
-	'LBL_NAME' => 'Назва:',
-	'LBL_DESCRIPTION' => 'Опис:',
-	'LBL_ALLOWED_MODULES' => 'Дозволені модулі:',
-	'LBL_DISALLOWED_MODULES' => 'Заборонені модулі',
-	'LBL_ASSIGN_MODULES' => 'Редагувати модулі:',
-	'LBL_DEFAULT_SUBPANEL_TITLE' => 'Ролі',
-	'LBL_USERS'=>'Користувачі',
-	
-	'LBL_USERS_SUBPANEL_TITLE' => 'Користувачі',
+  'LBL_ALLOWED_MODULES' => 'Дозволені модулі:',
+  'LBL_ASSIGN_MODULES' => 'Редагувати модулі:',
+  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Ролі',
+  'LBL_DESCRIPTION' => 'Опис:',
+  'LBL_DISALLOWED_MODULES' => 'Заборонені модулі',
+  'LBL_LANGUAGE' => 'Мова:',
+  'LBL_LIST_FORM_TITLE' => 'Список ролей',
+  'LBL_MODULE_NAME' => 'Ролі',
+  'LBL_MODULE_NAME_SINGULAR' => 'Роль',
+  'LBL_MODULE_TITLE' => 'Ролі: Головна',
+  'LBL_NAME' => 'Назва:',
+  'LBL_ROLE' => 'Роль:',
+  'LBL_SEARCH_FORM_TITLE' => 'Пошук ролей',
+  'LBL_USERS' => 'Користувачі',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Користувачі',
+  'LNK_NEW_ROLE' => 'Створити роль',
+  'LNK_ROLES' => 'Ролі',
 );
-?>
+

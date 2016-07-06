@@ -1,7 +1,6 @@
 <?php
 
 namespace Elastica;
-
 use Elastica\Node\Info;
 use Elastica\Node\Stats;
 
@@ -46,7 +45,7 @@ class Node
     /**
      * Create a new node object
      *
-     * @param string           $name   Node name
+     * @param string          $name   Node name
      * @param \Elastica\Client $client Node object
      */
     public function __construct($name, Client $client)
@@ -118,13 +117,13 @@ class Node
     /**
      * Shuts this node down
      *
-     * @param  string             $delay OPTIONAL Delay after which node is shut down (default = 1s)
+     * @param  string            $delay OPTIONAL Delay after which node is shut down (default = 1s)
      * @return \Elastica\Response
      * @link http://www.elasticsearch.org/guide/reference/api/admin-cluster-nodes-shutdown.html
      */
     public function shutdown($delay = '1s')
     {
-        $path = '_cluster/nodes/'.$this->getName().'/_shutdown?delay='.$delay;
+        $path = '_cluster/nodes/' . $this->getName() . '/_shutdown?delay=' . $delay;
 
         return $this->_client->request($path, Request::POST);
     }

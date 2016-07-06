@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +13,16 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-    'LBL_FEEDBACK_TEXT_PLACEHOLDER' => 'Visszajelzés leírása',
-    'LBL_FEEDBACK_BTN_SUBMIT' => 'Küldés',
-    'LBL_FEEDBACK_SENT' => 'Visszajelzés elküldve.',
-    'LBL_FEEDBACK_SEND_ERROR' => 'Visszajelzés nincs elküldve, kérjük töltse ki mindkét mezőt.',
-    'LBL_FEEDBACK_NOT_SENT' => 'Nincs kapcsolódás a visszajelzési szerverhez, kérjük próbálja meg később.',
-    'LBL_FEEDBACK_CSAT' => 'Hogyan tudná jellemezni az általános benyomását a termékkel kapcsolatban?',
-    'TPL_FEEDBACK_ASIDE' => 'Gyüjtünk néhány a használattal kapcsolatos adatot a benyújtáskor. {{learnMoreLink}}. Nem gyüjtünk azonban személyes adatokat. Kérjük az alábbi linken jelentsen be hibákat, vagy más témákat, amik választ igényelnek. {{contactSupportLink}',
-    'LBL_FEEDBACK_ASIDE_CLICK_MORE' => 'Kattintson ide további információkért',
-    'LBL_FEEDBACK_ASIDE_CONTACT_SUPPORT' => 'Lépjen kapcsolatba a támogató csoporttal',
+
+$mod_strings = array (
+  'LBL_FEEDBACK_ASIDE_CLICK_MORE' => 'Kattintson ide további információkért',
+  'LBL_FEEDBACK_ASIDE_CONTACT_SUPPORT' => 'Lépjen kapcsolatba a támogató csoporttal',
+  'LBL_FEEDBACK_BTN_SUBMIT' => 'Küldés',
+  'LBL_FEEDBACK_CSAT' => 'Hogyan tudná jellemezni az általános benyomását a termékkel kapcsolatban?',
+  'LBL_FEEDBACK_NOT_SENT' => 'Nincs kapcsolódás a visszajelzési szerverhez, kérjük próbálja meg később.',
+  'LBL_FEEDBACK_SEND_ERROR' => 'Visszajelzés nincs elküldve, kérjük töltse ki mindkét mezőt.',
+  'LBL_FEEDBACK_SENT' => 'Visszajelzés elküldve.',
+  'LBL_FEEDBACK_TEXT_PLACEHOLDER' => 'Visszajelzés leírása',
+  'TPL_FEEDBACK_ASIDE' => 'Gyüjtünk néhány a használattal kapcsolatos adatot a benyújtáskor. {{learnMoreLink}}. Nem gyüjtünk azonban személyes adatokat. Kérjük az alábbi linken jelentsen be hibákat, vagy más témákat, amik választ igényelnek. {{contactSupportLink}',
 );
+

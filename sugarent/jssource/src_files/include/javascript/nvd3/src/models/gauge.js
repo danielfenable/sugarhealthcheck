@@ -126,16 +126,16 @@ nv.models.gauge = function() {
             .attr('stroke', '#ffffff')
             .attr('stroke-width', 3)
             .attr('d', arc)
-            .on('mouseover', function(d, i) {
+            .on('mouseover', function(d,i){
               d3.select(this).classed('hover', true);
               dispatch.elementMouseover({
                   point: d,
                   pointIndex: i,
-                  e: d3.event,
+                  pos: [d3.event.pageX, d3.event.pageY],
                   id: id
               });
             })
-            .on('mouseout', function(d, i) {
+            .on('mouseout', function(d,i){
               d3.select(this).classed('hover', false);
               dispatch.elementMouseout({
                   point: d,
@@ -143,23 +143,28 @@ nv.models.gauge = function() {
                   id: id
               });
             })
-            .on('mousemove', function(d, i) {
-              dispatch.elementMousemove(d3.event);
+            .on('mousemove', function(d,i){
+              dispatch.elementMousemove({
+                point: d,
+                pointIndex: i,
+                pos: [d3.event.pageX, d3.event.pageY],
+                id: id
+              });
             })
-            .on('click', function(d, i) {
+            .on('click', function(d,i) {
               dispatch.elementClick({
                   point: d,
                   index: i,
-                  e: d3.event,
+                  pos: d3.event,
                   id: id
               });
               d3.event.stopPropagation();
             })
-            .on('dblclick', function(d, i) {
+            .on('dblclick', function(d,i) {
               dispatch.elementDblClick({
                   point: d,
                   index: i,
-                  e: d3.event,
+                  pos: d3.event,
                   id: id
               });
               d3.event.stopPropagation();

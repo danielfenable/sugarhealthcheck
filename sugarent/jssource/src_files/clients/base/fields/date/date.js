@@ -11,11 +11,11 @@
 /**
  * @class View.Fields.Base.DateField
  * @alias SUGAR.App.view.fields.BaseDateField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     plugins: [
         'EllipsisInline',
@@ -23,26 +23,26 @@
     ],
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     fieldTag: 'input[data-type=date]',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     events: {
         'hide': 'handleHideDatePicker'
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * The direction for this field should always be `ltr`.
      */
     direction: 'ltr',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         // FIXME: Remove this when SIDECAR-517 gets in
@@ -51,24 +51,6 @@
         this._initEvents();
         this._initDefaultValue();
         this._initPlaceholderAttribute();
-        /**
-         * Property to add or not the `ellipsis_inline` class when rendering the
-         * field in the `list` template. `true` to add the class, `false`
-         * otherwise.
-         *
-         * Defaults to `true`.
-         *
-         * @property {boolean}
-         */
-        this.ellipsis = _.isUndefined(this.def.ellipsis) || this.def.ellipsis;
-
-        /**
-         * If a date picker has been initialized on the field or not.
-         *
-         * @type {boolean}
-         * @private
-         */
-        this._hasDatePicker = false;
     },
 
     /**
@@ -192,7 +174,6 @@
         }
 
         $field.datepicker(options);
-        this._hasDatePicker = true;
     },
 
     /**
@@ -206,8 +187,7 @@
      */
     _getAppendToTarget: function() {
         var component = this.closestComponent('main-pane') ||
-            this.closestComponent('drawer') ||
-            this.closestComponent('preview-pane');
+            this.closestComponent('drawer');
 
         if (component) {
             return component.$el;
@@ -275,7 +255,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     unbindDom: function() {
         this._super('unbindDom');
@@ -392,13 +372,12 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _render: function() {
         this._super('_render');
 
         if (this.tplName !== 'edit' && this.tplName !== 'massupdate') {
-            this._hasDatePicker = false;
             return;
         }
 
@@ -419,8 +398,9 @@
         // FIXME: new date picker versions have support for plugin removal/destroy
         // we should do the upgrade in order to prevent memory leaks
 
-        if (this._hasDatePicker) {
-            $(window).off('resize', this.$(this.fieldTag).data('datepicker').place);
+        var $field = this.$(this.fieldTag);
+        if ($field.data('datepicker')) {
+            $(window).off('resize', $field.data('datepicker').place);
         }
 
         this._super('_dispose');

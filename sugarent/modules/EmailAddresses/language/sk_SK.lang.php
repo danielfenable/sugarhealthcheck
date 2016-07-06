@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,21 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-    'LBL_EMAIL_ADDRESS_ID' => 'ID',
-    'LBL_EMAIL_ADDRESS' => 'Email adresa',
-    'LBL_EMAIL_ADDRESS_CAPS' => 'Email Address caps',
-    'LBL_INVALID_EMAIL' => 'Chybný Email',
-    'LBL_OPT_OUT' => 'Odhlásené',
-    'LBL_DATE_CREATE' => 'Dátum vytvorenia',
-    'LBL_DATE_MODIFIED' => 'Dátum úpravy',
-    'LBL_DELETED' => 'Vymazaný',
+  'LBL_DATE_CREATE' => 'Dátum vytvorenia',
+  'LBL_DATE_MODIFIED' => 'Dátum úpravy',
+  'LBL_DELETED' => 'Vymazaný',
+  'LBL_EMAIL_ADDRESS' => 'Email adresa',
+  'LBL_EMAIL_ADDRESS_CAPS' => 'Email Address caps',
+  'LBL_EMAIL_ADDRESS_ID' => 'ID',
+  'LBL_INVALID_EMAIL' => 'Chybný Email',
+  'LBL_OPT_OUT' => 'Odhlásené',
 );
+

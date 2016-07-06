@@ -568,12 +568,10 @@ class SugarView
             $GLOBALS['updateSilent'] = true;
             include("include/Expressions/updatecache.php");
         }
-
-        $path = shouldResourcesBeMinified()
-            ? 'cache/Expressions/functions_cache.js'
-            : 'cache/Expressions/functions_cache_debug.js';
-        echo getVersionedScript($path);
-
+        if(inDeveloperMode())
+            echo getVersionedScript('cache/Expressions/functions_cache_debug.js');
+        else
+            echo getVersionedScript('cache/Expressions/functions_cache.js');
         echo <<<EOQ
         <script>
             if ( typeof(SUGAR) == 'undefined' ) {SUGAR = {}};
@@ -692,11 +690,10 @@ EOHTML;
                 $GLOBALS['updateSilent'] = true;
                 include("include/Expressions/updatecache.php");
             }
-
-            $path = shouldResourcesBeMinified()
-                ? 'cache/Expressions/functions_cache.js'
-                : 'cache/Expressions/functions_cache_debug.js';
-            echo getVersionedScript($path);
+            if(inDeveloperMode())
+                echo getVersionedScript('cache/Expressions/functions_cache_debug.js');
+            else
+                echo getVersionedScript('cache/Expressions/functions_cache.js');
 
             require_once("include/Expressions/DependencyManager.php");
             echo "\n" . '<script type="text/javascript">' . DependencyManager::getJSUserVariables($GLOBALS['current_user']) . "</script>\n";
@@ -942,23 +939,31 @@ EOHTML;
 
         if(!$trackerManager->isPaused())
         {
-            // Track performance
-            if ($performanceMonitor = $trackerManager->getMonitor('tracker_perf')) {
-                $performanceMonitor->setValue('server_response_time', $this->responseTime);
-                $dbManager = DBManagerFactory::getInstance();
-                $performanceMonitor->db_round_trips = $dbManager->getQueryCount();
-                $performanceMonitor->setValue('date_modified', TimeDate::getInstance()->nowDb());
-                $performanceMonitor->setValue('db_round_trips', $dbManager->getQueryCount());
-                $performanceMonitor->setValue('files_opened', $this->fileResources);
-                if (function_exists('memory_get_usage')) {
-                    $performanceMonitor->setValue('memory_usage', memory_get_usage());
-                }
+	        $timeStamp = TimeDate::getInstance()->nowDb();
+	        //Track to tracker_perf
+	        if($monitor2 = $trackerManager->getMonitor('tracker_perf')){
+		        $monitor2->setValue('server_response_time', $this->responseTime);
+		        $dbManager = &DBManagerFactory::getInstance();
+		        $monitor2->db_round_trips = $dbManager->getQueryCount();
+		        $monitor2->setValue('date_modified', $timeStamp);
+		        $monitor2->setValue('db_round_trips', $dbManager->getQueryCount());
+		        $monitor2->setValue('files_opened', $this->fileResources);
+		        if (function_exists('memory_get_usage')) {
+		            $monitor2->setValue('memory_usage', memory_get_usage());
+		        }
+			}
 
-                $trackerManager->saveMonitor($performanceMonitor);
-            }
-
-            SugarApplication::trackSession();
+			// Track to tracker_sessions
+		    if($monitor3 = $trackerManager->getMonitor('tracker_sessions')){
+		        $monitor3->setValue('date_end', $timeStamp);
+		        if ( !isset($monitor3->date_start) ) $monitor3->setValue('date_start', $timeStamp);
+		        $seconds = strtotime($monitor3->date_end) -strtotime($monitor3->date_start);
+		        $monitor3->setValue('seconds', $seconds);
+		        $monitor3->setValue('user_id', $GLOBALS['current_user']->id);
+			}
         }
+	    $trackerManager->save();
+
     }
 
     /**
@@ -1252,15 +1257,10 @@ EOHTML;
                     $params[] = $GLOBALS['app_strings']['LBL_CREATE_BUTTON_LABEL'];
                 break;
             case 'DetailView':
-                // We cannot assume we will always have a bean, especially in
-                // cases like hitting Administration and not having permission
-                if ($this->bean) {
-                    $beanName = $this->bean->get_summary_text();
-                    if($this->bean->isFavoritesEnabled()) {
-                        $beanName .= '&nbsp;' . SugarFavorites::generateStar(SugarFavorites::isUserFavorite($this->module, $this->bean->id), $this->module, $this->bean->id);
-                    }
-                    $params[] = $beanName;
-                }
+                $beanName = $this->bean->get_summary_text();
+                if($this->bean->isFavoritesEnabled())
+                    $beanName .= '&nbsp;' . SugarFavorites::generateStar(SugarFavorites::isUserFavorite($this->module, $this->bean->id), $this->module, $this->bean->id);
+                $params[] = $beanName;
                 break;
             }
         }

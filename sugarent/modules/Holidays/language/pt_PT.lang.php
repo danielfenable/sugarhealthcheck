@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,35 +12,28 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-// $Id: en_us.lang.php 13782 2006-06-06 17:58:55 +0000 (Tue, 06 Jun 2006) majed $
+	
 
 $mod_strings = array (
-	'LBL_MODULE_NAME' => 'Férias',
-	'LBL_MODULE_NAME_SINGULAR' => 'Feriado',
-	'LBL_MODULE_TITLE' => 'Férias: Ecrã Principal',
-	'LBL_HOLIDAY' => 'Dia de Férias:',
-	'LBL_HOLIDAY_DATE' => 'Data do Dia de Férias:',
-	'LBL_NAME' => 'Data do Dia de Férias:',
-	'LBL_DESCRIPTION' => 'Descrição',
-	'LBL_RESOURCE_NAME' => 'Nome do Recurso',
-	
-	'LBL_SEARCH_FORM_TITLE' => 'Pesquisa de Férias',
-	'LBL_LIST_FORM_TITLE' => 'Lista de Férias',		
-
-	'LNK_NEW_HOLIDAY' => 'Adicionar Dia de Férias',
-	'LNK_HOLIDAYS' => 'Férias',
-	
-	'LBL_USERS_SUBPANEL_TITLE' => 'Utilizadores',
-	'LBL_USER_HOLIDAY_SUBPANEL_TITLE'	=> 'Férias do Utilizador',
-	
-	'LBL_RESOURCE' => 'Recurso:',
-	'LBL_PERSON_TYPE' => 'Tipo de pessoa',
-	'LBL_RELATED_MODULE'=> 'Módulo Relacionado:',
-	
-	// For HolidaysQuickCreate.php
-	'LBL_SELECT_RESOURCE_TYPE' => 'Selecionar Tipo de Recurso...',
-	'LBL_USER' => 'Utilizador',
-	'LBL_CONTACT' => 'Contacto',
+  'LBL_CONTACT' => 'Contacto',
+  'LBL_DESCRIPTION' => 'Descrição',
+  'LBL_HOLIDAY' => 'Dia de Férias:',
+  'LBL_HOLIDAY_DATE' => 'Data do Dia de Férias:',
+  'LBL_LIST_FORM_TITLE' => 'Lista de Férias',
+  'LBL_MODULE_NAME' => 'Férias',
+  'LBL_MODULE_NAME_SINGULAR' => 'Feriado',
+  'LBL_MODULE_TITLE' => 'Férias: Ecrã Principal',
+  'LBL_NAME' => 'Data do Dia de Férias:',
+  'LBL_PERSON_TYPE' => 'Tipo de pessoa',
+  'LBL_RELATED_MODULE' => 'Módulo Relacionado:',
+  'LBL_RESOURCE' => 'Recurso:',
+  'LBL_RESOURCE_NAME' => 'Nome do Recurso',
+  'LBL_SEARCH_FORM_TITLE' => 'Pesquisa de Férias',
+  'LBL_SELECT_RESOURCE_TYPE' => 'Seleccionar Tipo de Recurso...',
+  'LBL_USER' => 'Utilizador',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Utilizadores',
+  'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'Férias do Utilizador',
+  'LNK_HOLIDAYS' => 'Férias',
+  'LNK_NEW_HOLIDAY' => 'Adicionar Dia de Férias',
 );
-?>
+

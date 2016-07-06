@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,38 +10,44 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 $viewdefs['Calls']['mobile']['view']['edit'] = array(
-    'templateMeta' => array(
-        'maxColumns' => '1', 
-        'widths' => array(
-            array(
-                'label' => '10',
-                'field' => '30',
-            ),
-        ),
-    ),
+	'templateMeta' => array(
+                            'maxColumns' => '1', 
+                            'widths' => array(
+								array('label' => '10', 'field' => '30'), 
+                            ),                                  
+                           ),
     'panels' => array(
         array(
             'label' => 'LBL_PANEL_DEFAULT',
             'fields' => array(
-                'name',
                 array(
-                    'name' => 'date',
+                    'name'=>'name',
+                    'displayParams'=>array(
+                        'required'=>true,
+                        'wireless_edit_only'=>true,
+                    ),
+                ),
+                'date_start',
+                'direction',
+                'status',
+                array(
+                    'name' => 'duration',
                     'type' => 'fieldset',
-                    'related_fields' => array('date_start', 'date_end'),
-                    'label' => "LBL_START_AND_END_DATE_DETAIL_VIEW",
+                    'related_fields' => array('duration_hours', 'duration_minutes'),
+                    'label' => "LBL_DURATION",
                     'fields' => array(
                         array(
-                            'name' => 'date_start',
+                            'name' => 'duration_hours',
+                            'displayParams' => array('required' => true),
                         ),
                         array(
-                            'name' => 'date_end',
-                            'required' => true,
-                            'readonly' => false,  
+                            'name' => 'duration_minutes',
+                            'type' => 'enum',
+                            'options' => 'duration_intervals',
+                            'displayParams' => array('required' => true),  
                         ),
                     ),
                 ),
-                'direction',
-                'status',
                 array(
                     'name' => 'reminder',
                     'type' => 'fieldset',
@@ -83,5 +88,5 @@ $viewdefs['Calls']['mobile']['view']['edit'] = array(
                 'team_name',
             ),
         ),
-    ),
+	),
 );

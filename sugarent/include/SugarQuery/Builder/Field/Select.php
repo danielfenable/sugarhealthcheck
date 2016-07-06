@@ -54,10 +54,7 @@ class SugarQuery_Builder_Field_Select extends SugarQuery_Builder_Field
             $this->moduleName = empty($this->moduleName) ? $this->query->getFromBean()->module_name : $this->moduleName;
             $bean = BeanFactory::getBean($this->moduleName);
             foreach ($bean->field_defs AS $field => $def) {
-                if (!isset($def['source'])
-                    || $def['source'] == 'db'
-                    || ($def['source'] == 'custom_fields' && !in_array($def['type'], $bean::$relateFieldTypes))
-                ) {
+                if (!isset($def['source']) || $def['source'] == 'db' || ($def['source'] == 'custom_fields' && $def['type'] != 'relate')) {
                     $this->addToSelect("{$this->table}.{$field}");
                 }
             }
@@ -66,11 +63,15 @@ class SugarQuery_Builder_Field_Select extends SugarQuery_Builder_Field
         }
 
         if ($this->def['type'] == 'fullname') {
-            $from = $this->query->getFromBean();
             $nameFields = Localization::getObject()->getNameFormatFields($this->moduleName);
             foreach ($nameFields as $partOfName) {
-                $alias = $from->getRelateAlias(!empty($this->alias) ? $this->alias : $this->def['name'], $partOfName);
-                $this->addToSelect(array(array("{$this->table}.{$partOfName}", $alias)));
+                $alias = !empty($this->alias) ? "{$this->alias}__{$partOfName}" : "{$this->def['name']}__{$partOfName}";
+                $dbAlias = DBManagerFactory::getInstance()->getValidDBName($alias, false, 'alias');
+                if ($dbAlias != strtolower($alias)) {
+                    $this->addToSelect(array(array("{$this->table}.{$partOfName}", $dbAlias, $alias)));
+                } else {
+                    $this->addToSelect(array(array("{$this->table}.{$partOfName}", $alias)));
+                }
             }
             $this->markNonDb();
             return;
@@ -105,21 +106,6 @@ class SugarQuery_Builder_Field_Select extends SugarQuery_Builder_Field
         if (!empty($this->def['rname']) && !empty($this->jta)) {
             $field = array("{$this->jta}.{$this->def['rname']}", $this->def['name']);
             $this->addToSelect(array($field));
-            if (isset($this->def['module'])
-                && ($this->def['rname'] === 'full_name'
-                    || $this->def['rname'] === 'document_name'
-                    || $this->def['rname'] === 'name'
-                    || $this->def['rname'] === 'user_name'
-                )
-            ) {
-                $rBean = BeanFactory::getBean($this->def['module']);
-                $ownerField = $rBean->getOwnerField();
-                if ($ownerField) {
-                    $this->query->select->addField($this->jta . '.' . $ownerField, array(
-                        'alias' => $this->def['name'] . '_owner',
-                    ));
-                }
-            }
             $this->markNonDb();
         }
         if (!empty($this->def['rname_link']) && !empty($this->jta)) {
@@ -128,13 +114,6 @@ class SugarQuery_Builder_Field_Select extends SugarQuery_Builder_Field
         }
         if (!empty($this->def['source']) && $this->def['source'] == 'custom_fields') {
             $this->table = strstr($this->table, '_cstm') ? $this->table : $this->table . '_cstm';
-        }
-        if (!empty($this->def['db_concat_fields'])) {
-            $tableAlias = $this->jta ? $this->jta : $this->table;
-            $expr = $GLOBALS['db']->concat($tableAlias, $this->def['db_concat_fields']);
-            $this->field = $expr;
-            $this->markNonDb();
-            $this->addToSelectRaw($expr, $this->alias);
         }
     }
 

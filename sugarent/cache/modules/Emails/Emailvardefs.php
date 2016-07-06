@@ -2,11 +2,133 @@
  $GLOBALS["dictionary"]["Email"]=array (
   'table' => 'emails',
   'acl_fields' => false,
-  'full_text_search' => true,
   'activity_enabled' => true,
   'comment' => 'Contains a record of emails sent to and from the Sugar application',
   'fields' => 
   array (
+    'team_id' => 
+    array (
+      'name' => 'team_id',
+      'vname' => 'LBL_TEAM_ID',
+      'group' => 'team_name',
+      'reportable' => false,
+      'dbType' => 'id',
+      'type' => 'team_list',
+      'audited' => true,
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'Team ID for the account',
+    ),
+    'team_set_id' => 
+    array (
+      'name' => 'team_set_id',
+      'rname' => 'id',
+      'id_name' => 'team_set_id',
+      'vname' => 'LBL_TEAM_SET_ID',
+      'type' => 'id',
+      'audited' => true,
+      'studio' => 'false',
+      'dbType' => 'id',
+      'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+    ),
+    'team_count' => 
+    array (
+      'name' => 'team_count',
+      'rname' => 'team_count',
+      'id_name' => 'team_id',
+      'vname' => 'LBL_TEAMS',
+      'join_name' => 'ts1',
+      'table' => 'teams',
+      'type' => 'relate',
+      'required' => 'true',
+      'isnull' => 'true',
+      'module' => 'Teams',
+      'link' => 'team_count_link',
+      'massupdate' => false,
+      'dbType' => 'int',
+      'source' => 'non-db',
+      'importable' => 'false',
+      'reportable' => false,
+      'duplicate_merge' => 'disabled',
+      'duplicate_on_record_copy' => 'always',
+      'studio' => 'false',
+      'hideacl' => true,
+    ),
+    'team_name' => 
+    array (
+      'name' => 'team_name',
+      'db_concat_fields' => 
+      array (
+        0 => 'name',
+        1 => 'name_2',
+      ),
+      'sort_on' => 'tj.name',
+      'join_name' => 'tj',
+      'rname' => 'name',
+      'id_name' => 'team_id',
+      'vname' => 'LBL_TEAMS',
+      'type' => 'relate',
+      'required' => 'true',
+      'table' => 'teams',
+      'isnull' => 'true',
+      'module' => 'Teams',
+      'link' => 'team_link',
+      'massupdate' => true,
+      'dbType' => 'varchar',
+      'source' => 'non-db',
+      'len' => 36,
+      'custom_type' => 'teamset',
+      'studio' => 
+      array (
+        'portallistview' => false,
+        'portalrecordview' => false,
+      ),
+      'duplicate_on_record_copy' => 'always',
+      'exportable' => true,
+    ),
+    'team_link' => 
+    array (
+      'name' => 'team_link',
+      'type' => 'link',
+      'relationship' => 'emails_team',
+      'vname' => 'LBL_TEAMS_LINK',
+      'link_type' => 'one',
+      'module' => 'Teams',
+      'bean_name' => 'Team',
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'studio' => 'false',
+    ),
+    'team_count_link' => 
+    array (
+      'name' => 'team_count_link',
+      'type' => 'link',
+      'relationship' => 'emails_team_count_relationship',
+      'link_type' => 'one',
+      'module' => 'Teams',
+      'bean_name' => 'TeamSet',
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'reportable' => false,
+      'studio' => 'false',
+    ),
+    'teams' => 
+    array (
+      'name' => 'teams',
+      'type' => 'link',
+      'relationship' => 'emails_teams',
+      'bean_filter_field' => 'team_set_id',
+      'rhs_key_override' => true,
+      'source' => 'non-db',
+      'vname' => 'LBL_TEAMS',
+      'link_class' => 'TeamSetLink',
+      'link_file' => 'modules/Teams/TeamSetLink.php',
+      'studio' => 'false',
+      'reportable' => false,
+    ),
     'id' => 
     array (
       'name' => 'id',
@@ -23,18 +145,6 @@
       'type' => 'datetime',
       'required' => true,
       'comment' => 'Date record created',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_entered' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'date_modified' => 
     array (
@@ -43,18 +153,6 @@
       'type' => 'datetime',
       'required' => true,
       'comment' => 'Date record last modified',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_modified' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'assigned_user_id' => 
     array (
@@ -64,19 +162,6 @@
       'isnull' => false,
       'reportable' => false,
       'comment' => 'User ID that last modified record',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'assigned_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_ASSIGNED_TO_ME',
-          ),
-        ),
-      ),
     ),
     'assigned_user_name' => 
     array (
@@ -103,20 +188,6 @@
       'reportable' => true,
       'dbType' => 'id',
       'comment' => 'User ID that last modified record',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'modified_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'modified_by_name' => 
     array (
@@ -141,20 +212,6 @@
       'len' => '36',
       'reportable' => false,
       'comment' => 'User name who created record',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'created_by' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_CREATED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'created_by_name' => 
     array (
@@ -236,11 +293,6 @@
       'type' => 'varchar',
       'vname' => 'description',
       'source' => 'non-db',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-      ),
     ),
     'date_sent' => 
     array (
@@ -273,11 +325,6 @@
       'required' => false,
       'len' => '255',
       'comment' => 'The subject of the email',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-      ),
     ),
     'type' => 
     array (
@@ -368,35 +415,25 @@
     'parent_name' => 
     array (
       'name' => 'parent_name',
-      'parent_type' => 'record_type_display',
-      'type_name' => 'parent_type',
-      'id_name' => 'parent_id',
-      'vname' => 'LBL_LIST_RELATED_TO',
-      'type' => 'parent',
-      'group' => 'parent_name',
+      'type' => 'varchar',
       'reportable' => false,
       'source' => 'non-db',
-      'options' => 'parent_type_display',
     ),
     'parent_type' => 
     array (
       'name' => 'parent_type',
-      'vname' => 'LBL_PARENT_TYPE',
-      'type' => 'parent_type',
-      'dbType' => 'varchar',
-      'group' => 'parent_name',
-      'options' => 'parent_type_display',
+      'type' => 'varchar',
       'reportable' => false,
-      'comment' => 'Identifier of Sugar module to which this email is associated',
+      'len' => 100,
+      'comment' => 'Identifier of Sugar module to which this email is associated (deprecated as of 4.2)',
     ),
     'parent_id' => 
     array (
       'name' => 'parent_id',
-      'vname' => 'LBL_PARENT_ID',
       'type' => 'id',
-      'group' => 'parent_name',
+      'len' => '36',
       'reportable' => false,
-      'comment' => 'ID of Sugar object referenced by parent_type',
+      'comment' => 'ID of Sugar object referenced by parent_type (deprecated as of 4.2)',
     ),
     'accounts' => 
     array (
@@ -507,7 +544,7 @@
       'module' => 'RevenueLineItems',
       'bean_name' => 'RevenueLineItem',
       'source' => 'non-db',
-      'workflow' => true,
+      'workflow' => false,
     ),
     'products' => 
     array (
@@ -559,128 +596,42 @@
       'bean_name' => 'Meeting',
       'source' => 'non-db',
     ),
-    'team_id' => 
-    array (
-      'name' => 'team_id',
-      'vname' => 'LBL_TEAM_ID',
-      'group' => 'team_name',
-      'reportable' => false,
-      'dbType' => 'id',
-      'type' => 'team_list',
-      'audited' => true,
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'Team ID for the account',
-    ),
-    'team_set_id' => 
-    array (
-      'name' => 'team_set_id',
-      'rname' => 'id',
-      'id_name' => 'team_set_id',
-      'vname' => 'LBL_TEAM_SET_ID',
-      'type' => 'id',
-      'audited' => true,
-      'studio' => 'false',
-      'dbType' => 'id',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'team_count' => 
-    array (
-      'name' => 'team_count',
-      'rname' => 'team_count',
-      'id_name' => 'team_id',
-      'vname' => 'LBL_TEAMS',
-      'join_name' => 'ts1',
-      'table' => 'teams',
-      'type' => 'relate',
-      'required' => 'true',
-      'isnull' => 'true',
-      'module' => 'Teams',
-      'link' => 'team_count_link',
-      'massupdate' => false,
-      'dbType' => 'int',
-      'source' => 'non-db',
-      'importable' => 'false',
-      'reportable' => false,
-      'duplicate_merge' => 'disabled',
-      'duplicate_on_record_copy' => 'always',
-      'studio' => 'false',
-      'hideacl' => true,
-    ),
-    'team_name' => 
-    array (
-      'name' => 'team_name',
-      'db_concat_fields' => 
-      array (
-        0 => 'name',
-        1 => 'name_2',
-      ),
-      'sort_on' => 'tj.name',
-      'join_name' => 'tj',
-      'rname' => 'name',
-      'id_name' => 'team_id',
-      'vname' => 'LBL_TEAMS',
-      'type' => 'relate',
-      'required' => 'true',
-      'table' => 'teams',
-      'isnull' => 'true',
-      'module' => 'Teams',
-      'link' => 'team_link',
-      'massupdate' => true,
-      'dbType' => 'varchar',
-      'source' => 'non-db',
-      'len' => 36,
-      'custom_type' => 'teamset',
-      'studio' => 
-      array (
-        'portallistview' => false,
-        'portalrecordview' => false,
-      ),
-      'duplicate_on_record_copy' => 'always',
-      'exportable' => true,
-    ),
-    'team_link' => 
-    array (
-      'name' => 'team_link',
-      'type' => 'link',
-      'relationship' => 'emails_team',
-      'vname' => 'LBL_TEAMS_LINK',
-      'link_type' => 'one',
-      'module' => 'Teams',
-      'bean_name' => 'Team',
-      'source' => 'non-db',
-      'duplicate_merge' => 'disabled',
-      'studio' => 'false',
-    ),
-    'team_count_link' => 
-    array (
-      'name' => 'team_count_link',
-      'type' => 'link',
-      'relationship' => 'emails_team_count_relationship',
-      'link_type' => 'one',
-      'module' => 'Teams',
-      'bean_name' => 'TeamSet',
-      'source' => 'non-db',
-      'duplicate_merge' => 'disabled',
-      'reportable' => false,
-      'studio' => 'false',
-    ),
-    'teams' => 
-    array (
-      'name' => 'teams',
-      'type' => 'link',
-      'relationship' => 'emails_teams',
-      'bean_filter_field' => 'team_set_id',
-      'rhs_key_override' => true,
-      'source' => 'non-db',
-      'vname' => 'LBL_TEAMS',
-      'link_class' => 'TeamSetLink',
-      'link_file' => 'modules/Teams/TeamSetLink.php',
-      'studio' => 'false',
-      'reportable' => false,
-    ),
   ),
   'relationships' => 
   array (
+    'emails_team_count_relationship' => 
+    array (
+      'lhs_module' => 'Teams',
+      'lhs_table' => 'team_sets',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Emails',
+      'rhs_table' => 'emails',
+      'rhs_key' => 'team_set_id',
+      'relationship_type' => 'one-to-many',
+    ),
+    'emails_teams' => 
+    array (
+      'lhs_module' => 'Emails',
+      'lhs_table' => 'emails',
+      'lhs_key' => 'team_set_id',
+      'rhs_module' => 'Teams',
+      'rhs_table' => 'teams',
+      'rhs_key' => 'id',
+      'relationship_type' => 'many-to-many',
+      'join_table' => 'team_sets_teams',
+      'join_key_lhs' => 'team_set_id',
+      'join_key_rhs' => 'team_id',
+    ),
+    'emails_team' => 
+    array (
+      'lhs_module' => 'Teams',
+      'lhs_table' => 'teams',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Emails',
+      'rhs_table' => 'emails',
+      'rhs_key' => 'team_id',
+      'relationship_type' => 'one-to-many',
+    ),
     'emails_assigned_user' => 
     array (
       'lhs_module' => 'Users',
@@ -806,42 +757,18 @@
       'rhs_key' => 'parent_id',
       'relationship_type' => 'one-to-many',
     ),
-    'emails_team_count_relationship' => 
-    array (
-      'lhs_module' => 'Teams',
-      'lhs_table' => 'team_sets',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Emails',
-      'rhs_table' => 'emails',
-      'rhs_key' => 'team_set_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'emails_teams' => 
-    array (
-      'lhs_module' => 'Emails',
-      'lhs_table' => 'emails',
-      'lhs_key' => 'team_set_id',
-      'rhs_module' => 'Teams',
-      'rhs_table' => 'teams',
-      'rhs_key' => 'id',
-      'relationship_type' => 'many-to-many',
-      'join_table' => 'team_sets_teams',
-      'join_key_lhs' => 'team_set_id',
-      'join_key_rhs' => 'team_id',
-    ),
-    'emails_team' => 
-    array (
-      'lhs_module' => 'Teams',
-      'lhs_table' => 'teams',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Emails',
-      'rhs_table' => 'emails',
-      'rhs_key' => 'team_id',
-      'relationship_type' => 'one-to-many',
-    ),
   ),
   'indices' => 
   array (
+    'team_set_emails' => 
+    array (
+      'name' => 'idx_emails_tmst_id',
+      'type' => 'index',
+      'fields' => 
+      array (
+        0 => 'team_set_id',
+      ),
+    ),
     0 => 
     array (
       'name' => 'emailspk',
@@ -889,15 +816,6 @@
         2 => 'status',
       ),
     ),
-    'team_set_emails' => 
-    array (
-      'name' => 'idx_emails_tmst_id',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'team_set_id',
-      ),
-    ),
   ),
   'name_format_map' => 
   array (
@@ -914,8 +832,8 @@
   array (
     'team_security' => 'team_security',
   ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

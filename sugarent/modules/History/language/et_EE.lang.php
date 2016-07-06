@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,12 +10,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
- 
-// $Id: en_us.lang.php 55130 2010-03-08 20:46:39Z jmertic $
 
+
+
+
+
+
+	
 $mod_strings = array (
+  'NTC_NONE_SCHEDULED' => 'Pole planeeritud.',
+  'LBL_COLON' => ':',
+  'LBL_TODAY' => 'through ',
+  'LBL_NEW_TASK_BUTTON_KEY' => 'N',
+  'LBL_SCHEDULE_MEETING_BUTTON_KEY' => 'M',
+  'LBL_SCHEDULE_CALL_BUTTON_KEY' => 'C',
+  'LBL_NEW_NOTE_BUTTON_KEY' => 'T',
+  'LBL_TRACK_EMAIL_BUTTON_KEY' => 'K',
+  'NTC_NONE' => 'None',
   'LBL_MODULE_NAME' => 'Ajalugu',
-  'LBL_MODULE_NAME_SINGULAR' => 'Ajalugu',
   'LBL_MODULE_TITLE' => 'Ajalugu: Avaleht',
   'LBL_SEARCH_FORM_TITLE' => 'Ajaloo otsing',
   'LBL_LIST_FORM_TITLE' => 'Ajalugu',
@@ -37,7 +49,6 @@ $mod_strings = array (
   'LBL_MEETING' => 'Kohtumine:',
   'LBL_DESCRIPTION_INFORMATION' => 'Kirjelduse info',
   'LBL_DESCRIPTION' => 'Kirjeldus.',
-  'LBL_COLON' => ':',
   'LBL_DEFAULT_STATUS' => 'Kavandatud',
   'LNK_NEW_CALL' => 'Kõne logi',
   'LNK_NEW_MEETING' => 'Planeeri kohtumine',
@@ -59,38 +70,30 @@ $mod_strings = array (
   'LBL_OPEN_ACTIVITIES' => 'Avatud tegevused',
   'LBL_HISTORY' => 'Ajalugu',
   'LBL_UPCOMING' => 'Minu tulevased kohtumised',
-  'LBL_TODAY' => 'through ',
   'LBL_NEW_TASK_BUTTON_TITLE' => 'Loo ülesanne [Alt+N]',
-  'LBL_NEW_TASK_BUTTON_KEY' => 'N',
   'LBL_NEW_TASK_BUTTON_LABEL' => 'Loo ülesanne',
   'LBL_SCHEDULE_MEETING_BUTTON_TITLE' => 'Planeeri kohtumine [Alt+M]',
-  'LBL_SCHEDULE_MEETING_BUTTON_KEY' => 'M',
   'LBL_SCHEDULE_MEETING_BUTTON_LABEL' => 'Planeeri kohtumine',
   'LBL_SCHEDULE_CALL_BUTTON_TITLE' => 'Telefonikõne log [Alt+C]',
-  'LBL_SCHEDULE_CALL_BUTTON_KEY' => 'C',
   'LBL_SCHEDULE_CALL_BUTTON_LABEL' => 'Kõne logi',
   'LBL_NEW_NOTE_BUTTON_TITLE' => 'Loo märkus või manus [Alt+T]',
-  'LBL_NEW_NOTE_BUTTON_KEY' => 'T',
   'LBL_NEW_NOTE_BUTTON_LABEL' => 'Loo märkus või manus',
   'LBL_TRACK_EMAIL_BUTTON_TITLE' => 'Arhiveeri e-kiri [Alt+K]',
-  'LBL_TRACK_EMAIL_BUTTON_KEY' => 'K',
   'LBL_TRACK_EMAIL_BUTTON_LABEL' => 'Arhiveeri e-kiri',
   'LBL_LIST_STATUS' => 'Olek',
   'LBL_LIST_DUE_DATE' => 'Tähtaeg',
   'LBL_LIST_LAST_MODIFIED' => 'Viimati muudetud',
-  'NTC_NONE_SCHEDULED' => 'Pole planeeritud.',
-  'appointment_filter_dom' => array(
-  	 'today' => 'täna'
-  	,'tomorrow' => 'homme'
-  	,'this Saturday' => 'sel nädalal'
-  	,'next Saturday' => 'järgmisel nädalal'
-  	,'last this_month' => 'sel kuul'
-  	,'last next_month' => 'järgmisel kuul'
+  'LNK_IMPORT_NOTES' => 'Impordi märkused',
+  'LBL_ACCEPT_THIS' => 'Kinnitada?',
+  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Ajalugu',
+  'appointment_filter_dom' => 
+  array (
+    'today' => 'täna',
+    'tomorrow' => 'homme',
+    'this Saturday' => 'sel nädalal',
+    'next Saturday' => 'järgmisel nädalal',
+    'last this_month' => 'sel kuul',
+    'last next_month' => 'järgmisel kuul',
   ),
-  'LNK_IMPORT_NOTES'=>'Impordi märkused',
-  'NTC_NONE'=>'None',
-	'LBL_ACCEPT_THIS'=>'Kinnitada?',
-	'LBL_DEFAULT_SUBPANEL_TITLE' => 'Ajalugu',
 );
 
-?>

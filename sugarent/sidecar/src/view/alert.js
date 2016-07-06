@@ -16,7 +16,7 @@
  * by key. This is useful so that client code can dismiss a particular alert.
  *
  * Note that the client application may provide custom implementation of {@link View.AlertView} class.
- * This implementation will be in charge of rendering the alert to its UI.
+ * This implementation will be in charge of rendering the alert to it's UI.
  *
  * At minimum, a client app's must provide:
  *
@@ -47,7 +47,7 @@
              * The default value is `$('#alerts')`. Override using {@link Config#alertsEl} setting.
              * @property {Object}
              */
-            this.$alerts = $('#alerts');
+            this.$alerts = $(app.config.alertsEl || '#alerts');
 
             /**
              * Alert view class.
@@ -57,25 +57,11 @@
              * exists, it will be used instead.
              * @property {Function}
              */
-            this.klass = app.view.AlertView;
-
-            if (app.config) {
-                this.$alerts = $(app.config.alertsEl).length ? $(app.config.alertsEl) : this.$alerts;
-
-                this.klass = app.view[app.utils.capitalize(app.config.appId) + "AlertView"] ||
+            this.klass = app.view[app.utils.capitalize(app.config.appId) + "AlertView"] ||
                 app.view.views[app.utils.capitalize(app.config.platform) + 'AlertView'] ||
-                app.view.views.BaseAlertView ||
+                app.view.views['BaseAlertView'] ||
                 app.view[app.utils.capitalize(app.config.platform) + "AlertView"] ||
-                this.klass;
-            }
-
-            // Check for existing alerts and convert them into AlertView.
-            _.each(this.$alerts.find('.alert-wrapper'), function(el, i) {
-                var key = 'init-' + i;
-                if (!_alerts[key]) {
-                    _alerts[key] = this._create(key, {el: el});
-                }
-            }, this);
+                app.view.AlertView;
         },
 
         /**
@@ -112,20 +98,17 @@
          *
          * </code></pre>
          *
-         * @param {Object} options(optional) The options below are handled by
-         *   the framework. The base application {@link View.Views.Base.AlertView#initialize AlertView}
-         *   defines more options for specific behaviors.
+         * @param {Object} options(optional)
          *
-         * @param {string} options.level: alert level. `alert-[level]` class
-         *   will be added to the alert view.
-         * @param {boolean} options.autoClose: boolean flag indicating if the
-         *   alert must be closed after dismiss delay: See
-         *   {@link Config#alertAutoCloseDelay} setting.
-         * @param {string} options.messages: string or array of string messages.
-         *   This parameter is normalized to array before rendering alerts.
-         * @param {string} options.title: the title of the alert, it's displayed
-         *   in bold.
+         * The options are framework as well as application specific.
+         *
+         * - level: alert level. `alert-[level]` class will be added to the alert view.
+         * - autoClose: boolean flag indicating if the alert must be closed after dismiss delay: See {@link Config#alertAutoCloseDelay} setting.
+         * - closeable: boolean flag indicating if the alert can be closed by the user. Note that non-"info" alerts are closeable
+         * by default if this setting is not specified. Framework attaches click event handler if this flag is true.
+         * - messages: string or array of string messages. This parameter is normalized to array before rendering alerts.
          * @return {View.AlertView} Alert instance.
+         * @method
          */
         show: function(key, options) {
             if (!this.$alerts || this.$alerts.length == 0) return null;
@@ -140,6 +123,11 @@
             if (options.level === 'confirmation') {
                 this.dismissAll();
                 this.preventAnyAlert = true;
+            }
+
+            if (_.isUndefined(options.closeable)) {
+                // Success, error, warning alerts can be closed by users
+                options.closeable = options.level != 'info';
             }
 
             if (options.messages) {
@@ -158,7 +146,19 @@
             // Initialize autoclose timer
             if (!!options.autoClose) this._setAutoCloseTimer(alert, options.onAutoClose, options.autoCloseDelay);
 
-            alert.render();
+            alert.render(options);
+
+            // Attach 'click' handler if the alert can be closed
+            if (options.closeable) {
+                var button = alert.getCloseSelector();
+                button.off('click');
+                button.on('click', _.bind(function() {
+                    this.dismiss(key);
+                }, this));
+                if (app.accessibility) {
+                    app.accessibility.run(button, 'click');
+                }
+            }
 
             return alert;
         },
@@ -242,6 +242,9 @@
         }
     };
 
+    app.augment("alert", _alert, false);
+
+
     /**
      * Base class for alerts.
      *
@@ -273,37 +276,54 @@
      * @class View.AlertView
      * @alias SUGAR.App.view.AlertView
      */
-    app.view.AlertView = app.view.Component.extend({
+    app.view.AlertView = app.view.View.extend({
+
+        /**
+         * CSS class name.
+         */
+        className: "alert",
 
         /**
          * Name of the default template.
          */
-        tpl: '<div class="alert alert-block">{{#if title}}<strong>{{title}}</strong>{{/if}}{{#each messages}}{{./this}}{{/each}}</div>',
+        tpl: "alert",
 
         /**
          * Closes an alert.
-         *
-         * @deprecated since 7.7 please use {@link #dispose}.
          */
         close: function() {
-            this.remove();
+            this.getCloseSelector().off('click');
+            this.$el.remove();
+        },
+
+        /**
+         * Gets selector for DOM elements that need to be clicked in order to close an alert.
+         * @return {Object} jQuery/Zepto selector of the close button.
+         */
+        getCloseSelector: function() {
+            return this.$('.close');
         },
 
         /**
          * Renders an alert.
          *
-         * The method executes a pre-compiled template and replaces the inner
-         * HTML of this view root DOM element.
-         * Additionally, `alert-[level]` class is added to the root element.
+         * The method executes a pre-compiled template and replaces the inner HTML of this view root DOM element.
+         * Additionally, `alert-[level]` class is added to the root element and `closeable` class if this alert
+         * supports close button.
+         * @param options(optional) Options are used as the context for alert template.
          */
-        render: function() {
-            var tpl = Handlebars.compile(this.tpl);
-            this.$el.html(tpl(this.options));
-            this.$('.alert').addClass('alert-' + this.options.level);
+        render: function(options) {
+            options = options || {};
+            if (options.closeable) {
+                this.$el.addClass("closeable");
+            }
+            this.$el.addClass("alert-" + options.level);
+
+            var tpl = app.template.get(options.tpl || this.tpl) || app.template.empty;
+            this.$el.html(tpl(options));
         }
 
     });
 
-    app.augment("alert", _alert, true);
 
 })(SUGAR.App);

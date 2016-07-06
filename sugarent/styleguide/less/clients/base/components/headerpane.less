@@ -57,9 +57,6 @@
           left: 20px;
         }
       }
-      &:last-of-type {
-        width: 100%;
-      }
       .record-cell {
         white-space: nowrap;
         overflow: hidden;
@@ -79,13 +76,6 @@
         padding-top: 0;
         margin-top: -4px;
       }
-
-      &[data-type="label"] {
-        padding-right: 0;
-        &+ [data-type="collection-count"] {
-          padding-left: 5px;
-        }
-      }
     }
   }
 
@@ -96,11 +86,6 @@
   .table-cell-wrapper {
     position: relative;
     display: inline-block;
-  }
-
-  .count {
-    white-space: nowrap;
-    min-width: 103px;
   }
 
   .record-edit-link-wrapper {
@@ -126,10 +111,6 @@
     .record-label {
       display: block;
     }
-  }
-
-  span[data-type="label"] .ellipsis_inline {
-    padding: 0;
   }
 
   span[data-type="image"],
@@ -162,6 +143,36 @@
   span[data-type="name"] .table-cell-wrapper {
     width: 100%;
   }
+  span[data-type="fullname"] {
+    .index {
+      display: table;
+      > .detail,
+      > .edit {
+        display: table-row;
+        .record-cell {
+          display: table-cell;
+        }
+      }
+    }
+    span[data-type="enum"] {
+      width: 20%;
+    }
+    span[data-type="text"] {
+      width: 40%;
+      .record-label {
+        left: 7px;
+      }
+      input[type="text"] {
+        margin: 0px 0 0;
+      }
+    }
+    &.edit {
+      padding-left: 5px;
+    }
+    .detail .record-cell {
+      max-width: 180px;
+    }
+  }
 
   span[data-type="enum"],
   span[data-type="relate"] {
@@ -193,38 +204,30 @@
 
   span[data-type="follow"],
   span[data-type="badge"],
-  span[data-type="badge-select"],
   span[data-type="event-status"],
-  span[data-type="status"] {
-    padding: 19px 16px 0 0;
-    line-height: @fontSizeMini;
-    &:not(.edit) .label {
-      font-weight: 500;
-      font-size: @fontSizeMini;
-      line-height: @fontSizeMini;
-      min-width: 50px;
-      padding: 3px 6px 5px;
-      margin-top: 0px;
-    }
+  span[data-type="badge-select"] {
+    padding: 18px 16px 0 0;
+    line-height: 20px;
   }
   span[data-type="badge-select"],
-  span[data-type="event-status"],
-  span[data-type="status"] {
+  span[data-type="event-status"] {
     .record-label {
       padding-left: 1px;
     }
-    .select2-container .select2-choice {
+    .select2-choice {
       border: 1px solid transparent;
       background-image: none;
       background-color: transparent;
       padding-left: 0;
       .box-shadow(none);
     }
+    .index .label {
+      font-weight: normal;
+    }
   }
   h1 > .record-cell.edit {
     &[data-type="badge-select"],
-    &[data-type="event-status"],
-    &[data-type="status"] {
+    &[data-type="event-status"] {
       padding: 2px 11px 0 0;
     }
   }

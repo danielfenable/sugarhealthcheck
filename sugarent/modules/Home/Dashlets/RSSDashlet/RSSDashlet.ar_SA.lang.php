@@ -21,7 +21,7 @@ $dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'موجز الأ
                                          'LBL_AUTO_SCROLL'      => 'تمرير تلقائي',
                                           'LBL_SCROLL_SPEED'      => 'سرعة التمرير (%)',
                                          'LBL_CONFIGURE_TITLE'  => 'العنوان',
-                                         'LBL_CONFIGURE_HEIGHT' => 'الارتفاع (1 - 300)',
+                                         'LBL_CONFIGURE_HEIGHT' => 'الارتفاع (1 إلى 300)',
                                          'LBL_CONFIGURE_RSSURL' => 'عنوان URL الخاص بـ RSS',
                                          'LBL_DBLCLICK_HELP'    => '',
                                          'ERR_LOADING_FEED'     => 'فشل تحميل تغذية RSS',

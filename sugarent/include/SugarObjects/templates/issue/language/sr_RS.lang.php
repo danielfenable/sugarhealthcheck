@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,40 +12,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-
-  'LBL_NAME' =>'Ime',
-  'LBL_NUMBER' => 'Broj:',
-  'LBL_STATUS' => 'Status:',
-  'LBL_PRIORITY' => 'Prioritet:',
-  'LBL_DESCRIPTION' => 'Opis:',
-  'LBL_RESOLUTION' => 'Rezolucija',
-  'LBL_LAST_MODIFIED' => 'Poslednja izmena',
-  'LBL_ASSIGNED_TO_ID'=>'Dodeljeno:',
-  'LBL_ASSIGNED_TO_NAME' => 'Korisnik:',  	  
-  'LBL_WORK_LOG' => 'Dnevnik rada:',
+  'LBL_ASSIGNED_TO_ID' => 'Dodeljeno:',
+  'LBL_ASSIGNED_TO_NAME' => 'Korisnik:',
+  'LBL_ASSIGNED_USER' => 'Dodeljen korisnik:',
+  'LBL_ASSIGNED_USER_NAME' => 'Dodeljeno',
   'LBL_CREATED_BY' => 'Autor:',
   'LBL_DATE_CREATED' => 'Datum kreiranja:',
   'LBL_DATE_ENTERED' => 'Datum kreiranja:',
-  'LBL_DATE_MODIFIED'=>'Datum izmene:',
+  'LBL_DATE_MODIFIED' => 'Datum izmene:',
+  'LBL_DESCRIPTION' => 'Opis:',
+  'LBL_EDIT_BUTTON' => 'Izmeni',
+  'LBL_LAST_MODIFIED' => 'Poslednja izmena',
   'LBL_MODIFIED_BY' => 'Promenio:',
-  'LBL_ASSIGNED_USER' => 'Dodeljen korisnik:',
-  'LBL_ASSIGNED_USER_NAME' => 'Dodeljeno',
-  'LBL_SYSTEM_ID' =>'ID broj sistema:',
-  'LBL_TEAM_NAME' =>'Ime tima:',
-  'LBL_TYPE'=>'Tip:',
+  'LBL_NAME' => 'Ime',
+  'LBL_NUMBER' => 'Broj:',
+  'LBL_PRIORITY' => 'Prioritet:',
+  'LBL_REMOVE' => 'Ukloni',
+  'LBL_RESOLUTION' => 'Rezolucija',
+  'LBL_STATUS' => 'Status:',
   'LBL_SUBJECT' => 'Naslov:',
+  'LBL_SYSTEM_ID' => 'ID broj sistema:',
+  'LBL_TEAM_NAME' => 'Ime tima:',
+  'LBL_TYPE' => 'Tip:',
+  'LBL_WORK_LOG' => 'Dnevnik rada:',
+);
 
-    'LBL_EDIT_BUTTON' => 'Izmeni',
-    'LBL_REMOVE' => 'Ukloni',
-
-  
-  );

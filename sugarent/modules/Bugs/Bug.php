@@ -72,16 +72,14 @@ class Bug extends SugarBean {
 									'call_id'=>'calls', 'email_id'=>'emails');
 
     /**
-     * This is deprecated since 7.7.0 and will be removed in 7.9.0.
-     * Please use __construct() instead.
-     * @deprecated 7.7.0
+     * This is a depreciated method, please start using __construct() as this method will be removed in a future version
+     *
      * @see __construct
+     * @deprecated
      */
     public function Bug()
     {
         self::__construct();
-        $GLOBALS['log']->deprecated('Bug::Bug() is deprecated since 7.7.0. and will be removed in 7.9.0. ' .
-            'Please use Bug::__construct() instead.');
     }
 
     public function __construct()
@@ -100,6 +98,10 @@ class Bug extends SugarBean {
     }
 
 	var $new_schema = true;
+
+
+
+
 
 	function get_summary_text()
 	{

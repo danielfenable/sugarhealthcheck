@@ -17,7 +17,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
-
 require_once('data/SugarBean.php');
 
 class TrackerPerf extends SugarBean {
@@ -29,7 +28,6 @@ class TrackerPerf extends SugarBean {
     var $acltype = 'TrackerPerf';
     var $acl_category = 'TrackerPerfs';
     var $disable_custom_fields = true;
-
     var $disable_row_level_security = true;
 
     function bean_implements($interface){

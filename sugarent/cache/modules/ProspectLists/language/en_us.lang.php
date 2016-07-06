@@ -1,13 +1,11 @@
 <?php
-// created: 2016-07-04 12:09:21
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
   'LBL_TEAM' => 'Team',
   'LBL_TEAMS' => 'Teams',
   'LBL_TEAM_ID' => 'Team Id',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_MODULE_NAME' => 'Target Lists',
   'LBL_MODULE_NAME_SINGULAR' => 'Target List',
   'LBL_MODULE_ID' => 'Target Lists',
@@ -72,5 +70,7 @@ To create a {{module_name}}:
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
 2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.
 3. After saving, use the subpanels available on the target\'s record view to add {{campaigns_singular_module}} recipients.',
 );

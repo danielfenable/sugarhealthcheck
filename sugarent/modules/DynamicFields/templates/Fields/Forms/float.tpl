@@ -31,20 +31,8 @@
 	<td class='mbLBL'>{sugar_translate module="DynamicFields" label="COLUMN_TITLE_MAX_SIZE"}:</td>
 	<td>
 	{if $hideLevel < 5}
-		<input type='text' name='len' value='{$vardef.len|default:18}' onchange="changeMaxLength(document.getElementById('default'),this.value);"></td>
-        <script>
-            addToValidate('popup_form', 'len', 'int', false, '{sugar_translate module="DynamicFields" label="COLUMN_TITLE_MAX_SIZE"}' );
-
-            //warn user if default value is greater than max length
-            function changeMaxLength(field, length) {ldelim}
-                field.maxLength = parseInt(length);
-
-                //clear previous max length validation
-                removeFromValidate('popup_form', field.name);
-                //add new max length validation based on specified value
-                addToValidateMaxLength('popup_form', field.name, 'float', false, field.maxLength,  '{sugar_translate module="DynamicFields" label="COLUMN_TITLE_DEFAULT_VALUE"}');
-            {rdelim}
-        </script>
+		<input type='text' name='len' value='{$vardef.len|default:18}'></td>
+		<script>addToValidate('popup_form', 'len', 'int', false,'{sugar_translate module="DynamicFields" label="COLUMN_TITLE_MAX_SIZE"}' );</script>
 	{else}
 		<input type='hidden' name='len' value='{$vardef.len}'>{$vardef.len}
 	{/if}

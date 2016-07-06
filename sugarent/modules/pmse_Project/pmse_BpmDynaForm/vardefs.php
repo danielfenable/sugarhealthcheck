@@ -36,6 +36,10 @@ $dictionary['pmse_BpmDynaForm'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '32',
     'size' => '32',
@@ -58,6 +62,10 @@ $dictionary['pmse_BpmDynaForm'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '36',
     'size' => '36',
@@ -80,6 +88,10 @@ $dictionary['pmse_BpmDynaForm'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '36',
     'size' => '36',
@@ -102,6 +114,10 @@ $dictionary['pmse_BpmDynaForm'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '255',
     'size' => '255',
@@ -123,6 +139,10 @@ $dictionary['pmse_BpmDynaForm'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'size' => '20',
     'rows' => '4',

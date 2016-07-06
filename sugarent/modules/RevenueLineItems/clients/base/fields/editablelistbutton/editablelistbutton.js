@@ -10,4 +10,4 @@
      */
 ({extendsFrom:'EditablelistbuttonField',getCustomSaveOptions:function(options){var origSuccess=options.success;return{success:_.bind(function(){if(_.isFunction(origSuccess)){origSuccess.apply(this,arguments);}
 if(this.model&&!_.isEmpty(this.model.get('quote_id'))){app.alert.show('save_rli_quote_notice',{level:'info',messages:app.lang.get('SAVE_RLI_QUOTE_NOTICE','RevenueLineItems'),autoClose:true});}
-if(this.context.parent){this.context.parent.trigger('editablelist:save',this.model);}},this)};}});
+if(this.context.parent){this.context.parent.trigger('subpanel:reload',{links:['opportunities']});}},this)};}});

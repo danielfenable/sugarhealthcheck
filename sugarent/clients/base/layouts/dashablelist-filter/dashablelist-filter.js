@@ -8,5 +8,5 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({className:'dashablelist-filter',initComponents:function(components,context,module){this._super('initComponents',[components,context,module]);var filterPanelLayout=this.getComponent('filterpanel');if(filterPanelLayout){filterPanelLayout.before('render',this._reinitializeFilterPanel,this);this.listenTo(this.layout,'dashlet:filter:reinitialize',filterPanelLayout.render);}},_reinitializeFilterPanel:function(){var filterPanelLayout=this.getComponent('filterpanel');if(!filterPanelLayout){return;}
+({className:'dashablelist-filter',initialize:function(options){this._super('initialize',[options]);var filterPanelLayout=this.getComponent('filterpanel');if(filterPanelLayout){filterPanelLayout.before('render',this._reinitializeFilterPanel,null,this);this.listenTo(this.layout,'dashlet:filter:reinitialize',filterPanelLayout.render);}},_reinitializeFilterPanel:function(){var filterPanelLayout=this.getComponent('filterpanel');if(!filterPanelLayout){return;}
 var moduleName=this.model.get('module'),id=this.model.get('filter_id');filterPanelLayout.currentModule=moduleName;this.context.set('currentFilterId',id);}})

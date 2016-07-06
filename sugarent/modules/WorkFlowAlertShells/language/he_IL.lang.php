@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,87 +12,58 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'התראות',
-  'LBL_MODULE_NAME_SINGULAR' => 'אזהרה',
-  'LBL_MODULE_TITLE' => 'התראות: דף הבית',
-  'LBL_MODULE_SECTION_TITLE' => 'פעולות אלה יבוצעו',
-  'LBL_SEARCH_FORM_TITLE' => 'חיפוש התראת זרימת עבודה',
-  'LBL_LIST_FORM_TITLE' => 'רשימת התראה',
-  'LBL_NEW_FORM_TITLE' => 'צור התראת זרימת עבודה',
-  'LBL_LIST_NAME' => 'שם',
-  'LBL_LIST_ALERT_TYPE' => 'סוג התראה',
-  'LBL_LIST_ALERT_TEXT' => 'הודעת התראה',
-  'LBL_CUSTOM_TEMPLATE_NAME' => 'התאם אישית את התבנית',
-  'LBL_NAME' => 'שם:',
-  'LBL_ALERT_TEXT' => 'טקסט התראה:',
-  'LBL_ALERT_TYPE' => 'סוג התראה:',
-  'LBL_SOURCE_TYPE' => 'סוג מקור:',
+  'ERR_DELETE_RECORD' => 'A record number must be specified to delete the product.',
+  'LBL_ALERT_ERRORS' => 'Notice: One or more alerts below contains errors.',
+  'LBL_ALERT_TEXT' => 'Alert Text:',
+  'LBL_ALERT_TYPE' => 'Alert Type:',
+  'LBL_ALL_REPORTS' => 'All Reports',
+  'LBL_CUSTOM_TEMPLATE_NAME' => 'Custom Template',
+  'LBL_LIST_ALERT_TEXT' => 'Alert Msg',
+  'LBL_LIST_ALERT_TYPE' => 'Alert Type',
+  'LBL_LIST_COMPONENTS' => 'Components',
+  'LBL_LIST_DETAILS' => 'Details',
+  'LBL_LIST_FORM_TITLE' => 'Alert List',
+  'LBL_LIST_NAME' => 'Name',
+  'LBL_LIST_STATEMENT' => 'Event Description:',
   'LBL_LIST_TYPE' => 'Type:',
-  'LBL_LIST_DETAILS' => 'פרטים',
-  
-  'LNK_NEW_WORKFLOW' => 'צור הגדרת זרימת עבודה',
-  'LNK_WORKFLOW' => 'ערוך רשימת הגדרות זרימת עבודה',   
-  
-  'LBL_PARENT_WORKFLOW' => 'אובייקט אב של זרימת העבודה:',
-  'LBL_RETURN_TO_WORKFLOW' => 'חזור להגדרת זרימת עבודה',
-  
-  'NTC_REMOVE_ALERT' => 'האם אתה בטוח שברצונך להסיר התראה זו וכל הנמענים שלה?',
-  
-  
-  'LBL_LIST_STATEMENT' => 'תיאור האירוע:',
-  
-  
-  	'STATEMENT_PART1' => 'שלח',
-	'STATEMENT_PART2' => 'באמצעות',
-  ////////////Old stuff below, eventually move or rename or delete
-  
-  
-  'LNK_LIST_REPORTMAKER' => 'דווח על הרשימה',
-  'LNK_NEW_REPORTMAKER' => 'צור דוח חדש',
-  'LNK_LIST_DATASET' => 'רשימת ערכת הנתונים',
-  'LNK_NEW_DATASET' => 'צור ערכת נתונים',
-
-  'LNK_NEW_QUERYBUILDER' => 'צור שאילתה',
-  'LNK_QUERYBUILDER' => 'בונה שאילתה',
-  'LBL_ALL_REPORTS' => 'כל הדוחות',
-  
-  'NTC_DELETE_CONFIRMATION' => 'אתה בטוח בשברצונך למחוק רשומה זו?',
-  'ERR_DELETE_RECORD' => 'כדי למחוק את המוצר עליך להזין את מספר הרשומה.',
-  
-  //Sub panel combo list view
-  
-	'LBL_NEW_BUTTON_LABEL_ALERT' => 'צור התראה',
-	'LBL_NEW_BUTTON_KEY_ALERT' => 'A',
-	'LBL_NEW_BUTTON_TITLE_ALERT' => 'צור התראה',
-	'LBL_NEW_BUTTON_LABEL_ACTION' => 'צור פעולה',
-	'LBL_NEW_BUTTON_KEY_ACTION' => 'C',
-	'LBL_NEW_BUTTON_TITLE_ACTION' => 'צור פעולה',
-	'LBL_MODULE_NAME_COMBO' => 'התראות',
-	'LBL_MODULE_NAME_SINGULAR_COMBO' => 'אזהרה',
-	
- 	'LNK_ALERT_TEMPLATES' => 'Alert Templates',
-	'LNK_PROCESS_VIEW' => 'סדר ביצוע זרימת העבודה',
-	'LBL_LIST_COMPONENTS' => 'רכיבים',
-	'LBL_RECIPIENTS' => 'נמענים',
-	
-	
-	//Invite Labels
-	'LBL_MODULE_TITLE_INVITE' => 'הזמן אנשים',
-	'LBL_SHOW' => 'Show',
-    
-  'LBL_RECIPIENT_ERROR'=>'נמען זה מכיל שגיאות ולא ניתן לשימוש.',
-  'LBL_ALERT_ERRORS'=>'שים לב: אחד או יותר מההתראות שלהלן מכיל שגיאות.',
-	
+  'LBL_MODULE_NAME' => 'Alerts',
+  'LBL_MODULE_NAME_COMBO' => 'Alerts',
+  'LBL_MODULE_NAME_SINGULAR' => 'אזהרה',
+  'LBL_MODULE_NAME_SINGULAR_COMBO' => 'אזהרה',
+  'LBL_MODULE_SECTION_TITLE' => 'These operations will be performed',
+  'LBL_MODULE_TITLE' => 'Alerts: Home',
+  'LBL_MODULE_TITLE_INVITE' => 'Invite People',
+  'LBL_NAME' => 'Name:',
+  'LBL_NEW_BUTTON_KEY_ACTION' => 'C',
+  'LBL_NEW_BUTTON_KEY_ALERT' => 'A',
+  'LBL_NEW_BUTTON_LABEL_ACTION' => 'Create Action',
+  'LBL_NEW_BUTTON_LABEL_ALERT' => 'Create Alert',
+  'LBL_NEW_BUTTON_TITLE_ACTION' => 'Create Action [Alt+C]',
+  'LBL_NEW_BUTTON_TITLE_ALERT' => 'Create Alert [Alt+A]',
+  'LBL_NEW_FORM_TITLE' => 'Create Workflow Alert',
+  'LBL_PARENT_WORKFLOW' => 'Parent Workflow Object:',
+  'LBL_RECIPIENTS' => 'Recipients',
+  'LBL_RECIPIENT_ERROR' => 'This recipient contains errors and connot be used.',
+  'LBL_RETURN_TO_WORKFLOW' => 'Return to Workflow Definition',
+  'LBL_SEARCH_FORM_TITLE' => 'Workflow Alert Search',
+  'LBL_SHOW' => 'Show',
+  'LBL_SOURCE_TYPE' => 'Source Type:',
+  'LNK_ALERT_TEMPLATES' => 'Alert Templates',
+  'LNK_LIST_DATASET' => 'Data Set List',
+  'LNK_LIST_REPORTMAKER' => 'Report List',
+  'LNK_NEW_DATASET' => 'Create Data Set',
+  'LNK_NEW_QUERYBUILDER' => 'Create Query',
+  'LNK_NEW_REPORTMAKER' => 'Create New Report',
+  'LNK_NEW_WORKFLOW' => 'Create Workflow Definition',
+  'LNK_PROCESS_VIEW' => 'Workflow Execution Order',
+  'LNK_QUERYBUILDER' => 'Query Builder',
+  'LNK_WORKFLOW' => 'List Workflow Definitions',
+  'NTC_DELETE_CONFIRMATION' => 'Are you sure you want to delete this record?',
+  'NTC_REMOVE_ALERT' => 'Are you sure you want to remove this alert and all its recipients?',
+  'STATEMENT_PART1' => 'Send',
+  'STATEMENT_PART2' => 'using a',
 );
 
-
-?>

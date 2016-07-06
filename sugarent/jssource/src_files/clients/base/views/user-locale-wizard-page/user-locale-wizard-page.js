@@ -21,15 +21,14 @@
     TIME_PREF_KEY: 'timepref',
     DATE_PREF_KEY: 'datepref',
     NAME_FORMAT_KEY: 'default_locale_name_format',
-
     /**
      * @override
      * @param options
      */
     initialize: function(options) {
         var self = this;
-        options.template = app.template.getView('wizard-page');
-        this._super('initialize', [options]);
+        options.template = app.template.getView("wizard-page");
+        this._super("initialize", [options]);
         // Preset the user prefs for formats
         if (this.model) {
             this.model.set(this.TIME_ZONE_KEY, (app.user.getPreference(this.TIME_ZONE_KEY) || ''));
@@ -37,9 +36,7 @@
             this.model.set(this.DATE_PREF_KEY, (app.user.getPreference(this.DATE_PREF_KEY) || ''));
             this.model.set(this.NAME_FORMAT_KEY, (app.user.getPreference(this.NAME_FORMAT_KEY) || ''));
         }
-        this.action = 'edit';
     },
-
     _render: function(){
         var self = this;
         // Prepare the metadata so we can prefetch select2 locale options
@@ -52,7 +49,6 @@
     },
     _prepareFields: function(callback) {
         var self = this;
-        // Fixme this doesn't belong in user. See TY-526.
         app.user.loadLocale(function(localeOptions) {
             // Populate each field def of type enum with returned locale options and use user's pref as displayed
             _.each(self.meta.panels[0].fields, function(fieldDef) {

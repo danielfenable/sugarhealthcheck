@@ -15,7 +15,7 @@
  */
 ({
     extendsFrom: 'FlexListView',
-    plugins: ['ListColumnEllipsis', 'ListRemoveLinks', 'Pagination', 'MassCollection'],
+    plugins: ['ListColumnEllipsis', 'ListRemoveLinks', 'Pagination'],
     /**
      * Removes the event listeners that were added to the mass collection.
      */
@@ -91,5 +91,17 @@
                 }
             }
         }
+    },
+    /**
+     * Override to force translation of the module names as columns are added to the list.
+     *
+     * @param field
+     * @private
+     */
+    _renderField: function(field) {
+        if (field.name == '_module') {
+            field.model.set(field.name, app.lang.getModuleName(field.model.get(field.name), {plural: true}));
+        }
+        this._super("_renderField", [field]);
     }
 })

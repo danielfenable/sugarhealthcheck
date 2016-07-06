@@ -233,7 +233,8 @@ class PMSEProjectExporter extends PMSEExporter
         if (is_array($conditionArray)) {
             foreach ($conditionArray as $key => $value) {
                 if (isset($value->expType) && $value->expType == 'BUSINESS_RULES') {
-                    $activityBeam = BeanFactory::getBean('pmse_BpmnActivity', $value->expField);
+                    $activityBeam = BeanFactory::getBean('pmse_BpmnActivity');
+                    $activityBeam->retrieve_by_string_fields(array('id' => $value->expField));
                     $conditionArray[$key]->expField = $activityBeam->act_uid;
                 }
             }

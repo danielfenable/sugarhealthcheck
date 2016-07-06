@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,10 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Sugar 인스턴스를 새 어플리케이션으로 등록하여 IBM SmartCloud에서 Key 및 Secret를 얻으십시오.<br>&nbsp;<br>인스턴스 등록 단계는 다음과 같습니다:<br>&nbsp;<br><ol><li>IBM SmartCloud 계정에 접속합니다(관리자만 접속 가능합니다).</li><li>관리 -> 조직 관리 으로 이동합니다.</li><li>사이드바의 "통합 타사 앱" 링크로 이동한 후 모든 사용자에 대해 SugarCRM을 사용으로 설정합니다.</li><li>사이드바의 "내부 앱"으로 이동한 후 "앱 등록"을 클릭합니다.</li><li>이 앱의 이름(“SugarCRM Production” 등)을 지정하고 팝업 창 하단에서 OAuth 2.x 선택란을 선택하지 _않도록_합니다.</li><li>앱을 생성한 후에는 앱 이름 오른쪽에 있는 작은 삼각형을 클릭한 후 드롭다운 메뉴에서 “자격증명 표시”를 선택합니다.</li><li>아래에 자격증명을 복사합니다.</li></ol></td></tr></table>',
-    'oauth_consumer_key' => 'OAuth Consumer Key',
-    'oauth_consumer_secret' => 'OAuth Consumer Secret',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">IBM SmartCloud&copy;에서 새 어플리케이션으로 슈가CRM을 등록하세요.<br><br />&nbsp;<br><br />등록단계는 다음과 같습니다:<br><br />&nbsp;<br><br /><ol><br /><li>IBM SmartCloud 계정에 접속합니다 (관리자만 접속 가능합니다.)</li><br /><li>관리자 메뉴로 이동 -> Manage Organization</li><br /><li>"Integrated Third-Party Apps"로 이동하여 SugarCRM을 모든 사용자에게 허용가능하도록 설정합니다.</li><br /><li>"Internal Apps"으로 이동하여 "Register App"을 클릭합니다.</li><br /><li>이 어플리케이션 관리명을 입력(예시 "SugarCRM Production") 하시고 OAuth 2.x 선택 박스는 "절대"로 선택하지 말아주세요.</li><br /><li>모든 정보를 완료한 이후에 아래에 있는  "Show Credentials"클릭하여 개인 보안 키 및 비밀번호를 확인해 주세요.</li><br /><li>개인 보안 키 및 비밀번호를 아래에 입력합니다.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'OAuth 개인화 키',
+  'oauth_consumer_secret' => 'OAuth 개인 비밀번호',
 );
 

@@ -44,14 +44,6 @@ abstract class AbstractExpression
         "generic" => "AbstractExpression",
     );
 
-    /**
-     * The type to expression class map for implicit type casting.
-     */
-    protected static $TYPE_CAST_MAP = array(
-        'number' => 'ValueOfExpression',
-        'string' => 'DefineStringExpression',
-    );
-
 	// instance variables
 	var $params;
 
@@ -78,38 +70,7 @@ abstract class AbstractExpression
 	 * Returns the parameter list for this Expression.
 	 */
 	function getParameters() {
-        if (!$this->params) {
-            return $this->params;
-        }
-        $types = $this->getParameterTypes();
-        $oneParam = $this->getParamCount() == 1;
-
-        $params = $this->params;
-        if ($oneParam) {
-            $params = array($params);
-        }
-
-        if (!is_array($types)) {
-            $types = array_fill(0, count($params), $types);
-        }
-
-        $result = array();
-        foreach ($params as $i => $param) {
-            if ($param instanceof self) {
-                $type = self::getType($param);
-                if ($type != $types[$i] && isset(self::$TYPE_CAST_MAP[$types[$i]])) {
-                    $class = self::$TYPE_CAST_MAP[$types[$i]];
-                    $param = new $class($param);
-                }
-            }
-            $result[] = $param;
-        }
-
-        if ($oneParam) {
-            $result = array_shift($result);
-        }
-
-        return $result;
+		return $this->params;
 	}
 
 	/**
@@ -140,7 +101,7 @@ abstract class AbstractExpression
 	 */
 	function validateParameters() {
 		// retrieve the params, the param count, and the param types
-        $params = $this->params;
+		$params = $this->getParameters();
 		$count  = $this->getParamCount();
 		$types  = $this->getParameterTypes();
 
@@ -283,23 +244,6 @@ abstract class AbstractExpression
         if (empty(self::$FALSE)) {
             self::$FALSE = new BooleanConstantExpression(false);
         }
-    }
-
-    /**
-     * Returns the value type of the given variable
-     *
-     * @param mixed $variable
-     * @return string|null
-     */
-    protected static function getType($variable)
-    {
-        foreach (self::$TYPE_MAP as $type => $class) {
-            if ($variable instanceof $class) {
-                return $type;
-            }
-        }
-
-        return null;
     }
 }
 

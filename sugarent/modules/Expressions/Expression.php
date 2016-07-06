@@ -262,7 +262,7 @@ class Expression extends SugarBean {
 					$temp_module = BeanFactory::getBean($dom_name);
 					$temp_module->call_vardef_handler("rel_filter");
 
-                    $select_array = $temp_module->vardef_handler->get_vardef_array(true, true, false, false);
+					$select_array = $temp_module->vardef_handler->get_vardef_array(true, true, true, true);
 			}
 			else if($meta_filter_name == "singular"){
 				$select_array = convert_module_to_singular(get_module_map(false));

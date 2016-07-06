@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,41 +12,33 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Transportistes',
-  'LBL_MODULE_NAME_SINGULAR' => 'Proveïdor de transport',
-  'LBL_MODULE_TITLE' => 'Proveïdor de transport: inici',
-  'LBL_SEARCH_FORM_TITLE' => 'Cerca de proveïdors de transport',
+  'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre per eliminar el Proveïdor de transport.',
+  'LBL_EDITLAYOUT' => 'Editar disseny',
   'LBL_LIST_FORM_TITLE' => 'Llista de Proveïdors de Transport',
-  'LBL_NEW_FORM_TITLE' => 'Nou proveïdor de transport',
-  'LBL_SHIPPER' => 'Proveïdor de Transport:',
-  'LBL_LIST_NAME' => 'Proveïdor de transport',
-  'LBL_NAME' => 'Proveïdor de Transport:',
   'LBL_LIST_LIST_ORDER' => 'Ordre',
+  'LBL_LIST_NAME' => 'Proveïdor de Transport',
   'LBL_LIST_ORDER' => 'Ordre:',
   'LBL_LIST_STATUS' => 'Estat',
+  'LBL_MODULE_NAME' => 'Transportistes',
+  'LBL_MODULE_NAME_SINGULAR' => 'Transportista',
+  'LBL_MODULE_TITLE' => 'Proveïdors de Transport: Inici',
+  'LBL_NAME' => 'Proveïdor de Transport:',
+  'LBL_NEW_FORM_TITLE' => 'Nou Proveïdor de Transport',
+  'LBL_SEARCH_FORM_TITLE' => 'Recerca de Proveïdors de Transport',
+  'LBL_SHIPPER' => 'Proveïdor de Transport:',
   'LBL_STATUS' => 'Estat:',
   'LNK_NEW_SHIPPER' => 'Llista de Proveïdores de Transport',
-  'LNK_NEW_TAXRATE' => 'Llista de tipus d&#39;impost',
-  'NTC_DELETE_CONFIRMATION' => 'Esteu segur que voleu suprimir aquest registre?',
-  'ERR_DELETE_RECORD' => 'Per suprimir el proveïdor de transport, heu d&#39;especificar un número de registre.',
-  'NTC_STATUS' => 'Estableixi l´estat a Inactiu per treure aquest Proveïdor de transport de les llistes desplegables de Proveïdor de Transport',
+  'LNK_NEW_TAXRATE' => 'Llista de Tipus de Impostos',
+  'NTC_DELETE_CONFIRMATION' => 'Està segur que desitja eliminar aquest registre?',
   'NTC_LIST_ORDER' => 'Estableixi l´ordre en el qual aquest Proveïdor de transport apareixerà en les llistes desplegables de Proveïdor de Transport',
+  'NTC_STATUS' => 'Estableixi l´estat a Inactiu per treure aquest Proveïdor de transport de les llistes desplegables de Proveïdor de Transport',
   'shipper_status_dom' => 
   array (
     'Active' => 'Actiu',
     'Inactive' => 'Inactiu',
-),
-	'LBL_EDITLAYOUT' => 'Editar disseny' /*for 508 compliance fix*/,
+  ),
 );
 
-
-?>

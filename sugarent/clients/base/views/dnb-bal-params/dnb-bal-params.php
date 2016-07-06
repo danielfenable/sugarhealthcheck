@@ -76,26 +76,6 @@ $viewdefs['base']['view']['dnb-bal-params'] = array(
                             'id' => 'dnb-kw-tags'
                         )
                     )
-                ),
-                //contact type array
-                array(
-                    'fields' => array(
-                        array(
-                            'type' => 'label',
-                            'cell_css_class' => 'span2',
-                            'default_value' => 'LBL_DNB_BAL_CNTCT_TYPE',
-                            'css' => 'dnb-bal-param-label'
-                        ),
-                        array(
-                            'name' => 'dnb_bal_cntct_filter',
-                            'label' => 'LBL_DNB_BAL_CNTCT_TYPE',
-                            'type' => 'enum',
-                            'cell_css_class' => 'span3',
-                            'placeholder' => "LBL_DNB_BAL_CNTCT_TYPE",
-                            'searchBarThreshold' => -1,
-                            'options' => 'dnb_bal_cntct_type'
-                        ),
-                    ),
                 )
             )
         ),
@@ -752,37 +732,6 @@ $viewdefs['base']['view']['dnb-bal-params'] = array(
                         array(
                             'type' => 'label',
                             'cell_css_class' => 'span2',
-                            'default_value' => 'LBL_DNB_BAL_GU_DUNS',
-                            'css' => 'dnb-bal-param-label'
-                        ),
-                        array(
-                            'name' => 'dnb_bal_gu_duns',
-                            'tooltip' => 'LBL_TT_DNB_BAL_DUNS',
-                            'type' => 'int',
-                            'cell_css_class' => 'span2',
-                            'no_required_placeholder' => true,
-                            'required' => true,
-                            'len' => 15
-                        ),
-                        array(
-                            'type' => 'rowaction',
-                            'cell_css_class' => 'span1',
-                            'icon' => 'fa-plus',
-                            'css_class' => 'dnb-bal-add-btn btn',
-                            'event' => 'dnb-bal-gu-duns-btn'
-                        ),
-                        array(
-                            'type' => 'tagcontainer',
-                            'cell_css_class' => 'tagcontainer span3',
-                            'id' => 'dnb-gu-duns-tags'
-                        ),
-                    ),
-                ),
-                array(
-                    'fields' => array(
-                        array(
-                            'type' => 'label',
-                            'cell_css_class' => 'span2',
                             'default_value' => 'LBL_DNB_BAL_ORG_ID',
                             'css' => 'dnb-bal-param-label'
                         ),
@@ -1324,14 +1273,6 @@ $viewdefs['base']['view']['dnb-bal-params'] = array(
             'modelKey' => 'dunsNum', //keys to be used in model
             'modelSubKey' => 'DUNSNumber-'
         ),
-        'dnb-bal-gu-duns-btn' => array(
-            'addBtn' => '.dnb-bal-gu-duns-btn',
-            'container' => '#dnb-gu-duns-tags',
-            'tagLimit' => 10,
-            'inputKey' => 'dnb_bal_gu_duns',
-            'modelKey' => 'guDunsNum', //keys to be used in model
-            'modelSubKey' => 'GlobalUltimateDUNSNumber-'
-        ),
         'dnb-bal-org-name-btn' => array(
             'addBtn' => '.dnb-bal-org-name-btn',
             'container' => '#dnb-org-name-tags',
@@ -1412,15 +1353,7 @@ $viewdefs['base']['view']['dnb-bal-params'] = array(
             'modelSubKey' => 'ManagementResponsibilityCode',
             'modelKey' => 'jobCode',
             'multiple' => false
-        ),
-        'dnb_bal_cntct_filter' => array(
-            'modelSubKey' => 'InclusionDataDescription-1',
-            'modelKey' => 'balFilter',
-            'multiple' => false,
-            'lookup' => array(
-                'prem' => 'IncludeContactsOnlyWithDirectEmailOrDirectPhone'
-            )
-        ),
+        )
     ),
     'balParamGroups' => array(
         'companySize' => array(
@@ -1512,10 +1445,6 @@ $viewdefs['base']['view']['dnb-bal-params'] = array(
                 'label' => 'LBL_DNB_BAL_DUNS',
                 'id' => 'dnb-duns-tags'
             ),
-            'guDunsNum' => array(
-                'label' => 'LBL_DNB_BAL_GU_DUNS',
-                'id' => 'dnb-gu-duns-tags'
-            ),
             'orgid' => array(
                 'label' => 'LBL_DNB_BAL_ORG_ID',
                 'id' => 'dnb-bal-org-id-tags'
@@ -1534,10 +1463,6 @@ $viewdefs['base']['view']['dnb-bal-params'] = array(
             'contactKw' => array(
                 'label' => 'LBL_DNB_BAL_PARAM_KEYWORD',
                 'id' => 'dnb-kw-tags'
-            ),
-            'balFilter' => array(
-                'label' => 'LBL_DNB_BAL_CNTCT_TYPE',
-                'select2' => 'dnb_bal_cntct_filter'
             )
         )
     )

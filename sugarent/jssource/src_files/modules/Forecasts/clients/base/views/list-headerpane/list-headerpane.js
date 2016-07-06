@@ -19,70 +19,38 @@
     plugins: ['FieldErrorCollection'],
 
     /**
-     * If the Save button should be disabled or not
-     * @type Boolean
+     * Boolean if the Save button should be disabled or not
      */
     saveBtnDisabled: true,
 
     /**
-     * If the Commit button should be disabled or not
-     * @type Boolean
+     * Boolean if the Save button should be disabled or not
      */
     commitBtnDisabled: true,
 
     /**
-     * If any fields in the view have errors or not
-     * @type Boolean
+     * Boolean if any fields in the view have errors or not
      */
     fieldHasErrorState: false,
 
     /**
-     * The Save Draft Button Field
-     * @type View.Fields.Base.ButtonField
+     * @inheritdoc
      */
-    saveDraftBtnField: undefined,
+    initialize: function(options) {
+        this._super("initialize", [options]);
 
-    /**
-     * The Commit Button Field
-     * @type View.Fields.Base.ButtonField
-     */
-    commitBtnField: undefined,
-
-    /**
-     * If Forecasts' data sync is complete and we can render buttons
-     * @type Boolean
-     */
-    forecastSyncComplete: false,
+        this.on('render', function() {
+            this.getField('save_draft_button').setDisabled();
+            // this is a hacky way to add the class but it needs to be done for proper spacing
+            this.getField('save_draft_button').$el.addClass('btn-group');
+            this.getField('commit_button').setDisabled();
+        }, this);
+    },
 
     /**
      * @inheritdoc
      */
     bindDataChange: function() {
-        this.layout.context.on('forecasts:sync:start', function() {
-            this.forecastSyncComplete = false;
-            this.setButtonStates();
-        }, this);
-        this.layout.context.on('forecasts:sync:complete', function() {
-            this.forecastSyncComplete = true;
-            this.setButtonStates();
-        }, this);
-
-        this.on('render', function() {
-            // switching from mgr to rep leaves $el null, so make sure we grab a fresh reference
-            // to the field if it's there but $el is null in the current reference
-            if (!this.saveDraftBtnField || (this.saveDraftBtnField && _.isNull(this.saveDraftBtnField.$el))) {
-                // get reference to the Save Draft button Field
-                this.saveDraftBtnField = this.getField('save_draft_button');
-            }
-            if (!this.commitBtnField || (this.commitBtnField && _.isNull(this.commitBtnField.$el))) {
-                // get reference to the Commit button Field
-                this.commitBtnField = this.getField('commit_button');
-            }
-
-            this.saveDraftBtnField.setDisabled();
-            this.commitBtnField.setDisabled();
-        }, this);
-
         this.context.on('change:selectedUser', function(model, changed) {
             this._title = changed.full_name;
             if (!this.disposed) {
@@ -118,7 +86,7 @@
             }
         }, this);
 
-        this.context.on('forecasts:worksheet:saved', function(totalSaved, worksheet_type, wasDraft) {
+        this.context.on('forecasts:worksheet:saved', function(totalSaved, worksheet_type, wasDraft){
             if(wasDraft === true && this.commitBtnDisabled) {
                 this.commitBtnDisabled = false;
                 this.setButtonStates();
@@ -132,39 +100,21 @@
             }
         }, this);
 
-        this._super('bindDataChange');
+        this._super("bindDataChange");
     },
 
     /**
      * Sets the Save Button and Commit Button to enabled or disabled
      */
     setButtonStates: function() {
-        // make sure all data sync has finished before updating button states
-        if(this.forecastSyncComplete) {
-            // fieldHasErrorState trumps the disabled flags, but when it's cleared
-            // revert back to whatever states the buttons were in
-            if (this.fieldHasErrorState) {
-                this.saveDraftBtnField.setDisabled(true);
-                this.commitBtnField.setDisabled(true);
-                this.commitBtnField.$('.commit-button').tooltip();
-            } else {
-                this.saveDraftBtnField.setDisabled(this.saveBtnDisabled);
-                this.commitBtnField.setDisabled(this.commitBtnDisabled);
-
-                if (!this.commitBtnDisabled) {
-                    this.commitBtnField.$('.commit-button').tooltip('destroy');
-                } else {
-                    this.commitBtnField.$('.commit-button').tooltip();
-                }
-            }
+        // fieldHasErrorState trumps the disabled flags, but when it's cleared
+        // revert back to whatever states the buttons were in
+        if (this.fieldHasErrorState) {
+            this.getField('save_draft_button').setDisabled(true);
+            this.getField('commit_button').setDisabled(true);
         } else {
-            // disable buttons while syncing
-            if(this.saveDraftBtnField) {
-                this.saveDraftBtnField.setDisabled(true);
-            }
-            if(this.commitBtnField) {
-                this.commitBtnField.setDisabled(true);
-            }
+            this.getField('save_draft_button').setDisabled(this.saveBtnDisabled);
+            this.getField('commit_button').setDisabled(this.commitBtnDisabled);
         }
     },
 
@@ -172,22 +122,9 @@
      * @inheritdoc
      */
     _renderHtml: function() {
-        if(!this._title) {
-            var user = this.context.get('selectedUser') || app.user.toJSON();
-            this._title = user.full_name;
-        }
+        var user = this.context.get('selectedUser') || app.user.toJSON();
+        this._title = this._title || user.full_name;
 
-        this._super('_renderHtml');
-    },
-
-    /**
-     * @inheritdoc
-     */
-    _dispose: function() {
-        if(this.layout.context) {
-            this.layout.context.off('forecasts:sync:start', null, this);
-            this.layout.context.off('forecasts:sync:complete', null, this);
-        }
-        this._super('_dispose');
+        this._super("_renderHtml");
     }
 })

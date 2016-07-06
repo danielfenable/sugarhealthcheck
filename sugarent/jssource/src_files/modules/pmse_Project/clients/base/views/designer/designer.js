@@ -22,13 +22,12 @@
 
     loadData: function (options) {
         this.prj_uid = this.options.context.attributes.modelId;
-        this.cacheKiller = (new Date()).getTime();
     },
 
     initialize: function (options) {
         _.bindAll(this);
         app.view.View.prototype.initialize.call(this, options);
-        app.routing.before('route', this.beforeRouteChange, this);
+        app.routing.before('route', this.beforeRouteChange, this, true);
     },
 
     render: function () {
@@ -53,9 +52,7 @@
                     app.router.navigate(targetUrl , {trigger: true, replace: true });
                     window.location.reload()
                 },
-                onCancel: function () {
-                    app.router.navigate('' , {trigger: false, replace: false })
-                }
+                onCancel: $.noop
             });
             return false;
         }

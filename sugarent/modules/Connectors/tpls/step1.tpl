@@ -50,7 +50,7 @@ function freezeEvent(e) {
 function get_source_details(source, id, spanId){
 		go = function() {
 			oReturn = function(body, caption, width, theme) {
-						return overlib(body, CAPTION, caption, STICKY, MOUSEOFF, 1000, WIDTH, width, CLOSETEXT, ('<img border=0 style="margin-left:2px; margin-right: 2px;" align="right"alt=$mod_strings.LBL_CLOSE src="themes/default/images/close.gif?v='+SUGAR.VERSION_MARK+'">'), CLOSETITLE, 'Click to Close', CLOSECLICK, FGCLASS, 'olFgClass', CGCLASS, 'olCgClass', BGCLASS, 'olBgClass', TEXTFONTCLASS, 'olFontClass', CAPTIONFONTCLASS, 'olCapFontClass', CLOSEFONTCLASS, 'olCloseFontClass', REF, spanId, REFC, 'LL', REFX, 13);
+						return overlib(body, CAPTION, caption, STICKY, MOUSEOFF, 1000, WIDTH, width, CLOSETEXT, ('<img border=0 style="margin-left:2px; margin-right: 2px;" align="right"alt=$mod_strings.LBL_CLOSE src=themes/default/images/close.gif>'), CLOSETITLE, 'Click to Close', CLOSECLICK, FGCLASS, 'olFgClass', CGCLASS, 'olCgClass', BGCLASS, 'olBgClass', TEXTFONTCLASS, 'olFontClass', CAPTIONFONTCLASS, 'olCapFontClass', CLOSEFONTCLASS, 'olCloseFontClass', REF, spanId, REFC, 'LL', REFX, 13);
 					}
 			success = function(data) {
 						eval(data.responseText);
@@ -269,7 +269,7 @@ YAHOO.util.Event.onDOMReady(SourceTabs.init);
 <table width="100%" cellpadding="0" cellspacing="0" border="0" class="h3Row">
 <tr>
 <td nowrap><h3>{$mod.LBL_RESULT_LIST}</h3></td>
-<td width='100%'><IMG height='1' width='1' src={sugar_getjspath file='include/images/blank.gif'}" alt=''></td>
+<td width='100%'><IMG height='1' width='1' src='include/images/blank.gif' alt=''></td>
 </tr>
 </table>
 

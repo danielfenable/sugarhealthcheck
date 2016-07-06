@@ -49,26 +49,6 @@ class SugarFieldFullname extends SugarFieldBase
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Instead of applying the callback to the field itself, applies it to fields required for localized name formatting
-     */
-    public function iterateViewField(
-        ViewIterator $iterator,
-        array $field,
-        /* callable */ $callback
-    ) {
-        global $locale;
-
-        if (!$this->module) {
-            throw new Exception('Field module name is not set');
-        }
-
-        $nameFormatFields = $locale->getNameFormatFields($this->module);
-        $iterator->apply($nameFormatFields, $callback);
-    }
-
-    /**
      * @see SugarFieldBase::importSanitize()
      */
     public function importSanitize(

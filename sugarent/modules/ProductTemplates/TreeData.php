@@ -41,14 +41,13 @@ function get_categories_and_products($parent_id) {
     $nodes=array();
 
     if ($parent_id=='' or empty($parent_id)) {
-        $query="select id, name, 'category' type, list_order, 1 table_order from product_categories where (parent_id is null or parent_id='') and deleted=0";
-        $query.=" union select id, name , 'product' type, NULL AS list_order, 2 table_order from product_templates where (category_id is null or category_id='') and deleted=0";
+        $query="select id, name , 'category' type from product_categories where (parent_id is null or parent_id='') and deleted=0";
+        $query.=" union select id, name , 'product' type from product_templates where (category_id is null or category_id='') and deleted=0";
         
     } else {
-        $query="select id, name, 'category' type, list_order, 1 table_order from product_categories where parent_id ='$parent_id' and deleted=0";
-        $query.=" union select id, name , 'product' type, NULL AS list_order, 2 table_order from product_templates where category_id ='$parent_id' and deleted=0";
+        $query="select id, name , 'category' type from product_categories where parent_id ='$parent_id' and deleted=0";
+        $query.=" union select id, name , 'product' type from product_templates where category_id ='$parent_id' and deleted=0";
     }
-    $query .= " order by table_order, list_order, name";
 
     $result=$GLOBALS['db']->query($query);
 

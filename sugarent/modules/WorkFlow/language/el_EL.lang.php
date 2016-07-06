@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,90 +12,80 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Ορισμοί Ροής Εργασίας',
-  'LBL_MODULE_NAME_SINGULAR' => 'Ορισμός Ροής Εργασίας',
-  'LBL_MODULE_ID' => 'Ροή Εργασίας',  
-  'LBL_MODULE_TITLE' => 'Ροή Εργασίας: Αρχή',
-  'LBL_SEARCH_FORM_TITLE' => 'Αναζήτηση Ροής Εργασίας',
-  'LBL_LIST_FORM_TITLE' => 'Λίστα Ροής Εργασίας',
-  'LBL_NEW_FORM_TITLE' => 'Ορισμός Δημιουργίας Ροής Εργασίας',
-  'LBL_LIST_NAME' => 'Όνομα',
-  'LBL_LIST_TYPE' => 'Εμφάνιση Εκτέλεσης:',
-  'LBL_LIST_BASE_MODULE' => 'Ενότητα Στόχου:',
-  'LBL_LIST_STATUS' => 'Κατάσταση',
-  'LBL_NAME' => 'Όνομα:',
-  'LBL_DESCRIPTION' => 'Περιγραφή:',
-  'LBL_TYPE' => 'Εμφάνιση Εκτέλεσης:',
-  'LBL_STATUS' => 'Κατάσταση:',
-  'LBL_BASE_MODULE' => 'Ενότητα Στόχου:',
-  'LBL_LIST_ORDER' => 'Σειρά Διαδικασίας:',
-  'LBL_FROM_NAME' => 'Από Όνομα:',
-  'LBL_FROM_ADDRESS' => 'Μορφή Διεύθυνσης:',  
-  'LNK_NEW_WORKFLOW' => 'Δημιουργία Ορισμού Ροής Εργασίας',
-  'LNK_WORKFLOW' => 'Ορισμός Λίστας Ροής Εργασίας', 
-  
-  
+  'LBL_ACTION_ERROR' => 'Αυτή η ενέργεια περιέχει τα λάθη και δεν μπορεί να εκτελεστεί. Επεξεργαστείτε την ενέργεια, έτσι ώστε όλα τα πεδία και οι τιμές των πεδίων να είναι έγκυρα.',
+  'LBL_ACTION_ERRORS' => 'Ειδοποίηση: Μια ή περισσότερες παρακάτω ενέργειες περιέχουν λάθη.',
+  'LBL_ALERT_ERROR' => 'Αυτή η ειδοποίηση δεν μπορεί να εκτελεσθεί. Εκδώστε την προειδοποίηση έτσι ώστε οι όλες ρυθμίσεις να ισχύουν.',
+  'LBL_ALERT_ERRORS' => 'Σημείωση: Μία ή περισσότερες προειδοποιήσεις που ακολουθούν περιέχουν λάθη.',
+  'LBL_ALERT_SUBJECT' => 'ΠΡΟΕΙΔΟΠΟΙΗΣΕΙΣ ΡΟΗΣ ΕΡΓΑΣΙΑΣ',
   'LBL_ALERT_TEMPLATES' => 'Πρότυπο Προειδοποίησης',
+  'LBL_ANY_FIELD' => 'οποιοδήποτε πεδίο',
+  'LBL_AS' => 'ως',
+  'LBL_BASE_MODULE' => 'Ενότητα Στόχου:',
+  'LBL_BODY' => 'Σώμα:',
   'LBL_CREATE_ALERT_TEMPLATE' => 'Δημιουργία προτύπου προειδοποίησης:',
-  'LBL_SUBJECT' => 'Θέμα:',
-  
-  'LBL_RECORD_TYPE' => 'Ισχύει για:',
- 'LBL_RELATED_MODULE'=> 'Σχετική Ενότητα:',
-  
-  
-  'LBL_PROCESS_LIST' => 'Εκτέλεση Εντολών Ροής Εργασίας',
-	'LNK_ALERT_TEMPLATES' => 'Πρότυπο Email Προειδοποίησης',
-	'LNK_PROCESS_VIEW' => 'Εκτέλεση Εντολών Ροής Εργασίας',
-  'LBL_PROCESS_SELECT' => 'Παρακαλώ επιλέξτε ενότητα:',
-  'LBL_LACK_OF_TRIGGER_ALERT'=> 'Ειδοποίηση: Πρέπει να δημιουργήσετε ένα trigger για αυτήν την ροή εργασίας αντικειμένου στη λειτουργία',
-  'LBL_LACK_OF_NOTIFICATIONS_ON'=> 'Σημείωση: Για να στείλετε προειδοποιήσεις, παρέχετε πληροφορίες του SMTP Διακομιστή στον Διαχειριστή > Ρυθμίσεις Email.',
+  'LBL_DESCRIPTION' => 'Περιγραφή:',
+  'LBL_DOWN' => 'Κάτω',
+  'LBL_EDITLAYOUT' => 'Επεξεργασία Διάταξης',
+  'LBL_EDIT_ALT_TEXT' => 'Όλα τα Κείμενα',
+  'LBL_EMAILTEMPLATES_TYPE' => 'Τύπος',
+  'LBL_EMAILTEMPLATES_TYPE_LIST_WORKFLOW' => 
+  array (
+    'workflow' => 'Ροή Εργασίας',
+  ),
   'LBL_FIRE_ORDER' => 'Σειρά Διαδικασίας:',
-  'LBL_RECIPIENTS' => 'Παραλήπτες',
+  'LBL_FROM_ADDRESS' => 'Μορφή Διεύθυνσης:',
+  'LBL_FROM_NAME' => 'Από Όνομα:',
+  'LBL_HIDE' => 'Απόκρυψη',
+  'LBL_INSERT' => 'Εισαγωγή',
   'LBL_INVITEES' => 'Προσκεκλημένοι',
   'LBL_INVITEE_NOTICE' => 'Προσοχή, θα πρέπει να επιλέξετε τουλάχιστον έναν προσκεκλημένο προκειμένου να δημιουργηθεί αυτό.',
-  'NTC_REMOVE_ALERT' => 'Είστε βέβαιοι ότι θέλετε να αφαιρέσετε αυτή την ροή εργασίας;',
-  'LBL_EDIT_ALT_TEXT' => 'Όλα τα Κείμενα',
-  'LBL_INSERT' => 'Εισαγωγή',
+  'LBL_INVITE_LINK' => 'Συνάντηση/Κλήση, Link Πρόσκλησης',
+  'LBL_LACK_OF_NOTIFICATIONS_ON' => 'Σημείωση: Για να στείλετε προειδοποιήσεις, παρέχετε πληροφορίες του SMTP Διακομιστή στον Διαχειριστή > Ρυθμίσεις Email.',
+  'LBL_LACK_OF_TRIGGER_ALERT' => 'Ειδοποίηση: Πρέπει να δημιουργήσετε ένα trigger για αυτήν την ροή εργασίας αντικειμένου στη λειτουργία',
+  'LBL_LINK_RECORD' => 'Σύνδεση σε Εγγραφή',
+  'LBL_LIST_BASE_MODULE' => 'Ενότητα Στόχου:',
+  'LBL_LIST_DN' => 'κάτω',
+  'LBL_LIST_FORM_TITLE' => 'Λίστα Ροής Εργασίας',
+  'LBL_LIST_NAME' => 'Όνομα',
+  'LBL_LIST_ORDER' => 'Σειρά Διαδικασίας:',
+  'LBL_LIST_STATUS' => 'Κατάσταση',
+  'LBL_LIST_TYPE' => 'Εμφάνιση Εκτέλεσης:',
+  'LBL_LIST_UP' => 'πάνω',
+  'LBL_MODULE_ID' => 'Ροή Εργασίας',
+  'LBL_MODULE_NAME' => 'Ορισμοί Ροή Εργασίας',
+  'LBL_MODULE_NAME_SINGULAR' => 'Ορισμός Ροής Εργασίας',
+  'LBL_MODULE_TITLE' => 'Ροή Εργασίας: Αρχή',
+  'LBL_NAME' => 'Όνομα:',
+  'LBL_NEW_FORM_TITLE' => 'Ορισμός Δημιουργίας Ροής Εργασίας',
+  'LBL_PLEASE_SELECT' => 'Παρακαλώ Eπιλέξτε',
+  'LBL_PROCESS_LIST' => 'Εκτέλεση Εντολών Ροής Εργασίας',
+  'LBL_PROCESS_SELECT' => 'Παρακαλώ επιλέξτε ενότητα:',
+  'LBL_RECIPIENTS' => 'Παραλήπτες',
+  'LBL_RECORD_TYPE' => 'Ισχύει για:',
+  'LBL_RELATED_MODULE' => 'Σχετική Ενότητα:',
+  'LBL_SEARCH_FORM_TITLE' => 'Αναζήτηση Ροής Εργασίας',
+  'LBL_SELECT_FILTER' => 'Πρέπει να επιλέξετε ένα πεδίο με το οποίο θα φιλτράρει την σχετική ενότητα.',
+  'LBL_SELECT_MODULE' => 'Παρακαλώ επιλέξτε μία σχετική ενότητα.',
   'LBL_SELECT_OPTION' => 'Παρακαλώ επιλέξτε μία επιλογή.',
   'LBL_SELECT_VALUE' => 'Πρέπει να επιλέξετε τιμή.',
-  'LBL_SELECT_MODULE' => 'Παρακαλώ επιλέξτε μία σχετική ενότητα.',
-  'LBL_SELECT_FILTER' => 'Πρέπει να επιλέξετε ένα πεδίο με το οποίο θα φιλτράρει την σχετική ενότητα.',
-  'LBL_LIST_UP' => 'πάνω',
-  'LBL_LIST_DN' => 'κάτω',
   'LBL_SET' => 'Καθορισμός',
-  'LBL_AS' => 'ως',
   'LBL_SHOW' => 'Εμφάνιση',
-  'LBL_HIDE' => 'Απόκρυψη',
   'LBL_SPECIFIC_FIELD' => 'συγκεκριμένο πεδίο',
-  'LBL_ANY_FIELD' => 'οποιοδήποτε πεδίο',
-  'LBL_LINK_RECORD'=>'Σύνδεση σε Εγγραφή',
-  'LBL_INVITE_LINK'=>'Συνάντηση/Κλήση, Link Πρόσκλησης',
-  'LBL_PLEASE_SELECT'=>'Παρακαλώ Eπιλέξτε',
-  'LBL_BODY'=>'Σώμα:',
-  'LBL__S'=>'&#39;α',
-  'LBL_ALERT_SUBJECT'=>'ΠΡΟΕΙΔΟΠΟΙΗΣΕΙΣ ΡΟΗΣ ΕΡΓΑΣΙΑΣ',
-  'LBL_ACTION_ERROR'=>'Αυτή η ενέργεια περιέχει τα λάθη και δεν μπορεί να εκτελεστεί. Επεξεργαστείτε την ενέργεια, έτσι ώστε όλα τα πεδία και οι τιμές των πεδίων να είναι έγκυρα.',
-  'LBL_ACTION_ERRORS'=>'Ειδοποίηση: Μια ή περισσότερες παρακάτω ενέργειες περιέχουν λάθη.',
-  'LBL_ALERT_ERROR'=>'Αυτή η ειδοποίηση δεν μπορεί να εκτελεσθεί. Εκδώστε την προειδοποίηση έτσι ώστε οι όλες ρυθμίσεις να ισχύουν.',
-  'LBL_ALERT_ERRORS'=>'Σημείωση: Μία ή περισσότερες προειδοποιήσεις που ακολουθούν περιέχουν λάθη.',
-  'LBL_TRIGGER_ERROR'=>'Σημείωση: Ο trigger περιέχει μη έγκυρες τιμές.',
-  'LBL_TRIGGER_ERRORS'=>'Σημείωση: Ένας ή περισσότεροι triggers παρακάτω περιέχουν λάθη.',
-  'LBL_UP' => 'Επάνω' /*for 508 compliance fix*/,
-  'LBL_DOWN' => 'Κάτω' /*for 508 compliance fix*/,
-  'LBL_EDITLAYOUT' => 'Επεξεργασία Διάταξης' /*for 508 compliance fix*/,
-  'LBL_EMAILTEMPLATES_TYPE_LIST_WORKFLOW' => array('workflow' => 'Ροή Εργασίας'),
-  'LBL_EMAILTEMPLATES_TYPE' => 'Τύπος',
-
-  // Workflow sunsetting message, added in 7.6.1
-  'LBL_WORKFLOW_SUNSET_NOTICE' => '<strong>Σημείωση:</strong> Αυτό το χαρακτηριστικό θα αφαιρεθεί σε μια μελλοντική έκδοση του Sugar που επί του παρόντος έχει προγραμματιστεί για δημοσίευση στο τέλη του 2017. Οι πελάτες που διαθέτουν το Sugar Enterprise θα πρέπει να αρχίσουν να χρησιμοποιούν τις βελτιωμένες δυνατότητες ροής εργασίας που παρέχονται από τη διαδικασία συγγραφής. Κάντε κλικ <a href="http://www.sugarcrm.com/wf-eol/" target="_blank"> εδώ</a> για περισσότερες πληροφορίες.',
+  'LBL_STATUS' => 'Κατάσταση:',
+  'LBL_SUBJECT' => 'Θέμα:',
+  'LBL_TRIGGER_ERROR' => 'Σημείωση: Ο trigger περιέχει μη έγκυρες τιμές.',
+  'LBL_TRIGGER_ERRORS' => 'Σημείωση: Ένας ή περισσότεροι triggers παρακάτω περιέχουν λάθη.',
+  'LBL_TYPE' => 'Εμφάνιση Εκτέλεσης:',
+  'LBL_UP' => 'Επάνω',
+  'LBL__S' => '&#39;α',
+  'LNK_ALERT_TEMPLATES' => 'Πρότυπο Email Προειδοποίησης',
+  'LNK_NEW_WORKFLOW' => 'Δημιουργία Ορισμού Ροής Εργασίας',
+  'LNK_PROCESS_VIEW' => 'Εκτέλεση Εντολών Ροής Εργασίας',
+  'LNK_WORKFLOW' => 'Ορισμός Λίστας Ροής Εργασίας',
+  'NTC_REMOVE_ALERT' => 'Είστε βέβαιοι ότι θέλετε να αφαιρέσετε αυτή την ροή εργασίας;',
+  'WARN_WORKFLOW_DEPRECATED_ERROR' => '<b>Ειδοποίηση:</b> Η ενότητα "Ροή Εργασιών" σύντομα θα είναι άνευ αντικειμένου και θα αφαιρεθεί. Παρακαλώ μεταφέρετε τη ροή εργασιών στη νέα ενότητα <a href="index.php?module=pmse_Project">"Διεργασία Συγγραφέα"</a>.<span style="width: 1em; display: inline-block;">&nbsp;</span><a target="_blank" href="http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/01_Sugar_Ultimate/Sugar_Ultimate_7.6/Administration_Guide/135_Process_Author/">Μάθετε περισσότερα σχετικά με τη "Διεργασία Συγγραφέα"</a>.',
 );
 

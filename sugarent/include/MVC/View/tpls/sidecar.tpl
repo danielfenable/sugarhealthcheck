@@ -19,7 +19,6 @@
         <title>SugarCRM</title>
         <link rel="shortcut icon" href="{sugar_getjspath file='themes/default/images/sugar_icon.ico'}">
         <!-- CSS -->
-        <link rel="stylesheet" href="styleguide/assets/css/loading.css" type="text/css">
         {foreach from=$css_url item=url}
             <link rel="stylesheet" href="{sugar_getjspath file=$url}"/>
         {/foreach}
@@ -32,14 +31,9 @@
         <div id="sugarcrm">
             <div id="sidecar">
                 <div id="alerts" class="alert-top">
-                    <div class="alert-wrapper">
-                        <div class="alert alert-process">
-                            <strong>
-                                <div class="loading">
-                                    {$LBL_LOADING}<i class="l1">&#46;</i><i class="l2">&#46;</i><i class="l3">&#46;</i>
-                                </div>
-                            </strong>
-                        </div>
+                    <div class="loading gate">
+                        <strong>{$LBL_LOADING}</strong>
+                        <i class="fa fa-circle l1"></i><i class="fa fa-circle l2"></i><i class="fa fa-circle l3"></i>
                     </div>
                     <noscript>
                         <div class="alert-top">
@@ -57,7 +51,7 @@
             </div>
         </div>
         <!-- App Scripts -->
-        {if empty($shouldResourcesBeMinified)}
+        {if !empty($developerMode)}
             {sugar_getscript file="sidecar/minified/sidecar.js"}
         {else}
             {sugar_getscript file="sidecar/minified/sidecar.min.js"}
@@ -74,18 +68,12 @@
             } else {
                 var App;
                 {/literal}{if $authorization}
-                SUGAR.App.cache.set("{$appPrefix}AuthAccessToken", "{$authorization.access_token}");
+                SUGAR.App.cache.set("{$appPrefix}AuthAccessToken", "{$authorization.access_token}")
                 {if $authorization.refresh_token}
-                SUGAR.App.cache.set("{$appPrefix}AuthRefreshToken", "{$authorization.refresh_token}");
+                SUGAR.App.cache.set("{$appPrefix}AuthRefreshToken", "{$authorization.refresh_token}")
                 {/if}
                 if (window.SUGAR.App.config.siteUrl != '') {ldelim}
-                    history.replaceState(null, 'SugarCRM', window.SUGAR.App.config.siteUrl+"/"+window.location.hash);
-                {rdelim} else {ldelim}
-                    history.replaceState(
-                            null,
-                            'SugarCRM',
-                            window.location.origin + window.location.pathname + window.location.hash
-                    );
+                    history.replaceState(null, 'SugarCRM', window.SUGAR.App.config.siteUrl+"/"+window.location.hash)
                 {rdelim}
                 {/if}{literal}
                 App = SUGAR.App.init({
@@ -95,7 +83,7 @@
                         app.once("app:view:change", function(){
                             app.progress.done();
                         });
-                        app.alert.dismissAll();
+                        $('#alerts').empty();
                         app.start();
                     }
                 });

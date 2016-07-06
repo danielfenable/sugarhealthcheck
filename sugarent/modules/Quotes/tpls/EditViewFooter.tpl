@@ -91,6 +91,7 @@
 </tr>
 </table>
 <input type='hidden' id='product_count' name='product_count' value='0'>
+<input type="hidden" name="quote_type" value="Quotes">
 
 <script type="text/javascript">
 Calendar.setup ({literal} { {/literal}

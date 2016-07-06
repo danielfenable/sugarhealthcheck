@@ -48,13 +48,7 @@ function add_checks(f) {
 	
 	removeFromValidate('ConfigureSettings', 'list_max_entries_per_page');
 	removeFromValidate('ConfigureSettings', 'list_max_entries_per_subpanel');	
-
-	removeFromValidate('ConfigureSettings', 'logger_file_name');
-	removeFromValidate('ConfigureSettings', 'logger_file_ext');
-	removeFromValidate('ConfigureSettings', 'logger_file_maxSize');
-	removeFromValidate('ConfigureSettings', 'logger_file_maxLogs');
-
-
+	
 	if (typeof f.mail_sendtype != "undefined" && f.mail_sendtype.value == "SMTP") {
 		addToValidate('ConfigureSettings', 'mail_smtpserver', 'varchar', 'true', '{$mod_strings['LBL_MAIL_SMTPSERVER']}');
 		addToValidate('ConfigureSettings', 'mail_smtpport', 'int', 'true', '{$mod_strings['LBL_MAIL_SMTPPORT']}');
@@ -75,11 +69,6 @@ function add_checks(f) {
 	
 	addToValidateMoreThan('ConfigureSettings', 'list_max_entries_per_page', 'int', true, '', 1);
 	addToValidateMoreThan('ConfigureSettings', 'list_max_entries_per_subpanel', 'int', true, '', 1);
-
-	addToValidate('ConfigureSettings', 'logger_file_name', 'varchar', 'true', '{$mod_strings['LBL_LOGGER_FILENAME']}');
-	addToValidate('ConfigureSettings', 'logger_file_ext', 'varchar', 'true', '{$mod_strings['LBL_LOGGER_FILE_EXTENSION']}');
-	addToValidate('ConfigureSettings', 'logger_file_maxSize', 'varchar', 'true', '{$mod_strings['LBL_LOGGER_MAX_LOG_SIZE']}');
-	addToValidateMoreThan('ConfigureSettings', 'logger_file_maxLogs', 'int', true, '', 1);
 	
 	return true;
 }

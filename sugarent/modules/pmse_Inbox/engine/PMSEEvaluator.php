@@ -28,7 +28,7 @@ class PMSEEvaluator
      * @var PMSEExpressionEvaluator
      */
     protected $expressionEvaluator;
-
+    
     /**
      * Object of the class PMSECriteriaEvaluator
      * @var PMSECriteriaEvaluator
@@ -53,9 +53,9 @@ class PMSEEvaluator
         $this->parser = new PMSEDataParserGateway();
     }
 
-
+    
     /**
-     *
+     * 
      * @return type
      * @codeCoverageIgnore
      */
@@ -65,7 +65,7 @@ class PMSEEvaluator
     }
 
     /**
-     *
+     * 
      * @return PMSEExpressionEvaluator
      */
     function getExpressionEvaluator()
@@ -74,7 +74,7 @@ class PMSEEvaluator
     }
 
     /**
-     *
+     * 
      * @return PMSECriteriaEvaluator
      */
     function getCriteriaEvaluator()
@@ -83,7 +83,7 @@ class PMSEEvaluator
     }
 
     /**
-     *
+     * 
      * @param PMSEExpressionEvaluator $expressionEvaluator
      */
     function setExpressionEvaluator($expressionEvaluator)
@@ -92,7 +92,7 @@ class PMSEEvaluator
     }
 
     /**
-     *
+     * 
      * @param PMSECriteriaEvaluator $criteriaEvaluator
      */
     function setCriteriaEvaluator($criteriaEvaluator)
@@ -100,9 +100,9 @@ class PMSEEvaluator
         $this->criteriaEvaluator = $criteriaEvaluator;
     }
 
-
+    
     /**
-     *
+     * 
      * @param type $parser
      * @codeCoverageIgnore
      */
@@ -110,7 +110,7 @@ class PMSEEvaluator
     {
         $this->parser = $parser;
     }
-
+        
     /**
      * Parsing and evaluation of expression
      * the expression is in json
@@ -155,12 +155,8 @@ class PMSEEvaluator
             $result = true;
         } else {
             $result = array_pop($resultArray);
-            if (strtolower($result->expSubtype) == 'currency') {
-                $result = json_encode($result);
-            } else {
-                if (!$returnToken) {
-                    $result = $result->expValue;
-                }
+            if (!$returnToken) {
+                $result = $result->expValue;
             }
         }
 

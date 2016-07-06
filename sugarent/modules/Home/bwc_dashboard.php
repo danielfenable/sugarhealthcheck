@@ -409,6 +409,8 @@ if (empty($pages)){
 		$pages[$pageIndex]['pageTitleLabel'] = 'LBL_HOME_PAGE_4_NAME';	// "Tracker"
 		$pageIndex++;
 	}
+
+
 	$current_user->setPreference('pages', $pages, 0, 'Home');
     $_COOKIE[$current_user->id . '_activePage'] = '0';
     setcookie($current_user->id . '_activePage','0',3000);

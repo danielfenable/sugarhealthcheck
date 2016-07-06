@@ -2,6 +2,7 @@
 
 namespace Elastica\Suggest\CandidateGenerator;
 
+
 /**
  * Class DirectGenerator
  * @package Elastica\Suggest\Phrase
@@ -23,7 +24,7 @@ class DirectGenerator extends AbstractCandidateGenerator
 
     /**
      * Set the field name from which to fetch candidate suggestions
-     * @param  string          $field
+     * @param string $field
      * @return DirectGenerator
      */
     public function setField($field)
@@ -33,7 +34,7 @@ class DirectGenerator extends AbstractCandidateGenerator
 
     /**
      * Set the maximum corrections to be returned per suggest text token
-     * @param  int             $size
+     * @param int $size
      * @return DirectGenerator
      */
     public function setSize($size)
@@ -42,7 +43,7 @@ class DirectGenerator extends AbstractCandidateGenerator
     }
 
     /**
-     * @param  string          $mode see SUGGEST_MODE_* constants for options
+     * @param string $mode see SUGGEST_MODE_* constants for options
      * @return DirectGenerator
      */
     public function setSuggestMode($mode)
@@ -51,7 +52,7 @@ class DirectGenerator extends AbstractCandidateGenerator
     }
 
     /**
-     * @param  int             $max can only be a value between 1 and 2. Defaults to 2.
+     * @param int $max can only be a value between 1 and 2. Defaults to 2.
      * @return DirectGenerator
      */
     public function setMaxEdits($max)
@@ -60,7 +61,7 @@ class DirectGenerator extends AbstractCandidateGenerator
     }
 
     /**
-     * @param  int             $length defaults to 1
+     * @param int $length defaults to 1
      * @return DirectGenerator
      */
     public function setPrefixLength($length)
@@ -69,7 +70,7 @@ class DirectGenerator extends AbstractCandidateGenerator
     }
 
     /**
-     * @param  int             $min defaults to 4
+     * @param int $min defaults to 4
      * @return DirectGenerator
      */
     public function setMinWordLength($min)
@@ -78,7 +79,7 @@ class DirectGenerator extends AbstractCandidateGenerator
     }
 
     /**
-     * @param  int             $max
+     * @param int $max
      * @return DirectGenerator
      */
     public function setMaxInspections($max)
@@ -87,7 +88,7 @@ class DirectGenerator extends AbstractCandidateGenerator
     }
 
     /**
-     * @param  float           $min
+     * @param float $min
      * @return DirectGenerator
      */
     public function setMinDocFrequency($min)
@@ -96,7 +97,7 @@ class DirectGenerator extends AbstractCandidateGenerator
     }
 
     /**
-     * @param  float           $max
+     * @param float $max
      * @return DirectGenerator
      */
     public function setMaxTermFrequency($max)
@@ -106,7 +107,7 @@ class DirectGenerator extends AbstractCandidateGenerator
 
     /**
      * Set an analyzer to be applied to the original token prior to candidate generation
-     * @param  string          $pre an analyzer
+     * @param string $pre an analyzer
      * @return DirectGenerator
      */
     public function setPreFilter($pre)
@@ -116,7 +117,7 @@ class DirectGenerator extends AbstractCandidateGenerator
 
     /**
      * Set an analyzer to be applied to generated tokens before they are passed to the phrase scorer
-     * @param  string          $post
+     * @param string $post
      * @return DirectGenerator
      */
     public function setPostFilter($post)

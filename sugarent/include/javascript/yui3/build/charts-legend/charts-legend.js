@@ -1,10 +1,228 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("charts-legend",function(e,t){var n="top",r="right",i="bottom",s="left",o="external",u="horizontal",a="vertical",f="width",l="height",c="position",h="x",p="y",d="px",v,m={setter:function(t){var n=this.get("legend");return n&&n.destroy(!0),t instanceof e.ChartLegend?(n=t,n.set("chart",this)):(t.chart=this,t.hasOwnProperty("render")||(t.render=this.get("contentBox"),t.includeInChartLayout=!0),n=new e.ChartLegend(t)),n}},g={_positionLegendItems:function(e,t,n,r,i,s,o,u,a){var f=0,l=0,c,h,p,v,m,y=this.get("width"),b,w,E,S,x,T=s.top-u,N=y-(s.left+s.right),C,k,L,A;g._setRowArrays(e,N,o),b=g.rowArray,S=g.totalWidthArray,w=b.length;for(;l<w;++l){T+=u,E=b[l],m=E.length,x=g.getStartPoint(y,S[l],a,s);for(f=0;f<m;++f)c=E[f],h=c.node,p=c.width,v=c.height,c.x=x,c.y=0,C=isNaN(C)?x:Math.min(C,x),k=isNaN(k)?T:Math.min(k,T),L=isNaN(L)?x+p:Math.max(x+p,L),A=isNaN(A)?T+v:Math.max(T+v,A),h.setStyle("left",x+d),h.setStyle("top",T+d),x+=p+o;T+=c.height}this._contentRect={left:C,top:k,right:L,bottom:A},this.get("includeInChartLayout")&&this.set("height",T+s.bottom)},_setRowArrays:function(e,t,n){var r=e[0],i=[[r]],s=1,o=0,u=e.length,a=r.width,f,l=[[a]];for(;s<u;++s)r=e[s],f=r.width,a+n+f<=t?(a+=n+f,i[o].push(r)):(a=n+f,i[o]&&(o+=1),i[o]=[r]),l[o]=a;g.rowArray=i,g.totalWidthArray=l},getStartPoint:function(e,t,n,i){var o;switch(n){case s:o=i.left;break;case"center":o=(e-t)*.5;break;case r:o=e-t-i.right}return o}},y={_positionLegendItems:function(e,t,n,r,i,s,o,u,a){var f=0,l=0,c,h,p,v,m,g=this.get("height"),b,w,E,S,x,T=s.left-o,N,C=g-(s.top+s.bottom),k,L,A,O;y._setColumnArrays(e,C,u),b=y.columnArray,S=y.totalHeightArray,w=b.length;for(;l<w;++l){T+=o,E=b[l],m=E.length,x=y.getStartPoint(g,S[l],a,s),N=0;for(f=0;f<m;++f)c=E[f],h=c.node,p=c.height,v=c.width,c.y=x,c.x=T,k=isNaN(k)?T:Math.min(k,T),L=isNaN(L)?x:Math.min(L,x),A=isNaN(A)?T+v:Math.max(T+v,A),O=isNaN(O)?x+p:Math.max(x+p,O),h.setStyle("left",T+d),h.setStyle("top",x+d),x+=p+u,N=Math.max(N,c.width);T+=N}this._contentRect={left:k,top:L,right:A,bottom:O},this.get("includeInChartLayout")&&this.set("width",T+s.right)},_setColumnArrays:function(e,t,n){var r=e[0],i=[[r]],s=1,o=0,u=e.length,a=r.height,f,l=[[a]];for(;s<u;++s)r=e[s],f=r.height,a+n+f<=t?(a+=n+f,i[o].push(r)):(a=n+f,i[o]&&(o+=1),i[o]=[r]),l[o]=a;y.columnArray=i,y.totalHeightArray=l},getStartPoint:function(e,t,r,s){var o;switch(r){case n:o=s.top;break;case"middle":o=(e-t)*.5;break;case i:o=e-t-s.bottom}return o}},b=e.Base.create("cartesianChartLegend",e.CartesianChart,[],{_redraw:function(){if(this._drawing){this._callLater=!0;return}this._drawing=!0,this._callLater=!1;var e=this.get("width"),t=this.get("height"),n=this._getLayoutBoxDimensions(),r=n.left,i=n.right,s=n.top,o=n.bottom,u=this.get("leftAxesCollection"),a=this.get("rightAxesCollection"),f=this.get("topAxesCollection"),l=this.get("bottomAxesCollection"),c=0,h,p,v="visible",m=this.get("graph"),g,y,b,w,E,S,x,T,N=this.get("allowContentOverflow"),C,k,L,A,O,M=this.get("legend"),_={};if(u){L=[],h=u.length;for(c=h-1;c>-1;--c)L.unshift(r),r+=u[c].get("width")}if(a){k=[],h=a.length,c=0;for(c=h-1;c>-1;--c)i+=a[c].get("width"),k.unshift(e-i)}if(f){A=[],h=f.length;for(c=h-1;c>-1;--c)A.unshift(s),s+=f[c].get("height")}if(l){O=[],h=l.length;for(c=h-1;c>-1;--c)o+=l[c].get("height"),O.unshift(t-o)}E=e-(r+i),S=t-(o+s),_.left=r,_.top=s,_.bottom=t-o,_.right=e-i;if(!N){g=this._getTopOverflow(u,a),y=this._getBottomOverflow(u,a),b=this._getLeftOverflow(l,f),w=this._getRightOverflow(l,f),C=g-s;if(C>0){_.top=g;if(A){c=0,h=A.length;for(;c<h;++c)A[c]+=C}}C=y-o;if(C>0){_.bottom=t-y;if(O){c=0,h=O.length;for(;c<h;++c)O[c]-=C}}C=b-r;if(C>0){_.left=b;if(L){c=0,h=L.length;for(;c<h;++c)L[c]+=C}}C=w-i;if(C>0){_.right=e-w;if(k){c=0,h=k.length;for(;c<h;++c)k[c]-=C}}}E=_.right-_.left,S=_.bottom-_.top,x=_.left,T=_.top;if(M&&M.get("includeInChartLayout"))switch(M.get("position")){case"left":M.set("y",T),M.set("height",S);break;case"top":M.set("x",x),M.set("width",E);break;case"bottom":M.set("x",x),M.set("width",E);break;case"right":M.set("y",T),M.set("height",S)}if(f){h=f.length,c=0;for(;c<h;c++)p=f[c],p.get("width")!==E&&p.set("width",E),p.get("boundingBox").setStyle("left",x+d),p.get("boundingBox").setStyle("top",A[c]+d);p._hasDataOverflow()&&(v="hidden")}if(l){h=l.length,c=0;for(;c<h;c++)p=l[c],p.get("width")!==E&&p.set("width",E),p.get("boundingBox").setStyle("left",x+d),p.get("boundingBox").setStyle("top",O[c]+d);p._hasDataOverflow()&&(v="hidden")}if(u){h=u.length,c=0;for(;c<h;++c)p=u[c],p.get("boundingBox").setStyle("top",T+d),p.get("boundingBox").setStyle("left",L[c]+d),p.get("height")!==S&&p.set("height",S);p._hasDataOverflow()&&(v="hidden")}if(a){h=a.length,c=0;for(;c<h;++c)p=a[c],p.get("boundingBox").setStyle("top",T+d),p.get("boundingBox").setStyle("left",k[c]+d),p.get("height")!==S&&p.set("height",S);p._hasDataOverflow()&&(v="hidden")}this._drawing=!1;if(this._callLater){this._redraw();return}m&&(m.get("boundingBox").setStyle("left",x+d),m.get("boundingBox").setStyle("top",T+d),m.set("width",E),m.set("height",S),m.get("boundingBox").setStyle("overflow",v)),this._overlay&&(this._overlay.setStyle("left",x+d),this._overlay.setStyle("top",T+d),this._overlay.setStyle("width",E+d),this._overlay.setStyle("height",S+d))},_getLayoutBoxDimensions:function(){var e={top:0,right:0,bottom:0,left:0},t=this.get("legend"),a,d,v,m,g=this.get(f),y=this.get(l),b;if(t&&t.get("includeInChartLayout")){b=t.get("styles").gap,a=t.get(c);if(a!==o){d=t.get("direction"),v=d===u?l:f,m=t.get(v),e[a]=m+b;switch(a){case n:t.set(p,0);break;case i:t.set(p,y-m);break;case r:t.set(h,g-m);break;case s:t.set(h,0)}}}return e},destructor:function(){var e=this.get("legend");e&&e.destroy(!0)}},{ATTRS:{legend:m}});e.CartesianChart=b,v=e.Base.create("pieChartLegend",e.PieChart,[],{_redraw:function(){if(this._drawing){this._callLater=!0;return}this._drawing=!0,this._callLater=!1;var e=this.get("graph"),t=this.get("width"),o=this.get("height"),u,a,c=this.get("legend"),d=0,v=0,m=0,g=0,y,b,w,E,S,x;if(e)if(c){S=c.get
-("position"),x=c.get("direction"),u=e.get("width"),a=e.get("height"),y=c.get("width"),b=c.get("height"),E=c.get("styles").gap;if(x==="vertical"&&u+y+E!==t||x==="horizontal"&&a+b+E!==o){switch(c.get("position")){case s:w=Math.min(t-(y+E),o),b=o,d=y+E,c.set(l,b);break;case n:w=Math.min(o-(b+E),t),y=t,v=b+E,c.set(f,y);break;case r:w=Math.min(t-(y+E),o),b=o,m=w+E,c.set(l,b);break;case i:w=Math.min(o-(b+E),t),y=t,g=w+E,c.set(f,y)}e.set(f,w),e.set(l,w)}else switch(c.get("position")){case s:d=y+E;break;case n:v=b+E;break;case r:m=u+E;break;case i:g=a+E}}else e.set(h,0),e.set(p,0),e.set(f,t),e.set(l,o);this._drawing=!1;if(this._callLater){this._redraw();return}e&&(e.set(h,d),e.set(p,v)),c&&(c.set(h,m),c.set(p,g))}},{ATTRS:{legend:m}}),e.PieChart=v,e.ChartLegend=e.Base.create("chartlegend",e.Widget,[e.Renderer],{initializer:function(){this._items=[]},renderUI:function(){var t=this.get("boundingBox"),n=this.get("contentBox"),r=this.get("styles").background,i=new e.Rect({graphic:n,fill:r.fill,stroke:r.border});t.setStyle("display","block"),t.setStyle("position","absolute"),this.set("background",i)},bindUI:function(){this.get("chart").after("seriesCollectionChange",e.bind(this._updateHandler,this)),this.get("chart").after("stylesChange",e.bind(this._updateHandler,this)),this.after("stylesChange",this._updateHandler),this.after("positionChange",this._positionChangeHandler),this.after("widthChange",this._handleSizeChange),this.after("heightChange",this._handleSizeChange)},syncUI:function(){var e=this.get("width"),t=this.get("height");isFinite(e)&&isFinite(t)&&e>0&&t>0&&this._drawLegend()},_updateHandler:function(){this.get("rendered")&&this._drawLegend()},_positionChangeHandler:function(){var e=this.get("chart"),t=this._parentNode;t&&e&&this.get("includeInChartLayout")?this.fire("legendRendered"):this.get("rendered")&&this._drawLegend()},_handleSizeChange:function(e){var t=e.attrName,o=this.get(c),u=o===s||o===r,a=o===i||o===n;(a&&t===f||u&&t===l)&&this._drawLegend()},_drawLegend:function(){if(this._drawing){this._callLater=!0;return}this._drawing=!0,this._callLater=!1,this.get("includeInChartLayout")&&this.get("chart")._itemRenderQueue.unshift(this);var t=this.get("chart"),n=this.get("contentBox"),r=t.get("seriesCollection"),i,s=this.get("styles"),o=s.padding,u=s.item,a,f=u.hSpacing,l=u.vSpacing,c=this.get("direction"),h=c==="vertical"?s.vAlign:s.hAlign,p=s.marker,d=u.label,v,m=this._layout[c],g,y,b,w,E,S,x,T,N,C,k,L,A=[],O=p.width,M=p.height,_=0-f,D=0-l,P=0,H=0,B,j;p&&p.shape&&(w=p.shape),this._destroyLegendItems();if(t instanceof e.PieChart){i=r[0],v=i.get("categoryAxis").getDataByKey(i.get("categoryKey")),a=i.get("styles").marker,C=a.fill.colors,k=a.border.colors,L=a.border.weight,g=0,y=v.length,E=w||e.Circle,b=e.Lang.isArray(E);for(;g<y;++g)E=b?E[g]:E,T={color:C[g]},N={colors:k[g],weight:L},v=t.getSeriesItems(i,g).category.value,x=this._getLegendItem(n,this._getShapeClass(E),T,N,d,O,M,v),B=x.width,j=x.height,P=Math.max(P,B),H=Math.max(H,j),_+=B+f,D+=j+l,A.push(x)}else{g=0,y=r.length;for(;g<y;++g)i=r[g],a=this._getStylesBySeriesType(i,E),w||(E=a.shape,E||(E=e.Circle)),S=e.Lang.isArray(E)?E[g]:E,x=this._getLegendItem(n,this._getShapeClass(E),a.fill,a.border,d,O,M,i.get("valueDisplayName")),B=x.width,j=x.height,P=Math.max(P,B),H=Math.max(H,j),_+=B+f,D+=j+l,A.push(x)}this._drawing=!1,this._callLater?this._drawLegend():(m._positionLegendItems.apply(this,[A,P,H,_,D,o,f,l,h]),this._updateBackground(s),this.fire("legendRendered"))},_updateBackground:function(e){var t=e.background,n=this._contentRect,r=e.padding,i=n.left-r.left,s=n.top-r.top,o=n.right-i+r.right,u=n.bottom-s+r.bottom;this.get("background").set({fill:t.fill,stroke:t.border,width:o,height:u,x:i,y:s})},_getStylesBySeriesType:function(t){var n=t.get("styles"),r;return t instanceof e.LineSeries||t instanceof e.StackedLineSeries?(n=t.get("styles").line,r=n.color||t._getDefaultColor(t.get("graphOrder"),"line"),{border:{weight:1,color:r},fill:{color:r}}):t instanceof e.AreaSeries||t instanceof e.StackedAreaSeries?(n=t.get("styles").area,r=n.color||t._getDefaultColor(t.get("graphOrder"),"slice"),{border:{weight:1,color:r},fill:{color:r}}):(n=t.get("styles").marker,{fill:n.fill,border:{weight:n.border.weight,color:n.border.color,shape:n.shape},shape:n.shape})},_getLegendItem:function(t,n,r,i,s,o,u,a){var f=e.Node.create("<div>"),l=e.Node.create("<span>"),h,p,v,m,g,y=n;return f.setStyle(c,"absolute"),l.setStyle(c,"absolute"),l.setStyles(s),l.set("text",a),f.appendChild(l),t.append(f),p=l.get("offsetHeight"),v=p-u,m=o+v+2,l.setStyle("left",m+d),f.setStyle("height",p+d),f.setStyle("width",m+l.get("offsetWidth")+d),h=new y({fill:r,stroke:i,width:o,height:u,x:v*.5,y:v*.5,w:o,h:u,graphic:f}),l.setStyle("left",p+d),g={node:f,width:f.get("offsetWidth"),height:f.get("offsetHeight"),shape:h,textNode:l,text:a},this._items.push(g),g},_getShapeClass:function(){var e=this.get("background").get("graphic");return e._getShapeClass.apply(e,arguments)},_getDefaultStyles:function(){var e={padding:{top:8,right:8,bottom:8,left:9},gap:10,hAlign:"center",vAlign:"top",marker:this._getPlotDefaults(),item:{hSpacing:10,vSpacing:5,label:{color:"#808080",fontSize:"85%",whiteSpace:"nowrap"}},background:{shape:"rect",fill:{color:"#faf9f2"},border:{color:"#dad8c9",weight:1}}};return e},_getPlotDefaults:function(){var e={width:10,height:10};return e},_destroyLegendItems:function(){var e;if(this._items)while(this._items.length>0)e=this._items.shift(),e.shape.get("graphic").destroy(),e.node.empty(),e.node.destroy(!0),e.node=null,e=null;this._items=[]},_layout:{vertical:y,horizontal:g},destructor:function(){var e=this.get("background"),t;this._destroyLegendItems(),e&&(t=e.get("graphic"),t?t.destroy():e.destroy())}},{ATTRS:{includeInChartLayout:{value:!1},chart:{setter:function(t){return this.after("legendRendered",e.bind(t._itemRendered,t)),t}},direction:{value:"vertical"},position:{lazyAdd:!1,value:"right",setter:function(e){return e===n||e===i?this.set("direction",u):(e===s||e===r)&&this
-.set("direction",a),e}},width:{getter:function(){var e=this.get("chart"),t=this._parentNode;return t?e&&this.get("includeInChartLayout")||this._width?(this._width||(this._width=0),this._width):t.get("offsetWidth"):""},setter:function(e){return this._width=e,e}},height:{valueFn:"_heightGetter",getter:function(){var e=this.get("chart"),t=this._parentNode;return t?e&&this.get("includeInChartLayout")||this._height?(this._height||(this._height=0),this._height):t.get("offsetHeight"):""},setter:function(e){return this._height=e,e}},x:{lazyAdd:!1,value:0,setter:function(e){var t=this.get("boundingBox");return t&&t.setStyle(s,e+d),e}},y:{lazyAdd:!1,value:0,setter:function(e){var t=this.get("boundingBox");return t&&t.setStyle(n,e+d),e}},items:{getter:function(){return this._items}},background:{}}})},"3.15.0",{requires:["charts-base"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('charts-legend',function(Y,NAME){var TOP="top",RIGHT="right",BOTTOM="bottom",LEFT="left",EXTERNAL="external",HORIZONTAL="horizontal",VERTICAL="vertical",WIDTH="width",HEIGHT="height",POSITION="position",_X="x",_Y="y",PX="px",PieChartLegend,LEGEND={setter:function(val)
+{var legend=this.get("legend");if(legend)
+{legend.destroy(true);}
+if(val instanceof Y.ChartLegend)
+{legend=val;legend.set("chart",this);}
+else
+{val.chart=this;if(!val.hasOwnProperty("render"))
+{val.render=this.get("contentBox");val.includeInChartLayout=true;}
+legend=new Y.ChartLegend(val);}
+return legend;}},HorizontalLegendLayout={_positionLegendItems:function(items,maxWidth,maxHeight,totalWidth,totalHeight,padding,horizontalGap,verticalGap,hAlign)
+{var i=0,rowIterator=0,item,node,itemWidth,itemHeight,len,width=this.get("width"),rows,rowsLen,row,totalWidthArray,legendWidth,topHeight=padding.top-verticalGap,limit=width-(padding.left+padding.right),left,top,right,bottom;HorizontalLegendLayout._setRowArrays(items,limit,horizontalGap);rows=HorizontalLegendLayout.rowArray;totalWidthArray=HorizontalLegendLayout.totalWidthArray;rowsLen=rows.length;for(;rowIterator<rowsLen;++rowIterator)
+{topHeight+=verticalGap;row=rows[rowIterator];len=row.length;legendWidth=HorizontalLegendLayout.getStartPoint(width,totalWidthArray[rowIterator],hAlign,padding);for(i=0;i<len;++i)
+{item=row[i];node=item.node;itemWidth=item.width;itemHeight=item.height;item.x=legendWidth;item.y=0;left=!isNaN(left)?Math.min(left,legendWidth):legendWidth;top=!isNaN(top)?Math.min(top,topHeight):topHeight;right=!isNaN(right)?Math.max(legendWidth+itemWidth,right):legendWidth+itemWidth;bottom=!isNaN(bottom)?Math.max(topHeight+itemHeight,bottom):topHeight+itemHeight;node.setStyle("left",legendWidth+PX);node.setStyle("top",topHeight+PX);legendWidth+=itemWidth+horizontalGap;}
+topHeight+=item.height;}
+this._contentRect={left:left,top:top,right:right,bottom:bottom};if(this.get("includeInChartLayout"))
+{this.set("height",topHeight+padding.bottom);}},_setRowArrays:function(items,limit,horizontalGap)
+{var item=items[0],rowArray=[[item]],i=1,rowIterator=0,len=items.length,totalWidth=item.width,itemWidth,totalWidthArray=[[totalWidth]];for(;i<len;++i)
+{item=items[i];itemWidth=item.width;if((totalWidth+horizontalGap+itemWidth)<=limit)
+{totalWidth+=horizontalGap+itemWidth;rowArray[rowIterator].push(item);}
+else
+{totalWidth=horizontalGap+itemWidth;if(rowArray[rowIterator])
+{rowIterator+=1;}
+rowArray[rowIterator]=[item];}
+totalWidthArray[rowIterator]=totalWidth;}
+HorizontalLegendLayout.rowArray=rowArray;HorizontalLegendLayout.totalWidthArray=totalWidthArray;},getStartPoint:function(w,totalWidth,align,padding)
+{var startPoint;switch(align)
+{case LEFT:startPoint=padding.left;break;case"center":startPoint=(w-totalWidth)*0.5;break;case RIGHT:startPoint=w-totalWidth-padding.right;break;}
+return startPoint;}},VerticalLegendLayout={_positionLegendItems:function(items,maxWidth,maxHeight,totalWidth,totalHeight,padding,horizontalGap,verticalGap,vAlign)
+{var i=0,columnIterator=0,item,node,itemHeight,itemWidth,len,height=this.get("height"),columns,columnsLen,column,totalHeightArray,legendHeight,leftWidth=padding.left-horizontalGap,legendWidth,limit=height-(padding.top+padding.bottom),left,top,right,bottom;VerticalLegendLayout._setColumnArrays(items,limit,verticalGap);columns=VerticalLegendLayout.columnArray;totalHeightArray=VerticalLegendLayout.totalHeightArray;columnsLen=columns.length;for(;columnIterator<columnsLen;++columnIterator)
+{leftWidth+=horizontalGap;column=columns[columnIterator];len=column.length;legendHeight=VerticalLegendLayout.getStartPoint(height,totalHeightArray[columnIterator],vAlign,padding);legendWidth=0;for(i=0;i<len;++i)
+{item=column[i];node=item.node;itemHeight=item.height;itemWidth=item.width;item.y=legendHeight;item.x=leftWidth;left=!isNaN(left)?Math.min(left,leftWidth):leftWidth;top=!isNaN(top)?Math.min(top,legendHeight):legendHeight;right=!isNaN(right)?Math.max(leftWidth+itemWidth,right):leftWidth+itemWidth;bottom=!isNaN(bottom)?Math.max(legendHeight+itemHeight,bottom):legendHeight+itemHeight;node.setStyle("left",leftWidth+PX);node.setStyle("top",legendHeight+PX);legendHeight+=itemHeight+verticalGap;legendWidth=Math.max(legendWidth,item.width);}
+leftWidth+=legendWidth;}
+this._contentRect={left:left,top:top,right:right,bottom:bottom};if(this.get("includeInChartLayout"))
+{this.set("width",leftWidth+padding.right);}},_setColumnArrays:function(items,limit,verticalGap)
+{var item=items[0],columnArray=[[item]],i=1,columnIterator=0,len=items.length,totalHeight=item.height,itemHeight,totalHeightArray=[[totalHeight]];for(;i<len;++i)
+{item=items[i];itemHeight=item.height;if((totalHeight+verticalGap+itemHeight)<=limit)
+{totalHeight+=verticalGap+itemHeight;columnArray[columnIterator].push(item);}
+else
+{totalHeight=verticalGap+itemHeight;if(columnArray[columnIterator])
+{columnIterator+=1;}
+columnArray[columnIterator]=[item];}
+totalHeightArray[columnIterator]=totalHeight;}
+VerticalLegendLayout.columnArray=columnArray;VerticalLegendLayout.totalHeightArray=totalHeightArray;},getStartPoint:function(h,totalHeight,align,padding)
+{var startPoint;switch(align)
+{case TOP:startPoint=padding.top;break;case"middle":startPoint=(h-totalHeight)*0.5;break;case BOTTOM:startPoint=h-totalHeight-padding.bottom;break;}
+return startPoint;}},CartesianChartLegend=Y.Base.create("cartesianChartLegend",Y.CartesianChart,[],{_redraw:function()
+{if(this._drawing)
+{this._callLater=true;return;}
+this._drawing=true;this._callLater=false;var w=this.get("width"),h=this.get("height"),layoutBoxDimensions=this._getLayoutBoxDimensions(),leftPaneWidth=layoutBoxDimensions.left,rightPaneWidth=layoutBoxDimensions.right,topPaneHeight=layoutBoxDimensions.top,bottomPaneHeight=layoutBoxDimensions.bottom,leftAxesCollection=this.get("leftAxesCollection"),rightAxesCollection=this.get("rightAxesCollection"),topAxesCollection=this.get("topAxesCollection"),bottomAxesCollection=this.get("bottomAxesCollection"),i=0,l,axis,graphOverflow="visible",graph=this.get("graph"),topOverflow,bottomOverflow,leftOverflow,rightOverflow,graphWidth,graphHeight,graphX,graphY,allowContentOverflow=this.get("allowContentOverflow"),diff,rightAxesXCoords,leftAxesXCoords,topAxesYCoords,bottomAxesYCoords,legend=this.get("legend"),graphRect={};if(leftAxesCollection)
+{leftAxesXCoords=[];l=leftAxesCollection.length;for(i=l-1;i>-1;--i)
+{leftAxesXCoords.unshift(leftPaneWidth);leftPaneWidth+=leftAxesCollection[i].get("width");}}
+if(rightAxesCollection)
+{rightAxesXCoords=[];l=rightAxesCollection.length;i=0;for(i=l-1;i>-1;--i)
+{rightPaneWidth+=rightAxesCollection[i].get("width");rightAxesXCoords.unshift(w-rightPaneWidth);}}
+if(topAxesCollection)
+{topAxesYCoords=[];l=topAxesCollection.length;for(i=l-1;i>-1;--i)
+{topAxesYCoords.unshift(topPaneHeight);topPaneHeight+=topAxesCollection[i].get("height");}}
+if(bottomAxesCollection)
+{bottomAxesYCoords=[];l=bottomAxesCollection.length;for(i=l-1;i>-1;--i)
+{bottomPaneHeight+=bottomAxesCollection[i].get("height");bottomAxesYCoords.unshift(h-bottomPaneHeight);}}
+graphWidth=w-(leftPaneWidth+rightPaneWidth);graphHeight=h-(bottomPaneHeight+topPaneHeight);graphRect.left=leftPaneWidth;graphRect.top=topPaneHeight;graphRect.bottom=h-bottomPaneHeight;graphRect.right=w-rightPaneWidth;if(!allowContentOverflow)
+{topOverflow=this._getTopOverflow(leftAxesCollection,rightAxesCollection);bottomOverflow=this._getBottomOverflow(leftAxesCollection,rightAxesCollection);leftOverflow=this._getLeftOverflow(bottomAxesCollection,topAxesCollection);rightOverflow=this._getRightOverflow(bottomAxesCollection,topAxesCollection);diff=topOverflow-topPaneHeight;if(diff>0)
+{graphRect.top=topOverflow;if(topAxesYCoords)
+{i=0;l=topAxesYCoords.length;for(;i<l;++i)
+{topAxesYCoords[i]+=diff;}}}
+diff=bottomOverflow-bottomPaneHeight;if(diff>0)
+{graphRect.bottom=h-bottomOverflow;if(bottomAxesYCoords)
+{i=0;l=bottomAxesYCoords.length;for(;i<l;++i)
+{bottomAxesYCoords[i]-=diff;}}}
+diff=leftOverflow-leftPaneWidth;if(diff>0)
+{graphRect.left=leftOverflow;if(leftAxesXCoords)
+{i=0;l=leftAxesXCoords.length;for(;i<l;++i)
+{leftAxesXCoords[i]+=diff;}}}
+diff=rightOverflow-rightPaneWidth;if(diff>0)
+{graphRect.right=w-rightOverflow;if(rightAxesXCoords)
+{i=0;l=rightAxesXCoords.length;for(;i<l;++i)
+{rightAxesXCoords[i]-=diff;}}}}
+graphWidth=graphRect.right-graphRect.left;graphHeight=graphRect.bottom-graphRect.top;graphX=graphRect.left;graphY=graphRect.top;if(legend)
+{if(legend.get("includeInChartLayout"))
+{switch(legend.get("position"))
+{case"left":legend.set("y",graphY);legend.set("height",graphHeight);break;case"top":legend.set("x",graphX);legend.set("width",graphWidth);break;case"bottom":legend.set("x",graphX);legend.set("width",graphWidth);break;case"right":legend.set("y",graphY);legend.set("height",graphHeight);break;}}}
+if(topAxesCollection)
+{l=topAxesCollection.length;i=0;for(;i<l;i++)
+{axis=topAxesCollection[i];if(axis.get("width")!==graphWidth)
+{axis.set("width",graphWidth);}
+axis.get("boundingBox").setStyle("left",graphX+PX);axis.get("boundingBox").setStyle("top",topAxesYCoords[i]+PX);}
+if(axis._hasDataOverflow())
+{graphOverflow="hidden";}}
+if(bottomAxesCollection)
+{l=bottomAxesCollection.length;i=0;for(;i<l;i++)
+{axis=bottomAxesCollection[i];if(axis.get("width")!==graphWidth)
+{axis.set("width",graphWidth);}
+axis.get("boundingBox").setStyle("left",graphX+PX);axis.get("boundingBox").setStyle("top",bottomAxesYCoords[i]+PX);}
+if(axis._hasDataOverflow())
+{graphOverflow="hidden";}}
+if(leftAxesCollection)
+{l=leftAxesCollection.length;i=0;for(;i<l;++i)
+{axis=leftAxesCollection[i];axis.get("boundingBox").setStyle("top",graphY+PX);axis.get("boundingBox").setStyle("left",leftAxesXCoords[i]+PX);if(axis.get("height")!==graphHeight)
+{axis.set("height",graphHeight);}}
+if(axis._hasDataOverflow())
+{graphOverflow="hidden";}}
+if(rightAxesCollection)
+{l=rightAxesCollection.length;i=0;for(;i<l;++i)
+{axis=rightAxesCollection[i];axis.get("boundingBox").setStyle("top",graphY+PX);axis.get("boundingBox").setStyle("left",rightAxesXCoords[i]+PX);if(axis.get("height")!==graphHeight)
+{axis.set("height",graphHeight);}}
+if(axis._hasDataOverflow())
+{graphOverflow="hidden";}}
+this._drawing=false;if(this._callLater)
+{this._redraw();return;}
+if(graph)
+{graph.get("boundingBox").setStyle("left",graphX+PX);graph.get("boundingBox").setStyle("top",graphY+PX);graph.set("width",graphWidth);graph.set("height",graphHeight);graph.get("boundingBox").setStyle("overflow",graphOverflow);}
+if(this._overlay)
+{this._overlay.setStyle("left",graphX+PX);this._overlay.setStyle("top",graphY+PX);this._overlay.setStyle("width",graphWidth+PX);this._overlay.setStyle("height",graphHeight+PX);}},_getLayoutBoxDimensions:function()
+{var box={top:0,right:0,bottom:0,left:0},legend=this.get("legend"),position,direction,dimension,size,w=this.get(WIDTH),h=this.get(HEIGHT),gap;if(legend&&legend.get("includeInChartLayout"))
+{gap=legend.get("styles").gap;position=legend.get(POSITION);if(position!==EXTERNAL)
+{direction=legend.get("direction");dimension=direction===HORIZONTAL?HEIGHT:WIDTH;size=legend.get(dimension);box[position]=size+gap;switch(position)
+{case TOP:legend.set(_Y,0);break;case BOTTOM:legend.set(_Y,h-size);break;case RIGHT:legend.set(_X,w-size);break;case LEFT:legend.set(_X,0);break;}}}
+return box;},destructor:function()
+{var legend=this.get("legend");if(legend)
+{legend.destroy(true);}}},{ATTRS:{legend:LEGEND}});Y.CartesianChart=CartesianChartLegend;PieChartLegend=Y.Base.create("pieChartLegend",Y.PieChart,[],{_redraw:function()
+{if(this._drawing)
+{this._callLater=true;return;}
+this._drawing=true;this._callLater=false;var graph=this.get("graph"),w=this.get("width"),h=this.get("height"),graphWidth,graphHeight,legend=this.get("legend"),x=0,y=0,legendX=0,legendY=0,legendWidth,legendHeight,dimension,gap,position,direction;if(graph)
+{if(legend)
+{position=legend.get("position");direction=legend.get("direction");graphWidth=graph.get("width");graphHeight=graph.get("height");legendWidth=legend.get("width");legendHeight=legend.get("height");gap=legend.get("styles").gap;if((direction==="vertical"&&(graphWidth+legendWidth+gap!==w))||(direction==="horizontal"&&(graphHeight+legendHeight+gap!==h)))
+{switch(legend.get("position"))
+{case LEFT:dimension=Math.min(w-(legendWidth+gap),h);legendHeight=h;x=legendWidth+gap;legend.set(HEIGHT,legendHeight);break;case TOP:dimension=Math.min(h-(legendHeight+gap),w);legendWidth=w;y=legendHeight+gap;legend.set(WIDTH,legendWidth);break;case RIGHT:dimension=Math.min(w-(legendWidth+gap),h);legendHeight=h;legendX=dimension+gap;legend.set(HEIGHT,legendHeight);break;case BOTTOM:dimension=Math.min(h-(legendHeight+gap),w);legendWidth=w;legendY=dimension+gap;legend.set(WIDTH,legendWidth);break;}
+graph.set(WIDTH,dimension);graph.set(HEIGHT,dimension);}
+else
+{switch(legend.get("position"))
+{case LEFT:x=legendWidth+gap;break;case TOP:y=legendHeight+gap;break;case RIGHT:legendX=graphWidth+gap;break;case BOTTOM:legendY=graphHeight+gap;break;}}}
+else
+{graph.set(_X,0);graph.set(_Y,0);graph.set(WIDTH,w);graph.set(HEIGHT,h);}}
+this._drawing=false;if(this._callLater)
+{this._redraw();return;}
+if(graph)
+{graph.set(_X,x);graph.set(_Y,y);}
+if(legend)
+{legend.set(_X,legendX);legend.set(_Y,legendY);}}},{ATTRS:{legend:LEGEND}});Y.PieChart=PieChartLegend;Y.ChartLegend=Y.Base.create("chartlegend",Y.Widget,[Y.Renderer],{initializer:function()
+{this._items=[];},renderUI:function()
+{var bb=this.get("boundingBox"),cb=this.get("contentBox"),styles=this.get("styles").background,background=new Y.Rect({graphic:cb,fill:styles.fill,stroke:styles.border});bb.setStyle("display","block");bb.setStyle("position","absolute");this.set("background",background);},bindUI:function()
+{this.get("chart").after("seriesCollectionChange",Y.bind(this._updateHandler,this));this.get("chart").after("stylesChange",Y.bind(this._updateHandler,this));this.after("stylesChange",this._updateHandler);this.after("positionChange",this._positionChangeHandler);this.after("widthChange",this._handleSizeChange);this.after("heightChange",this._handleSizeChange);},syncUI:function()
+{var w=this.get("width"),h=this.get("height");if(isFinite(w)&&isFinite(h)&&w>0&&h>0)
+{this._drawLegend();}},_updateHandler:function()
+{if(this.get("rendered"))
+{this._drawLegend();}},_positionChangeHandler:function()
+{var chart=this.get("chart"),parentNode=this._parentNode;if(parentNode&&((chart&&this.get("includeInChartLayout"))))
+{this.fire("legendRendered");}
+else if(this.get("rendered"))
+{this._drawLegend();}},_handleSizeChange:function(e)
+{var attrName=e.attrName,pos=this.get(POSITION),vert=pos===LEFT||pos===RIGHT,hor=pos===BOTTOM||pos===TOP;if((hor&&attrName===WIDTH)||(vert&&attrName===HEIGHT))
+{this._drawLegend();}},_drawLegend:function()
+{if(this._drawing)
+{this._callLater=true;return;}
+this._drawing=true;this._callLater=false;if(this.get("includeInChartLayout"))
+{this.get("chart")._itemRenderQueue.unshift(this);}
+var chart=this.get("chart"),node=this.get("contentBox"),seriesCollection=chart.get("seriesCollection"),series,styles=this.get("styles"),padding=styles.padding,itemStyles=styles.item,seriesStyles,hSpacing=itemStyles.hSpacing,vSpacing=itemStyles.vSpacing,direction=this.get("direction"),align=direction==="vertical"?styles.vAlign:styles.hAlign,marker=styles.marker,labelStyles=itemStyles.label,displayName,layout=this._layout[direction],i,len,isArray,legendShape,shape,shapeClass,item,fill,border,fillColors,borderColors,borderWeight,items=[],markerWidth=marker.width,markerHeight=marker.height,totalWidth=0-hSpacing,totalHeight=0-vSpacing,maxWidth=0,maxHeight=0,itemWidth,itemHeight;if(marker&&marker.shape)
+{legendShape=marker.shape;}
+this._destroyLegendItems();if(chart instanceof Y.PieChart)
+{series=seriesCollection[0];displayName=series.get("categoryAxis").getDataByKey(series.get("categoryKey"));seriesStyles=series.get("styles").marker;fillColors=seriesStyles.fill.colors;borderColors=seriesStyles.border.colors;borderWeight=seriesStyles.border.weight;i=0;len=displayName.length;shape=legendShape||Y.Circle;isArray=Y.Lang.isArray(shape);for(;i<len;++i)
+{shape=isArray?shape[i]:shape;fill={color:fillColors[i]};border={colors:borderColors[i],weight:borderWeight};displayName=chart.getSeriesItems(series,i).category.value;item=this._getLegendItem(node,this._getShapeClass(shape),fill,border,labelStyles,markerWidth,markerHeight,displayName);itemWidth=item.width;itemHeight=item.height;maxWidth=Math.max(maxWidth,itemWidth);maxHeight=Math.max(maxHeight,itemHeight);totalWidth+=itemWidth+hSpacing;totalHeight+=itemHeight+vSpacing;items.push(item);}}
+else
+{i=0;len=seriesCollection.length;for(;i<len;++i)
+{series=seriesCollection[i];seriesStyles=this._getStylesBySeriesType(series,shape);if(!legendShape)
+{shape=seriesStyles.shape;if(!shape)
+{shape=Y.Circle;}}
+shapeClass=Y.Lang.isArray(shape)?shape[i]:shape;item=this._getLegendItem(node,this._getShapeClass(shape),seriesStyles.fill,seriesStyles.border,labelStyles,markerWidth,markerHeight,series.get("valueDisplayName"));itemWidth=item.width;itemHeight=item.height;maxWidth=Math.max(maxWidth,itemWidth);maxHeight=Math.max(maxHeight,itemHeight);totalWidth+=itemWidth+hSpacing;totalHeight+=itemHeight+vSpacing;items.push(item);}}
+this._drawing=false;if(this._callLater)
+{this._drawLegend();}
+else
+{layout._positionLegendItems.apply(this,[items,maxWidth,maxHeight,totalWidth,totalHeight,padding,hSpacing,vSpacing,align]);this._updateBackground(styles);this.fire("legendRendered");}},_updateBackground:function(styles)
+{var backgroundStyles=styles.background,contentRect=this._contentRect,padding=styles.padding,x=contentRect.left-padding.left,y=contentRect.top-padding.top,w=contentRect.right-x+padding.right,h=contentRect.bottom-y+padding.bottom;this.get("background").set({fill:backgroundStyles.fill,stroke:backgroundStyles.border,width:w,height:h,x:x,y:y});},_getStylesBySeriesType:function(series)
+{var styles=series.get("styles"),color;if(series instanceof Y.LineSeries||series instanceof Y.StackedLineSeries)
+{styles=series.get("styles").line;color=styles.color||series._getDefaultColor(series.get("graphOrder"),"line");return{border:{weight:1,color:color},fill:{color:color}};}
+else if(series instanceof Y.AreaSeries||series instanceof Y.StackedAreaSeries)
+{styles=series.get("styles").area;color=styles.color||series._getDefaultColor(series.get("graphOrder"),"slice");return{border:{weight:1,color:color},fill:{color:color}};}
+else
+{styles=series.get("styles").marker;return{fill:styles.fill,border:{weight:styles.border.weight,color:styles.border.color,shape:styles.shape},shape:styles.shape};}},_getLegendItem:function(node,shapeClass,fill,border,labelStyles,w,h,text)
+{var containerNode=Y.Node.create("<div>"),textField=Y.Node.create("<span>"),shape,dimension,padding,left,item,ShapeClass=shapeClass;containerNode.setStyle(POSITION,"absolute");textField.setStyle(POSITION,"absolute");textField.setStyles(labelStyles);textField.set("text",text);containerNode.appendChild(textField);node.append(containerNode);dimension=textField.get("offsetHeight");padding=dimension-h;left=w+padding+2;textField.setStyle("left",left+PX);containerNode.setStyle("height",dimension+PX);containerNode.setStyle("width",(left+textField.get("offsetWidth"))+PX);shape=new ShapeClass({fill:fill,stroke:border,width:w,height:h,x:padding*0.5,y:padding*0.5,w:w,h:h,graphic:containerNode});textField.setStyle("left",dimension+PX);item={node:containerNode,width:containerNode.get("offsetWidth"),height:containerNode.get("offsetHeight"),shape:shape,textNode:textField,text:text};this._items.push(item);return item;},_getShapeClass:function()
+{var graphic=this.get("background").get("graphic");return graphic._getShapeClass.apply(graphic,arguments);},_getDefaultStyles:function()
+{var styles={padding:{top:8,right:8,bottom:8,left:9},gap:10,hAlign:"center",vAlign:"top",marker:this._getPlotDefaults(),item:{hSpacing:10,vSpacing:5,label:{color:"#808080",fontSize:"85%",whiteSpace:"nowrap"}},background:{shape:"rect",fill:{color:"#faf9f2"},border:{color:"#dad8c9",weight:1}}};return styles;},_getPlotDefaults:function()
+{var defs={width:10,height:10};return defs;},_destroyLegendItems:function()
+{var item;if(this._items)
+{while(this._items.length>0)
+{item=this._items.shift();item.shape.get("graphic").destroy();item.node.empty();item.node.destroy(true);item.node=null;item=null;}}
+this._items=[];},_layout:{vertical:VerticalLegendLayout,horizontal:HorizontalLegendLayout},destructor:function()
+{var background=this.get("background"),backgroundGraphic;this._destroyLegendItems();if(background)
+{backgroundGraphic=background.get("graphic");if(backgroundGraphic)
+{backgroundGraphic.destroy();}
+else
+{background.destroy();}}}},{ATTRS:{includeInChartLayout:{value:false},chart:{setter:function(val)
+{this.after("legendRendered",Y.bind(val._itemRendered,val));return val;}},direction:{value:"vertical"},position:{lazyAdd:false,value:"right",setter:function(val)
+{if(val===TOP||val===BOTTOM)
+{this.set("direction",HORIZONTAL);}
+else if(val===LEFT||val===RIGHT)
+{this.set("direction",VERTICAL);}
+return val;}},width:{getter:function()
+{var chart=this.get("chart"),parentNode=this._parentNode;if(parentNode)
+{if((chart&&this.get("includeInChartLayout"))||this._width)
+{if(!this._width)
+{this._width=0;}
+return this._width;}
+else
+{return parentNode.get("offsetWidth");}}
+return"";},setter:function(val)
+{this._width=val;return val;}},height:{valueFn:"_heightGetter",getter:function()
+{var chart=this.get("chart"),parentNode=this._parentNode;if(parentNode)
+{if((chart&&this.get("includeInChartLayout"))||this._height)
+{if(!this._height)
+{this._height=0;}
+return this._height;}
+else
+{return parentNode.get("offsetHeight");}}
+return"";},setter:function(val)
+{this._height=val;return val;}},x:{lazyAdd:false,value:0,setter:function(val)
+{var node=this.get("boundingBox");if(node)
+{node.setStyle(LEFT,val+PX);}
+return val;}},y:{lazyAdd:false,value:0,setter:function(val)
+{var node=this.get("boundingBox");if(node)
+{node.setStyle(TOP,val+PX);}
+return val;}},items:{getter:function()
+{return this._items;}},background:{}}});},'3.15.0',{"requires":["charts-base"]});

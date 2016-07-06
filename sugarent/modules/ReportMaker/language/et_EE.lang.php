@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,18 +10,25 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
   'LBL_MODULE_NAME' => 'Enterprise Reports',
-  'LBL_MODULE_NAME_SINGULAR' => 'Advanced Report',
   'LBL_MODULE_TITLE' => 'Enterprise Reports',
+  'LBL_PARENT_DATASET' => 'Parent Data Set:',
+  'LBL_TABLE_WIDTH' => 'Table Width %:',
+  'LBL_TABLE_HEIGHT' => 'Table Height %:',
+  'LBL_ADD_BUTTON_KEY' => 'A',
+  'LBL_NEW_BUTTON_KEY' => 'N',
+  'LBL_DETAILS_BUTTON_KEY' => 'D',
+  'LBL_EDIT_BUTTON_KEY' => 'N',
+  'LBL_RUN_BUTTON_KEY' => 'R',
   'LBL_SEARCH_FORM_TITLE' => 'Enterprise Reports: Otsi',
   'LBL_LIST_FORM_TITLE' => 'Kõik Enterprise Reports',
   'LBL_LIST_NAME' => 'Nimi',
@@ -30,22 +37,17 @@ $mod_strings = array (
   'LBL_LIST_SCHEDULED' => 'Planeeritud',
   'LBL_LIST_TYPE' => 'Tüüp',
   'LBL_LIST_MODULE_TITLE' => 'Moodul',
-  'LBL_PARENT_DATASET' => 'Parent Data Set:',
+  'LBL_DESCRIPTION' => 'Kirjeldus:',
   'LBL_QUERY_NAME' => 'Päringu nimi:',
   'LBL_TYPE' => 'Aruande tüüp:',
   'LBL_SCHEDULED' => 'Planeeri aruanne:',
   'LBL_PUBLISHED' => 'Avalda aruanne:',
   'LBL_NAME' => 'Aruande nimi:',
   'LBL_TITLE' => 'Aruande pealkiri:',
-  'LBL_DESCRIPTION' => 'Kirjeldus:',
-  'LBL_TABLE_WIDTH' => 'Table Width %:',
-  'LBL_TABLE_HEIGHT' => 'Table Height %:',
   'LBL_FONT_SIZE' => 'Fondi suurus:',
-
   'NTC_DELETE_CONFIRMATION' => 'Oled kindel, et soovid seda kirjet kustutada?',
   'ERR_DELETE_RECORD' => 'Artikli kustutamiseks täpsusta kirje numbrit.',
   'LBL_CURRENCY' => 'Valuuta',
-  
   'LNK_LIST_REPORTMAKER' => 'Vaata Enterprise Aruandeid',
   'LNK_NEW_REPORTMAKER' => 'Loo Enterprise Aruanne',
   'LNK_LIST_DATASET' => 'Vaata andmeformaate',
@@ -56,44 +58,29 @@ $mod_strings = array (
   'LNK_QUERYBUILDER' => 'Päringu ehitaja',
   'LNK_ADVANCED_REPORTING' => 'Halda Enterprise Aruandeid',
   'LBL_ALL_REPORTS' => 'Vaata aruandeid',
-  
-  'LBL_ADD_DATA_SET'=>'Lisa uus andmemäärang',
-  'LBL_EDIT_DATA_SET'=>'Uuenda andmemäärangut',
-  'LBL_DATA_SET'=>'Andmemäärang:',
-  'LBL_LIST_ORDER_Y'=>'Vertikaalne asetus:',
-  'LBL_LIST_ORDER_X'=>'Horisontaalne asetus:',
-  'LBL_REPORT_ALIGN' => 'Aruande seadistamine:', 
-    
-  //for subpanel under the reports
+  'LBL_ADD_DATA_SET' => 'Lisa uus andmemäärang',
+  'LBL_EDIT_DATA_SET' => 'Uuenda andmemäärangut',
+  'LBL_DATA_SET' => 'Andmemäärang:',
+  'LBL_LIST_ORDER_Y' => 'Vertikaalne asetus:',
+  'LBL_LIST_ORDER_X' => 'Horisontaalne asetus:',
+  'LBL_REPORT_ALIGN' => 'Aruande seadistamine:',
   'LBL_ADD_BUTTON_TITLE' => 'Vali [Alt+A]',
-  'LBL_ADD_BUTTON_KEY' => 'A',
   'LBL_ADD_BUTTON_LABEL' => 'Vali',
   'LBL_NEW_BUTTON_TITLE' => 'Lisa [Alt+N]',
-  'LBL_NEW_BUTTON_KEY' => 'N',
-  'LBL_NEW_BUTTON_LABEL' => 'Loo uus',  
+  'LBL_NEW_BUTTON_LABEL' => 'Loo uus',
   'LBL_DETAILS_BUTTON_TITLE' => 'Aruande üksikasjad [Alt+D]',
-  'LBL_DETAILS_BUTTON_KEY' => 'D',
-  'LBL_DETAILS_BUTTON_LABEL' => 'Aruande üksikasjad',  
+  'LBL_DETAILS_BUTTON_LABEL' => 'Aruande üksikasjad',
   'LBL_EDIT_BUTTON_TITLE' => 'Redigeeri aruanne [Alt+E]',
-  'LBL_EDIT_BUTTON_KEY' => 'N',
-  'LBL_EDIT_BUTTON_LABEL' => 'redigeeri',  
+  'LBL_EDIT_BUTTON_LABEL' => 'redigeeri',
   'LBL_RUN_BUTTON_TITLE' => 'Käivita aruanne [Alt+R]',
-  'LBL_RUN_BUTTON_KEY' => 'R',
-  'LBL_RUN_BUTTON_LABEL' => 'Käivita aruanne', 
-  
-  
-	'LNK_UP' => 'Üles',
-	'LNK_DOWN' => 'Alla', 
-	
-	
-	'LBL_NONE'=>'Mitteplaneeritud',
- 	'LBL_SCHEDULE_EMAIL' => 'Planeeritud',
-	'LBL_HELLO' => 'Tere',	
-	'LBL_SCHEDULED_REPORT_MSG_INTRO' => 'Sugar on saatnud teile manusega automaatse aruande. See aruanne on loodud', 
-	'LBL_SCHEDULED_REPORT_MSG_BODY1' => 'ja salvestatud nimega "', 
-	'LBL_SCHEDULED_REPORT_MSG_BODY2' => "\". Kui soovid muuta oma aruande sätteid, logi Sugarisse ning kliki sakil \"Aruanded\".", 
-	'LBL_EDITLAYOUT' => 'Edit Layout' /*for 508 compliance fix*/,
+  'LBL_RUN_BUTTON_LABEL' => 'Käivita aruanne',
+  'LNK_UP' => 'Üles',
+  'LNK_DOWN' => 'Alla',
+  'LBL_NONE' => 'Mitteplaneeritud',
+  'LBL_SCHEDULE_EMAIL' => 'Planeeritud',
+  'LBL_HELLO' => 'Tere',
+  'LBL_SCHEDULED_REPORT_MSG_INTRO' => 'Sugar on saatnud teile manusega automaatse aruande. See aruanne on loodud',
+  'LBL_SCHEDULED_REPORT_MSG_BODY1' => 'ja salvestatud nimega "',
+  'LBL_SCHEDULED_REPORT_MSG_BODY2' => '". Kui soovid muuta oma aruande sätteid, logi Sugarisse ning kliki sakil "Aruanded".',
 );
 
-
-?>

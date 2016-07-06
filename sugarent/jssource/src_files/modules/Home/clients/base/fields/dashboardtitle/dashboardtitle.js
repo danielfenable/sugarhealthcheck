@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.Home.DashboardtitleField
  * @alias SUGAR.App.view.fields.BaseHomeDashboardtitleField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     events: {
@@ -24,21 +24,23 @@
         if (!_.isEmpty(this.dashboards)) {
             return;
         }
-
-        var contextBro = this.context.parent.getChildContext({module: 'Home'});
-        var collection = contextBro.get('collection').clone();
-        var pattern = /^(LBL|TPL|NTC|MSG)_(_|[a-zA-Z0-9])*$/;
-        collection.remove(self.model, {silent: true});
-        _.each(collection.models, function(model) {
-            if (pattern.test(model.get('name'))) {
-                model.set('name',
-                    app.lang.get(model.get('name'), collection.module || null)
-                );
+        this.collection.fetch({
+            silent: true,
+            success: function(collection) {
+                var pattern = /^(LBL|TPL|NTC|MSG)_(_|[a-zA-Z0-9])*$/;
+                collection.remove(self.model, {silent:true});
+                _.each(collection.models, function(model) {
+                    if (pattern.test(model.get('name'))) {
+                        model.set('name',
+                            app.lang.get(model.get('name'), collection.module || null)
+                        );
+                    }
+                });
+                self.dashboards = collection;
+                var optionTemplate = app.template.getField(self.type, "options", self.module);
+                self.$(".dropdown-menu").html(optionTemplate(collection));
             }
         });
-        self.dashboards = collection;
-        var optionTemplate = app.template.getField(self.type, 'options', self.module);
-        self.$('.dropdown-menu').html(optionTemplate(collection));
     },
     /**
      * Handle the click from the UI
@@ -55,10 +57,6 @@
      * @param {String} [type] The type of dashboard being loaded, default is undefined
      */
     navigate: function(id, type) {
-        if (this.view.layout.isSearchContext()) {
-            var contextBro = this.context.parent.getChildContext({module: 'Home'});
-            contextBro.set('currentDashboardIndex', id);
-        }
         this.view.layout.navigateLayout(id, type);
     },
     /**
@@ -68,12 +66,13 @@
      * @return {String} Translated string
      */
     format: function(value) {
-        var module = this.context.parent && this.context.parent.get('module') || this.context.get('module');
-        return app.lang.get(value, module) || value;
+        var module = this.context.parent ? this.context.parent.get("module") : this.context.get("module"),
+            pattern = /^(LBL|TPL|NTC|MSG)_(_|[a-zA-Z0-9])*$/;
+        return pattern.test(value) ? app.lang.get(value, module) : value;
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * Override template for dashboard title on home page.
      * Need display it as label so use `f.base.detail` template.

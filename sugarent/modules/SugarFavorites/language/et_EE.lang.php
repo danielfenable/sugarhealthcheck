@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,11 +10,19 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
-  'LBL_ASSIGNED_TO_ID' => 'Määratud kasutaja Id',
-  'LBL_ASSIGNED_TO_NAME' => 'Vastutaja',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Made Favorite',
+  'LBL_ASSIGNED_TO_ID' => 'Määratud kasutaja Id',
+  'LBL_ASSIGNED_TO_NAME' => 'Vastutaja',
   'LBL_DATE_MODIFIED' => 'Muutmiskuupäev',
   'LBL_MODIFIED' => 'Muutja',
   'LBL_MODIFIED_ID' => 'Muutja Id',
@@ -25,10 +34,9 @@ $mod_strings = array (
   'LBL_NAME' => 'Nimi',
   'LBL_CREATED_USER' => 'Looja',
   'LBL_MODIFIED_USER' => 'Muutja',
-  'LBL_TAG'=>'Silt',
+  'LBL_TAG' => 'Silt',
   'LBL_LIST_FORM_TITLE' => 'Lemmikute loend',
   'LBL_MODULE_NAME' => 'Lemmikud',
-  'LBL_MODULE_NAME_SINGULAR' => 'Favorite',
   'LBL_MODULE_TITLE' => 'Lemmikud',
   'LBL_HOMEPAGE_TITLE' => 'Minu lemmikkirjed',
   'LNK_NEW_RECORD' => 'Loo lemmikud',
@@ -42,4 +50,4 @@ $mod_strings = array (
   'LBL_RECORD_ID' => 'kirje Id',
   'LBL_LIST_MODULE' => 'Mooduli nimi',
 );
-?>
+

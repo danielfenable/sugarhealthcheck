@@ -19,7 +19,7 @@
     extendsFrom: 'RowactionField',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * By default `list:unlinkrow:fire` event is triggered if none supplied
      * through metadata.
@@ -31,7 +31,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * If parent module matches `Homepage` then `false` is returned.
      *

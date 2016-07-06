@@ -18,13 +18,8 @@
     events: {
         'change select[name=filter_duration]': 'filterChanged'
     },
-    /**
-     * Track if current user is manager.
-     */
-    isManager: false,
     initDashlet: function(viewName) {
         this.collection = new app.BeanCollection();
-        this.isManager = app.user.get('is_manager');
         if(!this.meta.config) {
             this.collection.on("reset", this.render, this);
         }

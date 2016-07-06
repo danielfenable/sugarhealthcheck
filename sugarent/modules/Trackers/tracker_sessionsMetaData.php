@@ -10,7 +10,6 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
 $dictionary['tracker_sessions'] = array(
     'table' => 'tracker_sessions',
     'fields' => array(
@@ -69,6 +68,13 @@ $dictionary['tracker_sessions'] = array(
             'vname' => 'LBL_ACTIVE',
             'type' => 'bool',
             'default' => '1',
+        ),
+        'round_trips'=>array(
+            'name' => 'round_trips',
+            'vname' => 'LBL_ROUNDTRIPS',
+            'type' => 'int',
+            'len' => '5',
+            'isnull' => 'false',
         ),
 	    'deleted' =>array (
 		    'name' => 'deleted',

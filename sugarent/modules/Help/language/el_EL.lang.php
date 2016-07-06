@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,32 +12,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'ERR_DELETE_RECORD' => 'Πρέπει να προσδιορίσετε έναν αριθμό εγγραφής προκειμένου να διαγράψετε τον λογαριασμό.',
+  'LBL_LIST_FORM_TITLE' => 'Λίστα Λογαριασμών',
   'LBL_MODULE_NAME' => 'Λογαριασμοί',
   'LBL_MODULE_NAME_SINGULAR' => 'Λογαριασμός',
-  'LBL_MODULE_TITLE' => 'Λογαριασμοί: αρχική',
-  'LBL_SEARCH_FORM_TITLE' => 'Account Search',
-  'LBL_LIST_FORM_TITLE' => 'Λίστα λογαριασμού',
+  'LBL_MODULE_TITLE' => 'Λογαριασμοί: Αρχή',
   'LBL_NEW_FORM_TITLE' => 'Δημιουργία Λογαριασμού',
-  'LNK_NEW_CONTACT' => 'Δημιουργία Επαφής',
+  'LBL_SEARCH_FORM_TITLE' => 'Αναζήτηση Λογαριασμού',
   'LNK_NEW_ACCOUNT' => 'Δημιουργία Λογαριασμού',
-  'LNK_NEW_OPPORTUNITY' => 'Δημιουργία Ευκαιρίας',
-  'LNK_NEW_CASE' => 'Δημιουργία Υπόθεσης',
-  'LNK_NEW_NOTE' => 'Δημιουργία Σημείωσης ή Επισύναψης',
   'LNK_NEW_CALL' => 'Καταγραφή Κλήσης',
+  'LNK_NEW_CASE' => 'Δημιουργία Υπόθεσης',
+  'LNK_NEW_CONTACT' => 'Δημιουργία Επαφής',
   'LNK_NEW_EMAIL' => 'Αρχειοθέτηση Email',
   'LNK_NEW_MEETING' => 'Προγραμματισμός Συνάντησης',
+  'LNK_NEW_NOTE' => 'Δημιουργία Σημείωσης ή Επισύναψης',
+  'LNK_NEW_OPPORTUNITY' => 'Δημιουργία Ευκαιρίας',
   'LNK_NEW_TASK' => 'Δημιουργία Εργασίας',
-  'ERR_DELETE_RECORD' => 'Πρέπει να προσδιορίσετε αριθμό εγγραφής για να διαγράψετε αυτόν τον λογαριασμό.',
 );
 
-
-?>

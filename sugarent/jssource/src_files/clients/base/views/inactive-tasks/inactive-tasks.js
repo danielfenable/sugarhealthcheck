@@ -21,7 +21,7 @@
     extendsFrom: 'TabbedDashletView',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * @property {Object} _defaultSettings
      * @property {Number} _defaultSettings.limit Maximum number of records to
@@ -36,7 +36,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initialize: function(options) {
         options.meta = options.meta || {};
@@ -48,15 +48,6 @@
         this.tbodyTag = 'ul[data-action="pagination-body"]';
 
         this._super('initialize', [options]);
-    },
-
-    /**
-     * @inheritdoc
-     */
-    _initEvents: function() {
-        this._super('_initEvents');
-        this.on('linked-model:create', this.loadData, this);
-        return this;
     },
 
     /**
@@ -73,7 +64,7 @@
         } else {
             var self = this;
             app.drawer.open({
-                layout: 'create',
+                layout: 'create-actions',
                 context: {
                     create: true,
                     module: params.module

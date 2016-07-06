@@ -44,16 +44,13 @@ class SugarUpgradeRepairVendors extends UpgradeScript
             'include/tcpdf' => 'vendor/tcpdf',
             'include/ytree' => 'vendor/ytree',
             'include/SugarSearchEngine/Elastic/Elastica' => 'vendor/ruflin/elastica/lib/Elastica',
-            'include/phpmailer' => 'vendor/phpmailer/phpmailer',
         ),
         'pre75' => array(
             'vendor/Elastica' => 'vendor/ruflin/elastica/lib/Elastica',
             'vendor/OneLogin' => 'vendor/onelogin/php-saml/lib',
-            'vendor/PHPMailer' => 'vendor/phpmailer/phpmailer',
         ),
         'pre76' => array(
             'vendor/OneLogin' => 'vendor/onelogin/php-saml/lib',
-            'vendor/PHPMailer' => 'vendor/phpmailer/phpmailer',
         ),
     );
 

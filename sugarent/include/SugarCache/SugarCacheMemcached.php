@@ -39,11 +39,6 @@ class SugarCacheMemcached extends SugarCacheAbstract
      */
     public function useBackend()
     {
-        // parent check
-        if (!parent::useBackend()) {
-            return false;
-        }
-
         if ( extension_loaded('memcached')
                 && empty($GLOBALS['sugar_config']['external_cache_disabled_memcached'])
                 && $this->_getMemcachedObject() )

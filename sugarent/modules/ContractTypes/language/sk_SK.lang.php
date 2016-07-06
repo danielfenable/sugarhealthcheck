@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,36 +12,30 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * $Id$
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-	'LBL_ID'=>'ID',
-	'LBL_DATE_ENTERED'=>'Dátum vloženia',
-	'LBL_DATE_MODIFIED'=>'Dátum úpravy',
-	'LBL_MODIFIED_USER_ID'=>'Upravil užívateľ ID',
-	'LBL_CREATED_BY'=>'Vytvoril',
-	'LBL_DELETED'=>'Vymazaný',
-	'LBL_DOCUMENTS'=>'Dokumenty',
-	'LBL_TYPE_NAME'=>'Názov typu',
-	'LBL_MODULE_NAME'=>'Typ kontraktu',
-	'LBL_MODULE_NAME_SINGULAR' => 'Typ kontraktu',
-	'LBL_MODULE_TITLE'=>'Typy kontraktov',
-	'LBL_LIST_FORM_TITLE'=>'Typy kontraktov',
-	'LBL_CONTRACT_TYPE'=>'Typ kontraktu',
-	'LBL_LIST_ORDER'=>'Triedenie zoznamu:',
-	'LNK_CONTRACTTYPE_LIST'=>'Zobrazenie typov kontraktov',
-	'LNK_NEW_CONTRACTTYPE' => 'Vytvoriť typ kontraktu',
-	'LBL_LIST_NAME'=>'Názov',
-	'LBL_LIST_LIST_ORDER'=>'Triedenie zoznamu',
-	'LBL_NAME'=>'Názov',
-	'NTC_DELETE_CONFIRMATION'=>'Vymazať typ kontraktu?',
-	'LBL_DOCUMENTS_SUBPANEL_TITLE'=>'Dokumenty',
-	'LBL_SEARCH_FORM_TITLE' => 'Prehľadávanie typov kontraktov',
+  'LBL_CONTRACT_TYPE' => 'Typ kontraktu',
+  'LBL_CREATED_BY' => 'Vytvoril',
+  'LBL_DATE_ENTERED' => 'Dátum vloženia',
+  'LBL_DATE_MODIFIED' => 'Dátum úpravy',
+  'LBL_DELETED' => 'Vymazaný',
+  'LBL_DOCUMENTS' => 'Dokumenty',
+  'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Dokumenty',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_FORM_TITLE' => 'Typy kontraktov',
+  'LBL_LIST_LIST_ORDER' => 'Triedenie zoznamu',
+  'LBL_LIST_NAME' => 'Názov',
+  'LBL_LIST_ORDER' => 'Triedenie zoznamu:',
+  'LBL_MODIFIED_USER_ID' => 'Upravil užívateľ ID',
+  'LBL_MODULE_NAME' => 'Typ kontraktu',
+  'LBL_MODULE_NAME_SINGULAR' => 'Typ kontraktu',
+  'LBL_MODULE_TITLE' => 'Typy kontraktov',
+  'LBL_NAME' => 'Názov',
+  'LBL_SEARCH_FORM_TITLE' => 'Prehľadávanie typov kontraktov',
+  'LBL_TYPE_NAME' => 'Názov typu',
+  'LNK_CONTRACTTYPE_LIST' => 'Zobrazenie typov kontraktov',
+  'LNK_NEW_CONTRACTTYPE' => 'Vytvoriť typ kontraktu',
+  'NTC_DELETE_CONFIRMATION' => 'Vymazať typ kontraktu?',
 );
-?>
+

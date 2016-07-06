@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,19 +12,15 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): contact@synolia.com - www.synolia.com
- * *******************************************************************************/
+
+
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="7%" class="dataLabel"><img height="50" src="modules/Connectors/connectors/sources/ext/rest/dnb/images/DNB_corp30_pos.png"></td><td>Sugar®에 대한 D&amp;B는 D&amp;B 가입자에게 회사 및 개인 연락처 정보, 경쟁업체, 가족 기업, 금융, 뉴스 및 소셜 미디어 등을 포함한 가장 최근의 완전하고 정확한 비즈니스 정보에 대한 액세스를 제공합니다. Sugar®의 D&amp;B에 관한 더 자세한 내용을 살펴보려면, <a  target="_blank" href="http://www.dnb.com/partner/dnb-for-sugarcrm.html">던 & 브래드 스트리트(Dun & Bradstreet)</a>를 방문하십시오.</td></tr></table>',
-    'LBL_NAME' => 'D&B 사용자 이름',
-    'LBL_ID' => 'D&B 사용자 이름',
-    'company_url' => 'URL',
-    'dnb_username' => 'D&B 사용자 이름',
-    'dnb_password' => 'D&B 어플리케이션 키',
-    'dnb_env' => 'D&B 환경'
+  'LBL_ID' => '트위터 사용자명',
+  'LBL_LICENSING_INFO' => 'Sugar®에 대한 D & B는 D & B 가입자에게 회사 및 개인 연락처 정보, 경쟁업체, 가족, 회사, 금융, 뉴스, 사회 매체를 포함하여 현재 대부분의 완전하고 정확한 비즈니스 정보에 대해 액세스할 수 있습니다. Sugar®에 대한 D & B에 관한 더 자세한 내용을 살펴보려면 던 & 브래드 스트리트(Dun & Bradstreet)를 방문하십시오.',
+  'LBL_NAME' => '트위터 사용자명',
+  'company_url' => 'URL',
+  'dnb_env' => 'D & B 환경',
+  'dnb_password' => 'D & B 응용 프로그램 키',
+  'dnb_username' => '트위터 사용자명',
 );
 
-?>

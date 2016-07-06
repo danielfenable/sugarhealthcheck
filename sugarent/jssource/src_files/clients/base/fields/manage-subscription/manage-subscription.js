@@ -34,7 +34,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Check access for Campaigns Module.
      */
     hasAccess: function() {

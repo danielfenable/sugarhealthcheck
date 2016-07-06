@@ -23,20 +23,8 @@
      */
     secondaryFieldTag: 'input[data-type=time]',
 
-    initialize: function(options) {
-        this._super('initialize', [options]);
-
-        /**
-         * If a time picker has been initialized on the field or not.
-         *
-         * @type {boolean}
-         * @private
-         */
-        this._hasTimePicker = false;
-    },
-
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Add `show-timepicker` on click listener.
      */
@@ -75,7 +63,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _initPlaceholderAttribute: function() {
         this._super('_initPlaceholderAttribute');
@@ -160,13 +148,12 @@
                 false :
                 !!this.def.time.disable_text_input,
             className: this.def.time.css_class || 'prevent-mousedown',
-            appendTo: this.$el
+            appendTo: this.view.$el
         };
 
         this._enableDuration(options);
 
         this.$(this.secondaryFieldTag).timepicker(options);
-        this._hasTimePicker = true;
     },
 
     /**
@@ -265,7 +252,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Bind time picker `changeTime` event expecting to set the default date if
      * not filled yet, see {@link #handleDateTimeChanges}.
@@ -278,19 +265,14 @@
         }
 
         var $dateField = this.$(this.fieldTag),
-            $timeField = this.$(this.secondaryFieldTag),
-            selfView = this.view;
+            $timeField = this.$(this.secondaryFieldTag);
 
         $timeField.timepicker().on({
             showTimepicker: function() {
                 // Remove 24:00 from the list since it does not make sense when used in conjunction with a date.
                 // Timepicker plugin specifically added 24:00 since it can be used by itself without a date and
                 // that is what the standard calls for. (https://github.com/jonthornton/jquery-timepicker/issues/149)
-                $(this).data('timepickerList').find('li:contains("24:00"), li:contains("24.00")').remove();
-                selfView.trigger('list:scrollLock', true);
-            },
-            hideTimepicker: function() {
-                selfView.trigger('list:scrollLock', false);
+                $(this).data('timepickerList').find('li:contains("24:00")').remove();
             },
             change: _.bind(function() {
                 var t = $timeField.val().trim(),
@@ -305,15 +287,12 @@
                     }
                 }
                 this.model.set(this.name, datetime);
-            }, this),
-            focus: _.bind(function() {
-                this.handleFocus();
             }, this)
         });
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Add extra logic to unbind secondary field tag.
      */
@@ -449,7 +428,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _render: function() {
         this._super('_render');
@@ -462,10 +441,10 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _dispose: function() {
-        if (this._hasTimePicker) {
+        if (this.$(this.secondaryFieldTag).timepicker) {
             this.$(this.secondaryFieldTag).timepicker('remove');
         }
 

@@ -23,7 +23,7 @@
             <h3>About Bootstrap switch</h3>
             <p>Bootstrap switch is an unofficial bootstrap plugin that transforms checkboxes into a toggle switch.</p>
             <p>The bootstrap-switch.js plugin is included in the default build of SugarCRM.</p>
-            <p><a href="http://www.bootstrap-switch.org/" target="_blank">Documentation</a> from bootstrap-switch.js developer.</p>
+            <p><a href="http://www.larentis.eu/switch/">Documentation</a> from bootstrap-switch.js developer.</p>
         </div>
         <div class="span9 columns">
             <h2>Example</h2>
@@ -66,6 +66,11 @@
                 </tbody>
             </table>
             <h3>Event Handler</h3>
+            <div class="well">
+                <div id="mySwitch" class="switch switch-mini round-switch">
+                    <input type="checkbox" id="switch_example2" checked>
+                </div>
+            </div>
 <pre class="prettyprint linenums">
 $('#mySwitch').on('switch-change', function (e, data) {
     var $el = $(data.el)

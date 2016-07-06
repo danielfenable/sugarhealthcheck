@@ -22,29 +22,21 @@ function check_for_relationship($relationships, $module){
 	return false;
 }
 
-
-/**
- * @deprecated Please use SugarRelationshipFactory::getRelationshipDef
- * @param        $module_1
- * @param        $module_2
- * @param string $relationship_name
+/*
+ * takes in two modules and returns the relationship information about them
  *
- * @return array
  */
+
 function retrieve_relationships_properties($module_1, $module_2, $relationship_name = ""){
 
-	$def = array();
-    $srf = SugarRelationshipFactory::getInstance();
-    if (!empty($relationship_name)) {
-        $def = $srf->getRelationshipDef($relationship_name);
-    } else {
-        $rels = $srf->getRelationshipsBetweenModules($module_1, $module_2);
-        if (!empty($rels)) {
-            $def = $srf->getRelationshipDef($rels[0]);
-        }
-    }
+	$rs = BeanFactory::getBean('Relationships');
+	$query =  "SELECT * FROM $rs->table_name WHERE ((lhs_module = '".$rs->db->quote($module_1)."' AND rhs_module='".$rs->db->quote($module_2)."') OR (lhs_module = '".$rs->db->quote($module_2)."' AND rhs_module='".$rs->db->quote($module_1)."'))";
+	if(!empty($relationship_name) && isset($relationship_name)){
+		$query .= " AND relationship_name = '".$rs->db->quote($relationship_name)."'";
+	}
+	$result = $rs->db->query($query);
 
-	return $def;
+	return $rs->db->fetchByAssoc($result);
 }
 
 
@@ -383,7 +375,7 @@ function retrieve_relationship_query($module_name,  $related_module, $relationsh
 	}
 
 	$row = retrieve_relationships_properties($module_name, $related_module);
-    if(empty($row)){
+	if(empty($row)){
 
 		$error->set_error('no_relationship_support');
 		return array('query' =>"", 'module_1'=>"", 'join_table' =>"", 'error'=>$error->get_soap_array());

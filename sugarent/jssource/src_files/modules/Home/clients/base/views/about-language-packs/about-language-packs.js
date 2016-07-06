@@ -17,7 +17,7 @@
     linkTemplate: null,
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Initializes the link template to be used on the render.
      */
@@ -28,7 +28,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Override the title to pass the context with the server info.
      */

@@ -466,31 +466,4 @@ class SugarWebServiceUtilv3_1 extends SugarWebServiceUtilv3
 
 		return $_SESSION['ACL'][$current_user->id][$module]['fields'][$field];
 	}
-
-    /**
-     * Validates submitted data
-     * @param SugarBean $bean
-     * @param string $name
-     * @param string $value
-     * @return boolean
-     */
-    public function checkFieldValue($bean, $name, $value)
-    {
-        static $sfh;
-
-        if (!isset($sfh)) {
-            require_once('include/SugarFields/SugarFieldHandler.php');
-            $sfh = new SugarFieldHandler();
-        }
-
-        $vardefs = $bean->getFieldDefinition($name);
-        $type = !empty($vardefs['custom_type']) ? $vardefs['custom_type'] : $vardefs['type'];
-        $field = $sfh->getSugarField($type);
-        
-        if ($field instanceOf SugarFieldBase) {
-            return $field->apiValidate($bean, array($name => $value), $name, $vardefs);
-        }
-
-        return true;
-    }
 }

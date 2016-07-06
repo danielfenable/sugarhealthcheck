@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,33 +12,35 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $mod_strings = array (
-  'LBL_CONSKEY' => 'Vartotojo raktas',
-  'LBL_CONSSECRET' => 'Vartotojo slaptas raktas',
   'LBL_ASSIGNED_TO_ID' => 'Atsakingo Id',
   'LBL_ASSIGNED_TO_NAME' => 'Vartotojas',
-  'LBL_ID' => 'ID',
+  'LBL_CLIENT_TYPE' => 'Kliento tipas',
+  'LBL_CONSKEY' => 'Vartotojo raktas',
+  'LBL_CONSSECRET' => 'Vartotojo slaptas raktas',
+  'LBL_CREATED' => 'Sukūrė',
+  'LBL_CREATED_ID' => 'Sukūrėjo Id',
+  'LBL_CREATED_USER' => 'Sukūrė',
   'LBL_DATE_ENTERED' => 'Sukūrta',
   'LBL_DATE_MODIFIED' => 'Redaguota',
+  'LBL_DELETED' => 'Ištrintas',
+  'LBL_DESCRIPTION' => 'Aprašymas',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_FORM_TITLE' => 'OAuth raktai',
+  'LBL_LIST_NAME' => 'Rakto pavadinimas',
   'LBL_MODIFIED' => 'Redagavo',
   'LBL_MODIFIED_ID' => 'Redaguotojo Id',
   'LBL_MODIFIED_NAME' => 'Redaguotojo vardas',
-  'LBL_CREATED' => 'Sukūrė',
-  'LBL_CREATED_ID' => 'Sukūrėjo Id',
-  'LBL_DESCRIPTION' => 'Aprašymas',
-  'LBL_DELETED' => 'Ištrintas',
-  'LBL_NAME' => 'Vartotojo rakto pavadinimas',
-  'LBL_CREATED_USER' => 'Sukūrė',
   'LBL_MODIFIED_USER' => 'Redagavo',
-  'LBL_LIST_NAME' => 'Rakto pavadinimas',
-  'LBL_LIST_FORM_TITLE' => 'OAuth raktai',
   'LBL_MODULE_NAME' => 'OAuth raktai',
   'LBL_MODULE_NAME_SINGULAR' => 'OAuth raktas',
   'LBL_MODULE_TITLE' => 'OAuth raktai',
-  'LNK_NEW_RECORD' => 'Sukurti OAuth raktą',
-  'LNK_LIST' => 'OAuth raktai',
-  'LBL_TOKENS' => 'Žymė',
+  'LBL_NAME' => 'Vartotojo rakto pavadinimas',
   'LBL_OAUTH_TYPE' => 'OAuth versija',
-  'LBL_CLIENT_TYPE' => 'Kliento tipas',
+  'LBL_TOKENS' => 'Žymė',
+  'LNK_LIST' => 'OAuth raktai',
+  'LNK_NEW_RECORD' => 'Sukurti OAuth raktą',
 );
+

@@ -1,5 +1,6 @@
 <?php
- /*
+
+/*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
  * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
@@ -9,44 +10,45 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*
- * Created on Aug 14, 2007
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
-$object_name = strtolower($object_name);
- $app_list_strings = array (
 
-  $object_name.'_type_dom' =>
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
+$object_name = strtolower($object_name);
+$app_list_strings = array (
+  $object_name.'_type_dom' => 
   array (
-  	'Administration' => 'Administration',
-    'Product' => 'Product',
-    'User' => 'Atsakingas',
+    'Administration' => 'Administratorius',
+    'Product' => 'Prekė',
+    'User' => 'Vartotojas',
   ),
-   $object_name.'_status_dom' =>
+  $object_name.'_status_dom' => 
   array (
     'New' => 'Naujas',
-    'Assigned' => 'Atsakingas',
-    'Closed' => 'Closed',
+    'Assigned' => 'Priskirtas',
+    'Closed' => 'Užbaigtas',
     'Pending Input' => 'Laukiantis',
     'Rejected' => 'Atmestas',
     'Duplicate' => 'Dublikatas',
   ),
-  $object_name.'_priority_dom' =>
+  $object_name.'_priority_dom' => 
   array (
     'P1' => 'Didelė',
     'P2' => 'Vidutinė',
     'P3' => 'Maža',
   ),
-  $object_name.'_resolution_dom' =>
+  $object_name.'_resolution_dom' => 
   array (
-  	'' => '',
-  	'Accepted' => 'Patvirtintas',
+    '' => '',
+    'Accepted' => 'Patvirtintas',
     'Duplicate' => 'Dublikatas',
-    'Closed' => 'Closed',
+    'Closed' => 'Užbaigtas',
     'Out of Date' => 'Pasenęs',
     'Invalid' => 'Neteisingas',
   ),
-  );
-?>
+);
+

@@ -349,7 +349,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
                             ModuleBuilder.state.markAsDirty();
                         }
                     });
-				}, false);
+				});
 			},
             resetToDefault: function(module, layout) {
                 ModuleBuilder.history.params = {
@@ -560,7 +560,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 
             var requestUrl = url;
             var role = $("input[name=role]").val();
-            if (role && url.indexOf("&role=") < 0 && ModuleBuilder.isLayoutTheSame(url)) {
+            if (role && ModuleBuilder.isLayoutTheSame(url)) {
                 requestUrl += "&role=" + encodeURIComponent(role);
             }
 
@@ -596,6 +596,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			ModuleBuilder.callInProgress = false;
 			//Check if a save action was called and now we need to move-on
 			if (ModuleBuilder.state.saving) {
+				ModuleBuilder.toggleButtons();
 				ModuleBuilder.state.loadOnSaveComplete();
 				return;
 			}
@@ -751,16 +752,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			
 			// Capture aspects of the request in case the need to resend arises
 			ModuleBuilder.requestElements.fields = Connect.setForm(document.getElementById(formname) || document.forms[formname]);
-            ModuleBuilder.requestElements.callbacks = {
-                success: function() {
-                    ModuleBuilder.toggleButtons();
-                    successCall.apply(this, arguments);
-                },
-                failure: function() {
-                    ModuleBuilder.toggleButtons();
-                    ModuleBuilder.failed.apply(this, arguments);
-                }
-            };
+			ModuleBuilder.requestElements.callbacks = {success: successCall, failure: ModuleBuilder.failed};
 			Connect.asyncRequest(
 			    Connect.method, 
 			    Connect.url, 
@@ -1289,7 +1281,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 				}
 			}
 		},
-		asyncRequest : function (params, callback, showLoading) {
+		asyncRequest : function(params, callback) {
 			// Used to normalize request arguments needed for the async request
 			// as well as for setting into the requestElements object
             var url,
@@ -1316,11 +1308,7 @@ if (typeof(ModuleBuilder) == 'undefined') {
 			
 			// Make sure the session cookie is always fresh if that is possible
 			ModuleBuilder.ensureSessionCookie();
-
-            if (typeof(showLoading) == 'undefined' || showLoading == true) {
-                ajaxStatus.showStatus(SUGAR.language.get('app_strings', 'LBL_LOADING_PAGE'));
-            }
-
+			ajaxStatus.showStatus(SUGAR.language.get('app_strings', 'LBL_LOADING_PAGE'));
             Connect.asyncRequest(
                 ModuleBuilder.requestElements.method,
                 ModuleBuilder.requestElements.url,
@@ -1462,13 +1450,17 @@ if (typeof(ModuleBuilder) == 'undefined') {
                 mode:2,
                 mapping: Dom.get(targetId).value
             };
-            win.load(ModuleBuilder.paramsToUrl(win.params), "GET", function() {
+            win.load("", "POST", function()
+            {
                 SUGAR.util.evalScript(win.body.innerHTML);
                 //firefox will ignore the left panel size, so we need to manually force the windows height and width
                 win.body.style.height = "570px";
                 win.body.style.minWidth = "780px";
                 win.center();
-            });
+            },
+                //POST parameters
+                ModuleBuilder.paramsToUrl(win.params)
+            );
             win.show();
             win.center();
         },
@@ -1515,13 +1507,6 @@ if (typeof(ModuleBuilder) == 'undefined') {
             if(Dom.get('has_parent')){
                 Dom.get('has_parent').value = enable;
             }
-        },
-        toggleBoost: function() {
-            var display = "";
-            if (Dom.get("fts_field_config").value < 2) {
-                display = "none";
-            }
-            Dom.setStyle("ftsFieldBoostRow", "display", display);
         },
 		toggleCF: function(enable) {
             if (typeof(enable) == 'undefined') {
@@ -1625,12 +1610,14 @@ if (typeof(ModuleBuilder) == 'undefined') {
             var params = ModuleBuilder.urlToParams(ModuleBuilder.contentURL);
             params.role = role;
             var url = ModuleBuilder.paramsToUrl(params);
+            $input.val('');
             ModuleBuilder.getContent(
                 url,
                 function(r) {
                     $input.val(role);
                     ModuleBuilder.updateContent(r);
                 }, function() {
+                    $input.val(previousRole);
                     $select.val(previousRole);
                 }
             );

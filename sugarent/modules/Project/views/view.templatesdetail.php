@@ -45,7 +45,6 @@ class ProjectViewTemplatesDetail extends ViewDetail
 		else{
 			$this->ss->assign('OWNER_ONLY', false);
 		}
-
 		if(ACLController::checkAccess('ProjectTask', 'edit', true)) {
 			$this->ss->assign('EDIT_RIGHTS_ONLY', true);
 		}

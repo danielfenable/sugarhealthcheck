@@ -6,6 +6,52 @@
   'unified_search_default_enabled' => true,
   'fields' => 
   array (
+    'my_favorite' => 
+    array (
+      'massupdate' => false,
+      'name' => 'my_favorite',
+      'vname' => 'LBL_FAVORITE',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Favorite for the user',
+      'studio' => 
+      array (
+        'list' => false,
+        'recordview' => false,
+      ),
+      'link' => 'favorite_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'favorite_link' => 
+    array (
+      'name' => 'favorite_link',
+      'type' => 'link',
+      'relationship' => 'documents_favorite',
+      'source' => 'non-db',
+      'vname' => 'LBL_FAVORITE',
+    ),
+    'following' => 
+    array (
+      'massupdate' => false,
+      'name' => 'following',
+      'vname' => 'LBL_FOLLOWING',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Is user following this record',
+      'studio' => 'false',
+      'link' => 'following_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'following_link' => 
+    array (
+      'name' => 'following_link',
+      'type' => 'link',
+      'relationship' => 'documents_following',
+      'source' => 'non-db',
+      'vname' => 'LBL_FOLLOWING',
+    ),
     'id' => 
     array (
       'name' => 'id',
@@ -45,18 +91,6 @@
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_entered' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'date_modified' => 
     array (
@@ -66,18 +100,6 @@
       'group' => 'modified_by_name',
       'comment' => 'Date record last modified',
       'enable_range_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_modified' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
       'studio' => 
       array (
         'portaleditview' => false,
@@ -103,20 +125,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'modified_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'modified_by_name' => 
     array (
@@ -155,20 +163,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'created_by' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_CREATED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'created_by_name' => 
     array (
@@ -193,18 +187,44 @@
       ),
       'exportable' => true,
     ),
+    'doc_owner' => 
+    array (
+      'name' => 'doc_owner',
+      'vname' => 'LBL_DOC_OWNER',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
+    'user_favorites' => 
+    array (
+      'name' => 'user_favorites',
+      'vname' => 'LBL_USER_FAVORITES',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
     'description' => 
     array (
       'name' => 'description',
       'vname' => 'LBL_DESCRIPTION',
       'type' => 'text',
       'comment' => 'Full text of the note',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.60999999999999999,
-      ),
       'rows' => 6,
       'cols' => 80,
       'duplicate_on_record_copy' => 'always',
@@ -252,6 +272,178 @@
       'bean_name' => 'Activity',
       'source' => 'non-db',
     ),
+    'assigned_user_id' => 
+    array (
+      'name' => 'assigned_user_id',
+      'vname' => 'LBL_ASSIGNED_TO_ID',
+      'group' => 'assigned_user_name',
+      'type' => 'id',
+      'reportable' => false,
+      'isnull' => 'false',
+      'audited' => true,
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'User ID assigned to record',
+      'duplicate_merge' => 'disabled',
+      'mandatory_fetch' => true,
+      'massupdate' => false,
+    ),
+    'assigned_user_name' => 
+    array (
+      'name' => 'assigned_user_name',
+      'link' => 'assigned_user_link',
+      'vname' => 'LBL_ASSIGNED_TO',
+      'rname' => 'full_name',
+      'type' => 'relate',
+      'reportable' => false,
+      'source' => 'non-db',
+      'table' => 'users',
+      'id_name' => 'assigned_user_id',
+      'module' => 'Users',
+      'duplicate_merge' => 'disabled',
+      'duplicate_on_record_copy' => 'always',
+      'sort_on' => 
+      array (
+        0 => 'last_name',
+      ),
+      'exportable' => true,
+    ),
+    'assigned_user_link' => 
+    array (
+      'name' => 'assigned_user_link',
+      'type' => 'link',
+      'relationship' => 'documents_assigned_user',
+      'vname' => 'LBL_ASSIGNED_TO_USER',
+      'link_type' => 'one',
+      'module' => 'Users',
+      'bean_name' => 'User',
+      'source' => 'non-db',
+      'duplicate_merge' => 'enabled',
+      'id_name' => 'assigned_user_id',
+      'table' => 'users',
+    ),
+    'team_id' => 
+    array (
+      'name' => 'team_id',
+      'vname' => 'LBL_TEAM_ID',
+      'group' => 'team_name',
+      'reportable' => false,
+      'dbType' => 'id',
+      'type' => 'team_list',
+      'audited' => true,
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'Team ID for the account',
+    ),
+    'team_set_id' => 
+    array (
+      'name' => 'team_set_id',
+      'rname' => 'id',
+      'id_name' => 'team_set_id',
+      'vname' => 'LBL_TEAM_SET_ID',
+      'type' => 'id',
+      'audited' => true,
+      'studio' => 'false',
+      'dbType' => 'id',
+      'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+    ),
+    'team_count' => 
+    array (
+      'name' => 'team_count',
+      'rname' => 'team_count',
+      'id_name' => 'team_id',
+      'vname' => 'LBL_TEAMS',
+      'join_name' => 'ts1',
+      'table' => 'teams',
+      'type' => 'relate',
+      'required' => 'true',
+      'isnull' => 'true',
+      'module' => 'Teams',
+      'link' => 'team_count_link',
+      'massupdate' => false,
+      'dbType' => 'int',
+      'source' => 'non-db',
+      'importable' => 'false',
+      'reportable' => false,
+      'duplicate_merge' => 'disabled',
+      'duplicate_on_record_copy' => 'always',
+      'studio' => 'false',
+      'hideacl' => true,
+    ),
+    'team_name' => 
+    array (
+      'name' => 'team_name',
+      'db_concat_fields' => 
+      array (
+        0 => 'name',
+        1 => 'name_2',
+      ),
+      'sort_on' => 'tj.name',
+      'join_name' => 'tj',
+      'rname' => 'name',
+      'id_name' => 'team_id',
+      'vname' => 'LBL_TEAMS',
+      'type' => 'relate',
+      'required' => 'true',
+      'table' => 'teams',
+      'isnull' => 'true',
+      'module' => 'Teams',
+      'link' => 'team_link',
+      'massupdate' => true,
+      'dbType' => 'varchar',
+      'source' => 'non-db',
+      'len' => 36,
+      'custom_type' => 'teamset',
+      'studio' => 
+      array (
+        'portallistview' => false,
+        'portalrecordview' => false,
+      ),
+      'duplicate_on_record_copy' => 'always',
+      'exportable' => true,
+    ),
+    'team_link' => 
+    array (
+      'name' => 'team_link',
+      'type' => 'link',
+      'relationship' => 'documents_team',
+      'vname' => 'LBL_TEAMS_LINK',
+      'link_type' => 'one',
+      'module' => 'Teams',
+      'bean_name' => 'Team',
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'studio' => 'false',
+    ),
+    'team_count_link' => 
+    array (
+      'name' => 'team_count_link',
+      'type' => 'link',
+      'relationship' => 'documents_team_count_relationship',
+      'link_type' => 'one',
+      'module' => 'Teams',
+      'bean_name' => 'TeamSet',
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'reportable' => false,
+      'studio' => 'false',
+    ),
+    'teams' => 
+    array (
+      'name' => 'teams',
+      'type' => 'link',
+      'relationship' => 'documents_teams',
+      'bean_filter_field' => 'team_set_id',
+      'rhs_key_override' => true,
+      'source' => 'non-db',
+      'vname' => 'LBL_TEAMS',
+      'link_class' => 'TeamSetLink',
+      'link_file' => 'modules/Teams/TeamSetLink.php',
+      'studio' => 'false',
+      'reportable' => false,
+    ),
     'document_name' => 
     array (
       'name' => 'document_name',
@@ -264,8 +456,7 @@
       'full_text_search' => 
       array (
         'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.81999999999999995,
+        'boost' => 3,
       ),
     ),
     'doc_id' => 
@@ -364,7 +555,7 @@
     'status_id' => 
     array (
       'name' => 'status_id',
-      'vname' => 'LBL_DOC_STATUS',
+      'vname' => 'LBL_DOC_STATUS_ID',
       'type' => 'enum',
       'len' => 100,
       'options' => 'document_status_dom',
@@ -377,7 +568,6 @@
       'type' => 'varchar',
       'source' => 'non-db',
       'comment' => 'Document status for Meta-Data framework',
-      'studio' => 'false',
     ),
     'document_revision_id' => 
     array (
@@ -531,7 +721,7 @@
       'relationship' => 'documents_revenuelineitems',
       'source' => 'non-db',
       'vname' => 'LBL_RLI_SUBPANEL_TITLE',
-      'workflow' => true,
+      'workflow' => false,
     ),
     'related_doc_id' => 
     array (
@@ -670,255 +860,6 @@
       'source' => 'non-db',
       'vname' => 'LBL_DET_RELATED_DOCUMENT',
     ),
-    'following' => 
-    array (
-      'massupdate' => false,
-      'name' => 'following',
-      'vname' => 'LBL_FOLLOWING',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Is user following this record',
-      'studio' => 'false',
-      'link' => 'following_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'following_link' => 
-    array (
-      'name' => 'following_link',
-      'type' => 'link',
-      'relationship' => 'documents_following',
-      'source' => 'non-db',
-      'vname' => 'LBL_FOLLOWING',
-      'reportable' => false,
-    ),
-    'my_favorite' => 
-    array (
-      'massupdate' => false,
-      'name' => 'my_favorite',
-      'vname' => 'LBL_FAVORITE',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Favorite for the user',
-      'studio' => 
-      array (
-        'list' => false,
-        'recordview' => false,
-        'basic_search' => false,
-        'advanced_search' => false,
-      ),
-      'link' => 'favorite_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'favorite_link' => 
-    array (
-      'name' => 'favorite_link',
-      'type' => 'link',
-      'relationship' => 'documents_favorite',
-      'source' => 'non-db',
-      'vname' => 'LBL_FAVORITE',
-      'reportable' => false,
-      'workflow' => false,
-      'full_text_search' => 
-      array (
-        'type' => 'favorites',
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'favorite_link' => 
-          array (
-            'type' => 'MyItems',
-            'options' => 
-            array (
-              'field' => 'user_favorites',
-            ),
-          ),
-        ),
-      ),
-    ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'assigned_user_id',
-      'vname' => 'LBL_ASSIGNED_TO_ID',
-      'group' => 'assigned_user_name',
-      'type' => 'id',
-      'reportable' => false,
-      'isnull' => 'false',
-      'audited' => true,
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'User ID assigned to record',
-      'duplicate_merge' => 'disabled',
-      'mandatory_fetch' => true,
-      'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'assigned_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_ASSIGNED_TO_ME',
-          ),
-        ),
-      ),
-    ),
-    'assigned_user_name' => 
-    array (
-      'name' => 'assigned_user_name',
-      'link' => 'assigned_user_link',
-      'vname' => 'LBL_ASSIGNED_TO',
-      'rname' => 'full_name',
-      'type' => 'relate',
-      'reportable' => false,
-      'source' => 'non-db',
-      'table' => 'users',
-      'id_name' => 'assigned_user_id',
-      'module' => 'Users',
-      'duplicate_merge' => 'disabled',
-      'duplicate_on_record_copy' => 'always',
-      'sort_on' => 
-      array (
-        0 => 'last_name',
-      ),
-      'exportable' => true,
-    ),
-    'assigned_user_link' => 
-    array (
-      'name' => 'assigned_user_link',
-      'type' => 'link',
-      'relationship' => 'documents_assigned_user',
-      'vname' => 'LBL_ASSIGNED_TO_USER',
-      'link_type' => 'one',
-      'module' => 'Users',
-      'bean_name' => 'User',
-      'source' => 'non-db',
-      'duplicate_merge' => 'enabled',
-      'id_name' => 'assigned_user_id',
-      'table' => 'users',
-    ),
-    'team_id' => 
-    array (
-      'name' => 'team_id',
-      'vname' => 'LBL_TEAM_ID',
-      'group' => 'team_name',
-      'reportable' => false,
-      'dbType' => 'id',
-      'type' => 'team_list',
-      'audited' => true,
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'Team ID for the account',
-    ),
-    'team_set_id' => 
-    array (
-      'name' => 'team_set_id',
-      'rname' => 'id',
-      'id_name' => 'team_set_id',
-      'vname' => 'LBL_TEAM_SET_ID',
-      'type' => 'id',
-      'audited' => true,
-      'studio' => 'false',
-      'dbType' => 'id',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'team_count' => 
-    array (
-      'name' => 'team_count',
-      'rname' => 'team_count',
-      'id_name' => 'team_id',
-      'vname' => 'LBL_TEAMS',
-      'join_name' => 'ts1',
-      'table' => 'teams',
-      'type' => 'relate',
-      'required' => 'true',
-      'isnull' => 'true',
-      'module' => 'Teams',
-      'link' => 'team_count_link',
-      'massupdate' => false,
-      'dbType' => 'int',
-      'source' => 'non-db',
-      'importable' => 'false',
-      'reportable' => false,
-      'duplicate_merge' => 'disabled',
-      'duplicate_on_record_copy' => 'always',
-      'studio' => 'false',
-      'hideacl' => true,
-    ),
-    'team_name' => 
-    array (
-      'name' => 'team_name',
-      'db_concat_fields' => 
-      array (
-        0 => 'name',
-        1 => 'name_2',
-      ),
-      'sort_on' => 'tj.name',
-      'join_name' => 'tj',
-      'rname' => 'name',
-      'id_name' => 'team_id',
-      'vname' => 'LBL_TEAMS',
-      'type' => 'relate',
-      'required' => 'true',
-      'table' => 'teams',
-      'isnull' => 'true',
-      'module' => 'Teams',
-      'link' => 'team_link',
-      'massupdate' => true,
-      'dbType' => 'varchar',
-      'source' => 'non-db',
-      'len' => 36,
-      'custom_type' => 'teamset',
-      'studio' => 
-      array (
-        'portallistview' => false,
-        'portalrecordview' => false,
-      ),
-      'duplicate_on_record_copy' => 'always',
-      'exportable' => true,
-    ),
-    'team_link' => 
-    array (
-      'name' => 'team_link',
-      'type' => 'link',
-      'relationship' => 'documents_team',
-      'vname' => 'LBL_TEAMS_LINK',
-      'link_type' => 'one',
-      'module' => 'Teams',
-      'bean_name' => 'Team',
-      'source' => 'non-db',
-      'duplicate_merge' => 'disabled',
-      'studio' => 'false',
-    ),
-    'team_count_link' => 
-    array (
-      'name' => 'team_count_link',
-      'type' => 'link',
-      'relationship' => 'documents_team_count_relationship',
-      'link_type' => 'one',
-      'module' => 'Teams',
-      'bean_name' => 'TeamSet',
-      'source' => 'non-db',
-      'duplicate_merge' => 'disabled',
-      'reportable' => false,
-      'studio' => 'false',
-    ),
-    'teams' => 
-    array (
-      'name' => 'teams',
-      'type' => 'link',
-      'relationship' => 'documents_teams',
-      'bean_filter_field' => 'team_set_id',
-      'rhs_key_override' => true,
-      'source' => 'non-db',
-      'vname' => 'LBL_TEAMS',
-      'link_class' => 'TeamSetLink',
-      'link_file' => 'modules/Teams/TeamSetLink.php',
-      'studio' => 'false',
-      'reportable' => false,
-    ),
   ),
   'indices' => 
   array (
@@ -959,14 +900,13 @@
         0 => 'date_entered',
       ),
     ),
-    'name_del' => 
+    'team_set_documents' => 
     array (
-      'name' => 'idx_documents_name_del',
+      'name' => 'idx_documents_tmst_id',
       'type' => 'index',
       'fields' => 
       array (
-        0 => 'name',
-        1 => 'deleted',
+        0 => 'team_set_id',
       ),
     ),
     0 => 
@@ -997,28 +937,41 @@
         0 => 'exp_date',
       ),
     ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'idx_documents_assigned_del',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'deleted',
-        1 => 'assigned_user_id',
-      ),
-    ),
-    'team_set_documents' => 
-    array (
-      'name' => 'idx_documents_tmst_id',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'team_set_id',
-      ),
-    ),
   ),
   'relationships' => 
   array (
+    'documents_favorite' => 
+    array (
+      'lhs_module' => 'Documents',
+      'lhs_table' => 'documents',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'sugarfavorites',
+      'join_key_lhs' => 'record_id',
+      'join_key_rhs' => 'modified_user_id',
+      'relationship_role_column' => 'module',
+      'relationship_role_column_value' => 'Documents',
+      'user_field' => 'created_by',
+    ),
+    'documents_following' => 
+    array (
+      'lhs_module' => 'Documents',
+      'lhs_table' => 'documents',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'subscriptions',
+      'join_key_lhs' => 'parent_id',
+      'join_key_rhs' => 'created_by',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'Documents',
+      'user_field' => 'created_by',
+    ),
     'documents_modified_user' => 
     array (
       'lhs_module' => 'Users',
@@ -1054,68 +1007,6 @@
       'join_key_rhs' => 'activity_id',
       'relationship_role_column' => 'parent_type',
       'relationship_role_column_value' => 'Documents',
-    ),
-    'related_documents' => 
-    array (
-      'lhs_module' => 'Documents',
-      'lhs_table' => 'documents',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Documents',
-      'rhs_table' => 'documents',
-      'rhs_key' => 'related_doc_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'document_revisions' => 
-    array (
-      'lhs_module' => 'Documents',
-      'lhs_table' => 'documents',
-      'lhs_key' => 'id',
-      'rhs_module' => 'DocumentRevisions',
-      'rhs_table' => 'document_revisions',
-      'rhs_key' => 'document_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'latest_document_revision' => 
-    array (
-      'lhs_module' => 'Documents',
-      'lhs_table' => 'documents',
-      'lhs_key' => 'document_revision_id',
-      'rhs_module' => 'DocumentRevisions',
-      'rhs_table' => 'document_revisions',
-      'rhs_key' => 'id',
-      'relationship_type' => 'one-to-one',
-    ),
-    'documents_following' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Documents',
-      'rhs_table' => 'documents',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'subscriptions',
-      'join_key_lhs' => 'created_by',
-      'join_key_rhs' => 'parent_id',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'Documents',
-      'user_field' => 'created_by',
-    ),
-    'documents_favorite' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Documents',
-      'rhs_table' => 'documents',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'sugarfavorites',
-      'join_key_lhs' => 'modified_user_id',
-      'join_key_rhs' => 'record_id',
-      'relationship_role_column' => 'module',
-      'relationship_role_column_value' => 'Documents',
-      'user_field' => 'created_by',
     ),
     'documents_assigned_user' => 
     array (
@@ -1160,6 +1051,36 @@
       'rhs_key' => 'team_id',
       'relationship_type' => 'one-to-many',
     ),
+    'related_documents' => 
+    array (
+      'lhs_module' => 'Documents',
+      'lhs_table' => 'documents',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Documents',
+      'rhs_table' => 'documents',
+      'rhs_key' => 'related_doc_id',
+      'relationship_type' => 'one-to-many',
+    ),
+    'document_revisions' => 
+    array (
+      'lhs_module' => 'Documents',
+      'lhs_table' => 'documents',
+      'lhs_key' => 'id',
+      'rhs_module' => 'DocumentRevisions',
+      'rhs_table' => 'document_revisions',
+      'rhs_key' => 'document_id',
+      'relationship_type' => 'one-to-many',
+    ),
+    'latest_document_revision' => 
+    array (
+      'lhs_module' => 'Documents',
+      'lhs_table' => 'documents',
+      'lhs_key' => 'document_revision_id',
+      'rhs_module' => 'DocumentRevisions',
+      'rhs_table' => 'document_revisions',
+      'rhs_key' => 'id',
+      'relationship_type' => 'one-to-one',
+    ),
   ),
   'name_format_map' => 
   array (
@@ -1171,6 +1092,14 @@
   'acls' => 
   array (
     'SugarACLStatic' => true,
+  ),
+  'templates' => 
+  array (
+    'team_security' => 'team_security',
+    'assignable' => 'assignable',
+    'basic' => 'basic',
+    'following' => 'following',
+    'favorite' => 'favorite',
   ),
   'duplicate_check' => 
   array (
@@ -1198,16 +1127,8 @@
     ),
   ),
   'favorites' => true,
-  'templates' => 
-  array (
-    'basic' => 'basic',
-    'following' => 'following',
-    'favorite' => 'favorite',
-    'assignable' => 'assignable',
-    'team_security' => 'team_security',
-  ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

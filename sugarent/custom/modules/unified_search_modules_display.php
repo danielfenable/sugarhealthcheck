@@ -1,5 +1,5 @@
 <?php
-// created: 2016-06-24 15:55:46
+// created: 2016-07-06 08:10:28
 $unified_search_modules_display = array (
   'Accounts' => 
   array (
@@ -33,9 +33,9 @@ $unified_search_modules_display = array (
   array (
     'visible' => true,
   ),
-  'KBContents' => 
+  'KBDocuments' => 
   array (
-    'visible' => true,
+    'visible' => false,
   ),
   'Leads' => 
   array (
@@ -84,10 +84,6 @@ $unified_search_modules_display = array (
   'Quotes' => 
   array (
     'visible' => false,
-  ),
-  'RevenueLineItems' => 
-  array (
-    'visible' => true,
   ),
   'Tasks' => 
   array (

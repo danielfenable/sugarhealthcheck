@@ -153,45 +153,31 @@ class SugarWidgetReportField extends SugarWidgetField
  }
 
 
-    /**
-     * Returns ORDER BY for given layout_def
-     *
-     * @param $layout_def
-     * @return string
-     */
-    public function queryOrderBy($layout_def)
+ function queryOrderBy($layout_def)
+ {
+	if(!empty($this->reporter->all_fields[$layout_def['column_key']])) $field_def = $this->reporter->all_fields[$layout_def['column_key']];
+
+    if (!empty($layout_def['group_function']))
     {
-        if (!empty($this->reporter->all_fields[$layout_def['column_key']])) {
-            $field_def = $this->reporter->all_fields[$layout_def['column_key']];
-        }
-
-        if (empty($layout_def['sort_dir']) || $layout_def['sort_dir'] == 'a') {
-            $direction = " ASC";
-        } else {
-            $direction = " DESC";
-        }
-
-        $orderBy = array();
-
-        if (!empty($field_def['sort_on'])) {
-            $orderBy[] = $layout_def['table_alias'] . "." . $field_def['sort_on'];
-            if (!empty($field_def['sort_on2'])) {
-                $orderBy[] = $layout_def['table_alias'] . "." . $field_def['sort_on2'];
-            }
-        } else {
-            $orderBy[] = $this->_get_column_alias($layout_def);
-        }
-
-        array_walk(
-            $orderBy,
-            function (&$order, $key, $direction) {
-                $order = $order . $direction;
-            },
-            $direction
-        );
-
-        return implode(', ', $orderBy);
+        $order_by = $this->_get_column_alias($layout_def);
     }
+    elseif (!empty($field_def['sort_on']))
+	{
+			$order_by = $layout_def['table_alias'].".".$field_def['sort_on'];
+            if(!empty($field_def['sort_on2']))
+                $order_by .= ', ' . $layout_def['table_alias'].".".$field_def['sort_on2'];
+    }
+	else {
+		$order_by = $this->_get_column_alias($layout_def)." \n";
+	}
+
+			if ( empty($layout_def['sort_dir']) || $layout_def['sort_dir'] == 'a')
+			{
+				return $order_by." ASC";
+			} else {
+				return $order_by." DESC";
+			}
+ }
 
 
  function queryFilter($layout_def)

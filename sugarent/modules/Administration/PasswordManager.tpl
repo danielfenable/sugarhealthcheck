@@ -32,7 +32,6 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td>
-
 <table id="passRequirementId" name="passRequirementName" width="100%" border="0" cellspacing="1" cellpadding="0"
        class="edit view">
     <tr>
@@ -434,7 +433,6 @@
 
 
 
-
 <table id="userGenPassExpId" name="userGenPassExpName" width="100%" border="0" cellspacing="1" cellpadding="0"
        class="edit view">
     <tr>
@@ -568,6 +566,7 @@
         </td>
     </tr>
 </table>
+
 
 {if !empty($settings.system_ldap_enabled)}
     {assign var='system_ldap_enabled_checked' value='CHECKED'}
@@ -839,13 +838,6 @@
                                 </td>
 
                             </tr>
-                            <tr>
-                                <td width='25%' scope="row" valign='top'
-                                    nowrap>{$MOD.LBL_SAML_SAME_WINDOW} {sugar_help text=$MOD.LBL_SAML_SAME_WINDOW_DESC}</td>
-                                <td width='25%' align="left" valign='top'><input type="checkbox" name="SAML_SAME_WINDOW" {if $config.SAML_SAME_WINDOW}checked="1"{/if}>
-                                </td>
-
-                            </tr>
 
 
                         </table>
@@ -891,7 +883,6 @@
 function addcheck(form) {{/literal}
     addForm('ConfigurePasswordSettings');
 
-
     removeFromValidate('ConfigurePasswordSettings', 'passwordsetting_minpwdlength');
     addToValidateLessThan('ConfigurePasswordSettings', 'passwordsetting_minpwdlength', 'int', false, "{$MOD.LBL_PASSWORD_MINIMUM_LENGTH}", document.getElementById('passwordsetting_maxpwdlength').value, "{$MOD.LBL_PASSWORD_MAXIMUM_LENGTH}");
 
@@ -907,7 +898,6 @@ function addcheck(form) {{/literal}
         {literal}
     }
     {/literal}
-
 
     addToValidate('ConfigurePasswordSettings', 'passwordsetting_userexpirationtime', 'int', form.required_user_pwd_exp_time.checked, "{$MOD.ERR_PASSWORD_EXPIRE_TIME}");
     addToValidate('ConfigurePasswordSettings', 'passwordsetting_userexpirationlogin', 'int', form.required_user_pwd_exp_login.checked, "{$MOD.ERR_PASSWORD_EXPIRE_LOGIN}");
@@ -955,7 +945,6 @@ function enableDisablePasswordTable(checkbox_id) {
         document.getElementById("emailTemplatesId").style.display = "none";
         document.getElementById("sysGeneratedId").style.display = "none";
         document.getElementById("userResetPassId").style.display = "none";
-
         document.getElementById("passRequirementId").style.display = "none";
         document.getElementById("userGenPassExpId").style.display = "none";
         document.getElementById("loginLockoutId").style.display = "none";
@@ -964,7 +953,6 @@ function enableDisablePasswordTable(checkbox_id) {
         document.getElementById("emailTemplatesId").style.display = "";
         document.getElementById("sysGeneratedId").style.display = "";
         document.getElementById("userResetPassId").style.display = "";
-
         document.getElementById("passRequirementId").style.display = "";
         document.getElementById("userGenPassExpId").style.display = "";
         document.getElementById("loginLockoutId").style.display = "";

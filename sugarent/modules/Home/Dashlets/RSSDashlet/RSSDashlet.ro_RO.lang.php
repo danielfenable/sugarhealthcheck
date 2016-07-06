@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,19 +11,36 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
 
 
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Intretinere stiri',
-                                         'LBL_DESCRIPTION'      => 'Intretinere stiri',
-                                         'LBL_SAVING'           => 'Parsing...',
-                                         'LBL_SAVED'            => 'complet',
-                                         'LBL_AUTO_SCROLL'      => 'Parcurgere Auto',
-                                          'LBL_SCROLL_SPEED'      => 'Viteza parcurgere(%)',
-                                         'LBL_CONFIGURE_TITLE'  => 'Titlu:',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Inaltime(1 - 300)',
-                                         'LBL_CONFIGURE_RSSURL' => 'Url RSS',
-                                         'LBL_DBLCLICK_HELP'    => '',
-                                         'ERR_LOADING_FEED'     => 'Nu a reuşit încărcarea RSS Feed',
-                                         );
-?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$dashletStrings = array (
+  'RSSDashlet' => 
+  array (
+    'LBL_TITLE' => 'Intretinere stiri',
+    'LBL_DESCRIPTION' => 'Intretinere stiri',
+    'LBL_SAVING' => 'Parsing...',
+    'LBL_SAVED' => 'complet',
+    'LBL_AUTO_SCROLL' => 'Parcurgere Auto',
+    'LBL_SCROLL_SPEED' => 'Viteza parcurgere(%)',
+    'LBL_CONFIGURE_TITLE' => 'Titlu:',
+    'LBL_CONFIGURE_HEIGHT' => 'Inaltime(1 - 300)',
+    'LBL_CONFIGURE_RSSURL' => 'Url RSS',
+    'LBL_DBLCLICK_HELP' => 'alb-',
+    'ERR_LOADING_FEED' => 'Nu a reuşit încărcarea RSS Feed',
+  ),
+);
+

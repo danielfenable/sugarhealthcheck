@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -393,7 +392,7 @@ class SidecarGridLayoutMetaDataParser extends GridLayoutMetaDataParser {
             $fields = array();
             // get number of panel columns
             if (!empty($this->extraPanelMeta[$panelName]['columns'])) {
-                $panelColumns = min($this->extraPanelMeta[$panelName]['columns'], $maxColumns);
+                $panelColumns = $this->extraPanelMeta[$panelName]['columns'];
             } else {
                 $panelColumns = $maxColumns;
             }
@@ -656,9 +655,10 @@ class SidecarGridLayoutMetaDataParser extends GridLayoutMetaDataParser {
     /**
      * here we convert from file (canonical) metadata => internal metadata format
      * @param $panels
+     * @param $fielddefs
      * @return array $internalPanels
      */
-    protected function _convertFromCanonicalForm($panels)
+    protected function _convertFromCanonicalForm($panels , $fielddefs)
     {
         // canonical form has format:
         // $panels[n]['label'] = label for panel n
@@ -695,7 +695,7 @@ class SidecarGridLayoutMetaDataParser extends GridLayoutMetaDataParser {
 
             // Get panel column value
             if (!empty($panel['columns'])) {
-                $panelColumns = min($panel['columns'], $maxColumns);
+                $panelColumns = $panel['columns'];
             } else {
                 $panelColumns = $maxColumns;
             }
@@ -836,13 +836,13 @@ class SidecarGridLayoutMetaDataParser extends GridLayoutMetaDataParser {
         return $out;
     }
 
-    /**
+    /*
      * Remove a field from the layout
      *
      * @param string $fieldName Name of the field to remove
      * @return boolean True if the field was removed; false otherwise
      */
-    public function removeField ($fieldName)
+    function removeField ($fieldName)
     {
         // Set the return result
         $result = false;
@@ -876,7 +876,7 @@ class SidecarGridLayoutMetaDataParser extends GridLayoutMetaDataParser {
                     $cols = count($row);
                     $empties = 0;
                     foreach ($row as $field) {
-                        if ($field === MBConstants::$EMPTY['name'] || $field === MBConstants::$FILLER['name']) {
+                        if ($field === MBConstants::$EMPTY['name']) {
                             $empties++;
                         }
                     }
@@ -890,12 +890,7 @@ class SidecarGridLayoutMetaDataParser extends GridLayoutMetaDataParser {
                 }
             }
 
-            if (count($newRows) > 0) {
-                $this->_viewdefs['panels'][$panelID] = $newRows;
-            } else {
-                unset($this->_viewdefs['panels'][$panelID]);
-            }
-
+            $this->_viewdefs['panels'][$panelID] = $newRows;
             return true;
         }
 

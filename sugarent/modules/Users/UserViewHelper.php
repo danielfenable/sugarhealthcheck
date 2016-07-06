@@ -169,9 +169,7 @@ class UserViewHelper {
 
             //bug 48170
             $user_preference_url = "module=Users&action=resetPreferences";
-            if (isset($_REQUEST['record'])
-                && ($_REQUEST['record'] == $current_user->id || $current_user->isAdminForModule('Users'))
-            ) {
+            if(isset($_REQUEST['record'])){
                 $user_preference_url .= "&record=".$_REQUEST['record'];
                 $buttons_header[]="<input type='button' class='button' id='reset_user_preferences_header' onclick='if(confirm(\"{$reset_pref_warning}\"))window.location=\"".$_SERVER['PHP_SELF'] .'?'.$user_preference_url."&reset_preferences=true\";' value='".translate('LBL_RESET_PREFERENCES','Users')."' />";
                 $buttons_footer[]="<input type='button' class='button' id='reset_user_preferences_footer' onclick='if(confirm(\"{$reset_pref_warning}\"))window.location=\"".$_SERVER['PHP_SELF'] .'?'.$user_preference_url."&reset_preferences=true\";' value='".translate('LBL_RESET_PREFERENCES','Users')."' />";
@@ -301,12 +299,6 @@ class UserViewHelper {
             $this->ss->assign('CHANGE_PWD', '0');
         }
 
-        if (User::isTrialDemoUser($this->bean->user_name)) {
-            $this->ss->assign('DISABLED', 'disabled');
-        } else {
-            $this->ss->assign('DISABLED', '');
-        }
-
         // Make sure group users don't get a password change prompt
         if ( $this->usertype == 'GROUP' ) {
             $this->ss->assign('CHANGE_PWD', '0');
@@ -408,7 +400,14 @@ class UserViewHelper {
             $publish_url .= '&user_name='.$this->bean->user_name;
         }
 
-        $ical_url = $sugar_config['site_url']."/ical_server.php?type=ics&key=<span id=\"ical_pub_key_span\">$publish_key</span>&user_id=".$this->bean->id;
+        $ical_url = $sugar_config['site_url']."/ical_server.php?type=ics&key=<span id=\"ical_pub_key_span\">$publish_key</span>";
+        if (! empty($this->bean->email1))
+        {
+            $ical_url .= '&email='.$this->bean->email1;
+        } else
+        {
+            $ical_url .= '&user_name='.$this->bean->user_name;
+        }
 
         $this->ss->assign("CALENDAR_PUBLISH_URL", $publish_url);
         $this->ss->assign("CALENDAR_SEARCH_URL", $sugar_config['site_url']."/vcal_server.php/type=vfb&key=<span id=\"search_pub_key_span\">$publish_key</span>&email=%NAME%@%SERVER%");

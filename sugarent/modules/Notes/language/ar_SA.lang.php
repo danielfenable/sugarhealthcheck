@@ -12,7 +12,7 @@
  */
 
 $mod_strings = array(
-    'ERR_DELETE_RECORD' => 'يجب تحديد رقم السجل لحذف الحساب.',
+    'ERR_DELETE_RECORD' => 'يجب تحديد رقم سجل لحذف الحساب.',
     'LBL_ACCOUNT_ID' => 'معرّف الحساب:',
     'LBL_CASE_ID' => 'معرّف الحالة:',
     'LBL_CLOSE' => 'إغلاق:',
@@ -50,7 +50,7 @@ $mod_strings = array(
     'LBL_PHONE' => 'الهاتف:',
     'LBL_PORTAL_FLAG' => 'العرض في الموقع المدخلي؟',
     'LBL_EMBED_FLAG' => 'تضمين في البريد الإلكتروني؟',
-    'LBL_PRODUCT_ID' => 'معرّف بند العرض:',
+    'LBL_PRODUCT_ID' => 'معرّف عنصر سطر العرض:',
     'LBL_QUOTE_ID' => 'معرّف العرض:',
     'LBL_RELATED_TO' => 'ذو صلة:',
     'LBL_SEARCH_FORM_TITLE' => 'البحث عن ملاحظة',
@@ -85,7 +85,7 @@ $mod_strings = array(
 
     // Help Text
     // List View Help Text
-    'LBL_HELP_RECORDS' => 'تتكون وحدة {{plural_module_name}} من {{plural_module_name}} مفردة تحتوي على نص أو مرفقات تتعلق بالسجل ذي الصلة. {{module_name}} يمكن أن يتم ربط السجلات بسجل واحد في أغلب الوحدات من خلال حقل الربط المرن كما يمكن ربطها كذلك بـ {{contacts_singular_module}} مفردة. {{plural_module_name}} يمكن أن يحتوي على نص عام حول سجل أو حتى مرفق يتعلق بالسجل. هناك طرق متعددة يمكنك من خلالها إنشاء {{plural_module_name}} في Sugar مثل استخدام وحدة {{plural_module_name}}، أو استيراد {{plural_module_name}}، أو عبر اللوحات الفرعية للتاريخ، أو ما إلى ذلك. بمجرد إنشاء السجل {{module_name}}، يمكنك عرض المعلومات المتعلقة بـ {{module_name}} عبر {{plural_module_name}} عرض السجل وتعديلها. بعدها، يمكن ربط كل سجل {{module_name}} بسجلات Sugar الأخرى مثل {{accounts_module}}، و {{contacts_module}}، و{{opportunities_module}}، وغير ذلك الكثير.',
+    'LBL_HELP_RECORDS' => 'تتكون وحدة {{plural_module_name}} من {{plural_module_name}} مفرد يحتوي على نص أو مرفقات تتعلق بالسجل ذي الصلة. {{module_name}} يمكن أن يتم ربط السجلات بسجل واحد في أغلب الوحدات من خلال حقل الربط المرن كما يمكن ربطها كذلك بـ {{contacts_singular_module}} مفردة. {{plural_module_name}} يمكن أن يحتوي على نص عام حول سجل أو حتى مرفق يتعلق بالسجل. هناك طرق متعددة يمكنك من خلالها إنشاء {{plural_module_name}} في Sugar مثل استخدام وحدة {{plural_module_name}}، أو استيراد {{plural_module_name}}، أو عبر اللوحات الفرعية للتاريخ، أو ما إلى ذلك. بمجرد إنشاء السجل {{module_name}}، يمكنك عرض المعلومات المتعلقة بـ {{module_name}} عبر {{plural_module_name}} عرض السجل وتعديلها. بعدها، يمكن ربط كل سجل {{module_name}} بسجلات Sugar الأخرى مثل {{accounts_module}}، و {{contacts_module}}، و{{opportunities_module}}، وغير ذلك الكثير.',
 
     // Record View Help Text
     'LBL_HELP_RECORD' => 'تتكون وحدة {{plural_module_name}} من {{plural_module_name}} مفردة تحتوي على نص أو مرفق يتعلق بالسجل ذي الصلة.
@@ -101,5 +101,7 @@ $mod_strings = array(
 1. قم بتوفير قيم للحقول حسب الرغبة.
  - يجب أن يتم إكمال الحقول المميزة على أنها "مطلوبة" قبل الحفظ.
  - انقر فوق "إظهار المزيد" لعرض حقول إضافية إذا لزم الأمر.
-2. انقر فوق "حفظ" لإنهاء السجل الجديد والعودة إلى الصفحة السابقة.',
+2. انقر فوق "حفظ" لإنهاء السجل الجديد والعودة إلى الصفحة السابقة.
+ - اختر "حفظ وعرض" لفتح {{module_name}} جديد في عرض السجل.
+ - اختر "حفظ وإنشاء جديد" لإنشاء واحد جديد على الفور {{module_name}}.',
 );

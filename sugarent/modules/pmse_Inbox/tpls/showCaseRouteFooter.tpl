@@ -16,7 +16,7 @@
         {if $item.value=='Claim'}
             <a href="{$item.onclick}" title="{$item.value}"><span class="btn">{$item.value}</span></a>
         {else}
-            <input id="{$item.id}" name="{$item.name}" type="{$item.type}" value={$item.value} onclick="{$item.onclick}">
+            <input name="{$item.name}" type="{$item.type}" value={$item.value} onclick="{$item.onclick}">
         {/if}
     {/foreach} 
 </form>

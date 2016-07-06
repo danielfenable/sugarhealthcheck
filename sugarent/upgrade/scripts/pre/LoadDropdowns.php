@@ -73,11 +73,6 @@ class SugarUpgradeLoadDropdowns extends UpgradeScript
      */
     public function run()
     {
-        if (version_compare($this->from_version, '7.6.2.1', '>=')) {
-            $this->log('**** Skipped Dropdown Lists Merge **** Sugar version is too new');
-            return;
-        }
-
         if (empty($this->context['new_source_dir'])) {
             $this->log('**** Skipped Dropdown Lists Merge **** The new source directory was not found.');
             return;
@@ -100,10 +95,7 @@ class SugarUpgradeLoadDropdowns extends UpgradeScript
                 continue;
             }
 
-
             $language = $this->getLanguage($coreFile);
-
-            $extfile = $this->getCustomFile("application/Ext/Language/{$language}.lang.ext.php");
 
             // load all of the core dropdown lists
             $core = $helper->getDropdowns($coreFile);
@@ -122,11 +114,6 @@ class SugarUpgradeLoadDropdowns extends UpgradeScript
             $this->upgrader->state['dropdowns_to_merge'][$language] = array(
                 'old' => $old,
                 'custom' => $custom,
-                //track the mtime on the custom files to determine if we need to upgrade custom/include again...
-                'mtime' => array(
-                    'include' => $this->getFileMTime($customFile),
-                    'ext' => $this->getFileMTime($extfile)
-                )
             );
 
             $this->log("customized for {$language}: " . implode(', ', array_keys($old)));
@@ -148,21 +135,6 @@ class SugarUpgradeLoadDropdowns extends UpgradeScript
         }
 
         return null;
-    }
-
-    /**
-     * Wrapper for returning the modification time of a given file.
-     * @param $file
-     *
-     * @return int
-     */
-    protected function getFileMTime($file)
-    {
-        if ($file && file_exists($file)) {
-            return filemtime($file);
-        }
-
-        return 0;
     }
 
     /**

@@ -11,13 +11,13 @@
 var AjaxObject = {
 	ret : '',
 	currentRequestObject : null,
-	timeout : 300000, // 5 minutes timeout, sometime response time may over 30 seconds
+	timeout : 30000, // 30 second timeout default
 	forceAbort : false,
 	
 	/**
 	 */
 	_reset : function() {
-		this.timeout = 300000;
+		this.timeout = 30000;
 		this.forceAbort = false;
 	},
     handleFailure : function(o) {

@@ -283,8 +283,7 @@ class PMSEElementValidator implements PMSEValidate
         if (isset($_REQUEST['moduleName']) && isModuleBWC($_REQUEST['moduleName'])) {
             $url = $_REQUEST['module'];
         } else {
-            // In most cases __sugar_url will be set, but if it isn't, handle it
-            $url = isset($_REQUEST['__sugar_url']) ? $_REQUEST['__sugar_url'] : '';
+            $url = $_REQUEST['__sugar_url'];
         }
 
         if (strpos($url, 'pmse') === false) {
@@ -304,14 +303,14 @@ class PMSEElementValidator implements PMSEValidate
     {
         //Validate if start event was already processed
         foreach ($_SESSION['triggeredFlows'] as $flow) {
-            if ($flowData['pro_id'] == $flow['pro_id'] && $bean->id == $flow['bean']->id) {
+            if ($flowData['pro_id'] == $flow['pro_id'] && $bean->id == $flow['bean_id']) {
                 $this->logger->debug("Start Event {$bean->id} was already triggered in after save hook.");
                 return true;
             }
         }
         $triggeredFlow = array();
         $triggeredFlow['pro_id'] = $flowData['pro_id'];
-        $triggeredFlow['bean'] = $bean;
+        $triggeredFlow['bean_id'] = $bean->id;
         $_SESSION['triggeredFlows'][] = $triggeredFlow;
         return false;
     }
@@ -324,34 +323,13 @@ class PMSEElementValidator implements PMSEValidate
      */
     public function validateStartEvent($bean, $flowData, $request)
     {
-        if (!$this->isPMSEEdit($bean)) {
-            $isNewRecord = $this->isNewRecord($bean);
-            switch ($flowData['evn_params']) {
-                case 'new':
-                    if ($isNewRecord && !$this->isCaseDuplicated($bean, $flowData)) {
-                        $request->validate();
-                    } else {
-                        $request->invalidate();
-                    }
-                    break;
-                case 'updated':
-                    if (!$isNewRecord && !$this->isCaseDuplicated($bean, $flowData)) {
-                        $request->validate();
-                    } else {
-                        $request->invalidate();
-                    }
-                    break;
-                case 'allupdates':
-                    if (!$isNewRecord && !$this->isCaseDuplicated($bean, $flowData, true)) {
-                        $request->validate();
-                    } else {
-                        $request->invalidate();
-                    }
-                    break;
-                default:
-                    $request->invalidate();
-                    break;
-            }
+        if ((($this->isNewRecord($bean) && $flowData['evn_params'] == 'new' ||
+                !$this->isNewRecord($bean) && $flowData['evn_params'] == 'updated')
+                 && !$this->isCaseDuplicated($bean, $flowData)) ||
+                    !$this->isNewRecord($bean) && $flowData['evn_params'] == 'allupdates'
+                &&  !$this->isPMSEEdit($bean) && !$this->isCaseDuplicated($bean, $flowData, true)
+        ) {
+            $request->validate();
         } else {
             $request->invalidate();
         }

@@ -10,6 +10,7 @@ nv.models.pieChart = function() {
       showTitle = false,
       showLegend = true,
       direction = 'ltr',
+      hole = false,
       tooltip = null,
       durationMs = 0,
       tooltips = true,
@@ -33,16 +34,17 @@ nv.models.pieChart = function() {
       legend = nv.models.legend()
         .align('center');
 
-  var showTooltip = function(eo, offsetElement, total) {
-    var key = eo.point.key,
-        x = (pie.y()(eo.point) * 100 / total).toFixed(1),
-        y = pie.valueFormat()(pie.y()(eo.point)),
-        content = tooltipContent(key, x, y, eo, chart);
+  var showTooltip = function(e, offsetElement, total) {
+    var left = e.pos[0],
+        top = e.pos[1],
+        x = (pie.y()(e.point) * 100 / total).toFixed(1),
+        y = pie.valueFormat()(pie.y()(e.point)),
+        content = tooltipContent(e.point.key, x, y, e, chart);
 
-    tooltip = nv.tooltip.show(eo.e, content, null, null, offsetElement);
+    tooltip = nv.tooltip.show([left, top], content, null, null, offsetElement);
   };
 
-  var seriesClick = function(data, e, chart) {
+  var seriesClick = function(data, e) {
     return;
   };
 
@@ -67,8 +69,8 @@ nv.models.pieChart = function() {
         container.transition().duration(durationMs).call(chart);
       };
 
-      chart.dataSeriesActivate = function(eo) {
-        var series = eo.point;
+      chart.dataSeriesActivate = function(e) {
+        var series = e.point;
 
         series.active = (!series.active || series.active === 'inactive') ? 'active' : 'inactive';
 
@@ -132,7 +134,6 @@ nv.models.pieChart = function() {
 
       //------------------------------------------------------------
       // Display No Data message if there's nothing to show.
-
       if (!totalAmount) {
         displayNoData();
         return chart;
@@ -150,16 +151,16 @@ nv.models.pieChart = function() {
       gEnter.append('rect').attr('class', 'nv-background')
         .attr('x', -margin.left)
         .attr('y', -margin.top)
-        .attr('fill', '#FFF');
-
-      g.select('.nv-background')
         .attr('width', availableWidth + margin.left + margin.right)
-        .attr('height', availableHeight + margin.top + margin.bottom);
+        .attr('height', availableHeight + margin.top + margin.bottom)
+        .attr('fill', '#FFF');
 
       gEnter.append('g').attr('class', 'nv-titleWrap');
       var titleWrap = g.select('.nv-titleWrap');
       gEnter.append('g').attr('class', 'nv-pieWrap');
       var pieWrap = g.select('.nv-pieWrap');
+      gEnter.append('g').attr('class', 'nv-holeWrap');
+      var holeWrap = g.select('.nv-holeWrap');
       gEnter.append('g').attr('class', 'nv-legendWrap');
       var legendWrap = g.select('.nv-legendWrap');
 
@@ -168,10 +169,9 @@ nv.models.pieChart = function() {
       //------------------------------------------------------------
       // Title & Legend
 
-      var titleBBox = {width: 0, height: 0};
-      titleWrap.select('.nv-title').remove();
-
       if (showTitle && properties.title) {
+        titleWrap.select('.nv-title').remove();
+
         titleWrap
           .append('text')
             .attr('class', 'nv-title')
@@ -183,41 +183,32 @@ nv.models.pieChart = function() {
             .attr('stroke', 'none')
             .attr('fill', 'black');
 
-        titleBBox = nv.utils.getTextBBox(g.select('.nv-title'));
-
-        innerMargin.top += titleBBox.height + 12;
+        innerMargin.top += parseInt(g.select('.nv-title').node().getBoundingClientRect().height / 1.15, 10) +
+          parseInt(g.select('.nv-title').style('margin-top'), 10) +
+          parseInt(g.select('.nv-title').style('margin-bottom'), 10);
       }
 
       if (showLegend) {
         legend
           .id('legend_' + chart.id())
           .strings(chart.strings().legend)
+          .margin({top: 10, right: 10, bottom: 10, left: 10})
           .align('center')
           .height(availableHeight - innerMargin.top);
         legendWrap
           .datum(pieData)
           .call(legend);
+
         legend
           .arrange(availableWidth);
-
-        var legendLinkBBox = nv.utils.getTextBBox(legendWrap.select('.nv-legend-link')),
-            legendSpace = availableWidth - titleBBox.width - 6,
-            legendTop = showTitle && legend.collapsed() && legendSpace > legendLinkBBox.width ? true : false,
-            xpos = direction === 'rtl' || !legend.collapsed() ? 0 : availableWidth - legend.width(),
-            ypos = titleBBox.height;
-        if (legendTop) {
-          ypos = titleBBox.height - legend.height() / 2 - legendLinkBBox.height / 2;
-        } else if (!showTitle) {
-          ypos = - legend.margin().top;
-        }
-
         legendWrap
-          .attr('transform', 'translate(' + xpos + ',' + ypos + ')');
-
-        innerMargin.top += legendTop ? 0 : legend.height() - 12;
+          .attr('transform', 'translate(0,' + innerMargin.top + ')');
       }
 
+      //------------------------------------------------------------
       // Recalc inner margins
+
+      innerMargin.top += legend.height() + 4;
       innerHeight = availableHeight - innerMargin.top - innerMargin.bottom;
       innerWidth = availableWidth - innerMargin.left - innerMargin.right;
 
@@ -233,6 +224,20 @@ nv.models.pieChart = function() {
         .attr('transform', 'translate(' + innerMargin.left + ',' + innerMargin.top + ')')
         .transition().duration(durationMs)
           .call(pie);
+
+      if (hole && pie.donut()) {
+        holeWrap.select('text').remove();
+        holeWrap.append('text')
+          .text(hole)
+          .attr('text-anchor', 'middle')
+          .attr('class', 'nv-pie-hole')
+          .attr('dy', '.35em')
+          .style('fill', '#333')
+          .style('font-size', '32px')
+          .style('font-weight', 'bold');
+        holeWrap
+          .attr('transform', 'translate(' + (innerWidth / 2 + innerMargin.left) + ',' + (innerHeight / 2 + innerMargin.top) + ')');
+      }
 
       function displayNoData() {
         container.select('.nvd3.nv-wrap').remove();
@@ -272,15 +277,9 @@ nv.models.pieChart = function() {
         container.transition().duration(durationMs).call(chart);
       });
 
-      dispatch.on('tooltipShow', function(eo) {
+      dispatch.on('tooltipShow', function(e) {
         if (tooltips) {
-          showTooltip(eo, that.parentNode, total);
-        }
-      });
-
-      dispatch.on('tooltipMove', function(e) {
-        if (tooltip) {
-          nv.tooltip.position(that.parentNode, tooltip, e);
+          showTooltip(e, that.parentNode, total);
         }
       });
 
@@ -290,27 +289,32 @@ nv.models.pieChart = function() {
         }
       });
 
+      dispatch.on('tooltipMove', function(e) {
+        if (tooltip) {
+          nv.tooltip.position(tooltip, e.pos);
+        }
+      });
+
       // Update chart from a state object passed to event handler
-      dispatch.on('changeState', function(eo) {
-        if (typeof eo.disabled !== 'undefined') {
+      dispatch.on('changeState', function(e) {
+        if (typeof e.disabled !== 'undefined') {
           pieData.forEach(function(series, i) {
-            series.disabled = eo.disabled[i];
+            series.disabled = e.disabled[i];
           });
-          state.disabled = eo.disabled;
+          state.disabled = e.disabled;
         }
 
         container.transition().duration(durationMs).call(chart);
       });
 
-      dispatch.on('chartClick', function() {
+      dispatch.on('chartClick', function(e) {
         if (legend.enabled()) {
-          legend.dispatch.closeMenu();
+          legend.dispatch.closeMenu(e);
         }
       });
 
-      pie.dispatch.on('elementClick', function(eo) {
-        dispatch.chartClick();
-        seriesClick(data, eo, chart);
+      pie.dispatch.on('elementClick', function(e) {
+        seriesClick(data, e);
       });
 
     });
@@ -322,16 +326,16 @@ nv.models.pieChart = function() {
   // Event Handling/Dispatching (out of chart's scope)
   //------------------------------------------------------------
 
-  pie.dispatch.on('elementMouseover.tooltip', function(eo) {
-    dispatch.tooltipShow(eo);
+  pie.dispatch.on('elementMouseover.tooltip', function(e) {
+    dispatch.tooltipShow(e);
+  });
+
+  pie.dispatch.on('elementMouseout.tooltip', function(e) {
+    dispatch.tooltipHide(e);
   });
 
   pie.dispatch.on('elementMousemove.tooltip', function(e) {
     dispatch.tooltipMove(e);
-  });
-
-  pie.dispatch.on('elementMouseout.tooltip', function() {
-    dispatch.tooltipHide();
   });
 
   //============================================================
@@ -344,8 +348,7 @@ nv.models.pieChart = function() {
   chart.legend = legend;
 
   d3.rebind(chart, pie, 'id', 'x', 'y', 'color', 'fill', 'classes', 'gradient');
-  d3.rebind(chart, pie, 'valueFormat', 'values', 'description', 'showLabels', 'showLeaders', 'donutLabelsOutside', 'pieLabelsOutside', 'labelThreshold');
-  d3.rebind(chart, pie, 'arcDegrees', 'rotateDegrees', 'minRadius', 'maxRadius', 'fixedRadius', 'startAngle', 'endAngle', 'donut', 'hole', 'holeFormat', 'donutRatio');
+  d3.rebind(chart, pie, 'valueFormat', 'values', 'description', 'showLabels', 'showLeaders', 'donutLabelsOutside', 'pieLabelsOutside', 'donut', 'donutRatio', 'labelThreshold');
 
   chart.colorData = function(_) {
     var type = arguments[0],
@@ -470,6 +473,14 @@ nv.models.pieChart = function() {
       return state;
     }
     state = _;
+    return chart;
+  };
+
+  chart.hole = function(_) {
+    if (!arguments.length) {
+      return hole;
+    }
+    hole = _;
     return chart;
   };
 

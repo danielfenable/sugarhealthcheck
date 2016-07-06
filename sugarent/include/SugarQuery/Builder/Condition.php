@@ -17,7 +17,7 @@ class SugarQuery_Builder_Condition
      */
     public $operator;
     /**
-     * @var SugarQuery_Builder_Field_Condition
+     * @var string
      */
     public $field;
     /**
@@ -42,11 +42,6 @@ class SugarQuery_Builder_Condition
      */
     public $query;
 
-    /**
-     * @var bool
-     */
-    protected $isAclIgnored;
-
     public function __construct(SugarQuery $query)
     {
         $this->query = $query;
@@ -70,9 +65,6 @@ class SugarQuery_Builder_Condition
     {
         $this->values = $values;
         $this->field->verifyCondition($values, $this->query);
-        if (is_array($values) && count($values) == 1 && key($values) === '$field') {
-            $this->field->setFieldCompare(current($values));
-        }
         return $this;
     }
 
@@ -121,19 +113,4 @@ class SugarQuery_Builder_Condition
         return $this->$name;
     }
 
-    /**
-     * Marks condition as ignoring ACL
-     */
-    public function ignoreAcl()
-    {
-        $this->isAclIgnored = true;
-    }
-
-    /**
-     * Checks
-     */
-    public function isAclIgnored()
-    {
-        return $this->isAclIgnored;
-    }
 }

@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 29053 2007-10-31 01:51:21Z bsoufflet $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -59,7 +59,7 @@ $mod_strings = array (
   'LBL_TIME_INT' => 'على الأقل لـ',
 
     'LBL_REL1' => 'الوحدة ذات الصلة: ',
-  'LBL_REL2' => 'وحدة الوحدة ذات الصلة\\: ',
+  'LBL_REL2' => 'وحدة الوحدة ذات الصلة\: ',
     'LBL_PLEASE_SEL_TARGET'=>'يُرجى تحديد وحدة مستهدفة',
     'LBL_ASSOCIATED_WITH'=>' مقترنة بذات الصلة ',
 

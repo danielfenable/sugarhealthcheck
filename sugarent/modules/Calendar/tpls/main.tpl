@@ -64,17 +64,9 @@
 		{literal}
 		var scrollable = CAL.get("cal-scrollable");
 		if(scrollable){
-
-            //grab all scrollable divs and set the scrollTop value on each one
-            var scrollableDivs = CAL.query("#cal-grid #cal-scrollable");
-            var sharedScrollTop = (CAL.slot_height + 1) * CAL.scroll_slot - 1;
-            for (var i = 0; i < scrollableDivs.length; i++) {
-                scrollableDivs[i].scrollTop =  sharedScrollTop;
-            }
-
-            if(CAL.view == "day") {
-                scrollable.scrollTop++;
-            }
+			scrollable.scrollTop = (CAL.slot_height + 1) * CAL.scroll_slot - 1;
+			if(CAL.view == "day")
+				scrollable.scrollTop++;
 		}
 		{/literal}			
 

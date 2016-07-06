@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 54394 2010-02-09 20:38:34Z roger $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -75,7 +75,6 @@ $mod_strings = array (
   'LBL_MOBILE_PHONE' => 'الهاتف المحمول:',
   'LBL_OTHER' => 'غير ذلك:',
   'LBL_EMAIL' => 'عنوان البريد الإلكتروني:',
-  'LBL_PRIMARY_EMAIL' => 'بريد إلكتروني رئيسي',
   'LBL_EMAIL_LINK_TYPE'				=> 'عميل البريد الإلكتروني',
   'LBL_EMAIL_LINK_TYPE_HELP'			=> '<b>عميل بريد Sugar:</b> إرسال رسائل بريد إلكتروني باستخدام عميل البريد الإلكتروني في تطبيق Sugar.<br><b>عميل البريد الخارجي:</b> قم بإرسال بريد إلكتروني باستخدام عميل بريد إلكتروني خارج تطبيق Sugar، مثل Microsoft Outlook.',
   'LBL_HOME_PHONE' => 'هاتف المنزل:',
@@ -95,7 +94,7 @@ $mod_strings = array (
   'ERR_LAST_ADMIN_2' => '" هو آخر موظف ذو وصول المسؤول.  يجب أن يكون موظف واحد على الأقل مسؤولاً.',
   'LNK_NEW_EMPLOYEE' => 'إنشاء موظف',
   'LNK_EMPLOYEE_LIST' => 'عرض الموظفين',
-  'ERR_DELETE_RECORD' => 'يجب تحديد رقم السجل لحذف الحساب.',
+  'ERR_DELETE_RECORD' => 'يجب تحديد رقم سجل لحذف الحساب.',
   'LBL_DEFAULT_TEAM' => 'الفريق الافتراضي:',
   'LBL_DEFAULT_TEAM_TEXT' => 'يحدد الفريق الافتراضي للسجلات الجديدة',
   'LBL_MY_TEAMS' => 'الفرق الخاصة بي',
@@ -144,7 +143,6 @@ $mod_strings = array (
   'LBL_DATE_ENTERED' => 'تاريخ الإدخال',
   'LBL_DELETED' => 'تم الحذف',
   'LBL_EMAIL_ADDRESS'=>'عنوان البريد الإلكتروني',
-  'LBL_CONTACTS_SYNC' => 'جهات الاتصال',
 );
 
 

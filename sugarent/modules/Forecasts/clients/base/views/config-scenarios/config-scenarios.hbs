@@ -17,8 +17,14 @@
     <div class="accordion-inner">
         <p>{{str "LBL_FORECASTS_CONFIG_WORKSHEET_SCENARIOS" "Forecasts"}}</p>
         <p><em>{{str "LBL_FORECASTS_CONFIG_WORKSHEET_LIKELY_INFO" "Forecasts"}}</em></p>
-        <div class="record-cell">
-            <div id="scenariosSelect"></div>
+        <div class="control-group">
+            <div class="filter">
+                <div class="filter-view search">
+                    <input id="scenariosLocked" class="select2" type="hidden">
+                    {{!-- left and right CSS properties are hardcoded in the controller to fix right to left interface --}}
+                    <input id="scenariosSelect" class="select2" type="hidden">
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -2,21 +2,21 @@
 
 namespace Elastica\Test;
 
+use Elastica\Client;
 use Elastica\Document;
 use Elastica\Index;
 use Elastica\Percolator;
-use Elastica\Query;
 use Elastica\Query\Term;
+use Elastica\Query;
 use Elastica\Test\Base as BaseTest;
-use Elastica\Type;
 
 class PercolatorTest extends BaseTest
 {
     public function testConstruct()
     {
-        $index = $this->_createIndex();
-        $percolatorName = $index->getName();
+        $percolatorName = 'percotest';
 
+        $index = $this->_createIndex($percolatorName);
         $percolator = new Percolator($index);
 
         $query = new Term(array('field1' => 'value1'));
@@ -29,7 +29,7 @@ class PercolatorTest extends BaseTest
             '_index' => $index->getName(),
             '_id' => $percolatorName,
             '_version' => 1,
-            'created' => 1,
+            'created' => 1
         );
 
         $this->assertEquals($expectedArray, $data);
@@ -40,10 +40,9 @@ class PercolatorTest extends BaseTest
     public function testMatchDoc()
     {
         $index = $this->_createIndex();
-
         $percolator = new Percolator($index);
 
-        $percolatorName = $index->getName();
+        $percolatorName = 'percotest';
 
         $query = new Term(array('name' => 'ruflin'));
         $response = $percolator->registerQuery($percolatorName, $query);
@@ -141,6 +140,7 @@ class PercolatorTest extends BaseTest
         $matches = $percolator->matchDoc($doc, new Term(array('color' => 'green')));
         $this->assertCount(0, $matches, 'A registered query matched, although nothing should match at all.');
 
+
         // unregister percolator query
         $response = $percolator->unregisterQuery('kuku');
 
@@ -162,12 +162,11 @@ class PercolatorTest extends BaseTest
         $percolator = new Percolator($index);
 
         $query = new Term(array('name' => 'foobar'));
-        $percolator->registerQuery($percolatorName, $query, array('field1' => array('tag1', 'tag2')));
-
+        $percolator->registerQuery($percolatorName, $query);
         return $percolator;
     }
 
-    protected function _addDefaultDocuments($index, $type = 'testing')
+    protected function _addDefaultDocuments($index, $type='testing')
     {
         $type = $index->getType('testing');
         $doc1 = new Document(1, array('name' => 'foobar'));
@@ -175,7 +174,6 @@ class PercolatorTest extends BaseTest
         $type->addDocument($doc1);
         $type->addDocument($doc2);
         $index->refresh();
-
         return $type;
     }
 
@@ -222,83 +220,5 @@ class PercolatorTest extends BaseTest
 
         $this->assertCount(1, $matches);
         $index->delete();
-    }
-
-    public function testPercolateWithAdditionalRequestBodyOptions()
-    {
-        $index = $this->_createIndex();
-        $percolator = new Percolator($index);
-
-        $query = new Term(array('name' => 'foo'));
-        $response = $percolator->registerQuery('percotest', $query, array( 'field1' => array('tag1', 'tag2')));
-
-        $this->assertTrue($response->isOk());
-        $this->assertFalse($response->hasError());
-
-        $query = new Term(array('name' => 'foo'));
-        $response = $percolator->registerQuery('percotest1', $query, array( 'field1' => array('tag2')));
-
-        $this->assertTrue($response->isOk());
-        $this->assertFalse($response->hasError());
-
-        $doc1 = new Document();
-        $doc1->set('name', 'foo');
-
-        $index->refresh();
-
-        $options = array(
-            'track_scores' => true,
-            'sort'         => array('_score' => 'desc'),
-            'size'         => 1,
-        );
-
-        $matches = $percolator->matchDoc($doc1, new Term(array('field1' => 'tag2')), 'type', $options);
-
-        $this->assertCount(1, $matches);
-        $this->assertEquals('percotest1', $matches[0]['_id']);
-        $this->assertArrayHasKey('_score', $matches[0]);
-    }
-
-    public function testPercolateExistingDocWithAdditionalRequestBodyOptions()
-    {
-        $percolatorName = 'existingDoc';
-        $percolator = $this->_getDefaultPercolator($percolatorName);
-
-        $query = new Term(array('name' => 'foobar'));
-        $percolator->registerQuery($percolatorName.'1', $query, array('field1' => array('tag2')));
-
-        $index      = $percolator->getIndex();
-        $type       = $this->_addDefaultDocuments($index);
-
-        $options = array(
-            'track_scores' => true,
-            'sort'         => array('_score' => 'desc'),
-            'size'         => 1,
-        );
-
-        $matches = $percolator->matchExistingDoc(1, $type->getName(), new Term(array('field1' => 'tag2')), $options);
-
-        $this->assertCount(1, $matches);
-        $this->assertEquals('existingDoc1', $matches[0]['_id']);
-        $this->assertArrayHasKey('_score', $matches[0]);
-        $index->delete();
-    }
-
-    protected function _createIndex($name = null, $delete = true, $shards = 1)
-    {
-        $index = parent::_createIndex($name, $delete, $shards);
-        $type = $index->getType('.percolator');
-
-        $mapping = new Type\Mapping($type,
-            array(
-                'name' => array('type' => 'string'),
-                'field1' => array('type' => 'string'),
-            )
-        );
-        $mapping->disableSource();
-
-        $type->setMapping($mapping);
-
-        return $index;
     }
 }

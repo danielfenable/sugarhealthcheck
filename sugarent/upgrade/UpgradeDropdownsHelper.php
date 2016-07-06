@@ -43,8 +43,8 @@ class UpgradeDropdownsHelper
             'forecasts_config_worksheet_layout_forecast_by_options_dom',
             'forecasts_timeperiod_options_dom',
             'generic_timeperiod_options',
-            //'moduleList', // We may want to put this in at a later date
-            //'moduleListSingular', // Same with this
+            // 'moduleList', // We may want to put this in at a later date
+            // 'moduleListSingular', // Same with this
         );
 
         $dropdowns = array();

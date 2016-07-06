@@ -63,7 +63,6 @@ class AbstractRelationships
                                              'queues_beans',
                                              'queues_queue',
                                              'tracker_sessions',
-        'kbusefulness',
                                              'activities_users'             // needed because of `activities_teams`
                                           );
     /*
@@ -148,15 +147,11 @@ class AbstractRelationships
         $definition = array ( ) ;
         require_once 'modules/ModuleBuilder/parsers/relationships/AbstractRelationship.php' ;
 
-        foreach (AbstractRelationship::$definitionKeys as $key) {
-            if (!empty($_REQUEST[$key])) {
-                if (in_array($key, array('label', 'rhs_label', 'lhs_label'))) {
-                    $definition[$key] = htmlspecialchars_decode($_REQUEST[$key], ENT_QUOTES);
-                } else if ($key == 'relationship_type') {
-                    $definition[$key] = AbstractRelationship::parseRelationshipType($_REQUEST[$key]);
-                } else {
-                    $definition[$key] = $_REQUEST[$key];
-                }
+        foreach ( AbstractRelationship::$definitionKeys as $key )
+        {
+            if (! empty ( $_REQUEST [ $key ] ))
+            {
+                $definition [ $key ] = ($key == 'relationship_type') ? AbstractRelationship::parseRelationshipType ( $_REQUEST [ $key ] ) : $_REQUEST [ $key ] ;
             }
         }
 
@@ -253,16 +248,21 @@ class AbstractRelationships
      * relationship (products-products) uses it (and there it makes no difference from our POV) and we don't use it when creating new ones
      * @return array Array of $relationshipName => $relationshipDefinition as an array
      */
-    protected function getDeployedRelationships()
+    protected function getDeployedRelationships ()
     {
 
-        $relationships = SugarRelationshipFactory::getInstance()->getRelationshipDefs();
-        array_walk($relationships, function (&$def) {
-            $def['readonly'] = true;
-            $def['relationship_name'] = $def['name'];
-        });
+        $relationships = array();
+        $db = DBManagerFactory::getInstance () ;
+        $query = "SELECT * FROM relationships WHERE deleted = 0" ;
+        $result = $db->query ( $query ) ;
+        while ( $row = $db->fetchByAssoc ( $result ) )
+        {
+            // set this relationship to readonly
+            $row [ 'readonly' ] = true ;
+            $relationships [ $row [ 'relationship_name' ] ] = $row ;
+        }
 
-        return $relationships;
+        return $relationships ;
     }
 
     /*

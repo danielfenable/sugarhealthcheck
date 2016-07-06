@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'Historia zmian',
-    'LBL_FIELD_NAME' => 'Pole',
-    'LBL_OLD_NAME' => 'Poprzednia wartość',
-    'LBL_NEW_VALUE' => 'Nowa wartość',
-    'LBL_CREATED_BY' => 'Zmienione przez',
-    'LBL_LIST_DATE' => 'Data zmiany',
-    'LBL_AUDITED_FIELDS' => 'Pola śledzone w tym module:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'Nie ma żadnych pól śledzonych w tym module',
-    'LBL_CHANGE_LOG' => 'Historia zmian',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'Po kontroli pola waluty są zapisywane w walucie niedomyślnej dla systemu. W dzienniku zmian stare i nowe wartości będą wyświetlane przeliczone do domyślnej waluty systemowej.'
+	
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Pola śledzone w tym module:',
+  'LBL_AUDIT_TITLE' => 'Historia zmian',
+  'LBL_CHANGE_LOG' => 'Historia zmian',
+  'LBL_CREATED_BY' => 'Zmienione przez',
+  'LBL_FIELD_NAME' => 'Pole',
+  'LBL_LIST_DATE' => 'Data zmiany',
+  'LBL_NEW_VALUE' => 'Nowa wartość',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'Nie ma żadnych pól śledzonych w tym module',
+  'LBL_OLD_NAME' => 'Poprzednia wartość',
 );
+

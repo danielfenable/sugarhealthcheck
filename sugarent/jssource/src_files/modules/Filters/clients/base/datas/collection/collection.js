@@ -155,6 +155,12 @@
         // No cache found, retrieve filters.
         this._loadPredefinedFilters();
 
+        if (!app.acl.hasAccess('list', module)) {
+            app.logger.debug('No "list" access to ' + module + ' so skipping fetch.');
+            this._onSuccessCallback(options.success);
+            return;
+        }
+
         var requestObj = {
             showAlerts: false,
             filter: [

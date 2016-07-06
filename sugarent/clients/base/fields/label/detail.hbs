@@ -10,8 +10,8 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 --}}
-{{#if value}}
-    <div class="ellipsis_inline" data-placement="bottom"{{#if dir}} dir="{{dir}}"{{/if}} title="{{value}}">
-        {{value}}
-    </div>
+{{#if def.formatted_value}}
+    {{def.formatted_value}}
+{{else}}
+    {{str def.default_value this.module}}
 {{/if}}

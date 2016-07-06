@@ -458,7 +458,7 @@ class PMSEExecuter
             $this->validateFailSafes($flowData, $executionData);
             $routeData = $this->flowRouter->routeFlow($executionData, $flowData, $createThread);
         } catch (PMSEElementException $e) {
-            $this->logger->alert($e->getMessage());
+            $this->logger->warning($e->getMessage());
             $element = $e->getElement();
             $flow = $e->getFlowData();
             $state = (empty($flow['id'])) ? 'CREATE' : 'UPDATE';
@@ -467,7 +467,7 @@ class PMSEExecuter
             $this->caseFlowHandler->changeCaseStatus($executionData['flow_data']['cas_id'], 'ERROR');
             $routeData = $this->flowRouter->routeFlow($executionData, $flowData, $createThread);
         } catch (Exception $e) {
-            $this->logger->alert($e->getMessage());
+            $this->logger->warning($e->getMessage());
             $element = $this->retrievePMSEElement('');
             $status = $e->getCode() == 0 ? 'QUEUE' : 'ERROR';
             $preparedData['cas_flow_status'] = $status;

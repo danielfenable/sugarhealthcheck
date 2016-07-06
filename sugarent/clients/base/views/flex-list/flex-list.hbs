@@ -12,7 +12,7 @@
 --}}
 {{#each meta.panels}}
 <div class="flex-list-view-content">
-    <table class="table table-striped dataTable{{#has "ReorderableColumns" ../plugins}} reorderable-columns{{/has}}{{#if ../isSearchAndSelectAction}} search-and-select{{/if}}">
+    <table class="table table-striped dataTable{{#has "ReorderableColumns" ../plugins}} reorderable-columns{{/has}}{{#if ../isLinkAction}} search-and-select{{/if}}">
     <thead>
     <tr>
         {{#each ../leftColumns}}
@@ -96,7 +96,7 @@
     </thead>
     <tbody>
     {{#each ../collection.models}}
-    <tr name="{{module}}_{{id}}" class="single">
+    <tr name="{{module}}_{{attributes.id}}" class="single">
         {{#each ../../leftColumns}}
         <td>
              {{field ../../../this model=../this template=../../../viewName}}
@@ -119,4 +119,11 @@
     <span class="scrollbar-landmark"></span>
 </div>
 <div class="uxs-scroll-bar" data-scroll-spy="flex-list-view-content"><div>&nbsp;</div></div>
+{{#if ../collection.dataFetched}}
+    {{#unless ../../collection.length}}
+        <div class="block-footer">
+            {{str "LBL_NO_DATA_AVAILABLE"}}
+        </div>
+    {{/unless}}
+{{/if}}
 {{/each}}

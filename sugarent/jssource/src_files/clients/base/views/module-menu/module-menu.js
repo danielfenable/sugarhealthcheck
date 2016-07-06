@@ -20,11 +20,9 @@
  */
 ({
     tagName: 'span',
-    plugins: ['EllipsisInline'],
     events: {
         'click [data-event]': 'handleMenuEvent',
-        'click [data-route]': 'handleRouteEvent',
-        'shown.bs.dropdown': 'populateMenu'
+        'click [data-route]': 'handleRouteEvent'
     },
 
     /**
@@ -72,7 +70,7 @@
     _settings: {},
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Adds listener for bootstrap drop down show even (`shown.bs.dropdown`).
      * This will trigger menuOpen method.
@@ -88,6 +86,10 @@
 
         this._super('initialize', [options]);
         this._initSettings();
+
+        this.events = _.extend({}, this.events, {
+            'shown.bs.dropdown': 'populateMenu'
+        });
 
         /**
          * The internal array of collections for favorites and recent.
@@ -119,7 +121,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Retrieves possible menus from the metadata already inSync.
      * Filters all menu actions based on ACLs to prevent user to click them and
@@ -249,8 +251,6 @@
             return;
         }
 
-        this.destroyEllipsisTooltips();
-
         options = options || {};
         tpl = app.template.getView(this.name + '.' + tplName, this.module) ||
             app.template.getView(this.name + '.' + tplName);
@@ -275,8 +275,6 @@
                 $newFocus.focus();
             }
         }
-
-        this.initializeEllipsisTooltips();
 
     },
 

@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,16 +12,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $mod_strings = array (
-    'LBL_ANY_EMAIL' => 'E-mail:',
-    'LBL_EMAIL' => 'Адрес электронной почты:',
-    'LBL_PRIMARY_EMAIL' => 'Основной адрес электронной почты',
-    'LBL_LIST_EMAIL_ADDRESS' => 'E-mail адрес',
-    'LBL_OTHER_EMAIL_ADDRESS' => 'Другой E-mail:',
-    'LBL_EMAIL_ADDRESS' => 'E-mail адрес',
-    'LBL_EMAIL_ADDRESSES' => 'E-mail-адрес (-а)',
-    'LBL_INVALID_EMAIL'=>'Неверный E-mail:',
-    'LBL_EMAIL_OPT_OUT' => 'Не писать на E-mail:',
-    'LBL_EMAIL_NON_PRIMARY' => 'Неосновные emails',
+  'LBL_ANY_EMAIL' => 'Email:',
+  'LBL_EMAIL' => 'Адрес Email:',
+  'LBL_EMAIL_ADDRESS' => 'Адрес Email',
+  'LBL_EMAIL_ADDRESSES' => 'Адрес(-а) Email',
+  'LBL_EMAIL_NON_PRIMARY' => 'Неосновные emails',
+  'LBL_EMAIL_OPT_OUT' => 'Отказ от получения Email:',
+  'LBL_INVALID_EMAIL' => 'Неверный Email:',
+  'LBL_LIST_EMAIL_ADDRESS' => 'Адрес Email',
+  'LBL_OTHER_EMAIL_ADDRESS' => 'Дополнительный Email:',
 );
+

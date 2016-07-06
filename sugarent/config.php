@@ -1,4 +1,6 @@
-<?php  $sugar_config =  array (
+<?php
+// created: 2016-07-06 08:10:30
+$sugar_config = array (
   'additional_js_config' => 
   array (
   ),
@@ -26,7 +28,7 @@
   'create_default_user' => false,
   'cron' => 
   array (
-    'max_cron_jobs' => '12',
+    'max_cron_jobs' => 25,
     'max_cron_runtime' => 1800,
     'min_cron_interval' => 30,
   ),
@@ -68,6 +70,7 @@
     'autofree' => false,
     'debug' => 0,
     'ssl' => false,
+    'collation' => 'utf8_general_ci',
   ),
   'default_action' => 'index',
   'default_charset' => 'UTF-8',
@@ -194,7 +197,7 @@
   'default_swap_last_viewed' => false,
   'default_swap_shortcuts' => false,
   'default_theme' => 'RacerX',
-  'default_time_format' => 'H.i',
+  'default_time_format' => 'h:ia',
   'default_user_is_admin' => false,
   'default_user_name' => '',
   'demoData' => 'no',
@@ -209,10 +212,8 @@
   'email_default_client' => 'sugar',
   'email_default_delete_attachments' => true,
   'email_default_editor' => 'html',
-  'email_xss' => 'YToxMzp7czo2OiJhcHBsZXQiO3M6NjoiYXBwbGV0IjtzOjQ6ImJhc2UiO3M6NDoiYmFzZSI7czo1OiJlbWJlZCI7czo1OiJlbWJlZCI7czo0OiJmb3JtIjtzOjQ6ImZvcm0iO3M6NToiZnJhbWUiO3M6NToiZnJhbWUiO3M6ODoiZnJhbWVzZXQiO3M6ODoiZnJhbWVzZXQiO3M6NjoiaWZyYW1lIjtzOjY6ImlmcmFtZSI7czo2OiJpbXBvcnQiO3M6ODoiXD9pbXBvcnQiO3M6NToibGF5ZXIiO3M6NToibGF5ZXIiO3M6NDoibGluayI7czo0OiJsaW5rIjtzOjY6Im9iamVjdCI7czo2OiJvYmplY3QiO3M6Njoic2NyaXB0IjtzOjY6InNjcmlwdCI7czozOiJ4bXAiO3M6MzoieG1wIjt9',
   'enable_mobile_redirect' => true,
   'export_delimiter' => ',',
-  'export_excel_compatible' => false,
   'full_text_engine' => 
   array (
     'Elastic' => 
@@ -240,7 +241,7 @@
     'timeout' => 3600,
   ),
   'js_custom_version' => 1,
-  'js_lang_version' => 136,
+  'js_lang_version' => 1,
   'languages' => 
   array (
     'en_us' => 'English (US)',
@@ -266,7 +267,6 @@
     'ru_RU' => 'Русский',
     'sv_SE' => 'Svenska',
     'tr_TR' => 'Türkçe',
-    'zh_TW' => '繁體中文',
     'zh_CN' => '简体中文',
     'pt_BR' => 'Português Brasileiro',
     'ca_ES' => 'Català',
@@ -340,8 +340,8 @@
     'onenumber' => true,
     'onespecial' => '',
     'SystemGeneratedPasswordON' => true,
-    'generatepasswordtmpl' => '466051f6-f870-f5ed-115b-576d49073e9e',
-    'lostpasswordtmpl' => '68e2f086-7050-d2ef-c05a-576d491a96e5',
+    'generatepasswordtmpl' => '5316ae77-952d-c070-2c96-577cae847b25',
+    'lostpasswordtmpl' => '7a3953f8-400c-3fd6-e270-577cae34b57c',
     'customregex' => '',
     'regexcomment' => '',
     'forgotpasswordON' => true,
@@ -369,7 +369,6 @@
     'error_timeout' => '40',
   ),
   'portal_view' => 'single_user',
-  'preview_edit' => false,
   'require_accounts' => true,
   'resource_management' => 
   array (
@@ -395,7 +394,7 @@
   'site_url' => 'http://localhost/sugarent',
   'slow_query_time_msec' => '100',
   'snip_url' => 'http://ease.sugarcrm.com:20010/',
-  'sugar_version' => '7.7.0.0',
+  'sugar_version' => '7.6.2.0',
   'time_formats' => 
   array (
     'H:i' => '23:00',
@@ -414,7 +413,7 @@
   'tmp_file_max_lifetime' => 86400,
   'tracker_max_display_length' => 30,
   'translation_string_prefix' => false,
-  'unique_key' => '33ab833441a5ffbfb3c594459a56062f',
+  'unique_key' => 'c7a8883d1ff7f838da59aaeb8952c449',
   'upload_badext' => 
   array (
     0 => 'php',
@@ -440,4 +439,6 @@
   'verify_client_ip' => true,
   'wl_list_max_entries_per_page' => 10,
   'wl_list_max_entries_per_subpanel' => 3,
+  'disable_team_access_check' => true,
+  'email_xss' => 'YToxMzp7czo2OiJhcHBsZXQiO3M6NjoiYXBwbGV0IjtzOjQ6ImJhc2UiO3M6NDoiYmFzZSI7czo1OiJlbWJlZCI7czo1OiJlbWJlZCI7czo0OiJmb3JtIjtzOjQ6ImZvcm0iO3M6NToiZnJhbWUiO3M6NToiZnJhbWUiO3M6ODoiZnJhbWVzZXQiO3M6ODoiZnJhbWVzZXQiO3M6NjoiaWZyYW1lIjtzOjY6ImlmcmFtZSI7czo2OiJpbXBvcnQiO3M6ODoiXD9pbXBvcnQiO3M6NToibGF5ZXIiO3M6NToibGF5ZXIiO3M6NDoibGluayI7czo0OiJsaW5rIjtzOjY6Im9iamVjdCI7czo2OiJvYmplY3QiO3M6Njoic2NyaXB0IjtzOjY6InNjcmlwdCI7czozOiJ4bXAiO3M6MzoieG1wIjt9',
 );

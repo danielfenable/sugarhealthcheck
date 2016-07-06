@@ -13,10 +13,7 @@
         'click .toggle-link': 'handleToggleClick'
     },
 
-    /**
-     * @inheritdoc
-     */
-    initialize: function(options) {
+    initialize:function (options) {
         options.meta.buttons = this.getButtons(options);
         app.view.View.prototype.initialize.call(this, options);
         this.layout.on('toggle:change', this.handleToggleChange, this);
@@ -25,17 +22,15 @@
         this.layout.on('lead:convert-panel:complete', this.handlePanelComplete, this);
         this.layout.on('lead:convert-panel:reset', this.handlePanelReset, this);
         this.layout.on('lead:convert:duplicate-selection:change', this.setAssociateButtonState, this);
-        this.context.on('lead:convert:' + this.meta.module + ':shown', this.handlePanelShown, this);
-        this.context.on('lead:convert:' + this.meta.module + ':hidden', this.handlePanelHidden, this);
+        this.context.on('lead:convert:'+this.meta.module+':shown', this.handlePanelShown, this);
+        this.context.on('lead:convert:'+this.meta.module+':hidden', this.handlePanelHidden, this);
         this.initializeSubTemplates();
     },
 
     /**
-     * Return the metadata for the Associate/Reset buttons to be added to the
-     * convert panel header
-     *
-     * @param {Object} options
-     * @return {Array}
+     * Return the metadata for the Associate/Reset buttons to be added to the convert panel header
+     * @param options
+     * @returns {Array}
      */
     getButtons: function(options) {
         return [
@@ -43,7 +38,7 @@
                 name: 'associate_button',
                 type: 'button',
                 label: this.getLabel(
-                    'LBL_CONVERT_CREATE_MODULE',
+                    'LBL_CONVERT_ASSOCIATE_MODULE',
                     {'moduleName': options.meta.moduleSingular}
                 ),
                 css_class: 'btn-primary disabled'
@@ -57,20 +52,14 @@
         ];
     },
 
-    /**
-     * Initialize the Reset button to be hidden on render
-     * @inheritdoc
-     */
-    _render: function() {
+    _render:function () {
         app.view.View.prototype._render.call(this);
-        this.getField('reset_button').hide();
+        this.getField('reset_button').hide(); //initialize the Reset button to be hidden
     },
 
     /**
-     * Compile data from the convert panel layout with some of the metadata to
-     * be used when rendering sub-templates
-     *
-     * @return {Object}
+     * Compile data from the convert panel layout with some of the metadata to be used when rendering sub-templates
+     * @returns {Object}
      */
     getCurrentState: function() {
         var currentState = _.extend({}, this.layout.currentState, {
@@ -104,13 +93,11 @@
 
     /**
      * Toggle the subviews based on which link was clicked
-     *
-     * @param {Event} event The click event on the toggle link
+     * @param event
      */
     handleToggleClick: function(event) {
         var nextToggle = this.$(event.target).data('next-toggle');
         this.layout.trigger('toggle:showcomponent', nextToggle);
-        event.preventDefault();
         event.stopPropagation();
     },
 
@@ -119,10 +106,8 @@
      * - Title changes to reflect New vs. Select (showing New ModuleName or just ModuleName)
      * - Dupe check results are shown/hidden based on whether dupe view is shown
      * - Change the toggle link to allow the user to toggle back to the other one
-     * - Enable Associate button when on create view - Enable/Disable button based
-     *   on whether dupe selected on dupe view
-     *
-     * @param {string} toggle Which view is now being displayed
+     * - Enable Associate button when on create view - Enable/Disable button based on whether dupe selected on dupe view
+     * @param toggle which view is now being displayed
      */
     handleToggleChange: function(toggle) {
         this.renderTitle();
@@ -135,8 +120,7 @@
      * When opening a panel, change the appropriate header components:
      * - Activate the header
      * - Display the subview toggle link
-     * - Enable Associate button when on create view - Enable/Disable button
-     *   based on whether dupe selected on dupe view
+     * - Enable Associate button when on create view - Enable/Disable button based on whether dupe selected on dupe view
      * - Mark active indicator pointing up
      */
     handlePanelShown: function() {
@@ -182,8 +166,7 @@
      * - Title changes back to incomplete (showing New ModuleName or just ModuleName)
      * - Show duplicate check count (if any found)
      * - Switch to back to Associate button
-     * - Enable Associate button when on create view - Enable/Disable button
-     *   based on whether dupe selected on dupe view
+     * - Enable Associate button when on create view - Enable/Disable button based on whether dupe selected on dupe view
      */
     handlePanelReset: function() {
         this.setStepCircle(false);
@@ -195,8 +178,7 @@
 
     /**
      * Switch between check mark and step number
-     *
-     * @param {boolean} complete Whether to mark panel completed
+     * @param complete
      */
     setStepCircle: function(complete) {
         var $stepCircle = this.$('.step-circle');
@@ -208,8 +190,7 @@
     },
 
     /**
-     * Render the title based on current state Create vs DupeCheck and
-     * Complete vs. Incomplete
+     * Render the title based on current state Create vs DupeCheck and Complete vs. Incomplete
      */
     renderTitle: function() {
         this.$('.title').html(this.tpls.title(this.getCurrentState()));
@@ -224,8 +205,7 @@
 
     /**
      * Display duplicate results (if any found) or hide subview links if none found
-     *
-     * @param {number} duplicateCount Number of duplicates found
+     * @param duplicateCount
      */
     setDupeCheckResults: function(duplicateCount) {
         if (duplicateCount > 0) {
@@ -238,50 +218,41 @@
 
     /**
      * Render either dupe check results or pending (or empty if no dupes found)
-     *
-     * @param {string} type Which message to show - `results` or `pending`
+     * @param type
      */
     renderDupeCheckResults: function(type) {
         var results = '';
         if (type === 'results') {
             results = this.tpls.dupecheckResults(this.getCurrentState());
         } else if (type === 'pending') {
-            results = this.tpls.dupecheckPending(this.getCurrentState());
+            results = this.tpls.dupecheckPending(this.getCurrentState())
         }
         this.$('.dupecheck-results').text(results);
     },
 
     /**
      * Show/hide dupe check results
-     * If duplicate already selected, results will not be shown
-     *
-     * @param {boolean} show Whether to show the duplicate check results
+     * @param show
      */
     toggleDupeCheckResults: function(show) {
-        // if we are trying to show this, but we already have a dupeSelected, change the show to false
-        if (show && this.layout.currentState.dupeSelected) {
-            show = false;
-        }
         this.$('.dupecheck-results').toggle(show);
     },
 
     /**
      * Show/hide the subview toggle links altogether
-     * If panel is complete, the subview toggle will not be shown
-     *
-     * @param {boolean} show Whether to show the subview toggle
+     * @param show
      */
     toggleSubViewToggle: function(show) {
+        //if panel is complete - don't show the subview toggle
         if (this.layout.currentState.complete) {
-            show = false;
+            show = false
         }
         this.$('.subview-toggle').toggleClass('hide', !show);
     },
 
     /**
      * Show/hide appropriate toggle link for the subview being displayed
-     *
-     * @param {string} nextToggle Css class labeling the next toggle
+     * @param nextToggle
      */
     setSubViewToggle: function(nextToggle) {
         _.each(['dupecheck', 'create'], function(currentToggle) {
@@ -291,9 +262,8 @@
 
     /**
      * Show/hide a single subview toggle link
-     *
-     * @param {string} currentToggle Css class labeling the current toggle
-     * @param {boolean} show Whether to show the toggle link
+     * @param currentToggle
+     * @param show
      */
     toggleSubViewLink: function(currentToggle, show) {
         this.$('.subview-toggle .' + currentToggle).toggle(show);
@@ -301,38 +271,36 @@
 
     /**
      * Switch subview toggle labels based on whether duplicates were found or not
-     *
-     * @param {number} duplicateCount
+     * @param duplicateCount
      */
     setSubViewToggleLabels: function(duplicateCount) {
         if (duplicateCount > 0) {
             this.setSubViewToggleLabel('dupecheck', 'LBL_CONVERT_IGNORE_DUPLICATES');
             this.setSubViewToggleLabel('create', 'LBL_CONVERT_BACK_TO_DUPLICATES');
+            this.searchMode = false;
         } else {
             this.setSubViewToggleLabel('dupecheck', 'LBL_CONVERT_SWITCH_TO_CREATE');
             this.setSubViewToggleLabel('create', 'LBL_CONVERT_SWITCH_TO_SEARCH');
+            this.searchMode = true;
         }
     },
 
     /**
      * Set label for given subview toggle
-     *
-     * @param {string} currentToggle Css class labeling the current toggle
-     * @param {string} label Label to replace the toggle text with
+     * @param currentToggle
+     * @param label
      */
     setSubViewToggleLabel: function(currentToggle, label) {
-        this.$('.subview-toggle .' + currentToggle).text(this.getLabel(label));
+        this.$('.subview-toggle .' + currentToggle).text(this.getLabel(label, {}));
     },
 
     /**
      * Toggle between Associate and Reset buttons
-     *
-     * @param {boolean} complete
+     * @param complete
      */
     toggleButtons: function(complete) {
         var associateButton = 'associate_button',
             resetButton = 'reset_button';
-
         if (complete) {
             this.getField(associateButton).hide();
             this.getField(resetButton).show();
@@ -345,8 +313,7 @@
     /**
      * Activate/Deactivate the Associate button based on which subview is active
      * and whether the panel itself is active (keep disabled when panel not active)
-     *
-     * @param {boolean} [activate]
+     * @param activate
      */
     setAssociateButtonState: function(activate) {
         var $associateButton = this.$('[name="associate_button"]'),
@@ -361,8 +328,6 @@
             }
         }
 
-        this.setAssociateButtonLabel(this.layout.currentToggle === this.layout.TOGGLE_CREATE);
-
         //only activate if current panel is active
         if (activate && panelActive) {
             $associateButton.removeClass('disabled');
@@ -372,22 +337,8 @@
     },
 
     /**
-     * Set the label for the Associate Button
-     *
-     * @param {boolean} isCreate
-     */
-    setAssociateButtonLabel: function(isCreate) {
-        var label = 'LBL_CONVERT_SELECT_MODULE';
-        if (isCreate) {
-            label = 'LBL_CONVERT_CREATE_MODULE';
-        }
-        this.$('[name="associate_button"]').html(this.getLabel(label, {'moduleName': this.meta.moduleSingular}));
-    },
-
-    /**
      * Toggle the active indicator up/down
-     *
-     * @param {boolean} active
+     * @param active
      */
     toggleActiveIndicator: function(active) {
         var $activeIndicator = this.$('.active-indicator i');
@@ -397,13 +348,11 @@
 
     /**
      * Get translated strings from the Leads module language file
-     *
-     * @param {string} key The app/mod string
-     * @param {Object} [context] Any placeholder data to populate in the string
-     * @return {string} The translated string
+     * @param key
+     * @param context
+     * @returns {*}
      */
     getLabel: function(key, context) {
-        context = context || {};
         return app.lang.get(key, 'Leads', context);
     }
 })

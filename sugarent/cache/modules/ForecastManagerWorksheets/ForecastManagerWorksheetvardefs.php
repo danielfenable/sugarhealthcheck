@@ -4,6 +4,52 @@
   'audited' => true,
   'fields' => 
   array (
+    'my_favorite' => 
+    array (
+      'massupdate' => false,
+      'name' => 'my_favorite',
+      'vname' => 'LBL_FAVORITE',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Favorite for the user',
+      'studio' => 
+      array (
+        'list' => false,
+        'recordview' => false,
+      ),
+      'link' => 'favorite_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'favorite_link' => 
+    array (
+      'name' => 'favorite_link',
+      'type' => 'link',
+      'relationship' => 'forecastmanagerworksheets_favorite',
+      'source' => 'non-db',
+      'vname' => 'LBL_FAVORITE',
+    ),
+    'following' => 
+    array (
+      'massupdate' => false,
+      'name' => 'following',
+      'vname' => 'LBL_FOLLOWING',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Is user following this record',
+      'studio' => 'false',
+      'link' => 'following_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'following_link' => 
+    array (
+      'name' => 'following_link',
+      'type' => 'link',
+      'relationship' => 'forecastmanagerworksheets_following',
+      'source' => 'non-db',
+      'vname' => 'LBL_FOLLOWING',
+    ),
     'id' => 
     array (
       'name' => 'id',
@@ -20,14 +66,14 @@
       'name' => 'name',
       'vname' => 'LBL_NAME',
       'type' => 'name',
+      'link' => true,
       'dbType' => 'varchar',
       'len' => 255,
       'unified_search' => true,
       'full_text_search' => 
       array (
         'enabled' => true,
-        'searchable' => true,
-        'boost' => 1.55,
+        'boost' => 3,
       ),
       'required' => true,
       'importable' => 'required',
@@ -51,18 +97,6 @@
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_entered' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'date_modified' => 
     array (
@@ -72,18 +106,6 @@
       'group' => 'modified_by_name',
       'comment' => 'Date record last modified',
       'enable_range_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_modified' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
       'studio' => 
       array (
         'portaleditview' => false,
@@ -109,20 +131,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'modified_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'modified_by_name' => 
     array (
@@ -161,20 +169,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'created_by' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_CREATED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'created_by_name' => 
     array (
@@ -199,18 +193,44 @@
       ),
       'exportable' => true,
     ),
+    'doc_owner' => 
+    array (
+      'name' => 'doc_owner',
+      'vname' => 'LBL_DOC_OWNER',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
+    'user_favorites' => 
+    array (
+      'name' => 'user_favorites',
+      'vname' => 'LBL_USER_FAVORITES',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
     'description' => 
     array (
       'name' => 'description',
       'vname' => 'LBL_DESCRIPTION',
       'type' => 'text',
       'comment' => 'Full text of the note',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.5,
-      ),
       'rows' => 6,
       'cols' => 80,
       'duplicate_on_record_copy' => 'always',
@@ -258,209 +278,6 @@
       'bean_name' => 'Activity',
       'source' => 'non-db',
     ),
-    'quota' => 
-    array (
-      'name' => 'quota',
-      'vname' => 'LBL_QUOTA',
-      'type' => 'currency',
-      'is_base_currency' => true,
-    ),
-    'best_case' => 
-    array (
-      'name' => 'best_case',
-      'vname' => 'LBL_BEST',
-      'type' => 'currency',
-      'audited' => true,
-      'is_base_currency' => true,
-    ),
-    'best_case_adjusted' => 
-    array (
-      'name' => 'best_case_adjusted',
-      'vname' => 'LBL_BEST_ADJUSTED',
-      'type' => 'currency',
-      'is_base_currency' => true,
-    ),
-    'likely_case' => 
-    array (
-      'name' => 'likely_case',
-      'vname' => 'LBL_LIKELY',
-      'type' => 'currency',
-      'audited' => true,
-      'is_base_currency' => true,
-    ),
-    'likely_case_adjusted' => 
-    array (
-      'name' => 'likely_case_adjusted',
-      'vname' => 'LBL_LIKELY_ADJUSTED',
-      'type' => 'currency',
-      'is_base_currency' => true,
-    ),
-    'worst_case' => 
-    array (
-      'name' => 'worst_case',
-      'vname' => 'LBL_WORST',
-      'type' => 'currency',
-      'audited' => true,
-      'is_base_currency' => true,
-    ),
-    'worst_case_adjusted' => 
-    array (
-      'name' => 'worst_case_adjusted',
-      'vname' => 'LBL_WORST_ADJUSTED',
-      'type' => 'currency',
-      'is_base_currency' => true,
-    ),
-    'timeperiod_id' => 
-    array (
-      'name' => 'timeperiod_id',
-      'vname' => 'LBL_FORECAST_TIME_ID',
-      'type' => 'id',
-    ),
-    'draft' => 
-    array (
-      'name' => 'draft',
-      'vname' => 'LBL_DRAFT',
-      'type' => 'bool',
-      'default' => 0,
-    ),
-    'is_manager' => 
-    array (
-      'name' => 'is_manager',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'needed for commitLog field logic',
-    ),
-    'user_id' => 
-    array (
-      'name' => 'user_id',
-      'vname' => 'LBL_FS_USER_ID',
-      'type' => 'id',
-    ),
-    'opp_count' => 
-    array (
-      'name' => 'opp_count',
-      'vname' => 'LBL_FORECAST_OPP_COUNT',
-      'type' => 'int',
-      'len' => '5',
-      'comment' => 'Number of opportunities represented by this forecast',
-    ),
-    'pipeline_opp_count' => 
-    array (
-      'name' => 'pipeline_opp_count',
-      'vname' => 'LBL_FORECAST_OPP_COUNT',
-      'type' => 'int',
-      'len' => '5',
-      'studio' => false,
-      'default' => '0',
-      'comment' => 'Number of opportunities minus closed won/closed lost represented by this forecast',
-    ),
-    'pipeline_amount' => 
-    array (
-      'name' => 'pipeline_amount',
-      'vname' => 'LBL_PIPELINE_REVENUE',
-      'type' => 'currency',
-      'studio' => false,
-      'default' => '0',
-      'comment' => 'Total of opportunities minus closed won/closed lost represented by this forecast',
-    ),
-    'closed_amount' => 
-    array (
-      'name' => 'closed_amount',
-      'vname' => 'LBL_CLOSED',
-      'type' => 'currency',
-      'studio' => false,
-      'default' => '0',
-      'comment' => 'Total of closed won items in the forecast',
-    ),
-    'manager_saved' => 
-    array (
-      'name' => 'manager_saved',
-      'vname' => 'LBL_MANGER_SAVED',
-      'type' => 'bool',
-      'studio' => false,
-      'default' => 0,
-      'comments' => 'Once this is set to true, the rollovers will no longer happen',
-    ),
-    'show_history_log' => 
-    array (
-      'name' => 'show_history_log',
-      'type' => 'int',
-      'source' => 'non-db',
-    ),
-    'draft_save_type' => 
-    array (
-      'name' => 'draft_save_type',
-      'type' => 'varchar',
-      'source' => 'non-db',
-    ),
-    'following' => 
-    array (
-      'massupdate' => false,
-      'name' => 'following',
-      'vname' => 'LBL_FOLLOWING',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Is user following this record',
-      'studio' => 'false',
-      'link' => 'following_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'following_link' => 
-    array (
-      'name' => 'following_link',
-      'type' => 'link',
-      'relationship' => 'forecastmanagerworksheets_following',
-      'source' => 'non-db',
-      'vname' => 'LBL_FOLLOWING',
-      'reportable' => false,
-    ),
-    'my_favorite' => 
-    array (
-      'massupdate' => false,
-      'name' => 'my_favorite',
-      'vname' => 'LBL_FAVORITE',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Favorite for the user',
-      'studio' => 
-      array (
-        'list' => false,
-        'recordview' => false,
-        'basic_search' => false,
-        'advanced_search' => false,
-      ),
-      'link' => 'favorite_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'favorite_link' => 
-    array (
-      'name' => 'favorite_link',
-      'type' => 'link',
-      'relationship' => 'forecastmanagerworksheets_favorite',
-      'source' => 'non-db',
-      'vname' => 'LBL_FAVORITE',
-      'reportable' => false,
-      'workflow' => false,
-      'full_text_search' => 
-      array (
-        'type' => 'favorites',
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'favorite_link' => 
-          array (
-            'type' => 'MyItems',
-            'options' => 
-            array (
-              'field' => 'user_favorites',
-            ),
-          ),
-        ),
-      ),
-    ),
     'assigned_user_id' => 
     array (
       'name' => 'assigned_user_id',
@@ -475,19 +292,6 @@
       'duplicate_merge' => 'disabled',
       'mandatory_fetch' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'assigned_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_ASSIGNED_TO_ME',
-          ),
-        ),
-      ),
     ),
     'assigned_user_name' => 
     array (
@@ -546,6 +350,10 @@
       'studio' => 'false',
       'dbType' => 'id',
       'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
     ),
     'team_count' => 
     array (
@@ -642,73 +450,192 @@
       'studio' => 'false',
       'reportable' => false,
     ),
+    'quota' => 
+    array (
+      'name' => 'quota',
+      'vname' => 'LBL_QUOTA',
+      'type' => 'currency',
+      'is_base_currency' => true,
+    ),
+    'best_case' => 
+    array (
+      'name' => 'best_case',
+      'vname' => 'LBL_BEST',
+      'type' => 'currency',
+      'audited' => true,
+      'is_base_currency' => true,
+    ),
+    'best_case_adjusted' => 
+    array (
+      'name' => 'best_case_adjusted',
+      'vname' => 'LBL_BEST_ADJUSTED',
+      'type' => 'currency',
+      'is_base_currency' => true,
+    ),
+    'likely_case' => 
+    array (
+      'name' => 'likely_case',
+      'vname' => 'LBL_LIKELY',
+      'type' => 'currency',
+      'audited' => true,
+      'is_base_currency' => true,
+    ),
+    'likely_case_adjusted' => 
+    array (
+      'name' => 'likely_case_adjusted',
+      'vname' => 'LBL_LIKELY_ADJUSTED',
+      'type' => 'currency',
+      'is_base_currency' => true,
+    ),
+    'worst_case' => 
+    array (
+      'name' => 'worst_case',
+      'vname' => 'LBL_WORST',
+      'type' => 'currency',
+      'audited' => true,
+      'is_base_currency' => true,
+    ),
+    'worst_case_adjusted' => 
+    array (
+      'name' => 'worst_case_adjusted',
+      'vname' => 'LBL_WORST_ADJUSTED',
+      'type' => 'currency',
+      'is_base_currency' => true,
+    ),
     'currency_id' => 
     array (
       'name' => 'currency_id',
-      'dbType' => 'id',
       'vname' => 'LBL_CURRENCY_ID',
       'type' => 'currency_id',
+      'dbType' => 'id',
       'function' => 'getCurrencies',
       'function_bean' => 'Currencies',
-      'required' => false,
-      'reportable' => false,
-      'default' => '-99',
     ),
     'base_rate' => 
     array (
       'name' => 'base_rate',
-      'vname' => 'LBL_CURRENCY_RATE',
-      'type' => 'text',
-      'dbType' => 'decimal',
+      'vname' => 'LBL_BASE_RATE',
+      'type' => 'decimal',
       'len' => '26,6',
     ),
-    'currency_name' => 
+    'timeperiod_id' => 
     array (
-      'name' => 'currency_name',
-      'rname' => 'name',
-      'id_name' => 'currency_id',
-      'vname' => 'LBL_CURRENCY_NAME',
-      'type' => 'relate',
-      'link' => 'currencies',
-      'isnull' => true,
-      'table' => 'currencies',
-      'module' => 'Currencies',
-      'source' => 'non-db',
-      'studio' => false,
-      'duplicate_merge' => 'disabled',
-      'function' => 'getCurrencies',
-      'function_bean' => 'Currencies',
-      'massupdate' => false,
+      'name' => 'timeperiod_id',
+      'vname' => 'LBL_FORECAST_TIME_ID',
+      'type' => 'id',
     ),
-    'currency_symbol' => 
+    'draft' => 
     array (
-      'name' => 'currency_symbol',
-      'rname' => 'symbol',
-      'id_name' => 'currency_id',
-      'vname' => 'LBL_CURRENCY_SYMBOL',
-      'type' => 'relate',
-      'link' => 'currencies',
-      'isnull' => true,
-      'table' => 'currencies',
-      'module' => 'Currencies',
-      'source' => 'non-db',
-      'studio' => false,
-      'duplicate_merge' => 'disabled',
-      'function' => 'getCurrencySymbols',
-      'function_bean' => 'Currencies',
-      'massupdate' => false,
+      'name' => 'draft',
+      'vname' => 'LBL_DRAFT',
+      'type' => 'bool',
+      'default' => 0,
     ),
-    'currencies' => 
+    'is_manager' => 
     array (
-      'name' => 'currencies',
-      'type' => 'link',
-      'relationship' => 'forecastmanagerworksheets_currencies',
+      'name' => 'is_manager',
+      'type' => 'bool',
       'source' => 'non-db',
-      'vname' => 'LBL_CURRENCIES',
+      'comment' => 'needed for commitLog field logic',
+    ),
+    'user_id' => 
+    array (
+      'name' => 'user_id',
+      'vname' => 'LBL_FS_USER_ID',
+      'type' => 'id',
+    ),
+    'opp_count' => 
+    array (
+      'name' => 'opp_count',
+      'vname' => 'LBL_FORECAST_OPP_COUNT',
+      'type' => 'int',
+      'len' => '5',
+      'comment' => 'Number of opportunities represented by this forecast',
+    ),
+    'pipeline_opp_count' => 
+    array (
+      'name' => 'pipeline_opp_count',
+      'vname' => 'LBL_FORECAST_OPP_COUNT',
+      'type' => 'int',
+      'len' => '5',
+      'studio' => false,
+      'default' => '0',
+      'comment' => 'Number of opportunities minus closed won/closed lost represented by this forecast',
+    ),
+    'pipeline_amount' => 
+    array (
+      'name' => 'pipeline_amount',
+      'vname' => 'LBL_PIPELINE_REVENUE',
+      'type' => 'currency',
+      'studio' => false,
+      'default' => '0',
+      'comment' => 'Total of opportunities minus closed won/closed lost represented by this forecast',
+    ),
+    'closed_amount' => 
+    array (
+      'name' => 'closed_amount',
+      'vname' => 'LBL_CLOSED',
+      'type' => 'currency',
+      'studio' => false,
+      'default' => '0',
+      'comment' => 'Total of closed won items in the forecast',
+    ),
+    'manager_saved' => 
+    array (
+      'name' => 'manager_saved',
+      'vname' => 'LBL_MANGER_SAVED',
+      'type' => 'bool',
+      'studio' => false,
+      'default' => 0,
+      'comments' => 'Once this is set to true, the rollovers will no longer happen',
+    ),
+    'show_history_log' => 
+    array (
+      'name' => 'show_history_log',
+      'type' => 'int',
+      'source' => 'non-db',
+    ),
+    'draft_save_type' => 
+    array (
+      'name' => 'draft_save_type',
+      'type' => 'varchar',
+      'source' => 'non-db',
     ),
   ),
   'relationships' => 
   array (
+    'forecastmanagerworksheets_favorite' => 
+    array (
+      'lhs_module' => 'ForecastManagerWorksheets',
+      'lhs_table' => 'forecast_manager_worksheets',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'sugarfavorites',
+      'join_key_lhs' => 'record_id',
+      'join_key_rhs' => 'modified_user_id',
+      'relationship_role_column' => 'module',
+      'relationship_role_column_value' => 'ForecastManagerWorksheets',
+      'user_field' => 'created_by',
+    ),
+    'forecastmanagerworksheets_following' => 
+    array (
+      'lhs_module' => 'ForecastManagerWorksheets',
+      'lhs_table' => 'forecast_manager_worksheets',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'subscriptions',
+      'join_key_lhs' => 'parent_id',
+      'join_key_rhs' => 'created_by',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'ForecastManagerWorksheets',
+      'user_field' => 'created_by',
+    ),
     'forecastmanagerworksheets_modified_user' => 
     array (
       'lhs_module' => 'Users',
@@ -744,38 +671,6 @@
       'join_key_rhs' => 'activity_id',
       'relationship_role_column' => 'parent_type',
       'relationship_role_column_value' => 'ForecastManagerWorksheets',
-    ),
-    'forecastmanagerworksheets_following' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'ForecastManagerWorksheets',
-      'rhs_table' => 'forecast_manager_worksheets',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'subscriptions',
-      'join_key_lhs' => 'created_by',
-      'join_key_rhs' => 'parent_id',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'ForecastManagerWorksheets',
-      'user_field' => 'created_by',
-    ),
-    'forecastmanagerworksheets_favorite' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'ForecastManagerWorksheets',
-      'rhs_table' => 'forecast_manager_worksheets',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'sugarfavorites',
-      'join_key_lhs' => 'modified_user_id',
-      'join_key_rhs' => 'record_id',
-      'relationship_role_column' => 'module',
-      'relationship_role_column_value' => 'ForecastManagerWorksheets',
-      'user_field' => 'created_by',
     ),
     'forecastmanagerworksheets_assigned_user' => 
     array (
@@ -820,16 +715,6 @@
       'rhs_key' => 'team_id',
       'relationship_type' => 'one-to-many',
     ),
-    'forecastmanagerworksheets_currencies' => 
-    array (
-      'lhs_module' => 'Currencies',
-      'lhs_table' => 'currencies',
-      'lhs_key' => 'id',
-      'rhs_module' => 'ForecastManagerWorksheets',
-      'rhs_table' => 'forecast_manager_worksheets',
-      'rhs_key' => 'currency_id',
-      'relationship_type' => 'one-to-many',
-    ),
   ),
   'indices' => 
   array (
@@ -870,14 +755,13 @@
         0 => 'date_entered',
       ),
     ),
-    'name_del' => 
+    'team_set_forecast_manager_worksheets' => 
     array (
-      'name' => 'idx_forecast_manager_worksheets_name_del',
+      'name' => 'idx_forecast_manager_worksheets_tmst_id',
       'type' => 'index',
       'fields' => 
       array (
-        0 => 'name',
-        1 => 'deleted',
+        0 => 'team_set_id',
       ),
     ),
     0 => 
@@ -893,29 +777,6 @@
         4 => 'deleted',
       ),
     ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'idx_forecast_manager_worksheets_assigned_del',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'deleted',
-        1 => 'assigned_user_id',
-      ),
-    ),
-    'team_set_forecast_manager_worksheets' => 
-    array (
-      'name' => 'idx_forecast_manager_worksheets_tmst_id',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'team_set_id',
-      ),
-    ),
-  ),
-  'ignore_templates' => 
-  array (
-    0 => 'taggable',
   ),
   'name_format_map' => 
   array (
@@ -926,6 +787,14 @@
   ),
   'acls' => 
   array (
+  ),
+  'templates' => 
+  array (
+    'team_security' => 'team_security',
+    'assignable' => 'assignable',
+    'basic' => 'basic',
+    'following' => 'following',
+    'favorite' => 'favorite',
   ),
   'duplicate_check' => 
   array (
@@ -953,17 +822,8 @@
     ),
   ),
   'favorites' => true,
-  'templates' => 
-  array (
-    'basic' => 'basic',
-    'following' => 'following',
-    'favorite' => 'favorite',
-    'assignable' => 'assignable',
-    'team_security' => 'team_security',
-    'currency' => 'currency',
-  ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,20 +13,22 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 $mod_strings = array (
-    'LBL_BUNDLE_STAGE' => 'Gruppen-Phase:',
-    'LBL_DEAL_TOT'=>'Gesamt-Rabatt',
-    'LBL_DEAL_TOT_USDOLLAR'=>'Gesamt-Rabatt Standardwährung',
-    'LBL_NEW_SUB' => 'Zwischensumme mit Rabatt:',
-    'LBL_SHIPPING' => 'Lieferung:',
-    'LBL_SHIPPING_USDOLLAR'=>'Lieferung (US-Dollar)',
-    'LBL_SUBTOTAL_USDOLLAR'=>'Zwischensumme (US-Dollar)',
-    'LBL_SUBTOTAL' => 'Zwischensumme:',
-    'LBL_TAX_USDOLLAR'=>'Steuer (US-Dollar)',
-    'LBL_TAX' => 'Steuer:',
-    'LBL_TOTAL_USDOLLAR'=>'Gesamt (US-Dollar)',
-    'LBL_TOTAL' => 'Gesamt:',
-    'LBL_QUOTE_BUNDLE_POSITION' => 'Angebotspaket-Position',
-    'EXCEPTION_INVALID_QUOTE_ID' => 'Angebots-ID fehlt in Ladung',
-    'EXCEPTION_NOT_FOUND_QUOTE' =>  'Das angeforderte Angebot wurde nicht gefunden'
+  'EXCEPTION_INVALID_QUOTE_ID' => 'Angebots-ID fehlt in Ladung',
+  'EXCEPTION_NOT_FOUND_QUOTE' => 'Das angeforderte Angebot wurde nicht gefunden',
+  'LBL_BUNDLE_STAGE' => 'Gruppen Stufe:',
+  'LBL_DEAL_TOT' => 'Summe Rabatt',
+  'LBL_DEAL_TOT_USDOLLAR' => 'Summe Rabatt Standardwährung',
+  'LBL_NEW_SUB' => 'Rabattierete Zwischensumme:',
+  'LBL_QUOTE_BUNDLE_POSITION' => 'Angebot Paketposition',
+  'LBL_SHIPPING' => 'Lieferung:',
+  'LBL_SHIPPING_USDOLLAR' => 'Lieferung (Euro)',
+  'LBL_SUBTOTAL' => 'Zwischensumme:',
+  'LBL_SUBTOTAL_USDOLLAR' => 'Zwischensumme (Euro)',
+  'LBL_TAX' => 'Steuer:',
+  'LBL_TAX_USDOLLAR' => 'Steuer (Euro)',
+  'LBL_TOTAL' => 'Gesamt:',
+  'LBL_TOTAL_USDOLLAR' => 'Gesamt (Euro)',
 );
+

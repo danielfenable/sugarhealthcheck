@@ -29,7 +29,7 @@ function getTargetsModules()
     }
 
     // Filter the module list through ACLs
-    $modules = SugarACL::filterModuleList($modules, 'access', false);
+    $modules = SugarACL::filterModuleList($modules, 'access', true);
 
     // Return the result
     return $modules;

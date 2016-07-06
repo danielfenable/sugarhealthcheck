@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +13,16 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-    'LBL_FEEDBACK_TEXT_PLACEHOLDER' => 'Geri bildirim açıklaması',
-    'LBL_FEEDBACK_BTN_SUBMIT' => 'Gönder',
-    'LBL_FEEDBACK_SENT' => 'Geri bildirim gönderildi.',
-    'LBL_FEEDBACK_SEND_ERROR' => 'Geri bildirim gönderilmedi, lütfen her iki alanı da doldurun.',
-    'LBL_FEEDBACK_NOT_SENT' => 'Geri bildirim sunucusuyla bağlantı kurulamıyor, lütfen daha sonra tekrar deneyin.',
-    'LBL_FEEDBACK_CSAT' => 'Bu ürünle ilgili genel memnuniyetinizi nasıl tanımlarsınız?',
-    'TPL_FEEDBACK_ASIDE' => 'Gönderme işlemi esnasında belirli kullanım verilerini toplamaktayız. {{learnMoreLink}}. İletişim bilgilerini toplamıyoruz. Bir cevap gerektiren hata ve diğer sorunlar için lütfen {{contactSupportLink}} üzerinden iletişime geçin.',
-    'LBL_FEEDBACK_ASIDE_CLICK_MORE' => 'Daha fazla bilgi edinmek için buraya tıklayın',
-    'LBL_FEEDBACK_ASIDE_CONTACT_SUPPORT' => 'Bize ulaşın',
+
+$mod_strings = array (
+  'LBL_FEEDBACK_ASIDE_CLICK_MORE' => '',
+  'LBL_FEEDBACK_ASIDE_CONTACT_SUPPORT' => '',
+  'LBL_FEEDBACK_BTN_SUBMIT' => 'Gönder',
+  'LBL_FEEDBACK_CSAT' => '',
+  'LBL_FEEDBACK_NOT_SENT' => '',
+  'LBL_FEEDBACK_SEND_ERROR' => '',
+  'LBL_FEEDBACK_SENT' => '',
+  'LBL_FEEDBACK_TEXT_PLACEHOLDER' => '',
+  'TPL_FEEDBACK_ASIDE' => '',
 );
+

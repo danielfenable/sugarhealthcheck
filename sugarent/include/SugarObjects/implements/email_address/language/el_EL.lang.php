@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,15 +13,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 $mod_strings = array (
-    'LBL_ANY_EMAIL' => 'Οποιοδήποτε Email:',
-    'LBL_EMAIL' => 'Διεύθυνση ηλεκτρονικού ταχυδρομείου:',
-    'LBL_PRIMARY_EMAIL' => 'Κύρια διεύθυνση ηλεκτρονικού ταχυδρομείου',
-    'LBL_LIST_EMAIL_ADDRESS' => 'Διεύθυνση Email',
-    'LBL_OTHER_EMAIL_ADDRESS' => 'Άλλο Email:',
-    'LBL_EMAIL_ADDRESS' => 'Διεύθυνση Email',
-    'LBL_EMAIL_ADDRESSES' => 'Διεύθυνση Email',
-    'LBL_INVALID_EMAIL'=>'Άκυρο Email:',
-    'LBL_EMAIL_OPT_OUT' => 'Αποχωρημένο Email:',
-    'LBL_EMAIL_NON_PRIMARY' => 'Μη-βασικά μηνύματα ηλεκτρονικού ταχυδρομείου',
+  'LBL_ANY_EMAIL' => 'Email:',
+  'LBL_EMAIL' => 'Διεύθυνση Email:',
+  'LBL_EMAIL_ADDRESS' => 'Διεύθυνση Email',
+  'LBL_EMAIL_ADDRESSES' => 'Διευθύνσεις Email',
+  'LBL_EMAIL_NON_PRIMARY' => 'Μη-βασικά μηνύματα ηλεκτρονικού ταχυδρομείου',
+  'LBL_EMAIL_OPT_OUT' => 'Αποχωρημένο Email:',
+  'LBL_INVALID_EMAIL' => 'Άκυρο Email:',
+  'LBL_LIST_EMAIL_ADDRESS' => 'Διεύθυνση Email:',
+  'LBL_OTHER_EMAIL_ADDRESS' => 'Άλλο Email:',
 );
+

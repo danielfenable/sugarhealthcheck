@@ -20,7 +20,7 @@
     extendsFrom: 'FilteredListView',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Displays a filtered list of dashlets.
      * Uses client-generated collection with disabled load state, custom
@@ -101,7 +101,7 @@
                 component.context = contextDef;
             }
 
-            previewLayout.initComponents([
+            previewLayout._addComponentsFromDef([
                 {
                     layout: {
                         type: 'dashlet',
@@ -273,7 +273,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Instead of fetching context, it will retrieve all dashable components
      * based on metadata. Sorts the components by `title` alphabetically.
@@ -297,7 +297,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * DashletSelect isn't a read module, no need to compare fields with defs.
      */

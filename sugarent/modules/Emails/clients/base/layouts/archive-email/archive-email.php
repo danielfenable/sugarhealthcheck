@@ -28,6 +28,14 @@ $viewdefs['Emails']['base']['layout']['archive-email'] = array(
                             'span' => 8,
                         ),
                     ),
+                    array(
+                        'layout' => array(
+                            'components' => array(),
+                            'type' => 'simple',
+                            'name' => 'side-pane',
+                            'span' => 4,
+                        ),
+                    ),
                 ),
                 'type' => 'default',
                 'name' => 'sidebar',

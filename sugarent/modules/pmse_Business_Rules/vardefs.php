@@ -24,9 +24,14 @@ $dictionary['pmse_Business_Rules'] = array(
                 'name' => 'name',
                 'vname' => 'LBL_NAME',
                 'type' => 'name',
+                'link' => true,
                 'dbType' => 'varchar',
                 'len' => '255',
                 'unified_search' => false,
+                'full_text_search' =>
+                    array (
+                        'boost' => '3',
+                    ),
                 'required' => true,
                 'importable' => 'required',
                 'duplicate_merge' => 'enabled',
@@ -59,6 +64,10 @@ $dictionary['pmse_Business_Rules'] = array(
                 'reportable' => true,
                 'unified_search' => false,
                 'merge_filter' => 'disabled',
+                'full_text_search' =>
+                    array (
+                        'boost' => '0',
+                    ),
                 'calculated' => false,
                 'len' => '36',
                 'size' => '20',
@@ -105,6 +114,10 @@ $dictionary['pmse_Business_Rules'] = array(
                 'reportable' => true,
                 'unified_search' => false,
                 'merge_filter' => 'disabled',
+                'full_text_search' =>
+                    array (
+                        'boost' => '0',
+                    ),
                 'calculated' => false,
                 'size' => '20',
                 'studio' => 'visible',
@@ -129,6 +142,10 @@ $dictionary['pmse_Business_Rules'] = array(
                 'reportable' => true,
                 'unified_search' => false,
                 'merge_filter' => 'disabled',
+                'full_text_search' =>
+                    array (
+                        'boost' => '0',
+                    ),
                 'calculated' => false,
                 'len' => '4',
                 'size' => '20',
@@ -154,6 +171,10 @@ $dictionary['pmse_Business_Rules'] = array(
                 'reportable' => true,
                 'unified_search' => false,
                 'merge_filter' => 'disabled',
+                'full_text_search' =>
+                    array (
+                        'boost' => '0',
+                    ),
                 'calculated' => false,
                 'len' => '255',
                 'size' => '20',
@@ -175,6 +196,10 @@ $dictionary['pmse_Business_Rules'] = array(
                 'reportable' => true,
                 'unified_search' => false,
                 'merge_filter' => 'disabled',
+                'full_text_search' =>
+                    array (
+                        'boost' => '0',
+                    ),
                 'calculated' => false,
                 'size' => '20',
                 'studio' => 'visible',
@@ -227,6 +252,10 @@ $dictionary['pmse_Business_Rules'] = array(
                 'reportable' => true,
                 'unified_search' => false,
                 'merge_filter' => 'disabled',
+                'full_text_search' =>
+                    array (
+                        'boost' => '0',
+                    ),
                 'calculated' => false,
                 'len' => '255',
                 'size' => '20',
@@ -289,18 +318,6 @@ $dictionary['pmse_Business_Rules'] = array(
         'TargetModuleDeveloperVisibility' => array('targetModuleField' => 'rst_module')
     ),
     'hidden_to_role_assignment' => true,
-    // @TODO Fix the Default and Basic SugarObject templates so that Basic
-    // implements Default. This would allow the application of various
-    // implementations on Basic without forcing Default to have those so that
-    // situations like this - implementing taggable - doesn't have to apply to
-    // EVERYTHING. Since there is no distinction between basic and default for
-    // sugar objects templates yet, we need to forecefully remove the taggable
-    // implementation fields. Once there is a separation of default and basic
-    // templates we can safely remove these as this module will implement
-    // default instead of basic.
-    'ignore_templates' => array(
-        'taggable',
-    ),
 );
 
 if (!class_exists('VardefManager')) {

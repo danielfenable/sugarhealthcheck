@@ -19,7 +19,6 @@ $viewdefs[$module_name]['base']['filter']['default'] = array(
         'subcategory_id' => array(),
         'active_date' => array(),
         'exp_date' => array(),
-        'tag' => array(),
         '$owner' => array(
             'predefined_filter' => true,
             'vname' => 'LBL_CURRENT_USER_FILTER',

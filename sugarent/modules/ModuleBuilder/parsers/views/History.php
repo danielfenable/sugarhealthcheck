@@ -67,22 +67,13 @@ class History implements HistoryInterface
     }
 
 
-    /*
+ /*
      * Get the most recent item in the history
      * @return timestamp of the first item
      */
     public function getCount ()
     {
         return count ( $this->_list ) ;
-    }
-
-    /*
-     * Get all the items in the history
-     * @return list array
-     */
-    public function getList ()
-    {
-        return $this->_list;
     }
 
     /*
@@ -94,7 +85,7 @@ class History implements HistoryInterface
         return end ( $this->_list ) ;
     }
 
-    /*
+/*
      * Get the oldest item in the history (the default layout)
      * @return timestamp of the last item
      */

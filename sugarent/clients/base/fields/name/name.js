@@ -8,5 +8,5 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({plugins:['EllipsisInline','MetadataEventDriven'],initialize:function(options){this._super('initialize',[options]);this.ellipsis=_.isUndefined(this.def.ellipsis)||this.def.ellipsis;},_render:function(){if(this.view.name==='audit'){this.def.link=false;}else if(this.view.name==='preview'){this.def.link=_.isUndefined(this.def.link)?true:this.def.link;this.def.events=false;}
+({plugins:['EllipsisInline','MetadataEventDriven'],_render:function(){if(this.view.name==='record'||this.view.name==='audit'){this.def.link=false;}else if(this.view.name==='preview'){this.def.link=_.isUndefined(this.def.link)?true:this.def.link;}
 this._super('_render');}})

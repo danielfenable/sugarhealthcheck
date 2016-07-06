@@ -21,7 +21,7 @@
 
     delegateButtonEvents: function() {
         this.context.on('button:convert_button:click', this.convertProspectClicked, this);
-        this._super('delegateButtonEvents');
+        this._super("delegateButtonEvents");
     },
 
     convertProspectClicked: function() {
@@ -29,7 +29,7 @@
 
         prefill.copy(this.model);
         app.drawer.open({
-            layout: 'create',
+            layout: 'create-actions',
             context: {
                 create: true,
                 model: prefill,
@@ -49,7 +49,5 @@
                 });
             }
         }, this));
-
-        prefill.trigger('duplicate:field', this.model);
     }
 })

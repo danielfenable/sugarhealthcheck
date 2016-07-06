@@ -12,7 +12,7 @@
     extendsFrom: 'TabbedDashletView',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * @property {Number} _defaultSettings.limit Maximum number of records to
      *   load per request, defaults to '10'.
@@ -25,10 +25,8 @@
         visibility: 'user'
     },
 
-    thresholdRelativeTime: 2, //Show relative time for 2 days and then date time after
-
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initialize: function(options) {
         options.meta = options.meta || {};
@@ -42,61 +40,34 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _initEvents: function() {
         this._super('_initEvents');
+//        this.on('dashlet-processes:designer:fire', this.designer, this);
         this.on('dashlet-businessrules:businessRulesLayout:fire', this.businessRulesLayout, this);
         this.on('dashlet-businessrules:delete-record:fire', this.deleteRecord, this);
+//        this.on('dashlet-businessrules:disable-record:fire', this.disableRecord, this);
+//        this.on('dashlet-businessrules:enable-record:fire', this.enableRecord, this);
         this.on('dashlet-businessrules:download:fire', this.warnExportBusinessRules, this);
         this.on('dashlet-businessrules:description-record:fire', this.descriptionRecord, this);
-        this.on('linked-model:create', this.loadData, this);
         return this;
     },
 
     /**
-     * Re-fetches the data for the context's collection.
-     *
-     * FIXME: This will be removed when SC-4775 is implemented.
-     *
-     * @private
-     */
-    _reloadData: function() {
-        this.context.set('skipFetch', false);
-        this.context.reloadData();
-    },
-
-    /**
      * Fire dessigner
-     */
+//     */
+//    designer: function(model){
+//        var redirect = model.module+"/"+model.id+"/layout/designer";
+//        app.router.navigate(redirect , {trigger: true, replace: true });
+//    },
     businessRulesLayout: function (model) {
         var redirect = model.module+"/"+model.id+"/layout/businessrules";
-        var verifyURL = app.api.buildURL(
-                'pmse_Project',
-                'verify',
-                {id: model.get('id')},
-                {baseModule: this.module}),
-            self = this;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    app.router.navigate(redirect , {trigger: true, replace: true });
-                } else {
-                    app.alert.show('business-rule-design-confirmation',  {
-                        level: 'confirmation',
-                        messages: App.lang.get('LBL_PMSE_PROCESS_BUSINESS_RULES_EDIT', model.module),
-                        onConfirm: function () {
-                            app.router.navigate(redirect , {trigger: true, replace: true });
-                        },
-                        onCancel: $.noop
-                    });
-                }
-            }
-        });
+        app.router.navigate(redirect , {trigger: true, replace: true });
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * FIXME: This should be removed when metadata supports date operators to
      * allow one to define relative dates for date filters.
@@ -141,7 +112,7 @@
         } else {
             var self = this;
             app.drawer.open({
-                layout: 'create',
+                layout: 'create-actions',
                 context: {
                     create: true,
                     module: params.module
@@ -173,38 +144,19 @@
      * @param {String} params.module Module name.
      */
     deleteRecord: function(model) {
-        var verifyURL = app.api.buildURL(
-                'pmse_Project',
-                'verify',
-                {id: model.get('id')},
-                {baseModule: this.module}),
-            self = this;
-        this._modelToDelete = model;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    app.alert.show('delete_confirmation', {
-                        level: 'confirmation',
-                        messages: app.utils.formatString(app.lang.get('LBL_PRO_DELETE_CONFIRMATION', model.module)),
-                        onConfirm: function () {
-                            model.destroy({
-                                showAlerts: true,
-                                success: self._getRemoveRecord()
-                            });
-                        },
-                        onCancel: function () {
-                            self._modelToDelete = null;
-                        }
-                    });
-                } else {
-                    app.alert.show('message-id', {
-                        level: 'warning',
-                        title: app.lang.get('LBL_WARNING'),
-                        messages: app.lang.get('LBL_PMSE_PROCESS_BUSINESS_RULES_DELETE', model.module),
-                        autoClose: false
-                    });
-                    self._modelToDelete = null;
-                }
+        var self = this;
+        this._modelToDelete = true;
+        var name = model.get('name') || '',
+            context = app.lang.get('LBL_MODULE_NAME_SINGULAR', model.module).toLowerCase() + ' - ' + name.trim();
+        app.alert.show(model.get('id') + ':deleted', {
+            level: 'confirmation',
+            messages: app.utils.formatString(app.lang.get('LBL_PRO_DELETE_CONFIRMATION', model.module)),
+            onConfirm: function() {
+                model.destroy({
+                    showAlerts: true,
+//                    relate: true
+                    success: self._getRemoveRecord()
+                });
             }
         });
     },
@@ -365,24 +317,13 @@
         app.alert.show('message-id', {
             level: 'info',
             title: app.lang.get('LBL_DESCRIPTION'),
-            messages: '<br/>' + Handlebars.Utils.escapeExpression(model.get('description')),
+            messages: '<br/>' + model.get('description'),
             autoClose: false
         });
     },
 
     /**
-     * Sets property useRelativeTime to show date created as a relative time or as date time.
-     *
-     * @private
-     */
-    _setRelativeTimeAvailable: function(date) {
-        var diffInDays = app.date().diff(date, 'days', true);
-        var useRelativeTime = (diffInDays <= this.thresholdRelativeTime);
-        return useRelativeTime;
-    },
-
-    /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * New model related properties are injected into each model:
      *
@@ -408,7 +349,6 @@
                 field: 'picture'
             });
             model.set('picture_url', pictureUrl);
-            model.useRelativeTime = this._setRelativeTimeAvailable(model.attributes.date_entered);
         }, this);
 
         this._super('_renderHtml');

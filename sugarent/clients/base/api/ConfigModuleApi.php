@@ -130,34 +130,23 @@ class ConfigModuleApi extends ModuleApi
             );
         }
 
-        if ($args) {
-            $this->save($api, $args, $module);
+        $admin = BeanFactory::getBean('Administration');
+
+        $platform = $this->getPlatform($api->platform);
+
+        foreach ($args as $name => $value) {
+            if (is_array($value)) {
+                $admin->saveSetting($module, $name, json_encode($value), $platform);
+            } else {
+                $admin->saveSetting($module, $name, $value, $platform);
+            }
         }
 
         if ($this->skipMetadataRefresh === false) {
             MetaDataManager::refreshModulesCache(array($module));
         }
 
-        $admin = BeanFactory::getBean('Administration');
-        return $admin->getConfigForModule($module, $api->platform, true);
-    }
-
-    /**
-     * Save config values.
-     *
-     * @param ServiceBase $api
-     * @param array $params 'module' is required, 'platform' is optional and defaults to 'base'
-     * @param string $module
-     */
-    protected function save(ServiceBase $api, $params, $module)
-    {
-        $admin = BeanFactory::getBean('Administration');
-        
-        $platform = $this->getPlatform($api->platform);
-
-        foreach ($params as $name => $value) {
-            $admin->saveSetting($module, $name, $value, $platform);
-        }
+        return $admin->getConfigForModule($module, $platform, true);
     }
 
     /**

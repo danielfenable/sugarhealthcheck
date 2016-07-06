@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,41 +12,32 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'ERR_DELETE_RECORD' => 'Debe especificar un número de registro para eliminar la publicación.',
+  'LBL_EDITLAYOUT' => 'Editar Diseño',
+  'LBL_LIST_FORM_TITLE' => 'Lista de Publicaciones',
+  'LBL_LIST_LIST_ORDER' => 'Orden',
+  'LBL_LIST_NAME' => 'Publicación',
+  'LBL_LIST_ORDER' => 'Orden:',
+  'LBL_LIST_STATUS' => 'Estado',
   'LBL_MODULE_NAME' => 'Publicaciones',
   'LBL_MODULE_NAME_SINGULAR' => 'Publicación',
   'LBL_MODULE_TITLE' => 'Publicaciones: Inicio',
-  'LBL_SEARCH_FORM_TITLE' => 'Búsqueda de Publicaciones',
-  'LBL_LIST_FORM_TITLE' => 'Lista de Publicaciones',
+  'LBL_NAME' => 'Versión de la Publicación:',
   'LBL_NEW_FORM_TITLE' => 'Nueva Publicación',
   'LBL_RELEASE' => 'Publicación:',
-  'LBL_LIST_NAME' => 'Publicación',
-  'LBL_NAME' => 'Versión de la Publicación:',
-  'LBL_LIST_LIST_ORDER' => 'Orden',
-  'LBL_LIST_ORDER' => 'Orden:',
-  'LBL_LIST_STATUS' => 'Estado',
+  'LBL_SEARCH_FORM_TITLE' => 'Búsqueda de Publicaciones',
   'LBL_STATUS' => 'Estado:',
   'LNK_NEW_RELEASE' => 'Lista de Publicaciones',
   'NTC_DELETE_CONFIRMATION' => '¿Está seguro de que desea eliminar este registro?',
-  'ERR_DELETE_RECORD' => 'Debe especificar un número de registro para eliminar la publicación.',
-  'NTC_STATUS' => 'Establece el estado a Inactivo para eliminar esta publicación de las listas desplegables de Publicaciones',
   'NTC_LIST_ORDER' => 'Establece el orden en que esta publicación aparecerá en las listas desplegables de Publicaciones',
-  'LBL_ACTIVE_RELEASES' => 'Publicaciones activas',
-  'release_status_dom' =>
+  'NTC_STATUS' => 'Establece el estado a Inactivo para eliminar esta publicación de las listas desplegables de Publicaciones',
+  'release_status_dom' => 
   array (
-    'Active' => 'Activo',
-    'Inactive' => 'Inactivo',
-),
-	'LBL_EDITLAYOUT' => 'Editar Diseño' /*for 508 compliance fix*/,
+    'Active' => 'Activa',
+    'Inactive' => 'Inactiva',
+  ),
 );
 
-
-?>

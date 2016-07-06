@@ -1,15 +1,13 @@
 <?php
 
 namespace Elastica\Test;
-
 use Elastica\Document;
 use Elastica\Facet\DateHistogram;
 use Elastica\Query;
 use Elastica\Query\MatchAll;
 use Elastica\Request;
-use Elastica\Response;
-use Elastica\Test\Base as BaseTest;
 use Elastica\Type\Mapping;
+use Elastica\Test\Base as BaseTest;
 
 class ResponseTest extends BaseTest
 {
@@ -28,7 +26,7 @@ class ResponseTest extends BaseTest
 
         $mapping = new Mapping($type, array(
                 'name' => array('type' => 'string', 'store' => 'no'),
-                'dtmPosted' => array('type' => 'date', 'store' => 'no', 'format' => 'yyyy-MM-dd HH:mm:ss'),
+                'dtmPosted' => array('type' => 'date', 'store' => 'no', 'format' => 'yyyy-MM-dd HH:mm:ss')
             ));
         $type->setMapping($mapping);
 
@@ -74,91 +72,11 @@ class ResponseTest extends BaseTest
 
         $docs = array(
             new Document(1, array('name' => 'ruflin')),
-            new Document(2, array('name' => 'ruflin')),
+            new Document(2, array('name' => 'ruflin'))
         );
         $response = $type->addDocuments($docs);
 
         $this->assertTrue($response->isOk());
-    }
-
-    public function testIsOkBulkWithErrorsField()
-    {
-        $response = new Response(json_encode(array(
-            'took' => 213,
-            'errors' => false,
-            'items' => array(
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707891', '_version' => 4, 'status' => 200)),
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707893', '_version' => 4, 'status' => 200)),
-            ),
-        )));
-
-        $this->assertTrue($response->isOk());
-    }
-
-    public function testIsNotOkBulkWithErrorsField()
-    {
-        $response = new Response(json_encode(array(
-            'took' => 213,
-            'errors' => true,
-            'items' => array(
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707891', '_version' => 4, 'status' => 200)),
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707893', '_version' => 4, 'status' => 200)),
-            ),
-        )));
-
-        $this->assertFalse($response->isOk());
-    }
-
-    public function testIsOkBulkItemsWithOkField()
-    {
-        $response = new Response(json_encode(array(
-            'took' => 213,
-            'items' => array(
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707891', '_version' => 4, 'ok' => true)),
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707893', '_version' => 4, 'ok' => true)),
-            ),
-        )));
-
-        $this->assertTrue($response->isOk());
-    }
-
-    public function testIsNotOkBulkItemsWithOkField()
-    {
-        $response = new Response(json_encode(array(
-            'took' => 213,
-            'items' => array(
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707891', '_version' => 4, 'ok' => true)),
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707893', '_version' => 4, 'ok' => false)),
-            ),
-        )));
-
-        $this->assertFalse($response->isOk());
-    }
-
-    public function testIsOkBulkItemsWithStatusField()
-    {
-        $response = new Response(json_encode(array(
-            'took' => 213,
-            'items' => array(
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707891', '_version' => 4, 'status' => 200)),
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707893', '_version' => 4, 'status' => 200)),
-            ),
-        )));
-
-        $this->assertTrue($response->isOk());
-    }
-
-    public function testIsNotOkBulkItemsWithStatusField()
-    {
-        $response = new Response(json_encode(array(
-            'took' => 213,
-            'items' => array(
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707891', '_version' => 4, 'status' => 200)),
-                array('index' => array('_index' => 'rohlik', '_type' => 'grocery', '_id' => '707893', '_version' => 4, 'status' => 301)),
-            ),
-        )));
-
-        $this->assertFalse($response->isOk());
     }
 
     public function testGetDataEmpty()
@@ -172,4 +90,5 @@ class ResponseTest extends BaseTest
 
         $this->assertEquals(0, count($response));
     }
+
 }

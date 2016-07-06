@@ -30,7 +30,7 @@ $dictionary['ProspectList'] = array(
             'len'              => '50',
             'importable'       => 'required',
             'unified_search'   => true,
-            'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 1.33),
+            'full_text_search' => array('enabled' => true, 'boost' => 3),
             'required'         => true,
         ),
         'list_type'        => array(
@@ -45,31 +45,11 @@ $dictionary['ProspectList'] = array(
             'name'  => 'date_entered',
             'vname' => 'LBL_DATE_ENTERED',
             'type'  => 'datetime',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-                'aggregations' => array(
-                    'date_entered' => array(
-                        'type' => 'DateRange',
-                    ),
-                ),
-            ),
-            'readonly' => true,
         ),
         'date_modified'    => array(
             'name'  => 'date_modified',
             'vname' => 'LBL_DATE_MODIFIED',
             'type'  => 'datetime',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-                'aggregations' => array(
-                    'date_modified' => array(
-                        'type' => 'DateRange',
-                    ),
-                ),
-            ),
-            'readonly' => true,
         ),
         'modified_user_id' => array(
             'name'       => 'modified_user_id',
@@ -81,18 +61,6 @@ $dictionary['ProspectList'] = array(
             'isnull'     => 'false',
             'dbType'     => 'id',
             'reportable' => true,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-                'type' => 'id',
-                'aggregations' => array(
-                    'modified_user_id' => array(
-                        'type' => 'MyItems',
-                        'label' => 'LBL_AGG_MODIFIED_BY_ME',
-                    ),
-                ),
-            ),
-            'readonly' => true,
         ),
         'modified_by_name' => array(
             'name'            => 'modified_by_name',
@@ -105,7 +73,6 @@ $dictionary['ProspectList'] = array(
             'id_name'         => 'modified_user_id',
             'module'          => 'Users',
             'duplicate_merge' => 'disabled',
-            'readonly'        => true,
         ),
         'created_by'       => array(
             'name'    => 'created_by',
@@ -116,18 +83,6 @@ $dictionary['ProspectList'] = array(
             'table'   => 'created_by_users',
             'isnull'  => 'false',
             'dbType'  => 'id',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-                'type' => 'id',
-                'aggregations' => array(
-                    'created_by' => array(
-                        'type' => 'MyItems',
-                        'label' => 'LBL_AGG_CREATED_BY_ME',
-                    ),
-                ),
-            ),
-            'readonly' => true,
         ),
         'created_by_name'  => array(
             'name'            => 'created_by_name',
@@ -140,7 +95,6 @@ $dictionary['ProspectList'] = array(
             'id_name'         => 'created_by',
             'module'          => 'Users',
             'duplicate_merge' => 'disabled',
-            'readonly'        => true,
         ),
         'deleted'          => array(
             'name'       => 'deleted',
@@ -153,7 +107,6 @@ $dictionary['ProspectList'] = array(
             'name'  => 'description',
             'vname' => 'LBL_DESCRIPTION',
             'type'  => 'text',
-            'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 0.39),
         ),
         'domain_name'      => array(
             'name'  => 'domain_name',
@@ -261,9 +214,6 @@ $dictionary['ProspectList'] = array(
             'prospects',
             'users',
         ),
-    ),
-    'uses' => array(
-        'taggable',
     ),
 );
 

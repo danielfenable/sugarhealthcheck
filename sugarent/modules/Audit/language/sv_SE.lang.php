@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'Se ändringslogg',
-    'LBL_FIELD_NAME' => 'Fält',
-    'LBL_OLD_NAME' => 'Gammalt värde',
-    'LBL_NEW_VALUE' => 'Nytt värde',
-    'LBL_CREATED_BY' => 'Ändrad av',
-    'LBL_LIST_DATE' => 'Ändringsdatum',
-    'LBL_AUDITED_FIELDS' => 'Granskade fält i denna modul:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'Inga fält granskas i denna modul',
-    'LBL_CHANGE_LOG' => 'Ändringslogg',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'När granskade valutafält sparas i en valuta som ej är standard för systemet visar ändringsloggen både gamla och nya värden konverterade till systemets standardvaluta.'
+
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Granskade fält i denna modul:',
+  'LBL_AUDIT_TITLE' => 'Se ändringslogg',
+  'LBL_CHANGE_LOG' => 'Ändringslogg',
+  'LBL_CREATED_BY' => 'Ändrad av',
+  'LBL_FIELD_NAME' => 'Fält',
+  'LBL_LIST_DATE' => 'Ändringsdatum',
+  'LBL_NEW_VALUE' => 'Nytt värde',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'Inga fält granskas i denna modul',
+  'LBL_OLD_NAME' => 'Gammalt värde',
 );
+

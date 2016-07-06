@@ -26,6 +26,10 @@ $viewdefs['Calls']['base']['layout']['list-dashboard'] = array(
                                     'name',
                                     'parent_name',
                                 ),
+                                'orderBy' => array(
+                                    'field' => 'date_start',
+                                    'direction' => 'asc',
+                                ),
                                 'filter_id' => 'my_scheduled_calls',
                             ),
                             'context' => array(

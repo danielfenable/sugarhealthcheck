@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: PopupCampaignRoi.php 13782 2006-06-06 17:58:55 +0000 (22 Nov 2006) Vineet $
+
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -97,7 +97,6 @@ if(is_admin($current_user) && $_REQUEST['module'] != 'DynamicLayout' && !empty($
 //$detailView->processListNavigation($xtpl, "CAMPAIGN", $offset, $focus->is_AuditEnabled());
 // adding custom fields:
 //require_once('modules/DynamicFields/templates/Files/DetailView.php');
-
 
 //$xtpl->assign("TEAM_NAME", $focus->team_name);
 //$xtpl->parse("main.pro");

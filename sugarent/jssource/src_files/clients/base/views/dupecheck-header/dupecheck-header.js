@@ -24,7 +24,7 @@
         var translatedString = app.lang.get(
             'LBL_DUPLICATES_FOUND',
             this.module,
-            {'duplicateCount': this.collection.length}
+            {'duplicateCount': this.context.get('collection').length}
         );
         this.$('span.duplicate_count').text(translatedString);
     }

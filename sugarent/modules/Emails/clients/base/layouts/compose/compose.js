@@ -14,7 +14,6 @@
     shortcuts: [
         'Sidebar:Toggle',
         'Record:Cancel',
-        'Compose:Action:More',
-        'DragdropSelect2:SelectAll'
+        'Compose:Action:More'
     ]
 })

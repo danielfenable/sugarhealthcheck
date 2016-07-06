@@ -445,8 +445,7 @@ class PMSEUserAssignmentHandler
             $caseBean->cas_sugar_object_id); //$this->beanFactory->getBean($caseBean->cas_sugar_module);
         //$beanObject->retrieve($caseBean->cas_sugar_object_id);
         $beanObject->assigned_user_id = $userId;
-
-        if (PMSEEngineUtils::saveAssociatedBean($beanObject)) {
+        if ($beanObject->save()) {
             return true;
         } else {
             return false;
@@ -525,7 +524,7 @@ class PMSEUserAssignmentHandler
         $activityDefinition = $this->retrieveBean('pmse_BpmActivityDefinition');
         $memberList = array();
         if ($beanFlow->bpmn_type == 'bpmnActivity') {
-            $activityDefinition->retrieve($beanFlow->bpmn_id);
+            $activityDefinition->retrieve_by_string_fields(array('id' => $beanFlow->bpmn_id));
             $teamBean = $this->retrieveBean('Teams'); //$this->beanFactory->getBean('Teams');
             $teamId = ($type == 'ADHOC') ? $activityDefinition->act_adhoc_team : $activityDefinition->act_reassign_team;
             if ($teamId == 'current_team') {

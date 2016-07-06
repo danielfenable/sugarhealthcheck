@@ -10,10 +10,12 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+ 
 /*********************************************************************************
- * $Id$
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * pl_pl.lang.php for SugarCRM 6.5.0
+ * Translator: eVolpe
  * All Rights Reserved.
+ * Any bugs report welcome: support@evolpe.pl
  * Contributor(s): ______________________________________..
  ********************************************************************************/
  
@@ -31,16 +33,17 @@ strtolower($object_name).'_category_dom' =>
     '' => '',
     'Marketing Collateral' => 'Materiały marketingowe',
     'Product Brochures' => 'Katalogi produktów',
-    'FAQ' => 'Często zadawane pytania',
+    'FAQ' => 'FAQ',
   ),
 
     strtolower($object_name).'_status_dom' =>
     array (
     'Active' => 'Aktywny',
-    'Draft' => 'Wersje robocze',
-    'FAQ' => 'Często zadawane pytania',
+    'Draft' => 'Wersja robocza',
+    'FAQ' => 'FAQ',
     'Expired' => 'Przedawniony',
     'Under Review' => 'Recenzowany',
-    'Pending' => 'Oczekujące',
+    'Pending' => 'Oczekujący',
   ),
   );
+?>

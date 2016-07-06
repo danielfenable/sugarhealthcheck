@@ -367,10 +367,8 @@ AdamShape.prototype.attachErrorToShape = function (objArray) {
                 countErrors.style.display = "block";
                 sizeItems = listPanelError.getAllErros();
                 countErrors.textContent =  sizeItems === 1 ? sizeItems + translate('LBL_PMSE_BPMN_WARNING_SINGULAR_LABEL') : sizeItems + translate('LBL_PMSE_BPMN_WARNING_LABEL');
-                $("#error-div").show();
             } else {
                 countErrors.textContent = "0" + translate('LBL_PMSE_BPMN_WARNING_SINGULAR_LABEL');
-                $("#error-div").hide();
             }
         }
 };

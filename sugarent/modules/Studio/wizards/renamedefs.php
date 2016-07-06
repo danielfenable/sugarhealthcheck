@@ -476,6 +476,11 @@ $renamedefs = array(
             array('name' => 'LBL_FORECAST', 'type' => 'singular', 'source' => 'Forecasts'),
             array('name' => 'LBL_QUOTA_ID', 'type' => 'singular', 'source' => 'Quotas'),
         ),
+        'KBDocuments' => array(
+            array('name' => 'LBL_CASES', 'type' => 'plural', 'source' => 'Cases'),
+            array('name' => 'LBL_CONTRACTS', 'type' => 'plural', 'source' => 'Contracts'),
+            array('name' => 'LBL_CONTRACT_NAME', 'type' => 'plural', 'source' => 'Contracts'),
+        ),
         'Leads' => array(
             array('name' => 'LNK_SELECT_###MODULE_PLURAL###', 'type' => 'singular', 'source' => 'Leads'),
             array('name' => 'LNK_SELECT_###MODULE_SINGULAR###', 'type' => 'singular', 'source' => 'Leads'),
@@ -601,8 +606,6 @@ $renamedefs = array(
             array('name' => 'LBL_CLOSED_RLIS', 'type' => 'plural', 'source' => 'RevenueLineItems'),
             array('name' => 'NOTICE_NO_DELETE_CLOSED_RLIS', 'type' => 'plural', 'source' => 'Opportunities'),
             array('name' => 'NOTICE_NO_DELETE_CLOSED_RLIS', 'type' => 'plural', 'source' => 'RevenueLineItems'),
-            array('name' => 'LBL_RLI', 'type' => 'plural', 'source' => 'RevenueLineItems'),
-            array('name' => 'LBL_INCLUDED_RLIS', 'type' => 'plural', 'source' => 'RevenueLineItems'),
             array('name' => 'LBL_QUOTE_SUBPANEL_TITLE', 'type' => 'plural', 'source' => 'Quotes'),
             array('name' => 'LBL_OPPORTUNITY_ROLE', 'type' => 'singular', 'source' => 'Opportunities'),
             array('name' => 'LBL_NOTES_SUBPANEL_TITLE', 'type' => 'plural', 'source' => 'Notes'),
@@ -991,8 +994,6 @@ $renamedefs = array(
         array('name' => 'LBL_FORECAST_WORKSHEET', 'type' => 'singular', 'source' => 'Forecasts'),
         array('name' => 'LBL_TOUR_FEATURES_670', 'type' => 'plural', 'source' => 'Forecasts'),
         array('name' => 'LBL_DASHLET_FORECASTS_DETAILS', 'type' => 'plural', 'source' => 'Forecasts'),
-        array('name' => 'WARNING_NO_DELETE_CLOSED_SELECTED_STATUS', 'type' => 'singular', 'source' => 'RevenueLineItems'),
-
         // Leads
         array('name' => 'LBL_HELP_PREVIEW', 'type' => 'plural', 'source' => 'Leads'),
 

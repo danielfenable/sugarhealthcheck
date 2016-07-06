@@ -21,6 +21,8 @@
     events: {
         'click [name=edit_button]' : 'editClicked',
         'click [name=cancel_button]' : 'cancelClicked',
+        'click [name=save_button]' : 'saveClicked',
+        'click [name=create_button]' : 'saveClicked',
         'click [name=create_cancel_button]' : 'createCancelClicked',
         'click [name=delete_button]' : 'deleteClicked',
         'click [name=add_button]': 'addClicked',
@@ -49,32 +51,7 @@
             this.action = 'detail';
         }
         this.buttons = {};
-
-        this._bindEvents();
     },
-
-    /**
-     * Binds the events that are necessary for this view.
-     *
-     * @protected
-     */
-    _bindEvents: function() {
-        this.context.on('record:set:state', this.setRecordState, this);
-    },
-
-    /**
-     * Handles the logic done when the state changes in the record.
-     * This is the callback for the `record:set:state` event.
-     *
-     * @param {string} state The state that the record is set to.
-     */
-    setRecordState: function(state) {
-        this.model.trigger('setMode', state);
-        this.setButtonStates(state);
-        this.inlineEditMode = state === 'edit';
-        this.toggleEdit(this.inlineEditMode);
-    },
-
     editClicked: function(evt) {
         this.previousModelState = app.utils.deepCopy(this.model.attributes);
         this.inlineEditMode = true;
@@ -105,16 +82,11 @@
         if (this.model.isNew()) {
             return this.model.hasChanged();
         }
-        return !_.isEmpty(this.model.changedAttributes(this.model.getSynced()));
+        return !_.isEmpty(this.model.changedAttributes(this.model.getSyncedAttributes()));
     },
-
-    /**
-     * @override
-     *
-     * The save function is handled by {@link View.Layouts.Base.DashboardLayout#handleSave}.
-     */
-    saveClicked: $.noop,
-
+    saveClicked: function(evt) {
+        this.handleSave();
+    },
     createCancelClicked: function(evt) {
         if(this.context.parent) {
             this.layout.navigateLayout('list');
@@ -146,6 +118,50 @@
         this.setButtonStates(this.context.get("create") ? 'create' : 'view');
         this.setEditableFields();
     },
+    handleSave: function() {
+        this.inlineEditMode = false;
+        var self = this;
+        if(this.changed) {
+            this.model.save({}, {
+                //Show alerts for this request
+                showAlerts: true,
+                fieldsToValidate: {
+                    'name' : {
+                        required: true
+                    },
+                    'metadata' : {
+                        required: true
+                    }
+                },
+                success: function() {
+                    self.model.unset('updated');
+                    if(self.context.get("create")) {
+                        if(self.context.parent) {
+                            self.layout.navigateLayout(self.model.id);
+                        } else {
+                            app.navigate(self.context, self.model);
+                        }
+                    } else {
+                        self.changed = false;
+                        self.setButtonStates('view');
+                        self.model.trigger("setMode", "view");
+                        self.toggleEdit(false);
+                    }
+                },
+                error: function() {
+                    app.alert.show('error_while_save', {
+                        level: 'error',
+                        title: app.lang.get('ERR_INTERNAL_ERR_MSG'),
+                        messages: app.lang.get('ERR_HTTP_500_TEXT')
+                    });
+                }
+            });
+        } else {
+            this.model.trigger("setMode", "view");
+            this.setButtonStates('view');
+            this.toggleEdit(false);
+        }
+    },
     handleCancel: function() {
         this.inlineEditMode = false;
         if (!_.isEmpty(this.previousModelState)) {
@@ -168,8 +184,6 @@
                             return;
                         }
                         if (this.context.parent) {
-                            var contextBro = this.context.parent.getChildContext({module: 'Home'});
-                            contextBro.get('collection').remove(this.model);
                             this.layout.navigateLayout('list');
                         } else {
                             var route = app.router.buildRoute(this.module);
@@ -180,7 +194,7 @@
                         app.alert.show('error_while_save', {
                             level: 'error',
                             title: app.lang.get('ERR_INTERNAL_ERR_MSG'),
-                            messages: ['ERR_HTTP_500_TEXT_LINE1', 'ERR_HTTP_500_TEXT_LINE2']
+                            messages: app.lang.get('ERR_HTTP_500_TEXT')
                         });
                     },
                     //Show alerts for this request
@@ -194,8 +208,7 @@
             }, this)
         });
     },
-
-    bindDataChange: function() {
+    bindDataChange: function () {
         //empty out because dashboard header does not need to switch the button sets while model is changed
     },
     toggleEdit: function(isEdit) {

@@ -48,7 +48,7 @@
 
         // Can't use getRelevantContextList here, because the context may not
         // have all the children we need.
-        if (this.layoutType === 'records' || this.layoutType === 'activities') {
+        if (this.layoutType === 'records') {
             // filters will handle data fetching so we skip the standard data fetch
             this.context.set('skipFetch', true);
         } else {
@@ -328,8 +328,7 @@
 
         this.$el.css('visibility', app.acl.hasAccess(this.aclToCheck, module) ? 'visible' : 'hidden');
         if(this.layoutType === 'record' && !this.showingActivities) {
-            // FIXME: TY-499 will address removing the dependancy on this.layout
-            module = link = app.user.lastState.get(app.user.lastState.key('subpanels-last', this.layout)) || 'all_modules';
+            module = link = app.user.lastState.get(app.user.lastState.key("subpanels-last", this)) || 'all_modules';
             if (link !== 'all_modules') {
                 module = app.data.getRelatedModule(this.module, link);
             }
@@ -379,7 +378,7 @@
         // actual search.
         var isTemplateFilter = filter.get('is_template');
 
-        var modelHasChanged = !_.isEmpty(filter.changedAttributes(filter.getSynced()));
+        var modelHasChanged = !_.isEmpty(filter.changedAttributes(filter.getSyncedAttributes()));
 
         if (editable &&
             (isIncompleteFilter || isTemplateFilter || editState || id === 'create' || modelHasChanged)
@@ -435,6 +434,11 @@
 
         //If the quicksearch field is not empty, append a remove icon so the user can clear the search easily
         this._toggleClearQuickSearchIcon(!_.isEmpty(query));
+        // reset the selected on filter apply
+        var massCollection = this.context.get('mass_collection');
+        if (massCollection && massCollection.models && massCollection.models.length > 0) {
+            massCollection.reset([], {silent: true});
+        }
         var self = this;
         var ctxList = this.getRelevantContextList();
 
@@ -505,6 +509,9 @@
 
             ctxCollection.filterDef = filterDef;
             ctxCollection.origFilterDef = origFilterDef;
+            ctxCollection.resetPagination();
+
+            options = _.extend(options, ctx.get('collectionOptions'));
 
             ctx.resetLoadFlag(false);
             if (!_.isEmpty(ctx._recordListFields)) {
@@ -515,6 +522,15 @@
         });
         if (batchId) {
             app.api.triggerBulkCall(batchId);
+
+            // FIXME (SC-3670): This is introduced as a quick-fix for SC-3647
+            // This will not be necessary with the PR for SC-3670
+            _.each(ctxList, function(ctx) {
+                var collection = ctx.get('collection');
+                if (collection && collection.options && collection.options.apiOptions) {
+                    collection.options.apiOptions = undefined;
+                }
+            });
         }
     },
 
@@ -524,7 +540,7 @@
      * - the list view context on records layout
      * - the selection list view context on records layout
      * - the contexts of the subpanels on record layout
-     * @return {Array} array of contexts
+     * @returns {Array} array of contexts
      */
     getRelevantContextList: function() {
         var contextList = [];
@@ -560,14 +576,13 @@
      * @param {Object} oSelectedFilter
      * @param {String} searchTerm
      * @param {Context} context
-     * @return {Array} array containing filter def
+     * @returns {Array} array containing filter def
      */
     buildFilterDef: function(oSelectedFilter, searchTerm, context) {
         var selectedFilter = app.utils.deepCopy(oSelectedFilter),
             isSelectedFilter = _.size(selectedFilter) > 0,
             module = context.get('module'),
-            filtersBeanPrototype = app.data.getBeanClass('Filters').prototype,
-            searchFilter = filtersBeanPrototype.buildSearchTermFilter(module, searchTerm),
+            searchFilter = this.getFilterDef(module, searchTerm),
             isSearchFilter = _.size(searchFilter) > 0;
 
         selectedFilter = _.isArray(selectedFilter) ? selectedFilter : [selectedFilter];
@@ -619,8 +634,7 @@
             moduleName = moduleName || this.module;
 
             if (this.layoutType === 'record') {
-                // FIXME: TY-499 will address removing the dependancy on this.layout
-                linkName = app.user.lastState.get(app.user.lastState.key('subpanels-last', this.layout)) ||
+                linkName = app.user.lastState.get(app.user.lastState.key('subpanels-last', this)) ||
                     linkName ||
                     'all_modules';
 
@@ -699,7 +713,7 @@
 
     /**
      * Utility function to know if the create filter panel is opened.
-     * @return {boolean} `true` if opened, `false` otherwise
+     * @returns {Boolean} true if opened
      */
     createPanelIsOpen: function() {
         return !this.layout.$(".filter-options").is(":hidden");
@@ -707,7 +721,7 @@
 
     /**
      * Determines whether a user can create a filter for the current module.
-     * @return {boolean} `true` if creatable, `false` otherwise
+     * @return {Boolean} true if creatable
      */
     canCreateFilter: function() {
         // Check for create in meta and make sure that we're only showing one

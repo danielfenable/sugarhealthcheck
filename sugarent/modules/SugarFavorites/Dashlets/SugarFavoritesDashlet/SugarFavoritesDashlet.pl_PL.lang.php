@@ -11,12 +11,18 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: SugarFavoritesDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
+/*********************************************************************************
+ * pl_pl.lang.php for SugarCRM 6.2.0
+ * Translator: eVolpe
+ * All Rights Reserved.
+ * Any bugs report welcome: support@evolpe.pl
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
 
 
 $dashletStrings['SugarFavoritesDashlet'] = array(
                                             'LBL_TITLE'               => 'Moje ulubione rekordy',
                                             'LBL_HOMEPAGE_TITLE'      => 'Ulubione Sugar',
-                                            'LBL_CONFIGURE_TITLE'  => 'Stanowisko',
+											'LBL_CONFIGURE_TITLE'  => 'Tytuł',
                                          );
-?>
+ 

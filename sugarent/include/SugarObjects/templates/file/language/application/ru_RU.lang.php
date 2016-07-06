@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,37 +12,32 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * $Id$
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
- 
+
+
+$object_name = strtolower($object_name);
 $app_list_strings = array (
-strtolower($object_name).'_category_dom' =>
-    array (
-    '' => '',
-    'Marketing' => 'Маркетинговые кампании',
+  $object_name.'_category_dom' => 
+  array (
+    '' => ' ',
     'Knowledege Base' => 'База знаний',
+    'Marketing' => 'Маркетинговые кампании',
     'Sales' => 'Продажи',
   ),
-
-    strtolower($object_name).'_subcategory_dom' =>
-    array (
-    '' => '',
+  $object_name.'_status_dom' => 
+  array (
+    'Active' => 'Активно',
+    'Draft' => 'Черновик',
+    'Expired' => 'Просрочен',
+    'FAQ' => 'Часто задаваемые вопросы',
+    'Pending' => 'Ожидающий решения',
+    'Under Review' => 'На рассмотрении',
+  ),
+  $object_name.'_subcategory_dom' => 
+  array (
+    '' => ' ',
+    'FAQ' => 'Часто задаваемые вопросы',
     'Marketing Collateral' => 'Дополнительное маркетинговое обеспечение',
     'Product Brochures' => 'Брошюры продуктов',
-    'FAQ' => 'Вопросы и ответы',
   ),
+);
 
-    strtolower($object_name).'_status_dom' =>
-    array (
-    'Active' => 'Активна',
-    'Draft' => 'Черновик',
-    'FAQ' => 'Вопросы и ответы',
-    'Expired' => 'Просрочен',
-    'Under Review' => 'На рассмотрении',
-    'Pending' => 'В ожидании',
-  ),
-  );

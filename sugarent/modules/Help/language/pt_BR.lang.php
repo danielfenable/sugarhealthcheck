@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,32 +12,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'ERR_DELETE_RECORD' => 'Um número de registro deve ser especificado para eliminar a Conta.',
+  'LBL_LIST_FORM_TITLE' => 'Lista de Contas',
   'LBL_MODULE_NAME' => 'Contas',
   'LBL_MODULE_NAME_SINGULAR' => 'Conta',
-  'LBL_MODULE_TITLE' => 'Contas: tela principal',
-  'LBL_SEARCH_FORM_TITLE' => 'Pesquisar contas',
-  'LBL_LIST_FORM_TITLE' => 'Lista de contas',
-  'LBL_NEW_FORM_TITLE' => 'Criar conta',
-  'LNK_NEW_CONTACT' => 'Criar contato',
-  'LNK_NEW_ACCOUNT' => 'Criar conta',
-  'LNK_NEW_OPPORTUNITY' => 'Criar oportunidade',
-  'LNK_NEW_CASE' => 'Criar ocorrência',
-  'LNK_NEW_NOTE' => 'Criar nota ou anexo',
-  'LNK_NEW_CALL' => 'Registrar chamada',
-  'LNK_NEW_EMAIL' => 'Arquivar e-mail',
-  'LNK_NEW_MEETING' => 'Agendar reunião',
-  'LNK_NEW_TASK' => 'Criar Tarefa',
-  'ERR_DELETE_RECORD' => 'Um número de registro deve ser especificado para excluir a conta.',
+  'LBL_MODULE_TITLE' => 'Contas: Tela Principal',
+  'LBL_NEW_FORM_TITLE' => 'Criar Nova Conta',
+  'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Contas',
+  'LNK_NEW_ACCOUNT' => 'Criar Nova Conta',
+  'LNK_NEW_CALL' => 'Nova Ligação',
+  'LNK_NEW_CASE' => 'Criar Nova Ocorrência',
+  'LNK_NEW_CONTACT' => 'Criar Novo Contato',
+  'LNK_NEW_EMAIL' => 'Novo E-mail',
+  'LNK_NEW_MEETING' => 'Nova Reunião',
+  'LNK_NEW_NOTE' => 'Criar Nova Nota ou Anexo',
+  'LNK_NEW_OPPORTUNITY' => 'Criar Nova Oportunidade',
+  'LNK_NEW_TASK' => 'Criar Nova Tarefa',
 );
 
-
-?>

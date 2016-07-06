@@ -67,14 +67,14 @@
         _hasAccess: function(action, acls) {
             var access;
 
-            if (acls.access === 'no') {
-                access = 'no';
+            if (acls["access"] === "no") {
+                access = "no";
             }
             else {
                 access = acls[action];
             }
 
-            return access !== 'no';
+            return access !== "no";
         },
 
         /**
@@ -173,11 +173,13 @@
          * @param {String} action Action name.
          * @return {Boolean} Flag indicating if the current user has access to the given action.
          *
-         *     // Check whether user has `admin` access for any module.
-         *     app.acl.hasAccessToAny('admin');
+         * @example
+         * // Check is user admin for any module.
+         * app.acl.hasAccessToAny('admin');
          *
-         *     // Check whether user has `developer` access for any module.
-         *     app.acl.hasAccessToAny('developer');
+         * // Check is user developer for any module.
+         * app.acl.hasAccessToAny('developer');
+         *
          */
         hasAccessToAny: function(action) {
             if (_.isUndefined(this._accessToAny[action])) {

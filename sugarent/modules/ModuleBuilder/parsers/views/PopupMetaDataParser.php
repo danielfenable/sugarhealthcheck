@@ -211,18 +211,5 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
     	return $dir;
     }
 
-    /**
-     * Helper method to determine whether a field is allowed on a list view on
-     * populateFromRequest.
-     *
-     * @param string $field The name of the field to check
-     * @return boolean
-     */
-    protected function isAllowedField($field)
-    {
-        // Popup list view needs to validate fields even on populate from request.
-        return $this->isValidField($field, $this->_fielddefs[$field]);
-    }
-
-
-}
+ }
+ ?>

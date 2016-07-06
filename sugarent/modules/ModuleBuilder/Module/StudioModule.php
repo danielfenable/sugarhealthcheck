@@ -24,7 +24,7 @@ class StudioModule
         'Bugs', // Bug Tracker
         'Campaigns',
         'Contracts',
-        'KBContents', // Knowledge Base
+        'KBDocuments', // Knowledge Base
         'ProductTemplates', // Product Catalog
         'Prospects', // Targets
         'pmse_Business_Rules', // Process Business Rules
@@ -38,6 +38,7 @@ class StudioModule
      * @var array
      */
     static $quickCreateNotSupportedModules = array(
+        'kbdocuments',
         'projecttask',
         'campaigns',
         'quotes',
@@ -487,9 +488,9 @@ class StudioModule
      * 
      * @return AbstractRelationships Set of relationships
      */
-    public function getRelationships($relationshipName = "")
+    public function getRelationships()
     {
-        return new DeployedRelationships($this->module, $relationshipName);
+        return new DeployedRelationships($this->module);
     }
 
     /**
@@ -513,6 +514,7 @@ class StudioModule
 
         return $nodes;
     }
+
 
     /**
      * Gets a list of subpanels used by the current module
@@ -622,12 +624,12 @@ class StudioModule
     }
 
     /**
-     * Gets modules and subpanels related the given one
+     * Gets parent modules of a subpanel
      * 
-     * @param string $sourceModule The name of the module
+     * @param string $subpanel The name of the subpanel
      * @return array
      */
-    public function getModulesWithSubpanels($sourceModule)
+    public function getParentModulesOfSubpanel($subpanel)
     {
         global $moduleList, $beanFiles, $beanList, $module;
 
@@ -639,6 +641,7 @@ class StudioModule
         //change case to match subpanel processing later on
         $modules_to_check = array_change_key_case($modules_to_check);
 
+        $spd = '';
         $spd_arr = array();
         //iterate through modules and build subpanel array
         foreach ($modules_to_check as $mod_name) {
@@ -647,36 +650,12 @@ class StudioModule
 
             //create new subpanel definition instance and get list of tabs
             $spd = new SubPanelDefinitions($bean);
-            if (isset($spd->layout_defs['subpanel_setup'])) {
-                $subpanels = $this->getModuleSubpanels($spd->layout_defs['subpanel_setup'], $sourceModule);
-                if (count($subpanels) > 0) {
-                    $spd_arr[$mod_name] = $subpanels;
-                }
+            if (isset($spd->layout_defs['subpanel_setup'][strtolower($subpanel)]['module'])) {
+                $spd_arr[] = $mod_name;
             }
         }
 
         return  $spd_arr;
-    }
-
-    /**
-     * Returns array of subpanel names related to the given module
-     * @param array $defs the definition of subpanel layout.
-     * @param string $sourceModule the name of the source module in subpanel
-     * @return array
-     */
-    protected function getModuleSubpanels(array $defs, $sourceModule)
-    {
-        $subpanels = array();
-        foreach ($defs as $name => $def) {
-            //Example:
-            //subpanel link name: accounts_meetings_1
-            //related module: Meetings
-            //source module: Accounts (should be equal to $sourceModule)
-            if (isset($def['module']) && $def['module'] == $sourceModule) {
-                $subpanels[] = $name;
-            }
-        }
-        return $subpanels;
     }
 
     /**
@@ -708,12 +687,10 @@ class StudioModule
             }
         }
 
-        //Remove the field from subpanels
-        $data = $this->getModulesWithSubpanels($this->module);
-        foreach ($data as $module => $subpanels) {
-            foreach ($subpanels as $subpanel) {
-                $this->removeFieldFromLayout($module, MB_LISTVIEW, $subpanel, $fieldName);
-            }
+        //Remove the fields in subpanel
+        $data = $this->getParentModulesOfSubpanel($this->module);
+        foreach ($data as $parentModule) {
+            $this->removeFieldFromLayout($parentModule, MB_LISTVIEW, $this->module, $fieldName);
         }
     }
 

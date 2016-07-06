@@ -24,7 +24,6 @@ if(!empty($sugar_demodata['quotes_seed_data']['quotes'])) {
    foreach($sugar_demodata['quotes_seed_data']['quotes'] as $key=>$quote) {
 
 		$focus = new Quote();
-		$focus->assigned_user_id = $sugar_demodata['users'][array_rand($sugar_demodata['users'])]['id'];
 		$focus->id = create_guid();
     	$focus->new_with_id = true;
 		$focus->name = $quote['name'];

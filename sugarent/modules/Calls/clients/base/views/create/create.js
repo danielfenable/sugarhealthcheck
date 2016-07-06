@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({extendsFrom:'CreateView',initialize:function(options){this.plugins=_.union(this.plugins||[],['AddAsInvitee','ReminderTimeDefaults']);this._super('initialize',[options]);}})
+({extendsFrom:'CreateView',initialize:function(options){this.plugins=_.union(this.plugins||[],['AddAsInvitee']);this._super('initialize',[options]);}})

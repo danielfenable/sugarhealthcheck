@@ -73,17 +73,17 @@ class DropDownHelper
      * Takes in the request params from a save request and processes
      * them for the save.
      *
-     * @param array $params Request parameters
+     * @param REQUEST params  $params
      */
-    public static function saveDropDown($params)
+    public function saveDropDown($params)
     {
         global $locale;
         $count = 0;
         $dropdown = array();
         $dropdown_name = $params['dropdown_name'];
 
-        if (!empty($params['dropdown_lang'])) {
-            $selected_lang = $params['dropdown_lang'];
+        if (!empty($_REQUEST['dropdown_lang'])) {
+            $selected_lang = $_REQUEST['dropdown_lang'];
         } else {
             $selected_lang = $locale->getAuthenticatedUserLanguage();
         }

@@ -9,20 +9,13 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 ({
-    /**
-     * @inheritdoc
-     */
-    initialize: function(options) {
+    initialize:function (options) {
         this.convertPanels = {};
         this.associatedModels = {};
         this.dependentModules = {};
         this.noAccessRequiredModules = [];
 
         app.view.Layout.prototype.initialize.call(this, options);
-
-        this.meta.modules = this.filterModulesByACL(this.meta.modules);
-
-        this.initializeOptions(this.meta.modules);
 
         //create and place all the accordion panels
         this.initializePanels(this.meta.modules);
@@ -38,69 +31,24 @@
     },
 
     /**
-     * Create a new object with only modules the user has create access to and
-     * build list of required modules the user does not have create access to.
-     *
-     * @param {Object} modulesMetadata
-     * @return {Object}
-     */
-    filterModulesByACL: function(modulesMetadata) {
-        var filteredModulesMetadata = {};
-
-        _.each(modulesMetadata, function(moduleMeta, key) {
-            //strip out modules that user does not have create access to
-            if (app.acl.hasAccess('create', moduleMeta.module)) {
-                filteredModulesMetadata[key] = moduleMeta;
-            } else if (moduleMeta.required === true) {
-                this.noAccessRequiredModules.push(moduleMeta.module);
-            }
-        }, this);
-
-        return filteredModulesMetadata;
-    },
-
-    /**
-     * Create an options section on top of convert panels that presents options
-     * when converting a lead (specifically, which modules to copy/move
-     * activities to).
-     *
-     * @param {Object} modulesMetadata
-     */
-    initializeOptions: function(modulesMetadata) {
-        var view,
-            convertModuleList = [];
-
-        _.each(modulesMetadata, function(moduleMeta) {
-            var moduleSingular = this.getModuleSingular(moduleMeta.module);
-            convertModuleList.push({
-                id: moduleMeta.module,
-                text: moduleSingular,
-                required: moduleMeta.required
-            });
-        }, this);
-
-        this.context.set('convertModuleList', convertModuleList);
-        view = app.view.createView({
-            context: this.context,
-            layout: this,
-            name: 'convert-options',
-            type: 'convert-options',
-            platform: this.options.platform
-        });
-
-        this.addComponent(view);
-    },
-
-    /**
      * Iterate over the modules defined in convert-main.php
      * Create a convert panel for each module defined there
      *
-     * @param {Object} modulesMetadata
+     * @param modulesMetadata
      */
     initializePanels: function(modulesMetadata) {
         var moduleNumber = 1;
 
-        _.each(modulesMetadata, function(moduleMeta) {
+        _.each(modulesMetadata, function (moduleMeta, key, modulesList) {
+            //strip out modules that user does not have create access to
+            if (!app.acl.hasAccess('create', moduleMeta.module)) {
+                if (moduleMeta.required === true) {
+                    this.noAccessRequiredModules.push(moduleMeta.module);
+                }
+                delete modulesList[key];
+                return;
+            }
+
             moduleMeta.moduleNumber = moduleNumber++;
             var view = app.view.createLayout({
                 context: this.context,
@@ -110,7 +58,6 @@
                 type: 'convert-panel',
                 platform: this.options.platform
             });
-            view.initComponents();
 
             //This is because backbone injects a wrapper element.
             view.$el.addClass('accordion-group');
@@ -126,7 +73,7 @@
 
     /**
      * Check if user is missing access to any required modules
-     * @return {boolean}
+     * @returns {boolean}
      */
     checkRequiredAccess: function() {
         //user is missing access to required modules - kick them out
@@ -139,7 +86,7 @@
 
     /**
      * Close lead convert and notify the user that they are missing required access
-     * @param {Array} noAccessRequiredModules
+     * @param noAccessRequiredModules
      */
     denyUserAccess: function(noAccessRequiredModules) {
         var translatedModuleNames = [];
@@ -161,30 +108,30 @@
 
     /**
      * Retrieve the translated module name
-     * @param {string} module
-     * @return {string}
+     * @param module
+     * @returns {string}
      */
     getModuleSingular: function(module) {
-        var modulePlural = app.lang.getAppListStrings('moduleList')[module] || module;
-        return (app.lang.getAppListStrings('moduleListSingular')[module] || modulePlural);
+        var modulePlural = app.lang.getAppListStrings("moduleList")[module] || module;
+        return (app.lang.getAppListStrings("moduleListSingular")[module] || modulePlural);
     },
 
-    _render: function() {
+    _render: function () {
         app.view.Layout.prototype._render.call(this);
 
         //This is because backbone injects a wrapper element.
         this.$el.addClass('accordion');
-        this.$el.attr('id', 'convert-accordion');
+        this.$el.attr('id','convert-accordion');
 
         //apply the accordion to this layout
-        this.$('.collapse').collapse({toggle: false, parent: '#convert-accordion'});
-        this.$('.collapse').on('shown hidden', _.bind(this.handlePanelCollapseEvent, this));
+        this.$(".collapse").collapse({toggle:false, parent:'#convert-accordion'});
+        this.$(".collapse").on('shown hidden', _.bind(this.handlePanelCollapseEvent, this));
 
         //copy lead data down to each module when we get the lead data
         this.context.get('leadsModel').fetch({
             success: _.bind(function(model) {
                 if (this.context) {
-                    this.context.trigger('lead:convert:populate', model);
+                    this.context.trigger("lead:convert:populate", model);
                 }
             }, this)
         });
@@ -192,7 +139,7 @@
 
     /**
      * Catch collapse shown/hidden events and notify the panels via the context
-     * @param {Event} event
+     * @param event
      */
     handlePanelCollapseEvent: function(event) {
         //only respond to the events directly on the collapse (was getting events from tooltip propagated up
@@ -205,23 +152,23 @@
 
     /**
      * When a panel is complete, add the model to the associatedModels array and notify any dependent modules
-     * @param {string} module that was completed
-     * @param {Data.Bean} model
+     * @param module that was completed
+     * @param model
      */
     handlePanelComplete: function(module, model) {
         this.associatedModels[module] = model;
         this.handlePanelUpdate();
-        this.context.trigger('lead:convert:' + module + ':complete', module, model);
+        this.context.trigger('lead:convert:'+module+':complete', module, model);
     },
 
     /**
      * When a panel is reset, remove the model from the associatedModels array and notify any dependent modules
-     * @param {string} module
+     * @param module
      */
     handlePanelReset: function(module) {
         delete this.associatedModels[module];
         this.handlePanelUpdate();
-        this.context.trigger('lead:convert:' + module + ':reset', module);
+        this.context.trigger('lead:convert:'+module+':reset', module);
     },
 
     /**
@@ -238,11 +185,11 @@
      * Dependencies are defined in the convert-main.php
      */
     checkDependentModules: function() {
-        _.each(this.dependentModules, function(dependencies, dependentModuleName) {
+        _.each(this.dependentModules, function (dependencies, dependentModuleName) {
             var isEnabled = _.all(dependencies, function(module, moduleName) {
                 return (this.associatedModels[moduleName]);
             }, this);
-            this.context.trigger('lead:convert:' + dependentModuleName + ':enable', isEnabled);
+            this.context.trigger("lead:convert:" + dependentModuleName + ":enable", isEnabled);
         }, this);
     },
 
@@ -251,7 +198,7 @@
      * Enables the Save button if all are complete
      */
     checkRequired: function() {
-        var showSave = _.all(this.meta.modules, function(module) {
+        var showSave = _.all(this.meta.modules, function(module){
             if (module.required) {
                 if (!this.associatedModels[module.module]) {
                     return false;
@@ -274,11 +221,7 @@
 
         app.alert.show('processing_convert', {level: 'process', title: app.lang.get('LBL_SAVING')});
 
-        convertModel = new Backbone.Model(_.extend(
-            {'modules' : this.parseEditableFields(this.associatedModels)},
-            this.getTransferActivitiesAttributes()
-        ));
-
+        convertModel = new Backbone.Model(_.extend({}, {'modules' : this.parseEditableFields(this.associatedModels)}));
         myURL = app.api.buildURL('Leads', 'convert', {id: this.context.get('leadsModel').id});
 
         // Set field_duplicateBeanId for fields implementing FieldDuplicate
@@ -289,31 +232,16 @@
         }, this);
 
         app.api.call('create', myURL, convertModel, {
-            success: _.bind(this.convertSuccess, this),
+            success: _.bind(this.uploadAssociatedRecordFiles, this),
             error: _.bind(this.convertError, this)
         });
-    },
-
-    /**
-     * Retrieve the attributes to be added to the convert model to support the
-     * transfer activities functionality.
-     *
-     * @return {Object}
-     */
-    getTransferActivitiesAttributes: function() {
-        var action = app.metadata.getConfig().leadConvActivityOpt,
-            optedInToTransfer = this.model.get('transfer_activities');
-
-        return {
-            transfer_activities_action: (action === 'move' && optedInToTransfer) ? 'move' : 'donothing'
-        };
     },
 
     /**
      * Returns only the fields for the models that the user is allowed to edit.
      * This method is run in the sync method of data-manager for creating records.
      *
-     * @param {Object} models to get fields from.
+     * @param {Array} models to get fields from.
      * @return {Object} Hash of models with editable fields.
      */
     parseEditableFields: function(models) {
@@ -325,12 +253,66 @@
         return filteredModels;
     },
 
+    /**
+     * After successfully converting a lead, loop through all modules and attempt to upload file input fields
+     * All modules are done asynchronously and the last one to complete calls the appropriate completion callback
+     *
+     * @param convertResults
+     */
+    uploadAssociatedRecordFiles: function(convertResults) {
+        if (this.disposed) return;
+
+        var modulesToProcess = _.keys(this.associatedModels).length,
+            failureCount = 0;
+
+        var completeFn = _.bind(function() {
+            modulesToProcess--;
+            if (modulesToProcess === 0) {
+                if (failureCount > 0) {
+                    this.convertWarning();
+                } else {
+                    this.convertSuccess();
+                }
+            }
+        }, this);
+
+        _.each(this.associatedModels, function(associatedModel, associatedModule) {
+            var moduleResult = _.find(convertResults.modules, function(result) {
+                return (associatedModule === result._module);
+            }, this);
+
+            //if associatedModel has no id, then it came from createView on convertPanel and may need file uploads
+            if (moduleResult && _.isEmpty(associatedModel.get('id'))) {
+                associatedModel.set('id', moduleResult.id);
+                app.file.checkFileFieldsAndProcessUpload(
+                    this.convertPanels[associatedModule].createView,
+                    {
+                        success: function() { completeFn(); },
+                        error: function() { failureCount++; completeFn(); }
+                    },
+                    {deleteIfFails:false},
+                    false
+                );
+
+            } else {
+                //no files to upload because an existing record was selected for this module, just run complete
+                completeFn();
+            }
+        }, this);
+    },
 
     /**
      * Lead was successfully converted
      */
     convertSuccess: function() {
         this.convertComplete('success', 'LBL_CONVERTLEAD_SUCCESS', true);
+    },
+
+    /**
+     * Lead was converted, but some files failed to upload
+     */
+    convertWarning: function() {
+        this.convertComplete('warning', 'LBL_CONVERTLEAD_FILE_WARN', true);
     },
 
     /**
@@ -346,16 +328,16 @@
 
     /**
      * Based on success of lead conversion, display the appropriate messages and optionally close the drawer
-     * @param {string} level
-     * @param {string} message
-     * @param {boolean} doClose
+     * @param level
+     * @param message
+     * @param doClose
      */
     convertComplete: function(level, message, doClose) {
         var leadsModel = this.context.get('leadsModel');
         app.alert.dismiss('processing_convert');
         app.alert.show('convert_complete', {
             level: level,
-            messages: app.lang.get(message, this.module, {leadName: app.utils.getRecordName(leadsModel)}),
+            messages: app.lang.get(message, this.module, {leadName:leadsModel.get('first_name')+' '+leadsModel.get('last_name')}),
             autoClose: (level === 'success')
         });
         if (!this.disposed && doClose) {
@@ -370,7 +352,7 @@
      * @private
      */
     _dispose: function() {
-        this.$('.collapse').off();
+        this.$(".collapse").off();
         app.view.Layout.prototype._dispose.call(this);
     }
 })

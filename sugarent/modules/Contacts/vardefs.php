@@ -176,13 +176,6 @@ $dictionary['Contact'] = array(
                 'portalrecordview' => false,
                 'portallistview' => false,
             ),
-            'duplicate_on_record_copy' => 'no',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 1.93,
-                'type' => 'exact',
-            ),
         ),
         'portal_active' => array(
             'name' => 'portal_active',
@@ -190,8 +183,7 @@ $dictionary['Contact'] = array(
             'type' => 'bool',
             'default' => '0',
             'group' => 'portal',
-            'comment' => 'Indicator whether this contact is a portal user',
-            'duplicate_on_record_copy' => 'no',
+            'comment' => 'Indicator whether this contact is a portal user'
         ),
         'portal_password' => array(
             'name' => 'portal_password',
@@ -206,7 +198,6 @@ $dictionary['Contact'] = array(
                 'portalrecordview' => false,
                 'portallistview' => false,
             ),
-            'duplicate_on_record_copy' => 'no',
         ),
         'portal_password1' => array(
             'name' => 'portal_password1',
@@ -230,7 +221,6 @@ $dictionary['Contact'] = array(
             'group' => 'portal',
             'len' => '255',
             'comment' => 'Reference to the portal',
-            'duplicate_on_record_copy' => 'no',
         ),
         'preferred_language' => array(
             'name' => 'preferred_language',
@@ -347,7 +337,8 @@ $dictionary['Contact'] = array(
         'products' => array(
             'name' => 'products',
             'type' => 'link',
-            'rname' => array('first_name', 'last_name'),
+            'link_file' => 'modules/Products/AccountLink.php',
+            'link_class' => 'AccountLink',
             'relationship' => 'contact_products',
             'source' => 'non-db',
             'vname' => 'LBL_PRODUCTS_TITLE',
@@ -891,16 +882,3 @@ VardefManager::createVardef(
     'Contacts',
     'Contact'
 );
-
-//boost value for full text search
-$dictionary['Contact']['fields']['first_name']['full_text_search']['boost'] = 1.99;
-$dictionary['Contact']['fields']['last_name']['full_text_search']['boost'] = 1.97;
-$dictionary['Contact']['fields']['email']['full_text_search']['boost'] = 1.95;
-$dictionary['Contact']['fields']['phone_home']['full_text_search']['boost'] = 1.10;
-$dictionary['Contact']['fields']['phone_mobile']['full_text_search']['boost'] = 1.09;
-$dictionary['Contact']['fields']['phone_work']['full_text_search']['boost'] = 1.08;
-$dictionary['Contact']['fields']['phone_other']['full_text_search']['boost'] = 1.07;
-$dictionary['Contact']['fields']['phone_fax']['full_text_search']['boost'] = 1.06;
-$dictionary['Contact']['fields']['description']['full_text_search']['boost'] = 0.71;
-$dictionary['Contact']['fields']['primary_address_street']['full_text_search']['boost'] = 0.33;
-$dictionary['Contact']['fields']['alt_address_street']['full_text_search']['boost'] = 0.32;

@@ -19,7 +19,7 @@
     plugins: ['editable'],
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _labelSet: {
         TITLE: 'LBL_MERGE_DUPLICATES_TITLE',
@@ -39,7 +39,7 @@
     failsCount: 0,
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initLabels: function() {
         this.LABELSET = this._labelSet;
@@ -55,7 +55,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * There are no conditions to check.
      */
@@ -64,7 +64,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * No estimate used.
      */
@@ -82,14 +82,14 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     getTotalRecords: function() {
         return this.totalRecord;
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     getRemainder: function() {
         return '';
@@ -112,14 +112,14 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     getProgressSize: function() {
         return this.processedCount;
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * @param {Object} context Object to check errors.
      */
@@ -157,14 +157,14 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Setup handler for drawer to prevent closing it.
      * We need it b/ the operation an be too long and in this time
      * token can be expired.
      */
     showProgress: function() {
-        app.drawer.before('reset', this._onDrawerReset, this);
+        app.drawer.before('reset', this._onDrawerReset, this, true);
         this._super('showProgress');
     },
 
@@ -202,7 +202,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Dismiss alerts:
      * 1. `stop_confirmation` - confirmation on pause
@@ -267,7 +267,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Use model to listen events insted of collection.
      */
@@ -276,7 +276,7 @@
             return;
         }
         this.on('render', this.initHolders, this);
-        this.before('start', this.checkAvailable, this);
+        this.before('start', this.checkAvailable, this, true);
         this.model.on('massupdate:always', this.updateProgress, this);
         this.model.on('massupdate:start', this.showProgress, this);
         this.model.on('massupdate:end', this.hideProgress, this);

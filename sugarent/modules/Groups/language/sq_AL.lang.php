@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,18 +12,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array ( 
-	'LBL_MODULE_NAME'			=> 'Grupet',
-	'LBL_MODULE_NAME_SINGULAR'		=> 'Grup',
-	'LBL_GROUP_NAME'			=> 'Emri i grupës:',
-	'LBL_DESCRIPTION'			=> 'Përshkrim:',
-	'LBL_TEAM'					=> 'Grupi',
-	// ListView
-	'LBL_LIST_TITLE'			=> 'Grupet',
-	// Links
-	'LNK_ALL_GROUPS'			=> 'Të gjitha grupet',
-	'LNK_NEW_GROUP'				=> 'Krijo grup',
-	'LNK_CONVERT_USER'			=> 'Konverto përdoruesin në grup', 
+$mod_strings = array (
+  'LBL_DESCRIPTION' => 'Përshkrim:',
+  'LBL_GROUP_NAME' => 'Emri i grupës:',
+  'LBL_LIST_TITLE' => 'Grupet',
+  'LBL_MODULE_NAME' => 'Grupet',
+  'LBL_MODULE_NAME_SINGULAR' => 'Grup',
+  'LBL_TEAM' => 'Grupi',
+  'LNK_ALL_GROUPS' => 'Të gjitha grupet',
+  'LNK_CONVERT_USER' => 'Konverto përdoruesin në grup',
+  'LNK_NEW_GROUP' => 'Krijo grup',
 );
-?>
+

@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,21 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-    'LBL_EMAIL_ADDRESS_ID' => 'ID',
-    'LBL_EMAIL_ADDRESS' => '电子邮件地址',
-    'LBL_EMAIL_ADDRESS_CAPS' => '电子邮件地址',
-    'LBL_INVALID_EMAIL' => '无效的电子邮件',
-    'LBL_OPT_OUT' => '选择退出',
-    'LBL_DATE_CREATE' => '创建日期',
-    'LBL_DATE_MODIFIED' => '修改的日期',
-    'LBL_DELETED' => '删除',
+  'LBL_DATE_CREATE' => '创建日期',
+  'LBL_DATE_MODIFIED' => '修改日期',
+  'LBL_DELETED' => '删除',
+  'LBL_EMAIL_ADDRESS' => '电子邮件地址',
+  'LBL_EMAIL_ADDRESS_CAPS' => '电子邮件地址',
+  'LBL_EMAIL_ADDRESS_ID' => 'ID',
+  'LBL_INVALID_EMAIL' => '无效的电子邮件',
+  'LBL_OPT_OUT' => '选择退出',
 );
+

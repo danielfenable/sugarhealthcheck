@@ -8,11 +8,6 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/**
- * @class View.Views.Base.Calls.CreateView
- * @alias SUGAR.App.view.views.CallsCreateView
- * @extends View.Views.Base.CreateView
- */
 ({
     extendsFrom: 'CreateView',
 
@@ -20,7 +15,7 @@
      * @inheritdoc
      */
     initialize: function(options) {
-        this.plugins = _.union(this.plugins || [], ['AddAsInvitee', 'ReminderTimeDefaults']);
+        this.plugins = _.union(this.plugins || [], ['AddAsInvitee']);
         this._super('initialize', [options]);
     }
 })

@@ -1,5 +1,7 @@
 <?php
- if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,22 +13,22 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-    'TPL_ACTIVITY_CREATE' => '创建 {{{str "TPL_ACTIVITY_RECORD" "活动" 对象}}}{{#if object.module}} {{getModuleName object.module}}{{/假如}}。',
-    'TPL_ACTIVITY_POST' => '{{{value}}}{{{str "TPL_ACTIVITY_ON" "活动"此}}}',
-    'TPL_ACTIVITY_UPDATE' => '更新 {{#if updateStr}}{{{updateStr}}}到 {{/假如}}{{#if object.module}}{{{str "TPL_ACTIVITY_RECORD" "活动"对象}}}{{else}}{{object.name}}{{/假如}}。',
-    'TPL_ACTIVITY_UPDATE_FIELD' => '<a rel="tooltip" title="Changed: {{before}} To: {{after}}">{{field_label}}</a>',
-    'TPL_ACTIVITY_LINK' => '链接 {{{str "TPL_ACTIVITY_RECORD" "活动" 主题}}} 到 {{{str "TPL_ACTIVITY_RECORD" "活动" 对象}}}。',
-    'TPL_ACTIVITY_UNLINK' => '取消 {{{str "TPL_ACTIVITY_RECORD" "活动" 主题}}} 与 {{{str "TPL_ACTIVITY_RECORD" "活动" 对象}}} 的链接。',
-    'TPL_ACTIVITY_ATTACH' => '添加文件 <a class="dragoff" target="sugar_attach" href="{{url}}" data-note-id="{{noteId}}">{{filename}}</a>{{{str "TPL_ACTIVITY_ON" "活动" 此}}}',
-    'TPL_ACTIVITY_DELETE' => '已删除 {{{str "TPL_ACTIVITY_RECORD" "活动" 对象}}} {{getModuleName object.module}}。',
-    'TPL_ACTIVITY_UNDELETE' => '已恢复 {{{str "TPL_ACTIVITY_RECORD" "活动" 对象}}} {{getModuleName object.module}}。',
-    'TPL_ACTIVITY_RECORD' => '{{#if module}}<a href="#{{buildRoute module=module id=id}}">{{name}}</a>{{else}}{{name}}{{/假如}}',
-    // We need the trailing space at the end of the next line so that the str
-    // handlebars helper isn't confused by a template that returns no text.
-    'TPL_ACTIVITY_ON' => '{{#if object}} 于 {{{str "TPL_ACTIVITY_RECORD" "活动" 对象}}}.{{/假如}}{{#if module}} 于 {{getModuleName module}}.{{else}} {{/假如}}',
-    'TPL_COMMENT' => '{{{value}}}',
-    'TPL_MORE_COMMENT' => '{{this}} 更多评论&hellip;',
-    'TPL_MORE_COMMENTS' => '{{this}} 更多评论&hellip;',
-    'TPL_SHOW_MORE_MODULE' => '更多内容...',
+
+$mod_strings = array (
+  'TPL_ACTIVITY_ATTACH' => '添加的文件 <a class="dragoff" target="sugar_attach" href="{{url}}" data-note-id="{{noteId}}">{{filename}}</a>{{{str "TPL_ACTIVITY_ON" "Activities" this}}}',
+  'TPL_ACTIVITY_CREATE' => '创建的{{{str "TPL_ACTIVITY_RECORD" "Activities" object}}} {{str "LBL_MODULE_NAME_SINGULAR" object.module}}.',
+  'TPL_ACTIVITY_DELETE' => '删除的 {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}} {{str "LBL_MODULE_NAME_SINGULAR" object.module}}.',
+  'TPL_ACTIVITY_LINK' => '连接的 {{{str "TPL_ACTIVITY_RECORD" "Activities" subject}}} to {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.',
+  'TPL_ACTIVITY_ON' => '{{#if object}} 于 {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.{{/if}}{{#if module}} 于 {{str "LBL_MODULE_NAME_SINGULAR" module}}.{{else}} {{/if}}',
+  'TPL_ACTIVITY_POST' => '{{{value}}}{{{str "TPL_ACTIVITY_ON" "Activities" this}}}',
+  'TPL_ACTIVITY_RECORD' => '<a href="#{{buildRoute module=module id=id}}">{{name}}</a>',
+  'TPL_ACTIVITY_UNDELETE' => '恢复的 {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}} {{str "LBL_MODULE_NAME_SINGULAR" object.module}}.',
+  'TPL_ACTIVITY_UNLINK' => '取消连接 {{{str "TPL_ACTIVITY_RECORD" "Activities" subject}}} to {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.',
+  'TPL_ACTIVITY_UPDATE' => '更新的{{#if updateStr}}{{{updateStr}}} on {{/if}}{{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.',
+  'TPL_ACTIVITY_UPDATE_FIELD' => '<a rel="tooltip" title="Changed: {{before}} To: {{after}}">{{field_label}}</a>',
+  'TPL_COMMENT' => '{{{value}}}',
+  'TPL_MORE_COMMENT' => '{{this}} 更多评论…',
+  'TPL_MORE_COMMENTS' => '{{this}} 更多评论…',
+  'TPL_SHOW_MORE_MODULE' => '更多文章...',
 );
+

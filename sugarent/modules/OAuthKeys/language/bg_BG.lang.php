@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,33 +12,35 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $mod_strings = array (
-  'LBL_CONSKEY' => 'Потребителски ключ',
-  'LBL_CONSSECRET' => 'Потребителски криптиращ стринг',
   'LBL_ASSIGNED_TO_ID' => 'Отговорник',
   'LBL_ASSIGNED_TO_NAME' => 'Потребител',
-  'LBL_ID' => 'Идентидикатор',
+  'LBL_CLIENT_TYPE' => 'Тип на клиента',
+  'LBL_CONSKEY' => 'Потребителски ключ',
+  'LBL_CONSSECRET' => 'Потребителски криптиращ стринг',
+  'LBL_CREATED' => 'Създадено от',
+  'LBL_CREATED_ID' => 'Създадено от',
+  'LBL_CREATED_USER' => 'Създадено от',
   'LBL_DATE_ENTERED' => 'Създадено на',
   'LBL_DATE_MODIFIED' => 'Модифицирано на',
+  'LBL_DELETED' => 'Изтрити',
+  'LBL_DESCRIPTION' => 'Описание',
+  'LBL_ID' => 'Идентидикатор',
+  'LBL_LIST_FORM_TITLE' => 'OAuth ключове',
+  'LBL_LIST_NAME' => 'Име на ключа',
   'LBL_MODIFIED' => 'Модифицирано от',
   'LBL_MODIFIED_ID' => 'Модифицирано от',
   'LBL_MODIFIED_NAME' => 'Модифицирано от',
-  'LBL_CREATED' => 'Създадено от',
-  'LBL_CREATED_ID' => 'Създадено от',
-  'LBL_DESCRIPTION' => 'Описание',
-  'LBL_DELETED' => 'Изтрити',
-  'LBL_NAME' => 'Име на потребителски ключ',
-  'LBL_CREATED_USER' => 'Създадено от',
   'LBL_MODIFIED_USER' => 'Модифицирано от',
-  'LBL_LIST_NAME' => 'Име на ключа',
-  'LBL_LIST_FORM_TITLE' => 'OAuth ключове',
   'LBL_MODULE_NAME' => 'OAuth ключове',
   'LBL_MODULE_NAME_SINGULAR' => 'OAuth ключ',
   'LBL_MODULE_TITLE' => 'OAuth ключове',
-  'LNK_NEW_RECORD' => 'Създай OAuth ключ',
-  'LNK_LIST' => 'Разгледай OAuth ключовете',
-  'LBL_TOKENS' => 'Токени',
+  'LBL_NAME' => 'Име на потребителски ключ',
   'LBL_OAUTH_TYPE' => 'OAuth версия',
-  'LBL_CLIENT_TYPE' => 'Тип на клиента',
+  'LBL_TOKENS' => 'Токени',
+  'LNK_LIST' => 'Разгледай OAuth ключовете',
+  'LNK_NEW_RECORD' => 'Създай OAuth ключ',
 );
+

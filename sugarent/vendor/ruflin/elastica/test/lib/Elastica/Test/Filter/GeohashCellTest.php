@@ -2,8 +2,8 @@
 
 namespace Elastica\Test\Filter;
 
-use Elastica\Filter\GeohashCell;
 use Elastica\Test\Base as BaseTest;
+use Elastica\Filter\GeohashCell;
 
 class GeohashCellTest extends BaseTest
 {
@@ -14,25 +14,25 @@ class GeohashCellTest extends BaseTest
             'geohash_cell' => array(
                 'pin' => array(
                     'lat' => 37.789018,
-                    'lon' => -122.391506,
+                    'lon' => -122.391506
                 ),
                 'precision' => '50m',
-                'neighbors' => false,
-            ),
+                'neighbors' => false
+            )
         );
         $this->assertEquals($expected, $filter->toArray());
     }
 
     public function testFilter()
     {
-        $index = $this->_createIndex();
+        $index = $this->_createIndex('geohash_filter_test');
         $type = $index->getType('test');
         $mapping = new \Elastica\Type\Mapping($type, array(
             'pin' => array(
                 'type' => 'geo_point',
                 'geohash' => true,
-                'geohash_prefix' => true,
-            ),
+                'geohash_prefix' => true
+            )
         ));
         $type->setMapping($mapping);
 
@@ -42,7 +42,7 @@ class GeohashCellTest extends BaseTest
 
         $filter = new GeohashCell('pin', array('lat' => 32.828326, 'lon' => -117.255854));
         $query = new \Elastica\Query();
-        $query->setPostFilter($filter);
+        $query->setFilter($filter);
         $results = $type->search($query);
 
         $this->assertEquals(1, $results->count());
@@ -50,7 +50,7 @@ class GeohashCellTest extends BaseTest
         //test precision parameter
         $filter = new GeohashCell('pin', '9', 1);
         $query = new \Elastica\Query();
-        $query->setPostFilter($filter);
+        $query->setFilter($filter);
         $results = $type->search($query);
 
         $this->assertEquals(2, $results->count());

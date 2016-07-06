@@ -33,11 +33,11 @@ if(this._textInputMode===this.textInputMode.ALL){this._addInputText(index||item)
 return this;};ItemContainer.prototype._paintItems=function(){var i,items=this._items.asArray();if(this.html){if(this._textInputMode===this.textInputMode.ALL){this._addInputText();}
 for(i=0;i<items.length;i++){this._paintItem(items[i]);}
 if(this._textInputMode===this.textInputMode.END){this._addInputText();}}
-return this;};ItemContainer.prototype._onRemoveItemHandler=function(){var that=this;return function(item){that.removeItem(item);if(typeof that.onRemoveItem==='function'){that.onRemoveItem(that,item);}};};ItemContainer.prototype.addItem=function(item,index,noFocusNext,skipCallback){if(!(item instanceof SingleItem||typeof item==="object")){throw new Error("The paremeter must be an object literal or null.");}
+return this;};ItemContainer.prototype._onRemoveItemHandler=function(){var that=this;return function(item){that.removeItem(item);if(typeof that.onRemoveItem==='function'){that.onRemoveItem(that,item);}};};ItemContainer.prototype.addItem=function(item,index,noFocusNext){if(!(item instanceof SingleItem||typeof item==="object")){throw new Error("The paremeter must be an object literal or null.");}
 if(!(item instanceof SingleItem)){item=new SingleItem(item);}
 item.setParent(this);item.setOnRemoveHandler(this._onRemoveItemHandler());if(typeof index==='number'&&index>=0){this._items.insertAt(item,index);}else{this._items.insert(item);}
 if(!this._massiveAction){this._paintItem(item,index);if(!noFocusNext&&jQuery(item.getHTML()).next().get(0)!==jQuery(':focus').get(0)){jQuery(item.getHTML()).next().focus();}else{this._selectedIndex+=1;if(this.html){this.html.scrollTop+=this.html.scrollHeight;}}}
-if(typeof this.onAddItem==='function'&&!skipCallback){if(typeof index==='number'&&index>=0){item=this._items.get(index);}else{item=this._items.get(this._items.getSize()-1);}
+if(typeof this.onAddItem==='function'){if(typeof index==='number'&&index>=0){item=this._items.get(index);}else{item=this._items.get(this._items.getSize()-1);}
 this.onAddItem(this,item,index);}
 return this;};ItemContainer.prototype.removeItem=function(item){if(this.isParentOf(item)){this._items.remove(item);jQuery(item.getHTML()).prev('.item-container-input').remove().end().next().focus().end().remove();}
 return this;};ItemContainer.prototype.setVisible=function(value){if(_.isBoolean(value)){this.visible=value;if(this.html){if(value){this.style.addProperties({display:""});}else{this.style.addProperties({display:"none"});}}}

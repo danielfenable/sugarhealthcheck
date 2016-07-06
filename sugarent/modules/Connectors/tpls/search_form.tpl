@@ -14,7 +14,7 @@
 <tr>
 <td nowrap>
 <h3>{$mod.LBL_MODIFY_SEARCH}</h3></td><td width='100%'>
-<IMG height='1' width='1' src="{sugar_getjspath file='include/images/blank.gif'}" alt=''>
+<IMG height='1' width='1' src='include/images/blank.gif' alt=''>
 </td>
 </tr>
 </table>

@@ -277,21 +277,20 @@ h4.merge-interface-header {
         height: 75px;
         overflow: visible;
         .calcWidth(~"100% - 20px") !important;
-        input.datepicker,
-        input.ui-timepicker-input {
-          .calcWidth(~"50% - 18px");
+        input.datepicker {
+          .calcWidth(~"55% - 21px");
         }
         input.ui-timepicker-input {
-          margin-left: 2px;
+          .calcWidth(~"45% - 21px");
+          margin-left: 12px;
         }
       }
       .input-append {
         white-space: normal;
         padding-top: 4px;
         .add-on {
-          left: inherit;
-          right: 1px;
-          margin-left: -26px;
+          left: 0;
+          margin-left: -24px;
         }
       }
     }
@@ -320,16 +319,14 @@ h4.merge-interface-header {
       }
     }
     &.merge-row-field-teamset {
-      .controls {
-        label {
-          position: relative;
-          width: auto;
-          display: inline;
-          padding-right: .25em;
-        }
-        .btn {
-          margin-left: 0;
-        }
+      height: auto;
+      padding-bottom: 2px;
+      .controls label {
+        height: auto;
+      }
+      button {
+        left: 61px;
+        position: relative;
       }
     }
     .flex-relate-module,

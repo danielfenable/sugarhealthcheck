@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,22 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Nabavite ključ i tajnu sa IBM SmartCloud registrovanjem Vaše Sugar instance kao nove aplikacije. Mogućnost registrovanja je moguća od 8. maja 2011.<br>&nbsp;<br>
-Koraci za registraciju Vaše instance:<br>
-&nbsp;<br>
-<ol>
-<li>Prijavite se na svoj IBM SmartCloud nalog (morate biti administrator)</li>
-<li>Kliknite na "Administracija" -> "Upravljaj organizacijom".</li>
-<li>Kliknite na vezu "Integrisane aplikacije treće strane" na bočnoj traci i omogućite SugarCRM za sve korisnike.</li>
-<li>Kliknite na "Unutrašnje aplikacije" na bočnoj traci i na "Registrovanje aplikacije".</li>
-<li>Odaberite bilo koje ime za ovu aplikaciju (npr. "SugarCRM Production"), i nikako _NEMOJTE_ označavati polje za potvrdu OAuth 2.x na dnu iskačućeg prozora.</li>
-<li>Nakon kreiranja aplikacije, kliknite na mali trougao sa desne strane naziva aplikacije  i odaberite "Prikaži akreditive" u padajućem meniju.</li>
-<li>Kopirajte akreditive u nastavku.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'OAuth Potrošački ključ',
-    'oauth_consumer_secret' => 'OAuth Potrošačka tajna',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Nabavite ključ i tajnu sa LotusLive&copy; registrovanjem Vaše Sugar instance kao nove aplikacije. Mogućnost registrovanja je moguća od 8 maja 2011.<br><br />Koraci za registraciju Vaše instance:<br><br />&amp;nbsp;<br><br /><ol><br /><li>Prijavite se na Vaš LotusLive nalog (morate biti LotusLive administrator): <a href="https://www.lotuslive.com/" target="_new">https://www.lotuslive.com/</a></li><br /><li>Kliknite na Administrationu delu za navigaciju na vrhu.</li><br /><li>Kliknite na Manage Company Apps.</li><br /><li>Kliknite na Register App.</li><br /><li>Unesite naziv i opis za aplikaciju kada se bude tražilo. Naziv i opis za Vašu aplikaciju možete promeniti u bilo koje vreme klikom na meni pored aplikacije i odabirom Edit properties.</li><br /><li>Tokom registracije, Vaša prijava će biti dodeljena na OAuth ključ i tajni par. Registrovane aplikacije su prikazane u Manage Custom Apps. Da bi ste videli dodeljeni ključ i tajnu, kliknite na meni odgovarajuće aplikacije i odaberite Get Credentials.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'OAuth Potrošački ključ',
+  'oauth_consumer_secret' => 'OAuth Potrošačka tajna',
 );
 

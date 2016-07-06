@@ -19,9 +19,6 @@ $viewdefs['Opportunities']['base']['view']['record'] = array(
             'label' => 'LBL_CANCEL_BUTTON_LABEL',
             'css_class' => 'btn-invisible btn-link',
             'showOn' => 'edit',
-            'events' => array(
-                'click' => 'button:cancel_button:click',
-            ),
         ),
         array(
             'type' => 'rowaction',
@@ -130,8 +127,7 @@ $viewdefs['Opportunities']['base']['view']['record'] = array(
                     'name' => 'name',
                     'related_fields' => array(
                         'total_revenue_line_items',
-                        'closed_revenue_line_items',
-                        'included_revenue_line_items',
+                        'closed_revenue_line_items'
                     )
                 ),
                 array(
@@ -174,10 +170,6 @@ $viewdefs['Opportunities']['base']['view']['record'] = array(
                 ),
                 'probability',
                 array(
-                    'name' => 'commit_stage',
-                    'span' => 6
-                ),
-                array(
                     'name' => 'amount',
                     'type' => 'currency',
                     'label' => 'LBL_LIKELY',
@@ -186,10 +178,10 @@ $viewdefs['Opportunities']['base']['view']['record'] = array(
                         'currency_id',
                         'base_rate',
                     ),
-                    'span' => 6,
                     'currency_field' => 'currency_id',
                     'base_rate_field' => 'base_rate',
                 ),
+                array(),
                 array(
                     'name' => 'best_case',
                     'type' => 'currency',
@@ -213,10 +205,6 @@ $viewdefs['Opportunities']['base']['view']['record'] = array(
                     ),
                     'currency_field' => 'currency_id',
                     'base_rate_field' => 'base_rate',
-                ),
-                array(
-                    'name' => 'tag',
-                    'span' => 12,
                 ),
             ),
         ),

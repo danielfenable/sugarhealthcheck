@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,10 +11,28 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: MyPipelineBySalesStageDashlet.en_us.lang.php 29243 2007-11-06 20:04:35Z awu $
 
 
-$dashletStrings['MyPipelineBySalesStageDashlet'] = array('LBL_TITLE'       => 'O Meu Pipeline por Fase de Vendas',
-                                                         'LBL_DESCRIPTION' => 'Gráfico de barras vertical do meu pipeline por fase de vendas',
-                                                         'LBL_REFRESH'     => 'Atualizar Gráfico');
-?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$dashletStrings = array (
+  'MyPipelineBySalesStageDashlet' => 
+  array (
+    'LBL_TITLE' => 'O Meu Pipeline por Fase de Vendas',
+    'LBL_DESCRIPTION' => 'Gráfico de barras vertical do meu pipeline por fase de vendas',
+    'LBL_REFRESH' => 'Actualizar Gráfico',
+  ),
+);
+

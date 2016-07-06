@@ -43,7 +43,7 @@
 
     /**
      * Build the help table for global shortcuts.
-     * @return {jQuery}
+     * @returns {jQuery}
      */
     buildGlobalHelpTable: function() {
         var $html = $('<div></div>'),
@@ -57,7 +57,7 @@
 
     /**
      * Build the help table for contextual shortcuts.
-     * @return {jQuery}
+     * @returns {jQuery}
      */
     buildContextualHelpTable: function() {
         var $html = $('<div></div>'),
@@ -80,10 +80,9 @@
      * Take the available shortcuts data and transform it for displaying the data
      * in a help table.
      * @param {Array} shortcuts
-     * @return {Array}
+     * @returns {Array}
      */
     prepareShorcutsHelpDataForDisplay: function(shortcuts) {
-        // FIXME SC-5196: deprecate me, I'm misspelled
         var help = [];
 
         _.each(shortcuts, function(shortcut) {
@@ -99,7 +98,7 @@
     /**
      * Build text for keys needed to perform shortcut action.
      * @param {Array} keys
-     * @return {string}
+     * @returns {String}
      */
     getKeyString: function(keys) {
         return keys.join(', ');
@@ -108,7 +107,7 @@
     /**
      * Build the help text for what the shortcut does.
      * @param {String} shortcutId
-     * @return {string}
+     * @returns {String}
      */
     getHelpString: function(shortcutId) {
         if (this.meta.help && this.meta.help[shortcutId]) {

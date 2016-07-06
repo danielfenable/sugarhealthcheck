@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,23 +10,33 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
-$mod_strings = array (
-   'LBL_YOURS' => 'Uw record',
-   'LBL_IN_DATABASE' => 'Database record',
-   'LBL_CONFLICT_EXISTS' => 'Er is een conflict bij - ',
-   'LBL_ACCEPT_DATABASE' => 'Gebruik database record',
-   'LBL_ACCEPT_YOURS' => 'Gebruik uw record',
-   'LBL_RECORDS_MATCH' => 'Records komen overeen',
-   'LBL_NO_LOCKED_OBJECTS' => 'Geen geblokkeerde objecten',
-   
-);
 
-?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+
+
+$mod_strings= array (
+'LBL_YOURS'                                        => 'Uw record',
+'LBL_IN_DATABASE'                                  => 'Database record',
+'LBL_CONFLICT_EXISTS'                              => 'Er is een conflict bij - ',
+'LBL_ACCEPT_DATABASE'                              => 'Gebruik database record',
+'LBL_ACCEPT_YOURS'                                 => 'Gebruik uw record',
+'LBL_RECORDS_MATCH'                                => 'Records komen overeen',
+'LBL_NO_LOCKED_OBJECTS'                            => 'Geen geblokkeerde objecten',
+);?>

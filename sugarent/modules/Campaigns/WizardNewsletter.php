@@ -70,7 +70,6 @@ $sqs_objects = array('parent_name' => $qsd->getQSParent(),
                     'subscription_name' => getProspectListQSObjects('prospect_list_type_default', 'subscription_name','wiz_step3_subscription_name_id'),
                     );
 
-
 require_once('include/SugarFields/Fields/Teamset/SugarFieldTeamset.php');
 $teamSetField = new SugarFieldTeamset('Teamset');
 $teamSetField->initClassicView($focus->field_defs, 'wizform');
@@ -105,7 +104,6 @@ $popup_request_data = array(
         ),
     );
 $ss->assign('encoded_users_popup_request_data', $json->encode($popup_request_data));
-
 
 $popup_request_data = array(
     'call_back_function' => 'set_return',
@@ -202,7 +200,6 @@ if(is_admin($current_user) && $_REQUEST['module'] != 'DynamicLayout' && !empty($
 
 }
 
-
 if (empty($focus->id) && !isset($_REQUEST['isDuplicate'])) {
     $ss->assign("TEAM_OPTIONS", get_select_options_with_id(get_team_array(), $current_user->default_team));
     $ss->assign("TEAM_NAME", $current_user->default_team_name);
@@ -213,6 +210,7 @@ else {
     $ss->assign("TEAM_NAME", $focus->team_name);
     $ss->assign("TEAM_ID", $focus->team_id);
 }
+
 echo $currency->getJavascript();
 
 $seps = get_number_seperators();
@@ -577,7 +575,6 @@ function create_email_steps(){
 
 
 function create_wiz_step_divs($steps,$ss){
-
 //Assign the Teamset field
 require_once('include/SugarFields/Fields/Teamset/SugarFieldTeamset.php');
 $teamSetField = new SugarFieldTeamset('Teamset');

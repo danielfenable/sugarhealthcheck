@@ -15,7 +15,8 @@
  */
 ({
     extendsFrom: 'RelateField',
-
+    minChars: 1,
+    allow_single_deselect: false,
     events: {
         'click .btn[name=add]': 'addItem',
         'click .btn[name=remove]': 'removeItem',
@@ -32,23 +33,13 @@
     appendTeamTag: 'input[name=append_team]',
 
     initialize: function (options) {
-        this._super('initialize', [options]);
-        /**
-         * @inheritdoc
-         */
-        this._allow_single_deselect = false;
-
-        /**
-         * @inheritdoc
-         */
-        this._minChars = 1;
-
+        this._super("initialize", [options]);
         this._currentIndex = 0;
         this.model.on("change:team_name_type", this.appendTeam, this);
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Binds append team checkbox change for massupdate.
      */
@@ -64,7 +55,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     unbindDom: function() {
         this.$(this.appendTeamTag).off();
@@ -216,7 +207,7 @@
         }
 
         // If we're loading edit template on List view switch to detail template instead
-        if (!template && this.view.action === 'list' && _.contains(['edit','detail'], this.tplName)) {
+        if (!template && this.view.action === 'list' && this.tplName === 'edit') {
             this.template = app.template.getField(
                 this.type,
                 'list',
@@ -229,7 +220,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Add ability to edit and save an invalid team set.
      */
     _render: function () {
@@ -391,7 +382,7 @@
         this._updateAndTriggerChange(this.value);
     },
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Restore the select2 focus location after refresh the dom.
      */
     bindDataChange: function() {

@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +10,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+
+
+	
 $mod_strings = array (
+  'NTC_STATUS' => 'Selle maksumäära eemaldamiseks Maksumäära rippmenüü loenditest määra selle olekuks Mitteaktiivne',
+  'NTC_LIST_ORDER' => 'Määra järjekord, mitmendana see maksumäär kuvatakse maksumäära rippmenüü loendites',
   'LBL_MODULE_NAME' => 'Maksumäärad',
-  'LBL_MODULE_NAME_SINGULAR' => 'Tax Rate',
   'LBL_MODULE_TITLE' => 'Maksumäärad: Avaleht',
   'LBL_SEARCH_FORM_TITLE' => 'Maksumäärade otsing',
   'LBL_LIST_FORM_TITLE' => 'Maksumäärade loend',
@@ -39,21 +39,10 @@ $mod_strings = array (
   'LNK_IMPORT_TAXRATES' => 'Impordi maksumäärad',
   'NTC_DELETE_CONFIRMATION' => 'Kas oled kindel, et soovid seda kirjet kustutada?',
   'ERR_DELETE_RECORD' => 'Maksumäära kustutamiseks täpsusta kirje numbrit.',
-  'NTC_STATUS' => 'Selle maksumäära eemaldamiseks Maksumäära rippmenüü loenditest määra selle olekuks Mitteaktiivne',
-  'NTC_LIST_ORDER' => 'Määra järjekord, mitmendana see maksumäär kuvatakse maksumäära rippmenüü loendites',
   'taxrate_status_dom' => 
   array (
     'Active' => 'Aktiivne',
     'Inactive' => 'Mitteaktiivne',
   ),
-  'LBL_EDITLAYOUT' => 'Edit Layout' /*for 508 compliance fix*/,
-  'LBL_CREATED_ID'=>'Created By Id',
-  'LBL_MODIFIED_ID'=>'Modified By Id',
-  //For export labels
-  'LBL_EXPORT_MODIFIED_USER_ID'=> 'Modified User ID',
-  'LBL_EXPORT_CREATED_BY'=> 'Created By ID',
-
 );
 
-
-?>

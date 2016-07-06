@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -12,7 +11,7 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id$
+
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
@@ -28,10 +27,12 @@ $viewdefs['Accounts']['mobile']['view']['list'] = array(
                     'default' => true,
                     'enabled' => true,
                     'link' => true,
+                    'width' => '10%',
                 ),
                 array(
                     'name' => 'billing_address_city',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
@@ -39,65 +40,78 @@ $viewdefs['Accounts']['mobile']['view']['list'] = array(
                     'default' => true,
                     'enabled' => true,
                     'link' => true,
+                    'width' => '10%',
                 ),
                 array(
                     'name' => 'phone_office',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'email',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'billing_address_street',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'billing_address_state',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'billing_address_postalcode',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'billing_address_country',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'shipping_address_street',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'shipping_address_city',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'shipping_address_state',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'shipping_address_postalcode',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'shipping_address_country',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
                 array(
                     'name' => 'team_name',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
             ),

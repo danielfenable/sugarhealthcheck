@@ -7,9 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
-    'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
-    'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
-    'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
-    'Composer' => array($vendorDir . '/composer/composer/src'),
-    'Aws' => array($vendorDir . '/aws/aws-sdk-php/src'),
+    'Elastica\\Test' => array($vendorDir . '/ruflin/elastica/test/lib'),
+    'Elastica' => array($vendorDir . '/ruflin/elastica/lib'),
 );

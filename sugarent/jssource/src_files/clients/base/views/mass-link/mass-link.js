@@ -93,7 +93,7 @@
                                 app.alert.show('error_while_mass_link', {
                                     level: 'error',
                                     title: app.lang.get('ERR_INTERNAL_ERR_MSG'),
-                                    messages: ['ERR_HTTP_500_TEXT_LINE1', 'ERR_HTTP_500_TEXT_LINE2']
+                                    messages: app.lang.get('ERR_HTTP_500_TEXT')
                                 });
                             }
                         }

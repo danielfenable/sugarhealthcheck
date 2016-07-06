@@ -18,9 +18,7 @@ require_once 'modules/UpgradeWizard/SugarMerge/DropdownMerger.php';
  */
 class SugarUpgradeMergeDropdowns extends UpgradeScript
 {
-    // BR-3995 fix: This script needs to run before 7_FixModuleNamesMismatch
-    // to retain custom module names
-    public $order = 7920;
+    public $order = 7999;
     public $type = self::UPGRADE_CUSTOM;
     public $version = '7.6.0';
 
@@ -72,27 +70,6 @@ class SugarUpgradeMergeDropdowns extends UpgradeScript
      */
     public function run()
     {
-        if (version_compare($this->from_version, '7.6.2.1', '>=')) {
-            $this->log('**** Skipped Dropdown Lists Merge **** Sugar version is too new');
-            return;
-        }
-        //In 7.6.0 through 7.6.2, the load order for custom language files dependend on mtime.
-        //If custom/include was the last file touched before upgrade, we need to run this script.
-        if (version_compare($this->from_version, '7.6.0', '>=')) {
-            //Check for each language if the custom/include file was the last touched.
-            foreach ($this->upgrader->state['dropdowns_to_merge'] as $language => $dropdowns) {
-
-                if ($dropdowns['mtime']['include'] < $dropdowns['mtime']['ext']) {
-                    unset($this->upgrader->state['dropdowns_to_merge'][$language]);
-                }
-            }
-            //If there was nothing left to upgrade, return.
-            if ((empty($this->upgrader->state['dropdowns_to_merge']))) {
-                $this->log('**** Skipped Dropdown Lists Merge **** Nothing left to merge as mtime elimated all options');
-                return;
-            }
-        }
-
         if (empty($this->context['new_source_dir'])) {
             $this->log('**** Skipped Dropdown Lists Merge **** The new source directory was not found.');
             return;
@@ -113,18 +90,17 @@ class SugarUpgradeMergeDropdowns extends UpgradeScript
 
             foreach ($dropdowns['custom'] as $name => $customOptions) {
                 if (!isset($new[$name])) {
-                    $listValue = $this->prepareForSave($customOptions);
-                } else {
-                    $oldOptions = array();
-                    $newOptions = $new[$name];
-
-                    if (isset($dropdowns['old']) && isset($dropdowns['old'][$name])) {
-                        $oldOptions = $dropdowns['old'][$name];
-                    }
-
-                    $listValue = $this->prepareForSave($merger->merge($oldOptions, $newOptions, $customOptions));
+                    continue;
                 }
 
+                $oldOptions = array();
+                $newOptions = $new[$name];
+
+                if (isset($dropdowns['old']) && isset($dropdowns['old'][$name])) {
+                    $oldOptions = $dropdowns['old'][$name];
+                }
+
+                $listValue = $this->prepareForSave($merger->merge($oldOptions, $newOptions, $customOptions));
 
                 $_REQUEST['dropdown_lang'] = $language;
                 $_REQUEST['view_package'] = 'studio';

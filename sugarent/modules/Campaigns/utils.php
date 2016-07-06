@@ -330,7 +330,6 @@ function get_subscription_lists_query($focus, $additional_fields = null) {
     $all_news_type_pl_query .= "and plc.prospect_list_id = pl.id ";
     $all_news_type_pl_query .= "and c.campaign_type = 'NewsLetter'  and pl.deleted = 0 and c.deleted=0 and plc.deleted=0 ";
     $all_news_type_pl_query .= "and (pl.list_type like 'exempt%' or pl.list_type ='default') ";
-    $all_news_type_pl_query .= "ORDER BY pl.list_type ASC ";
 
     $all_news_type_list =$focus->db->query($all_news_type_pl_query);
 

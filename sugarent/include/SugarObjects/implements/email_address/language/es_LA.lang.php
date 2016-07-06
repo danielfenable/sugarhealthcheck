@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,14 +12,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  */
 
 $mod_strings = array (
-    'LBL_ANY_EMAIL' => 'Correo Electrónico:',
-    'LBL_EMAIL' => 'Dirección de Correo:',
-    'LBL_PRIMARY_EMAIL' => 'Correo electrónico principal',
-    'LBL_LIST_EMAIL_ADDRESS' => 'Dirección de Correo Electrónico',
-    'LBL_OTHER_EMAIL_ADDRESS' => 'Otro Correo Electrónico:',
-    'LBL_EMAIL_ADDRESS' => 'Dirección de Correo Electrónico',
-    'LBL_EMAIL_ADDRESSES' => 'Dirección(es) de Correo Electrónico',
-    'LBL_INVALID_EMAIL'=>'Correo Electrónico no Válido:',
-    'LBL_EMAIL_OPT_OUT' => 'Exclusión de Correo Electrónico:',
-    'LBL_EMAIL_NON_PRIMARY' => 'Correos electrónicos no primarios',
+  'LBL_ANY_EMAIL' => 'Email:',
+  'LBL_EMAIL' => 'Dirección de Email:',
+  'LBL_EMAIL_ADDRESS' => 'Dirección de Email',
+  'LBL_EMAIL_ADDRESSES' => 'Direcciones de Email',
+  'LBL_EMAIL_NON_PRIMARY' => 'Emails No-primarios',
+  'LBL_EMAIL_OPT_OUT' => 'Opt Out Email:',
+  'LBL_INVALID_EMAIL' => 'Email Inválido:',
+  'LBL_LIST_EMAIL_ADDRESS' => 'Dirección de Email:',
+  'LBL_OTHER_EMAIL_ADDRESS' => 'Otro Email:',
 );

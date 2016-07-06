@@ -30,20 +30,13 @@ class One2OneBeanRelationship extends One2MBeanRelationship
      */
     public function add($lhs, $rhs, $additionalFields = array())
     {
-        $success = true;
         $lhsLinkName = $this->lhsLink;
         //In a one to one, any existing links from both sides must be removed first.
         //one2Many will take care of the right side, so we'll do the left.
         $lhs->load_relationship($lhsLinkName);
-        if ($this->removeAll($lhs->$lhsLinkName) === false) {
-            $success = false;
-            LoggerManager::getLogger()->error("Warning: failed calling removeAll() on lhsLinkName: $lhsLinkName for relationship {$this->name} within One2OneBeanRelationship->add().");
-        }
-        if (parent::add($lhs, $rhs, $additionalFields) === false) {
-            $success = false;
-            LoggerManager::getLogger()->error("Warning: failed calling parent add() for relationship {$this->name} within One2OneBeanRelationship->add().");
-        }
-        return $success;
+        $this->removeAll($lhs->$lhsLinkName);
+
+        return parent::add($lhs, $rhs, $additionalFields);
     }
 
     protected function updateLinks($lhs, $lhsLinkName, $rhs, $rhsLinkName)

@@ -142,13 +142,14 @@ class component
     }
 
     /**
+     * getConfig
      * Returns the configuration Array as definied in the config.php file
      *
      * @return $config Array of the configuration mappings as defined in config.php
      */
     public function getConfig()
     {
-        return $this->_source->getConfig();
+        return $this->_source->getConfig;
     }
 
     public function getFieldDefs()
@@ -333,60 +334,5 @@ class component
     public function setSource($source)
     {
         $this->_source = $source;
-    }
-
-    /**
-     * Gets source properties
-     *
-     * @return array
-     */
-    public function getProperties()
-    {
-        if ($this->_source) {
-            return $this->_source->getProperties();
-        }
-
-        return array();
-    }
-
-    /**
-     * Gets required config fields
-     *
-     * @return array
-     */
-    public function getRequiredConfigFields()
-    {
-        if ($this->_source) {
-            return $this->_source->getRequiredConfigFields();
-        }
-
-        return array();
-    }
-
-    /**
-     * Checks this instance to see if it is configured against the required fields
-     * for it.
-     *
-     * @return boolean
-     */
-    public function isConfigured()
-    {
-        // Start by getting the required fields for this instance
-        $req = $this->getRequiredConfigFields();
-
-        // Now get the current config properties for this instance
-        $props = $this->getProperties();
-
-        // Start with a true return, since boolean comparisons will turn this false
-        // should the config not be set.
-        $configured = true;
-
-        // Loop over the required fields and make sure they are in the props and
-        // not empty
-        foreach ($req as $prop) {
-            $configured = $configured && !empty($props[$prop]);
-        }
-
-        return $configured;
     }
 }

@@ -12,20 +12,15 @@
  * @class View.Views.Base.CreateActionsView
  * @alias SUGAR.App.view.views.BaseCreateActionsView
  * @extends View.Views.Base.CreateView
- *
- * @deprecated 7.7.0 Will be removed in 7.8.0. Use
- *   {@link View.Views.Base.CreateView} instead.
  */
 ({
     extendsFrom: 'CreateView',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         options.meta = _.extend({}, app.metadata.getView(null, 'create-actions'), options.meta);
         this._super('initialize', [options]);
-        app.logger.warn('Warning: View.Views.Base.CreateActionsView is deprecated since 7.7.0 and will be removed ' +
-            'in 7.8.0. Use View.Views.Base.CreateView instead.');
     }
 })

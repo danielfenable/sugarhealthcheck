@@ -25,7 +25,6 @@ $viewdefs['Forecasts']['base']['view']['list-headerpane'] = array(
             ),
             'type' => 'button',
             'label' => 'LBL_SAVE_DRAFT',
-            'css_class' => 'btn-group save-draft-button',
             'acl_action' => 'current_user',
         ),
         array(
@@ -41,7 +40,7 @@ $viewdefs['Forecasts']['base']['view']['list-headerpane'] = array(
                         'click' => 'button:commit_button:click',
                     ),
                     'tooltip' => 'LBL_COMMIT_TOOLTIP',
-                    'css_class' => 'btn-primary disabled commit-button',
+                    'css_class' => 'btn-primary',
                     'icon' => 'fa-arrow-circle-o-up',
                     'acl_action' => 'current_user',
                     'primary' => true

@@ -29,7 +29,6 @@ $modules_exempt_from_availability_check = array('Holidays'=>'Holidays',
 $layout_defs['Project'] = array(
 	// list of what Subpanels to show in the DetailView
 	'subpanel_setup' => array(
-
 		'projectresources' => array(
 			'order' => 10,
 			'sort_order' => 'desc',
@@ -65,7 +64,6 @@ $layout_defs['Project'] = array(
 			'sort_by' => 'project_task_id',
 			'module' => 'ProjectTask',
 			'top_buttons' => array(
-
 				array('widget_class' => 'SubPanelEditProjectTasksButton', ),
 			),
 			'subpanel_name' => 'default',
@@ -191,7 +189,6 @@ $layout_defs['Project'] = array(
 			'add_subpanel_data' => 'opportunity_id',
 			'title_key' => 'LBL_OPPORTUNITIES_SUBPANEL_TITLE',
 		),
-
         'quotes' => array(
             'top_buttons' => array(
 			    array('widget_class' => 'SubPanelTopSelectButton', 'popup_module' => 'Quotes'),
@@ -231,7 +228,6 @@ $layout_defs['Project'] = array(
             'add_subpanel_data' => 'bug_id',
             'title_key' => 'LBL_BUGS_SUBPANEL_TITLE',
         ),
-
         'products' => array(
             'top_buttons' => array(
                 array('widget_class' => 'SubPanelTopSelectButton', 'popup_module' => 'Products'),
@@ -245,7 +241,6 @@ $layout_defs['Project'] = array(
             'add_subpanel_data' => 'product_id',
             'title_key' => 'LBL_PRODUCTS_SUBPANEL_TITLE',
         ),
-
 		'holidays' => array(
 			'order' => 30,
 			'sort_by' => 'holiday_date',
@@ -262,7 +257,6 @@ $layout_defs['Project'] = array(
 		),
    ),
 );
-
 global $current_user, $app;
 // check if $app present - if in Studio/MB then loading a subpanel definition through the SubpanelDefinitions class 'requires' this file without an $app
 if (isset($app) && isset($app->controller))

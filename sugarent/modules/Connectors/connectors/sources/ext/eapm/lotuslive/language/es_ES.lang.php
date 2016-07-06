@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,10 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obtenga una clave y un número secreto de IBM SmartCloud registrando su instancia de Sugar como un aplicación nueva <br>&nbsp;<br>Pasos para registrar la instancia:<br>&nbsp;<br><ol><li>Acceda a su cuenta de IBM SmartCloud (tiene que ser administrador)</li><li>Vaya a "Administration" -> "Manage Organization"</li><li>Vaya al enlace "Integrated Third-Party Apps" en la barra lateral y habilite SugarCRM para todos los usuarios.</li><li>Vaya a "Internal Apps" en la barra lateral y luego a "Register App"</li><li>Nombre esta aplicación (digamos "SugarCRM Production") y asegúrese de _NO_ seleccionar OAuth 2.x en el cuadro de selección de la ventana emergente.</li><li>Una vez creada la aplicación, haga clic en el triángulo pequeño a la derecha del nombre de la aplicación y seleccione "Mostrar credenciales" en el menú desplegable.</li><li>Copie las siguientes credenciales.</li></ol></td></tr></table>',
-    'oauth_consumer_key' => 'Clave OAuth del consumidor',
-    'oauth_consumer_secret' => 'Código secreto OAuth del consumidor',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obtener una clave y código secreto de  LotusLive&copy; para registrar la instancia de Sugar en la nueva aplicación. La capacidad de registro será posible a partir del 08 de mayo de 2011.<br><br />&nbsp;<br><br />Pasos para registrar la instancia:<br><br />&nbsp;<br><br /><ol><br /><li>Accede a tu cuenta de LotusLive (usted debe ser un administrador de LotusLive): <a href="https://www.lotuslive.com/" target="_new">https://www.lotuslive.com/</a></li><br /><li>Haga clic en Administración en la barra del navegador que esta en la parte superior.</li><br /><li>Haga clic en administrar aplicaciones de empresa.</li><br /><li>Haga clic en registro de aplicación.</li><br /><li>Escriba un nombre y una descripción para la aplicación cuando se le solicite. El nombre y la descripción de su aplicación se puede cambiar en cualquier momento haciendo clic en el siguiente menú de la aplicación y seleccionando Editar propiedades.</li><br /><li>Durante el registro, a su solicitud se le asignará una clave de OAuth y un código secretos. Solicitudes registradas se muestran en el administrador de aplicaciones personalizadas. Para ver la tecla asignada y código secreto, haga clic en el menú de la aplicación apropiada y seleccione Obtener Credenciales.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'Clave del consumidor',
+  'oauth_consumer_secret' => 'Secreto del consumidor',
 );
 

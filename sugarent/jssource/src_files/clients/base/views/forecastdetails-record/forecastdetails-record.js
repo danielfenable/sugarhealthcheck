@@ -62,7 +62,7 @@
     commitStagesInIncludedTotal: [],
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     initialize: function(options) {
         this.selectedUserId = app.user.get('id');
@@ -108,7 +108,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     renderSubDetails: function() {
         // clear the footer class
@@ -127,7 +127,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     bindDataChange: function() {
         if (this.meta.config || !this.isForecastSetup) {
@@ -248,7 +248,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @override just calls calculateData on it's own instead of going back to the parent
      */
@@ -297,7 +297,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     unbindData: function() {
         if(this.context.parent) {
@@ -347,7 +347,6 @@
 
             // process numbers before parent calculateData
             if(_.has(model.changed, 'likely_case') || _.has(model.changed, 'amount')) {
-                data.likely_case = (_.isNaN(Number(data.likely_case)) || _.isEqual(data.likely_case, '')) ? 0 : data.likely_case;
                 old = data.likely_case;
                 diff = app.math.sub(data.likely_case, totals.likely);
                 data.likely_case = app.math.add(this.likelyTotal, diff);
@@ -357,7 +356,6 @@
             }
 
             if(_.has(model.changed, 'best_case')) {
-                data.best_case = (_.isNaN(Number(data.best_case)) || _.isEqual(data.best_case, '')) ? 0 : data.best_case;
                 old = data.best_case;
                 diff = app.math.sub(data.best_case, totals.best);
                 data.best_case = app.math.add(this.bestTotal, diff);
@@ -367,7 +365,6 @@
             }
 
             if(_.has(model.changed, 'worst_case')) {
-                data.worst_case = (_.isNaN(Number(data.worst_case)) || _.isEqual(data.worst_case, '')) ? 0 : data.worst_case;
                 old = data.worst_case;
                 diff = app.math.sub(data.worst_case, totals.worst);
                 data.worst_case = app.math.add(this.worstTotal, diff);
@@ -639,7 +636,7 @@
      *
      * @param {Backbone.Model} model the model with values to add to server data
      * @param {Object} data values being returned from the server endpoint with totals
-     * @return {Object} returns the data Object back with updated totals
+     * @returns {Object} returns the data Object back with updated totals
      */
     addModelTotalsToServerData: function(model, data) {
         // if these totals haven't already been added into the data from the server
@@ -660,7 +657,7 @@
      *
      * @param {Backbone.Model} model the model with values to remove from server data
      * @param {Object} data values being returned from the server endpoint with totals
-     * @return {Object} returns the data Object back with updated totals
+     * @returns {Object} returns the data Object back with updated totals
      */
     removeModelTotalsFromServerData: function(model, data) {
         data.amount = app.math.sub(data.amount, model.get('likely_case'));
@@ -727,7 +724,7 @@
      *
      * @param {string} date the date we're checking to see if it falls inside the timePeriod
      * @param {Object} timePeriod this is the timeperiod Object to check against
-     * @return {boolean} true if a new timeperiod should be fetched from server
+     * @returns {boolean} true if a new timeperiod should be fetched from server
      */
     isDateInTimePeriod: function(date, timePeriod) {
         var inTimePeriod = false;

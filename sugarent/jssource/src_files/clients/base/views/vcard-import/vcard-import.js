@@ -15,7 +15,7 @@
  */
 ({
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Imports a vcf file and creates a record based on person type
      */
     initialize: function(options) {
@@ -57,11 +57,6 @@
 
             fields[vcardFieldName] = field.def;
 
-            this.context.trigger('vcard:import-finish-button:toggle', false);
-            app.alert.show('vcard_importing', {
-                level: 'process',
-                title: app.lang.get('LBL_SAVING', this.module)
-            });
             this.model.uploadFile(vcardFieldName, $vcardFile, {
                 success: _.bind(this._doValidateFileSuccess, this),
                 error: _.bind(this._doValidateFileError, this)
@@ -77,7 +72,6 @@
     _doValidateFileSuccess: function(data) {
         var route = app.router.buildRoute(this.module, data.vcard_import);
         app.router.navigate(route, {trigger: true});
-        app.alert.dismiss('vcard_importing');
         app.alert.show('vcard-import-saved', {
             level: 'success',
             messages: app.lang.get('LBL_IMPORT_VCARD_SUCCESS', this.module),
@@ -91,8 +85,6 @@
      * @param {Object} error Error object returned from the API.
      */
     _doValidateFileError: function(error) {
-        this.context.trigger('vcard:import-finish-button:toggle', true);
-        app.alert.dismiss('vcard_importing');
         app.alert.show('error_validation_vcard', {
             level: 'error',
             messages: app.lang.get('TPL_IMPORT_VCARD_FAILURE', this.module, {module: this.module})

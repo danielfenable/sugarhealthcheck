@@ -17,6 +17,7 @@
 .dashboard {
   width: 100%;
   border-right: none;
+  background: url(@textureSecondary);
   position: absolute;
   top: 61px;
   bottom: 0;
@@ -241,7 +242,7 @@
           &> a {
             font-size: @fontSizeHeader;
             color: inherit;
-            padding: 4px 24px 4px 2px;
+            padding: 4px 20px 4px 2px;
             margin-left: 0;
             max-width: 100%;
             text-align: left;
@@ -255,9 +256,10 @@
               text-decoration: none;
             }
             .fa-caret-down {
+              top: -2px;
               position: absolute;
               right: 0;
-              top: 5px;
+              top: 7px;
             }
           }
           ul.dropdown-menu {

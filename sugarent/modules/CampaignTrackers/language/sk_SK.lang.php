@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,42 +12,33 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-	'LBL_ID'=>'ID',
-	'LBL_TRACKER_KEY'=>'Kľúč stopovača',
-	'LBL_TRACKER_URL'=>'URL stopovača',
-	'LBL_TRACKER_NAME'=>'Názov stopovača',
-	'LBL_CAMPAIGN_ID'=>'ID kampane',
-	'LBL_DATE_ENTERED'=>'Dátum vloženia',
-	'LBL_DATE_MODIFIED'=>'Dátum úpravy',
-	'LBL_MODIFIED_USER_ID'=>'Upravil užívateľ ID',
-	'LBL_CREATED_BY'=>'Vytvoril',
-	'LBL_DELETED'=>'Vymazaný',
-	'LBL_CAMPAIGN'=>'Kampaň',
-	'LBL_OPTOUT'=>'Opt-out',
-	
-	'LBL_MODULE_NAME'=>'Kampaňové stopovače',
-	'LBL_MODULE_NAME_SINGULAR' => 'Stopovač kampaní',
-	'LBL_EDIT_CAMPAIGN_NAME'=>'Meno kampane',
-	'LBL_EDIT_TRACKER_NAME'=>'Názov stopovača',
-	'LBL_EDIT_TRACKER_URL'=>'URL stopovača',
-	
-	'LBL_SUBPANEL_TRACKER_NAME'=>'Meno',
-	'LBL_SUBPANEL_TRACKER_URL'=>'URL',
-	'LBL_SUBPANEL_TRACKER_KEY'=>'Kľúč',
-	'LBL_EDIT_MESSAGE_URL'=>'URL pre kampaňovú správu',
-	'LBL_EDIT_TRACKER_KEY'=>'Kľúč stopovača',
-	'LBL_EDIT_OPT_OUT'=>'Opt-out linka?',
-	'LNK_CAMPAIGN_LIST'=>'Kampane',
-	'LBL_EDIT_LAYOUT' => 'Upraviť rozloženie' /*for 508 compliance fix*/,
+  'LBL_CAMPAIGN' => 'Kampaň',
+  'LBL_CAMPAIGN_ID' => 'ID kampane',
+  'LBL_CREATED_BY' => 'Vytvoril',
+  'LBL_DATE_ENTERED' => 'Dátum vloženia',
+  'LBL_DATE_MODIFIED' => 'Dátum úpravy',
+  'LBL_DELETED' => 'Vymazaný',
+  'LBL_EDIT_CAMPAIGN_NAME' => 'Meno kampane',
+  'LBL_EDIT_LAYOUT' => 'Upraviť rozloženie',
+  'LBL_EDIT_MESSAGE_URL' => 'URL pre kampaňovú správu',
+  'LBL_EDIT_OPT_OUT' => 'Opt-out linka?',
+  'LBL_EDIT_TRACKER_KEY' => 'Kľúč stopovača',
+  'LBL_EDIT_TRACKER_NAME' => 'Názov stopovača',
+  'LBL_EDIT_TRACKER_URL' => 'URL stopovača',
+  'LBL_ID' => 'ID',
+  'LBL_MODIFIED_USER_ID' => 'Upravil užívateľ ID',
+  'LBL_MODULE_NAME' => 'Kampaňové stopovače',
+  'LBL_MODULE_NAME_SINGULAR' => 'Stopovač kampaní',
+  'LBL_OPTOUT' => 'Opt-out',
+  'LBL_SUBPANEL_TRACKER_KEY' => 'Kľúč',
+  'LBL_SUBPANEL_TRACKER_NAME' => 'Meno',
+  'LBL_SUBPANEL_TRACKER_URL' => 'URL',
+  'LBL_TRACKER_KEY' => 'Kľúč stopovača',
+  'LBL_TRACKER_NAME' => 'Názov stopovača',
+  'LBL_TRACKER_URL' => 'URL stopovača',
+  'LNK_CAMPAIGN_LIST' => 'Kampane',
 );
 
-?>

@@ -4,6 +4,7 @@ namespace Elastica\Suggest;
 
 use Elastica\Suggest\CandidateGenerator\AbstractCandidateGenerator;
 
+
 /**
  * Class Phrase
  * @package Elastica\Suggest
@@ -12,7 +13,7 @@ use Elastica\Suggest\CandidateGenerator\AbstractCandidateGenerator;
 class Phrase extends AbstractSuggest
 {
     /**
-     * @param  string                   $analyzer
+     * @param string $analyzer
      * @return \Elastica\Suggest\Phrase
      */
     public function setAnalyzer($analyzer)
@@ -22,7 +23,7 @@ class Phrase extends AbstractSuggest
 
     /**
      * Set the max size of the n-grams (shingles) in the field
-     * @param  int                      $size
+     * @param int $size
      * @return \Elastica\Suggest\Phrase
      */
     public function setGramSize($size)
@@ -32,18 +33,18 @@ class Phrase extends AbstractSuggest
 
     /**
      * Set the likelihood of a term being misspelled even if the term exists in the dictionary
-     * @param  float                    $likelihood Defaults to 0.95, meaning 5% of the words are misspelled.
+     * @param float $likelihood Defaults to 0.95, meaning 5% of the words are misspelled.
      * @return \Elastica\Suggest\Phrase
      */
-    public function setRealWordErrorLikelihood($likelihood)
+    public function setRealWorldErrorLikelihood($likelihood)
     {
-        return $this->setParam("real_word_error_likelihood", $likelihood);
+        return $this->setParam("real_world_error_likelihood", $likelihood);
     }
 
     /**
      * Set the factor applied to the input phrases score to be used as a threshold for other suggestion candidates.
      * Only candidates which score higher than this threshold will be included in the result.
-     * @param  float                    $confidence Defaults to 1.0.
+     * @param float $confidence Defaults to 1.0.
      * @return \Elastica\Suggest\Phrase
      */
     public function setConfidence($confidence)
@@ -53,7 +54,7 @@ class Phrase extends AbstractSuggest
 
     /**
      * Set the maximum percentage of the terms considered to be misspellings in order to form a correction
-     * @param  float                    $max
+     * @param float $max
      * @return \Elastica\Suggest\Phrase
      */
     public function setMaxErrors($max)
@@ -62,7 +63,7 @@ class Phrase extends AbstractSuggest
     }
 
     /**
-     * @param  string          $separator
+     * @param string $separator
      * @return \Elastica\Param
      */
     public function setSeparator($separator)
@@ -72,44 +73,44 @@ class Phrase extends AbstractSuggest
 
     /**
      * Set suggestion highlighting
-     * @param  string                   $preTag
-     * @param  string                   $postTag
+     * @param string $preTag
+     * @param string $postTag
      * @return \Elastica\Suggest\Phrase
      */
     public function setHighlight($preTag, $postTag)
     {
         return $this->setParam("highlight", array(
             'pre_tag' => $preTag,
-            'post_tag' => $postTag,
+            'post_tag' => $postTag
         ));
     }
 
     /**
-     * @param  float                    $discount
+     * @param float $discount
      * @return \Elastica\Suggest\Phrase
      */
     public function setStupidBackoffSmoothing($discount = 0.4)
     {
         return $this->setSmoothingModel("stupid_backoff", array(
-            "discount" => $discount,
+            "discount" => $discount
         ));
     }
 
     /**
-     * @param  float                    $alpha
+     * @param float $alpha
      * @return \Elastica\Suggest\Phrase
      */
     public function setLaplaceSmoothing($alpha = 0.5)
     {
         return $this->setSmoothingModel("laplace", array(
-            "alpha" => $alpha,
+            "alpha" => $alpha
         ));
     }
 
     /**
-     * @param  float                    $trigramLambda
-     * @param  float                    $bigramLambda
-     * @param  float                    $unigramLambda
+     * @param float $trigramLambda
+     * @param float $bigramLambda
+     * @param float $unigramLambda
      * @return \Elastica\Suggest\Phrase
      */
     public function setLinearInterpolationSmoothing($trigramLambda, $bigramLambda, $unigramLambda)
@@ -117,24 +118,24 @@ class Phrase extends AbstractSuggest
         return $this->setSmoothingModel("linear_interpolation", array(
             "trigram_lambda" => $trigramLambda,
             "bigram_lambda" => $bigramLambda,
-            "unigram_lambda" => $unigramLambda,
+            "unigram_lambda" => $unigramLambda
         ));
     }
 
     /**
-     * @param  string                   $model  the name of the smoothing model
-     * @param  array                    $params
+     * @param string $model the name of the smoothing model
+     * @param array $params
      * @return \Elastica\Suggest\Phrase
      */
     public function setSmoothingModel($model, array $params)
     {
         return $this->setParam("smoothing", array(
-            $model => $params,
+            $model => $params
         ));
     }
 
     /**
-     * @param  AbstractCandidateGenerator $generator
+     * @param AbstractCandidateGenerator $generator
      * @return \Elastica\Suggest\Phrase
      */
     public function addCandidateGenerator(AbstractCandidateGenerator $generator)
@@ -142,7 +143,6 @@ class Phrase extends AbstractSuggest
         $generator = $generator->toArray();
         $keys = array_keys($generator);
         $values = array_values($generator);
-
         return $this->addParam($keys[0], $values[0]);
     }
 }

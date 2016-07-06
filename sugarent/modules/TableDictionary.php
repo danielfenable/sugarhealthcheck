@@ -74,7 +74,9 @@ include("metadata/contracts_quotesMetaData.php");
 include("metadata/contracts_productsMetaData.php");
 include("metadata/projects_quotesMetaData.php");
 include("metadata/projects_revenuelineitemsMetaData.php");
+include("metadata/kbdocuments_views_ratingsMetaData.php");
 include("metadata/users_holidaysMetaData.php");
+
 
 include("metadata/dataset_layoutsMetaData.php");
 include("metadata/dataset_attributesMetaData.php");
@@ -104,11 +106,6 @@ include("metadata/forecast_treeMetaData.php");
 include("metadata/oauth_nonce.php");
 include("metadata/activities_usersMetaData.php");
 include("metadata/metadata_cacheMetaData.php");
-include("metadata/tag_bean_relMetaData.php");
-include("metadata/kbusefulnessMetaData.php");
-
-// SugarCacheDb
-include "metadata/key_value_cacheMetaData.php";
 
 $defs = SugarAutoLoader::loadExtension('tabledictionary');
 if($defs) {

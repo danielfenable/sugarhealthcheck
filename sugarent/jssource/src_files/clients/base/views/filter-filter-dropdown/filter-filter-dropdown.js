@@ -66,7 +66,7 @@
     filterDropdownEnabled: true,
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _renderHtml: function() {
         if (!this.layout.filters) {
@@ -81,7 +81,7 @@
 
     /**
      * Get the list of filters to fill the dropdown
-     * @return {Array}
+     * @returns {Array}
      */
     getFilterList: function() {
         var filters = [];
@@ -225,7 +225,7 @@
     /**
      * Update the text for the selected filter and returns template
      * @param {Object} item
-     * @return {string}
+     * @returns {string}
      */
     formatSelection: function(item) {
         var ctx = {}, safeString;
@@ -260,7 +260,7 @@
     /**
      * Returns template
      * @param {Object} option
-     * @return {string}
+     * @returns {String}
      */
     formatResult: function(option) {
         if (option.id === this.layout.getLastFilter(this.layout.layout.currentModule, this.layout.layoutType)) {
@@ -278,7 +278,7 @@
      * and a class to first user custom filter (to add border top)
      *
      * @param {Object} item
-     * @return {string} css class to attach
+     * @returns {string} css class to attach
      */
     formatResultCssClass: function(item) {
         if (item.id === 'create') { return 'select2-result-border-bottom'; }
@@ -289,7 +289,7 @@
      * Determine if a filter is editable
      *
      * @param {String} id
-     * @return {boolean} `true` if filter is editable, `false` otherwise
+     * @returns {Boolean} TRUE if filter is editable, FALSE otherwise
      */
     isFilterEditable: function(id) {
         if (!this.layout.canCreateFilter() || !this.filterDropdownEnabled || this.layout.showingActivities) {
@@ -305,7 +305,7 @@
     /**
      * Toggles cursor depending if the filter is editable or not.
      *
-     * @param {boolean} active `true` for a pointer cursor, `false` for a not allowed cursor
+     * @param {Boolean} active TRUE for a pointer cursor, FALSE for a not allowed cursor
      */
     toggleFilterCursor: function(editable) {
         if (editable) {
@@ -319,7 +319,7 @@
      * Formats label for `all_records` filter. When showing all subpanels, we expect `All records`
      *
      * @param {Object} item
-     * @return {Object} item with formatted label
+     * @returns {Object} item with formatted label
      */
     formatAllRecordsFilter: function (item, model) {
         item = item || {id: 'all_records'};

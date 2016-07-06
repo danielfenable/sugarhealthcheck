@@ -155,10 +155,6 @@ class ViewResetmodule extends SugarView
         $module = StudioModuleFactory::getStudioModule( $this->module ) ;
         $sources = $module->getViewMetadataSources();
 
-        // Add in search/filters here rather than in the StudioModule object
-        $sources[] = array('type'  => MB_FILTERVIEW);
-        $sources[] = array('type'  => MB_BWCFILTERVIEW);
-
         $out = "";
 
         // list of existing platforms including BWC

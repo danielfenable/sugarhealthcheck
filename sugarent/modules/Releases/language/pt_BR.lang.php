@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,41 +12,32 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Versões',
-  'LBL_MODULE_NAME_SINGULAR' => 'Versão',
-  'LBL_MODULE_TITLE' => 'Versões: Tela Principal',
-  'LBL_SEARCH_FORM_TITLE' => 'Pesquisar versões',
-  'LBL_LIST_FORM_TITLE' => 'Lista de versões',
-  'LBL_NEW_FORM_TITLE' => 'Nova versão',
-  'LBL_RELEASE' => 'Versão:',
-  'LBL_LIST_NAME' => 'Versão',
-  'LBL_NAME' => 'Versão:',
+  'ERR_DELETE_RECORD' => 'Um número de registro deve ser especificado para eliminar esta versão.',
+  'LBL_EDITLAYOUT' => 'Editar Layout',
+  'LBL_LIST_FORM_TITLE' => 'Lista de Versões',
   'LBL_LIST_LIST_ORDER' => 'Ordem',
+  'LBL_LIST_NAME' => 'Versão',
   'LBL_LIST_ORDER' => 'Ordem:',
-  'LBL_LIST_STATUS' => 'Estado',
-  'LBL_STATUS' => 'Estado:',
-  'LNK_NEW_RELEASE' => 'Lista de versões',
-  'NTC_DELETE_CONFIRMATION' => 'Tem certeza de que deseja excluir este registro?',
-  'ERR_DELETE_RECORD' => 'Um número de registro deve ser especificado para excluir esta versão.',
-  'NTC_STATUS' => 'Defina o status como Inativo para remover esta Versão das listas do campo Versão',
-  'NTC_LIST_ORDER' => 'Defina a ordem pela qual a versão aparecerá nas listas suspensas Versão',
-  'LBL_ACTIVE_RELEASES' => 'Versões ativas',
-  'release_status_dom' =>
+  'LBL_LIST_STATUS' => 'Status',
+  'LBL_MODULE_NAME' => 'Versões',
+  'LBL_MODULE_NAME_SINGULAR' => 'Release',
+  'LBL_MODULE_TITLE' => 'Versões: Tela Principal',
+  'LBL_NAME' => 'Versão:',
+  'LBL_NEW_FORM_TITLE' => 'Nova Versão',
+  'LBL_RELEASE' => 'Versão:',
+  'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Versões',
+  'LBL_STATUS' => 'Status:',
+  'LNK_NEW_RELEASE' => 'Lista de Versões',
+  'NTC_DELETE_CONFIRMATION' => 'Tem a certeza que deseja eliminar este registro?',
+  'NTC_LIST_ORDER' => 'Configure a ordem pela qual a versão irá aparecer nas listas suspensas',
+  'NTC_STATUS' => 'Altere o status para Inativo para remover esta Versão da lista dropdown do campo Versão.',
+  'release_status_dom' => 
   array (
     'Active' => 'Ativo',
     'Inactive' => 'Inativo',
-),
-	'LBL_EDITLAYOUT' => 'Editar Layout' /*for 508 compliance fix*/,
+  ),
 );
 
-
-?>

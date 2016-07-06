@@ -1,5 +1,4 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -20,6 +19,7 @@ $viewdefs[$module_name]['mobile']['view']['list'] = array(
             'fields' => array(
                 array(
                     'name' => $_module_name . '_number',
+                    'width' => '5',
                     'label' => 'LBL_NUMBER',
                     'link' => true,
                     'default' => true,
@@ -27,6 +27,7 @@ $viewdefs[$module_name]['mobile']['view']['list'] = array(
                 ),
                 array(
                     'name' => 'name',
+                    'width' => '32',
                     'label' => 'LBL_SUBJECT',
                     'link' => true,
                     'default' => true,
@@ -34,30 +35,35 @@ $viewdefs[$module_name]['mobile']['view']['list'] = array(
                 ),
                 array(
                     'name' => 'status',
+                    'width' => '10',
 		            'label' => 'LBL_STATUS',
                     'default' => true,
                     'enabled' => true,
                 ),
                 array(
                     'name' => 'priority',
+                    'width' => '10',
                     'label' => 'LBL_PRIORITY',
                     'default' => true,
                     'enabled' => true,
                 ),
                 array(
                     'name' => 'resolution',
+                    'width' => '10',
                     'label' => 'LBL_RESOLUTION',
                     'default' => true,
                     'enabled' => true,
                 ),
                 array(
                     'name' => 'team_name',
+                    'width' => '9',
 		            'label' => 'LBL_TEAM',
                     'default' => true,
                     'enabled' => true,
                 ),
                 array(
                     'name' => 'assigned_user_name',
+                    'width' => '9',
 		            'label' => 'LBL_ASSIGNED_USER_NAME',
                     'default' => true,
                     'enabled' => true,

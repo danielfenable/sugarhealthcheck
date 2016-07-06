@@ -115,34 +115,25 @@ class SugarWidgetFieldRelate extends SugarWidgetReportField
     public function queryFilterone_of($layout_def, $rename_columns = true)
     {
         $ids = array();
+        if (isset($layout_def['link'])) {
+            $relation = BeanFactory::getBean('Relationships');
+            $relation->retrieve_by_name($layout_def['link']);
+        }
         $module = isset($layout_def['custom_module']) ? $layout_def['custom_module'] : $layout_def['module'];
         $seed = BeanFactory::getBean($module);
 
         foreach($layout_def['input_name0'] as $beanId)
         {
-            $sq = new SugarQuery();
-            $sq->select(array('id'));
-            $sq->from($seed);
-            if (isset($layout_def['link'])) {
-                $linkName = $layout_def['link'];
-                $relation = SugarRelationshipFactory::getInstance()->getRelationship($linkName);
-                if (isset($seed->field_defs[$linkName]) && $seed->loadRelationship($linkName)) {
-                    //Then the name of a link field was passed through, no need to guess at the link name.
-                    $sq->join($linkName);
-                } else if ($relation) {
-                    //Valid relationship name passed through, time to guess on the side.
-                    if ($layout_def['module'] == $relation->getRHSModule()) {
-                        $sq->join($relation->getRHSLink());
-                    } else {
-                        $sq->join($relation->getLHSLink());
-                    }
-                }
+            if (!empty($relation->lhs_module) && !empty($relation->rhs_module)
+                && $relation->lhs_module == $relation->rhs_module) {
+                    $filter = array('id');
+            } else {
+                $filter = array('id', $layout_def['name']);
             }
-            $sq->where()
-                ->equals($layout_def['id_name'], $beanId);
-
-            $rows = $sq->execute();
-            foreach($rows as $row) {
+            $where = $layout_def['id_name']."='$beanId' ";
+            $sql = $seed->create_new_list_query('', $where, $filter, array(), 0, '', false, $seed, true);
+            $result = $this->reporter->db->query($sql);
+            while ($row = $this->reporter->db->fetchByAssoc($result)) {
                 $ids[] = $row['id'];
             }
         }

@@ -11,12 +11,10 @@
 /**
  * @class View.Views.Base.PreviewView
  * @alias SUGAR.App.view.views.BasePreviewView
- * @extends View.Views.Base.RecordView
+ * @extends View.View
  */
 ({
-    extendsFrom: 'RecordView',
-
-    plugins: ['ToggleMoreLess', 'Editable', 'ErrorDecoration'],
+    plugins: ['ToggleMoreLess'],
     fallbackFieldTemplate: 'detail',
     /**
      * Events related to the preview view:
@@ -39,108 +37,7 @@
         app.view.View.prototype.initialize.call(this, options);
         this.action = 'detail';
         this._delegateEvents();
-        this.delegateButtonEvents();
         this.collection = app.data.createBeanCollection(this.module);
-
-        /**
-         * An array of the {@link #alerts alert} names in this view.
-         *
-         * @property {Array}
-         * @protected
-         */
-        this._viewAlerts = [];
-
-        /**
-         * A collection of alert messages to be used in this view. The alert methods
-         * should be invoked by Function.prototype.call(), passing in an instance of
-         * a sidecar view. For example:
-         *
-         *     // ...
-         *     this.alerts.showInvalidModel.call(this);
-         *     // ...
-         *
-         * FIXME: SC-3451 will refactor this `alerts` structure.
-         * @property {Object}
-         */
-        this.alerts = {
-            showInvalidModel: function() {
-                if (!this instanceof app.view.View) {
-                    app.logger.error('This method should be invoked by Function.prototype.call(), passing in as argument' +
-                    'an instance of this view.');
-                    return;
-                }
-                var name = 'invalid-data';
-                this._viewAlerts.push(name);
-                app.alert.show(name, {
-                    level: 'error',
-                    messages: 'ERR_RESOLVE_ERRORS'
-                });
-            },
-            showNoAccessError: function() {
-                if (!this instanceof app.view.View) {
-                    app.logger.error('This method should be invoked by Function.prototype.call(), passing in as argument' +
-                    'an instance of this view.');
-                    return;
-                }
-                // dismiss the default error
-                app.alert.dismiss('data:sync:error');
-                // display no access error
-                app.alert.show('server-error', {
-                    level: 'error',
-                    messages: 'ERR_HTTP_404_TEXT_LINE1'
-                });
-                // discard any changes before redirect
-                this.handleCancel();
-                // redirect to list view
-                var route = app.router.buildRoute(this.module);
-                app.router.navigate(route, {trigger: true});
-            }
-        };
-    },
-
-    /**
-     * @inheritdoc
-     *
-     * @override Overriding to get preview specific buttons
-     */
-    toggleButtons: function(enable) {
-        if (this.layout.previewEdit) {
-            var previewLayout = this.layout.getComponent('preview-header');
-            previewLayout.getField('save_button').setDisabled(!enable);
-            previewLayout.getField('cancel_button').setDisabled(!enable);
-        }
-    },
-
-    /**
-     * Runs when validation is successful
-     * Returns the preview to detail view
-     *
-     * @override Overriding because we need to trigger 'preview:edit:complete'
-     * and not do record view specific actions like: this.inlineEditMode = false;
-     */
-    handleSave: function() {
-        if (this.disposed) {
-            return;
-        }
-        this._saveModel();
-        this.layout.trigger('preview:edit:complete');
-        this.unsetContextAction();
-        this.toggleFields(this.editableFields, false);
-    },
-
-    /**
-     * When clicking cancel, return the preview view to detail state
-     * and revert the model
-     *
-     * @override Overriding in order to trigger 'preview:edit:complete'
-     */
-    cancelClicked: function() {
-        this.model.revertAttributes();
-        this.toggleFields(this.editableFields, false);
-        this._dismissAllAlerts();
-        this.clearValidationErrors(this.editableFields);
-        this.unsetContextAction();
-        this.layout.trigger('preview:edit:complete');
     },
 
     /**
@@ -161,20 +58,6 @@
         }
     },
 
-    /**
-     * Setup event listeners for buttons
-     *
-     * @override Override because we only want to set events if
-     * previewEdit is enabled
-     */
-    delegateButtonEvents: function() {
-        if (this.layout && this.layout.previewEdit) {
-            this.context.on('button:save_button:click', this.saveClicked, this);
-            this.context.on('button:cancel_button:click', this.cancelClicked, this);
-            this.layout.on('preview:edit', this.handleEdit, this);
-        }
-    },
-
     updateCollection: function(collection) {
         if( this.collection ) {
             this.collection.reset(collection.models);
@@ -189,7 +72,7 @@
 
     filterCollection: function() {
         this.collection.remove(_.filter(this.collection.models, function(model){
-            return !app.acl.hasAccessToModel('view', model);
+            return !app.acl.hasAccessToModel("view", model);
         }, this), { silent: true });
     },
 
@@ -221,7 +104,7 @@
         this.layout.hideNextPrevious = _.isUndefined(this.layout.previous) && _.isUndefined(this.layout.next);
 
         // Need to rerender the preview header
-        this.layout.trigger('preview:pagination:update');
+        this.layout.trigger("preview:pagination:update");
     },
 
     /**
@@ -233,7 +116,7 @@
      * but the model id is the same, preview should still render the same model.
      * @private
      */
-    _renderPreview: function(model, collection, fetch, previewId) {
+    _renderPreview: function(model, collection, fetch, previewId){
         var self = this;
 
         // If there are drawers there could be multiple previews, make sure we are only rendering preview for active drawer
@@ -242,9 +125,9 @@
         }
 
         // Close preview if we are already displaying this model
-        if (this.model && model && (this.model.get('id') == model.get('id') && previewId == this.previewId)) {
+        if(this.model && model && (this.model.get("id") == model.get("id") && previewId == this.previewId)) {
             // Remove the decoration of the highlighted row
-            app.events.trigger('list:preview:decorate', false);
+            app.events.trigger("list:preview:decorate", false);
             // Close the preview panel
             app.events.trigger('preview:close');
             return;
@@ -264,11 +147,20 @@
                 viewName = 'record';
             }
             this.meta = this._previewifyMetadata(_.extend({}, recordMeta, previewMeta));
-            this.renderPreview(model, collection);
-            fetch && model.fetch({
-                showAlerts: true,
-                view: viewName
-            });
+
+            if (fetch) {
+                model.fetch({
+                    //Show alerts for this request
+                    showAlerts: true,
+                    success: function(model) {
+                        self.renderPreview(model, collection);
+                    },
+                    //The view parameter is used at the server end to construct field list
+                    view: viewName
+                });
+            } else {
+                this.renderPreview(model, collection);
+            }
         }
 
         this.previewId = previewId;
@@ -278,8 +170,8 @@
      * @param {Bean} model Model to render preview
      */
     switchModel: function(model) {
-        this.model && this.model.abortFetchRequest();
         this.stopListening(this.model);
+        this._disposeFields();
         this.model = model;
 
         // Close preview when model destroyed by deleting the record
@@ -302,26 +194,17 @@
 
         if (model) {
             this.switchModel(model);
-            if (this.layout) {
-                this.layout.trigger('previewheader:ACLCheck', model);
-            }
+            this.render();
 
             // TODO: Remove when pagination on activity streams is fixed.
-            if (this.previewModule && this.previewModule === 'Activities') {
-                // We need to set previewEdit to false before render but set
-                // hideNextPreview and trigger 'preview:pagination:update' after
-                this.layout.previewEdit = false;
-                this.render();
+            if (this.previewModule && this.previewModule === "Activities") {
                 this.layout.hideNextPrevious = true;
-                this.layout.trigger('preview:pagination:update');
-            } else {
-                // If we aren't on activitystream, then just render
-                this.render();
+                this.layout.trigger("preview:pagination:update");
             }
             // Open the preview panel
             app.events.trigger('preview:open', this);
             // Highlight the row
-            app.events.trigger('list:preview:decorate', this.model, this);
+            app.events.trigger("list:preview:decorate", this.model, this);
         }
     },
 
@@ -368,13 +251,13 @@
         }
         this.switching = true;
 
-        if (data.direction === 'left' && (currID === _.first(this.collection.models).get('id')) ||
-            data.direction === 'right' && (currID === _.last(this.collection.models).get('id'))) {
+        if( data.direction === "left" && (currID === _.first(this.collection.models).get("id")) ||
+            data.direction === "right" && (currID === _.last(this.collection.models).get("id")) ) {
             this.switching = false;
             return;
         } else {
             // We can increment/decrement
-            data.direction === 'left' ? currIndex -= 1 : currIndex += 1;
+            data.direction === "left" ? currIndex -= 1 : currIndex += 1;
 
             //Reset the preview
             app.events.trigger('preview:render', this.collection.models[currIndex], null, true);
@@ -387,59 +270,22 @@
             this.switching = false;
             delete this.model;
             this.collection.reset();
+            this.$el.empty();
         }
     },
 
     bindDataChange: function() {
         if(this.collection) {
-            this.collection.on('reset', this.filterCollection, this);
+            this.collection.on("reset", this.filterCollection, this);
             // when remove active model from collection then close preview
-            this.collection.on('remove', function(model) {
-                if (model && this.model && (this.model.get('id') == model.get('id'))) {
+            this.collection.on("remove", function(model) {
+                if (model && this.model && (this.model.get("id") == model.get("id"))) {
                     // Remove the decoration of the highlighted row
-                    app.events.trigger('list:preview:decorate', false);
+                    app.events.trigger("list:preview:decorate", false);
                     // Close the preview panel
                     app.events.trigger('preview:close');
                 }
             }, this);
         }
-    },
-
-    /**
-     * When clicking on the pencil icon, toggle all editable fields
-     * to edit mode
-     */
-    handleEdit: function() {
-        this.setEditableFields();
-        this.toggleFields(this.editableFields, true);
-        this.toggleButtons(true);
-    },
-
-    /**
-     * Set a list of editable fields
-     *
-     * @override Overriding to checking field def if preview edit
-     * is allowed
-     */
-    setEditableFields: function() {
-        var self = this;
-        // we only want to edit non readonly fields
-        this.editableFields = _.reject(this.fields, function(field) {
-            return field.def.readOnly || field.def.calculated ||
-                //Added for SugarLogic fields since they are not supported
-                //Fixme: PAT-2241 will remove this
-                field.def.previewEdit === false ||
-                !app.acl.hasAccessToModel('edit', self.model, field.name);
-        });
-    },
-
-    /**
-     * @inheritdoc
-     */
-    hasUnsavedChanges: function() {
-        if (_.isUndefined(this.model)) {
-            return false;
-        }
-        return this._super('hasUnsavedChanges');
     }
 })

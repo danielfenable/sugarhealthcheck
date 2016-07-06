@@ -35,7 +35,7 @@ class EmployeesController extends SugarController{
             
             if( !empty($u->user_name) ) //If user redirect back to assignment screen.
                 SugarApplication::redirect("index.php?module=Users&action=reassignUserRecords&record={$u->id}");
-            else
+            else 
                 SugarApplication::redirect("index.php?module=Employees&action=index");
         }
         else 

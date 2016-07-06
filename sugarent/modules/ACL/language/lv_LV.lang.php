@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,22 +12,23 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array (
-'LBL_ALLOW_ALL'=>'Visiem',
-'LBL_ALLOW_NONE'=>'Nevienam',
-'LBL_ALLOW_OWNER'=>'Īpašniekam',
-'LBL_ROLE'=>'Loma',
-'LBL_NAME'=>'Vārds',
-'LBL_DESCRIPTION'=>'Apraksts',
-'LIST_ROLES'=>'Lomu saraksts',
-'LBL_USERS_SUBPANEL_TITLE'=>'Lietotāji',
-'LIST_ROLES_BY_USER'=>'Rādīt lietotāja lomas',
-'LBL_ROLES_SUBPANEL_TITLE'=>'Lietotāja lomas',
-'LBL_SEARCH_FORM_TITLE'=>'Meklēt',
-'LBL_NO_ACCESS'=>'Jums nav piekļuves tiesību šim apgabalam. Sazinieties ar vietnes administratoru, lai iegūtu piekļuvi.',
-'LBL_REDIRECT_TO_HOME'=>'Novirzīt uz sākuma lapu',
-'LBL_SECONDS'=>'sekundes',
-'LBL_ADDING'=>'Pievienot pie',
+	
 
-)
-?>
+$mod_strings = array (
+  'LBL_ADDING' => 'Pievienot pie',
+  'LBL_ALLOW_ALL' => 'Visiem',
+  'LBL_ALLOW_NONE' => 'Nevienam',
+  'LBL_ALLOW_OWNER' => 'Īpašniekam',
+  'LBL_DESCRIPTION' => 'Apraksts',
+  'LBL_NAME' => 'Vārds',
+  'LBL_NO_ACCESS' => 'Jums nav piekļuves tiesību šim apgabalam. Sazinieties ar vietnes administratoru, lai iegūtu piekļuvi.',
+  'LBL_REDIRECT_TO_HOME' => 'Novirzīt uz sākuma lapu',
+  'LBL_ROLE' => 'Loma',
+  'LBL_ROLES_SUBPANEL_TITLE' => 'Lietotāja lomas',
+  'LBL_SEARCH_FORM_TITLE' => 'Meklēt',
+  'LBL_SECONDS' => 'sekundes',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Lietotāji',
+  'LIST_ROLES' => 'Lomu saraksts',
+  'LIST_ROLES_BY_USER' => 'Rādīt lietotāja lomas',
+);
+

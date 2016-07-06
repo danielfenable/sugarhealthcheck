@@ -11,6 +11,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
+
 $global_control_links['sync'] = array(
 'linkinfo' => array(translate('LBL_START_SYNC', 'Sync')=>'javascript:start_sync()'),
 'submenu' => ''

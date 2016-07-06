@@ -1,5 +1,5 @@
 <?php
-// created: 2016-07-04 13:56:31
+// created: 2016-07-06 08:10:30
 $cachedFontList = array (
   'courier' => 
   array (
@@ -13,19 +13,6 @@ $cachedFontList = array (
     ),
     'filesize' => 4,
     'embedded' => false,
-  ),
-  'dejavusans' => 
-  array (
-    'filename' => 'dejavusans.php',
-    'fontpath' => 'vendor/tcpdf/fonts/',
-    'name' => 'DejaVuSans',
-    'type' => 'TrueTypeUnicode',
-    'style' => 
-    array (
-      0 => 'regular',
-    ),
-    'filesize' => 575,
-    'embedded' => true,
   ),
   'helvetica' => 
   array (

@@ -125,26 +125,6 @@ class UndeployedSidecarSubpanelImplementation extends AbstractMetaDataImplementa
         return ""; // '' is the signal to translate() to use the global mod_strings
     }
 
-    /**
-     * Returns subpanel primary module name
-     *
-     * @return string
-     */
-    public function getPrimaryModuleName()
-    {
-        return $this->_moduleName;
-    }
-
-    /**
-     * Returns subpanel link name
-     *
-     * @return string
-     */
-    public function getLinkName()
-    {
-        return null;
-    }
-
     /*
      * Save a subpanel
      * @param array defs    Layout definition in the same format as received by the constructor

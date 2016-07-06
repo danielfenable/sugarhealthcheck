@@ -51,7 +51,6 @@
 					{$dashlet.displayFooter}
 			    </div>
 			</li>
-
 			<script>
 				SUGAR.mySugar.attachToggleToolsetEvent('{$id}');
 			</script>
@@ -67,7 +66,6 @@
 </td>
 </tr>
 </table>
-
 <script>
 	{if !$lock_homepage}
 	SUGAR.mySugar.attachDashletCtrlEvent();

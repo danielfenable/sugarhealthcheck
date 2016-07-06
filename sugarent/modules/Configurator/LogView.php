@@ -119,7 +119,7 @@ if (!empty ($_REQUEST['display'])) {
 
             $line = filter_var($line, FILTER_SANITIZE_SPECIAL_CHARS);
 			//preg_match('/[^\]]*\[([0-9]*)\] ([a-zA-Z]+) ([a-zA-Z0-9\.]+) - (.*)/', $line, $result);
-			preg_match('/[^\]]*\[([0-9]*)\]/', substr($line, 0, 80), $result);
+			preg_match('/[^\]]*\[([0-9]*)\]/', $line, $result);
 			ob_flush();
 			flush();
 			if(empty($result) && $lastMatch){

@@ -56,7 +56,7 @@
             this.factorFieldLabel = this.getFactorFieldLabel();
             this.disableDiscountField();
             this.factorValue = this.model.get('pricing_factor');
-        }, this);
+        }, null, this);
 
         this.listenTo(this, 'render', function() {
             // only setup the formulas when the action is edit
@@ -154,12 +154,6 @@
                     break;
                 case 'IsList':
                     this._setupIsListFormula();
-                    break;
-                default:
-                    var oldPrice = this.model.get('discount_price');
-                    if (_.isUndefined(oldPrice) || _.isNaN(oldPrice)) {
-                        this.model.set('discount_price', '');
-                    }
                     break;
             }
         }

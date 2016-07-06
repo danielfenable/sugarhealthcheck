@@ -95,7 +95,6 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'activity_enable
     'name' => 'resolution',
     'vname' => 'LBL_RESOLUTION',
     'type' => 'text',
-    'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 0.65),
     'comment' => 'The resolution of the case'
   ),
 
@@ -163,6 +162,13 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'activity_enable
       'source' => 'non-db',
       'vname' => 'LBL_DOCUMENTS_SUBPANEL_TITLE',
   ),
+    'kbdocuments' => array(
+        'name'          => 'kbdocuments',
+        'type'          => 'link',
+        'relationship'  => 'case_kbdocuments',
+        'source'        => 'non-db',
+        'vname'         => 'LBL_KBDOCUMENTS_SUBPANEL_TITLE',
+    ),
   'calls' =>
   array (
   	'name' => 'calls',
@@ -205,15 +211,7 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'activity_enable
 	    'source'=>'non-db',
 	    'vname'=>'LBL_PROJECTS',
 	),
-    'kbcontents' => array(
-        'name' => 'kbcontents',
-        'type' => 'link',
-        'vname' => 'LBL_KBCONTENTS_SUBPANEL_TITLE',
-        'relationship' => 'relcases_kbcontents',
-        'source' => 'non-db',
-        'link_type'=>'many',
-        'side'=>'right',
-    ),
+
   ), 'indices' => array (
        /*
        array('name' =>'case_number' , 'type'=>'index' , 'fields'=>array('case_number')),
@@ -267,7 +265,6 @@ $dictionary['Case'] = array('table' => 'cases','audited'=>true, 'activity_enable
    'rhs_module'=> 'Cases', 'rhs_table'=> 'cases', 'rhs_key' => 'created_by',
    'relationship_type'=>'one-to-many')
     ),
-    'acls' => array('SugarACLStatic' => true),
 
     'duplicate_check' => array(
         'enabled' => true,
@@ -299,9 +296,4 @@ VardefManager::createVardef('Cases','Case', array('default', 'assignable',
 //jc - adding for refactor for import to not use the required_fields array
 //defined in the field_arrays.php file
 $dictionary['Case']['fields']['name']['importable'] = 'required';
-
-//boost value for full text search
-$dictionary['Case']['fields']['name']['full_text_search']['boost'] = 1.53;
-$dictionary['Case']['fields']['case_number']['full_text_search']['boost'] = 1.29;
-$dictionary['Case']['fields']['description']['full_text_search']['boost'] = 0.66;
-$dictionary['Case']['fields']['work_log']['full_text_search']['boost'] = 0.64;
+?>

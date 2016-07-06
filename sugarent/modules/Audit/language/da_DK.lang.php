@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'Se ændringslog',
-    'LBL_FIELD_NAME' => 'Felt',
-    'LBL_OLD_NAME' => 'Gammel værdi',
-    'LBL_NEW_VALUE' => 'Ny værdi',
-    'LBL_CREATED_BY' => 'Ændret af',
-    'LBL_LIST_DATE' => 'Ændret den',
-    'LBL_AUDITED_FIELDS' => 'Feltrevisioner i dette modul:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'Der er ingen feltrevisioner i dette modul',
-    'LBL_CHANGE_LOG' => 'Ændringslog',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'Når reviderede valutafelter gemmes i en ikke standard valuta, vil loggen vise de gamle og de nye værdier i den konverterede systemdefinerede standardvaluta.'
+	
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Feltrevisioner i dette modul:',
+  'LBL_AUDIT_TITLE' => 'Se ændringslog',
+  'LBL_CHANGE_LOG' => 'Ændringslog',
+  'LBL_CREATED_BY' => 'Ændret af',
+  'LBL_FIELD_NAME' => 'Felt',
+  'LBL_LIST_DATE' => 'Ændret den',
+  'LBL_NEW_VALUE' => 'Ny værdi',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'Der er ingen feltrevisioner i dette modul',
+  'LBL_OLD_NAME' => 'Gammel værdi',
 );
+

@@ -45,13 +45,12 @@ $mod_strings = array(
 	'LBL_Q'								=> 'استعلام الفرصة ',
 	'LBL_Q1_DESC'						=> 'الفرص حسب النوع',
 	'LBL_Q2_DESC'						=> 'الفرص حسب الحساب',
-	'LBL_R1'							=> 'تقرير مبيعات خطوط العائدات عن 6 أشهر',
+	'LBL_R1'							=> 'تقرير مبيعات خطوط الأنابيب عن 6 أشهر',
 	'LBL_R1_DESC'						=> 'الفرص المتاحة خلال الـ 6 شهور القادمة موزعة حسب الشهر والنوع',
 	'LBL_OPP'							=> 'ضبط بيانات الفرص ',
 	'LBL_OPP1_DESC'						=> 'وهذا هو المكان حيث يمكنك تغيير مظهر وإحساس الاستعلام المعتاد',
 	'LBL_OPP2_DESC'						=> 'سيتكدس هذا الاستعلام أسفل الاستعلام الأول في التقرير',
     'ERR_DB_VERSION_FAILURE'			=> 'تعذر فحص إصدار قاعدة البيانات.',
-
 
 	'ERR_OC_PASSWORD'					=> 'مطلوب كلمة المرور.',
 	'ERR_OC_SERVER_URL'					=> 'عنوان خادم Sugar مطلوب.',
@@ -74,8 +73,7 @@ $mod_strings = array(
 	'ERR_ADMIN_PASS_BLANK'				=> 'أدخل كلمة المرور بالنسبة لمستخدم مسؤول Sugar . ',
 
     'ERR_CHECKSYS'                      => 'تم اكتشاف أخطاء أثناء فحص التوافقية.  لكى يعمل تثبيت SugarCRM بكفاءة، يُرجى اتخاذ الخطوات المناسبة لمواجهة المسائل المذكورة أدناه إما بالضغط على زر إعادة الفحص، وإما بإعادة محاولة التثبيت مرة أخرى.',
-    'ERR_CHECKSYS_CALL_TIME'            => 'السماح بتشغيل وضع "مرجعية مرور وقت الاتصال (ويجب ضبطها على وضع إيقاف التشغيل في php.ini)',
-
+    'ERR_CHECKSYS_CALL_TIME'            => 'السماح بتشغيل وضع "مرجعية مرور وقت الاتصال (ويجب ضبطها على وضع "إيقاف التشغيل" في php.ini)',
 	'ERR_CHECKSYS_CURL'					=> 'لم يتم العثور عليه: سيعمل نظام الجدول الزمني لـ Sugar بكفاءة محدودة. لن تعمل خدمة أرشفة البريد الإلكتروني.',
     'ERR_CHECKSYS_IMAP'					=> 'لم يتم العثور عليه: تتطلب InboundEmail وCampaigns (Email) مكتبات IMAP. ولن يعمل أي منها.',
 	'ERR_CHECKSYS_MSSQL_MQGPC'			=> 'لا يمكن تشغيل Magic Quotes GPC على وضع "تشغيل" عند استخدام خادم MS SQL.',
@@ -92,10 +90,9 @@ $mod_strings = array(
 	'ERR_CHECKSYS_FASTCGI_LOGGING'      => 'للحصول على أفضل تجربة باستخدام IIS/FastCGI sapi، اضبط دخول fastcgi.logging على 0 في ملف php.ini الخاص بك.',
     'ERR_CHECKSYS_PHP_UNSUPPORTED'		=> 'إصدار PHP مثبت غير مدعوم: (إصدار',
     'LBL_DB_UNAVAILABLE'                => 'قاعدة البيانات غير متاحة',
-    'LBL_CHECKSYS_DB_SUPPORT_NOT_AVAILABLE' => 'دعم قاعدة البيانات لم يكن موجودًا. الرجاء التأكد من توفر برامج التشغيل اللازمة لأحد أنواع قواعد البيانات المدعمة التالية: MySQL أو MS SQLServer. قد تحتاج إلى إلغاء التعليق على الامتداد الموجود في ملف php.ini، أو إعادة التحويل البرمجي بواسطة الملف الثنائي المناسب، وذلك حسب إصدار PHP الموجود لديك. الرجاء الرجوع إلى دليل PHP الموجو لديك للحصول على مزيد من المعلومات حول كيفية تمكين دعم قاعدة البيانات.<br><br>لا تعتبر Oracle وDB2 قواعد بيانات معتمدة لدى SugarCRM PRO. للحصول على قائمة بقواعد البيانات المدعمة ومعلومات النظام الأساسي، برجاء التفضل بزيارة <a href="http://support.sugarcrm.com/05_Resources/03_Supported_Platforms/">http://support.sugarcrm.com/05_Resources/03_Supported_Platforms/</a>.',
+    'LBL_CHECKSYS_DB_SUPPORT_NOT_AVAILABLE' => 'لم يتم العثور على قاعدة بيانات داعمة.  يُرجى التأكد من أن لديك المحركات اللازمة لأحد أنواع قواعد البيانات التالية: MySQL، أو MS SQLServer، أو Oracle، أو DB2.  قد تحتاج إلى عدم التعليق على الامتداد في ملف php.ini، أو إعادة تجميع مع ملف ثنائي صحيح، وفقًا لإصدار PHP الخاص بك.  يُرجى الرجوع لدليل PHP للحصول على مزيد من المعلومات عن كيفية تفعيل دعم قاعدة بيانات.',
     'LBL_CHECKSYS_XML_NOT_AVAILABLE'        => 'لم يتم العثور على الوظائف المرتبطة بمكتبات XML Parser Libraries الضرورية لتطبيق Sugar.  قد تحتاج إلى عدم التعليق على الامتداد في ملف php.ini، أو إعادة تجميع مع ملف ثنائي صحيح، وفقًا لإصدار PHP الخاص بك.  يُرجى مراجعة دليل PHP للحصول على مزيد من المعلومات.',
     'ERR_CHECKSYS_MBSTRING'             => 'لم يتم العثور على الوظائف المرتبطة بامتداد Multibyte Strings PHP (mbstring) الضرورية لتطبيق Sugar. <br/><br/>وبشكل عام، لم يتم تفعيل وحدة mbstring افتراضيًا في PHP ويجب تفعيلها باستخدام تفعيل mbstring عند إنشاء ثنائي PHP. يُرجى الرجوع لدليل PHP للحصول على مزيد من المعلومات عن كيفية تفعيل دعم mbstring.',
-    'ERR_CHECKSYS_MCRYPT'               => "Mcrypt module isn't loaded. Please refer to your PHP Manual for more information on how to load mcrypt module.",
     'ERR_CHECKSYS_SESSION_SAVE_PATH_NOT_SET'       => 'لم يتم تعيين إعداد save_path في ملف تهيئة php الخاص بك (php.ini) أو ضبطه على مجلد غير موجود. قد تحتاج إلى ضبط إعداد save_path في php.ini أو التحقق من وجود المجلد المعين في save_path.',
     'ERR_CHECKSYS_SESSION_SAVE_PATH_NOT_WRITABLE'  => 'تم تعيين إعداد save_path في ملف تهيئة php الخاص بك (php.ini) أو ضبطه على مجلد غير قابل للكتابة عليه.  يُرجى اتخاذ الخطوات اللازمة لجعل المجلد قابلاً للكتابة عليه.  <br>وفقًا لنظام التشغيل الخاص بك، قد يحتاج منك هذا تغيير الأذونات بتشغيل chmod 766، أو النقر بزر الماوس الأيمن على اسم الملف للدخول على خصائص وإزالة علامة اختيار خيار للقراءة فقط.',
     'ERR_CHECKSYS_CONFIG_NOT_WRITABLE'  => 'يوجد ملف التهيئة ولكنه غير قابل للكتابة عليه.  يُرجى اتخاذ الخطوات اللازمة لجعل الملف قابلاً للكتابة عليه.  وفقًا لنظام التشغيل الخاص بك، قد يحتاج منك هذا تغيير الأذونات بتشغيل chmod 766، أو النقر بزر الماوس الأيمن على اسم الملف للدخول على خصائص وإزالة علامة اختيار خيار للقراءة فقط.',
@@ -122,7 +119,7 @@ $mod_strings = array(
 	'ERR_DB_NAME'						=> 'لا يمكن ترك اسم قاعدة البيانات فارغًا.',
 	'ERR_DB_NAME2'						=> "لا يمكن احتواء اسم قاعدة البيانات على '\\'، أو '/'، أو '.'",
     'ERR_DB_MYSQL_DB_NAME_INVALID'      => "لا يمكن احتواء اسم قاعدة البيانات على '\\'، أو '/'، أو '.'",
-    'ERR_DB_MSSQL_DB_NAME_INVALID'      => "لا يمكن بدء اسم قاعدة البيانات برقم، أو '#'، أو '@' ولا يمكن أن يحوي مسافة، أو '\"'، أو \"'\"، أو '*'، أو '/'، أو '\\'، '?'، أو ':'، أو '<'، أو '>'، أو '&'، أو '!'، أو '-'",
+    'ERR_DB_MSSQL_DB_NAME_INVALID'      => "لا يمكن بدء اسم قاعدة البيانات برقم، أو '#'، أو '@' ولا يمكن أن يحوي مسافة، أو '\"'، أو \"'\"، أو '*'، أو '/'، أو '\'، '?'، أو ':'، أو '<'، أو '>'، أو '&'، أو '!'، أو '-'",
     'ERR_DB_OCI8_DB_NAME_INVALID'       => "يمكن أن يحتوي اسم قاعدة البيانات فقط على حروف هجائية ورموز '#'، أو '_'، أو '$'",
 	'ERR_DB_PASSWORD'					=> 'عدم تطابق كلمات المرور المتوفرة لمسؤول قاعدة بيانات Sugar.  يُرجى إعادة إدخال كلمات المرور نفسها في حقول كلمة المرور.',
 	'ERR_DB_PRIV_USER'					=> 'أدخل اسم مستخدم مسؤول قاعدة البيانات.  المستخدم مطلوب للاتصال المبدئي بقاعدة البيانات.',
@@ -163,14 +160,14 @@ $mod_strings = array(
     'LBL_UPLOAD_MAX_FILESIZE_TITLE'     => 'حجم ملف التحميل',
 	'ERR_URL_BLANK'						=> 'أدخل عنوان القاعدة بالنسبة لمثال Sugar.',
 	'ERR_UW_NO_UPDATE_RECORD'			=> 'تعذر تحديد موقع سجل التثبيت لـ',
-	'ERROR_FLAVOR_INCOMPATIBLE'			=> 'الملف الذي تم تحميله غير متوافق مع هذه الإصدارات (Community Edition، أو Professional، أو Enterprise) من Sugar:',
-	'ERROR_LICENSE_EXPIRED'				=> "خطأ: انتهت صلاحية الترخيص الخاصة بك",
+	'ERROR_FLAVOR_INCOMPATIBLE'			=> 'الملف الذي تم تحميله غير متوافق مع هذه الإصدارات (Community Edition، أو Professional، أو Enterprise) من Sugar: ',
+	'ERROR_LICENSE_EXPIRED'				=> "خطأ: انتهت صلاحية الترخيص الخاصة بك ",
 	'ERROR_LICENSE_EXPIRED2'			=> " منذ يوم (أيام).   يُرجى الذهاب إلى <a href='index.php?action=LicenseSettings&module=Administration'>'\"إدارة التراخيص\"</a> في شاشة المسؤول لإدخال مفتاح الترخيص الجديد الخاص بك.  إذا لم تقم بإدخال مفتاح الترخيص الجديد الخاص بك في غضون 30 يومًا من تاريخ صلاحية مفتاح الترخيص الخاص بك، فلن تكون قادرًا بأي حال من الأحوال على تسجيل الدخول لهذا التطبيق.",
 	'ERROR_MANIFEST_TYPE'				=> 'يجب أن يحدد ملف البيان Manifest نوع الحزمة.',
 	'ERROR_PACKAGE_TYPE'				=> 'يحدد ملف البيان Manifest نوع حزمة غير معروف',
-	'ERROR_VALIDATION_EXPIRED'			=> "خطأ: انتهت صلاحية مفتاح التحقق الخاص بك",
+	'ERROR_VALIDATION_EXPIRED'			=> "خطأ: انتهت صلاحية مفتاح التحقق الخاص بك ",
 	'ERROR_VALIDATION_EXPIRED2'			=> " منذ يوم (أيام).   يُرجى الذهاب إلى <a href='index.php?action=LicenseSettings&module=Administration'>'\"إدارة التراخيص\"</a> في شاشة الإدارة لإدخال مفتاح التحقق الجديد الخاص بك.  إذا لم تقم بإدخال مفتاح التحقق الجديد الخاص بك في غضون 30 يومًا من تاريخ صلاحية مفتاح الصلاحية الخاص بك، فلن تكون قادرًا بأي حال من الأحوال على تسجيل الدخول لهذا التطبيق.",
-	'ERROR_VERSION_INCOMPATIBLE'		=> 'الملف الذي تم تحميله غير متوافق مع هذا الإصدار من Sugar:',
+	'ERROR_VERSION_INCOMPATIBLE'		=> 'الملف الذي تم تحميله غير متوافق مع هذا الإصدار من Sugar: ',
 
 	'LBL_BACK'							=> 'للخلف',
     'LBL_CANCEL'                        => 'إلغاء',
@@ -190,7 +187,6 @@ $mod_strings = array(
 	'LBL_CHECKSYS_IMAP'					=> 'وحدة IMAP',
 	'LBL_CHECKSYS_MQGPC'				=> 'Magic Quotes GPC',
 	'LBL_CHECKSYS_MBSTRING'				=> 'وحدة MB Strings',
-    'LBL_CHECKSYS_MCRYPT'               => 'MCrypt Module',
 	'LBL_CHECKSYS_MEM_OK'				=> 'موافق (بلا حدود)',
 	'LBL_CHECKSYS_MEM_UNLIMITED'		=> 'موافق (بلا حدود)',
 	'LBL_CHECKSYS_MEM'					=> 'حد ذاكرة PHP',
@@ -242,8 +238,7 @@ $mod_strings = array(
     'LBL_DBCONF_DEMO_DATA_TITLE'        => 'حدد بيانات تجريبية',
 	'LBL_DBCONF_HOST_NAME'				=> 'اسم المضيف',
 	'LBL_DBCONF_HOST_INSTANCE'			=> 'مثال لمضيف',
-	'LBL_DBCONF_HOST_PORT'				=> 'المنفذ',
-    'LBL_DBCONF_SSL_ENABLED'            => 'تمكين اتصال SSL',
+	'LBL_DBCONF_HOST_PORT'				=> 'منفذ',
 	'LBL_DBCONF_INSTRUCTIONS'			=> 'يُرجى إدخال بيانات تهيئة قاعدة البيانات الخاصة بك أدناه. إذا كنت غير متأكد مما أدخلته، فإننا نقترح استخدام القيم الافتراضية.',
 	'LBL_DBCONF_MB_DEMO_DATA'			=> 'استخدم نصوصًا متعددة البايت في البيانات التجريبية؟',
     'LBL_DBCONFIG_MSG2'                 => 'اسم خادم الموقع أو الماكينة (المضيف) حيث تقع قاعدة البيانات (مثل المضيف المحلي أو www.mydomain.com):',
@@ -256,7 +251,7 @@ $mod_strings = array(
     'LBL_DBCONFIG_SAME_DD'              => 'تمامًا كالمستخدم المسؤول',
 	//'LBL_DBCONF_I18NFIX'              => 'Apply database column expansion for varchar and char types (up to 255) for multi-byte data?',
     'LBL_FTS'                           => 'بحث عن النص بالكامل',
-    'LBL_FTS_INSTALLED'                 => 'تم التثبيت',
+    'LBL_FTS_INSTALLED'                 => 'مثبت',
     'LBL_FTS_INSTALLED_ERR1'            => 'لم يتم تثبيت قدرة البحث عن نص بالكامل.',
     'LBL_FTS_INSTALLED_ERR2'            => 'لا يزال يمكنك التثبيت ولكنك لن تكون قادرًا على استخدام وظيفة البحث عن نص كامل.  يُرجى الرجوع إلى دليل تثبيت خادم قاعدة بياناتك في كيفية القيام بذلك، أو الاتصال بالمسؤول.',
 	'LBL_DBCONF_PRIV_PASS'				=> 'كلمة مرور قاعدة البيانات الممنوحة',
@@ -266,8 +261,8 @@ $mod_strings = array(
 	'LBL_DBCONF_TITLE'					=> 'تهيئة قاعدة البيانات',
     'LBL_DBCONF_TITLE_NAME'             => 'اسم قاعدة البيانات المُدخل',
     'LBL_DBCONF_TITLE_USER_INFO'        => 'بيانات مستخدم قاعدة البيانات المُدخل',
-	'LBL_DISABLED_DESCRIPTION_2'		=> 'بعد القيام بهذا التعديل، قد تنقر زر "البدء" أدناه لبدء التثبيت.  <i>بعد الانتهاء من التثبيت، ستحتاج إلى تغيير قيمة &#39;installer_locked&#39; إلى &#39;صحيح&#39;.</i>',
-	'LBL_DISABLED_DESCRIPTION'			=> 'يقوم هذا المثبت بالعمل مرة واحدة.  وكإجراء أمان، تم تعطيله عن التشغيل لمرة ثانية.  إذا كنت متأكدًا من تشغيله مرة أخرى، فيُرجى الذهاب إلى ملف config.php الخاص بك وتحديد موقع (أو إضافة) متغير يُسمى &#39;installer_locked\\ وضبطه على &#39;خطأ&#39;.  يتعين أن يبدو الخط هكذا:',
+	'LBL_DISABLED_DESCRIPTION_2'		=> 'بعد القيام بهذا التعديل، قد تنقر زر "البدء" أدناه لبدء التثبيت.  <i>بعد الانتهاء من التثبيت، ستحتاج إلى تغيير قيمة \'installer_locked\' إلى \'صحيح\'.</i>',
+	'LBL_DISABLED_DESCRIPTION'			=> 'يقوم هذا المثبت بالعمل مرة واحدة.  وكإجراء أمان، تم تعطيله عن التشغيل لمرة ثانية.  إذا كنت متأكدًا من تشغيله مرة أخرى، فيُرجى الذهاب إلى ملف config.php الخاص بك وتحديد موقع (أو إضافة) متغير يُسمى \'installer_locked\ وضبطه على \'خطأ\'.  يتعين أن يبدو الخط هكذا:',
 	'LBL_DISABLED_HELP_1'				=> 'لمزيد من المساعدة بخصوص التثبيت، يُرجى زيارة SugarCRM',
     'LBL_DISABLED_HELP_LNK'               => 'http://www.sugarcrm.com/forums/',
 	'LBL_DISABLED_HELP_2'				=> 'منتديات الدعم',
@@ -335,7 +330,7 @@ $mod_strings = array(
 	'LBL_LOCALE_NAMEF_DESC'				=> 's = التحية<br />f = الاسم الأول<br />l = الاسم الأخير',
 	'LBL_LOCALE_NAME_FIRST'				=> 'دافيد',
 	'LBL_LOCALE_NAME_LAST'				=> 'ليفنجستون',
-	'LBL_LOCALE_NAME_SALUTATION'		=> 'دكتور',
+	'LBL_LOCALE_NAME_SALUTATION'		=> 'طبيب',
 	'LBL_LOCALE_TIMEF'					=> 'تنسيق الوقت الافتراضي',
 	'LBL_LOCALE_TITLE'					=> 'الإعدادات المحلية',
     'LBL_CUSTOMIZE_LOCALE'              => 'تخصيص الإعدادات المحلية',
@@ -348,7 +343,7 @@ $mod_strings = array(
 	'LBL_ML_PUBLISHED'					=> 'تاريخ النشر',
 	'LBL_ML_TYPE'						=> 'النوع',
 	'LBL_ML_UNINSTALLABLE'				=> 'غير قابل لإلغاء التثبيت',
-	'LBL_ML_VERSION'					=> 'الإصدار',
+	'LBL_ML_VERSION'					=> 'إصدار',
 	'LBL_MSSQL'							=> 'خادم SQL',
 	'LBL_MSSQL2'                        => 'خادم SQL (TDS مجاني)',
 	'LBL_MSSQL_SQLSRV'				    => 'خادم SQL (Microsoft SQL Server Driver خاص بـ PHP)',
@@ -392,7 +387,7 @@ $mod_strings = array(
 	'LBL_REG_CONF_1'					=> 'يُرجى استكمال النموذج القصير أدناه لتلقي إخطارات المنتج، وأخبار التدريب، والعروض الخاصة، ودعوات الأحداث الخاصة من SugarCRM. لا نبيع المعلومات التي تم حصرها هنا لأطراف ثالثة ، ولا نقوم بتأجيرها، ولا نشاركها أو نوزعها.',
 	'LBL_REG_CONF_2'					=> 'تعتبر حقول اسمك وعنوان البريد الإلكتروني الخاصة بك هي الحقول المطلوبة فقط للتسجيل. كل الحقول الأخرى اختيارية، ولكنها مفيدة جدًا. لا نبيع، ولا نقوم بتأجير، ولا نشارك أو نوزع المعلومات التي تم حصرها هنا لأطراف ثالثة.',
 	'LBL_REG_CONF_3'					=> 'نشكرك على التسجيل. انقر فوق زر "إنهاء" لتسجيل الدخول على SugarCRM. ستحتاج إلى تسجيل الدخول في المرة الأولى باستخدام اسم المستخدم "المسؤول" وكلمة المرور التي أدخلتها في الخطوة رقم 2.',
-	'LBL_REG_TITLE'						=> 'التسجيل',
+	'LBL_REG_TITLE'						=> 'تسجيل',
     'LBL_REG_NO_THANKS'                 => 'لا شكرًا',
     'LBL_REG_SKIP_THIS_STEP'            => 'تجاوز هذه الخطوة',
 	'LBL_REQUIRED'						=> '*حقل مطلوب',
@@ -439,7 +434,7 @@ $mod_strings = array(
 	'LBL_STEP'							=> 'خطوة',
 	'LBL_TITLE_WELCOME'					=> 'أهلاً بك مع SugarCRM ',
 	'LBL_WELCOME_1'						=> 'يقوم هذا المثبت بإنشاء جداول قاعدة بيانات SugarCRM وتعيين متغيرات التهيئة التي تحتاجها للبدء. يتعين أن تستغرق العملية بأكملها عشر دقائق تقريبًا.',
-	'LBL_WELCOME_2'						=> 'للحصول على مستندات التثبيت، يُرجى زيارة موقعنا <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.  <BR><BR> للاتصال بمهندس دعم SugarCRM فيما يخص تعليمات التثبيت، يُرجى تسجيل الدخول إلى<a target="_blank" href="http://support.sugarcrm.com">SugarCRM Support Portal</a> وإرسال حالة الدعم.',
+	'LBL_WELCOME_2'						=> 'للحصول على مستندات التثبيت، يُرجى زيارة موقعنا <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.  <BR><BR> يمكنك أيضًا الحصول على مساعدة من مجتمع Sugar في <a href="http://www.sugarcrm.com/forums/" target="_blank">منتديات Sugar</a>.',
     //welcome page variables
     'LBL_TITLE_ARE_YOU_READY'            => 'هل أنت مستعد للتثبيت؟',
     'REQUIRED_SYS_COMP' => 'مكونات نظام مطلوبة',
@@ -531,7 +526,6 @@ $mod_strings = array(
                                 ",
     'LBL_WELCOME_PLEASE_READ_BELOW' => 'يُرجى قراءة المعلومات الهامة التالية قبل متابعة عملية التثبيت.  ستساعدك المعلومات في تحديد ما إذا كنت مستعدًا أم لا لتثبيت التطبيق في هذا الوقت.',
 
-
 	'LBL_WELCOME_2'						=> 'للحصول على مستندات التثبيت، يُرجى زيارة موقعنا <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.  <BR><BR> للاتصال بمهندس دعم SugarCRM فيما يخص تعليمات التثبيت، يُرجى تسجيل الدخول إلى<a target="_blank" href="http://support.sugarcrm.com">SugarCRM Support Portal</a> وإرسال حالة الدعم.',
 	'LBL_WELCOME_CHOOSE_LANGUAGE'		=> '<b>اختر لغتك</b>',
 	'LBL_WELCOME_SETUP_WIZARD'			=> 'نافذة الإعداد',
@@ -552,10 +546,9 @@ $mod_strings = array(
     'LBL_UPDATE_TRACKER_SESSIONS' => 'تحديث جدول tracker_sessions',
     'LBL_OOTB_CLEANUP_QUEUE' => 'مسح قوائم انتظار الوظائف',
 
-
     'LBL_FTS_TABLE_TITLE'     => 'توفير إعدادات بحث نص كامل',
     'LBL_FTS_HOST'     => 'مضيف',
-    'LBL_FTS_PORT'     => 'المنفذ',
+    'LBL_FTS_PORT'     => 'منفذ',
     'LBL_FTS_TYPE'     => 'نوع محرك البحث',
     'LBL_FTS_HELP'      => 'لتمكين البحث بنص كامل، أدخل المضيف والمنفذ حيث تتم استضافة محرك البحث. يحتوي Sugar على دعم ذاتي لمحركات البحث المرنة.',
     'LBL_FTS_REQUIRED'    => 'مطلوب البحث المرن.',
@@ -583,7 +576,7 @@ $mod_strings = array(
     'advanced_password_new_account_email' => array(
         'subject' => 'بيانات حساب جديد',
         'description' => 'يُستخدم هذا القالب عند إرسال مسؤول النظام لكلمة مرور جديدة لمستخدم.',
-        'body' => '<div><table border=\\"0\\" cellspacing=\\"0\\" cellpadding=\\"0\\" width="550" align=\\"\\&quot;\\&quot;center\\&quot;\\&quot;\\"><tbody><tr><td colspan=\\"2\\"><p>إليك اسم المستخدم وكلمة المرور المؤقتة لحسابك:</p><p>اسم المستخدم: $contact_user_user_name </p><p>كلمة المرور: $contact_user_user_hash </p><br><p>$config_site_url</p><br><p>بعد تسجيلك الدخول باستخدام كلمة المرور الموضحة أعلاه، ربما يُطلب منك إعادة تعيين كلمة المرور إلى أخرى حسب اختيارك.</p>   </td>         </tr><tr><td colspan=\\"2\\"></td>         </tr> </tbody></table> </div>',
+        'body' => '<div><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width="550" align=\"\&quot;\&quot;center\&quot;\&quot;\"><tbody><tr><td colspan=\"2\"><p>إليك اسم المستخدم وكلمة المرور المؤقتة لحسابك:</p><p>اسم المستخدم: $contact_user_user_name </p><p>كلمة المرور: $contact_user_user_hash </p><br><p>$config_site_url</p><br><p>بعد تسجيلك الدخول باستخدام كلمة المرور الموضحة أعلاه، ربما يُطلب منك إعادة تعيين كلمة المرور إلى أخرى حسب اختيارك.</p>   </td>         </tr><tr><td colspan=\"2\"></td>         </tr> </tbody></table> </div>',
         'txt_body' =>
 '
 ها هو اسم المستخدم وكلمة المرور المؤقتة الخاصة بحسابك:
@@ -598,7 +591,7 @@ $config_site_url
     'advanced_password_forgot_password_email' => array(
         'subject' => 'أعد تعيين كلمة المرور لحسابك',
         'description' => "يُستخدم هذا القالب لإرسال رابط للمستخدم للنقر فوقه لإعادة تعيين كلمة مرور حساب المستخدم.",
-        'body' => '<div><table border=\\"0\\" cellspacing=\\"0\\" cellpadding=\\"0\\" width="550" align=\\"\\&quot;\\&quot;center\\&quot;\\&quot;\\"><tbody><tr><td colspan=\\"2\\"><p>لقد طلبت مؤخرًا $contact_user_pwd_last_changed القدرة على إعادة تعيين كلمة المرور الخاصة بحسابك. </p><p>انقر فوق الرابط أدناه لإعادة تعيين كلمة المرور الخاصة بك:</p><p> $contact_user_link_guid </p>  </td>         </tr><tr><td colspan=\\"2\\"></td>         </tr> </tbody></table> </div>',
+        'body' => '<div><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width="550" align=\"\&quot;\&quot;center\&quot;\&quot;\"><tbody><tr><td colspan=\"2\"><p>لقد طلبت مؤخرًا $contact_user_pwd_last_changed القدرة على إعادة تعيين كلمة المرور الخاصة بحسابك. </p><p>انقر فوق الرابط أدناه لإعادة تعيين كلمة المرور الخاصة بك:</p><p> $contact_user_link_guid </p>  </td>         </tr><tr><td colspan=\"2\"></td>         </tr> </tbody></table> </div>',
         'txt_body' =>
 '
 لقد طلبت مؤخرًا على $contact_user_pwd_last_changed أن تكون قادرًا على إعادة تعيين كلمة المرور الخاصة بحسابك.

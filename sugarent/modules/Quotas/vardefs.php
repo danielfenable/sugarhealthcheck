@@ -86,6 +86,33 @@ $dictionary['Quota'] = array(
             'calculated' => true,
             'enforced' => true,
         ),
+        'currency_id' => array(
+            'name' => 'currency_id',
+            'vname' => 'LBL_CURRENCY',
+            'type' => 'currency_id',
+            'dbType' => 'id',
+            'required' => true,
+            'reportable' => false,
+            'importable' => 'required',
+            'default' => '-99',
+            'function' => 'getCurrencies',
+            'function_bean' => 'Currencies',
+        ),
+        'base_rate' => array(
+            'name' => 'base_rate',
+            'vname' => 'LBL_BASE_RATE',
+            'type' => 'decimal',
+            'len' => '26,6',
+        ),
+        'currency_symbol' => array(
+            'name' => 'currency_symbol',
+            'vname' => 'LBL_LIST_SYMBOL',
+            'type' => 'varchar',
+            'len' => '36',
+            'source' => 'non-db',
+            'table' => 'currency',
+            'required' => true,
+        ),
         'committed' => array(
             'name' => 'committed',
             'vname' => 'LBL_COMMITTED',
@@ -123,6 +150,5 @@ VardefManager::createVardef(
     array(
         'default',
         'assignable',
-        'currency'
     )
 );

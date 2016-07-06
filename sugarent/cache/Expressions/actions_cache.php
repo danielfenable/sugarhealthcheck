@@ -1,6 +1,11 @@
 <?php
-// created: 2016-06-24 15:56:18
+// created: 2016-07-06 08:11:08
 $actions = array (
+  'AssignTo' => 
+  array (
+    'class' => 'AssignToUserAction',
+    'file' => 'include/Expressions/Actions/AssignToUserAction.php',
+  ),
   'SetOptions' => 
   array (
     'class' => 'SetOptionsAction',
@@ -30,11 +35,6 @@ $actions = array (
   array (
     'class' => 'PanelVisibilityAction',
     'file' => 'include/Expressions/Actions/PanelVisibilityAction.php',
-  ),
-  'AssignTo' => 
-  array (
-    'class' => 'AssignToAction',
-    'file' => 'include/Expressions/Actions/AssignToAction.php',
   ),
   'SetRequired' => 
   array (

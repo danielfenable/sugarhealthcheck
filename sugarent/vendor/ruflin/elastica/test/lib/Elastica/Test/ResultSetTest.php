@@ -2,7 +2,10 @@
 
 namespace Elastica\Test;
 
+use Elastica\Client;
 use Elastica\Document;
+use Elastica\Query;
+use Elastica\Query\Match;
 use Elastica\Result;
 use Elastica\Test\Base as BaseTest;
 

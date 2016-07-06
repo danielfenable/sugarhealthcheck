@@ -32,7 +32,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _formatTitle: function(title) {
         var modelToSave = this.context.get('modelToSave'),

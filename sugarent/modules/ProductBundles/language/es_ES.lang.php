@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,20 +13,22 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 $mod_strings = array (
-    'LBL_BUNDLE_STAGE' => 'Etapa de Grupo:',
-    'LBL_DEAL_TOT'=>'descuento total',
-    'LBL_DEAL_TOT_USDOLLAR'=>'descuento total (Dólares EEUU)',
-    'LBL_NEW_SUB' => 'Subtotal Descontado:',
-    'LBL_SHIPPING' => 'Envío:',
-    'LBL_SHIPPING_USDOLLAR'=>'Envío (Dólares EEUU)',
-    'LBL_SUBTOTAL_USDOLLAR'=>'Subtotal (Dólares EEUU)',
-    'LBL_SUBTOTAL' => 'Subtotal:',
-    'LBL_TAX_USDOLLAR'=>'Impuestos (Dólares EEUU)',
-    'LBL_TAX' => 'Impuestos:',
-    'LBL_TOTAL_USDOLLAR'=>'Total (Dólares EEUU)',
-    'LBL_TOTAL' => 'Total',
-    'LBL_QUOTE_BUNDLE_POSITION' => 'Posición del paquete de presupuestos',
-    'EXCEPTION_INVALID_QUOTE_ID' => 'Falta el ID del presupuesto de la carga',
-    'EXCEPTION_NOT_FOUND_QUOTE' =>  'No se ha encontrado el presupuesto solicitado'
+  'EXCEPTION_INVALID_QUOTE_ID' => 'Falta el ID de oferta de la carga',
+  'EXCEPTION_NOT_FOUND_QUOTE' => 'No se ha encontrado la oferta solicitada',
+  'LBL_BUNDLE_STAGE' => 'Etapa de Grupo:',
+  'LBL_DEAL_TOT' => 'descuento total',
+  'LBL_DEAL_TOT_USDOLLAR' => 'descuento total (Dólares EEUU)',
+  'LBL_NEW_SUB' => 'Subtotal Descontado:',
+  'LBL_QUOTE_BUNDLE_POSITION' => 'Posición de lote de ofertas',
+  'LBL_SHIPPING' => 'Envío:',
+  'LBL_SHIPPING_USDOLLAR' => 'Envío (Dólares EEUU)',
+  'LBL_SUBTOTAL' => 'Subtotal:',
+  'LBL_SUBTOTAL_USDOLLAR' => 'Subtotal (Dólares EEUU)',
+  'LBL_TAX' => 'Impuestos:',
+  'LBL_TAX_USDOLLAR' => 'Impuestos (Dólares EEUU)',
+  'LBL_TOTAL' => 'Total',
+  'LBL_TOTAL_USDOLLAR' => 'Total (Dólares EEUU)',
 );
+

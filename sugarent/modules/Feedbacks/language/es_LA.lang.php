@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +13,16 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-    'LBL_FEEDBACK_TEXT_PLACEHOLDER' => 'Descripción de Comentario',
-    'LBL_FEEDBACK_BTN_SUBMIT' => 'Enviar',
-    'LBL_FEEDBACK_SENT' => 'Comentario enviado',
-    'LBL_FEEDBACK_SEND_ERROR' => 'Comentario no enviado, por favor verifique los campos.',
-    'LBL_FEEDBACK_NOT_SENT' => 'No se pudo conectar con el servidor de comentarios, por favor intente más tarde.',
-    'LBL_FEEDBACK_CSAT' => '¿Como describiría su experiencia con este producto?',
-    'TPL_FEEDBACK_ASIDE' => 'Nosotros almacenamos ciertos datos al momento del informe. {{learnMoreLink}}. Pero no almacenamos información de contacto. Por favor {{contactSupportLink}} por errores u otro problema que requiera respuesta.',
-    'LBL_FEEDBACK_ASIDE_CLICK_MORE' => 'Haga clic aquí para obtener más información',
-    'LBL_FEEDBACK_ASIDE_CONTACT_SUPPORT' => 'contactar Soporte',
+
+$mod_strings = array (
+  'LBL_FEEDBACK_ASIDE_CLICK_MORE' => 'Click aquí para aprender más',
+  'LBL_FEEDBACK_ASIDE_CONTACT_SUPPORT' => 'contactar Soporte',
+  'LBL_FEEDBACK_BTN_SUBMIT' => 'Enviar',
+  'LBL_FEEDBACK_CSAT' => '¿Como describirías tu experiencia con este producto?',
+  'LBL_FEEDBACK_NOT_SENT' => 'No disponible para contactar comentario al servidor, por favor intentar después.',
+  'LBL_FEEDBACK_SEND_ERROR' => 'Comentario no enviado, por favor verifique los campos.',
+  'LBL_FEEDBACK_SENT' => 'Comentario enviado',
+  'LBL_FEEDBACK_TEXT_PLACEHOLDER' => 'Descripción de Comentario',
+  'TPL_FEEDBACK_ASIDE' => 'Nosotros almacenamos ciertos datos al momento del informe. {{learnMoreLink}}. Pero no almacenamos información de contacto. Por favor {{contactSupportLink}} para fallas (bugs) u otro problema que requiera respuesta.',
 );
+

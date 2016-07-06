@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,20 +12,21 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
+	
 
 $mod_strings = array (
-    'LBL_OAUTH_REQUEST' => "Užklausimo token",
-    'LBL_OAUTH_AUTHORIZE' => "Įgalioti token",
-	'LBL_OAUTH_CONSUMERREQ' => "Įgalioti vartotojo %s  token?",
-    'LBL_OAUTH_ROLE' => "Token rolės",
-	'LBL_OAUTH_VALIDATION' => "Verifikavimo kodas",
-  	'LBL_ASSIGNED_TO_NAME' => 'Atsakingas',
-  	'LBL_ID' => 'ID',
-    'LBL_STATUS' => 'Statusas',
-    'LBL_TS' => 'Data',
-    'LBL_LIST_DELETE' => 'Ištrinti token',
-    'LBL_CONSUMER' => 'Vartotojo vardas',
-    'LBL_OAUTH_DISABLED' => 'OAuth funkcija neįjungta. Trūksta PHP oauth bibliotekos. Prašome susisiekti su administratoriumi.',
-    'LBL_CONTACTS' => 'Kontakto vardas',
+  'LBL_ASSIGNED_TO_NAME' => 'Atsakingas',
+  'LBL_CONSUMER' => 'Vartotojo vardas',
+  'LBL_CONTACTS' => 'Kontakto vardas',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_DELETE' => 'Ištrinti token',
+  'LBL_OAUTH_AUTHORIZE' => 'Įgalioti token',
+  'LBL_OAUTH_CONSUMERREQ' => 'Įgalioti vartotojo %s  token?',
+  'LBL_OAUTH_DISABLED' => 'OAuth funkcija neįjungta. Trūksta PHP oauth bibliotekos. Prašome susisiekti su administratoriumi.',
+  'LBL_OAUTH_REQUEST' => 'Užklausimo token',
+  'LBL_OAUTH_ROLE' => 'Token rolės',
+  'LBL_OAUTH_VALIDATION' => 'Verifikavimo kodas',
+  'LBL_STATUS' => 'Statusas',
+  'LBL_TS' => 'Data',
 );
+

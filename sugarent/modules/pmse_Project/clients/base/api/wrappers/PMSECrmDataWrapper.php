@@ -893,37 +893,26 @@ class PMSECrmDataWrapper implements PMSEObservable
      */
     public function retrieveTeams($filter = '')
     {
-        $beansTeams = $this->getTeamsBean();
-        $output = array();
 
-        $q = $this->sugarQueryObject;
-        $q->from($beansTeams, array('add_deleted' => true));
-        $q->distinct(false);
-        $fields = array(
-            'id',
-            'name',
-            'name2',
-        );
+        $output = array();
+        $where = '';
 
         if ($filter == 'public' || $filter == 'reassign') {
-            $q->where()
-                ->equals('private', 0);
+            $condition = 0;
+            $where = 'teams.private=' . $condition;
         } else {
             if ($filter == 'private') {
-                $q->where()
-                    ->equals('private', 1);
+                $condition = 1;
+                $where = 'teams.private=' . $condition;
             }
         }
 
-        $q->orderBy('id', 'ASC');
-        $q->select($fields);
-
-        $teamsData = $q->execute();
+        $teamsData = $this->teamsBean->get_full_list('', $where);
         foreach ($teamsData as $team) {
             $teamTmp = array();
-            $teamTmp['value'] = $team['id'];
-            $teamTmp['text'] = $team['name'];
-            if (($team['id'] != 'current_team') || ($team['id'] == 'current_team' && $filter == 'reassign')) {
+            $teamTmp['value'] = $team->id;
+            $teamTmp['text'] = $team->name;
+            if (($team->id != 'current_team') || ($team->id == 'current_team' && $filter == 'reassign')) {
                 $output[] = $teamTmp;
             }
         }
@@ -944,8 +933,7 @@ class PMSECrmDataWrapper implements PMSEObservable
         $res->success = true;
         $output = array();
         $where = 'users.deleted = 0 ';
-        $where .= ' AND users.status = \'Active\' ';
-        $where .= ' AND NOT (users.is_group = 1 OR users.portal_only = 1)';
+        $where .= ' AND users.employee_status = \'Active\' ';
 
         if (!empty($filter)) {
             $where .= ' AND (users.first_name LIKE \'%' . $filter . '%\' ';
@@ -956,15 +944,15 @@ class PMSECrmDataWrapper implements PMSEObservable
         $order = 'users.first_name, users.last_name';
 
         $usersData = $this->usersBean->get_full_list($order, $where);
-        if (is_array($usersData)) {
-            foreach ($usersData as $user) {
-                $userTmp = array();
-                $userTmp['value'] = $user->id;
-                $userFullName = $this->teamsBean->getDisplayName($user->first_name, $user->last_name);
-                $userTmp['text'] = $userFullName;
+        //$beanFactory = new ADAMBeanFactory();
+        //$beanFactory = $this->getADAMBeanFactory();
+        foreach ($usersData as $user) {
+            $userTmp = array();
+            $userTmp['value'] = $user->id;
+            $userFullName = $this->teamsBean->getDisplayName($user->first_name, $user->last_name);
+            $userTmp['text'] = $userFullName;
 
-                $output[] = $userTmp;
-            }
+            $output[] = $userTmp;
         }
         $res->result = $output;
         return $output;
@@ -976,7 +964,11 @@ class PMSECrmDataWrapper implements PMSEObservable
      */
     public function getRelationshipData($relationName)
     {
-        return SugarRelationshipFactory::getInstance()->getRelationshipDef($relationName);
+        global $db;
+        $query = "select * from relationships where relationship_name='" . $relationName . "'";
+        $result = $db->Query($query);
+        $row = $db->fetchByAssoc($result);
+        return $row;
     }
 
     /**
@@ -1069,7 +1061,7 @@ class PMSECrmDataWrapper implements PMSEObservable
 //        $res->search = $filter;
 //        $res->success = true;
         $output = array();
-        if ($projectBean->retrieve($filter)) {
+        if ($projectBean->retrieve_by_string_fields(array('id' => $filter))) {
 
             $processBean->retrieve_by_string_fields(array('prj_id' => $projectBean->id));
 
@@ -1376,7 +1368,7 @@ class PMSECrmDataWrapper implements PMSEObservable
 
         $updateDefaultForm = false;
 
-        if ($projectBean->retrieve($args['filter'])) {
+        if ($projectBean->retrieve_by_string_fields(array('id' => $args['filter']))) {
             unset($args['prj_uid']);
             $args['prj_id'] = $projectBean->id;
             $processBean->retrieve_by_string_fields(array('prj_id' => $projectBean->id));
@@ -1545,7 +1537,7 @@ class PMSECrmDataWrapper implements PMSEObservable
      * @return object
      * @codeCoverageIgnore
      */
-    public function retrieveFields($filter = '', ModuleApi $moduleApi, $type = '', $baseModule = '')
+    public function retrieveFields($filter = '', ModuleApi $moduleApi, $type = '', $baseModule='')
     {
         global $beanList;
         if (isset($beanList[$filter])) {
@@ -1799,7 +1791,7 @@ class PMSECrmDataWrapper implements PMSEObservable
         $projectBean = $this->getProjectBean();
         $ruleSetBean = $this->getRuleSetBean();
         $output = array();
-        if ($projectBean->retrieve($filter)) {
+        if ($projectBean->retrieve_by_string_fields(array('id' => $filter))) {
             $processDefinitionBean->retrieve_by_string_fields(array('prj_id' => $projectBean->id));
             if (isset($this->beanList[$processDefinitionBean->pro_module])) {
                 $newModuleFilter = $processDefinitionBean->pro_module;
@@ -2191,9 +2183,6 @@ class PMSECrmDataWrapper implements PMSEObservable
             case 'created_by':
             case 'modified_user_id':
                 $field['type'] = 'user';
-                break;
-            case 'teams':
-                $field['type'] = 'team_list';
                 break;
             default:
                 $result = $field;

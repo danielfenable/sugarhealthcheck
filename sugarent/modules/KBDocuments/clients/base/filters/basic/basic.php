@@ -1,5 +1,4 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,18 +10,42 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 $viewdefs['KBDocuments']['base']['filter']['basic'] = array(
-    'default_filter' => 'all_records',
-    'fields' => array(
-        'name' => array(),
-        'status' => array(),
-        '$owner' => array(
-            'predefined_filter' => true,
-            'vname' => 'LBL_CURRENT_USER_FILTER',
+    'create' => true,
+    'quicksearch_field' => array('kbdocument_name'),
+    'quicksearch_priority' => 2,
+    'quicksearch_split_terms' => false,
+    'filters' => array(
+        array(
+            'id' => 'all_records',
+            'name' => 'LBL_LISTVIEW_FILTER_ALL',
+            'filter_definition' => array(),
+            'editable' => false
         ),
-        'assigned_user_name' => array(),
-        '$favorite' => array(
-            'predefined_filter' => true,
-            'vname' => 'LBL_FAVORITES_FILTER',
+        array(
+            'id' => 'assigned_to_me',
+            'name' => 'LBL_ASSIGNED_TO_ME',
+            'filter_definition' => array(
+                '$owner' => '',
+            ),
+            'editable' => false
+        ),
+        array(
+            'id' => 'recently_viewed',
+            'name' => 'LBL_RECENTLY_VIEWED',
+            'filter_definition' => array(
+                '$tracker' => '-7 DAY',
+            ),
+            'editable' => false
+        ),
+        array(
+            'id' => 'recently_created',
+            'name' => 'LBL_NEW_RECORDS',
+            'filter_definition' => array(
+                'date_entered' => array(
+                    '$dateRange' => 'last_7_days',
+                ),
+            ),
+            'editable' => false
         ),
     ),
 );

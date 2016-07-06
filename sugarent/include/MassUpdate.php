@@ -257,8 +257,6 @@ eoq;
                     continue;
                 }
 				if(isset($_POST['Delete'])){
-					// disable row level security so that bean can be retrieved for checking ACL access.
-					$this->sugarbean->disable_row_level_security = true;
 					$this->sugarbean->retrieve($id);
 					if($this->sugarbean->ACLAccess('Delete')){
 					    if ($this->sugarbean->object_name == 'Team' && $this->sugarbean->has_records_in_modules()) {
@@ -415,10 +413,13 @@ eoq;
             // Readonly fields are NOT be massupdatable
             if (!empty($def['readonly'])) {
                 $def['massupdate'] = false;
-            // Calculated fields that are enforced are NOT massupdatable
-            } elseif (isset($def['calculated']) && self::isTrue($def['calculated']) && isset($def['enforced']) && self::isTrue($def['enforced'])) {
-                // Then massupdate has to be false
-                $def['massupdate'] = false;
+            // Calculated fields are NOT massupdatable
+            } elseif (isset($def['calculated'])) { 
+                // If calculated is set and is enforced and is some value of truthy...
+                if (self::isTrue($def['calculated']) && isset($def['enforced']) && self::isTrue($def['enforced'])) {
+                    // Then massupdate has to be false
+                    $def['massupdate'] = false;
+                }
             } elseif (isset($def['massupdate'])) {
                 // The massupdate value has to be boolean so the client can properly 
                 // handle it. A "0" false renders as a true to the client.

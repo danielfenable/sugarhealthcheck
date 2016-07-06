@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +10,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
   'LBL_STEP_1' => 'Samm 1: Vali moodul ja mall',
   'LBL_MAILMERGE_MODULE' => 'Vali moodul:',
@@ -37,7 +37,7 @@ $mod_strings = array (
   'LBL_DOC_NAME' => 'Dokumendi nimi:',
   'LBL_FILENAME' => 'Faili nimi:',
   'LBL_DOC_VERSION' => 'Revisjon:',
-  'LBL_DOC_DESCRIPTION'=>'Kirjeldus:',
+  'LBL_DOC_DESCRIPTION' => 'Kirjeldus:',
   'LBL_LIST_NAME' => 'Nimi',
   'LBL_LIST_RELATIONSHIP' => 'Määra kontakti seos',
   'LBL_FINISH' => 'Alusta mestimist',
@@ -48,16 +48,5 @@ $mod_strings = array (
   'LBL_CONTAINS_CONTACT_INFO' => 'Valitud mall sisaldab seoseid',
   'LBL_ADDIN_NOTICE' => 'See nõuab Microsoft Wordile Sugari kirjamestimise lisandmoodulit.',
   'LBL_BROWSER_NOTICE' => 'Kasuta IE 6.0 või suurenda tegelikku mestimist.',
-  'LBL_REMOVE' => 'Remove Item(s)' /*for 508 compliance fix*/,
-  'LBL_ADD' => 'Add Item(s)' /*for 508 compliance fix*/,
-  'LBL_BROWSER_REQUIREMENT' => 'This requires IE 6.0 or greater for Windows.',
-  'LBL_FORM_SELECT_TEMPLATE' => 'Please select a template.',
-  'LBL_SELECT_ONE' => 'Please select at least one item.',
-  'LBL_AVAILABLE' => 'Saadaval',
-  'LBL_SELECTED' => 'Selected',
-  'LBL_RELATED_INFO_SELECTION' => 'Use the selections below to identify the related information you would like to display in your merged document. Skip this step if your template document contains no related information.',
-
 );
 
-
-?>

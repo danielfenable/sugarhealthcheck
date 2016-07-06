@@ -70,7 +70,7 @@ $viewdefs['Opportunities']['DetailView'] = array(
 	          ),
 	        ),
 	        array (
-			  'team_name',
+			  'team_name', 
 	          array (
 	            'name' => 'date_entered',
 	            'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}',

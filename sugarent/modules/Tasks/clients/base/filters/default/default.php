@@ -22,7 +22,6 @@ $viewdefs['Tasks']['base']['filter']['default'] = array(
         'date_modified' => array(),
         'date_start' => array(),
         'date_due' => array(),
-        'tag' => array(),
         'assigned_user_name' => array(),
         '$owner' => array(
             'predefined_filter' => true,

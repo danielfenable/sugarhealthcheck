@@ -55,12 +55,15 @@
         if (showActivities) {
             this.collection.reset();
             this.collection.resetPagination();
-            this.collection.setOption('endpoint', function(method, collection, options, callbacks) {
-                var url = app.api.buildURL(model.module, null, {id: model.get('id'), link: 'activities'}, options.params);
-
-                return app.api.call('read', url, null, callbacks);
-            });
             this.collection.fetch({
+                /*
+                 * Retrieve activities for the model that the user wants to preview
+                 */
+                endpoint: function(method, collection, options, callbacks) {
+                    var url = app.api.buildURL(model.module, 'activities', {id: model.get('id'), link: true}, options.params);
+
+                    return app.api.call('read', url, null, callbacks);
+                },
                 /*
                  * Render activity stream
                  */
@@ -89,7 +92,6 @@
                 });
             }
         } else {
-            //FIXME: MAR-2798 prevent the possibility of an infinite loop
             _.delay(function(){
                 self.renderActivities(collection);
             }, 500);
@@ -117,7 +119,7 @@
     bindDataChange: function() {
         this.collection.on('add', function(activity) {
             if (!this.disposed) {
-                this.renderPost(activity, true);
+                this.renderPost(activity);
             }
         }, this);
     }

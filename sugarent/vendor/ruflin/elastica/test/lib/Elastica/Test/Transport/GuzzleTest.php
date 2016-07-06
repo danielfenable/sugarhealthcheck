@@ -7,6 +7,7 @@ use Elastica\Document;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\Test\Base as BaseTest;
+use Elastica\Exception\ResponseException;
 
 class GuzzleTest extends BaseTest
 {
@@ -37,16 +38,16 @@ class GuzzleTest extends BaseTest
     {
         return array(
             array(
-                array('persistent' => false, 'transport' => 'Guzzle'),
-                'GET',
+                array('transport' => 'Guzzle'),
+                'GET'
             ),
             array(
-                array('persistent' => false, 'transport' => array('type' => 'Guzzle', 'postWithRequestBody' => false)),
-                'GET',
+                array('transport' => array('type' => 'Guzzle', 'postWithRequestBody' => false)),
+                'GET'
             ),
             array(
-                array('persistent' => false, 'transport' => array('type' => 'Guzzle', 'postWithRequestBody' => true)),
-                'POST',
+                array('transport' => array('type' => 'Guzzle', 'postWithRequestBody' => true)),
+                'POST'
             ),
         );
     }
@@ -84,7 +85,7 @@ class GuzzleTest extends BaseTest
     {
         putenv('http_proxy=http://127.0.0.1:12345/');
 
-        $client = new \Elastica\Client(array('transport' => 'Guzzle', 'persistent' => false));
+        $client = new \Elastica\Client(array('transport' => 'Guzzle'));
         $transferInfo = $client->request('/_nodes')->getTransferInfo();
         $this->assertEquals(200, $transferInfo['http_code']);
 
@@ -99,11 +100,12 @@ class GuzzleTest extends BaseTest
     {
         putenv('http_proxy=http://127.0.0.1:12346/');
 
-        $client = new \Elastica\Client(array('transport' => 'Guzzle', 'persistent' => false));
+        $client = new \Elastica\Client(array('transport' => 'Guzzle'));
+
         $transferInfo = $client->request('/_nodes')->getTransferInfo();
         $this->assertEquals(403, $transferInfo['http_code']);
 
-        $client = new \Elastica\Client(array('transport' => 'Guzzle', 'persistent' => false));
+        $client = new \Elastica\Client();
         $client->getConnection()->setProxy('');
         $transferInfo = $client->request('/_nodes')->getTransferInfo();
         $this->assertEquals(200, $transferInfo['http_code']);
@@ -113,7 +115,7 @@ class GuzzleTest extends BaseTest
 
     public function testWithProxy()
     {
-        $client = new \Elastica\Client(array('transport' => 'Guzzle', 'persistent' => false));
+        $client = new \Elastica\Client(array('transport' => 'Guzzle'));
         $client->getConnection()->setProxy('http://127.0.0.1:12345');
 
         $transferInfo = $client->request('/_nodes')->getTransferInfo();
@@ -122,7 +124,7 @@ class GuzzleTest extends BaseTest
 
     public function testWithoutProxy()
     {
-        $client = new \Elastica\Client(array('transport' => 'Guzzle', 'persistent' => false));
+        $client = new \Elastica\Client(array('transport' => 'Guzzle'));
         $client->getConnection()->setProxy('');
 
         $transferInfo = $client->request('/_nodes')->getTransferInfo();
@@ -131,11 +133,11 @@ class GuzzleTest extends BaseTest
 
     public function testBodyReuse()
     {
-        $client = new Client(array('transport' => 'Guzzle', 'persistent' => false));
+        $client = new Client(array('transport' => 'Guzzle'));
 
         $index = $client->getIndex('elastica_body_reuse_test');
+
         $index->create(array(), true);
-        $this->_waitForAllocation($index);
 
         $type = $index->getType('test');
         $type->addDocument(new Document(1, array('test' => 'test')));
@@ -158,12 +160,4 @@ class GuzzleTest extends BaseTest
         $this->assertEquals(1, $resultSet->getTotalHits());
     }
 
-    /**
-     * @expectedException Elastica\Exception\Connection\GuzzleException
-     */
-    public function testInvalidConnection()
-    {
-        $client = new Client(array('transport' => 'Guzzle', 'port' => 4500, 'persistent' => false));
-        $response = $client->request('_status', 'GET');
-    }
 }

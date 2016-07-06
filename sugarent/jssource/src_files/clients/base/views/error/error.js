@@ -58,7 +58,7 @@
                 attributes = {
                     title: 'ERR_HTTP_404_TITLE',
                     type: 'ERR_HTTP_404_TYPE',
-                    messages: ['ERR_HTTP_404_TEXT_LINE1', 'ERR_HTTP_404_TEXT_LINE2'],
+                    messages: ['ERR_HTTP_404_TEXT'],
                     linkText: app.lang.get('ERR_HTTP_404_ACTION')
                 };
                 break;
@@ -74,7 +74,7 @@
                 attributes = {
                     title: 'ERR_HTTP_500_TITLE',
                     type: 'ERR_HTTP_500_TYPE',
-                    messages: ['ERR_HTTP_500_TEXT_LINE1', 'ERR_HTTP_500_TEXT_LINE2'],
+                    messages: ['ERR_HTTP_500_TEXT'],
                     linkText: app.lang.get('ERR_HTTP_500_ACTION')
                 };
                 break;

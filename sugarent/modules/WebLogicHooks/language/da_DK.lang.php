@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-    'LBL_MODULE_NAME' => 'Web Logic Hooks',
-    'LBL_MODULE_NAME_SINGULAR' => 'Web Logic Hook',
-    'LBL_MODULE_TITLE' => 'Web Logic Hooks',
-    'LNK_NEW_LOGIC_HOOK' => 'Opret Web Logic Hook',
-    'LNK_LOGIC_HOOK_LIST' => 'Vis Web Logic Hooks',
-    'LBL_TARGET_NAME' => 'Modulnavn',
-    'LBL_REQUEST_METHOD' => 'Forespørgsels metode',
-    'LBL_TRIGGER_EVENT' => 'Trigger Event',
-    'LBL_URL' => 'Link',
+$mod_strings = array (
+  'LBL_MODULE_NAME' => 'Web Logic Hooks',
+  'LBL_MODULE_NAME_SINGULAR' => 'Web Logic Hook',
+  'LBL_MODULE_TITLE' => 'Web Logic Hooks',
+  'LBL_REQUEST_METHOD' => 'Forespørgsels metode',
+  'LBL_TARGET_NAME' => 'Modulnavn',
+  'LBL_TRIGGER_EVENT' => 'Trigger Event',
+  'LBL_URL' => 'Link',
+  'LNK_LOGIC_HOOK_LIST' => 'Vis Web Logic Hooks',
+  'LNK_NEW_LOGIC_HOOK' => 'Opret Web Logic Hook',
 );
+

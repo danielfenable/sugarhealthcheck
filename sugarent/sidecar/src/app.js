@@ -20,22 +20,6 @@ SUGAR.App = (function() {
     var _app,
         _modules = {};
 
-    /**
-     * Flag indicating an `app.sync` is in progress.
-     *
-     * @type {boolean}
-     * @private
-     */
-    var _isSyncing = false;
-
-    /**
-     * A list of callback functions to call whenever `sync` is completed.
-     *
-     * @type {Array}
-     * @private
-     */
-    var _syncCallbacks = [];
-
     var _make$ = function(selector) {
         return selector instanceof $ ? selector : $(selector);
     };
@@ -69,7 +53,7 @@ SUGAR.App = (function() {
      * @private
      */
     function App(opts) {
-        var appId = _.uniqueId('SugarApp_');
+        var appId = _.uniqueId("SugarApp_");
         opts = opts || {};
 
         return _.extend({
@@ -85,7 +69,7 @@ SUGAR.App = (function() {
              *
              * @property {jQuery}
              */
-            $rootEl: _make$(opts.el || 'body'),
+            $rootEl: _make$(opts.el || "body"),
 
             /**
              * Content element selector.
@@ -95,7 +79,7 @@ SUGAR.App = (function() {
              *
              * @property {jQuery}
              */
-            $contentEl: _make$(opts.contentEl || '#content'),
+            $contentEl: _make$(opts.contentEl || "#content"),
 
             /**
              * Additional components.
@@ -197,26 +181,6 @@ SUGAR.App = (function() {
 
             _app.events.register(
                 /**
-                 * Fires when a sync process failed during initialization of
-                 * the app.
-                 *
-                 * @event
-                 */
-                'app:sync:public:error',
-                this
-            );
-
-            _app.events.register(
-                /**
-                 * @event
-                 * Fires when logging in.
-                 */
-                'app:login',
-                this
-            );
-
-            _app.events.register(
-                /**
                  * @event
                  * Fires when login succeeds.
                  */
@@ -279,7 +243,7 @@ SUGAR.App = (function() {
             }
 
             // Instantiate controller: <Capitalized-appId>Controller or Controller.
-            var className = _app.utils.capitalize(_app.config ? _app.config.appId : '') + 'Controller';
+            var className = _app.utils.capitalize(_app.config ? _app.config.appId : "") + "Controller";
             var Klass = this[className] || this.Controller;
 
             /**
@@ -300,7 +264,7 @@ SUGAR.App = (function() {
                 serverUrl: _app.config.serverUrl,
                 platform: _app.config.platform,
                 timeout: _app.config.serverTimeout,
-                keyValueStore: _app[_app.config.authStore || 'cache'],
+                keyValueStore: _app[_app.config.authStore || "cache"],
                 clientID: _app.config.clientID,
                 disableBulkApi: _app.config.disableBulkApi,
                 externalLoginUICallback: opts && opts.externalLoginUICallback
@@ -325,21 +289,21 @@ SUGAR.App = (function() {
          */
         _init: function(opts) {
             var self = this;
-            var syncCallback = function(error) {
+            var syncCallback = function(error){
 
                 // _app will be nulled out if destroy was called on app before we
                 // asynchronously get here. This happens when running tests (see spec-helper).
-                if (!_app) {
+                if(!_app) {
                     return;
                 }
                 if (error) {
-                    self.trigger('app:sync:public:error', error);
+                    self.trigger("app:sync:error", error);
                     return;
                 }
                 self._initModules();
                 self._loadConfig();
                 if (!opts.silent) {
-                    _app.trigger('app:init', self);
+                    _app.trigger("app:init", self);
                 }
                 if (opts.callback && _.isFunction(opts.callback)) {
                     opts.callback(_app);
@@ -402,21 +366,21 @@ SUGAR.App = (function() {
         loadCss: function(callback) {
 
             _app.api.css(_app.config.platform, _app.config.themeName, {
-                success: function(rsp) {
+                success:function (rsp) {
 
-                    if (_app.config.loadCss === 'url') {
+                    if (_app.config.loadCss === "url") {
                         _.each(rsp.url, function(url) {
-                            $('<link>')
+                            $("<link>")
                                 .attr({
-                                    rel: 'stylesheet',
+                                    rel: "stylesheet",
                                     href: _app.utils.buildUrl(url)
                                 })
-                                .appendTo('head');
+                                .appendTo("head");
                         });
                     }
                     else {
                         _.each(rsp.text, function(text) {
-                            $('<style>').html(text).appendTo('head');
+                            $("<style>").html(text).appendTo("head");
                         });
                     }
 
@@ -436,7 +400,7 @@ SUGAR.App = (function() {
          */
         start: function() {
             _app.events.registerAjaxEvents();
-            _app.trigger('app:start', this);
+            _app.trigger("app:start", this);
             _app.routing.start();
         },
 
@@ -471,7 +435,7 @@ SUGAR.App = (function() {
             _modules[name] = obj;
 
             if (init && obj.init && _.isFunction(obj.init)) {
-                obj.init.call(obj, _app);
+                obj.init.call(_app);
             }
         },
 
@@ -503,18 +467,6 @@ SUGAR.App = (function() {
                 return self.syncPublic(options);
             }
 
-            // Register the callback if any.
-            if (options.callback) {
-                _syncCallbacks.push(options.callback);
-            }
-
-            // If already in `sync`, we can skip as the callback is registered
-            // and will be called.
-            if (_isSyncing) {
-                return;
-            }
-            _isSyncing = true;
-
             // 1. Update server info and run compatibility check
             // 2. Update preferred language if it was changed
             // 3. Load user preferences
@@ -522,7 +474,7 @@ SUGAR.App = (function() {
             // 5. Declare models
             async.waterfall([function(callback) {
                 self.isSynced = false;
-                self.trigger('app:sync');
+                self.trigger("app:sync");
                 var doUpdateLanguage = !options.noUserUpdate && (options.language || _app.cache.get('langHasChanged'));
                 if (doUpdateLanguage) {
                     var language = options.language || _app.lang.getLanguage();
@@ -537,7 +489,7 @@ SUGAR.App = (function() {
                     function(callback) {
                         self.user.load(callback);
                     }, function(callback) {
-                        self.metadata.sync(function(err) {
+                        self.metadata.sync(function(err){
                             self.data.declareModels();
                             callback(err);
                         }, options);
@@ -547,18 +499,12 @@ SUGAR.App = (function() {
             }],
                 function(err) {
                     if (err) {
-                        self.trigger('app:sync:error', err);
+                        self.trigger("app:sync:error", err);
                     } else {
                         self.isSynced = true;
-                        self.trigger('app:sync:complete');
+                        self.trigger("app:sync:complete");
                     }
-
-                    _.each(_syncCallbacks, function(callback) {
-                        callback(err);
-                    });
-                    // Reset the properties.
-                    _isSyncing = false;
-                    _syncCallbacks = [];
+                    if (_.isFunction(options.callback)) options.callback(err);
                 }
             );
         },
@@ -588,9 +534,9 @@ SUGAR.App = (function() {
         navigate: function(context, model, action) {
             var route, id, module;
             context = context || _app.controller.context;
-            model = model || context.get('model');
+            model = model || context.get("model");
             id = model.id;
-            module = context.get('module') || model.module;
+            module = context.get("module") || model.module;
 
             route = this.router.buildRoute(module, id, action);
             this.router.navigate(route, {trigger: true});
@@ -612,13 +558,13 @@ SUGAR.App = (function() {
          * @param {Function} [callbacks.complete] The complete callback.
          */
         login: function(credentials, info, callbacks) {
-            callbacks = callbacks || {};
+            callbacks  = callbacks || {};
 
             info = info || {};
             info.current_language = _app.lang.getLanguage();
             _app.api.login(credentials, info, {
                 success: function(data) {
-                    _app.trigger('app:login:success', data);
+                    _app.trigger("app:login:success", data);
                     if (callbacks.success) callbacks.success(data);
                 },
                 error: function(error) {
@@ -650,7 +596,7 @@ SUGAR.App = (function() {
 
             callbacks.complete = function(data) {
                 // The 'clear' comes from the logout URL (see router.js)
-                _app.trigger('app:logout', clear);
+                _app.trigger("app:logout", clear);
                 if (originalComplete) {
                     originalComplete(data);
                 }
@@ -676,26 +622,25 @@ SUGAR.App = (function() {
                 error;
 
             // We assume the app is not interested in the compatibility check if it doesn't have compatibility config.
-            if (_.isEmpty(flavors) && !minVersion) {
-                return true;
-            }
+            if (_.isEmpty(flavors) && !minVersion) return true;
 
             // Undefined or null data with defined compatibility config means the server is incompatible
 
-            isSupportedFlavor = !!((_.isEmpty(flavors)) || (data && _.contains(flavors, data.flavor)));
-            isSupportedVersion = !!(!minVersion || (data && this.utils.versionCompare(data.version, minVersion, '>=')));
+            isSupportedFlavor  = !!((_.isEmpty(flavors)) || (data && _.contains(flavors, data.flavor)));
+            isSupportedVersion = !!(!minVersion || (data && this.utils.versionCompare(data.version, minVersion, ">=")));
 
             if (isSupportedFlavor && isSupportedVersion) {
                 return true;
-            } else if (!isSupportedVersion) {
+            }
+            else if (!isSupportedVersion) {
                 error = {
-                    code: 'server_version_incompatible',
-                    label: 'ERR_SERVER_VERSION_INCOMPATIBLE'
+                    code: "server_version_incompatible",
+                    label: "ERR_SERVER_VERSION_INCOMPATIBLE"
                 };
             } else {
                 error = {
-                    code: 'server_flavor_incompatible',
-                    label: 'ERR_SERVER_FLAVOR_INCOMPATIBLE'
+                    code: "server_flavor_incompatible",
+                    label: "ERR_SERVER_FLAVOR_INCOMPATIBLE"
                 };
             }
 

@@ -11,9 +11,9 @@
  */
 --}}
 {{#if showProcesses}}
-    <div class="control-group dashlet-options">
+    <div class="dashlet-options">
         <div class="row-fluid">
-            <div class="span12">{{#each dashletConfig.processes_selector}}
+            <div class="span4">{{#each dashletConfig.processes_selector}}
                 {{field ../this model=../this.settings template="edit"}}
             {{/each}}</div>
         </div>

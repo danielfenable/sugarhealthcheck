@@ -15,35 +15,16 @@
  */
 ({
     extendsFrom: 'HeaderpaneView',
-
-    events: {
+    events:{
+        'click [name=vcard_finish_button]': 'initiateFinish',
         'click [name=vcard_cancel_button]': 'initiateCancel'
     },
 
-    /**
-     * Add listener for toggling the disabled state of the finish button
-     *
-     * @inheritdoc
-     */
-    initialize: function(options) {
-        this._super('initialize', [options]);
-        this.context.on('vcard:import-finish-button:toggle', this._toggleFinishButton, this);
+    initiateFinish: function() {
+        this.context.trigger('vcard:import:finish');
     },
 
-    /**
-     * Toggle the state of the finish button (enabled/disabled)
-     *
-     * @param {boolean} enabled Whether the button should be enabled
-     * @private
-     */
-    _toggleFinishButton: function(enabled) {
-        this.getField('vcard_finish_button').setDisabled(!enabled);
-    },
-
-    /**
-     * Handle cancel action - closing the drawer
-     */
-    initiateCancel: function() {
+    initiateCancel : function() {
         app.drawer.close();
     }
 })

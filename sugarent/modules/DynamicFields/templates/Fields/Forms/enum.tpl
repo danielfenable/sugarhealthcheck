@@ -16,7 +16,7 @@
 <tr>
 	<td class='mbLBL'>{sugar_translate module="DynamicFields" label="LBL_DROP_DOWN_LIST"}:</td>
 	<td>
-	{if $hideLevel < 5 && empty($vardef.function) && (!isset($vardef.studio.field.options) || isTruthy($vardef.studio.field.options))}
+	{if $hideLevel < 5 && empty($vardef.function)}
 		{html_options name="options" id="options" selected=$selected_dropdown values=$dropdowns output=$dropdowns onChange="ModuleBuilder.dropdownChanged(this.value);"}{if !$uneditable}<br><input type='button' value='{sugar_translate module="DynamicFields" label="LBL_BTN_EDIT"}' class='button' onclick="ModuleBuilder.moduleDropDown(this.form.options.value, this.form.options.value);">&nbsp;<input type='button' value='{sugar_translate module="DynamicFields" label="LBL_BTN_ADD"}' class='button' onclick="ModuleBuilder.moduleDropDown('', this.form.name.value);">{/if}
 	{else}
 		<input type='hidden' name='options' value='{$selected_dropdown}'>{$selected_dropdown}
@@ -46,7 +46,7 @@
 	</td>
 </tr>
 {/if}
-{if !$radio && (!isset($vardef.studio.field.options) || isTruthy($vardef.studio.field.options))}
+{if !$radio}
 <tr id='depTypeRow' class="toggleDep"><td class='mbLBL'>{sugar_translate module="DynamicFields" label="LBL_DEPENDENT"}:</td>
     <td>
         <select id="depTypeSelect" onchange="ModuleBuilder.toggleParent(this.value == 'parent'); ModuleBuilder.toggleDF(this.value == 'formula'); ">

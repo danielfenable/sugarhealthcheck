@@ -34,26 +34,18 @@ class One2OneRelationship extends M2MRelationship
         //If the current data matches the existing data, don't do anything
         if (!$this->checkExisting($dataToInsert))
         {
-            $success = true;
             $lhsLinkName = $this->lhsLink;
             $rhsLinkName = $this->rhsLink;
             //In a one to one, any existing links from both sides must be removed first.
             //one2Many will take care of the right side, so we'll do the left.
             $lhs->load_relationship($lhsLinkName);
-            if ($this->removeAll($lhs->$lhsLinkName) === false) {
-                LoggerManager::getLogger()->error("Warning: failed calling removeAll() on lhsLinkName: $lhsLinkName for relationship {$this->name} within One2OneRelationship->add().");
-            }
+            $this->removeAll($lhs->$lhsLinkName);
             $rhs->load_relationship($rhsLinkName);
-            if ($this->removeAll($rhs->$rhsLinkName) === false) {
-                $success = false;
-                LoggerManager::getLogger()->error("Warning: failed calling removeAll() on rhsLinkName: $rhsLinkName for relationship {$this->name} within One2OneRelationship->add().");
-            }
-            if (parent::add($lhs, $rhs, $additionalFields) === false) {
-                $success = false;
-                LoggerManager::getLogger()->error("Warning: failed calling parent add() for relationship {$this->name} within One2OneRelationship->add().");
-            }
-            return $success;
+            $this->removeAll($rhs->$rhsLinkName);
+
+            return parent::add($lhs, $rhs, $additionalFields);
         }
+
         // data matched what was there so return false, since nothing happened
         return false;
     }

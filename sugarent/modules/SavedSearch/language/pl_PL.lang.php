@@ -10,34 +10,34 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+ 
 /*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * pl_pl.lang.php for SugarCRM 6.5.0
+ * Translator: eVolpe
  * All Rights Reserved.
+ * Any bugs report welcome: support@evolpe.pl
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
 $mod_strings = array (
 	'LBL_MODULE_TITLE' => 'Moje zapisane wyniki wyszukiwania',
 	'LBL_SEARCH_FORM_TITLE' => 'Moje zapisane wyniki wyszukiwania: Wyszukiwanie',
-	'LBL_LIST_FORM_TITLE' => 'Lista moich zapisanych wyników wyszukiwania', 
+	'LBL_LIST_FORM_TITLE' => 'Lista moich wyników wyszukiwania',
 	'LBL_DELETE_CONFIRM' => 'Czy na pewno chcesz usunąć wybrany wynik wyszukiwania?',
 	'LBL_UPDATE_BUTTON_TITLE' => 'Aktualizuj ten wynik wyszukiwania',
 	'LBL_DELETE_BUTTON_TITLE' => 'Usuń ten wynik wyszukiwania',
 	'LBL_SAVE_BUTTON_TITLE' => 'Zapisz bieżące wyszukiwanie',
 	'LBL_LIST_NAME' => 'Nazwa',
 	'LBL_LIST_MODULE' => 'Moduł',
-    'LBL_ORDER_BY_COLUMNS' => 'Sortuj według:',
-    'LBL_DIRECTION' => 'Uporządkuj wyniki:',
-    'LBL_SAVE_SEARCH_AS' => 'Zapisz wynik wyszukiwania jako',
-    'LBL_SAVE_SEARCH_AS_HELP' => 'Zapisuje Twoje ustawienia widoku i wszystkie filtry w zakładce Wyszukiwanie zaawansowane.',
-    'LBL_PREVIOUS_SAVED_SEARCH' => 'Poprzednie zapisane wyniki wyszukiwania:',
-    'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Edytuj lub usuń istniejący zapisany wynik wyszukiwania.',
-    'LBL_ASCENDING' => 'Rosnąco', 
+	'LBL_ORDER_BY_COLUMNS' => 'Sortuj według:',	
+	'LBL_DIRECTION' => 'Uporządkuj wyniki:',
+	'LBL_SAVE_SEARCH_AS' => 'Zapisz wynik wyszukiwania jako',
+	'LBL_SAVE_SEARCH_AS_HELP' => 'Zapisuje Twoje ustawienia widoku i wszystkie filtry w zakładce Wyszukiwanie zaawansowane.',
+	'LBL_PREVIOUS_SAVED_SEARCH' => 'Poprzednie zapisane wyniki wyszukiwania:',
+	'LBL_PREVIOUS_SAVED_SEARCH_HELP' => 'Edytuj lub usuń istniejący zapisany wynik wyszukiwania.',
+    'LBL_ASCENDING' => 'Rosnąco',
     'LBL_DESCENDING' => 'Malejąco',
     'LBL_MODIFY_CURRENT_SEARCH'=> 'Modyfikuj bieżące wyszukiwanie',
-
 );
 
 

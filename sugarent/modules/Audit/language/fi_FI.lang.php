@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'Näytä muutosloki',
-    'LBL_FIELD_NAME' => 'Kenttä',
-    'LBL_OLD_NAME' => 'Vanha arvo',
-    'LBL_NEW_VALUE' => 'Uusi arvo',
-    'LBL_CREATED_BY' => 'Muuttanut',
-    'LBL_LIST_DATE' => 'Muutettu',
-    'LBL_AUDITED_FIELDS' => 'Tässä moduulissa tarkastetut kentät:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'Tässä moduulissa ei ole laisinkaan tarkastettuja kenttiä',
-    'LBL_CHANGE_LOG' => 'Muutosloki',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'Kun tarkastetut valuuttakentät tallennetaan muussa kuin järjestelmän oletusvaluutassa, muutosloki näyttää sekä vanhan että uuden arvon muunnetussa järjestelmän oletusvaluutassa.'
+	
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Tässä moduulissa tarkastetut kentät:',
+  'LBL_AUDIT_TITLE' => 'Näytä muutosloki',
+  'LBL_CHANGE_LOG' => 'Muutosloki',
+  'LBL_CREATED_BY' => 'Muuttanut',
+  'LBL_FIELD_NAME' => 'Kenttä',
+  'LBL_LIST_DATE' => 'Muutettu',
+  'LBL_NEW_VALUE' => 'Uusi arvo',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'Tässä moduulissa ei ole laisinkaan tarkastettuja kenttiä',
+  'LBL_OLD_NAME' => 'Vanha arvo',
 );
+

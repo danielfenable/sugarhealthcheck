@@ -186,27 +186,11 @@ class Team extends SugarBean
 			$team->add_user_to_team($user->id);
 		}
 
-        $su = BeanFactory::retrieveBean('Users', $user->id);
-        if (!$su) {
-            return;
-        }
-
+		$su = BeanFactory::getBean('Users', $user->id);
 		$team->retrieve($this->global_team);
 		$su->default_team = $team->id;
 		$su->team_id = $team->id;
-
-		//do not overwrite the existing teamset during import
-		if ($su->in_import) {
-
-			//add the global team to the teamset
-			$user_team_ids = array($team->id);
-			$teamSet = BeanFactory::getBean('TeamSets');
-			$su->team_set_id = $teamSet->addTeams($user_team_ids);
-
-		} else {
-			//not an import, make the global team the team set id
-			$su->team_set_id = $team->id;
-		}
+		$su->team_set_id = $team->id;
 		$su->save();
 	}
 
@@ -536,10 +520,10 @@ class Team extends SugarBean
             }
             $manager = BeanFactory::getBean('Users');
             $manager->reports_to_id = $focus->reports_to_id;
-            while (!empty($manager->reports_to_id)
-                && $manager->reports_to_id != $manager->id
-                && $manager->retrieve($manager->reports_to_id)
-            ) {
+            while(!empty($manager->reports_to_id) && $manager->id != $manager->reports_to_id)
+            {
+                $manager->retrieve($manager->reports_to_id);
+
                 $result = $membership->retrieve_by_user_and_team($manager->id, $this->id);
                 if($result)
                 {

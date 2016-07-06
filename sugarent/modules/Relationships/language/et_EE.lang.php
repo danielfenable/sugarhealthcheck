@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +10,15 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
- /*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+
+
+	
 $mod_strings = array (
-  'LBL_ID' => 'Seose Id',
-  'LBL_RELATIONSHIP_NAME' => 'Seose nimi',
+  'LBL_REVERSE' => 'Tühistamine',
   'LBL_LHS_MODULE' => 'LHS Module nimi',
   'LBL_LHS_TABLE' => 'LHS tabeli nimi',
   'LBL_LHS_KEY' => 'LHS Key Name',
@@ -30,11 +28,11 @@ $mod_strings = array (
   'LBL_JOIN_TABLE' => 'Join Table nimi',
   'LBL_JOIN_KEY_LHS' => 'Join Key LHS',
   'LBL_JOIN_KEY_RHS' => 'Join Key RHS',
-  'LBL_RELATIONSHIP_TYPE' => 'Seose tüüp',
   'LBL_RELATIONSHIP_ROLE_COLUMN' => 'Relationship Role Column nimi',
   'LBL_RELATIONSHIP_ROLE_COLUMN_VALUE' => 'Relationship Role Column väärtus',
-  'LBL_REVERSE' => 'Tühistamine' ,
+  'LBL_ID' => 'Seose Id',
+  'LBL_RELATIONSHIP_NAME' => 'Seose nimi',
+  'LBL_RELATIONSHIP_TYPE' => 'Seose tüüp',
   'LBL_DELETED' => 'Kustutatud',
 );
-  
-?>
+

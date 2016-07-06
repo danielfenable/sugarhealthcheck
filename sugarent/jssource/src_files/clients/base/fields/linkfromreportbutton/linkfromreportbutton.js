@@ -24,7 +24,7 @@
 
     /**
      * Event handler for the select button that opens a
-     * {@link View.Layouts.Base.SelectionListLinkLayout} in  a drawer for linking
+     * {@link View.Layouts.Base.SelectionListLayout} in  a drawer for linking
      * an existing record.
      */
     openSelectDrawer: function() {
@@ -44,7 +44,8 @@
             layout: 'selection-list',
             context: {
                 module: 'Reports',
-                filterOptions: filterOptions.format()
+                filterOptions: filterOptions.format(),
+                parent: this.context
             }
         }, _.bind(this.selectDrawerCallback, this));
     },
@@ -83,7 +84,7 @@
                     app.alert.show('server-error', {
                         level: 'error',
                         title: app.lang.get('ERR_INTERNAL_ERR_MSG'),
-                        messages: ['ERR_HTTP_500_TEXT_LINE1', 'ERR_HTTP_500_TEXT_LINE2']
+                        messages: app.lang.get('ERR_HTTP_500_TEXT')
                     });
                 }
             }
@@ -151,7 +152,7 @@
         app.alert.show('server-error', {
             level: 'error',
             title: app.lang.get('ERR_INTERNAL_ERR_MSG'),
-            messages: ['ERR_HTTP_500_TEXT_LINE1', 'ERR_HTTP_500_TEXT_LINE2']
+            messages: app.lang.get('ERR_HTTP_500_TEXT')
         });
     },
 

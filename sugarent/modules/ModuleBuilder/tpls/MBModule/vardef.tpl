@@ -23,7 +23,6 @@ $dictionary['{{$class.name}}'] = array(
     'optimistic_locking' => true,
 {{if !empty($class.table_name) && !empty($class.templates)}}
     'unified_search' => true,
-    'full_text_search' => true,
 {{/if}}
 );
 

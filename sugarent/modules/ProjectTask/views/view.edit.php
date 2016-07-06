@@ -1,5 +1,4 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 /*
@@ -13,7 +12,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: view.detail.php 
+
  * Description: This file is used to override the default Meta-data EditView behavior
  * to provide customization specific to the Calls module.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
@@ -36,7 +35,6 @@ class ProjectTaskViewEdit extends ViewEdit
 			$focus->retrieve($_REQUEST['record']);
 		}
 		
-
 		$this->ss->assign('resource', $focus->getResourceName());
 		
 		if (isset($_REQUEST['fromGrid']) && $_REQUEST['fromGrid'] == '1'){

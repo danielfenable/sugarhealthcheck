@@ -12,9 +12,9 @@
  */
 
 $viewdefs['Emails']['base']['layout']['compose-addressbook-list'] = array(
-    'type' => 'compose-addressbook-list',
-    'span' => 12,
-    'components' => array(
+    "type" => "list",
+    'components' =>
+    array(
         array(
             'view' => 'compose-addressbook-list',
         ),
@@ -22,5 +22,7 @@ $viewdefs['Emails']['base']['layout']['compose-addressbook-list'] = array(
             'view' => 'compose-addressbook-list-bottom',
         ),
     ),
+    'type' => 'compose-addressbook-list',
+    'span' => 12,
 );
 

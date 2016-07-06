@@ -1,5 +1,4 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -11,6 +10,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
 
 $connector_strings = array (
     'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Zdobądź Poufny klucz klienta z LotusLive&copy; poprzez zarejestrowanie swojej instancji Sugar jako nowej aplikacji.<br>
@@ -29,4 +29,3 @@ Kroki rejestracji aplikacji:<br>
     'oauth_consumer_key' => 'Unikalny klucz licencyjny OAuth',
     'oauth_consumer_secret' => 'Poufny klucz klienta OAuth',
 );
-

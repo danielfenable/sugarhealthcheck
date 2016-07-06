@@ -166,15 +166,7 @@ Calendar.setup = function (params) {
                 	}
                 	calendar.cfg.setProperty('MONTHS_LONG', SUGAR.language.languages['app_list_strings']['dom_cal_month_long']);
                 }
-
-                // Configure the month and days label with localization support where defined
-                if (typeof SUGAR.language.languages['app_list_strings'] != 'undefined' && SUGAR.language.languages['app_list_strings']['dom_cal_month_short'] != 'undefined') {
-                    if (SUGAR.language.languages['app_list_strings']['dom_cal_month_short'].length == 13) {
-                        SUGAR.language.languages['app_list_strings']['dom_cal_month_short'].shift();
-                    }
-                    calendar.cfg.setProperty('MONTHS_SHORT', SUGAR.language.languages['app_list_strings']['dom_cal_month_short']);
-                }
-
+                
                 if(typeof SUGAR.language.languages['app_list_strings'] != 'undefined'  && typeof SUGAR.language.languages['app_list_strings']['dom_cal_day_short'] != 'undefined')
                 {
                 	if(SUGAR.language.languages['app_list_strings']['dom_cal_day_short'].length == 8)

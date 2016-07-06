@@ -15,7 +15,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Represents a relationship where part of the data is substituted by the current_user_id
  * @api
  */
-class UserBasedRelationship extends One2MRelationship
+class UserBasedRelationship extends M2MRelationship
 {
     public $type = "user-based";
     

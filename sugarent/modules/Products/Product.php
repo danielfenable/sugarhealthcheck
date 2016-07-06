@@ -454,7 +454,7 @@ class Product extends SugarBean
 
 
         // since we don't have a likely_case on products,
-        if ($rli->likely_case == '0.00' || empty($rli->likely_case)) {
+        if ($rli->likely_case == '0.00') {
             //undo bad math from quotes.
             $rli->likely_case = $this->total_amount;
         }

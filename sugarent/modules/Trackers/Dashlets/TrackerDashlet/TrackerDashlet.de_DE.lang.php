@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +11,38 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Tracker-Berichte',
-                                          'LBL_DESCRIPTION'      => 'Ein Dashlet, um Verlaufsdaten abzufragen',
-                                          'LBL_SAVING'           => 'Abfrage läuft...',
-                                          'LBL_SAVED'            => 'Abfrage abgeschloeen',
-                                          'LBL_CLEAR'            => 'Leeren',
-                                          'LBL_CLEAR_TOOLTIP'    => 'Löscht den Datumsfeldwert',
-                                          'LBL_CONFIGURE_TITLE'  => 'Name',
-                                          'LBL_CONFIGURE_HEIGHT' => 'Höhe (1 - 300)',
-										  'LBL_SELECT_QUERY'     => 'Abfrage wird ausgewählt...',
-										  'LBL_FILTER'              => 'Filter',
-										  'LBL_FILTER_TOOLTIP'      => 'Filterung nach dem Wert im Datumfeld',
-										  'LBL_SINCE'            => 'seit:',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
-										                               '  The date value entered will replace the default date value for the report.' .
-										                               '  For example, in the "My Activity (This Week)" report, the' .
-										                               ' value will be used to display all records after the filter date' .
-										                               ' instead of the default time period of one week.',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$dashletStrings = array (
+  'TrackerDashlet' => 
+  array (
+    'LBL_SELECT_QUERY' => 'Abfrage wird selektiert...',
+    'LBL_FILTER' => 'Filter',
+    'LBL_TITLE' => 'Verlaufsberichte',
+    'LBL_DESCRIPTION' => 'Ein Dashlet um Verlaufsdaten abzufragen',
+    'LBL_SAVING' => 'Speichere...',
+    'LBL_SAVED' => 'Fertig',
+    'LBL_CLEAR' => 'Löschen',
+    'LBL_CLEAR_TOOLTIP' => 'Löscht den Datumsfeldwert',
+    'LBL_CONFIGURE_TITLE' => 'Titel',
+    'LBL_CONFIGURE_HEIGHT' => 'Höhe (1 - 300)',
+    'LBL_FILTER_TOOLTIP' => 'Filtert auf den Wert im Datumsfeld',
+    'LBL_SINCE' => 'seit:',
+    'LBL_CHOOSE_DATE_TOOLTIP' => 'Für ausgewählte Berichte lässt sich ein Datumsfilter setzen. Der eingegebene Datumswert ersetzt den Standardwert des Berichts. So wird z.B. im Bericht "Meine Aktivitäten (diese Woche)" dieser Wert verwendet anstatt des Standardwertr von einer Woche',
+  ),
 );
+

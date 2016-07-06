@@ -12,63 +12,49 @@
     extendsFrom: 'MassupdateView',
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     initialize: function(options) {
-        this.plugins = _.union(this.plugins || [], ['DisableMassDelete', 'MassQuote', 'CommittedDeleteWarning']);
+        this.plugins = _.clone(this.plugins) || [];
+        this.plugins.push('DisableMassDelete', 'MassQuote');
         this._super("initialize", [options]);
     },
 
     /**
-     *
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    setMetadata: function(options) {
-        var config = app.metadata.getModule('Forecasts', 'config');
-
-        this._super("setMetadata", [options]);
-
-        if (!config || (config && !config.is_setup)) {
-            _.each(options.meta.panels, function(panel) {
-                _.every(panel.fields, function (item, index) {
-                    if (_.isEqual(item.name, "commit_stage")) {
-                        panel.fields.splice(index, 1);
-                        return false;
-                    }
-                    return true;
-                }, this);
-            }, this);
-        }
+    delegateListFireEvents: function() {
+        this.layout.on("list:records:deleted", this.deleteCommitWarning, this);
+        this._super("delegateListFireEvents");
     },
-
+    
     /**
-     * @inheritdoc
+     * Shows a warning message if a RLI that is included in a forecast is deleted.
+     * @return string message
      */
-    save: function(forCalcFields) {
-        var forecastCfg = app.metadata.getModule("Forecasts", "config");
-        if (forecastCfg && forecastCfg.is_setup) {
-            // Forecasts is enabled and setup
-            var hasCommitStage = _.some(this.fieldValues, function(field) {
-                    return field.name === 'commit_stage';
-                }),
-                hasClosedModels = false;
-
-            if(!hasCommitStage && this.defaultOption.name === 'commit_stage') {
-                hasCommitStage = true;
+    deleteCommitWarning: function(lastSelectedModels) {
+        var message = null;
+        
+        if (!_.isUndefined(_.find(lastSelectedModels, function(model) {
+            if (model.get("commit_stage") == "include") {
+                return true;
             }
-
-            if(hasCommitStage) {
-                hasClosedModels = this.checkMassUpdateClosedModels();
-            }
-
-            if(!hasClosedModels) {
-                // if this has closed models, first time through will uncheck but not save
-                // if this doesn't it will save like normal
-                this._super('save', [forCalcFields]);
-            }
-        } else {
-            // Forecasts is not enabled and the commit_stage field isn't in the mass update list
-            this._super('save', [forCalcFields]);
+            return false;
+        }))) {
+            var forecastModuleSingular = app.lang.getModuleName('Forecasts');
+            message = app.lang.get("WARNING_DELETED_RECORD_LIST_RECOMMIT_1", "RevenueLineItems")
+                + '<a href="#Forecasts">' + forecastModuleSingular + '</a>.  '
+                + app.lang.get("WARNING_DELETED_RECORD_LIST_RECOMMIT_2", "RevenueLineItems")
+                + '<a href="#Forecasts">' + forecastModuleSingular + '</a>.';
+            app.alert.show("included_list_delete_warning", {
+                level: "warning",
+                messages: message,
+                onLinkClick: function() {
+                    app.alert.dismissAll();
+                }
+            });
         }
+        
+        return message;
     }
 })

@@ -69,15 +69,13 @@
      * Supported options:
      * - delay: How often (minutes) should the pulling mechanism run.
      * - limit: Limit imposed to the number of records pulled.
-     * - enable_favicon: Enables/disables notifications in favicon, enabled by default.
      *
      * @property {Object}
      * @protected
      */
     _defaultOptions: {
         delay: 5,
-        limit: 4,
-        enable_favicon: true
+        limit: 4
     },
 
     events: {
@@ -85,7 +83,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initialize: function(options) {
         options.module = 'Notifications';
@@ -105,10 +103,10 @@
         this._initOptions();
         this._initCollection();
         this._initReminders();
-        this._initFavicon();
         this.startPulling();
 
         this.collection.on('change:is_read', this.render, this);
+
         return this;
     },
 
@@ -120,11 +118,10 @@
      * @protected
      */
     _initOptions: function() {
-        var options = _.extend({}, this._defaultOptions, this.meta || {});
+        var options = _.extend(this._defaultOptions, this.meta || {});
 
         this.delay = options.delay * 60 * 1000;
         this.limit = options.limit;
-        this.enableFavicon = options.enable_favicon;
 
         return this;
     },
@@ -191,42 +188,12 @@
         _.each(['Calls', 'Meetings'], function(module) {
             this._alertsCollections[module] = app.data.createBeanCollection(module);
             this._alertsCollections[module].options = {
-                limit: this.meta && parseInt(this.meta.remindersLimit, 10) || 100,
+                limit: this.meta.remindersLimit,
                 fields: ['date_start', 'id', 'name', 'reminder_time', 'location', 'parent_name']
             };
         }, this);
 
         return this;
-    },
-
-    /**
-     * Initializes the favicon using the Favico library.
-     *
-     * This will listen to the collection reset and update the favicon badge to
-     * match the value of the notification element.
-     *
-     * @private
-     */
-    _initFavicon: function() {
-
-        if (!this.enableFavicon) {
-            return;
-        }
-
-        this.favicon = new Favico({animation: 'none'});
-        this.collection.on('reset', function() {
-            var badge = this.collection.length;
-            if (this.collection.next_offset > 0) {
-                badge = badge + '+';
-            }
-            this.favicon.badge(badge);
-        }, this);
-
-        this.on('render', function(){
-            if (!app.api.isAuthenticated() || app.config.appStatus === 'offline') {
-                this.favicon.reset();
-            }
-        });
     },
 
     /**
@@ -388,13 +355,13 @@
             dateValue = app.date.format(new Date(model.get('date_start')), dateFormat),
             template = app.template.getView('notifications.notifications-alert'),
             message = template({
-                title: new Handlebars.SafeString(app.lang.get('LBL_REMINDER_TITLE', model.module)),
+                title: app.lang.get('LBL_REMINDER_TITLE', model.module),
                 module: model.module,
-                name: new Handlebars.SafeString(model.get('name')),
-                location: new Handlebars.SafeString(model.get('location')),
+                model: model,
+                location: model.get('location'),
                 description: model.get('description'),
                 dateStart: dateValue,
-                parentName: new Handlebars.SafeString(model.get('parent_name'))
+                parentName: model.get('parent_name')
             });
         _.defer(function() {
             if (confirm(message)) {
@@ -436,12 +403,10 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _renderHtml: function() {
-        if (!app.api.isAuthenticated() ||
-            app.config.appStatus === 'offline' ||
-            !app.acl.hasAccess('view', this.module)) {
+        if (!app.api.isAuthenticated() || app.config.appStatus === 'offline') {
             return;
         }
 
@@ -449,7 +414,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Stops pulling for new notifications and disposes all reminders.
      */

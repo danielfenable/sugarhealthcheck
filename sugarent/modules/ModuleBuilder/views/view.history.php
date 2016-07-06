@@ -108,13 +108,6 @@ class ViewHistory extends SugarView
             );
             $ts = $this->history->getNext () ;
         }
-
-        // If we're viewing history for the Opportunities module, we remove the
-        // first revision to remove the result of the Opps/RLI mode-switch.
-        if ($this->module == 'Opportunities') {
-            array_pop($snapshots);
-        }
-
         if (count ( $snapshots ) > $this->pageSize)
         {
             $smarty->assign ( 'nextPage', true ) ;

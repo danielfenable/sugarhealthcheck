@@ -23,7 +23,6 @@ $viewdefs['Cases']['base']['filter']['default'] = array(
         'case_number' => array(),
         'date_entered' => array(),
         'date_modified' => array(),
-        'tag' => array(),
         'assigned_user_name' => array(),
         '$owner' => array(
             'predefined_filter' => true,

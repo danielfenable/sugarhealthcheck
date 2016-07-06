@@ -11,7 +11,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
 set_time_limit(360);
 require_once('include/utils/zip_utils.php');
 $server->wsdl->addComplexType(

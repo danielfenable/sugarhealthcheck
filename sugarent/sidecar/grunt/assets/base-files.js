@@ -15,7 +15,7 @@
 
     'lib/backbone/underscore.js',
     'lib/jquery/jquery.min.js',
-    'lib/jquery-ui/js/jquery-ui-1.11.4.custom.min.js',
+    'lib/jquery-ui/js/jquery-ui-1.8.18.custom.min.js',
     'lib/backbone/backbone.js',
     'lib/handlebars/handlebars.js',
     'lib/sugarapi/sugarapi.js',

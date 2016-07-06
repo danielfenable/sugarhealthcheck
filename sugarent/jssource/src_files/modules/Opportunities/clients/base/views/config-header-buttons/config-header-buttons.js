@@ -48,7 +48,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * @param {function} onClose
      */
     showSavedConfirmation: function(onClose) {
@@ -75,6 +75,11 @@
 
     /**
      * @inheritdoc
+     *
+     * Overriding the default saveConfig to display the warning alert first, then on confirm of the
+     * warning alert, it calls the parent saveConfig to actually save the config settings
+     *
+     * @override
      */
     saveConfig: function() {
         if (this.isForecastsSetup && this.currentOppsViewBySetting !== this.model.get('opps_view_by')) {
@@ -82,32 +87,5 @@
         } else {
             this._super('saveConfig');
         }
-    },
-
-    /**
-     *
-     * Overriding the default saveConfig to display the warning alert first, then on confirm of the
-     * warning alert, save the config settings. Reloads metadata.
-     *
-     * @override
-     */
-    _saveConfig: function() {
-        this.context.get('model').save({}, {
-            // getting the fresh model with correct config settings passed in as the param
-            success: _.bind(function(model) {
-                this.showSavedConfirmation();
-                if (app.drawer.count()) {
-                    // close the drawer and return to Opportunities
-                    app.drawer.close(this.context, this.context.get('model'));
-                    // Config changed... reload metadata
-                    app.sync();
-                } else {
-                    app.router.navigate(this.module, {trigger: true});
-                }
-            }, this),
-            error: _.bind(function() {
-                this.getField('save_button').setDisabled(false);
-            }, this)
-        });
     }
 })

@@ -18,7 +18,7 @@
 
     /**
      * @param {Object} options
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         app.events.on("app:sync:complete", this.render, this);
@@ -31,7 +31,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * @private
      */
     _renderHtml: function() {
@@ -81,7 +81,7 @@
      * Sorts the module list based upon the value of the order attribute.
      *
      * @param {Array} moduleList
-     * @return {Array}
+     * @returns {Array}
      * @private
      */
     _sortByOrder: function(moduleList) {

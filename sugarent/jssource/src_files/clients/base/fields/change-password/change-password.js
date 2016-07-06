@@ -15,7 +15,7 @@
  *
  * @class View.Fields.Base.ChangePasswordField
  * @alias SUGAR.App.view.fields.BaseChangePasswordField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     fieldTag: 'input:not(:disabled)',
@@ -145,7 +145,7 @@
      * Sets an arbitrary value just to display stars on detail view
      * @override
      * @param {Boolean} value
-     * @return {string} value
+     * @returns {String} value
      */
     format: function(value) {
         if (value === true) return 'value_setvalue_set';
@@ -156,25 +156,11 @@
      * Reset the arbitrary value
      * @override
      * @param {String} value
-     * @return {Mixed} value boolean is the value is not set
+     * @returns {*} value boolean is the value is not set
      */
     unformat: function(value) {
         if (value === 'value_setvalue_set') return true;
         return value;
-    },
-
-    /**
-     * Sets a password attribute on the model of this field.
-     *
-     * @private
-     * @param {Event} evt The event object.
-     */
-    _setPasswordAttribute: function(evt) {
-        var $el = this.$(evt.currentTarget);
-        var attr = $el.attr('name');
-        var val = $el.val();
-
-        this.model.set(this.name + '_' + attr, this.unformat(val));
     },
 
     /**
@@ -183,26 +169,17 @@
     bindDomChange: function() {
         if (!(this.model instanceof Backbone.Model)) return;
 
-        this.$('input[name=new_password]').on('change.' + this.cid, _.bind(this._setPasswordAttribute, this));
-
         var self = this;
-        this.$('input[name=confirm_password]').on('change.' + this.cid, function() {
-            var val = self.unformat($(this).val());
-            self.model.set(self.name + '_confirm_password', val);
-            self.model.set(self.name, val);
+        var el = this.$(self.fieldTag);
+        el.on("change", function() {
+            /**
+             * The only change is here.
+             * We want to set <field.name>_new_password and <field.name>_current_password instead of <field.name>
+             */
+            self.model.set(self.name + '_' + $(this).attr('name'), self.unformat($(this).val()));
         });
 
-        this.$('input[name=new_password], input[name=confirm_password]').on('focus.' + this.cid, _.bind(this.handleFocus, this));
-    },
-
-    /**
-     * @inheritdoc
-     */
-    unbindDom: function() {
-        this.$('input[name=new_password], input[name=confirm_password]')
-            .off('change.' + this.cid)
-            .off('focus.' + this.cid);
-        this._super('unbindDom');
+        el.on('focus', _.bind(this.handleFocus, this));
     },
 
     /**

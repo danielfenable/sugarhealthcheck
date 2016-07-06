@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -13,17 +15,18 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 
 $mod_strings = array (
-    'LBL_OAUTH_REQUEST' => "בקש אסימון אבטחה",
-    'LBL_OAUTH_AUTHORIZE' => "אשר אסימון אבטחה",
-	'LBL_OAUTH_CONSUMERREQ' => "אשר אסימון אבטחה מצרכן <b>%s</b>?",
-    'LBL_OAUTH_ROLE' => "תפקיד אסימון אבטחה",
-	'LBL_OAUTH_VALIDATION' => "קוד אימות",
-  	'LBL_ASSIGNED_TO_NAME' => 'משתמש',
-  	'LBL_ID' => 'מזהה',
-    'LBL_STATUS' => 'מצב',
-    'LBL_TS' => 'חתימת זמן',
-    'LBL_LIST_DELETE' => 'מחק אסימון אבטחה',
-    'LBL_CONSUMER' => 'שם צרכן',
-    'LBL_OAUTH_DISABLED' => 'תמיכת OAuth לא מופעלת. ייתכן והרחבת PHP OAuth חסרה. אנא צור קשר עם מנהל המערכת שלך.',
-    'LBL_CONTACTS' => 'שם איש קשר:',
+  'LBL_ASSIGNED_TO_NAME' => 'משתמש',
+  'LBL_CONSUMER' => 'שם צרכן',
+  'LBL_CONTACTS' => 'שם איש קשר:',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_DELETE' => 'מחק אסימון אבטחה',
+  'LBL_OAUTH_AUTHORIZE' => 'אשר אסימון אבטחה',
+  'LBL_OAUTH_CONSUMERREQ' => 'אשר אסימון אבטחה מצרכן <b>%s</b>?',
+  'LBL_OAUTH_DISABLED' => 'OAuth support not enabled. PHP oauth extension may be missing. Please contact your administrator.',
+  'LBL_OAUTH_REQUEST' => 'בקש אסימון אבטחה',
+  'LBL_OAUTH_ROLE' => 'תפקיד אסימון אבטחה',
+  'LBL_OAUTH_VALIDATION' => 'קוד אימות',
+  'LBL_STATUS' => 'סטאטוס',
+  'LBL_TS' => 'חתימת זמן',
 );
+

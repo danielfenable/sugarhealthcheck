@@ -1,5 +1,4 @@
 <?php
- if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -13,16 +12,17 @@
 $viewdefs['KBDocuments']['base']['filter']['default'] = array(
     'default_filter' => 'all_records',
     'fields' => array(
-        'name' => array(),
-        'status' => array(),
+        'kbdocument_name' => array(),
+        'status_id' => array(),
+        'exp_date' => array(),
+        'is_external_article' => array(),
+        'date_entered' => array(),
+        'date_modified' => array(),
+        'assigned_user_name' => array(),
+        'team_name' => array(),
         '$owner' => array(
             'predefined_filter' => true,
             'vname' => 'LBL_CURRENT_USER_FILTER',
-        ),
-        'assigned_user_name' => array(),
-        '$favorite' => array(
-            'predefined_filter' => true,
-            'vname' => 'LBL_FAVORITES_FILTER',
         ),
     ),
 );

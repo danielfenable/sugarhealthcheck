@@ -2,6 +2,7 @@
 
 namespace Elastica\Test\Aggregation;
 
+
 use Elastica\Aggregation\Min;
 use Elastica\Aggregation\Nested;
 use Elastica\Document;
@@ -13,16 +14,16 @@ class NestedTest extends BaseAggregationTest
     protected function setUp()
     {
         parent::setUp();
-        $this->_index = $this->_createIndex();
+        $this->_index = $this->_createIndex("nested");
         $mapping = new Mapping();
         $mapping->setProperties(array(
             "resellers" => array(
                 "type" => "nested",
                 "properties" => array(
                     "name" => array("type" => "string"),
-                    "price" => array("type" => "double"),
-                ),
-            ),
+                    "price" => array("type" => "double")
+                )
+            )
         ));
         $type = $this->_index->getType("test");
         $type->setMapping($mapping);
@@ -30,15 +31,15 @@ class NestedTest extends BaseAggregationTest
             new Document("1", array(
                 "resellers" => array(
                     "name" => "spacely sprockets",
-                    "price" => 5.55,
-                ),
+                    "price" => 5.55
+                )
             )),
             new Document("1", array(
                 "resellers" => array(
                     "name" => "cogswell cogs",
-                    "price" => 4.98,
-                ),
-            )),
+                    "price" => 4.98
+                )
+            ))
         );
         $type->addDocuments($docs);
         $this->_index->refresh();
@@ -58,3 +59,4 @@ class NestedTest extends BaseAggregationTest
         $this->assertEquals(4.98, $results['min_price']['value']);
     }
 }
+ 

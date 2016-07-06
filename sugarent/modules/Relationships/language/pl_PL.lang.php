@@ -10,13 +10,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
- /*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+/*********************************************************************************
+ * pl_pl.lang.php for SugarCRM 6.5.0
+ * Translator: eVolpe
  * All Rights Reserved.
+ * Any bugs report welcome: support@evolpe.pl
  * Contributor(s): ______________________________________..
  ********************************************************************************/
+
+
 
 $mod_strings = array (
   'LBL_ID' => 'ID relacji',

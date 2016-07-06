@@ -40,6 +40,7 @@ if($GLOBALS['current_user']->isAdminForModule('Users')
 
 	$module_menu[] = Array("index.php?module=Users&action=reassignUserRecords", $mod_strings['LNK_REASSIGN_RECORDS'],"ReassignRecords");
 
+
     $module_menu[] = Array("index.php?module=Import&action=Step1&import_module=Users&return_module=Users&return_action=index", $mod_strings['LNK_IMPORT_USERS'],"Import", 'Contacts');
 }
 /*

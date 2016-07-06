@@ -50,61 +50,22 @@ var reassignFormBWC = function(casId, casIndex, flowId, pmseInboxId, taskName, v
     value.moduleName = valuesA;
     value.beanId = valuesB;
     value.full_name = fullName;
-    showForm(casId, casIndex, flowId, pmseInboxId, taskName, value, 'reassign');
+    reassignForm(casId, casIndex, flowId, pmseInboxId, taskName, value);
 };
-/**
- * Open the reassignation form for the current case.
- *
- * @deprecated This will be removed on future versions.
- * Use showForm() and send it the same parameters in the same order plus the constant 'reassign' string as last parameter.
- */
-var reassignForm = function(casId, casIndex, flowId, pmseInboxId, taskName, values) {
-    _App.logger.warn('reassignForm() is deprecated, it will be removed in a future release. ' +
-    'Use showForm() using the same parameters in the same order plus constant "reassign" string as last parameter instead.');
-    showForm(casId, casIndex, flowId, pmseInboxId, taskName, values, 'reassign');
-};
-
-var showForm = function(casId, casIndex, flowId, pmseInboxId, taskName, values, type)
+var reassignForm = function(casId, casIndex, flowId, pmseInboxId, taskName, values)
 {
-    var formView = _App.controller.layout.getComponent("bwc"),
-        openModal = function () {
-            showModalWindow(casId, casIndex, type, flowId, pmseInboxId, taskName, values);
-        };
-
-    if (!_.isUndefined(formView) && formView.hasUnsavedChanges()) {
-        _App.alert.show('reassign_confirmation', {
-            level: 'confirmation',
-                messages: translate('LBL_PMSE_ALERT_REASSIGN_UNSAVED_FORM', 'pmse_Inbox'),
-                onConfirm: function () {
-                    formView.$('iframe').get(0).contentWindow.EditView.reset();
-                    formView.revertBwcModel();
-                    openModal();
-                },
-            onCancel: $.noop
-        });
-    } else {
-        openModal();
-    }
+    //showModalWindow("?module=ProcessMaker&action=reassignForm&to_pdf=1&cas_id=" + casId + "&cas_index=" + casIndex + "&team_id=" + teamId, '# ' + casId + ': Reassignment');
+    showModalWindow(casId, casIndex, 'reassign', flowId, pmseInboxId, taskName, values);
 };
 var adhocFormBWC = function(casId, casIndex, flowId, pmseInboxId, taskName, valuesA,valuesB){
     var value=new Object();
     value.moduleName = valuesA;
     value.beanId = valuesB;
-    showForm(casId, casIndex, flowId, pmseInboxId, taskName, value, 'adhoc');
+    adhocForm(casId, casIndex, flowId, pmseInboxId, taskName, value);
 };
-
-/**
- * Open the adhoc form for the current case.
- *
- * @deprecated This will be removed on future versions.
- * Use showForm() and send it the same parameters in the same order plus the constant 'adhoc' string as last parameter.
- */
-var adhocForm = function(casId, casIndex, flowId, pmseInboxId, taskName, values) {
-    _App.logger.warn('adhocForm() is deprecated, it will be removed in a future release. ' +
-    'Use showForm() using the same parameters in the same order plus the constant "adhoc" string as last parameter instead.');
-    showForm(casId, casIndex, flowId, pmseInboxId, taskName, values, 'adhoc');
+var adhocForm = function(casId, casIndex, flowId, pmseInboxId, taskName, values){
+    showModalWindow(casId, casIndex, 'adhoc', flowId, pmseInboxId, taskName, values);
 };
-
 var claim_case = function(cas_id, cas_index, full_name, idInbox){
     var value = {};
     value.cas_id = cas_id;
@@ -223,12 +184,7 @@ var showModalWindow = function (casId, casIndex, wtype, flowId, pmseInboxId,task
             name: 'adhoc_user',
             submit: true,
             required: true,
-            searchMore: {
-                module: "Users",
-                fields: ["id"]
-            },
             searchURL: url+'/users/'+ flowId + '?filter={TERM}',
-            placeholder: translate('LBL_PA_FORM_COMBO_ASSIGN_TO_USER_HELP_TEXT', 'pmse_Project'),
             helpTooltip: {
                 message: translate('LBL_PMSE_FORM_TOOLTIP_SELECT_USER', 'pmse_Inbox')
             }
@@ -264,11 +220,6 @@ var showModalWindow = function (casId, casIndex, wtype, flowId, pmseInboxId,task
             submit: true,
             searchURL: url+'/users/'+ flowId + '?filter={TERM}',
             required: true,
-            searchMore: {
-                module: "Users",
-                fields: ["id"]
-            },
-            placeholder: translate('LBL_PA_FORM_COMBO_ASSIGN_TO_USER_HELP_TEXT', 'pmse_Project'),
             helpTooltip: {
                 message: translate('LBL_PMSE_FORM_TOOLTIP_CHANGE_USER', 'pmse_Inbox')
             }
@@ -317,14 +268,8 @@ var showModalWindow = function (casId, casIndex, wtype, flowId, pmseInboxId,task
                         attributes = {
                             data: f.getData()
                         };
-                        $(w.html).remove();
                         _App.api.call('update', urlIni, attributes, {
                             success: function (response) {
-                                _App.alert.show('pmse_reassign_success', {
-                                    autoClose: true,
-                                    level: 'success',
-                                    messages: translate('LBL_PMSE_ALERT_REASSIGN_SUCCESS', 'pmse_Inbox')
-                                });
                                 if (wtype == 'reassign') {
                                     w.close();
                                     _App.router.redirect('Home');
@@ -450,36 +395,6 @@ function onSubmit(e) {
     }
 
     return result2;
-};
-
-function confirmAction(obj){
-    sbtn = obj.id;
-    switch (sbtn) {
-        case 'ApproveBtn':
-            msg = app.lang.get('LBL_PA_PROCESS_APPROVE_QUESTION', 'pmse_Inbox');
-            break;
-        case 'RejectBtn':
-            msg = app.lang.get('LBL_PA_PROCESS_REJECT_QUESTION', 'pmse_Inbox');
-            break;
-        default:
-            msg = app.lang.get('LBL_PA_PROCESS_ROUTE_QUESTION', 'pmse_Inbox');
-    }
-    app.alert.show('confirm', {
-        level: 'confirmation',
-        messages: msg,
-        autoClose: false,
-        onConfirm: function(){
-            btn = $('#EditView :input[id="' + sbtn + '"]');
-            btn.prop('type', 'submit');
-            btn.show();
-            app.btSubmitClicked = true;
-            btn.click();
-            app.btSubmitClicked = false;
-        },
-        onCancel: function(){
-            app.btSubmitClicked = false;
-        }
-    });
 };
 
 $(function () {

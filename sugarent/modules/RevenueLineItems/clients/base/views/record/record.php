@@ -101,10 +101,6 @@ $fields = array(
         // this is a hack to get the quote_id field loaded
         'readonly' => true,
     ),
-    array(
-        'name' => 'tag',
-        'span' => 12,
-    ),
 );
 
 $fieldsHidden = array(
@@ -217,13 +213,11 @@ $viewdefs['RevenueLineItems']['base']['view']['record'] = array(
     'buttons' => array(
         array(
             'type' => 'button',
+            'event' => 'button:cancel_button:click',
             'name' => 'cancel_button',
             'label' => 'LBL_CANCEL_BUTTON_LABEL',
             'css_class' => 'btn-invisible btn-link',
             'showOn' => 'edit',
-            'events' => array(
-                'click' => 'button:cancel_button:click',
-            ),
         ),
         array(
             'type' => 'rowaction',

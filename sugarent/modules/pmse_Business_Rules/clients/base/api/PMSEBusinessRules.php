@@ -130,10 +130,6 @@ class PMSEBusinessRules extends vCardApi
             }
         }
 
-        if (PMSEEngineUtils::isExportDisabled($args['module'])) {
-            throw new SugarApiExceptionNotAuthorized($GLOBALS['app_strings']['ERR_EXPORT_DISABLED']);
-        }
-
         return $emailTemplate->exportProject($args['record'], $api);
     }
 

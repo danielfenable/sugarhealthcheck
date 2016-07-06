@@ -21,7 +21,6 @@ $viewdefs[$module_name]['base']['filter']['default'] = array(
         'next_step' => array(),
         'lead_source' => array(),
         'sales_stage' => array(),
-        'tag' => array(),
         'assigned_user_name' => array(),
         '$owner' => array(
             'predefined_filter' => true,

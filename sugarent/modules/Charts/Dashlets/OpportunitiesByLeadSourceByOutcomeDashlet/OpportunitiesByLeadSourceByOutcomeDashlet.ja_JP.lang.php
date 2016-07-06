@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,11 +12,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: MyPipelineBySalesStageDashlet.en_us.lang.php 16286 2006-08-22 20:14:45Z wayne $
+$dashletStrings = array (
+  'OpportunitiesByLeadSourceByOutcomeDashlet' => 
+  array (
+    'LBL_TITLE' => 'リードソース別結果別のすべての商談',
+    'LBL_DESCRIPTION' => '商談のリードソース別結果別水平スタックチャート',
+    'LBL_REFRESH' => 'グラフを更新',
+  ),
+);
 
-
-$dashletStrings['OpportunitiesByLeadSourceByOutcomeDashlet'] = array('LBL_TITLE'       => 'リードソース別商談結果',
-                                                 'LBL_DESCRIPTION' => '商談のリードソース別結果別水平スタックチャート',
-                                                 'LBL_REFRESH'     => 'チャートを更新');
-?>

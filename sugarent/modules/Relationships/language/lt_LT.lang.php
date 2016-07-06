@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,13 +12,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
- /*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
   'LBL_ID' => 'Ryšio Id',
@@ -33,8 +29,7 @@ $mod_strings = array (
   'LBL_RELATIONSHIP_TYPE' => 'Ryšio tipas',
   'LBL_RELATIONSHIP_ROLE_COLUMN' => 'Ryšių rolės stulpelio pavadinimas',
   'LBL_RELATIONSHIP_ROLE_COLUMN_VALUE' => 'Ryšių rolės stulpelio reikšmė',
-  'LBL_REVERSE' => 'Atbulinis' ,
+  'LBL_REVERSE' => 'Atbulinis',
   'LBL_DELETED' => 'Ištrintas',
 );
-  
-?>
+

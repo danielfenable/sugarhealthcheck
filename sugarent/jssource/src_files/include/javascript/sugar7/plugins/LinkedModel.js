@@ -47,8 +47,7 @@
                         if (!parentValue && parentModel.fields[field.rname] &&
                             parentModel.fields[field.rname].type == 'fullname'
                         ) {
-                            parentValue = parentModel.get('full_name')
-                                || app.utils.formatNameLocale(parentModel.attributes);
+                            parentValue = parentModel.get('full_name');
                         }
                         model.set(field.name, parentValue);
                         model.set(field.id_name, parentModel.get('id'));
@@ -96,12 +95,12 @@
              *
              * @param {String} module Module name.
              */
-            createRelatedRecord: function(module, link) {
+            createRelatedRecord: function(module, link, id) {
                 var bwcExceptions = ['Emails'],
                     moduleMeta = app.metadata.getModule(module);
 
                 if (moduleMeta && moduleMeta.isBwcEnabled && !_.contains(bwcExceptions, module)) {
-                    this.routeToBwcCreate(module);
+                    this.routeToBwcCreate(module, id);
                 } else {
                     this.openCreateDrawer(module, link);
                 }
@@ -112,14 +111,14 @@
              *
              * @param {String} module Module name.
              */
-            routeToBwcCreate: function(module) {
+            routeToBwcCreate: function(module, id) {
                 var proto = Object.getPrototypeOf(this);
                 if (_.isFunction(proto.routeToBwcCreate)) {
                     return proto.routeToBwcCreate.call(this, module);
                 }
                 var parentModel = this.context.parent.get('model'),
                     link = this.context.get('link');
-                app.bwc.createRelatedRecord(module, parentModel, link);
+                app.bwc.createRelatedRecord(module, parentModel, link, id);
             },
 
             /**
@@ -142,7 +141,7 @@
                     model = this.createLinkModel(parentModel, link),
                     self = this;
                 app.drawer.open({
-                    layout: 'create',
+                    layout: 'create-actions',
                     context: {
                         create: true,
                         module: model.module,
@@ -153,7 +152,14 @@
                         return;
                     }
 
-                    self.trigger('linked-model:create', model);
+                    self.context.resetLoadFlag();
+                    self.context.set('skipFetch', false);
+                    // All the views have this method, but since this plugin
+                    // can officially be attached to a field, we need this
+                    // safe check.
+                    if (_.isFunction(self.loadData)) {
+                        self.loadData();
+                    }
                 });
             },
 
@@ -172,7 +178,6 @@
                                     parentModel.get("full_name")
                                         || parentModel.get("document_name")
                                         || parentModel.get("name")
-                                        || app.utils.formatNameLocale(parentModel.attributes)
                                         || ""
                                 );
                             }

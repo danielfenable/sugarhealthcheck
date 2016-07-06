@@ -17,9 +17,9 @@ class CommonTest extends BaseTest
                 'body' => array(
                     'query' => 'test query',
                     'cutoff_frequency' => .001,
-                    'low_freq_operator' => 'and',
-                ),
-            ),
+                    'low_freq_operator' => 'and'
+                )
+            )
         );
 
         $this->assertEquals($expected, $query->toArray());
@@ -27,7 +27,7 @@ class CommonTest extends BaseTest
 
     public function testQuery()
     {
-        $index = $this->_createIndex();
+        $index = $this->_createIndex('common_test');
         $type = $index->getType('test');
 
         //add documents to create common terms

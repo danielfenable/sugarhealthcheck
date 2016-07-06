@@ -16,12 +16,12 @@
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     plugins: ['ErrorDecoration', 'Tooltip'],
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     events: {
         'click [name=login_button]': 'login',
@@ -30,7 +30,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Hide `forgot password` tooltip when clicking anywhere outside the link.
      */
@@ -57,14 +57,14 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     postLogin: function() {
         app.$contentEl.show();
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Remove event handler for hiding `forgot password` tooltip.
      */

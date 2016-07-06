@@ -10,7 +10,7 @@ class TermsTest extends BaseTest
 
     public function testLookup()
     {
-        $index = $this->_createIndex();
+        $index = $this->_createIndex('terms_filter_test');
         $type1 = $index->getType('musicians');
         $type2 = $index->getType('bands');
 
@@ -26,86 +26,29 @@ class TermsTest extends BaseTest
 
         //use the terms lookup feature to query for some data
         $termsFilter = new Terms();
-        $termsFilter->setLookup('lastName', $type2, 'led zeppelin', 'members', null);
+        $termsFilter->setLookup('lastName', $type2, 'led zeppelin', 'members', NULL);
         $query = new \Elastica\Query();
-        $query->setPostFilter($termsFilter);
+        $query->setFilter($termsFilter);
         $results = $index->search($query);
         $this->assertEquals($results->count(), 4, 'Terms lookup with null index');
-
+        
         $termsFilter->setLookup('lastName', $type2, 'led zeppelin', 'members', $index);
-        $query->setPostFilter($termsFilter);
+        $query->setFilter($termsFilter);
         $results = $index->search($query);
         $this->assertEquals($results->count(), 4, 'Terms lookup with index as object');
-
+        
         //Query with index given as string
         $termsFilter->setLookup('lastName', $type2, 'led zeppelin', 'members', $index->getName());
-        $query->setPostFilter($termsFilter);
+        $query->setFilter($termsFilter);
         $results = $index->search($query);
         $this->assertEquals($results->count(), 4, 'Terms lookup with index as string');
-
+        
         //Query with array of options
         $termsFilter->setLookup('lastName', $type2, 'led zeppelin', 'members', array('index' => $index, 'cache' => false));
-        $query->setPostFilter($termsFilter);
+        $query->setFilter($termsFilter);
         $results = $index->search($query);
         $this->assertEquals($results->count(), 4, 'Terms lookup with options array');
-
+        
         $index->delete();
-    }
-
-    public function testSetExecution()
-    {
-        $filter = new Terms('color', array('blue', 'green'));
-
-        $filter->setExecution('bool');
-        $this->assertEquals('bool', $filter->getParam('execution'));
-
-        $returnValue = $filter->setExecution('bool');
-        $this->assertInstanceOf('Elastica\Filter\Terms', $returnValue);
-    }
-
-    public function testSetTerms()
-    {
-        $field = 'color';
-        $terms = array('blue', 'green');
-
-        $filter = new Terms();
-        $filter->setTerms($field, $terms);
-        $expected = array('terms' => array($field => $terms));
-        $this->assertEquals($expected, $filter->toArray());
-
-        $returnValue = $filter->setTerms($field, $terms);
-        $this->assertInstanceOf('Elastica\Filter\Terms', $returnValue);
-    }
-
-    public function testAddTerm()
-    {
-        $filter = new Terms('color', array('blue'));
-
-        $filter->addTerm('green');
-        $expected = array('terms' => array('color' => array('blue', 'green')));
-        $this->assertEquals($expected, $filter->toArray());
-
-        $returnValue = $filter->addTerm('cyan');
-        $this->assertInstanceOf('Elastica\Filter\Terms', $returnValue);
-    }
-
-    public function testToArray()
-    {
-        $filter = new Terms('color', array());
-        $expected = array('terms' => array('color' => array()));
-        $this->assertEquals($expected, $filter->toArray());
-
-        $filter = new Terms('color', array('cyan'));
-        $expected = array('terms' => array('color' => array('cyan')));
-        $this->assertEquals($expected, $filter->toArray());
-    }
-
-    /**
-     * @expectedException \Elastica\Exception\InvalidException
-     */
-    public function testToArrayInvalidException()
-    {
-        $filter = new Terms();
-        $filter->toArray();
     }
 }

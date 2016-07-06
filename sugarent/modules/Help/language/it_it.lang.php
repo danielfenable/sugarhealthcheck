@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,32 +12,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'ERR_DELETE_RECORD' => 'Per eliminare l´azienda deve essere specificato il numero del record.',
+  'LBL_LIST_FORM_TITLE' => 'Elenco Aziende',
   'LBL_MODULE_NAME' => 'Aziende',
   'LBL_MODULE_NAME_SINGULAR' => 'Azienda',
-  'LBL_MODULE_TITLE' => 'Account: Home',
-  'LBL_SEARCH_FORM_TITLE' => 'Ricerca account',
-  'LBL_LIST_FORM_TITLE' => 'Elenco account',
+  'LBL_MODULE_TITLE' => 'Aziende: Home',
   'LBL_NEW_FORM_TITLE' => 'Nuova Azienda',
-  'LNK_NEW_CONTACT' => 'Nuovo Contatto',
+  'LBL_SEARCH_FORM_TITLE' => 'Cerca Azienda',
   'LNK_NEW_ACCOUNT' => 'Nuova Azienda',
-  'LNK_NEW_OPPORTUNITY' => 'Nuova Opportunità',
-  'LNK_NEW_CASE' => 'Nuovo Reclamo',
-  'LNK_NEW_NOTE' => 'Nuova Nota o Allegato',
   'LNK_NEW_CALL' => 'Nuova Chiamata',
+  'LNK_NEW_CASE' => 'Nuovo Reclamo',
+  'LNK_NEW_CONTACT' => 'Nuovo Contatto',
   'LNK_NEW_EMAIL' => 'Archivia Email',
   'LNK_NEW_MEETING' => 'Nuova Riunione',
+  'LNK_NEW_NOTE' => 'Nuova Nota o Allegato',
+  'LNK_NEW_OPPORTUNITY' => 'Nuova Opportunità',
   'LNK_NEW_TASK' => 'Nuovo Compito',
-  'ERR_DELETE_RECORD' => 'Per eliminare l´azienda deve essere specificato il numero del record.',
 );
 
-
-?>

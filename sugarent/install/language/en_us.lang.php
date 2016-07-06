@@ -52,7 +52,6 @@ $mod_strings = array(
 	'LBL_OPP2_DESC'						=> 'This query will be stacked below the first query in the report',
     'ERR_DB_VERSION_FAILURE'			=> 'Unable to check database version.',
 
-
 	'ERR_OC_PASSWORD'					=> 'Password is required.',
 	'ERR_OC_SERVER_URL'					=> 'Sugar Server URL is required.',
 	'ERR_OC_USERNAME'					=> 'Username of server user is required.',
@@ -75,7 +74,6 @@ $mod_strings = array(
 
     'ERR_CHECKSYS'                      => 'Errors have been detected during compatibility check.  In order for your SugarCRM Installation to function properly, please take the proper steps to address the issues listed below and either press the recheck button, or try installing again.',
     'ERR_CHECKSYS_CALL_TIME'            => 'Allow Call Time Pass Reference is On (this should be set to Off in php.ini)',
-
 	'ERR_CHECKSYS_CURL'					=> 'Not found: Sugar Scheduler will run with limited functionality. The Email Archiving service will not run.',
     'ERR_CHECKSYS_IMAP'					=> 'Not found: InboundEmail and Campaigns (Email) require the IMAP libraries. Neither will be functional.',
 	'ERR_CHECKSYS_MSSQL_MQGPC'			=> 'Magic Quotes GPC cannot be turned "On" when using MS SQL Server.',
@@ -95,7 +93,6 @@ $mod_strings = array(
     'LBL_CHECKSYS_DB_SUPPORT_NOT_AVAILABLE' => 'Database Support was not found.  Please make sure you have the necessary drivers for one of the following supported Database Types: MySQL, MS SQLServer, Oracle, or DB2.  You might need to uncomment the extension in the php.ini file, or recompile with the right binary file, depending on your version of PHP.  Please refer to your PHP Manual for more information on how to enable Database Support.',
     'LBL_CHECKSYS_XML_NOT_AVAILABLE'        => 'Functions associated with XML Parser Libraries that are needed by the Sugar application were not found.  You might need to uncomment the extension in the  php.ini file, or recompile with the right binary file, depending on your version of PHP.  Please refer to your PHP Manual for more information.',
     'ERR_CHECKSYS_MBSTRING'             => 'Functions associated with the Multibyte Strings PHP extension (mbstring) that are needed by the Sugar application were not found. <br/><br/>Generally, the mbstring module is not enabled by default in PHP and must be activated with --enable-mbstring when the PHP binary is built. Please refer to your PHP Manual for more information on how to enable mbstring support.',
-    'ERR_CHECKSYS_MCRYPT'               => "Mcrypt module isn't loaded. Please refer to your PHP Manual for more information on how to load mcrypt module.",
     'ERR_CHECKSYS_SESSION_SAVE_PATH_NOT_SET'       => 'The session.save_path setting in your php configuration file (php.ini) is not set or is set to a folder which did not exist. You might need to set the save_path setting in php.ini or verify that the folder sets in save_path exist.',
     'ERR_CHECKSYS_SESSION_SAVE_PATH_NOT_WRITABLE'  => 'The session.save_path setting in your php configuration file (php.ini) is set to a folder which is not writeable.  Please take the necessary steps to make the folder writeable.  <br>Depending on your Operating system, this might require you to change the permissions by running chmod 766, or to right click on the filename to access the properties and uncheck the read only option.',
     'ERR_CHECKSYS_CONFIG_NOT_WRITABLE'  => 'The config file exists but is not writeable.  Please take the necessary steps to make the file writeable.  Depending on your Operating system, this might require you to change the permissions by running chmod 766, or to right click on the filename to access the properties and uncheck the read only option.',
@@ -190,7 +187,6 @@ $mod_strings = array(
 	'LBL_CHECKSYS_IMAP'					=> 'IMAP Module',
 	'LBL_CHECKSYS_MQGPC'				=> 'Magic Quotes GPC',
 	'LBL_CHECKSYS_MBSTRING'				=> 'MB Strings Module',
-    'LBL_CHECKSYS_MCRYPT'               => 'MCrypt Module',
 	'LBL_CHECKSYS_MEM_OK'				=> 'OK (No Limit)',
 	'LBL_CHECKSYS_MEM_UNLIMITED'		=> 'OK (Unlimited)',
 	'LBL_CHECKSYS_MEM'					=> 'PHP Memory Limit',
@@ -243,7 +239,6 @@ $mod_strings = array(
 	'LBL_DBCONF_HOST_NAME'				=> 'Host Name',
 	'LBL_DBCONF_HOST_INSTANCE'			=> 'Host Instance',
 	'LBL_DBCONF_HOST_PORT'				=> 'Port',
-    'LBL_DBCONF_SSL_ENABLED'            => 'Enable SSL connection',
 	'LBL_DBCONF_INSTRUCTIONS'			=> 'Please enter your database configuration information below. If you are unsure of what to fill in, we suggest that you use the default values.',
 	'LBL_DBCONF_MB_DEMO_DATA'			=> 'Use multi-byte text in demo data?',
     'LBL_DBCONFIG_MSG2'                 => 'Name of web server or machine (host) on which the database is located ( such as localhost or www.mydomain.com ):',
@@ -531,7 +526,6 @@ $mod_strings = array(
                                 ",
     'LBL_WELCOME_PLEASE_READ_BELOW' => 'Please read the following important information before proceeding with the installation.  The information will help you determine whether or not you are ready to install the application at this time.',
 
-
 	'LBL_WELCOME_2'						=> 'For installation documentation, please visit the <a href="http://www.sugarcrm.com/crm/installation" target="_blank">Sugar Wiki</a>.  <BR><BR> To contact a SugarCRM support engineer for installation help, please log in to the <a target="_blank" href="http://support.sugarcrm.com">SugarCRM Support Portal</a> and submit a support case.',
 	'LBL_WELCOME_CHOOSE_LANGUAGE'		=> '<b>Choose your language</b>',
 	'LBL_WELCOME_SETUP_WIZARD'			=> 'Setup Wizard',
@@ -551,7 +545,6 @@ $mod_strings = array(
     'LBL_OOTB_SEND_EMAIL_REMINDERS'	=> 'Run Email Reminder Notifications',
     'LBL_UPDATE_TRACKER_SESSIONS' => 'Update tracker_sessions table',
     'LBL_OOTB_CLEANUP_QUEUE' => 'Clean Jobs Queue',
-
 
     'LBL_FTS_TABLE_TITLE'     => 'Provide Full-Text Search Settings',
     'LBL_FTS_HOST'     => 'Host',

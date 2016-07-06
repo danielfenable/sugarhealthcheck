@@ -37,7 +37,7 @@
      * All other elements are not inherently focusable and require a `tabindex`
      * attribute of `-1` if a `tabindex` attribute does not already exist.
      */
-    app.accessibility.helpers.click = {
+    app.accessibility.helpers['click'] = {
         /**
          * Detects click events bound to an element and applies accessibility
          * rules to the targets of each click event.

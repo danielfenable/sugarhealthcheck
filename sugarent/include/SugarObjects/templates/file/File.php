@@ -143,18 +143,4 @@ class File extends Basic
         }
         return false;
     }
-
-     /**
-     * {@inheritdoc}
-     */
-    public function populateFromRow($row, $convert = false)
-    {
-        $row = parent::populateFromRow($row, $convert);
-
-        if (!empty($this->document_name) && empty($this->name)) {
-            $this->name = $this->document_name;
-        }
-
-        return $row;
-    }
 }

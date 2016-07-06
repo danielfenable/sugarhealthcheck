@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,23 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Na základě registrace vaší instance Sugar jako nové aplikace získejte klíč a tajný klíč ze služby IBM SmartCloud .<br>
-&nbsp;<br>
-Postup registrace vaší instance:<br>
-&nbsp;<br>
-<ol>
-<li>Přihlaste se ke svému účtu IBM SmartCloud (musíte být správce).</li>
-<li>Přejděte do části Administration (Správa) -> Manage Organization (Spravovat organizaci).</li>
-<li>Přejděte na odkaz „Integrated Third-Party Apps (Integrované aplikace třetích stran)“ na bočním panelu a povolte SugarCRM pro všechny uživatele.</li>
-<li>Přejděte do části „Internal Apps (Interní aplikace)“ na bočním panelu a vyberte položku „Register App (Zaregistrovat aplikaci)“.</li>
-<li>Dle libosti aplikaci pojmenujte (například „SugarCRM Production“) a _NEZAŠKRTÁVEJTE_ políčko OAuth 2.x ve spodní části vyskakovacího okna.</li>
-<li>Po vytvoření aplikace klikněte na malý trojúhelník napravo od názvu aplikace a v rozevírací nabídce vyberte položku „Show Credentials (Zobrazit přihlašovací údaje)“.</li>
-<li>Přihlašovací údaje zkopírujte níže.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'Uživatelský klíč OAuth',
-    'oauth_consumer_secret' => 'Uživatelský tajný klíč OAuth',
+  'LBL_LICENSING_INFO' => 'Získejte klíč a secret z Twitteru registrací vaší Sugar instance jako nové aplikace.<br /><br />Kroky k registraci instance:<br /><br />1. Přejít na Twitter © stránky vývojářů: http://dev.twitter.com/apps/new.<br />2. Přihlásit se pomocí účtu Twitter, pod který chcete zaregistrovat aplikaci.<br />3. V rámci registračního formuláře, zadejte název aplikace. Toto je název se uživatelům zobrazí při ověřování jejich Twitter účtů v Sugar.<br />4. Zadejte popis.<br />5. Zadejte webovou aplikační URL (může být cokoliv).<br />6. Vyberte "Browser " pro typ aplikace .<br />7. Po výběru "Browser" pro typ aplikace, zadejte zpětnou adresu URL (může být cokoliv Příklad: Zadejte Sugar kořenovou URL).<br />8. Zadejte bezpečnostní slovo.<br />9. Klikněte na "Registrace žádosti".<br />10. Souhlasím s Podmínkami Twitter API služby.<br />11. V rámci aplikace stránce naleznete API Klíč a Secret. Zadejte klíč a secret níže.',
+  'oauth_consumer_key' => 'API klíč (OAuth)',
+  'oauth_consumer_secret' => 'OAuth kód (Consumer Secret)',
 );
 

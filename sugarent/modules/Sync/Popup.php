@@ -11,7 +11,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
 set_time_limit(3600);
 ini_set('default_socket_timeout', 360);
 global $theme, $sugar_config;

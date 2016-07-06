@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,57 +12,44 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
+  'LBL_AMOUNT' => 'Valor:',
+  'LBL_AMOUNT_BASE_CURRENCY' => 'Valor de Moeda Base',
+  'LBL_ASSIGNED_TO_USER' => 'Atribuído ao Usuário',
+  'LBL_COMMIT' => 'Registar:',
+  'LBL_COMMITTED' => 'Atribuída',
+  'LBL_COMMIT_STATUS' => 'Status da Gravação',
+  'LBL_CREATED_BY' => 'Criado por',
+  'LBL_CURRENCY' => 'Moeda:',
+  'LBL_CURRENCY_RATE' => 'Taxa Moeda',
+  'LBL_CURRENT_USER_NO_QUOTA' => 'Não lhe foi atribuído nenhum Objetivo para este Período .',
+  'LBL_CURRENT_USER_QUOTA' => 'O seu Objetivo atribuído para este Período é de:',
+  'LBL_DIRECT' => 'Direto',
+  'LBL_DIRECT_REPORT' => 'Relatório Directo:',
+  'LBL_EDITLAYOUT' => 'Editar Layout',
+  'LBL_LAST_MODIFIED' => 'Última Modificação',
+  'LBL_LIST_FORM_TITLE' => 'Lista de Objetivos',
+  'LBL_MODULE_FORECASTS_NAME' => 'Previsões',
   'LBL_MODULE_NAME' => 'Objetivos',
   'LBL_MODULE_NAME_SINGULAR' => 'Cota',
-  'LBL_MODULE_TITLE' => 'Cotas: Tela Principal',
-  'LBL_LIST_FORM_TITLE' => 'Lista de cotas',
-  'LBL_QUOTA' => 'Cota:',
-  'LBL_ADJUSTED' => 'Ajustado',
-  
-  'LBL_DIRECT_REPORT' => 'Relatório direto',
-  'LBL_QUOTA_AMOUNT' => 'Valor da cota',
-  'LBL_LAST_MODIFIED' => 'Última modificação',
-  'LBL_COMMIT_STATUS' => 'Status de registro',
-
-  'LBL_COMMITTED' => 'Atribuída',
-  'LBL_NOT_COMMITTED' => 'Pendente',
-
-  'LBL_MODULE_FORECASTS_NAME' => 'Previsões',
-  'LNK_FORECAST_LIST'=>'Previsão',
-  'LNK_FORECAST_HISTORY'=>'Histórico de Previsão',
-  'LNK_UPD_FORECAST'=>'Planilha de previsões',
-  'LNK_QUOTA'=>'Objetivos',
-
+  'LBL_MODULE_TITLE' => 'Objetivos: Tela Principal',
   'LBL_NAME' => 'Nome:',
-  'LBL_TIME_PERIOD' => 'Período:',
-  'LBL_SELECT_TIME_PERIOD' => 'Selecione o período...',
-  'LBL_AMOUNT' => 'Valor:',
-  'LBL_CURRENCY' => 'Moeda:',
-  'LBL_CURRENCY_RATE' => 'Taxa da Moeda',
-  'LBL_COMMIT' => 'Registar:',
-  'LBL_SELECT_USER' => 'Selecione o usuário...',
-  
-  'LBL_ASSIGNED_TO_USER' => 'Atribuído ao usuário',
+  'LBL_NOT_COMMITTED' => 'Pendente',
+  'LBL_NO_QUOTAS_TIMEPERIOD' => 'Nenhum Objetivo para os seus Relatórios Directos foi introduzido para este Período',
+  'LBL_QUOTA' => 'Objetivo:',
+  'LBL_QUOTA_AMOUNT' => 'Valor do Objetivo',
+  'LBL_QUOTA_TYPE' => 'Tipo',
+  'LBL_ROLLUP' => 'Rollup (Cumulativo)',
+  'LBL_SELECT_TIME_PERIOD' => 'Escolha o Período...',
+  'LBL_SELECT_USER' => 'Escolha o Usuário...',
   'LBL_TIMEPERIOD_ID' => 'Período',
-  'LBL_NO_QUOTAS_TIMEPERIOD' => 'Nenhuma cota para os seus relatórios diretos foi inserida para este período.',
-  'LBL_CURRENT_USER_QUOTA' => 'A sua cota atribuída para este período é de: ',
-  'LBL_CURRENT_USER_NO_QUOTA' => 'Não há atribuição de cota para você para o período.',
-  'LBL_USER_ID' => 'ID do Usuário',
-	'LBL_EDITLAYOUT' => 'Editar Layout' /*for 508 compliance fix*/,
-
-    'LBL_QUOTA_TYPE' => 'Tipo',
-    'LBL_AMOUNT_BASE_CURRENCY' => 'Valor de Moeda Base',
-    'LBL_CREATED_BY' => 'Criado por',
-
-    'LBL_DIRECT' => 'Direto',
-    'LBL_ROLLUP' => 'Valor acumulado'
+  'LBL_TIME_PERIOD' => 'Período:',
+  'LBL_USER_ID' => 'Id do Usuário',
+  'LNK_FORECAST_HISTORY' => 'Histórico de Previsão',
+  'LNK_FORECAST_LIST' => 'Previsão',
+  'LNK_QUOTA' => 'Objetivos',
+  'LNK_UPD_FORECAST' => 'Folha de Trabalho de Previsão',
 );
+

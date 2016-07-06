@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.ForecastsManagerWorksheets.CommithistoryField
  * @alias SUGAR.App.view.fields.BaseForecastsManagerWorksheetsCommithistoryField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**

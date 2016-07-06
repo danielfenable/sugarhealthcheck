@@ -2,7 +2,6 @@
 
 namespace Elastica\Transport;
 
-use Elastica\Connection;
 use Elastica\Exception\Connection\ThriftException;
 use Elastica\Exception\PartialShardFailureException;
 use Elastica\Exception\ResponseException;
@@ -10,15 +9,16 @@ use Elastica\Exception\RuntimeException;
 use Elastica\JSON;
 use Elastica\Request;
 use Elastica\Response;
+use Elastica\Connection;
 use Elasticsearch\Method;
+use Elasticsearch\RestResponse;
 use Elasticsearch\RestClient;
 use Elasticsearch\RestRequest;
-use Elasticsearch\RestResponse;
-use Thrift\Exception\TException;
-use Thrift\Protocol\TBinaryProtocolAccelerated;
-use Thrift\Transport\TBufferedTransport;
-use Thrift\Transport\TFramedTransport;
 use Thrift\Transport\TSocket;
+use Thrift\Transport\TFramedTransport;
+use Thrift\Transport\TBufferedTransport;
+use Thrift\Protocol\TBinaryProtocolAccelerated;
+use Thrift\Exception\TException;
 
 /**
  * Elastica Thrift Transport object
@@ -37,7 +37,7 @@ class Thrift extends AbstractTransport
     /**
      * Construct transport
      *
-     * @param  \Elastica\Connection                 $connection Connection object
+     * @param \Elastica\Connection $connection Connection object
      * @throws \Elastica\Exception\RuntimeException
      */
     public function __construct(Connection $connection = null)
@@ -49,11 +49,11 @@ class Thrift extends AbstractTransport
     }
 
     /**
-     * @param  string                    $host
-     * @param  int                       $port
-     * @param  int                       $sendTimeout     msec
-     * @param  int                       $recvTimeout     msec
-     * @param  bool                      $framedTransport
+     * @param string $host
+     * @param int $port
+     * @param int $sendTimeout msec
+     * @param int $recvTimeout msec
+     * @param bool $framedTransport
      * @return \Elasticsearch\RestClient
      */
     protected function _createClient($host, $port, $sendTimeout = null, $recvTimeout = null, $framedTransport = false)
@@ -83,31 +83,30 @@ class Thrift extends AbstractTransport
     }
 
     /**
-     * @param  string                    $host
-     * @param  int                       $port
-     * @param  int                       $sendTimeout
-     * @param  int                       $recvTimeout
-     * @param  bool                      $framedTransport
+     * @param string $host
+     * @param int $port
+     * @param int $sendTimeout
+     * @param int $recvTimeout
+     * @param bool $framedTransport
      * @return \Elasticsearch\RestClient
      */
     protected function _getClient($host, $port, $sendTimeout = null, $recvTimeout = null, $framedTransport = false)
     {
-        $key = $host.':'.$port;
+        $key = $host . ':' . $port;
         if (!isset($this->_clients[$key])) {
             $this->_clients[$key] = $this->_createClient($host, $port, $sendTimeout, $recvTimeout, $framedTransport);
         }
-
         return $this->_clients[$key];
     }
 
     /**
      * Makes calls to the elasticsearch server
      *
-     * @param  \Elastica\Request                              $request
-     * @param  array                                          $params  Host, Port, ...
+     * @param \Elastica\Request $request
+     * @param  array             $params Host, Port, ...
      * @throws \Elastica\Exception\Connection\ThriftException
      * @throws \Elastica\Exception\ResponseException
-     * @return \Elastica\Response                             Response object
+     * @return \Elastica\Response Response object
      */
     public function exec(Request $request, array $params)
     {
@@ -136,7 +135,7 @@ class Thrift extends AbstractTransport
             }
 
             $data = $request->getData();
-            if (!empty($data) || '0' === $data) {
+            if (!empty($data)) {
                 if (is_array($data)) {
                     $content = JSON::stringify($data);
                 } else {

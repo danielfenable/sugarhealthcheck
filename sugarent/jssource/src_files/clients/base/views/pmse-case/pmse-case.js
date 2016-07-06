@@ -12,7 +12,8 @@
     extendsFrom: 'RecordView',
 
     events: {
-        'click .record-edit-link-wrapper': 'handleEdit'
+        'click .record-edit-link-wrapper': 'handleEdit',
+        'click a[name=cancel_button]': 'cancelClicked'
     },
 
     initialize: function(options) {
@@ -23,7 +24,6 @@
         options.meta.hashSync = _.isUndefined(options.meta.hashSync) ? true : options.meta.hashSync;
         options.meta.buttons = this.case.buttons;
         this._super('initialize', [options]);
-        this.context.set("layout", "record");
         this.buttons = {};
         this.createMode = this.context.get('create') ? true : false;
         this.action = 'detail';
@@ -34,10 +34,10 @@
         this.on('editable:keydown', this.handleKeyDown, this);
         this.on('editable:mousedown', this.handleMouseDown, this);
         this.on('field:error', this.handleFieldError, this);
-        this.context.on('button:cancel_button:click', this.cancelClicked, this);
+
         //event register for preventing actions
         // when user escapes the page without confirming deleting
-        app.routing.before('route', this.beforeRouteDelete, this);
+        app.routing.before('route', this.beforeRouteDelete, this, true);
         $(window).on('beforeunload.delete' + this.cid, _.bind(this.warnDeleteOnRefresh, this));
 
         if (this.createMode) {
@@ -105,121 +105,126 @@
             }
         });
     },
-
     caseApprove: function () {
-        this.model.doValidate(this.getFields(this.module), _.bind(this.validationCompleteApprove, this));
+        var value = this;
+        app.alert.show( 'confirm_approve', {
+            level: 'confirmation',
+            messages: app.lang.get('LBL_PA_PROCESS_APPROVE_QUESTION', 'pmse_Inbox'),
+            onConfirm: function() {
+                value.model.doValidate(value.getFields(value.module), _.bind(value.validationCompleteApprove, value));
+            },
+            onCancel: function() {
+            }
+        });
     },
 
-    validationCompleteApprove: function (isValid) {
+    validationCompleteApprove: function(isValid) {
         if (isValid) {
-            app.alert.show('confirm_approve', {
-                level: 'confirmation',
-                messages: app.lang.get('LBL_PA_PROCESS_APPROVE_QUESTION', 'pmse_Inbox'),
-                onConfirm: _.bind(function () {
-                    app.alert.show('upload', {level: 'process', title: 'LBL_LOADING', autoclose: false});
-                    var value = this.model.attributes;
-                    value.frm_action = 'Approve';
-                    value.idFlow = this.case.flowId;
-                    value.idInbox = this.case.inboxId;
-                    value.cas_id = this.case.flow.cas_id;
-                    value.cas_index = this.case.flow.cas_index;
-                    value.moduleName = this.case.flow.cas_sugar_module;
-                    value.beanId = this.case.flow.cas_sugar_object_id;
-                    value.taskName = this.case.title.activity;
-                    var self = this;
-                    var pmseInboxUrl = app.api.buildURL('pmse_Inbox/engine_route', '', {}, {});
-                    app.api.call('update', pmseInboxUrl, value, {
-                        success: function () {
-                            app.alert.show('success_approve', {
-                                level: 'success',
-                                messages: app.lang.get('LBL_PA_PROCESS_APPROVED_SUCCESS', 'pmse_Inbox'),
-                                autoClose: true
-                            });
-                            self.model.setSyncedAttributes(self.model.attributes);
-                            self.redirectCase();
-                        }
+            app.alert.show('upload', {level: 'process', title: 'LBL_LOADING', autoclose: false});
+            var value = this.model.attributes;
+            value.frm_action = 'Approve';
+            value.idFlow = this.case.flowId;
+            value.idInbox = this.case.inboxId;
+            value.cas_id = this.case.flow.cas_id;
+            value.cas_index = this.case.flow.cas_index;
+            value.moduleName = this.case.flow.cas_sugar_module;
+            value.beanId = this.case.flow.cas_sugar_object_id;
+            value.taskName = this.case.title.activity;
+            var self = this;
+            var pmseInboxUrl = app.api.buildURL('pmse_Inbox/engine_route','',{},{});
+            app.api.call('update', pmseInboxUrl, value,{
+                success: function (){
+                    app.alert.show('success_approve', {
+                        level: 'success',
+                        messages: app.lang.get('LBL_PA_PROCESS_APPROVED_SUCCESS', 'pmse_Inbox'),
+                        autoClose: true
                     });
-                }, this),
-                onCancel: $.noop
+                    self.redirectCase();
+                }
             });
         }
     },
 
     caseReject: function () {
-        this.model.doValidate(this.getFields(this.module), _.bind(this.validationCompleteReject, this));
+        var value = this;
+        app.alert.show( 'confirm_reject', {
+            level: 'confirmation',
+            messages: app.lang.get('LBL_PA_PROCESS_REJECT_QUESTION', 'pmse_Inbox'),
+            onConfirm: function() {
+                app.alert.show('upload', {level: 'process', title: 'LBL_LOADING', autoclose: false});
+                value.model.doValidate(value.getFields(value.module), _.bind(value.validationCompleteReject, value));
+            },
+            onCancel: function() {
+            }
+        });
     },
 
-    validationCompleteReject: function (isValid) {
+    validationCompleteReject: function(isValid) {
         if (isValid) {
-            app.alert.show('confirm_reject', {
-                level: 'confirmation',
-                messages: app.lang.get('LBL_PA_PROCESS_REJECT_QUESTION', 'pmse_Inbox'),
-                onConfirm: _.bind(function () {
-                    app.alert.show('upload', {level: 'process', title: 'LBL_LOADING', autoclose: false});
-                    var value = this.model.attributes;
-                    value.frm_action = 'Reject';
-                    value.idFlow = this.case.flowId;
-                    value.idInbox = this.case.inboxId;
-                    value.cas_id = this.case.flow.cas_id;
-                    value.cas_index = this.case.flow.cas_index;
-                    value.moduleName = this.case.flow.cas_sugar_module;
-                    value.beanId = this.case.flow.cas_sugar_object_id;
-                    value.taskName = this.case.title.activity;
-                    var self = this;
-                    var pmseInboxUrl = app.api.buildURL('pmse_Inbox/engine_route', '', {}, {});
-                    app.api.call('update', pmseInboxUrl, value, {
-                        success: function () {
-                            app.alert.show('success_reject', {
-                                level: 'success',
-                                messages: app.lang.get('LBL_PA_PROCESS_REJECTED_SUCCESS', 'pmse_Inbox'),
-                                autoClose: true
-                            });
-                            self.model.setSyncedAttributes(self.model.attributes);
-                            self.redirectCase();
-                        }
+            var value = this.model.attributes;
+            value.frm_action = 'Reject';
+            value.idFlow = this.case.flowId;
+            value.idInbox = this.case.inboxId;
+            value.cas_id = this.case.flow.cas_id;
+            value.cas_index = this.case.flow.cas_index;
+            value.moduleName = this.case.flow.cas_sugar_module;
+            value.beanId = this.case.flow.cas_sugar_object_id;
+            value.taskName = this.case.title.activity;
+            var self = this;
+            var pmseInboxUrl = app.api.buildURL('pmse_Inbox/engine_route','',{},{});
+            app.api.call('update', pmseInboxUrl, value,{
+                success: function (){
+                    app.alert.show('success_reject', {
+                        level: 'success',
+                        messages: app.lang.get('LBL_PA_PROCESS_REJECTED_SUCCESS', 'pmse_Inbox'),
+                        autoClose: true
                     });
-                }, this),
-                onCancel: $.noop
+                    self.redirectCase();
+                }
             });
         }
     },
 
     caseRoute: function () {
-        this.model.doValidate(this.getFields(this.module), _.bind(this.validationCompleteRoute, this));
+        var value = this;
+        app.alert.show( 'confirm_route', {
+            level: 'confirmation',
+            messages: app.lang.get('LBL_PA_PROCESS_ROUTE_QUESTION', 'pmse_Inbox'),
+            onConfirm: function() {
+                value.model.doValidate(value.getFields(value.module), _.bind(value.validationCompleteRoute, value));
+            },
+            onCancel: function() {
+            }
+        });
+
+
     },
 
-    validationCompleteRoute: function (isValid) {
+    validationCompleteRoute: function(isValid) {
         if (isValid) {
-            app.alert.show('confirm_route', {
-                level: 'confirmation',
-                messages: app.lang.get('LBL_PA_PROCESS_ROUTE_QUESTION', 'pmse_Inbox'),
-                onConfirm: _.bind(function () {
-                    var value = this.model.attributes;
-                    value.frm_action = 'Route';
-                    value.idFlow = this.case.flowId;
-                    value.idInbox = this.case.inboxId;
-                    value.cas_id = this.case.flow.cas_id;
-                    value.cas_index = this.case.flow.cas_index;
-                    value.moduleName = this.case.flow.cas_sugar_module;
-                    value.beanId = this.case.flow.cas_sugar_object_id;
-                    value.taskName = this.case.title.activity;
-                    if (this.case.taskContinue) {
-                        value.taskContinue = true;
-                    }
-                    var self = this;
-                    var pmseInboxUrl = app.api.buildURL('pmse_Inbox/engine_route', '', {}, {});
-                    app.api.call('update', pmseInboxUrl, value, {
-                        success: function () {
-                            app.alert.show('success_route', {
-                                level: 'success',
-                                messages: app.lang.get('LBL_PA_PROCESS_ROUTED_SUCCESS', 'pmse_Inbox'),
-                                autoClose: true
-                            });
-                            self.redirectCase();
-                        }
+            var value = this.model.attributes;
+            value.frm_action = 'Route';
+            value.idFlow = this.case.flowId;
+            value.idInbox = this.case.inboxId;
+            value.cas_id = this.case.flow.cas_id;
+            value.cas_index = this.case.flow.cas_index;
+            value.moduleName = this.case.flow.cas_sugar_module;
+            value.beanId = this.case.flow.cas_sugar_object_id;
+            value.taskName = this.case.title.activity;
+            if (this.case.taskContinue){
+                value.taskContinue = true;
+            }
+            var self = this;
+            var pmseInboxUrl = app.api.buildURL('pmse_Inbox/engine_route','',{},{});
+            app.api.call('update', pmseInboxUrl, value,{
+                success: function () {
+                    app.alert.show('success_route', {
+                        level: 'success',
+                        messages: app.lang.get('LBL_PA_PROCESS_ROUTED_SUCCESS', 'pmse_Inbox'),
+                        autoClose: true
                     });
-                }, this),
-                onCancel: $.noop
+                    self.redirectCase();
+                }
             });
         }
     },
@@ -271,26 +276,7 @@
             if(this.checkReadonly(field)){
                 field.def.readonly = true;
             }
-            if (field.fields && _.isArray(field.fields)) {
-                var that = this;
-                var basefield = field;
-                _.each(field.fields, function (field) {
-                    if (that.checkReadonly(field)) {
-                        field.action = "disabled";
-                        // Some fields use shouldDisable to enable readonly property,
-                        // like 'body' in KBContents
-                        if (!_.isUndefined(field.shouldDisable)) {
-                            field.setDisabled(true);
-                            basefield.def.readonly = true;
-                        }
-                        return;
-                    }
-                    // If the field is not readonly, verify if it's required
-                    if (that.checkRequired(field)) {
-                        field.def.required = true;
-                    }
-                });
-            }
+
             var readonlyField = field.def.readonly ||
                 _.indexOf(this.noEditFields, field.def.name) >= 0 ||
                 field.parent || (field.name && this.buttons[field.name]);

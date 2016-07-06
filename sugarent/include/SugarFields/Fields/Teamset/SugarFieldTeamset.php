@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -763,7 +762,6 @@ class SugarFieldTeamset extends SugarFieldBase {
 
         $teamsets = array();
         foreach ($rows as $row) {
-            $row = $tsb->convertRow($row);
             $team = array('id' => $row['team_id']);
             $team['name'] = !empty($row['name'])?$row['name']:'';
             $team['name_2'] = !empty($row['name_2'])?$row['name_2']:'';

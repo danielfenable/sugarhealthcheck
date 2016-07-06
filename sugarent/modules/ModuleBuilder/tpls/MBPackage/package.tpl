@@ -125,7 +125,6 @@ addForm('CreatePackage');
 addToValidate('CreatePackage', 'name', 'DBName', true, '{/literal}{$mod_strings.LBL_JS_VALIDATE_NAME}{literal}');
 addToValidateIsInArray('CreatePackage', 'name', 'in_array', false, '{/literal}{$mod_strings.LBL_JS_VALIDATE_PACKAGE_NAME}','{$package_labels}'{literal}, 'u==');
 addToValidate('CreatePackage', 'key', 'DBNameRaw', true, '{/literal}{$mod_strings.LBL_JS_VALIDATE_KEY}{literal}');
-addToValidateIsInArray('CreatePackage', 'key', 'in_array', false, '{/literal}{$mod_strings.LBL_JS_VALIDATE_PACKAGE_KEY}','{$key_labels}{literal}', 'u==');
 
 ModuleBuilder.helpRegister('CreatePackage');
 ModuleBuilder.helpRegisterByID('CreatePackage','td');

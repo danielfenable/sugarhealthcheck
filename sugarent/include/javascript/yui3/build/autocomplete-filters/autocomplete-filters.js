@@ -1,8 +1,15 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("autocomplete-filters",function(e,t){var n=e.Array,r=e.Object,i=e.Text.WordBreak,s=e.mix(e.namespace("AutoCompleteFilters"),{charMatch:function(e,t,r){if(!e)return t;var i=n.unique((r?e:e.toLowerCase()).split(""));return n.filter(t,function(e){return e=e.text,r||(e=e.toLowerCase()),n.every(i,function(t){return e.indexOf(t)!==-1})})},charMatchCase:function(e,t){return s.charMatch(e,t,!0)},phraseMatch:function(e,t,r){return e?(r||(e=e.toLowerCase()),n.filter(t,function(t){return(r?t.text:t.text.toLowerCase()).indexOf(e)!==-1})):t},phraseMatchCase:function(e,t){return s.phraseMatch(e,t,!0)},startsWith:function(e,t,r){return e?(r||(e=e.toLowerCase()),n.filter(t,function(t){return(r?t.text:t.text.toLowerCase()).indexOf(e)===0})):t},startsWithCase:function(e,t){return s.startsWith(e,t,!0)},subWordMatch:function(e,t,r){if(!e)return t;var s=i.getUniqueWords(e,{ignoreCase:!r});return n.filter(t,function(e){var t=r?e.text:e.text.toLowerCase();return n.every(s,function(e){return t.indexOf(e)!==-1})})},subWordMatchCase:function(e,t){return s.subWordMatch(e,t,!0)},wordMatch:function(e,t,s){if(!e)return t;var o={ignoreCase:!s},u=i.getUniqueWords(e,o);return n.filter(t,function(e){var t=n.hash(i.getUniqueWords(e.text,o));return n.every(u,function(e){return r.owns(t,e)})})},wordMatchCase:function(e,t){return s.wordMatch(e,t,!0)}})},"3.15.0",{requires:["array-extras","text-wordbreak"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('autocomplete-filters',function(Y,NAME){var YArray=Y.Array,YObject=Y.Object,WordBreak=Y.Text.WordBreak,Filters=Y.mix(Y.namespace('AutoCompleteFilters'),{charMatch:function(query,results,caseSensitive){if(!query){return results;}
+var queryChars=YArray.unique((caseSensitive?query:query.toLowerCase()).split(''));return YArray.filter(results,function(result){result=result.text;if(!caseSensitive){result=result.toLowerCase();}
+return YArray.every(queryChars,function(chr){return result.indexOf(chr)!==-1;});});},charMatchCase:function(query,results){return Filters.charMatch(query,results,true);},phraseMatch:function(query,results,caseSensitive){if(!query){return results;}
+if(!caseSensitive){query=query.toLowerCase();}
+return YArray.filter(results,function(result){return(caseSensitive?result.text:result.text.toLowerCase()).indexOf(query)!==-1;});},phraseMatchCase:function(query,results){return Filters.phraseMatch(query,results,true);},startsWith:function(query,results,caseSensitive){if(!query){return results;}
+if(!caseSensitive){query=query.toLowerCase();}
+return YArray.filter(results,function(result){return(caseSensitive?result.text:result.text.toLowerCase()).indexOf(query)===0;});},startsWithCase:function(query,results){return Filters.startsWith(query,results,true);},subWordMatch:function(query,results,caseSensitive){if(!query){return results;}
+var queryWords=WordBreak.getUniqueWords(query,{ignoreCase:!caseSensitive});return YArray.filter(results,function(result){var resultText=caseSensitive?result.text:result.text.toLowerCase();return YArray.every(queryWords,function(queryWord){return resultText.indexOf(queryWord)!==-1;});});},subWordMatchCase:function(query,results){return Filters.subWordMatch(query,results,true);},wordMatch:function(query,results,caseSensitive){if(!query){return results;}
+var options={ignoreCase:!caseSensitive},queryWords=WordBreak.getUniqueWords(query,options);return YArray.filter(results,function(result){var resultWords=YArray.hash(WordBreak.getUniqueWords(result.text,options));return YArray.every(queryWords,function(word){return YObject.owns(resultWords,word);});});},wordMatchCase:function(query,results){return Filters.wordMatch(query,results,true);}});},'3.15.0',{"requires":["array-extras","text-wordbreak"]});

@@ -66,7 +66,6 @@ $viewdefs['Accounts']['base']['filter']['default'] = array(
         'ticker_symbol' => array(),
         'date_entered' => array(),
         'date_modified' => array(),
-        'tag' => array(),
         '$owner' => array(
             'predefined_filter' => true,
             'vname' => 'LBL_CURRENT_USER_FILTER',

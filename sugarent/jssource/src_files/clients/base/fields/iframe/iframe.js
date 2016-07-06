@@ -11,18 +11,18 @@
 /**
  * @class View.Fields.Base.IframeField
  * @alias SUGAR.App.view.fields.BaseIframeField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * The direction for this field should always be `ltr`.
      */
     direction: 'ltr',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _render: function() {
         this._super('_render');
@@ -32,7 +32,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     unformat: function(value) {
         value = (value !== '' && value != 'http://') ? value.trim() : '';
@@ -40,7 +40,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Formatter for the iframe field. If the iframe field definition is
      * configured with a generated url (`this.def.gen`) by another field, those

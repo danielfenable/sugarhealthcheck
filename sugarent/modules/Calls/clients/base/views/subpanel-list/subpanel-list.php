@@ -37,7 +37,6 @@ $viewdefs['Calls']['base']['view']['subpanel-list'] = array(
           'enabled' => true,
           'default' => true,
           'name' => 'date_start',
-          'css_class' => 'overflow-visible',
           'readonly' => true,
         ),
         array(
@@ -45,7 +44,6 @@ $viewdefs['Calls']['base']['view']['subpanel-list'] = array(
           'enabled' => true,
           'default' => true,
           'name' => 'date_end',
-          'css_class' => 'overflow-visible',
         ),
         array(
           'name' => 'assigned_user_name',
@@ -54,6 +52,7 @@ $viewdefs['Calls']['base']['view']['subpanel-list'] = array(
           'label' => 'LBL_LIST_ASSIGNED_TO_NAME',
           'enabled' => true,
           'default' => true,
+          'sortable' => false,
         ),
       ),
     ),

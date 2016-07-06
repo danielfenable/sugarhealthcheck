@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,93 +12,77 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-// $Id: en_us.lang.php 56510 2010-05-17 18:54:49Z jenny $
+
+
 $mod_strings = array (
-	// module labels
-	'LBL_MODULE_NAME' => 'Contratos',
-	'LBL_MODULE_NAME_SINGULAR' => 'Contrato',
-	'LBL_MODULE_TITLE' => 'Contratos: tela principal',
-	
-
-    // quick menu link labels
-    'LNK_NEW_CONTRACT' => 'Criar contrato',
-    'LNK_CONTRACT_LIST' => 'Visualizar contratos',
-    'LNK_IMPORT_CONTRACTS' => 'Importar contratos',
-
-    // quick create label
-    'LBL_NEW_FORM_TITLE' => 'Novo contrato',
-
-    // vardef labels
-    'LBL_CONTRACT_NAME' => 'Nome do contrato:',
-    'LBL_REFERENCE_CODE' => 'Código de referência:',
-    'LBL_ACCOUNT_ID' => 'ID da Conta',
-    'LBL_ACCOUNT_NAME' => 'Nome da conta:',
-    'LBL_OPPORTUNITY' => 'Nome da Oportunidade',
-    'LBL_OPPORTUNITY_ID' => 'ID da Oportunidade',
-    'LBL_START_DATE' => 'Data de Início:',
-    'LBL_END_DATE' => 'Data de conclusão:',
-    'LBL_TOTAL_CONTRACT_VALUE' => 'Valor do contrato:',
-    'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Valor do contrato (USD):',
-    'LBL_STATUS' => 'Estado:',
-    'LBL_CUSTOMER_SIGNED_DATE' => 'Data da assinatura do cliente:',
-    'LBL_COMPANY_SIGNED_DATE' => 'Data de assinatura da empresa:',
-    'LBL_CONTRACT_TERM' => 'Validade do contrato:',
-    'LBL_EXPIRATION_NOTICE' => 'Aviso de vencimento:',
-    'LBL_TIME_TO_EXPIRY' => 'Prazo para vencer:',
-    'LBL_DESCRIPTION' => 'Descrição',
-    'LBL_TEAM' => 'Equipe:',
-    'LBL_ASSIGNED_TO' => 'Atribuído a',
-    'LBL_CURRENCY_ID' => 'ID da Moeda:',
-    'LBL_CURRENCY' => 'Moeda:',
-    'LBL_CURRENCY_RATE' => 'Taxa da Moeda',
-    'LBL_ASSIGNED_TO_NAME'=>'Atribuído a',                   
-
-    // listview labels
-    'LBL_LIST_FORM_TITLE' => 'Lista de contratos',	
-    'LBL_LIST_CONTRACT_NAME' => 'Nome do contrato',
-    'LBL_LIST_ACCOUNT_NAME' => 'Nome da Conta',
-    'LBL_LIST_START_DATE' => 'Início',
-    'LBL_LIST_END_DATE' => 'Fim',
-    'LBL_LIST_STATUS' => 'Estado',
-    'LBL_LIST_TEAM_NAME' => 'Equipe',
-    'LBL_LIST_ASSIGNED_TO_USER' => 'Atribuído a',
-
-    'LBL_DAYS' => 'Dia(s)',
-    'LBL_UNDEFINED' => 'Não definido',
-    'LBL_NONE' => 'Nenhum',
-
-    // search form labels
-    'LBL_SEARCH_FORM_TITLE' => 'Pesquisar contratos',
-    'LBL_SF_CONTRACT_NAME' => 'Nome do contrato:',
-    'LBL_SF_ACCOUNT_NAME' => 'Nome da conta:',
-    'LBL_SF_STATUS' => 'Estado',
-    'LBL_SF_CONTRACT_TYPE' => 'Tipo',
-    'LBL_SF_START_DATE' => 'Data de Início:',
-    'LBL_SF_END_DATE' => 'Data de conclusão:',
-    'LBL_SF_ASSIGNED_TO' => 'Atribuído a',
-
-    // subpanels
-    'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documentos',
-    'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contatos',
-    'LBL_NOTES_SUBPANEL_TITLE' => 'Notas ou Anexos',
-    'LBL_RLI_SUBPANEL_TITLE' => 'Itens da linha de receita',
-    'LBL_QUOTES_SUBPANEL_TITLE' => 'Cotações',
-    'LBL_LIST_NAME' => 'Nome',
-    'LBL_LIST_CONTRACT_VALUE' => 'Valor',
-
-    'LBL_TYPE'=>'Tipo',
-    'LBL_TYPE_NAME' => 'Nome do Tipo',
-    'LBL_CONTRACT_TYPE'=>'Tipo',
-
-    'LBL_CREATED_USER' => 'Utilizador Criado',
-    'LBL_MODIFIED_USER' => 'Utilizador Modificado',
-    'LBL_DOCUMENTS' => 'Documentos',
-    'LBL_CONTRACT_DOCUMENTS_SUBPANEL_TITLE' => 'Documentos',
-    'LBL_CONTRACT_INFORMATION' => 'Visão Geral',
-
-    'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Nome de usuário atribuído',
-    'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID de usuário atribuído',
-    'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificado Por ID',
-    'LBL_EXPORT_CREATED_BY' => 'Criado Por ID',
-    'LBL_EXPORT_TYPE_NAME' => 'Nome do Tipo',
+  'LBL_ACCOUNT_ID' => 'ID da Conta',
+  'LBL_ACCOUNT_NAME' => 'Nome da Conta',
+  'LBL_ASSIGNED_TO' => 'Atribuído a',
+  'LBL_ASSIGNED_TO_NAME' => 'Atribuído a',
+  'LBL_COMPANY_SIGNED_DATE' => 'Data de assinatura da Empresa',
+  'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contatos',
+  'LBL_CONTRACT_DOCUMENTS_SUBPANEL_TITLE' => 'Documentos',
+  'LBL_CONTRACT_INFORMATION' => 'Informação do Contrato',
+  'LBL_CONTRACT_NAME' => 'Nome do Contrato',
+  'LBL_CONTRACT_TERM' => 'Termo do Contrato',
+  'LBL_CONTRACT_TYPE' => 'Tipo',
+  'LBL_CREATED_USER' => 'Utilizador Criado',
+  'LBL_CURRENCY' => 'Moeda',
+  'LBL_CURRENCY_ID' => 'ID Moeda',
+  'LBL_CURRENCY_RATE' => 'Taxa Moeda',
+  'LBL_CUSTOMER_SIGNED_DATE' => 'Data de assinatura do Cliente',
+  'LBL_DAYS' => 'Dia(s)',
+  'LBL_DESCRIPTION' => 'Descrição',
+  'LBL_DOCUMENTS' => 'Documentos',
+  'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documentos',
+  'LBL_END_DATE' => 'Data de Fim',
+  'LBL_EXPIRATION_NOTICE' => 'Notificação de Expiração',
+  'LBL_EXPORT_ASSIGNED_USER_ID' => 'ID do Usuário Atribuído',
+  'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Nome de Usuário Atribuído',
+  'LBL_EXPORT_CREATED_BY' => 'Criado Por ID',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificado Por ID',
+  'LBL_EXPORT_TYPE_NAME' => 'Nome do Tipo',
+  'LBL_LIST_ACCOUNT_NAME' => 'Nome da Conta',
+  'LBL_LIST_ASSIGNED_TO_USER' => 'Atribuído a',
+  'LBL_LIST_CONTRACT_NAME' => 'Nome do Contrato',
+  'LBL_LIST_CONTRACT_VALUE' => 'Valor',
+  'LBL_LIST_END_DATE' => 'Fim',
+  'LBL_LIST_FORM_TITLE' => 'Contratos',
+  'LBL_LIST_NAME' => 'Nome',
+  'LBL_LIST_START_DATE' => 'Início',
+  'LBL_LIST_STATUS' => 'Estado',
+  'LBL_LIST_TEAM_NAME' => 'Equipes',
+  'LBL_MODIFIED_USER' => 'Utilizador Modificado',
+  'LBL_MODULE_NAME' => 'Contratos',
+  'LBL_MODULE_NAME_SINGULAR' => 'Contrato',
+  'LBL_MODULE_TITLE' => 'Contratos: Tela Principal',
+  'LBL_NEW_FORM_TITLE' => 'Novo Contrato',
+  'LBL_NONE' => 'Nenhum',
+  'LBL_NOTES_SUBPANEL_TITLE' => 'Notas ou Anexos',
+  'LBL_OPPORTUNITY' => 'Nome da Oportunidade',
+  'LBL_OPPORTUNITY_ID' => 'ID da Oportunidade',
+  'LBL_QUOTES_SUBPANEL_TITLE' => 'Cotações',
+  'LBL_REFERENCE_CODE' => 'Código de Referência',
+  'LBL_RLI_SUBPANEL_TITLE' => 'Receita Itens de Linha',
+  'LBL_SEARCH_FORM_TITLE' => 'Pesquisa de Contratos',
+  'LBL_SF_ACCOUNT_NAME' => 'Nome da Conta',
+  'LBL_SF_ASSIGNED_TO' => 'Atribuído a',
+  'LBL_SF_CONTRACT_NAME' => 'Nome do Contrato',
+  'LBL_SF_CONTRACT_TYPE' => 'Tipo',
+  'LBL_SF_END_DATE' => 'Data de Fim',
+  'LBL_SF_START_DATE' => 'Data de Início',
+  'LBL_SF_STATUS' => 'Estado',
+  'LBL_START_DATE' => 'Data de Início',
+  'LBL_STATUS' => 'Status',
+  'LBL_TEAM' => 'Equipe',
+  'LBL_TIME_TO_EXPIRY' => 'Tempo para Expirar',
+  'LBL_TOTAL_CONTRACT_VALUE' => 'Valor do Contrato',
+  'LBL_TOTAL_CONTRACT_VALUE_USDOLLAR' => 'Valor do Contrato em USD',
+  'LBL_TYPE' => 'Tipo',
+  'LBL_TYPE_NAME' => 'Nome do Tipo',
+  'LBL_UNDEFINED' => 'Não definido',
+  'LNK_CONTRACT_LIST' => 'Contratos',
+  'LNK_IMPORT_CONTRACTS' => 'Importar Contratos',
+  'LNK_NEW_CONTRACT' => 'Novo Contrato',
 );
+

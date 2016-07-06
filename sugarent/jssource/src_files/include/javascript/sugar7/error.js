@@ -50,13 +50,7 @@
         }
         // Sync can fail for many reasons such as server error, bad cache, auth, etc.
         // Server message to provides details.
-        alertUser('sync_failure' , 'ERR_SYNC_FAILED', (error && error.message) || 'LBL_INVALID_412_RESPONSE');
-    });
-
-    // Displays an error alert if the app fails during its initialization.
-    app.events.on('app:sync:public:error', function(error) {
-        app.alert.dismissAll();
-        alertUser('public_sync_failure', 'Unable to load the application.');
+        alertUser("sync_failure" , "ERR_SYNC_FAILED", (error && error.message) || "LBL_INVALID_412_RESPONSE");
     });
 
     /**
@@ -85,7 +79,7 @@
     };
 
     /**
-     * invalid_request handler for OAuth
+     * Invalid request handler for OAuth
      */
     app.error.handleInvalidRequestError = function(error) {
         backToLogin(true);
@@ -119,7 +113,6 @@
      * 403 Forbidden error handler. 
      */
     app.error.handleForbiddenError = function(error) {
-        var message;
         if(error.code != "not_authorized"){
             app.alert.dismissAll();
         }
@@ -127,9 +120,7 @@
         if(error.code == "portal_not_configured"){
             backToLogin(true);
         }
-        //assume the server message should NOT be valid HTML and escape it.
-        message = Handlebars.Utils.escapeExpression(error.message) || "LBL_RESOURCE_UNAVAILABLE";
-        app.logger.error(app.lang.get(message));
+        app.logger.error(app.lang.get(error.message ? error.message : "LBL_RESOURCE_UNAVAILABLE"));
     };
     
     /**
@@ -174,8 +165,7 @@
      * 422 Handle validation error
      */
     app.error.handleValidationError = function(error) {
-        var layout = app.controller.layout,
-            message;
+        var layout = app.controller.layout;
         if( !_.isObject(layout.error) ||
             !_.isFunction(layout.error.handleValidationError) ||
             layout.error.handleValidationError(error) !== false
@@ -184,9 +174,7 @@
             if (error instanceof app.data.beanModel) {
                 return;
             }
-            //assume the server message should NOT be valid HTML and escape it.
-            message = Handlebars.Utils.escapeExpression(error.message) || "LBL_PRECONDITION_MISSING";
-            alertUser("validation_error", "LBL_PRECONDITION_MISSING_TITLE", message);
+            alertUser("validation_error", "LBL_PRECONDITION_MISSING_TITLE", error.message || "LBL_PRECONDITION_MISSING");
             error.handled = true;
         }
     };
@@ -265,3 +253,4 @@
     };
 
 })(SUGAR.App);
+

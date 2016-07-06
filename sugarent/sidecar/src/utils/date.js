@@ -148,7 +148,7 @@
         /**
          * Get the date format preference for the given user.
          * @param {Data.Bean/Object} user
-         * @return {string}
+         * @returns {String}
          */
         getUserDateFormat: function(user) {
             user = user || app.user;
@@ -158,7 +158,7 @@
         /**
          * Get the time format preference for the given user.
          * @param {Data.Bean/Object} user
-         * @return {string}
+         * @returns {String}
          */
         getUserTimeFormat: function(user) {
             user = user || app.user;
@@ -967,8 +967,8 @@
         /**
          * Formats a date to a string according to server date format.
          *
-         * @param {boolean} [dateOnly=false] Pass `true` to get date only.
-         * @return {string} The formatted date according to server date format.
+         * @param {Boolean} [dateOnly=false] Pass `true` to get date only.
+         * @returns {String} The formatted date according to server date format.
          */
         formatServer: function(dateOnly) {
             var format = dateOnly && date._serverDateFormat;
@@ -1005,7 +1005,7 @@
         /**
          * Get the display string for the duration.
          * Note: It currently supports days, hours, and minutes, not months and years.
-         * @return {string}
+         * @returns {string}
          */
         format: function() {
             var duration = [],

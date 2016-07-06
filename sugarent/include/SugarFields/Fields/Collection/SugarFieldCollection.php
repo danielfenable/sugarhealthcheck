@@ -252,21 +252,17 @@ class SugarFieldCollection extends SugarFieldBase {
     /**
      * {@inheritDoc}
      *
-     * Applies the callback only to the given field and does not iterate over "fields" since they mean collection fields
-     * to be retrieved, not nested fields as in base field. Does iterate over "related_fields" since those will not
-     * interfere with collection fields and it allows for related data to be retrieved when necessary.
+     * Only populates display params since collection field cannot have nested fields
      */
-    public function iterateViewField(ViewIterator $iterator, array $field, /* callable */ $callback)
-    {
-        $fieldSet = null;
-        if (isset($field['related_fields']) && is_array($field['related_fields'])) {
-            $fieldSet = $field['related_fields'];
-            unset($field['related_fields']);
-        }
-        $callback($field);
-        if ($fieldSet) {
-            $iterator->apply($fieldSet, $callback);
-        }
+    public function processLayoutField(
+        MetaDataManager $metaDataManager,
+        array $field,
+        array $fieldDefs,
+        array &$fields,
+        array &$displayParams
+    ) {
+        $displayParams[$field['name']] = $field;
+        unset($displayParams[$field['name']]['name']);
     }
 
     /**
@@ -305,8 +301,8 @@ class SugarFieldCollection extends SugarFieldBase {
     protected function getCollectionApi()
     {
         if (!$this->collectionApi) {
-            require_once 'clients/base/api/RelateCollectionApi.php';
-            $this->collectionApi = new RelateCollectionApi();
+            require_once 'clients/base/api/CollectionApi.php';
+            $this->collectionApi = new CollectionApi();
         }
 
         return $this->collectionApi;

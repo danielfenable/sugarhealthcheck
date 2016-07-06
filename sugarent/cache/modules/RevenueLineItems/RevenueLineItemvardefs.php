@@ -4,13 +4,58 @@
   'optimistic_locking' => true,
   'audited' => true,
   'activity_enabled' => true,
-  'unified_search' => true,
+  'unified_search' => false,
   'full_text_search' => true,
   'unified_search_default_enabled' => true,
-  'dynamic_subpanel_name' => 'subpanel-with-massupdate',
   'comment' => 'The user (not Admin)) view of a RevenueLineItem definition; an instance of a product used in the worksheets and opportunities',
   'fields' => 
   array (
+    'my_favorite' => 
+    array (
+      'massupdate' => false,
+      'name' => 'my_favorite',
+      'vname' => 'LBL_FAVORITE',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Favorite for the user',
+      'studio' => 
+      array (
+        'list' => false,
+        'recordview' => false,
+      ),
+      'link' => 'favorite_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'favorite_link' => 
+    array (
+      'name' => 'favorite_link',
+      'type' => 'link',
+      'relationship' => 'revenuelineitems_favorite',
+      'source' => 'non-db',
+      'vname' => 'LBL_FAVORITE',
+    ),
+    'following' => 
+    array (
+      'massupdate' => false,
+      'name' => 'following',
+      'vname' => 'LBL_FOLLOWING',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Is user following this record',
+      'studio' => 'false',
+      'link' => 'following_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'following_link' => 
+    array (
+      'name' => 'following_link',
+      'type' => 'link',
+      'relationship' => 'revenuelineitems_following',
+      'source' => 'non-db',
+      'vname' => 'LBL_FOLLOWING',
+    ),
     'id' => 
     array (
       'name' => 'id',
@@ -33,8 +78,7 @@
       'full_text_search' => 
       array (
         'enabled' => true,
-        'searchable' => true,
-        'boost' => 1.5700000000000001,
+        'boost' => 2,
       ),
       'comment' => 'Name of the product',
       'reportable' => true,
@@ -58,18 +102,6 @@
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_entered' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'date_modified' => 
     array (
@@ -79,18 +111,6 @@
       'group' => 'modified_by_name',
       'comment' => 'Date record last modified',
       'enable_range_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_modified' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
       'studio' => 
       array (
         'portaleditview' => false,
@@ -116,20 +136,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'modified_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'modified_by_name' => 
     array (
@@ -168,20 +174,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'created_by' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_CREATED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'created_by_name' => 
     array (
@@ -206,18 +198,44 @@
       ),
       'exportable' => true,
     ),
+    'doc_owner' => 
+    array (
+      'name' => 'doc_owner',
+      'vname' => 'LBL_DOC_OWNER',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
+    'user_favorites' => 
+    array (
+      'name' => 'user_favorites',
+      'vname' => 'LBL_USER_FAVORITES',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
     'description' => 
     array (
       'name' => 'description',
       'vname' => 'LBL_DESCRIPTION',
       'type' => 'text',
       'comment' => 'Full text of the note',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.46999999999999997,
-      ),
       'rows' => 6,
       'cols' => 80,
       'duplicate_on_record_copy' => 'always',
@@ -264,6 +282,178 @@
       'module' => 'Activities',
       'bean_name' => 'Activity',
       'source' => 'non-db',
+    ),
+    'assigned_user_id' => 
+    array (
+      'name' => 'assigned_user_id',
+      'vname' => 'LBL_ASSIGNED_TO_ID',
+      'group' => 'assigned_user_name',
+      'type' => 'id',
+      'reportable' => false,
+      'isnull' => 'false',
+      'audited' => true,
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'User ID assigned to record',
+      'duplicate_merge' => 'disabled',
+      'mandatory_fetch' => true,
+      'massupdate' => false,
+    ),
+    'assigned_user_name' => 
+    array (
+      'name' => 'assigned_user_name',
+      'link' => 'assigned_user_link',
+      'vname' => 'LBL_ASSIGNED_TO',
+      'rname' => 'full_name',
+      'type' => 'relate',
+      'reportable' => false,
+      'source' => 'non-db',
+      'table' => 'users',
+      'id_name' => 'assigned_user_id',
+      'module' => 'Users',
+      'duplicate_merge' => 'disabled',
+      'duplicate_on_record_copy' => 'always',
+      'sort_on' => 
+      array (
+        0 => 'last_name',
+      ),
+      'exportable' => true,
+    ),
+    'assigned_user_link' => 
+    array (
+      'name' => 'assigned_user_link',
+      'type' => 'link',
+      'relationship' => 'revenuelineitems_assigned_user',
+      'vname' => 'LBL_USERS',
+      'link_type' => 'one',
+      'module' => 'Users',
+      'bean_name' => 'User',
+      'source' => 'non-db',
+      'duplicate_merge' => 'enabled',
+      'id_name' => 'assigned_user_id',
+      'table' => 'users',
+    ),
+    'team_id' => 
+    array (
+      'name' => 'team_id',
+      'vname' => 'LBL_TEAM_ID',
+      'group' => 'team_name',
+      'reportable' => false,
+      'dbType' => 'id',
+      'type' => 'team_list',
+      'audited' => true,
+      'duplicate_on_record_copy' => 'always',
+      'comment' => 'Team ID for the account',
+    ),
+    'team_set_id' => 
+    array (
+      'name' => 'team_set_id',
+      'rname' => 'id',
+      'id_name' => 'team_set_id',
+      'vname' => 'LBL_TEAM_SET_ID',
+      'type' => 'id',
+      'audited' => true,
+      'studio' => 'false',
+      'dbType' => 'id',
+      'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+    ),
+    'team_count' => 
+    array (
+      'name' => 'team_count',
+      'rname' => 'team_count',
+      'id_name' => 'team_id',
+      'vname' => 'LBL_TEAMS',
+      'join_name' => 'ts1',
+      'table' => 'teams',
+      'type' => 'relate',
+      'required' => 'true',
+      'isnull' => 'true',
+      'module' => 'Teams',
+      'link' => 'team_count_link',
+      'massupdate' => false,
+      'dbType' => 'int',
+      'source' => 'non-db',
+      'importable' => 'false',
+      'reportable' => false,
+      'duplicate_merge' => 'disabled',
+      'duplicate_on_record_copy' => 'always',
+      'studio' => 'false',
+      'hideacl' => true,
+    ),
+    'team_name' => 
+    array (
+      'name' => 'team_name',
+      'db_concat_fields' => 
+      array (
+        0 => 'name',
+        1 => 'name_2',
+      ),
+      'sort_on' => 'tj.name',
+      'join_name' => 'tj',
+      'rname' => 'name',
+      'id_name' => 'team_id',
+      'vname' => 'LBL_TEAMS',
+      'type' => 'relate',
+      'required' => 'true',
+      'table' => 'teams',
+      'isnull' => 'true',
+      'module' => 'Teams',
+      'link' => 'team_link',
+      'massupdate' => true,
+      'dbType' => 'varchar',
+      'source' => 'non-db',
+      'len' => 36,
+      'custom_type' => 'teamset',
+      'studio' => 
+      array (
+        'portallistview' => false,
+        'portalrecordview' => false,
+      ),
+      'duplicate_on_record_copy' => 'always',
+      'exportable' => true,
+    ),
+    'team_link' => 
+    array (
+      'name' => 'team_link',
+      'type' => 'link',
+      'relationship' => 'revenuelineitems_team',
+      'vname' => 'LBL_TEAMS_LINK',
+      'link_type' => 'one',
+      'module' => 'Teams',
+      'bean_name' => 'Team',
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'studio' => 'false',
+    ),
+    'team_count_link' => 
+    array (
+      'name' => 'team_count_link',
+      'type' => 'link',
+      'relationship' => 'revenuelineitems_team_count_relationship',
+      'link_type' => 'one',
+      'module' => 'Teams',
+      'bean_name' => 'TeamSet',
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'reportable' => false,
+      'studio' => 'false',
+    ),
+    'teams' => 
+    array (
+      'name' => 'teams',
+      'type' => 'link',
+      'relationship' => 'revenuelineitems_teams',
+      'bean_filter_field' => 'team_set_id',
+      'rhs_key_override' => true,
+      'source' => 'non-db',
+      'vname' => 'LBL_TEAMS',
+      'link_class' => 'TeamSetLink',
+      'link_file' => 'modules/Teams/TeamSetLink.php',
+      'studio' => 'false',
+      'reportable' => false,
     ),
     'product_template_id' => 
     array (
@@ -324,7 +514,7 @@
       'reportable' => false,
       'audited' => true,
       'comment' => 'Account this product is associated with',
-      'formula' => 'ifElse(related($opportunities, "account_id"), related($opportunities, "account_id"), $account_id)',
+      'formula' => 'related($opportunities, "account_id")',
       'enforced' => true,
       'calculated' => true,
     ),
@@ -412,7 +602,7 @@
     'category_id' => 
     array (
       'name' => 'category_id',
-      'vname' => 'LBL_CATEGORY_ID',
+      'vname' => 'LBL_CATEGORY',
       'type' => 'id',
       'group' => 'category_name',
       'required' => false,
@@ -487,19 +677,6 @@
         0 => 'currency_id',
         1 => 'base_rate',
       ),
-      'formula' => '
-            ifElse(
-                and(
-                    equal($product_template_id, ""),
-                    not(isNumeric($discount_price))
-                ),
-                divide($likely_case,
-                    ifElse(greaterThan($quantity, 0), $quantity, 1)
-                ),
-                $discount_price
-            )',
-      'enforced' => false,
-      'calculated' => true,
     ),
     'discount_amount' => 
     array (
@@ -690,6 +867,27 @@
       'formula' => 'ifElse(isNumeric($list_price), currencyDivide($list_price, $base_rate), "")',
       'calculated' => true,
       'enforced' => true,
+    ),
+    'currency_id' => 
+    array (
+      'name' => 'currency_id',
+      'dbType' => 'id',
+      'vname' => 'LBL_CURRENCY_ID',
+      'type' => 'currency_id',
+      'function' => 'getCurrencies',
+      'function_bean' => 'Currencies',
+      'required' => false,
+      'reportable' => false,
+      'default' => '-99',
+      'comment' => 'Currency of the product',
+    ),
+    'base_rate' => 
+    array (
+      'name' => 'base_rate',
+      'vname' => 'LBL_CURRENCY_RATE',
+      'type' => 'decimal',
+      'len' => '26,6',
+      'studio' => false,
     ),
     'status' => 
     array (
@@ -882,7 +1080,7 @@
     ),
     'best_case' => 
     array (
-      'formula' => 'ifElse(equal($best_case, ""), string($total_amount), $best_case)',
+      'formula' => 'string($total_amount)',
       'calculated' => true,
       'name' => 'best_case',
       'vname' => 'LBL_BEST',
@@ -902,7 +1100,7 @@
     ),
     'likely_case' => 
     array (
-      'formula' => 'ifElse(equal($likely_case,""),string($total_amount),$likely_case)',
+      'formula' => 'string($total_amount)',
       'calculated' => true,
       'name' => 'likely_case',
       'vname' => 'LBL_LIKELY',
@@ -923,7 +1121,7 @@
     ),
     'worst_case' => 
     array (
-      'formula' => 'ifElse(equal($worst_case, ""), string($total_amount), $worst_case)',
+      'formula' => 'string($total_amount)',
       'calculated' => true,
       'name' => 'worst_case',
       'vname' => 'LBL_WORST',
@@ -956,11 +1154,6 @@
       array (
         0 => 'date_closed_timestamp',
       ),
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-      ),
     ),
     'date_closed_timestamp' => 
     array (
@@ -981,12 +1174,6 @@
       'vname' => 'LBL_NEXT_STEP',
       'type' => 'varchar',
       'len' => '100',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.48999999999999999,
-      ),
       'comment' => 'The next step in the sales process',
       'merge_filter' => 'enabled',
     ),
@@ -1000,13 +1187,6 @@
       'function' => 'getCommitStageDropdown',
       'function_bean' => 'Forecasts',
       'default' => 'exclude',
-      'formula' => 'forecastCommitStage($probability)',
-      'calculated' => true,
-      'duplicate_merge' => 'enabled',
-      'related_fields' => 
-      array (
-        0 => 'probability',
-      ),
     ),
     'sales_stage' => 
     array (
@@ -1126,6 +1306,42 @@
       'source' => 'non-db',
       'vname' => 'LBL_DOCUMENTS_SUBPANEL_TITLE',
     ),
+    'currency_name' => 
+    array (
+      'name' => 'currency_name',
+      'rname' => 'name',
+      'id_name' => 'currency_id',
+      'vname' => 'LBL_CURRENCY_NAME',
+      'type' => 'relate',
+      'link' => 'currencies',
+      'isnull' => true,
+      'table' => 'currencies',
+      'module' => 'Currencies',
+      'source' => 'non-db',
+      'function' => 'getCurrencies',
+      'function_bean' => 'Currencies',
+      'studio' => false,
+      'duplicate_merge' => 'disabled',
+      'massupdate' => false,
+    ),
+    'currency_symbol' => 
+    array (
+      'name' => 'currency_symbol',
+      'rname' => 'symbol',
+      'id_name' => 'currency_id',
+      'vname' => 'LBL_CURRENCY_SYMBOL',
+      'type' => 'relate',
+      'link' => 'currencies',
+      'isnull' => true,
+      'table' => 'currencies',
+      'module' => 'Currencies',
+      'source' => 'non-db',
+      'function' => 'getCurrencySymbols',
+      'function_bean' => 'Currencies',
+      'studio' => false,
+      'duplicate_merge' => 'disabled',
+      'massupdate' => false,
+    ),
     'quote_name' => 
     array (
       'name' => 'quote_name',
@@ -1197,20 +1413,6 @@
       'bean_name' => 'Opportunity',
       'vname' => 'LBL_OPPORTUNITIES',
     ),
-    'assigned_user_link' => 
-    array (
-      'name' => 'assigned_user_link',
-      'type' => 'link',
-      'relationship' => 'revenuelineitems_assigned_user',
-      'vname' => 'LBL_ASSIGNED_TO_USER',
-      'link_type' => 'one',
-      'module' => 'Users',
-      'bean_name' => 'User',
-      'source' => 'non-db',
-      'duplicate_merge' => 'enabled',
-      'id_name' => 'assigned_user_id',
-      'table' => 'users',
-    ),
     'type_name' => 
     array (
       'name' => 'type_name',
@@ -1227,6 +1429,14 @@
       'dbType' => 'varchar',
       'len' => '255',
       'source' => 'non-db',
+    ),
+    'currencies' => 
+    array (
+      'name' => 'currencies',
+      'type' => 'link',
+      'relationship' => 'revenuelineitem_currencies',
+      'source' => 'non-db',
+      'vname' => 'LBL_CURRENCIES',
     ),
     'account_link' => 
     array (
@@ -1347,348 +1557,6 @@
       'bean_name' => 'Manufacturer',
       'source' => 'non-db',
     ),
-    'following' => 
-    array (
-      'massupdate' => false,
-      'name' => 'following',
-      'vname' => 'LBL_FOLLOWING',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Is user following this record',
-      'studio' => 'false',
-      'link' => 'following_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'following_link' => 
-    array (
-      'name' => 'following_link',
-      'type' => 'link',
-      'relationship' => 'revenuelineitems_following',
-      'source' => 'non-db',
-      'vname' => 'LBL_FOLLOWING',
-      'reportable' => false,
-    ),
-    'my_favorite' => 
-    array (
-      'massupdate' => false,
-      'name' => 'my_favorite',
-      'vname' => 'LBL_FAVORITE',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Favorite for the user',
-      'studio' => 
-      array (
-        'list' => false,
-        'recordview' => false,
-        'basic_search' => false,
-        'advanced_search' => false,
-      ),
-      'link' => 'favorite_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'favorite_link' => 
-    array (
-      'name' => 'favorite_link',
-      'type' => 'link',
-      'relationship' => 'revenuelineitems_favorite',
-      'source' => 'non-db',
-      'vname' => 'LBL_FAVORITE',
-      'reportable' => false,
-      'workflow' => false,
-      'full_text_search' => 
-      array (
-        'type' => 'favorites',
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'favorite_link' => 
-          array (
-            'type' => 'MyItems',
-            'options' => 
-            array (
-              'field' => 'user_favorites',
-            ),
-          ),
-        ),
-      ),
-    ),
-    'tag' => 
-    array (
-      'name' => 'tag',
-      'vname' => 'LBL_TAGS',
-      'type' => 'tag',
-      'link' => 'tag_link',
-      'source' => 'non-db',
-      'module' => 'Tags',
-      'relate_collection' => true,
-      'studio' => 
-      array (
-        'portal' => false,
-        'base' => 
-        array (
-          'popuplist' => false,
-        ),
-        'mobile' => 
-        array (
-          'wirelesseditview' => true,
-          'wirelessdetailview' => true,
-        ),
-      ),
-      'massupdate' => true,
-      'exportable' => true,
-      'sortable' => false,
-      'rname' => 'name',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-      ),
-    ),
-    'tag_link' => 
-    array (
-      'name' => 'tag_link',
-      'type' => 'link',
-      'vname' => 'LBL_TAGS_LINK',
-      'relationship' => 'revenuelineitems_tags',
-      'source' => 'non-db',
-      'exportable' => false,
-      'duplicate_merge' => 'disabled',
-    ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'assigned_user_id',
-      'vname' => 'LBL_ASSIGNED_TO_ID',
-      'group' => 'assigned_user_name',
-      'type' => 'id',
-      'reportable' => false,
-      'isnull' => 'false',
-      'audited' => true,
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'User ID assigned to record',
-      'duplicate_merge' => 'disabled',
-      'mandatory_fetch' => true,
-      'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'assigned_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_ASSIGNED_TO_ME',
-          ),
-        ),
-      ),
-    ),
-    'assigned_user_name' => 
-    array (
-      'name' => 'assigned_user_name',
-      'link' => 'assigned_user_link',
-      'vname' => 'LBL_ASSIGNED_TO',
-      'rname' => 'full_name',
-      'type' => 'relate',
-      'reportable' => false,
-      'source' => 'non-db',
-      'table' => 'users',
-      'id_name' => 'assigned_user_id',
-      'module' => 'Users',
-      'duplicate_merge' => 'disabled',
-      'duplicate_on_record_copy' => 'always',
-      'sort_on' => 
-      array (
-        0 => 'last_name',
-      ),
-      'exportable' => true,
-    ),
-    'team_id' => 
-    array (
-      'name' => 'team_id',
-      'vname' => 'LBL_TEAM_ID',
-      'group' => 'team_name',
-      'reportable' => false,
-      'dbType' => 'id',
-      'type' => 'team_list',
-      'audited' => true,
-      'duplicate_on_record_copy' => 'always',
-      'comment' => 'Team ID for the account',
-    ),
-    'team_set_id' => 
-    array (
-      'name' => 'team_set_id',
-      'rname' => 'id',
-      'id_name' => 'team_set_id',
-      'vname' => 'LBL_TEAM_SET_ID',
-      'type' => 'id',
-      'audited' => true,
-      'studio' => 'false',
-      'dbType' => 'id',
-      'duplicate_on_record_copy' => 'always',
-    ),
-    'team_count' => 
-    array (
-      'name' => 'team_count',
-      'rname' => 'team_count',
-      'id_name' => 'team_id',
-      'vname' => 'LBL_TEAMS',
-      'join_name' => 'ts1',
-      'table' => 'teams',
-      'type' => 'relate',
-      'required' => 'true',
-      'isnull' => 'true',
-      'module' => 'Teams',
-      'link' => 'team_count_link',
-      'massupdate' => false,
-      'dbType' => 'int',
-      'source' => 'non-db',
-      'importable' => 'false',
-      'reportable' => false,
-      'duplicate_merge' => 'disabled',
-      'duplicate_on_record_copy' => 'always',
-      'studio' => 'false',
-      'hideacl' => true,
-    ),
-    'team_name' => 
-    array (
-      'name' => 'team_name',
-      'db_concat_fields' => 
-      array (
-        0 => 'name',
-        1 => 'name_2',
-      ),
-      'sort_on' => 'tj.name',
-      'join_name' => 'tj',
-      'rname' => 'name',
-      'id_name' => 'team_id',
-      'vname' => 'LBL_TEAMS',
-      'type' => 'relate',
-      'required' => 'true',
-      'table' => 'teams',
-      'isnull' => 'true',
-      'module' => 'Teams',
-      'link' => 'team_link',
-      'massupdate' => true,
-      'dbType' => 'varchar',
-      'source' => 'non-db',
-      'len' => 36,
-      'custom_type' => 'teamset',
-      'studio' => 
-      array (
-        'portallistview' => false,
-        'portalrecordview' => false,
-      ),
-      'duplicate_on_record_copy' => 'always',
-      'exportable' => true,
-    ),
-    'team_link' => 
-    array (
-      'name' => 'team_link',
-      'type' => 'link',
-      'relationship' => 'revenuelineitems_team',
-      'vname' => 'LBL_TEAMS_LINK',
-      'link_type' => 'one',
-      'module' => 'Teams',
-      'bean_name' => 'Team',
-      'source' => 'non-db',
-      'duplicate_merge' => 'disabled',
-      'studio' => 'false',
-    ),
-    'team_count_link' => 
-    array (
-      'name' => 'team_count_link',
-      'type' => 'link',
-      'relationship' => 'revenuelineitems_team_count_relationship',
-      'link_type' => 'one',
-      'module' => 'Teams',
-      'bean_name' => 'TeamSet',
-      'source' => 'non-db',
-      'duplicate_merge' => 'disabled',
-      'reportable' => false,
-      'studio' => 'false',
-    ),
-    'teams' => 
-    array (
-      'name' => 'teams',
-      'type' => 'link',
-      'relationship' => 'revenuelineitems_teams',
-      'bean_filter_field' => 'team_set_id',
-      'rhs_key_override' => true,
-      'source' => 'non-db',
-      'vname' => 'LBL_TEAMS',
-      'link_class' => 'TeamSetLink',
-      'link_file' => 'modules/Teams/TeamSetLink.php',
-      'studio' => 'false',
-      'reportable' => false,
-    ),
-    'currency_id' => 
-    array (
-      'name' => 'currency_id',
-      'dbType' => 'id',
-      'vname' => 'LBL_CURRENCY_ID',
-      'type' => 'currency_id',
-      'function' => 'getCurrencies',
-      'function_bean' => 'Currencies',
-      'required' => false,
-      'reportable' => false,
-      'default' => '-99',
-    ),
-    'base_rate' => 
-    array (
-      'name' => 'base_rate',
-      'vname' => 'LBL_CURRENCY_RATE',
-      'type' => 'text',
-      'dbType' => 'decimal',
-      'len' => '26,6',
-      'readonly' => true,
-    ),
-    'currency_name' => 
-    array (
-      'name' => 'currency_name',
-      'rname' => 'name',
-      'id_name' => 'currency_id',
-      'vname' => 'LBL_CURRENCY_NAME',
-      'type' => 'relate',
-      'link' => 'currencies',
-      'isnull' => true,
-      'table' => 'currencies',
-      'module' => 'Currencies',
-      'source' => 'non-db',
-      'studio' => false,
-      'duplicate_merge' => 'disabled',
-      'function' => 'getCurrencies',
-      'function_bean' => 'Currencies',
-      'massupdate' => false,
-    ),
-    'currency_symbol' => 
-    array (
-      'name' => 'currency_symbol',
-      'rname' => 'symbol',
-      'id_name' => 'currency_id',
-      'vname' => 'LBL_CURRENCY_SYMBOL',
-      'type' => 'relate',
-      'link' => 'currencies',
-      'isnull' => true,
-      'table' => 'currencies',
-      'module' => 'Currencies',
-      'source' => 'non-db',
-      'studio' => false,
-      'duplicate_merge' => 'disabled',
-      'function' => 'getCurrencySymbols',
-      'function_bean' => 'Currencies',
-      'massupdate' => false,
-    ),
-    'currencies' => 
-    array (
-      'name' => 'currencies',
-      'type' => 'link',
-      'relationship' => 'revenuelineitems_currencies',
-      'source' => 'non-db',
-      'vname' => 'LBL_CURRENCIES',
-    ),
   ),
   'indices' => 
   array (
@@ -1729,9 +1597,18 @@
         0 => 'date_entered',
       ),
     ),
-    'name_del' => 
+    'team_set_revenue_line_items' => 
     array (
-      'name' => 'idx_revenue_line_items_name_del',
+      'name' => 'idx_revenue_line_items_tmst_id',
+      'type' => 'index',
+      'fields' => 
+      array (
+        0 => 'team_set_id',
+      ),
+    ),
+    0 => 
+    array (
+      'name' => 'idx_revenuelineitem',
       'type' => 'index',
       'fields' => 
       array (
@@ -1739,7 +1616,7 @@
         1 => 'deleted',
       ),
     ),
-    0 => 
+    1 => 
     array (
       'name' => 'idx_rli_user_dc_timestamp',
       'type' => 'index',
@@ -1750,7 +1627,7 @@
         2 => 'date_closed_timestamp',
       ),
     ),
-    1 => 
+    2 => 
     array (
       'name' => 'idx_revenuelineitem_sales_stage',
       'type' => 'index',
@@ -1759,7 +1636,7 @@
         0 => 'sales_stage',
       ),
     ),
-    2 => 
+    3 => 
     array (
       'name' => 'idx_revenuelineitem_probability',
       'type' => 'index',
@@ -1768,7 +1645,7 @@
         0 => 'probability',
       ),
     ),
-    3 => 
+    4 => 
     array (
       'name' => 'idx_revenuelineitem_commit_stage',
       'type' => 'index',
@@ -1777,7 +1654,7 @@
         0 => 'commit_stage',
       ),
     ),
-    4 => 
+    5 => 
     array (
       'name' => 'idx_revenuelineitem_quantity',
       'type' => 'index',
@@ -1786,7 +1663,7 @@
         0 => 'quantity',
       ),
     ),
-    5 => 
+    6 => 
     array (
       'name' => 'idx_revenuelineitem_oppid',
       'type' => 'index',
@@ -1795,28 +1672,41 @@
         0 => 'opportunity_id',
       ),
     ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'idx_revenue_line_items_assigned_del',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'deleted',
-        1 => 'assigned_user_id',
-      ),
-    ),
-    'team_set_revenue_line_items' => 
-    array (
-      'name' => 'idx_revenue_line_items_tmst_id',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'team_set_id',
-      ),
-    ),
   ),
   'relationships' => 
   array (
+    'revenuelineitems_favorite' => 
+    array (
+      'lhs_module' => 'RevenueLineItems',
+      'lhs_table' => 'revenue_line_items',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'sugarfavorites',
+      'join_key_lhs' => 'record_id',
+      'join_key_rhs' => 'modified_user_id',
+      'relationship_role_column' => 'module',
+      'relationship_role_column_value' => 'RevenueLineItems',
+      'user_field' => 'created_by',
+    ),
+    'revenuelineitems_following' => 
+    array (
+      'lhs_module' => 'RevenueLineItems',
+      'lhs_table' => 'revenue_line_items',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'subscriptions',
+      'join_key_lhs' => 'parent_id',
+      'join_key_rhs' => 'created_by',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'RevenueLineItems',
+      'user_field' => 'created_by',
+    ),
     'revenuelineitems_modified_user' => 
     array (
       'lhs_module' => 'Users',
@@ -1852,6 +1742,59 @@
       'join_key_rhs' => 'activity_id',
       'relationship_role_column' => 'parent_type',
       'relationship_role_column_value' => 'RevenueLineItems',
+    ),
+    'revenuelineitems_assigned_user' => 
+    array (
+      'lhs_module' => 'Users',
+      'lhs_table' => 'users',
+      'lhs_key' => 'id',
+      'rhs_module' => 'RevenueLineItems',
+      'rhs_table' => 'revenue_line_items',
+      'rhs_key' => 'assigned_user_id',
+      'relationship_type' => 'one-to-many',
+    ),
+    'revenuelineitems_team_count_relationship' => 
+    array (
+      'lhs_module' => 'Teams',
+      'lhs_table' => 'team_sets',
+      'lhs_key' => 'id',
+      'rhs_module' => 'RevenueLineItems',
+      'rhs_table' => 'revenue_line_items',
+      'rhs_key' => 'team_set_id',
+      'relationship_type' => 'one-to-many',
+    ),
+    'revenuelineitems_teams' => 
+    array (
+      'lhs_module' => 'RevenueLineItems',
+      'lhs_table' => 'revenue_line_items',
+      'lhs_key' => 'team_set_id',
+      'rhs_module' => 'Teams',
+      'rhs_table' => 'teams',
+      'rhs_key' => 'id',
+      'relationship_type' => 'many-to-many',
+      'join_table' => 'team_sets_teams',
+      'join_key_lhs' => 'team_set_id',
+      'join_key_rhs' => 'team_id',
+    ),
+    'revenuelineitems_team' => 
+    array (
+      'lhs_module' => 'Teams',
+      'lhs_table' => 'teams',
+      'lhs_key' => 'id',
+      'rhs_module' => 'RevenueLineItems',
+      'rhs_table' => 'revenue_line_items',
+      'rhs_key' => 'team_id',
+      'relationship_type' => 'one-to-many',
+    ),
+    'revenuelineitem_currencies' => 
+    array (
+      'lhs_module' => 'RevenueLineItems',
+      'lhs_table' => 'revenue_line_items',
+      'lhs_key' => 'currency_id',
+      'rhs_module' => 'Currencies',
+      'rhs_table' => 'currencies',
+      'rhs_key' => 'id',
+      'relationship_type' => 'one-to-many',
     ),
     'revenuelineitem_tasks' => 
     array (
@@ -1951,107 +1894,6 @@
       'rhs_key' => 'manufacturer_id',
       'relationship_type' => 'one-to-many',
     ),
-    'revenuelineitems_following' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'RevenueLineItems',
-      'rhs_table' => 'revenue_line_items',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'subscriptions',
-      'join_key_lhs' => 'created_by',
-      'join_key_rhs' => 'parent_id',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'RevenueLineItems',
-      'user_field' => 'created_by',
-    ),
-    'revenuelineitems_favorite' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'RevenueLineItems',
-      'rhs_table' => 'revenue_line_items',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'sugarfavorites',
-      'join_key_lhs' => 'modified_user_id',
-      'join_key_rhs' => 'record_id',
-      'relationship_role_column' => 'module',
-      'relationship_role_column_value' => 'RevenueLineItems',
-      'user_field' => 'created_by',
-    ),
-    'revenuelineitems_tags' => 
-    array (
-      'lhs_module' => 'RevenueLineItems',
-      'lhs_table' => 'revenue_line_items',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Tags',
-      'rhs_table' => 'tags',
-      'rhs_key' => 'id',
-      'relationship_type' => 'many-to-many',
-      'join_table' => 'tag_bean_rel',
-      'join_key_lhs' => 'bean_id',
-      'join_key_rhs' => 'tag_id',
-      'relationship_role_column' => 'bean_module',
-      'relationship_role_column_value' => 'RevenueLineItems',
-      'dynamic_subpanel' => true,
-    ),
-    'revenuelineitems_assigned_user' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'RevenueLineItems',
-      'rhs_table' => 'revenue_line_items',
-      'rhs_key' => 'assigned_user_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'revenuelineitems_team_count_relationship' => 
-    array (
-      'lhs_module' => 'Teams',
-      'lhs_table' => 'team_sets',
-      'lhs_key' => 'id',
-      'rhs_module' => 'RevenueLineItems',
-      'rhs_table' => 'revenue_line_items',
-      'rhs_key' => 'team_set_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'revenuelineitems_teams' => 
-    array (
-      'lhs_module' => 'RevenueLineItems',
-      'lhs_table' => 'revenue_line_items',
-      'lhs_key' => 'team_set_id',
-      'rhs_module' => 'Teams',
-      'rhs_table' => 'teams',
-      'rhs_key' => 'id',
-      'relationship_type' => 'many-to-many',
-      'join_table' => 'team_sets_teams',
-      'join_key_lhs' => 'team_set_id',
-      'join_key_rhs' => 'team_id',
-    ),
-    'revenuelineitems_team' => 
-    array (
-      'lhs_module' => 'Teams',
-      'lhs_table' => 'teams',
-      'lhs_key' => 'id',
-      'rhs_module' => 'RevenueLineItems',
-      'rhs_table' => 'revenue_line_items',
-      'rhs_key' => 'team_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'revenuelineitems_currencies' => 
-    array (
-      'lhs_module' => 'Currencies',
-      'lhs_table' => 'currencies',
-      'lhs_key' => 'id',
-      'rhs_module' => 'RevenueLineItems',
-      'rhs_table' => 'revenue_line_items',
-      'rhs_key' => 'currency_id',
-      'relationship_type' => 'one-to-many',
-    ),
   ),
   'duplicate_check' => 
   array (
@@ -2105,23 +1947,19 @@
   ),
   'acls' => 
   array (
-    'SugarACLStatic' => true,
   ),
-  'favorites' => true,
   'templates' => 
   array (
+    'team_security' => 'team_security',
+    'assignable' => 'assignable',
     'basic' => 'basic',
     'following' => 'following',
     'favorite' => 'favorite',
-    'taggable' => 'taggable',
-    'assignable' => 'assignable',
-    'team_security' => 'team_security',
-    'currency' => 'currency',
   ),
-  'importable' => true,
-  'custom_fields' => false,
+  'favorites' => true,
   'related_calc_fields' => 
   array (
     0 => 'opportunities',
   ),
+  'custom_fields' => false,
 );

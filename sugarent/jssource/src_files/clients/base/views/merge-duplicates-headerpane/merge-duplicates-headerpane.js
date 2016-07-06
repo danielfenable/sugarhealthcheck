@@ -24,7 +24,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Gets the selected duplicates from the context and defines the title based
      * on the number of selected records.

@@ -1,8 +1,9 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("text-accentfold",function(e,t){var n=e.Array,r=e.Text,i=r.Data.AccentFold,s={canFold:function(e){var t;for(t in i)if(i.hasOwnProperty(t)&&e.search(i[t])!==-1)return!0;return!1},compare:function(e,t,n){var r=s.fold(e),i=s.fold(t);return n?!!n(r,i):r===i},filter:function(e,t){return n.filter(e,function(e){return t(s.fold(e))})},fold:function(t){return e.Lang.isArray(t)?n.map(t,s.fold):(t=t.toLowerCase(),e.Object.each(i,function(e,n){t=t.replace(e,n)}),t)}};r.AccentFold=s},"3.15.0",{requires:["array-extras","text-data-accentfold"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('text-accentfold',function(Y,NAME){var YArray=Y.Array,Text=Y.Text,FoldData=Text.Data.AccentFold,AccentFold={canFold:function(string){var letter;for(letter in FoldData){if(FoldData.hasOwnProperty(letter)&&string.search(FoldData[letter])!==-1){return true;}}
+return false;},compare:function(a,b,func){var aFolded=AccentFold.fold(a),bFolded=AccentFold.fold(b);return func?!!func(aFolded,bFolded):aFolded===bFolded;},filter:function(haystack,func){return YArray.filter(haystack,function(item){return func(AccentFold.fold(item));});},fold:function(input){if(Y.Lang.isArray(input)){return YArray.map(input,AccentFold.fold);}
+input=input.toLowerCase();Y.Object.each(FoldData,function(regex,letter){input=input.replace(regex,letter);});return input;}};Text.AccentFold=AccentFold;},'3.15.0',{"requires":["array-extras","text-data-accentfold"]});

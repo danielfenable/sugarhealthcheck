@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,20 +13,22 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 $mod_strings = array (
-    'LBL_BUNDLE_STAGE' => 'Grupas posms:',
-    'LBL_DEAL_TOT'=>'atlaides kopā',
-    'LBL_DEAL_TOT_USDOLLAR'=>'atlaides kopā (pamatvalūtā)',
-    'LBL_NEW_SUB' => 'Summa ar atlaidi:',
-    'LBL_SHIPPING' => 'Piegāde:',
-    'LBL_SHIPPING_USDOLLAR'=>'Piegādes cena (ASV dolāros)',
-    'LBL_SUBTOTAL_USDOLLAR'=>'Starpsumma (pamatvalūtā)',
-    'LBL_SUBTOTAL' => 'Starpsumma:',
-    'LBL_TAX_USDOLLAR'=>'Nodoklis (pamatvalūtā)',
-    'LBL_TAX' => 'Nodoklis:',
-    'LBL_TOTAL_USDOLLAR'=>'Kopsumma (pamatvalūtā)',
-    'LBL_TOTAL' => 'Kopsumma:',
-    'LBL_QUOTE_BUNDLE_POSITION' => 'Piedāvājuma pozīcija paketē',
-    'EXCEPTION_INVALID_QUOTE_ID' => 'Piedāvājuma ID pazudis no pieprasījuma',
-    'EXCEPTION_NOT_FOUND_QUOTE' =>  'Pieprasītais piedāvājums nav atrasts'
+  'EXCEPTION_INVALID_QUOTE_ID' => 'Piedāvājuma ID pazudis no pieprasījuma',
+  'EXCEPTION_NOT_FOUND_QUOTE' => 'Pieprasītais piedāvājums nav atrasts',
+  'LBL_BUNDLE_STAGE' => 'Grupas posms:',
+  'LBL_DEAL_TOT' => 'atlaides kopā',
+  'LBL_DEAL_TOT_USDOLLAR' => 'atlaides kopā (pamatvalūtā)',
+  'LBL_NEW_SUB' => 'Summa ar atlaidi:',
+  'LBL_QUOTE_BUNDLE_POSITION' => 'Piedāvājuma pozīcija paketē',
+  'LBL_SHIPPING' => 'Piegāde:',
+  'LBL_SHIPPING_USDOLLAR' => 'Piegāde (pamatvalūtā)',
+  'LBL_SUBTOTAL' => 'Starpsumma:',
+  'LBL_SUBTOTAL_USDOLLAR' => 'Starpsumma (pamatvalūtā)',
+  'LBL_TAX' => 'Nodoklis:',
+  'LBL_TAX_USDOLLAR' => 'Nodoklis (pamatvalūtā)',
+  'LBL_TOTAL' => 'Kopsumma:',
+  'LBL_TOTAL_USDOLLAR' => 'Kopsumma (pamatvalūtā)',
 );
+

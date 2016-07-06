@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,18 +12,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array ( 
-	'LBL_MODULE_NAME'			=> 'Gruppen',
-	'LBL_MODULE_NAME_SINGULAR'		=> 'Gruppe',
-	'LBL_GROUP_NAME'			=> 'Gruppenname',
-	'LBL_DESCRIPTION'			=> 'Beschreibung:',
-	'LBL_TEAM'					=> 'Team:',
-	// ListView
-	'LBL_LIST_TITLE'			=> 'Gruppen',
-	// Links
-	'LNK_ALL_GROUPS'			=> 'Alle Gruppen',
-	'LNK_NEW_GROUP'				=> 'Neue Gruppe',
-	'LNK_CONVERT_USER'			=> 'Mitarbeiter in Gruppe umwandeln', 
+$mod_strings = array (
+  'LBL_DESCRIPTION' => 'Beschreibung:',
+  'LBL_GROUP_NAME' => 'Gruppenname',
+  'LBL_LIST_TITLE' => 'Gruppen',
+  'LBL_MODULE_NAME' => 'Gruppen',
+  'LBL_MODULE_NAME_SINGULAR' => 'Gruppe',
+  'LBL_TEAM' => 'Team:',
+  'LNK_ALL_GROUPS' => 'Alle Gruppen',
+  'LNK_CONVERT_USER' => 'Mitarbeiter in Gruppe umwandeln',
+  'LNK_NEW_GROUP' => 'Neue Gruppe',
 );
-?>
+

@@ -24,7 +24,7 @@
         'Editable',
         'MergeDuplicates',
         'Pagination',
-        'MassCollection'
+        'LinkedModel'
     ],
 
     /**
@@ -35,6 +35,11 @@
     toggledModels: null,
 
     rowFields: {},
+
+    /**
+     * View name that corresponds to the list of fields API should retrieve
+     */
+    dataViewName: 'list',
 
     contextEvents: {
         "list:editall:fire": "toggleEdit",
@@ -55,32 +60,18 @@
 
         //Extend the prototype's events object to setup additional events for this controller
         this.events = _.extend({}, this.events, {
-            'click [name=inline-cancel]' : 'resize',
-            'keydown': '_setScrollPosition'
+            'click [name=inline-cancel]' : 'resize'
         });
 
-        this.toggledModels = {};
+        this.on('render', this._setRowFields, this);
 
-        this.context._recordListFields = this.getFieldNames(null, true);
-
-        this._currentUrl = Backbone.history.getFragment();
-
-        this._bindEvents();
-    },
-
-    /**
-     * Bind various events that are associated with this view.
-     *
-     * @protected
-     */
-    _bindEvents: function() {
-        this.on('render render:rows', this._setRowFields, this);
+        //Set the context to load the field list from the record metadata.
+        this.context.set('dataView', this.dataViewName);
 
         //fire resize scroll-width on column add/remove
         this.on('list:toggle:column', this.resize, this);
         this.on('mergeduplicates:complete', this.refreshCollection, this);
         this.on('field:focus:location', this.setPanelPosition, this);
-
         if (this.layout) {
             this.layout.on('list:mergeduplicates:fire', this.mergeDuplicatesClicked, this);
 
@@ -88,16 +79,20 @@
             // user clicks show more button, we treat this as a search, otherwise,
             // normal show more for list view.
             this.layout.on('list:filter:toggled', this.filterToggled, this);
-
-            // The `MassCollection` plugin triggers these events when it shows an
-            // alert and the table height changes.
-            this.layout.on('list:alert:show list:alert:hide', this._refreshReorderableColumns, this);
+            this.layout.on('list:record:deleted', function() {
+                this.refreshCollection();
+            }, this);
         }
+        this.toggledModels = {};
+
+        this.context._recordListFields = this.getFieldNames(null, true);
+
+        this._currentUrl = Backbone.history.getFragment();
 
         //event register for preventing actions
         // when user escapes the page without confirming deleting
-        app.routing.before('route', this.beforeRouteDelete, this);
-        $(window).on('beforeunload.delete' + this.cid, _.bind(this.warnDeleteOnRefresh, this));
+        app.routing.before("route", this.beforeRouteDelete, this, true);
+        $(window).on("beforeunload.delete" + this.cid, _.bind(this.warnDeleteOnRefresh, this));
     },
 
     /**
@@ -119,6 +114,12 @@
         // If in "search mode" (the search filter is toggled open) set q:term param
         var options = this.context.get('filterOpened') ? this.getSearchOptions() : {};
 
+        // Dashboard layout injects shared context with limit: 5.
+        // Otherwise, we don't set so fetches will use max query in config.
+        if (this.context.get('limit')) {
+            options.limit = this.context.get('limit');
+        }
+        options = _.extend({}, this.context.get('collectionOptions'), options);
         return options;
     },
 
@@ -151,7 +152,7 @@
     /**
      * Retrieve the metadata of the recordlist view
      *
-     * @return {Object}
+     * @returns {Object}
      * @private
      */
     _initializeMetadata: function() {
@@ -161,36 +162,19 @@
     /**
      * Filters the given meta removing non-applicable portions
      * @param {Object} meta data to be filtered
-     * @return {Object}
+     * @return {*}
      * @private
      */
-    _filterMeta : function(meta, options) {
-        // Don't show the update calc field option if the module has no calculated
-        // fields or the user is not a dev for that module
-        var context = options.context;
-        var isDeveloper = app.acl.hasAccess("developer", context.get("module"));
-        var hasCalcFields = context && context.get("model") && !!_.find(context.get("model").fields, function(def) {
-            return def && def.calculated && def.calculated != "false";
-        });
-        // Used in sanitizing subpanel row actions for Tags module
-        var isTagsParent = options.context.get('parentModule') === 'Tags';
-
+    _filterMeta : function(meta, options){
+        //Don't show the update calc field option if the module has no calculated fields or the user is not a dev for that module
+        var context = options.context,
+            isDeveloper = app.acl.hasAccess("developer", context.get("module")),
+            hasCalcFields = context && context.get("model") && !!_.find(context.get("model").fields, function(def) {
+                return def && def.calculated && def.calculated != "false";
+            });
         if ((!isDeveloper || !hasCalcFields) && meta.selection && meta.selection.actions) {
             meta.selection.actions = _.reject(meta.selection.actions, function(action) {
                 return action.name == "calc_field_button";
-            });
-        }
-
-        // Handle Tags module specific rules. Yes, this is dirty, but given how
-        // Subpanels on Tags need to be treated, this is just about the only way
-        // to do this
-        if (isTagsParent && meta.rowactions && meta.rowactions.actions) {
-            // Tags does not support Unlinking of records in subpanels, so we
-            // need to traverse the row actions array of options.meta and, if
-            // any of the rowactions is a type unlink-action we need to remove
-            // it from the rowactions array
-            meta.rowactions.actions = _.reject(meta.rowactions.actions, function(row) {
-                return row.type === 'unlink-action';
             });
         }
 
@@ -276,147 +260,82 @@
     },
 
     /**
-     * Stores the current scrolling position of the list content when tab key is
-     * pressed.
-     *
-     * @param {Event} event The keydown event.
+     * Retrieve the location of the left edge of the list viewport.
+     * @return {Number} Position of the left edge.
      * @private
      */
-    _setScrollPosition: function(event) {
-        if (event.keyCode === 9) {
-            var $flexListContent = this.$('.flex-list-view-content');
-            $flexListContent.data('previousScrollLeftValue', $flexListContent.scrollLeft());
+    _getLeftBorderPosition: function() {
+        if (!this._leftBorderPosition) {
+            var scrollPanel = this.$('.flex-list-view-content');
+            this._leftBorderPosition = scrollPanel.find('thead tr:first th:first').outerWidth();
         }
+        return this._leftBorderPosition;
     },
 
     /**
-     * Retrieves the location of the edges of the list viewport and caches it
-     * to `this._bordersPosition`.
-     *
-     * @return {Object} Object with properties:
-     * @return {number} return.left the position left edge.
-     * @return {number} return.right the position right edge.
+     * Retrieve the location of the right edge of the list viewport.
+     * @return {Number} Position of the right edge.
      * @private
      */
-    _getBordersPosition: function() {
-        if (!this._bordersPosition) {
-
-            /**
-             * Object containing the location of left and right edges of the
-             * list viewport.
-             *
-             * @property {Object} _bordersPosition
-             * @property {number} _bordersPosition.left The left offset of the
-             *   left edge of the viewport.
-             * @property {number} _bordersPosition.right The left offset of the
-             *   right edge of the viewport.
-             * @private
-             */
-            this._bordersPosition = {};
-            var thSelector = {};
-            var $scrollPanel = this.$('.flex-list-view-content');
-            var rtl = app.lang.direction === 'rtl';
-
-            thSelector.left = rtl ? 'last' : 'first';
-            thSelector.right = rtl ? 'first' : 'last';
-            this._bordersPosition.left = $scrollPanel.find('thead tr:first th:' + thSelector.left).outerWidth();
-            this._bordersPosition.right = $scrollPanel.find(
-                'thead tr:first th:' + thSelector.right).children().position().left;
+    _getRightBorderPosition: function() {
+        if (!this._rightBorderPosition) {
+            var scrollPanel = this.$('.flex-list-view-content');
+            this._rightBorderPosition = scrollPanel.find('thead tr:first th:last').position().left;
         }
-        return this._bordersPosition;
+        return this._rightBorderPosition;
     },
 
     /**
-     * Sets the position of the current list panel.
+     * Set the position of the current list panel.
      *
-     * Doesn't adjust panel position if the focused field is fully visible in
-     * the viewport.
+     * If focus item located within the viewport area,
+     * avoid adjusting panel location.
      *
-     * @param {Object} location Position of the focused element relative to its
-     *   viewport.
-     * @param {number} location.left The distance between the left
-     *   border of the focused field and the left border of the viewport.
-     * @param {number} location.right The distance between the right
-     *   side of the focused field and the left border of the viewport.
+     * @param {Object} location Location of the focused element.
      */
     setPanelPosition: function(location) {
-        var bordersPosition = this._getBordersPosition();
-        var fieldLeft = location.left;
-        var fieldRight = location.right;
-        if (fieldRight <= bordersPosition.right && fieldLeft >= bordersPosition.left) {
+        //FIXME: SC-3654 Remove this temporary fix to disable auto-scroll in RTL.
+        if (app.lang.direction === 'rtl') {
             return;
         }
-        this._scrollToMakeFieldVisible(bordersPosition.left, bordersPosition.right, location);
-    },
-
-    /**
-     * Scrolls the list horizontally to make the clicked field fully visible.
-     *
-     * @param {number} leftBorderPosition Position of the left edge of the
-     *   list viewport.
-     * @param {number} rightBorderPosition Position of the right edge of the
-     *   list viewport.
-     * @param {Object} location Position of the focused element relative to its
-     *   viewport.
-     * @param {number} location.left The distance between the left
-     *   border of the focused field and the left border of the viewport.
-     * @param {number} location.right The distance between the right
-     *   side of the focused field and the left border of the viewport.
-     * @private
-     */
-    _scrollToMakeFieldVisible: function(leftBorderPosition, rightBorderPosition, location) {
-        var $scrollPanel = this.$('.flex-list-view-content');
-        var scrollPosition = $scrollPanel.scrollLeft();
-        var fieldLeft = location.left;
-        var fieldRight = location.right;
-        var fieldPadding = location.fieldPadding;
-        var distanceToScroll;
-
-        if (fieldLeft < leftBorderPosition) {
-            distanceToScroll = fieldLeft - leftBorderPosition - fieldPadding;
-        } else if (rightBorderPosition < fieldRight) {
-            distanceToScroll = fieldRight - rightBorderPosition + fieldPadding;
-        } else {
+        var leftBorderPosition = this._getLeftBorderPosition(),
+            rightBorderPosition = this._getRightBorderPosition(),
+            relativeLeft = location.left,
+            relativeRight = location.right;
+        if (relativeRight <= rightBorderPosition && relativeLeft >= leftBorderPosition) {
             return;
         }
-        if (app.lang.direction === 'rtl' && $.support.rtlScrollType === 'reverse') {
-            distanceToScroll = - distanceToScroll;
-        }
-        $scrollPanel.scrollLeft(scrollPosition + distanceToScroll);
+        this.setScrollAtRightBorder(location.right);
     },
 
     /**
      * Set the position of scrollable panel
      * at the left border of the focused element.
      *
-     * @param {number} left Left position of the focused element.
-     * @deprecated 7.7 and will be removed in 7.8.
+     * @param {Number} left Left position of the focused element.
      */
     setScrollAtLeftBorder: function(left) {
-        var $scrollPanel = this.$('.flex-list-view-content'),
-            leftBorderPosition = this._getBordersPosition().left,
-            scrollLeft = $scrollPanel.scrollLeft();
+        var scrollPanel = this.$('.flex-list-view-content'),
+            leftBorderPosition = this._getLeftBorderPosition(),
+            scrollLeft = scrollPanel.scrollLeft();
 
         left += scrollLeft - leftBorderPosition;
-        $scrollPanel.scrollLeft(left);
-        app.logger.warn('"setScrollAtLeftBorder" method is deprecated and will be removed in 7.8');
+        scrollPanel.scrollLeft(left);
     },
 
     /**
      * Set the position of scrollable panel
      * at the right border of the focused element.
      *
-     * @param {number} right Right position of the focused element.
-     * @deprecated 7.7 and will be removed in 7.8.
+     * @param {Number} right Right position of the focused element.
      */
     setScrollAtRightBorder: function(right) {
-        var $scrollPanel = this.$('.flex-list-view-content'),
-            rightBorderPosition = this._getBordersPosition().right,
-            scrollLeft = $scrollPanel.scrollLeft();
+        var scrollPanel = this.$('.flex-list-view-content'),
+            rightBorderPosition = this._getRightBorderPosition(),
+            scrollLeft = scrollPanel.scrollLeft();
 
         right += scrollLeft - rightBorderPosition;
-        $scrollPanel.scrollLeft(right);
-        app.logger.warn('"setScrollAtRightBorder" method is deprecated and will be removed in 7.8');
+        scrollPanel.scrollLeft(right);
     },
 
     /**
@@ -547,7 +466,7 @@
             }
         }, this);
         return _.some(_.values(this.toggledModels), function(model) {
-            var changedAttributes = model.changedAttributes(model.getSynced());
+            var changedAttributes = model.changedAttributes(model.getSyncedAttributes());
 
             if (_.isEmpty(changedAttributes)) {
                 return false;
@@ -571,19 +490,11 @@
      */
     editClicked: function(model, field) {
         if (field.def.full_form) {
-            var parentModel = this.context.parent.get('model');
-            var link = this.context.get('link');
-
-            // `app.bwc.createRelatedRecord` navigates to the BWC EditView if an
-            // id is passed to it.
-            app.bwc.createRelatedRecord(this.module, parentModel, link, model.id);
+            this.createRelatedRecord(this.module, this.context.get('link'), model.id);
         } else {
             this.toggleRow(model.id, true);
             //check to see if horizontal scrolling needs to be enabled
             this.resize();
-        }
-        if (!_.isEqual(model.attributes, model._syncedAttributes)) {
-            model.setSyncedAttributes(model.attributes);
         }
     },
 
@@ -601,6 +512,22 @@
         }
         this.$('tr[name=' + this.module + '_' + modelId + ']').toggleClass('tr-inline-edit', isEdit);
         this.toggleFields(this.rowFields[modelId], isEdit);
+    },
+
+    /**
+     * Toggle editable entire row fields.
+     *
+     * @param {Boolean} isEdit True for edit mode, otherwise toggle back to list mode.
+     */
+    toggleEdit: function(isEdit) {
+        var self = this;
+        this.viewName = isEdit ? 'edit' : 'list';
+        _.each(this.rowFields, function(editableFields, modelId) {
+            //running the toggling jon in each thread to prevent blocking browser performance
+            _.defer(function(modelId) {
+                self.toggleRow(modelId, isEdit);
+            }, modelId);
+        }, this);
     },
 
     /**
@@ -708,28 +635,5 @@
                 $checkbox.get(0).click();
             }
         }, this);
-    },
-
-    /**
-     * @inheritdoc
-     *
-     * Unsets `_bordersPosition` because the value changes on resize and will
-     * have to be recalculated if the user toggles inline edit mode.
-     */
-    resize: function() {
-        this._super('resize');
-        this._bordersPosition = null;
-    },
-
-    /**
-     * Refreshes the `ReorderableColumns` when the table height changes.
-     *
-     * The `ReorderableColumns` plugin listens to the window `resize` event to
-     * update and position the handlers correctly.
-     *
-     * @private
-     */
-    _refreshReorderableColumns: function() {
-        $(window).resize();
     }
 })

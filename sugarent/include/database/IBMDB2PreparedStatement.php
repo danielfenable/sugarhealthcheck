@@ -64,7 +64,6 @@ class IBMDB2PreparedStatement extends PreparedStatement
         }
         $this->DBM->countQuery($this->parsedSQL);
         $GLOBALS['log']->info("Executing Query: {$this->parsedSQL} with ".var_export($data, true));
-        $this->bound_data = $data;
 
         $i = 0;
         foreach ($data as $v) {

@@ -104,28 +104,6 @@ function subp_archive_email() {
     return false;
 }
 
-/**
- * Builds a link for relationship deleting and navigates to this link
- * @param  {String} module Module name
- * @param  {String} action Action name
- * @param  {Object} params Params to be included in a url
- */
-function relationship_remove(module, action, params) {
-    var id = get_record_id();
-    var params = _.extend(params, {
-        record: id,
-        return_id: id
-    });
-
-    var route = app.bwc.buildRoute(module, id || null, action, params);
-
-    if (!_.isUndefined(params.return_url)) {
-        route += params.return_url;
-    }
-
-    app.router.navigate("#" + route, {trigger: true});
-}
-
 /*this function will take in three parameters, m,i,a and recreate navigation
 * m = module
 * i = record id
@@ -272,23 +250,19 @@ function got_data(args, inline)
 	if (list_subpanel != null) {
 		var subpanel = document.getElementById('subpanel_'+request_map[args.request_id].toLowerCase());
 		var child_field = request_map[args.request_id].toLowerCase();
-        var bwcComponent = window.parent.SUGAR.App.controller.layout.getComponent('bwc');
 
         if(inline){
-            if (bwcComponent) {
-                bwcComponent.confirmMemLeak(list_subpanel);
-                $('a', list_subpanel).off('.bwc.sugarcrm');
-            }
+            window.parent.SUGAR.App.controller.layout.getComponent('bwc').confirmMemLeak(list_subpanel);
+            $('a', list_subpanel).off('.bwc.sugarcrm');
 
 			child_field_loaded[child_field] = 2;
 			list_subpanel.innerHTML='';
 			list_subpanel.innerHTML=args.responseText;
 
 		} else {
-            if (bwcComponent) {
-                bwcComponent.confirmMemLeak(subpanel);
-                $('a', subpanel).off('.bwc.sugarcrm');
-            }
+
+            window.parent.SUGAR.App.controller.layout.getComponent('bwc').confirmMemLeak(subpanel);
+            $('a', subpanel).off('.bwc.sugarcrm');
 
 			child_field_loaded[child_field] = 1;
 			subpanel.innerHTML='';
@@ -318,9 +292,7 @@ function got_data(args, inline)
 	  		$(node).sugarActionMenu();
 	  	});
 
-       if (bwcComponent) {
-           bwcComponent.rewriteLinks();
-       }
+        window.parent.SUGAR.App.controller.layout.getComponent('bwc').rewriteLinks();
 	}
 }
 

@@ -74,7 +74,6 @@ $viewdefs['Cases']['DetailView'] = array(
           ),
         ),
         array (
-
 		  'team_name',
           array (
             'name' => 'date_entered',

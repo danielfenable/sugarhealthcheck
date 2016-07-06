@@ -16,7 +16,7 @@
      * @extends View.FlexListView
      */
     extendsFrom: 'FlexListView',
-    plugins: ['ListColumnEllipsis', 'ListRemoveLinks', 'Pagination', 'MassCollection'],
+    plugins: ['ListColumnEllipsis', 'ListRemoveLinks', 'Pagination'],
     /**
      * Removes the event listeners that were added to the mass collection.
      */
@@ -101,7 +101,7 @@
      */
     _renderField: function(field) {
         if (field.name == '_module') {
-            field.model.set(field.name, app.lang.get('LBL_MODULE_NAME', field.module));
+            field.model.set(field.name, app.lang.get('LBL_MODULE_NAME', field.model.get(field.name)));
         }
         this._super("_renderField", [field]);
     }

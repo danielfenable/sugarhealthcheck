@@ -15,7 +15,7 @@
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);
@@ -25,11 +25,22 @@
         this.collection = app.data.createMixedBeanCollection();
 
         app.shortcuts.register(app.shortcuts.GLOBAL + 'Sweetspot', 'mod+shift+space', this.toggle, this, true);
-        app.events.on('app:logout app:login', this.hide, this);
+        app.events.on('app:logout router:reauth:load', this.hide, this);
         app.events.on('app:sync:complete sweetspot:reset', this._setTheme, this);
 
         this.on('sweetspot:config', this.openConfigPanel, this);
         this.on('sweetspot:calc:resultsHeight', this.calculateResultsHeight, this);
+        this.on('sweetspot:has:results', function(results) {
+            var hasResults = true;
+            if (_.isEmpty(results) ||
+                (!results.actions.length && !results.keywords.length && !results.records.length)
+            ) {
+                hasResults = false;
+            }
+            this.$el.toggleClass('has-results', hasResults);
+        });
+
+        $(window).on('resize.sweetspot-' + this.cid, _.bind(this.calculateResultsHeight, this));
 
         /**
          * Flag to indicate the visible state of the sweet spot.
@@ -41,7 +52,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _render: function() {
         if (!this.isReady()) {
@@ -72,9 +83,8 @@
      * @protected
      */
     _bindEvents: function() {
-        this.createShortcuts();
+        this.bindEsc();
         this.bindOutsideClick();
-        this.bindResize();
     },
 
     /**
@@ -83,9 +93,8 @@
      * @protected
      */
     _unbindEvents: function() {
-        this.removeShortcuts();
+        this.unbindEsc();
         this.unbindOutsideClick();
-        this.unbindResize();
     },
 
     /**
@@ -107,33 +116,21 @@
     },
 
     /**
-     * Create new shortcut session and add shortcut to hide SweetSpot
+     * Binds the `esc` keydown event.
      */
-    createShortcuts: function() {
-        app.shortcuts.saveSession();
-        app.shortcuts.createSession(['SweetSpot:Toggle:Off'], this);
-        app.shortcuts.register('SweetSpot:Toggle:Off', 'esc', this.hide, this, true);
+    bindEsc: function() {
+        $(document).on('keydown.' + this.cid, _.bind(function(evt) {
+            if (evt.keyCode == 27) {
+                this.hide();
+            }
+        }, this));
     },
 
     /**
-     * Remove shortcuts for SweetSpot and restore previous session.
+     * Unbinds the `esc` keydown event.
      */
-    removeShortcuts: function() {
-        app.shortcuts.restoreSession();
-    },
-
-    /**
-     * Binds the `resize` event.
-     */
-    bindResize: function() {
-        $(window).on('resize.sweetspot-' + this.cid, _.bind(this.calculateResultsHeight, this));
-    },
-
-    /**
-     * Unbinds the `resize` event.
-     */
-    unbindResize: function() {
-        $(window).off('resize.sweetspot-' + this.cid);
+    unbindEsc: function() {
+        $(document).off('keydown.' + this.cid);
     },
 
     /**
@@ -224,8 +221,8 @@
     openConfigPanel: function() {
         // TODO: This is bad and there should be an option in drawer.js to
         // prevent opening an already-open drawer of the same type.
-        var activeDrawerLayout = app.drawer.getActive();
-        if (activeDrawerLayout && activeDrawerLayout.type === 'sweetspot-config') {
+        var activeDrawerLayout = app.drawer.getActiveDrawerLayout();
+        if (activeDrawerLayout.type === 'sweetspot-config') {
             return;
         }
 
@@ -256,6 +253,9 @@
      * Use {@link #triggerSystemAction} to trigger them.
      */
     _systemActions: {
+        toggleHelp: function() {
+            app.events.trigger('app:help');
+        },
         openConfig: function() {
             this.openConfigPanel();
         }
@@ -271,12 +271,19 @@
         if (resultsMaxHeight > 460) {
             resultsMaxHeight = 460;
         }
-
         this.trigger('sweetspot:results:adjustMaxHeight', resultsMaxHeight);
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
+     */
+    unbind: function() {
+        $(window).off('resize.sweetspot-' + this.cid);
+        this._super('unbind');
+    },
+
+    /**
+     * @inheritDoc
      */
     _dispose: function() {
         this._unbindEvents();

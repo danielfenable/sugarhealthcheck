@@ -20,7 +20,7 @@
  * @extends View.View
  */
 ({
-    plugins: ['LinkedModel', 'Dashlet', 'Pagination'],
+    plugins: ['LinkedModel', 'Dashlet', 'Timeago', 'Pagination'],
     events: {
         'click [data-event=create_button]': 'createRelatedNote',
         'click [data-event=select_button]': 'openSelectDrawer'
@@ -42,7 +42,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * @param {String} viewName view name.
      */
@@ -141,7 +141,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Once collection is reset, the view should be refreshed.
      */
@@ -150,19 +150,6 @@
             this.collection.on('reset', this.render, this);
         }
         this.on('render', this.applySvgIcon, this);
-        this.on('linked-model:create', this._reloadData, this);
-    },
-
-    /**
-     * Re-fetches the data for the context's collection.
-     *
-     * FIXME: This will be removed when SC-4775 is implemented.
-     *
-     * @private
-     */
-    _reloadData: function() {
-        this.context.set('skipFetch', false);
-        this.context.reloadData();
     },
 
     /**
@@ -245,7 +232,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Dispose the interval timer as well.
      */

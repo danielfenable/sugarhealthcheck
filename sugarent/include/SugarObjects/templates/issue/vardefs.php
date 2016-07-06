@@ -20,7 +20,7 @@ $vardefs = array (
 			'required' => true,
 			'auto_increment' => true,
 			'unified_search' => true,
-            'full_text_search' => array('enabled' => true, 'searchable' => true,  'boost' => 1.25),
+			'full_text_search' => array('enabled' => true, 'boost' => 3),
 			'comment' => 'Visual unique identifier',
 			'duplicate_merge' => 'disabled',
 			'disable_num_format' => true,
@@ -32,15 +32,12 @@ $vardefs = array (
 			'name' => 'name',
 			'vname' => 'LBL_SUBJECT',
 			'type' => 'name',
+			'link' => true, // bug 39288
 			'dbType' => 'varchar',
 			'len' => 255,
 			'audited' => true,
 			'unified_search' => true,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 1.47,
-            ),
+			'full_text_search' => array('enabled' => true, 'boost' => 3),
 			'comment' => 'The short description of the bug',
 			'merge_filter' => 'selected',
 			'required'=>true,
@@ -71,10 +68,6 @@ $vardefs = array (
             'merge_filter' => 'enabled',
             'sortable' => true,
             'duplicate_on_record_copy' => 'always',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-            ),
 		),
 
         'priority' => array (
@@ -118,7 +111,6 @@ $vardefs = array (
 			'name' => 'work_log',
 			'vname' => 'LBL_WORK_LOG',
 			'type' => 'text',
-            'full_text_search' => array('enabled' => true, 'searchable' => true,  'boost' => 0.51),
             'duplicate_on_record_copy' => 'always',
 			'comment' => 'Free-form text used to denote activities of interest'
 		),
@@ -128,9 +120,6 @@ $vardefs = array (
 	'indices'=>array(
 		 'number'=>array('name' =>strtolower($module).'numk', 'type' =>'unique', 'fields'=>array($_object_name . '_number'))
 	),
-        'uses' => array(
-            'taggable',
-        ),
     'duplicate_check' => array(
         'enabled' => true,
         'FilterDuplicateCheck' => array(

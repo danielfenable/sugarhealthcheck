@@ -18,9 +18,6 @@ $viewdefs[$module_name]['base']['view']['record'] = array(
             'label' => 'LBL_CANCEL_BUTTON_LABEL',
             'css_class' => 'btn-invisible btn-link',
             'showOn' => 'edit',
-            'events' => array(
-                'click' => 'button:cancel_button:click',
-            ),
         ),
         array(
             'type' => 'rowaction',
@@ -48,20 +45,6 @@ $viewdefs[$module_name]['base']['view']['record'] = array(
                     'type' => 'shareaction',
                     'name' => 'share',
                     'label' => 'LBL_RECORD_SHARE_BUTTON',
-                    'acl_action' => 'view',
-                ),
-                array(
-                    'type' => 'pdfaction',
-                    'name' => 'download-pdf',
-                    'label' => 'LBL_PDF_VIEW',
-                    'action' => 'download',
-                    'acl_action' => 'view',
-                ),
-                array(
-                    'type' => 'pdfaction',
-                    'name' => 'email-pdf',
-                    'label' => 'LBL_PDF_EMAIL',
-                    'action' => 'email',
                     'acl_action' => 'view',
                 ),
                 array(
@@ -238,14 +221,6 @@ $viewdefs[$module_name]['base']['view']['record'] = array(
                     ),
                 ),
                 'team_name',
-                // Placeholder to push tags onto its own row
-                array(
-                    'span' => 6,
-                ),
-                array(
-                    'name' => 'tag',
-                    'span' => 12,
-                ),
             ),
         ),
         array(

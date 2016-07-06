@@ -57,8 +57,9 @@ class GridLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
      * @param string $packageName    If not empty, the name of the package to which this view belongs
      * @param string $client         The client making the request for this parser
      * @param array  $params         Additional parser parameters
+     * @param bool   $doNotLoadImplementation         Do not load implementation
      */
-    public function __construct($view, $moduleName, $packageName = '', $client = '', array $params = array())
+    public function __construct($view, $moduleName, $packageName = '', $client = '', array $params = array(), $doNotLoadImplementation = false)
     {
         $GLOBALS [ 'log' ]->debug ( get_class ( $this ) . "->__construct( {$view} , {$moduleName} , {$packageName} )" ) ;
 
@@ -71,6 +72,10 @@ class GridLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
 
         $this->_moduleName = $moduleName ;
         $this->_view = $view ;
+
+        if ($doNotLoadImplementation) {
+            return;
+        }
 
         if (empty ( $packageName ))
         {
@@ -102,8 +107,7 @@ class GridLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
 
         $this->_fielddefs =  $this->implementation->getFielddefs() ;
         $this->_standardizeFieldLabels( $this->_fielddefs );
-        // put into our internal format
-        $this->_viewdefs['panels'] = $this->_convertFromCanonicalForm($this->_viewdefs['panels']);
+        $this->_viewdefs [ 'panels' ] = $this->_convertFromCanonicalForm ( $this->_viewdefs [ 'panels' ] , $this->_fielddefs ) ; // put into our internal format
         $this->_originalViewDef = $this->getFieldsFromLayout($this->implementation->getOriginalViewdefs ());
         $this->baseViewFields = $this->getFieldsFromLayout($this->implementation->getBaseViewdefs());
 
@@ -764,7 +768,7 @@ class GridLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
      * Convert from the standard MetaData format to our internal format
      * Replace NULL with (filler) and missing entries with (empty)
      */
-    protected function _convertFromCanonicalForm($panels)
+    protected function _convertFromCanonicalForm ( $panels , $fielddefs )
     {
         if (empty ( $panels ))
             return ;
@@ -1003,9 +1007,9 @@ class GridLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
      * @param  $fielddefs
      * @return array
      */
-    public function convertFromCanonicalForm($panels)
+    public function convertFromCanonicalForm ( $panels , $fielddefs )
     {
-        return $this->_convertFromCanonicalForm($panels);
+        return $this->_convertFromCanonicalForm ( $panels , $fielddefs );
     }
 
      /**

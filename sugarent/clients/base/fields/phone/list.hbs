@@ -10,10 +10,6 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 --}}
-{{#if ellipsis~}}
-    <div class="ellipsis_inline" data-placement="bottom"{{#if dir}} dir="{{dir}}"{{/if}} title="{{#unless value}}{{#if def.placeholder}}{{str def.placeholder this.model.module}}{{/if}}{{/unless}}{{value}}" >
-{{/if~}}
-    {{#if skypeValue}}<a href="callto:{{skypeValue}}">{{value}}</a>{{else}}{{value}}{{/if~}}
-{{#if ellipsis~}}
-    </div>
-{{/if}}
+<div class="ellipsis_inline" data-placement="bottom"{{#if dir}} dir="{{dir}}"{{/if}} title="{{#unless value}}{{#if def.placeholder}}{{str def.placeholder this.model.module}}{{/if}}{{/unless}}{{value}}" >
+    {{#if skypeValue}}<a href="callto:{{skypeValue}}">{{value}}</a>{{else}}{{value}}{{/if}}
+</div>

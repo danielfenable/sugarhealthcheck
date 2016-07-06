@@ -141,23 +141,6 @@
          */
         initialize: function(opts) {
             opts = opts || {};
-
-            /**
-             * The previous fragment.
-             *
-             * @property {string}
-             * @private
-             */
-            this._previousFragment = '';
-
-            /**
-             * The current fragment.
-             *
-             * @property {string}
-             * @private
-             */
-            this._currentFragment = '';
-
             if (opts.customRoutes) {
                 this.customRoutes = opts.customRoutes;
                 this._bindCustomRoutes();
@@ -195,8 +178,6 @@
                 route = handler.route;
 
             if (app.routing.beforeRoute(route, args)) {
-                this._previousFragment = this._currentFragment;
-                this._currentFragment = this.getFragment();
                 handler.apply(this, args);
                 app.routing.after(route, args);
             }
@@ -205,7 +186,7 @@
         /**
          * Checks if module exists and displays 404 error screen if it does not
          * @param module
-         * @return {boolean} `true` if module exists, `false` otherwise.
+         * @returns {boolean} TRUE if module exists, FALSE if module does not exist
          * @private
          */
         _moduleExists: function(module) {
@@ -230,42 +211,6 @@
             callback.route = name;
             callback = _.wrap(callback, this._routeHandler);
             Backbone.Router.prototype.route.call(this, route, name, callback);
-        },
-
-        /**
-         * Gets the current backbone fragment.
-         *
-         * @return {string}
-         */
-        getFragment: function() {
-            return Backbone.history.getFragment();
-        },
-
-        /**
-         * Updates the URL with the given fragment.
-         *
-         * @param {string} fragment The fragment to navigate to.
-         * @param {Object} [options] The options hash.
-         * @param {boolean} [options.trigger] `true` to fire the route callback.
-         * @param {boolean} [options.replace] `true` to modify the current URL
-         *   without adding an entry to the window.history object.
-         */
-        navigate: function(fragment, options) {
-            Backbone.Router.prototype.navigate.apply(this, arguments);
-            if (!(options && options.trigger)) {
-                this._previousFragment = this._currentFragment;
-                this._currentFragment = this.getFragment();
-            }
-            return this;
-        },
-
-        /**
-         * Gets the previous fragment.
-         *
-         * @return {string}
-         */
-        getPreviousFragment: function() {
-            return this._previousFragment;
         },
 
         /**
@@ -360,10 +305,10 @@
         index: function() {
             app.logger.debug("Route changed to index");
             if (app.config.defaultModule) {
-                this.navigate(app.config.defaultModule, {trigger:true});
+                this.navigate(app.config.defaultModule, {trigger:true})
             }
             else if (app.acl.hasAccess('read', 'Home')) {
-                this.navigate('Home', {trigger:true});
+                this.navigate('Home', {trigger:true})
             }
         },
 
@@ -429,14 +374,14 @@
             // with a megamenu. This is done AFTER the login view loading since
             // loadView fires a _render call on login.js, which rerenders the
             // header in refreshAdditionalComponents().
-            app.events.trigger('app:login');
+            app.events.trigger("router:reauth:load");
 
             if(app.config.externalLogin) {
                 // This will attempt reauth
                 app.api.ping(null, {
                     success: function() {
                         // If we have success then show the megamenu again
-                        app.events.trigger('app:login:success');
+                        app.events.trigger("router:reauth:success");
                         app.router.refresh();
                     },
                     error: function() {
@@ -454,37 +399,24 @@
          * Handles `logout` route.
          */
         logout: function(clear) {
-            if (!app.api.isAuthenticated()) {
-                // We don't want to store the #logout fragment in the URL
-                // history. This will re-direct to the root defined in the
-                // Backbone router, and replace the URL.
-                this.redirect('/');
-                return;
-            }
-
             clear = (clear === "1");
             app.logger.debug("Logging out: " + clear);
             app.logout({
                 complete: function() {
-                    app.router.navigate("#");
-                    if (clear) {
-                        //We have to reload to clear any sensitive data from browser tab memory.
-                        window.location.reload();
-                    } else {
-                        if (app.config.externalLogin) {
-                            app.controller.loadView({
-                                module: "Login",
-                                layout: "logout",
-                                skipFetch: true,
-                                create: true
-                            });
-                        } else {
-                            app.router.login();
-                        }
-                    }
+            		app.router.navigate("#");
+                	if(app.config.externalLogin) {
+                		app.controller.loadView({
+                            module: "Login",
+                            layout: "logout",
+                            skipFetch: true,
+                            create: true
+                        });
+                	} else {
+                		app.router.login();
+                	}
                 },
                 success: function(data, request) {
-                    app.events.trigger("app:logout:success", data);
+                	app.events.trigger("app:logout:success", data);
                 }
             }, clear);
         },

@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,16 +11,10 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-use Sugarcrm\Sugarcrm\Elasticsearch\Provider\Visibility\StrategyInterface;
-use Sugarcrm\Sugarcrm\Elasticsearch\Provider\Visibility\Visibility;
-use Sugarcrm\Sugarcrm\Elasticsearch\Analysis\AnalysisBuilder;
-use Sugarcrm\Sugarcrm\Elasticsearch\Mapping\Mapping;
-use Sugarcrm\Sugarcrm\Elasticsearch\Adapter\Document;
-
 /**
  * Team security visibility
  */
-class TeamSecurity extends SugarVisibility implements StrategyInterface
+class TeamSecurity extends SugarVisibility
 {
     /**
      * $sugar_config base key for performance profile
@@ -243,6 +238,19 @@ class TeamSecurity extends SugarVisibility implements StrategyInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function addSseVisibilityFilter(SugarSearchEngineInterface $engine, $filter)
+    {
+        if ($this->isTeamSecurityApplicable()) {
+            if ($engine instanceof SugarSearchEngineElastic) {
+                $filter->addMust($engine->getTeamTermFilter());
+            }
+        }
+        return $filter;
+    }
+
+    /**
      * Override for performance tuning per module using `$sugar_config`.
      * {@inheritdoc}
      */
@@ -301,48 +309,5 @@ class TeamSecurity extends SugarVisibility implements StrategyInterface
             $this->options = $this->getTuningOptions($options);
         }
         return parent::getOption($name,$default);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function elasticBuildAnalysis(AnalysisBuilder $analysisBuilder, Visibility $provider)
-    {
-        // no special analyzers needed
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function elasticBuildMapping(Mapping $mapping, Visibility $provider)
-    {
-        $mapping->addNotAnalyzedField('team_set_id');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function elasticProcessDocumentPreIndex(Document $document, SugarBean $bean, Visibility $provider)
-    {
-        // team_set_id is retrieved as a bean field directly, nothing to do here
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function elasticGetBeanIndexFields($module, Visibility $provider)
-    {
-        // nominate team_set_id field to be retrievable directly
-        return array('team_set_id' => 'id');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function elasticAddFilters(\User $user, \Elastica\Filter\Bool $filter, Visibility $provider)
-    {
-        if ($this->isTeamSecurityApplicable()) {
-            $filter->addMust($provider->createFilter('TeamSet', array('user' => $user)));
-        }
     }
 }

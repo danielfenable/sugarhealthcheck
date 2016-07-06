@@ -21,7 +21,7 @@
      * This approach is 'best effort' and will only catch fields that match
      * the fieldTag selector on the sidecar field controller.
      */
-    app.accessibility.helpers.label = {
+    app.accessibility.helpers['label'] = {
         /**
          * Detects if component already has aria-label set and adds if not
          *

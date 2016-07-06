@@ -31,7 +31,7 @@
  *
  * @class View.Fields.Base.SidebartoggleField
  * @alias SUGAR.App.view.fields.BaseSidebartoggleField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     events: {
@@ -46,24 +46,7 @@
     _state: 'open',
 
     /**
-    * @inheritdoc
-    */
-    _render: function() {
-        this._super('_render');
-
-        /**
-        * Stores tooltips placement value according to the direction of
-        * language being used.
-        *
-        * @property {string}
-        */
-        this.dataPlacement = app.lang.direction === 'rtl' ? 'right' : 'left';
-
-        return this;
-    },
-
-    /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);

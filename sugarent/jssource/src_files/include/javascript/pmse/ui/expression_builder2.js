@@ -8,7 +8,7 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-var ExpressionControl = function (settings) {
+var ExpressionControl = function(settings) {
     Element.call(this, settings);
     this._panel = null;
     this._operatorSettings = {};
@@ -38,8 +38,6 @@ var ExpressionControl = function (settings) {
     this._numberGroupingSeparator = null;
     this._auxSeparator = "|||";
     this._itemValueWildcard = '%VALUE%';
-    this._currencies = [];
-    this._preferredCurrency = null;
     this.onOpen = null;
     this.onClose = null;
     ExpressionControl.prototype.init.call(this, settings);
@@ -66,8 +64,6 @@ ExpressionControl.prototype._typeToControl = {
     "float": "number",
     "email": "text",
     "name": "text",
-    "htmleditable_tinymce": "text",
-    "tinyint": "integer",
     //"html": "html",
     //"iframe": "iframe",
     //"image": "image" ,
@@ -118,37 +114,34 @@ ExpressionControl.prototype.OPERATORS  = {
     ],
     "comparison": [
         {
-            text: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MAJOR'),
-            datefield: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MAJOR_DATE'),
-            value: "major_than"
-        },
-        {
             text: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MINOR_THAN'),
             datefield: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MINOR_THAN_DATE'),
             value: "minor_than"
-        },
-        {
+         },
+         {
+            text: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MINOR_EQUAL_THAN'),
+            value: "minor_equals_than"
+         },
+         {
             text: translate('LBL_PMSE_EXPCONTROL_OPERATOR_EQUAL'),
             textfield: translate('LBL_PMSE_EXPCONTROL_OPERATOR_EQUAL_TEXT'),
             datefield: translate('LBL_PMSE_EXPCONTROL_OPERATOR_EQUAL'),
             value: "equals"
-        },
-        {
+         },
+         {
             text: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MAJOR_EQUAL'),
-            datefield: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MAJOR_EQUAL_DATE'),
             value: "major_equals_than"
-        },
-        {
-            text: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MINOR_EQUAL_THAN'),
-            datefield: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MINOR_EQUAL_DATE'),
-            value: "minor_equals_than"
-        },
-        {
+         },
+         {
+            text: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MAJOR'),
+            datefield: translate('LBL_PMSE_EXPCONTROL_OPERATOR_MAJOR_DATE'),
+            value: "major_than"
+         },
+         {
             text: translate('LBL_PMSE_EXPCONTROL_OPERATOR_NOT_EQUAL'),
             textfield: translate('LBL_PMSE_EXPCONTROL_OPERATOR_NOT_EQUAL_TEXT'),
-            datefield: translate('LBL_PMSE_EXPCONTROL_OPERATOR_NOT_EQUAL_DATE'),
             value: "not_equals"
-        }
+         }
     ],
     "group": [
         {
@@ -187,9 +180,7 @@ ExpressionControl.prototype.init = function (settings) {
         allowInput: true,
         onOpen: null,
         onClose: null,
-        className: "",
-        panelContext: document.body,
-        currencies: []
+        className: ""
     };
 
     jQuery.extend(true, defaults, settings);
@@ -212,7 +203,6 @@ ExpressionControl.prototype.init = function (settings) {
         open: false,
         onItemValueAction: this._onPanelValueGeneration(),
         width: this.width,
-        context: defaults.panelContext,
         className: defaults.className || ""
     });
 
@@ -227,7 +217,6 @@ ExpressionControl.prototype.init = function (settings) {
         .setTimeFormat(defaults.timeFormat)
         .setDecimalSeparator(defaults.decimalSeparator)
         .setNumberGroupingSeparator(defaults.numberGroupingSeparator)
-        .setCurrencies(defaults.currencies)
         .setOwner(defaults.owner)
         .setAppendTo(defaults.appendTo)
         .setOperators(defaults.operators)
@@ -264,54 +253,6 @@ ExpressionControl.prototype.setOnCloseHandler = function (handler) {
 
 ExpressionControl.prototype.getText = function () {
     return this._itemContainer.getText();
-};
-
-ExpressionControl.prototype._createCurrencyObject = function(data) {
-    if (!(data.id && data.name && data.rate && data.symbol)) {
-        throw new Error("_createCurrencyObject(): id, name, rate and symbol properties are required.");
-    }
-    return {
-        id: data.id,
-        iso: data.iso,
-        name: data.name,
-        rate: data.rate,
-        preferred: !!data.preferred,
-        symbol: data.symbol
-    };
-};
-
-ExpressionControl.prototype._updateCurrenciesToCurrenciesForm = function() {
-    var currenciesField;
-    if (this._constantPanels.currency) {
-        currenciesField = this._constantPanels.currency.getItem("currency");
-        currenciesField.setOptions(this._currencies);
-        if (this._preferredCurrency) {
-            currenciesField.setValue(this._preferredCurrency);
-        }
-    }
-    if (this._evaluationPanels.module) {
-        currenciesField = this._evaluationPanels.module.getItem("value");
-        if (currenciesField instanceof FormPanelCurrency) {
-            currenciesField.setCurrencies(this._currencies);
-        }
-    }
-    return this;
-};
-
-ExpressionControl.prototype.setCurrencies = function(currencies) {
-    var i = 0;
-    //remove following assignation
-    if (!$.isArray(currencies)) {
-        throw new Error("setCurrencies(): The parameter must be an array.");
-    }
-    this._currencies = [];
-    for (i = 0; i < currencies.length; i++) {
-        this._currencies.push(this._createCurrencyObject(currencies[i]));
-        if (currencies[i].preferred) {
-            this._preferredCurrency = currencies[i].id;
-        }
-    }
-    return this._updateCurrenciesToCurrenciesForm();
 };
 
 ExpressionControl.prototype.setDecimalSeparator = function (decimalSeparator) {
@@ -360,7 +301,7 @@ ExpressionControl.prototype.setTimeFormat = function (timeFormat) {
     return this;
 };
 
-ExpressionControl.prototype._parseInputToItem = function (input) {
+/*ExpressionControl.prototype._parseInputToItem = function (input) {
     var trimmedText = jQuery.trim(input), type;
     if (typeof input !== 'string') {
         throw new Error("_parseInputToItemData(): The parameter must be a string.");
@@ -375,7 +316,7 @@ ExpressionControl.prototype._parseInputToItem = function (input) {
     }
 
     return this._createItemData(trimmedText, type);
-};
+};*/
 
 ExpressionControl.prototype._onBeforeAddItemByInput = function () {
     var that = this;
@@ -494,13 +435,7 @@ ExpressionControl.prototype.getValue = function () {
     return this._value;
 };
 
-/**
- * Set the value of the field
- * @param value
- * @param skipChangeHandler Set this to true to skip do the change in other fields
- * @returns {ExpressionControl}
- */
-ExpressionControl.prototype.setValue = function (value, skipChangeHandler) {
+ExpressionControl.prototype.setValue = function (value) {
     var i;
     if (typeof value === "string") {
         value = JSON.parse(value);
@@ -510,7 +445,7 @@ ExpressionControl.prototype.setValue = function (value, skipChangeHandler) {
 
     this._itemContainer.clearItems();
     for (i = 0; i < value.length; i += 1) {
-        this._itemContainer.addItem(this._createItem(value[i]), undefined, undefined, skipChangeHandler);
+        this._itemContainer.addItem(this._createItem(value[i]));
     }
     return this;
 };
@@ -568,8 +503,7 @@ ExpressionControl.prototype.setConstantPanel = function(settings) {
             basic: true,
             date: true,
             datetime: true,
-            timespan: true,
-            currency: true
+            timespan: true
         };
     } else {
         defaults = jQuery.extend(true, defaults, settings);
@@ -581,8 +515,7 @@ ExpressionControl.prototype.setConstantPanel = function(settings) {
         this._createBasicConstantPanel()
             ._createDateConstantPanel()
             ._createDateTimeConstantPanel()
-            ._createTimespanPanel()
-            ._createCurrencyPanel();
+            ._createTimespanPanel();
     }
 
     return this;
@@ -670,7 +603,6 @@ ExpressionControl.prototype.setModuleEvaluation = function (settings) {
         textField: "text",
         valueField: "value",
         fieldDataURL: null,
-        fieldDataURLAttr: null,
         fieldDataRoot: null,
         fieldTextField: "text",
         fieldValueField: "value",
@@ -698,9 +630,6 @@ ExpressionControl.prototype.setModuleEvaluation = function (settings) {
         }
         if (typeof defaults.fieldDataURL !== "string") {
             throw new Error("setModuleEvaluation(): The \"fieldDataURL\" property must be a string.");
-        }
-        if (defaults.fieldDataURLAttr !== null && typeof defaults.fieldDataURLAttr !== "object") {
-            throw new Error("setModuleEvaluation(): The \"fieldDataURLAttr\" property must be an object or null.");
         }
         if (!(typeof defaults.fieldDataRoot === "string" || defaults.fieldDataRoot === null)) {
             throw new Error("setModuleEvaluation(): The \"fieldDataRoot\" property must be a string.");
@@ -965,12 +894,6 @@ ExpressionControl.prototype.getLabel = function (data) {
                 return FormPanelDate.format(data.expValue, that._dateFormat);
             } else if (aux === "datetime") {
                 return FormPanelDatetime.format(data.expValue, that._dateFormat, that._timeFormat);
-            } else if (aux === 'currency') {
-                return FormPanelNumber.format(data.expValue, {
-                    precision: 2,
-                    groupingSeparator: this._numberGroupingSeparator,
-                    decimalSeparator: this._decimalSeparator
-                });
             } else {
                 return data.expLabel;
             }
@@ -1037,32 +960,18 @@ ExpressionControl.prototype._onPanelValueGeneration = function () {
                     break;
                 case "form-module-field-evaluation":
                     aux = data.field.split(that._auxSeparator);
-                    valueField = subpanel.getItem("value");
-                    if (aux[1] === 'Currency') {
-                        value = valueField.getAmount();
-                    } else {
-                        value = that._getStringOrNumber(data.value);
-                    }
+                    value = that._getStringOrNumber(data.value);
                     valueType = typeof data.value === 'string' ? typeof value : typeof data.value;
                     label = subpanel.getItem("field").getSelectedText() + " " +
                             subpanel.getItem("operator").getSelectedText() + " ";
-
-                    switch (aux[1]) {
-                        case 'Date':
-                        case 'Datetime':
-                            label += '%VALUE%';
-                            break;
-                        case 'user':
-                        case 'DropDown':
-                            label += valueField.getSelectedText();
-                            break;
-                        case 'Currency':
-                            label += valueField.getCurrencyText() + ' %VALUE%';
-                            break;
-                        default:
-                            label += (valueType === "string" ? "\"" + value + "\"" : data.value);
+                    valueField = subpanel.getItem("value");
+                    if (aux[1] === "Date" || aux[1] === 'Datetime') {
+                        label += '%VALUE%';
+                    } else if (aux[1] === 'user') {
+                        label += valueField.getSelectedText();
+                    } else {
+                        label += (valueType === "string" ? "\"" + value + "\"" : data.value);
                     }
-                    
                     itemData = {
                         expType: "MODULE",
                         expSubtype: aux[1],
@@ -1072,9 +981,6 @@ ExpressionControl.prototype._onPanelValueGeneration = function () {
                         expModule: data.module,
                         expField: aux[0]
                     };
-                    if (aux[1] === 'Currency') {
-                        itemData.expCurrency = valueField.getCurrency();
-                    }
                     break;
                 case 'form-business-rule-evaluation':
                     value = that._getStringOrNumber(data.response);
@@ -1090,41 +996,21 @@ ExpressionControl.prototype._onPanelValueGeneration = function () {
                     };
                     break;
                 case 'form-user-evaluation':
-                    switch (data.operator) {
-                        case 'USER_ADMIN|equals':
-                            label = 'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_ADMIN_FULL';
-                            break;
-                        case 'USER_ROLE|equals':
-                            label = 'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_ROLE_FULL';
-                            break;
-                        case 'USER_IDENTITY|equals':
-                            label = 'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_USER_FULL';
-                            break;
-                        case 'USER_ADMIN|not_equals':
-                            label = 'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_ADMIN_FULL';
-                            break;
-                        case 'USER_ROLE|not_equals':
-                            label = 'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_ROLE_FULL';
-                            break;
-                        case 'USER_IDENTITY|not_equals':
-                            label = 'LBL_PMSE_EXPCONTROL_USER_EVALUATION_IS_NOT_USER_FULL';
-                            break;
-                        default:
-                            throw new Error("_onPanelValueGenerator(): Invalid response.");
-                    }
-
                     aux = data.operator.split("|");
                     value = data.value || null;
-
-                    label = translate(label).replace(/%(TARGET|VALUE)%/g, function(x) {
-                        if (x === '%TARGET%') {
-                            return subpanel.getItem("user").getSelectedText();
-                        } else if (x === '%VALUE%') {
-                            return subpanel.getItem("value").getSelectedText();
-                        }
-                        return x;
-                    });
-
+                    label = subpanel.getItem("value").getSelectedText();
+                    switch (aux[0]) {
+                        case 'USER_ADMIN':
+                            valueType = aux[1] === 'equals' ? "is admin" : "is not admin";
+                            break;
+                        case 'USER_ROLE':
+                            valueType = (aux[1] === 'equals' ? "has role" : "has not role") + " " + label;
+                            break;
+                        case 'USER_IDENTITY':
+                            valueType = (aux[1] === 'equals' ? "is user" : "is not user") + " " + label;
+                            break;
+                    }
+                    label = subpanel.getItem("user").getSelectedText() + " " + valueType;
                     itemData = {
                         expType: aux[0],
                         expLabel: label,
@@ -1180,16 +1066,6 @@ ExpressionControl.prototype._onPanelValueGeneration = function () {
                         expSubtype: "timespan",
                         expLabel: data.ammount + data.unittime,
                         expValue: data.ammount + data.unittime
-                    };
-                    break;
-                case 'form-constant-currency':
-                    itemData = {
-                        expType: 'CONSTANT',
-                        expSubtype: 'currency',
-                        expLabel: subpanel.getItem("currency").getSelectedText() + " " +
-                            subpanel.getItem("amount").getFormattedValue(),
-                        expValue: data.amount,
-                        expField: data.currency
                     };
                     break;
                 default:
@@ -1422,15 +1298,10 @@ ExpressionControl.prototype._createModulePanel = function () {
                     dependantFields: ['value'],
                     dependencyHandler: function (dependantField, field, value) {
                         var settings = that._evaluationSettings.module,
-                            url = settings.fieldDataURL.replace("{{MODULE}}", value),
-                            attributes = jQuery.extend(true, {
-                                base_module: PROJECT_MODULE,
-                                call_type: 'PD'
-                            }, settings.fieldDataURLAttr || {});
-
+                            url = settings.fieldDataURL.replace("{{MODULE}}", value);
                         if (value) {
                             dependantField.setDataURL(url)
-                                .setAttributes(attributes)
+                                .setAttributes({base_module: PROJECT_MODULE})
                                 .setDataRoot(settings.fieldDataRoot)
                                 .setLabelField(settings.fieldTextField)
                                 .setValueField(function (field, data) {
@@ -1446,7 +1317,7 @@ ExpressionControl.prototype._createModulePanel = function () {
                     type: "dropdown",
                     name: "operator",
                     label: "",
-                    width: "30%",
+                    width: "35%",
                     labelField: "text",
                     valueField: "value",
                     required: true,
@@ -1456,7 +1327,7 @@ ExpressionControl.prototype._createModulePanel = function () {
                     type: "text",
                     name: "value",
                     label: translate("LBL_PMSE_EXPCONTROL_MODULE_FIELD_EVALUATION_VALUE"),
-                    width: "35%",
+                    width: "30%",
                     required: true,
                     dependencyHandler: function (dependantField, parentField, value) {
                         var type = value.split(that._auxSeparator)[1],
@@ -1495,11 +1366,6 @@ ExpressionControl.prototype._createModulePanel = function () {
                                     {'label': translate('LBL_PMSE_FORM_OPTION_RECORD_OWNER'), 'value': 'owner'},
                                     {'label': translate('LBL_PMSE_FORM_OPTION_SUPERVISOR'), 'value': 'supervisor'}
                                 ];
-                                newFieldSettings.searchMore = {
-                                    module: "Users",
-                                    fields: ["id", "full_name"],
-                                    filterOptions: null
-                                };
                                 newFieldSettings.searchURL = 'pmse_Project/CrmData/users?filter={TERM}';
                             }
                             operatorField = form.getItem("operator");
@@ -1509,12 +1375,11 @@ ExpressionControl.prototype._createModulePanel = function () {
                                     newFieldSettings.timeFormat = that._timeFormat;
                                 case 'date':
                                     labelField = "datefield";
-                                    operators = that.OPERATORS.comparison;
+                                    operators = [that.OPERATORS.comparison[2], that.OPERATORS.comparison[0], that.OPERATORS.comparison[4]];
                                     newFieldSettings.dateFormat = that._dateFormat;
                                     break;
-                                case 'currency':
-                                    newFieldSettings.currencies = that._currencies;
                                 case 'decimal':
+                                case 'currency':
                                 case 'float':
                                 case 'integer':
                                     operators = that.OPERATORS.comparison;
@@ -1553,7 +1418,7 @@ ExpressionControl.prototype._createModulePanel = function () {
                 var valueField = formPanel.getItem("value");
 
                 if (valueField instanceof FormPanelDate) {
-                    valueField.close();
+                    valueField.closeAll();
                 }
             }
         });
@@ -1748,10 +1613,6 @@ ExpressionControl.prototype._createUserPanel = function () {
                         switch (condition) {
                             case 'USER_ADMIN':
                                 dependantField.clearOptions().disable();
-                                var spans = document.getElementsByClassName('select2-chosen');
-                                for (var i=0;i<spans.length;i++) {
-                                    spans[i].innerText = "";
-                                }
                                 break;
                             case 'USER_ROLE':
                                 dependantField.setDataURL(settings.userRolesDataURL)
@@ -1764,11 +1625,7 @@ ExpressionControl.prototype._createUserPanel = function () {
                             case 'USER_IDENTITY':
                                 dependantField.clearOptions()
                                     .setSearchURL('pmse_Project/CrmData/users?filter={TERM}')
-                                    .enable()
-                                    .enableSearchMore({
-                                        module: "Users",
-                                        fields: ["id", "full_name"]
-                                    });
+                                    .enable();
                         }
                     }
                 }
@@ -1916,41 +1773,41 @@ ExpressionControl.prototype._createTimespanPanel = function() {
     if (!this._constantPanels.timespan) {
         this._constantPanels.timespan = new FormPanel({
             id: "form-constant-timespan",
-            title: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_TITLE"),
+            title: translate("LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_TITLE"),
             foregroundAppendTo: this._panel._getUsableAppendTo(),
             items: [
                 {
                     type: "integer",
                     name: "ammount",
-                    label: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_AMOUNT"),
+                    label: translate("LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_AMOUNT"),
                     filter: "integer",
                     width: "40%",
                     required: true,
                     disabled: true
                 }, {
                     type: "dropdown",
-                    label: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_UNIT"),
+                    label: translate("LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_UNIT"),
                     name: "unittime",
                     width: "60%",
                     disabled: true,
                     options: [
                         {
-                            label: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_YEARS"),
+                            label: translate("LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_YEARS"),
                             value: "y"
                         }, {
-                            label: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_MONTHS"),
+                            label: translate("LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_MONTHS"),
                             value: "m"
                         }, {
-                            label: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_WEEKS"),
+                            label: translate("LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_WEEKS"),
                             value: "w"
                         }, {
-                            label: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_DAYS"),
+                            label: translate("LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_DAYS"),
                             value: "d"
                         }, {
-                            label: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_HOURS"),
+                            label: translate("LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_HOURS"),
                             value: "h"
                         }, {
-                            label: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_TIMESPAN_MINUTES"),
+                            label: translate("LBL_PMSE_EXPCONTROL_USER_EVALUATION_TIMESPAN_MINUTES"),
                             value: "min"
                         }
                     ]
@@ -1965,65 +1822,6 @@ ExpressionControl.prototype._createTimespanPanel = function() {
         this._constantPanels.timespan.disable();
     }
 
-    return this;
-};
-
-ExpressionControl.prototype._createCurrencyPanel = function() {
-    var settings = this._constantSettings.currency;
-    if (!this._constantPanels.currency) {
-        this._constantPanels.currency = new FormPanel({
-            id: "form-constant-currency",
-            title: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_CURRENCY"),
-            items: [
-                {
-                    type: "dropdown",
-                    label: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_CURRENCY_CURRENCY"),
-                    name: "currency",
-                    width: "40%",
-                    labelField: function (dropdown, item) {
-                        return item.iso ? item.symbol + " (" + item.iso + ")" : item.name;
-                    },
-                    valueField: 'id',
-                    required: true,
-                    onChange: function (dropdown, newValue, oldValue) {
-                        var form = dropdown.getForm(),
-                            amountField = form.getItem("amount"),
-                            originalAmount = amountField.getValue(),
-                            convertedAmount = originalAmount,
-                            selectedData;
-
-                        origCurrency = dropdown.getOptionData(oldValue);
-                        destCurrency = dropdown.getSelectedData();
-
-                        if (origCurrency.rate === 1) {
-                            convertedAmount = originalAmount * destCurrency.rate;
-                        } else if (destCurrency.rate === 1) {
-                            convertedAmount = originalAmount / origCurrency.rate;
-                        } else if (origCurrency.rate !== destCurrency.rate) {
-                            convertedAmount = originalAmount / origCurrency.rate * destCurrency.rate;
-                        }
-
-                        amountField.setValue(convertedAmount);
-                    }
-                }, {
-                    type: "number",
-                    label: translate("LBL_PMSE_EXPCONTROL_CONSTANTS_CURRENCY_AMOUNT"),
-                    name: "amount",
-                    width: "60%",
-                    decimalSeparator: this._decimalSeparator,
-                    groupingSeparator: this._numberGroupingSeparator,
-                    required: true
-                }
-            ]
-        });
-        this._constantPanel.addItem(this._constantPanels.currency);
-        this._updateCurrenciesToCurrenciesForm();
-    }
-    if (settings) {
-        this._constantPanels.currency.enable();
-    } else {
-        this._constantPanels.currency.disable();
-    }
     return this;
 };
 
@@ -2160,7 +1958,6 @@ ExpressionControl.prototype._createMainPanel = function () {
             this._createDateConstantPanel();
             this._createDateTimeConstantPanel();
             this._createTimespanPanel();
-            this._createCurrencyPanel();
         }
         items.push(this._constantPanel);
         this._constantPanel.setVisible(!!this._constantPanel.getItems().length);

@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,23 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Erhalten Sie einen Key und Secret-Code von IBM SmartCloud, indem Sie Ihre Sugar-Instanz als neue Anwendung registrieren.<br>
-&nbsp;<br>
-Vorgehensweise zur Registrierung:<br>
-&nbsp;<br>
-<ol>
-<li>Melden Sie sich mit Ihrem IBM SmartCloud-Konto an. (Sie müssen ein Administrator sein.)</li>
-<li>Gehen Sie zu Administration -> Manage Organization</li>
-<li>Klicken Sie auf "Integrated Third-Party Apps" im Seitenbereich und aktivieren Sie SugarCRM für alle Benutzer.</li>
-<li>Gehen Sie zu "Internal Apps" im Seitenbereich und wählen Sie "Register App"</li>
-<li>Benennen Sie diese Anwendung je nach Wunsch (z.B. "SugarCRM Produktion"), und markieren Sie das Kontrollkästchen "OAuth 2.x" im unteren Bereich des Pop up-Fensters NICHT.</li>
-<li>Nach dem Erstellen der Anwendung klicken Sie auf das kleine Dreieck rechts neben dem Namen der Anwendung uns wählen Sie "Show Credentials" aus dem Dropdown-Menü.</li>
-<li>Kopieren Sie die folgenden Anmeldeinformationen.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'OAuth-Kunden-Schlüssel',
-    'oauth_consumer_secret' => 'OAuth-Kunden-Secret',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obtain a Lizenzschlüssel und geheimnis von IBM SmartCloud&copy; by registering your Sugar instance as a new application.<br><br />&nbsp;<br><br />Schritte zur Registrierung:<br><br />&nbsp;<br><br /><ol><br /><li>Log in to your IBM SmartCloud account (you must be an administrator)</li><br /><li>Go to Administration -> Manage Organization</li><br /><li>Go to the "Integrated Third-Party Apps" link on the sidebar and enable SugarCRM for all users.</li><br /><li>Go to "Internal Apps" on the sidebar and "Register App"</li><br /><li>Name this app whatever you want (say "SugarCRM Production"), and be sure _NOT_ to check the OAuth 2.x checkbox at the bottom of the pop up window.</li><br /><li>After the app has been created, click on the little triangle thing to the right of the app name and select "Show Credentials" from the dropdown menu.</li><br /><li>Copy the credentials below.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'OAuth Kunden Schlüssel',
+  'oauth_consumer_secret' => 'OAuth Kunden Geheimschlüssel',
 );
 

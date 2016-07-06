@@ -1,10 +1,9 @@
 <?php
-// created: 2016-06-24 15:55:46
+// created: 2016-07-06 08:17:08
 $connectors = array (
   'ext_rest_twitter' => 
   array (
     'id' => 'ext_rest_twitter',
-    'configured' => false,
     'name' => 'Twitter',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/rest/twitter',
@@ -23,7 +22,6 @@ $connectors = array (
   'ext_eapm_google' => 
   array (
     'id' => 'ext_eapm_google',
-    'configured' => false,
     'name' => 'Google',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/eapm/google',
@@ -39,7 +37,6 @@ $connectors = array (
   'ext_eapm_gotomeeting' => 
   array (
     'id' => 'ext_eapm_gotomeeting',
-    'configured' => false,
     'name' => 'GoToMeeting',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/eapm/gotomeeting',
@@ -55,7 +52,6 @@ $connectors = array (
   'ext_eapm_ibmsmartcloud' => 
   array (
     'id' => 'ext_eapm_ibmsmartcloud',
-    'configured' => false,
     'name' => 'IBM SmartCloud',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/eapm/ibmsmartcloud',
@@ -71,7 +67,6 @@ $connectors = array (
   'ext_eapm_webex' => 
   array (
     'id' => 'ext_eapm_webex',
-    'configured' => true,
     'name' => 'WebEx',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/eapm/webex',
@@ -87,7 +82,6 @@ $connectors = array (
   'ext_eapm_lotuslive' => 
   array (
     'id' => 'ext_eapm_lotuslive',
-    'configured' => false,
     'name' => 'LotusLive',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/eapm/lotuslive',
@@ -103,7 +97,6 @@ $connectors = array (
   'ext_rest_dnb' => 
   array (
     'id' => 'ext_rest_dnb',
-    'configured' => false,
     'name' => 'D&B',
     'enabled' => true,
     'directory' => 'modules/Connectors/connectors/sources/ext/rest/dnb',

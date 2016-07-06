@@ -12,7 +12,7 @@
     extendsFrom: 'TabbedDashletView',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * @property {Number} _defaultSettings.limit Maximum number of records to
      *   load per request, defaults to '10'.
@@ -25,10 +25,8 @@
         visibility: 'user'
     },
 
-    thresholdRelativeTime: 2, //Show relative time for 2 days and then date time after
-
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initialize: function(options) {
         options.meta = options.meta || {};
@@ -42,7 +40,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _initEvents: function() {
         this._super('_initEvents');
@@ -52,52 +50,15 @@
         this.on('dashlet-processes:disable-record:fire', this.disableRecord, this);
         this.on('dashlet-processes:download:fire', this.showExportingWarning, this);
         this.on('dashlet-processes:description-record:fire', this.descriptionRecord, this);
-        this.on('linked-model:create', this.loadData, this);
         return this;
-    },
-
-    /**
-     * Re-fetches the data for the context's collection.
-     *
-     * FIXME: This will be removed when SC-4775 is implemented.
-     *
-     * @private
-     */
-    _reloadData: function() {
-        this.context.set('skipFetch', false);
-        this.context.reloadData();
     },
 
     /**
      * Fire dessigner
      */
     designer: function(model){
-        var verifyURL = app.api.buildURL(
-                this.module,
-                'verify',
-                {
-                    id : model.get('id')
-                }
-            ),
-            self = this;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    var redirect = app.router.buildRoute(model.module, model.id, 'layout/designer');
-                    app.router.navigate(redirect , {trigger: true, replace: true });
-                } else {
-                    app.alert.show('project-design-confirmation',  {
-                        level: 'confirmation',
-                        messages: App.lang.get('LBL_PMSE_PROCESS_DEFINITIONS_EDIT', model.module),
-                        onConfirm: function () {
-                            var redirect = app.router.buildRoute(model.module, model.id, 'layout/designer');
-                            app.router.navigate(redirect , {trigger: true, replace: true });
-                        },
-                        onCancel: $.noop
-                    });
-                }
-            }
-        });
+        var redirect = model.module+"/"+model.id+"/layout/designer";
+        app.router.navigate(redirect , {trigger: true, replace: true });
     },
 
     /**
@@ -141,7 +102,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * FIXME: This should be removed when metadata supports date operators to
      * allow one to define relative dates for date filters.
@@ -186,7 +147,7 @@
         } else {
             var self = this;
             app.drawer.open({
-                layout: 'create',
+                layout: 'create-actions',
                 context: {
                     create: true,
                     module: params.module
@@ -302,33 +263,13 @@
      */
     disableRecord: function(model) {
         var self = this;
-        var verifyURL = app.api.buildURL(
-            this.module,
-            'verify',
-            {
-                id : model.get('id')
-            }
-        );
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    app.alert.show('project_disable', {
-                        level: 'confirmation',
-                        messages: app.utils.formatString(app.lang.get('LBL_PRO_DISABLE_CONFIRMATION', model.module),[name.trim()]),
-                        onConfirm: function() {
-                            self._updateProStatusDisabled(model);
-                        }
-                    });
-                } else {
-                    app.alert.show('project-disable-confirmation',  {
-                        level: 'confirmation',
-                        messages: App.lang.get('LBL_PMSE_DISABLE_CONFIRMATION_PD', model.module),
-                        onConfirm: function () {
-                            self._updateProStatusDisabled(model);
-                        },
-                        onCancel: $.noop
-                    });
-                }
+        this._modelToDelete = true;
+        var name = model.get('name') || '';
+        app.alert.show(model.get('id') + ':deleted', {
+            level: 'confirmation',
+            messages: app.utils.formatString(app.lang.get('LBL_PRO_DISABLE_CONFIRMATION', model.module),[name.trim()]),
+            onConfirm: function() {
+                self._updateProStatusDisabled(model);
             }
         });
     },
@@ -408,7 +349,7 @@
         app.alert.show('message-id', {
             level: 'info',
             title: app.lang.get('LBL_DESCRIPTION'),
-            messages: '<br/>' + Handlebars.Utils.escapeExpression(model.get('description')),
+            messages: '<br/>' + model.get('description'),
             autoClose: false
         });
     },
@@ -423,20 +364,8 @@
         this.render();
         this.refresh_Dashlet();
     },
-
     /**
-     * Sets property useRelativeTime to show date created as a relative time or as date time.
-     *
-     * @private
-     */
-    _setRelativeTimeAvailable: function(date) {
-        var diffInDays = app.date().diff(date, 'days', true);
-        var useRelativeTime = (diffInDays <= this.thresholdRelativeTime);
-        return useRelativeTime;
-    },
-
-    /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * New model related properties are injected into each model:
      *
@@ -462,7 +391,6 @@
                 field: 'picture'
             });
             model.set('picture_url', pictureUrl);
-            model.useRelativeTime = this._setRelativeTimeAvailable(model.attributes.date_entered);
         }, this);
 
         this._super('_renderHtml');

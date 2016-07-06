@@ -29,7 +29,7 @@
     isManager: false,
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this.isManager = app.user.get('is_manager');
@@ -41,18 +41,9 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initDashlet: function(view) {
-        var userCurrency = app.metadata.getCurrency(app.user.getPreference('currency_id'));
-        var userConversionRate = (userCurrency ? (1 / userCurrency.conversion_rate) : 1);
-        var userCurrencyPreference = app.user.getPreference('currency_id');
-        var salesStageLabels = app.lang.getAppListStrings('sales_stage_dom');
-
-        function formatValue(d, precision) {
-            return app.currency.formatAmountLocale(app.currency.convertWithRate(d, userConversionRate), userCurrencyPreference, precision);
-        }
-
         if (!this.isManager && this.meta.config) {
             // FIXME: Dashlet's config page is rendered from meta.panels directly.
             // See the "dashletconfiguration-edit.hbs" file.
@@ -82,14 +73,16 @@
             .margin({top: 0})
             .direction(app.lang.direction)
             .tooltipContent(function(key, x, y, e, graph) {
+                var val = app.currency.formatAmountLocale(y, app.currency.getBaseCurrencyId());
+                var salesStageLabels = app.lang.getAppListStrings('sales_stage_dom');
                 return '<p>' + SUGAR.App.lang.get('LBL_SALES_STAGE', 'Forecasts') + ': <b>' + ((salesStageLabels && salesStageLabels[key]) ? salesStageLabels[key] : key) + '</b></p>' +
-                    '<p>' + SUGAR.App.lang.get('LBL_AMOUNT', 'Forecasts') + ': <b>' + formatValue(y) + '</b></p>' +
+                    '<p>' + SUGAR.App.lang.get('LBL_AMOUNT', 'Forecasts') + ': <b>' + val + '</b></p>' +
                     '<p>' + SUGAR.App.lang.get('LBL_PERCENT', 'Forecasts') + ': <b>' + x + '%</b></p>';
             })
             .colorData('class', {step: 2})
             .fmtValueLabel(function(d) {
-                var y = d.value || (isNaN(d) ? 0 : d);
-                return formatValue(y, 0);
+                var y = d.label || d;
+                return app.currency.formatAmountLocale(y, app.currency.getBaseCurrencyId()).replace(/\,00$|\.00$/,'');
             })
             .strings({
                 legend: {
@@ -118,7 +111,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     bindDataChange: function() {
         this.settings.on('change', function(model) {
@@ -154,7 +147,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     loadData: function(options) {
         var timeperiod = this.settings.get('selectedTimePeriod');
@@ -193,7 +186,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     unbind: function() {
         this.settings.off('change');

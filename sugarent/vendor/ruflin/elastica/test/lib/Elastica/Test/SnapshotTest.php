@@ -2,6 +2,7 @@
 
 namespace Elastica\Test;
 
+
 use Elastica\Document;
 use Elastica\Index;
 use Elastica\Snapshot;
@@ -28,7 +29,7 @@ class SnapshotTest extends Base
         parent::setUp();
         $this->_snapshot = new Snapshot($this->_getClient());
 
-        $this->_index = $this->_createIndex();
+        $this->_index = $this->_createIndex("test_snapshot");
         $this->_docs = array(
             new Document("1", array("city" => "San Diego")),
             new Document("2", array("city" => "San Luis Obispo")),
@@ -36,6 +37,12 @@ class SnapshotTest extends Base
         );
         $this->_index->getType("test")->addDocuments($this->_docs);
         $this->_index->refresh();
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        $this->_index->delete();
     }
 
     public function testRegisterRepository()
@@ -102,3 +109,4 @@ class SnapshotTest extends Base
         $this->_snapshot->getSnapshot($repositoryName, $snapshotName);
     }
 }
+ 

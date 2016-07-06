@@ -12,7 +12,7 @@
     extendsFrom: "RowactionField",
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     initialize: function(options) {
         this.plugins = _.clone(this.plugins) || [];

@@ -22,7 +22,6 @@ $viewdefs['Schedulers']['EditView'] = array(
                             'includes'=> array(
                                             array('file'=>'modules/Schedulers/Schedulers.js'),
                                          ),
-                            'panelClass' => 'edit view edit508 schedulers-editview-panel',
                            ),
 
     'panels' => array(

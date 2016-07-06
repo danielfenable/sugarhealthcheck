@@ -76,7 +76,6 @@ class Meeting extends SugarBean {
 	var $object_name = "Meeting";
 
 	var $importable = true;
-	var $fill_additional_column_fields = true;
 	// This is used to retrieve related fields from form posts.
 	var $additional_column_fields = array('assigned_user_name', 'assigned_user_id', 'contact_id', 'user_id', 'contact_name', 'accept_status');
 	var $relationship_fields = array('account_id'=>'accounts','opportunity_id'=>'opportunity','case_id'=>'case',
@@ -162,7 +161,7 @@ class Meeting extends SugarBean {
 
         $check_notify = $this->send_invites;
         if ($this->send_invites == false) {
-            if ((!empty($_SESSION['workflow_cron']) || !empty($_SESSION['process_author_cron'])) && empty(CalendarEvents::$old_assigned_user_id)) {
+            if (!empty($_SESSION['workflow_cron']) && empty(CalendarEvents::$old_assigned_user_id)) {
                 $ce = new CalendarEvents();
                 $ce->setOldAssignedUser($this->module_dir, $this->id);
             }
@@ -279,10 +278,7 @@ class Meeting extends SugarBean {
 
 	function fill_in_additional_detail_fields() {
 		global $locale;
-
-		if ($this->fill_additional_column_fields) {
-			parent::fill_in_additional_detail_fields();
-		}
+		parent::fill_in_additional_detail_fields();
 
 		if (!empty($this->contact_id)) {
 			$query  = "SELECT first_name, last_name FROM contacts ";
@@ -950,15 +946,6 @@ class Meeting extends SugarBean {
 
         parent::loadFromRow($arr, $convert);
     }
-
-	/**
-	 * @param boolean $fill_additional_column_fields
-	 */
-	public function setFillAdditionalColumnFields($fill_additional_column_fields)
-	{
-		$this->fill_additional_column_fields = $fill_additional_column_fields;
-	}
-
 } // end class def
 
 /**

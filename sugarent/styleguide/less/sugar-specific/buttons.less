@@ -3,6 +3,7 @@
 .btn {
   font-weight: 500;
   font-size: @fontSizeSmall;
+  font-weight: bold;
   .box-shadow(none);
   margin-left: 8px;
   border: 1px solid rgba(0,0,0,.1);
@@ -178,15 +179,4 @@
       color: darken(@yellow, 70%);
     }
   }
-}
-
-.btn.btn-input-addon {
-  z-index: 2;
-  position: absolute;
-  right: 0;
-}
-input.required + .btn.btn-input-addon {
-  border-bottom: 1px solid @grayLight;
-  border-top: 1px solid @grayLight;
-  border-right: 1px solid @grayLight;
 }

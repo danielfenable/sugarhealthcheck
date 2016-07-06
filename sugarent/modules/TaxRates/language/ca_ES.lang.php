@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,50 +12,40 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Tipus d&#39;impostos',
-  'LBL_MODULE_NAME_SINGULAR' => 'Tipus d&#39;impost',
-  'LBL_MODULE_TITLE' => 'Tipus d&#39;impostos: inici',
-  'LBL_SEARCH_FORM_TITLE' => 'Cerca de tipus d&#39;impostos',
-  'LBL_LIST_FORM_TITLE' => 'Llista de tipus d&#39;impost',
-  'LBL_NEW_FORM_TITLE' => 'Nou tipus d&#39;impost',
-  'LBL_TAXRATE' => 'Tipus d´Impost:',
-  'LBL_LIST_NAME' => 'Nom del tipus d&#39;impost',
-  'LBL_NAME' => 'Nom del tipus d&#39;impost:',
+  'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre per eliminar el tipus d´impost.',
+  'LBL_CREATED_ID' => 'Creat per Id',
+  'LBL_EDITLAYOUT' => 'Editar disseny',
+  'LBL_EXPORT_CREATED_BY' => 'Creat per ID',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'Modificat per usuari ID',
+  'LBL_LIST_FORM_TITLE' => 'Llista de Tipus d´Impostos',
   'LBL_LIST_LIST_ORDER' => 'Ordre',
+  'LBL_LIST_NAME' => 'Nom de Tipus d´Impost',
   'LBL_LIST_ORDER' => 'Ordre:',
   'LBL_LIST_STATUS' => 'Estat',
-  'LBL_STATUS' => 'Estat:',
   'LBL_LIST_VALUE' => 'Percentatge',
+  'LBL_MODIFIED_ID' => 'Modificat per Id',
+  'LBL_MODULE_NAME' => 'Tipus d´Impostos',
+  'LBL_MODULE_NAME_SINGULAR' => 'Taxa d&#39;impost',
+  'LBL_MODULE_TITLE' => 'Tipus d´Impostos: Inici',
+  'LBL_NAME' => 'Nom de Tipus d´Impost:',
+  'LBL_NEW_FORM_TITLE' => 'Nou Tipus d´Impost',
+  'LBL_SEARCH_FORM_TITLE' => 'Recerca de Tipus d´Impostos',
+  'LBL_STATUS' => 'Estat:',
+  'LBL_TAXRATE' => 'Tipus d´Impost:',
   'LBL_VALUE' => 'Percentatge(%):',
-  'LNK_NEW_SHIPPER' => 'Llista de Proveïdors de Transport',
-  'LNK_NEW_TAXRATE' => 'Llista de tipus d&#39;impost',
   'LNK_IMPORT_TAXRATES' => 'Importar Tipus d&#39;Impostos',
-  'NTC_DELETE_CONFIRMATION' => 'Esteu segur que voleu suprimir aquest registre?',
-  'ERR_DELETE_RECORD' => 'Per suprimir el tipus d&#39;impost, heu d&#39;especificar un número de registre.',
-  'NTC_STATUS' => 'Estableixi l´estat a Inactiu per eliminar aquest tipus d´impost de les llistes desplegables de Tipus d´Impost',
+  'LNK_NEW_SHIPPER' => 'Llista de Proveïdors de Transport',
+  'LNK_NEW_TAXRATE' => 'Llista de Tipus d´Impostos',
+  'NTC_DELETE_CONFIRMATION' => 'Està segur que desitja eliminar aquest registre?',
   'NTC_LIST_ORDER' => 'Estableixi l´ordre en el qual aquest tipus d´impost apareixerà en les llistes desplegables de Tipus d´Impost',
+  'NTC_STATUS' => 'Estableixi l´estat a Inactiu per eliminar aquest tipus d´impost de les llistes desplegables de Tipus d´Impost',
   'taxrate_status_dom' => 
   array (
     'Active' => 'Actiu',
     'Inactive' => 'Inactiu',
   ),
-  'LBL_EDITLAYOUT' => 'Editar disseny' /*for 508 compliance fix*/,
-  'LBL_CREATED_ID'=>'Creat per ID',
-  'LBL_MODIFIED_ID'=>'Modificat per ID',
-  //For export labels
-  'LBL_EXPORT_MODIFIED_USER_ID'=> 'ID d&#39;usuari modificat',
-  'LBL_EXPORT_CREATED_BY'=> 'Creat per ID',
-
 );
 
-
-?>

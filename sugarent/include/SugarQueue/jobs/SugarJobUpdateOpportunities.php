@@ -75,8 +75,8 @@ class SugarJobUpdateOpportunities extends JobNotification implements RunnableSch
         $data = json_decode($data, true);
 
         Activity::disable();
-        $ftsSearch = \Sugarcrm\Sugarcrm\SearchEngine\SearchEngine::getInstance();
-        $ftsSearch->setForceAsyncIndex(true);
+        $ftsInstance = SugarSearchEngineFactory::getInstance();
+        $ftsInstance->setForceAsyncIndex(true);
 
         foreach ($data as $row) {
             /* @var $opp Opportunity */
@@ -84,7 +84,7 @@ class SugarJobUpdateOpportunities extends JobNotification implements RunnableSch
             $opp->save(false);
         }
 
-        $ftsSearch->setForceAsyncIndex(
+        $ftsInstance->setForceAsyncIndex(
             SugarConfig::getInstance()->get('search_engine.force_async_index', false)
         );
         Activity::enable();

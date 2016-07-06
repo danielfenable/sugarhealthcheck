@@ -11,11 +11,11 @@
 /**
  * @class View.Fields.Base.EmailTextField
  * @alias SUGAR.App.view.fields.BaseEmailTextField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * The direction for this field should always be `ltr`.
      */

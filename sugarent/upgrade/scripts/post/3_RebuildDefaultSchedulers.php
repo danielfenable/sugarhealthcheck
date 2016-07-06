@@ -31,8 +31,7 @@ class SugarUpgradeRebuildDefaultSchedulers extends UpgradeScript
         $this->existingSchedulers = array();
         $query = new SugarQuery();
         $query->select(array('id', 'job', 'name'));
-        // to get all records, including deleted
-        foreach ($query->from(BeanFactory::getBean('Schedulers'), array('add_deleted' => false))->execute() as $data) {
+        foreach ($query->from(BeanFactory::getBean('Schedulers'))->execute() as $data) {
             $this->existingSchedulers[$data['job']] = array(
                 'id' => $data['id'],
                 'name' => $data['name']

@@ -54,7 +54,12 @@
             <button data-action="show-more" class="btn btn-link btn-invisible more">
                 {{str "LBL_DNB_MORE_SRCH_RES"}}
             </button>
-            {{loading 'LBL_ALERT_TITLE_LOADING'}}
+            <div class="loading">
+                {{str "LBL_ALERT_TITLE_LOADING"}}
+                <i class="l1 fa fa-circle"></i>
+                <i class="l2 fa fa-circle"></i>
+                <i class="l3 fa fa-circle"></i>
+            </div>
             <div>
                 <button data-action="backToImportEnrich" class="btn btn-link btn-invisible more">
                     {{str "LBL_DNB_BACK_TO_IMPORT_ENRICH"}}

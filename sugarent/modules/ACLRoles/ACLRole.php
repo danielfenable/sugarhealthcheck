@@ -58,30 +58,18 @@ class ACLRole extends SugarBean{
             }
         }
         sugar_cache_clear('ACL');
-        require_once('modules/Reports/Report.php');
-        Report::clearCaches();
     }
 
 /**
+ * function setAction($role_id, $action_id, $access)
+ *
  * Sets the relationship between a role and an action and sets the access level of that relationship
  *
- * @param string $role_id - the role id
- * @param string $action_id - the ACL Action id
+ * @param GUID $role_id - the role id
+ * @param GUID $action_id - the ACL Action id
  * @param int $access - the access level ACL_ALLOW_ALL ACL_ALLOW_NONE ACL_ALLOW_OWNER...
  */
-public function setAction($role_id, $action_id, $access)
-{
-    $action = BeanFactory::retrieveBean('ACLActions', $action_id);
-    if (!$action) {
-        return;
-    }
-
-    if ($action->acltype == 'module'
-        && $action->category == 'Users'
-        && $action->name != 'admin') {
-        return;
-    }
-
+function setAction($role_id, $action_id, $access){
     $relationship_data = array('role_id'=>$role_id, 'action_id'=>$action_id,);
     $additional_data = array('access_override'=>$access);
     $this->set_relationship('acl_roles_actions',$relationship_data,true, true,$additional_data);
@@ -265,8 +253,8 @@ function mark_relationships_deleted($id){
         parent::mark_relationships_deleted($id);
 }
 
-   /**
-    *  toArray()
+/**
+ *  toArray()
     * returns this role as an array
     *
     * @return array of fields with id, name, description
@@ -294,41 +282,5 @@ function mark_relationships_deleted($id){
         foreach($arr as $name=>$value){
             $this->$name = $value;
         }
-    }
-
-    /**
-     * Updates users date_modified to make sure clients use latest version of ACLs
-     */
-    public function updateUsersACLInfo()
-    {
-        $query = sprintf(
-            'SELECT user_id
-             FROM acl_roles_users
-             WHERE deleted = 0
-               AND role_id = %s',
-            $this->db->quoted($this->id)
-        );
-        $result = $this->db->query($query);
-        if (!$result) {
-            return;
-        }
-
-        $ids = array();
-        while ($row = $this->db->fetchByAssoc($result)) {
-            $ids[] = $this->db->quoted($row['id']);
-        }
-        if (empty($ids)) {
-            return;
-        }
-
-        $query = sprintf(
-            'UPDATE users
-             SET date_modified = %s
-             WHERE deleted = 0
-               AND id IN (%s)',
-            $this->db->now(),
-            implode(',', $ids)
-        );
-        $this->db->query($query);
     }
 }

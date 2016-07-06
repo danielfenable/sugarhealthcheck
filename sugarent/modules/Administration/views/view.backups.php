@@ -78,12 +78,16 @@ class ViewBackups extends SugarView
                     return( $errors );
                 }
         
-                if (!is_dir($backup_dir) && !mkdir_recursive($backup_dir)) {
-                    $errors[] = $mod_strings['LBL_BACKUP_DIRECTORY_EXISTS'];
-                } elseif (!is_writable($backup_dir)) {
+                if( !is_dir( $backup_dir ) ){
+                    if( !mkdir_recursive( $backup_dir ) ){
+                        $errors[] = $mod_strings['LBL_BACKUP_DIRECTORY_EXISTS'];
+                    }
+                }
+        
+                if( !is_writable( $backup_dir ) ){
                     $errors[] = $mod_strings['LBL_BACKUP_DIRECTORY_NOT_WRITABLE'];
                 }
-
+        
                 if( is_file( "$backup_dir/$backup_zip" ) ){
                     $errors[] = $mod_strings['LBL_BACKUP_FILE_EXISTS'];
                 }

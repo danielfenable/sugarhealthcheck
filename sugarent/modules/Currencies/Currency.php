@@ -309,7 +309,7 @@ class Currency extends SugarBean
         $this->name =     $this->getDefaultCurrencyName();
         $this->symbol = $this->getDefaultCurrencySymbol();
         $this->id = '-99';
-        $this->conversion_rate = '1.000000';
+        $this->conversion_rate = 1;
         $this->iso4217 = $this->getDefaultISO4217();
         $this->deleted = 0;
         $this->status = 'Active';

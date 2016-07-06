@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,11 +12,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: MyPipelineBySalesStageDashlet.en_us.lang.php 16286 2006-08-22 20:14:45Z wayne $
+$dashletStrings = array (
+  'OpportunitiesByLeadSourceDashlet' => 
+  array (
+    'LBL_TITLE' => 'Oportunidades por Origem da Lead',
+    'LBL_DESCRIPTION' => 'Pie Chart de Oportunidades por Origem da Lead',
+    'LBL_REFRESH' => 'Refrescar Gráfico',
+  ),
+);
 
-
-$dashletStrings['OpportunitiesByLeadSourceDashlet'] = array('LBL_TITLE'       => 'Todas as Oportunidades por Origem do Cliente Potencial',
-                                                       'LBL_DESCRIPTION' => 'Gráfico Circular de Oportunidades por Origem do Cliente Potencial',
-                                                       'LBL_REFRESH'     => 'Atualizar Gráfico');
-?>

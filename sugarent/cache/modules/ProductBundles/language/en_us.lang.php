@@ -1,12 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:24
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_CURRENCY' => 'Currency',
-  'LBL_CURRENCIES' => 'Currencies',
-  'LBL_CURRENCY_NAME' => 'Currency Name',
-  'LBL_CURRENCY_SYMBOL' => 'Currency Symbol',
-  'LBL_CURRENCY_RATE' => 'Base Rate',
-  'LBL_CURRENCY_ID' => 'Currency ID',
   'LBL_TEAM' => 'Teams',
   'LBL_TEAMS' => 'Teams',
   'LBL_TEAM_ID' => 'Team Id',

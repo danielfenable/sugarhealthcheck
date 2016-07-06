@@ -167,20 +167,6 @@ $dictionary['Activity'] = array(
             'source'       => 'non-db',
             'vname'        => 'LBL_NOTES',
         ),
-        'kbcontents' => array(
-            'name' => 'kbcontents',
-            'type' => 'link',
-            'relationship' => 'kbcontent_activities',
-            'source' => 'non-db',
-            'vname' => 'LBL_KBCONTENTS',
-        ),
-        'kbtemplates' => array(
-            'name' => 'kbtemplates',
-            'type' => 'link',
-            'relationship' => 'kbcontenttemplate_activities',
-            'source' => 'non-db',
-            'vname' => 'LBL_KBTEMPLATES',
-        ),
 
         'pmse_Project' => array(
             'name'         => 'pmse_Project',
@@ -262,18 +248,6 @@ $dictionary['Activity'] = array(
             'rhs_key' => 'parent_id',
             'relationship_type' => 'one-to-many',
         ),
-    ),
-    // @TODO Fix the Default and Basic SugarObject templates so that Basic
-    // implements Default. This would allow the application of various
-    // implementations on Basic without forcing Default to have those so that
-    // situations like this - implementing taggable - doesn't have to apply to
-    // EVERYTHING. Since there is no distinction between basic and default for
-    // sugar objects templates yet, we need to forecefully remove the taggable
-    // implementation fields. Once there is a separation of default and basic
-    // templates we can safely remove these as this module will implement
-    // default instead of basic.
-    'ignore_templates' => array(
-        'taggable',
     ),
 );
 

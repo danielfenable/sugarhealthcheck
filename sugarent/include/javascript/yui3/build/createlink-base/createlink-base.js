@@ -1,8 +1,9 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("createlink-base",function(e,t){var n={};n.STRINGS={PROMPT:"Please enter the URL for the link to point to:",DEFAULT:"http://"},e.namespace("Plugin"),e.Plugin.CreateLinkBase=n,e.mix(e.Plugin.ExecCommand.COMMANDS,{createlink:function(t){var r=this.get("host").getInstance(),i,s,o,u,a=prompt(n.STRINGS.PROMPT,n.STRINGS.DEFAULT);return a&&(u=r.config.doc.createElement("div"),a=a.replace(/"/g,"").replace(/'/g,""),a=r.config.doc.createTextNode(a),u.appendChild(a),a=u.innerHTML,this.get("host")._execCommand(t,a),o=new r.EditorSelection,i=o.getSelected(),!o.isCollapsed&&i.size()?(s=i.item(0).one("a"),s&&i.item(0).replace(s),e.UA.gecko&&s.get("parentNode").test("span")&&s.get("parentNode").one("br.yui-cursor")&&s.get("parentNode").insert(s,"before")):this.get("host").execCommand("inserthtml",'<a href="'+a+'">'+a+"</a>")),s}})},"3.15.0",{requires:["editor-base"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('createlink-base',function(Y,NAME){var CreateLinkBase={};CreateLinkBase.STRINGS={PROMPT:'Please enter the URL for the link to point to:',DEFAULT:'http://'};Y.namespace('Plugin');Y.Plugin.CreateLinkBase=CreateLinkBase;Y.mix(Y.Plugin.ExecCommand.COMMANDS,{createlink:function(cmd){var inst=this.get('host').getInstance(),out,a,sel,holder,url=prompt(CreateLinkBase.STRINGS.PROMPT,CreateLinkBase.STRINGS.DEFAULT);if(url){holder=inst.config.doc.createElement('div');url=url.replace(/"/g,'').replace(/'/g,'');url=inst.config.doc.createTextNode(url);holder.appendChild(url);url=holder.innerHTML;this.get('host')._execCommand(cmd,url);sel=new inst.EditorSelection();out=sel.getSelected();if(!sel.isCollapsed&&out.size()){a=out.item(0).one('a');if(a){out.item(0).replace(a);}
+if(Y.UA.gecko){if(a.get('parentNode').test('span')){if(a.get('parentNode').one('br.yui-cursor')){a.get('parentNode').insert(a,'before');}}}}else{this.get('host').execCommand('inserthtml','<a href="'+url+'">'+url+'</a>');}}
+return a;}});},'3.15.0',{"requires":["editor-base"]});

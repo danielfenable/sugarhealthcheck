@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,50 +12,44 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'LBL_ADD' => 'Adicionar',
+  'LBL_ADMIN_ONLY' => 'Apenas Administradores',
+  'LBL_BELOW_MIN' => 'O valor de conversão tem que ser superior a zero.',
+  'LBL_CREATED_BY' => 'Criado por',
+  'LBL_CURRENCY' => 'Moeda',
+  'LBL_DELETE' => 'Eliminar',
+  'LBL_EDIT_LAYOUT' => 'Editar Layout',
+  'LBL_LIST_FORM_TITLE' => 'Moedas',
+  'LBL_LIST_ISO4217' => 'Código ISO 4217',
+  'LBL_LIST_ISO4217_HELP' => 'Introduza um código ISO 4127 de três letras que defina o nome e o símbolo da moeda.',
+  'LBL_LIST_NAME' => 'Nome da Moeda',
+  'LBL_LIST_RATE' => 'Taxa de Conversão',
+  'LBL_LIST_RATE_HELP' => 'Uma Taxa de Conversão de 0.5 para o Euro significa que 10 USD = 5 Euro.',
+  'LBL_LIST_STATUS' => 'Status',
+  'LBL_LIST_SYMBOL' => 'Símbolo da Moeda',
+  'LBL_MERGE' => 'Fundir',
+  'LBL_MERGE_TXT' => 'Por favor verifique as moedas que gostaria de relacionar com a moeda selecionada. Isto irá excluir todas as cotações marcadas e reatribuir qualquer valor associado com a moeda selecionada.',
   'LBL_MODULE_NAME' => 'Moedas',
   'LBL_MODULE_NAME_SINGULAR' => 'Moeda',
-  'LBL_LIST_FORM_TITLE' => 'Moedas',
-  'LBL_CURRENCY' => 'Moeda',
-  'LBL_ADD' => 'Adicionar',
-  'LBL_MERGE' => 'Mesclar',
-  'LBL_MERGE_TXT' => 'Verifique as moedas que gostaria de relacionar com a moeda selecionada. Isso excluirá todas as moedas com uma marca de verificação e reatribuirá qualquer valor associado a elas à moeda selecionada.',
-  'LBL_US_DOLLAR' => 'Dólar americano',
-  'LBL_DELETE' => 'Excluir',
-  'LBL_LIST_SYMBOL' => 'Símbolo da moeda',
-  'LBL_LIST_NAME' => 'Nome da Moeda',
-  'LBL_LIST_ISO4217' => 'Código ISO 4217',
-  'LBL_LIST_ISO4217_HELP' => 'Insira um código ISO 4217 de três letras que defina o nome e o símbolo da moeda.',
   'LBL_UPDATE' => 'Atualizar',
-  'LBL_LIST_RATE' => 'Taxa de conversão',
-  'LBL_LIST_RATE_HELP' => 'Uma taxa de conversão de 0,5 para o Euro significa que 10 USD = 5 Euros.',
-  'LBL_LIST_STATUS' => 'Estado',
+  'LBL_US_DOLLAR' => 'U.S. Dollar',
+  'LNK_NEW_ACCOUNT' => 'Nova Conta',
+  'LNK_NEW_CALL' => 'Nova Ligação',
+  'LNK_NEW_CASE' => 'Nova Ocorrência',
   'LNK_NEW_CONTACT' => 'Novo Contato',
-  'LNK_NEW_ACCOUNT' => 'Nova conta',
-  'LNK_NEW_OPPORTUNITY' => 'Nova oportunidade',
-  'LNK_NEW_CASE' => 'Nova ocorrência',
-  'LNK_NEW_NOTE' => 'Criar nota ou anexo',
-  'LNK_NEW_CALL' => 'Nova chamada',
-  'LNK_NEW_EMAIL' => 'Novo e-mail',
-  'LNK_NEW_MEETING' => 'Nova reunião',
-  'LNK_NEW_TASK' => 'Criar Tarefa',
-  'NTC_DELETE_CONFIRMATION' => 'Tem certeza de que deseja excluir este registro? Qualquer registro que utilize essa moeda será convertido para a moeda padrão do sistema quando for acessado. Pode ser melhor definir o status como inativo.',
-  'LBL_BELOW_MIN' => 'A taxa de conversão deve ser superior a zero',
+  'LNK_NEW_EMAIL' => 'Novo E-mail',
+  'LNK_NEW_MEETING' => 'Nova Reunião',
+  'LNK_NEW_NOTE' => 'Criar Nova Nota',
+  'LNK_NEW_OPPORTUNITY' => 'Nova Oportunidade',
+  'LNK_NEW_TASK' => 'Criar Nova Tarefa',
+  'NTC_DELETE_CONFIRMATION' => 'Tem a certeza que deseja eliminar este registo? Poderá ser melhor alterar o estado para inativo, pois de outra forma qualquer registo utilizando essa moeda será convertido para U.S. Dollars quando for acessado.',
   'currency_status_dom' => 
   array (
     'Active' => 'Ativo',
     'Inactive' => 'Inativo',
   ),
-  'LBL_CREATED_BY' => 'Criado por',
-  'LBL_EDIT_LAYOUT' => 'Editar Layout' /*for 508 compliance fix*/,
-  'LBL_ADMIN_ONLY' => 'Apenas administradores',
 );
-?>
+

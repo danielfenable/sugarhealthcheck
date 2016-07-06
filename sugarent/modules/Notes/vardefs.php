@@ -29,7 +29,7 @@ $dictionary['Note'] = array(
     'type' => 'name',
     'len' => '255',
 	'unified_search' => true,
-    'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 0.83),
+	'full_text_search' => array('enabled' => true, 'boost' => 3),
     'comment' => 'Name of the note',
     'importable' => 'required',
     'required' => true,
@@ -64,13 +64,6 @@ $dictionary['Note'] = array(
     'comment' => 'File name associated with the note (attachment)',
     'importable' => false,
   ),
-    'upload_id' => array(
-        'name' => 'upload_id',
-        'type' => 'id',
-        'required' => false,
-        'reportable' => false,
-        'comment' => 'File id under uploads/ dir. Set only for email attachments',
-    ),
   'parent_type'=>
   array(
   	'name'=>'parent_type',
@@ -122,8 +115,7 @@ $dictionary['Note'] = array(
     'name' => 'description',
     'vname' => 'LBL_NOTE_STATUS',
     'type' => 'text',
-    'comment' => 'Full text of the note',
-    'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 0.44),
+    'comment' => 'Full text of the note'
   ),
 
  'parent_name'=>
@@ -309,14 +301,6 @@ $dictionary['Note'] = array(
     'source'=>'non-db',
     'vname'=>'LBL_BUGS',
   ),
-  'kbcontents' =>
-    array (
-      'name' => 'kbcontents',
-      'type' => 'link',
-      'relationship' => 'kbcontent_notes',
-      'source'=>'non-db',
-      'vname'=>'LBL_KBDOCUMENTS',
-    ),
   'emails' =>
   array(
     'name'=> 'emails',
@@ -365,13 +349,6 @@ $dictionary['Note'] = array(
     'source'=>'non-db',
     'vname'=>'LBL_TASKS',
   ),
-  'schedulersjobs' => array(
-      'name' => 'schedulersjobs',
-      'type' => 'link',
-      'relationship' => 'schedulersjob_notes',
-      'source' => 'non-db',
-      'vname' => 'LBL_SCHEDULERS_JOBS',
-  ),
   'description' =>
       array (
         'name' => 'description',
@@ -380,7 +357,6 @@ $dictionary['Note'] = array(
         'comment' => 'Full text of the note',
         'rows' => 30,
         'cols' => 90,
-        'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 0.44),
       ),
     'contact_parent' => array(
         'name' => 'contact_parent',
@@ -396,6 +372,7 @@ $dictionary['Note'] = array(
        array('name' =>'idx_note_name', 'type'=>'index', 'fields'=>array('name')),
        array('name' =>'idx_notes_parent', 'type'=>'index', 'fields'=>array('parent_id', 'parent_type')),
        array('name' =>'idx_note_contact', 'type'=>'index', 'fields'=>array('contact_id')),
+       array('name' =>'idx_notes_assigned_del', 'type' =>'index', 'fields'=>array( 'deleted', 'assigned_user_id')),
     )
 
     //This enables optimistic locking for Saves From EditView

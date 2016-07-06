@@ -16,7 +16,9 @@
             <div class="extend results" id="history_log_results">
                 {{#each commitLog}}
                     <article>
-                        <date>{{this.text2}}</date> {{this.text}}
+                        {{this.text}}
+                        <br>
+                        <date>{{this.text2}}</date>
                     </article>
                 {{/each}}
             </div>

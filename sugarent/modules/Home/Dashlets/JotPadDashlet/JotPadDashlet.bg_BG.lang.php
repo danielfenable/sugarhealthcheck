@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +12,19 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: JotPadDashlet.en_us.lang.php 51719 2009-10-22 17:18:00Z mitani $
-
-$defaultText = "";
-$dashletStrings['JotPadDashlet'] = array('LBL_TITLE'            => 'Текстов редактор',
-                                         'LBL_DESCRIPTION'      => 'Раздел за съхранение на Вашите бележки',
-                                         'LBL_SAVING'           => 'Запазване на съдържанието ...',
-                                         'LBL_SAVED'            => 'Съхранен',
-                                         'LBL_CONFIGURE_TITLE'  => 'Длъжност',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Височина (1 - 300)',
-                                         'LBL_DBLCLICK_HELP'    => 'Натиснете два пъти върху прозореца, за да редактирате.',
-                                         'LBL_DEFAULT_TEXT'     => $defaultText,
+$dashletStrings = array (
+  'JotPadDashlet' => 
+  array (
+    'LBL_CONFIGURE_HEIGHT' => 'Височина (1 - 300)',
+    'LBL_CONFIGURE_TITLE' => 'Заглавие',
+    'LBL_DBLCLICK_HELP' => 'Натиснете два пъти върху прозореца, за да редактирате.',
+    'LBL_DEFAULT_TEXT' => ' ',
+    'LBL_DESCRIPTION' => 'Раздел за съхранение на Вашите бележки',
+    'LBL_SAVED' => 'Съхранен',
+    'LBL_SAVING' => 'Запазване на съдържанието ...',
+    'LBL_TITLE' => 'Текстов редактор',
+  ),
 );
-?>
+

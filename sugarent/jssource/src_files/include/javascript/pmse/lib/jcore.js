@@ -3527,8 +3527,6 @@ var jCore = (function ($, window) {
             };
         $shape.resizable(shapeResizeOptions);
 
-        //initialize resizable on parent
-        $(shape.parent.getHTML()).resizable({disabled: true});
         // update the min height and min width of the parent
         this.updateResizeMinimums(shape.parent);
     };
@@ -3609,15 +3607,8 @@ var jCore = (function ($, window) {
         minH = limits[2] + margin;
 
         // update jQueryUI's minWidth and minHeight
-        if (typeof $shape.resizable("instance") != 'undefined') {
-            $shape.resizable('option', 'minWidth', minW);
-            $shape.resizable('option', 'minHeight', minH);
-        } else {
-            $shape.resizable({
-                minWidth:minW,
-                minHeight:minH
-            });
-        }
+        $shape.resizable('option', 'minWidth', minW);
+        $shape.resizable('option', 'minHeight', minH);
         return this;
     };
 
@@ -3793,11 +3784,11 @@ var jCore = (function ($, window) {
      */
     NoResizeBehavior.prototype.init = function (shape) {
         var $shape = $(shape.getHTML());
-        // Replacing the way this is disabled on JQueryUI 1.11.4
-        try {
-            $shape.resizable('destroy');
-        } catch(e) {}
-        $shape.removeClass('ui-state-disabled');
+        ResizeBehavior.prototype.init.call(this, shape);
+        $shape.resizable('disable');
+        $shape
+//        .removeClass('ui-resizable-disabled')
+            .removeClass('ui-state-disabled');
         shape.applyStyleToHandlers('nonResizableStyle');
         shape.showOrHideResizeHandlers(false);
     };
@@ -4268,7 +4259,7 @@ var jCore = (function ($, window) {
     NoDropBehavior.prototype.attachDropBehavior = function (shape) {
         var $shape = $(shape.getHTML());
         DropBehavior.prototype.attachDropBehavior.call(this, shape);
-        $shape.droppable('option', 'accept', "");
+        $(shape).droppable('accept', "");
     };
 
     /**

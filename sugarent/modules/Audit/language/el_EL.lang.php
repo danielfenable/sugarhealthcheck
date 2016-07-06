@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'Προβολή Αλλαγής Καταγραφής',
-    'LBL_FIELD_NAME' => 'Πεδίο',
-    'LBL_OLD_NAME' => 'Παλαιά Τιμή',
-    'LBL_NEW_VALUE' => 'Νέα Τιμή',
-    'LBL_CREATED_BY' => 'Αλλαγή Από',
-    'LBL_LIST_DATE' => 'Ημερομηνία Αλλαγής',
-    'LBL_AUDITED_FIELDS' => 'Τα πεδία ελέγχθηκαν σε αυτή την ενότητα:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'Δεν υπάρχουν πεδία που ελέγχθηκαν σε αυτή την ενότητα',
-    'LBL_CHANGE_LOG' => 'Αρχείο αλλαγής',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'Όταν τα ελεγμένα πεδία νομίσματος αποθηκεύονται σε νόμισμα μη-προεπιλεγμένο από το σύστημα, το αρχείο καταγραφής αλλαγών θα εμφανίζει τόσο την προηγούμενη όσο και τη νέα τιμή στο προεπιλεγμένο νόμισμα, όπως μετατράπηκε από το σύστημα.'
+	
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Τα πεδία ελέγχθηκαν σε αυτή την ενότητα:',
+  'LBL_AUDIT_TITLE' => 'Προβολή Αλλαγής Καταγραφής',
+  'LBL_CHANGE_LOG' => 'Αλλαγή Καταγραφής',
+  'LBL_CREATED_BY' => 'Αλλαγή Από',
+  'LBL_FIELD_NAME' => 'Πεδίο',
+  'LBL_LIST_DATE' => 'Ημερομηνία Αλλαγής',
+  'LBL_NEW_VALUE' => 'Νέα Τιμή',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'Δεν υπάρχουν πεδία που ελέγχθηκαν σε αυτή την ενότητα',
+  'LBL_OLD_NAME' => 'Παλαιά Τιμή',
 );
+

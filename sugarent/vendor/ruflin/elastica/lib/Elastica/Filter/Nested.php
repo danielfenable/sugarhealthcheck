@@ -17,7 +17,7 @@ class Nested extends AbstractFilter
     /**
      * Adds field to mlt filter
      *
-     * @param  string                  $path Nested object path
+     * @param  string                       $path Nested object path
      * @return \Elastica\Filter\Nested
      */
     public function setPath($path)
@@ -48,13 +48,13 @@ class Nested extends AbstractFilter
     }
 
     /**
-     * Set join option
+     * Set score mode
      *
-     * @param  bool                    $join
+     * @param  string                       $scoreMode Options: avg, total, max and none.
      * @return \Elastica\Filter\Nested
      */
-    public function setJoin($join)
+    public function setScoreMode($scoreMode)
     {
-        return $this->setParam('join', (bool) $join);
+        return $this->setParam('score_mode', $scoreMode);
     }
 }

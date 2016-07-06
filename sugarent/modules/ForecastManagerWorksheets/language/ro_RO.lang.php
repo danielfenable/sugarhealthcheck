@@ -38,10 +38,10 @@ $mod_strings = array (
     'LBL_FORECAST_OPP_WEIGH'=> 'Suma ponderata',
     'LBL_FORECAST_USER' => 'Utilizator',
     'LBL_DATE_COMMITTED'=> 'Data asumarii',
-    'LBL_DATE_ENTERED' => 'Data intrării',
+    'LBL_DATE_ENTERED' => 'Data introducerii',
     'LBL_DATE_MODIFIED' => 'Data modificarii',
     'LBL_CREATED_BY' => 'Creat de',
-    'LBL_DELETED' => 'Şters',
+    'LBL_DELETED' => 'Sters',
     'LBL_MODIFIED_USER_ID'=>'Modificat de',
     'LBL_WK_VERSION' => 'Versiune',
     'LBL_WK_REVISION' => 'Revizie',
@@ -72,6 +72,34 @@ $mod_strings = array (
     'LBL_OW_DESCRIPTION'=>'Descriere',
     'LBL_OW_TYPE'=>'Tip',
 
+    //forecast schedule shortcuts
+    'LNK_NEW_TIMEPERIOD' => 'Creeaza perioada de timp',
+    'LNK_TIMEPERIOD_LIST' => 'Vezi perioadele de timp',
+
+    //Forecast schedule sub panel list view.
+    'LBL_SVFS_FORECASTDATE' => 'Programeaza data de start',
+    'LBL_SVFS_STATUS' => 'Status',
+    'LBL_SVFS_USER' => 'Pentru',
+    'LBL_SVFS_CASCADE' => 'Propagare in rapoarte?',
+    'LBL_SVFS_HEADER' => 'Program previziuni:',
+
+    //Forecast Schedule detail; view.....
+    'LB_FS_KEY' => 'ID',
+    'LBL_FS_TIMEPERIOD_ID' => 'ID perioada de timp',
+    'LBL_FS_USER_ID' => 'ID utilizator',
+    'LBL_FS_TIMEPERIOD' => 'Perioada de timp',
+    'LBL_FS_START_DATE' => 'Data de start',
+    'LBL_FS_END_DATE' => 'Data de incheiere',
+    'LBL_FS_FORECAST_START_DATE' => "Data de start previziuni",
+    'LBL_FS_STATUS' => 'Status',
+    'LBL_FS_FORECAST_FOR' => 'Programat pentru:',
+    'LBL_FS_CASCADE' =>'Propagare?',
+    'LBL_FS_MODULE_NAME' => 'Program previziuni',
+    'LBL_FS_CREATED_BY' =>'Creat de',
+    'LBL_FS_DATE_ENTERED' => 'Data introducerii',
+    'LBL_FS_DATE_MODIFIED' => 'Data modificarii',
+    'LBL_FS_DELETED' => 'Sters',
+
     //forecast worksheet direct reports forecast
     'LBL_FDR_USER_NAME'=>'Raport direct',
     'LBL_FDR_OPPORTUNITIES'=>'Oportunitati in previziune:',
@@ -98,7 +126,7 @@ $mod_strings = array (
 
     //list view
     'LBL_LV_TIMPERIOD'=> 'Perioada de timp',
-    'LBL_LV_TIMPERIOD_START_DATE'=> 'Data Începerii',
+    'LBL_LV_TIMPERIOD_START_DATE'=> 'Data de start',
     'LBL_LV_TIMPERIOD_END_DATE'=> 'Data de incheiere',
     'LBL_LV_TYPE'=> 'Tip previziune',
     'LBL_LV_COMMIT_DATE'=> 'Data asumarii',
@@ -112,7 +140,7 @@ $mod_strings = array (
     'ERR_FORECAST_AMOUNT' => 'Suma asumata este camp obligatoriu si trebuie sa fie formata doar din cifre.',
 
     // js error strings
-    'LBL_FC_START_DATE' => 'Data Începerii',
+    'LBL_FC_START_DATE' => 'Data de start',
     'LBL_FC_USER' => 'Programeaza pentru',
 
     'LBL_NO_ACTIVE_TIMEPERIOD'=>'Nu este activa nicio perioada de timp pentru modulul Previziuni.',
@@ -141,7 +169,6 @@ $mod_strings = array (
     'LBL_VERSION' => 'Versiune',
 
     // Label for Current User Rep Worksheet Line
-    // &#x200E; tells the browser to interpret as left-to-right
     'LBL_MY_MANAGER_LINE' => '{{full_name}} (me)',
 
     'LBL_EDITABLE_INVALID' => 'Valoare invalida pentru campul {{field_name}}',

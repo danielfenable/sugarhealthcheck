@@ -56,7 +56,7 @@
     _$moreModulesDD: undefined,
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Hooks to `app:sync:complete` to handle the refresh of the menu items
      * that are available after a complete sync.
@@ -70,18 +70,6 @@
         this._super('initialize', [options]);
 
         if (this.layout) {
-            this.toggleResize(true);
-        }
-    },
-
-    /**
-     * Toggles the resize listener on or off.
-     * Pass `true` to turn the listener on, or `false` to turn the listener off.
-     * @param {boolean} resize
-     */
-    toggleResize: function(resize) {
-        this.layout.off('view:resize');
-        if (resize) {
             this.layout.on('view:resize', this.resize, this);
         }
     },
@@ -94,18 +82,12 @@
      * `header:update:route` event to it's parent layout.
      */
     handleViewChange: function() {
-        var module = app.controller.context.get('module');
-        var component = app.drawer.getActive();
-        if (component && component.context.get('fromRouter')) {
-            module = component.context.get('module');
-        }
-
-        this._setActiveModule(module);
+        this._setActiveModule(app.controller.context.get('module'));
         this.layout.trigger('header:update:route');
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * If it is a `module-menu` component, we wrap it with our `list` template
      * and place it before the `more-modules` drop down or inside the drop down
@@ -117,6 +99,7 @@
      * @protected
      */
     _placeComponent: function(component) {
+
         if (component.name !== 'module-menu') {
             this.$el.append(component.el);
             return;
@@ -142,8 +125,7 @@
     /**
      * Resets the menu based on new metadata information.
      *
-     * It resets components, catalog and template (html), and calls
-     * {@link #resize} with the last known space available for this view.
+     * It resets components, catalog and template (html).
      *
      * @protected
      */
@@ -159,14 +141,13 @@
         this._addDefaultMenus();
         this._setActiveModule(app.controller.context.get('module'));
         this.render();
-        this.resize(this._width);
     },
 
     /**
      * Adds all default menu views as components in both full and short
      * version.
      *
-     * This will set the menu as sticky to differentiate from the others that
+     * This will set the menu as sticky to diferentiate from the others that
      * are added based on navigation/reference only.
      *
      * @private
@@ -224,17 +205,9 @@
      * Resize the module list to the specified width and move the extra module
      * names to the `more-modules` drop down.
      *
-     * @param {number} width The width that we have available.
+     * @param {Number} width The width that we have available.
      */
     resize: function(width) {
-        /**
-         * Cached version of last width available for this view.
-         *
-         * @type {number}
-         * @private
-         */
-        this._width = width;
-
         if (width <= 0 || _.isEmpty(this._components)) {
             return;
         }
@@ -251,39 +224,13 @@
     },
 
     /**
-     * Computes the minimum width required for the module list.
-     * This includes: the cube, the current module, and the more modules drop down.
-     * @return {number}
-     */
-    computeMinWidth: function() {
-        var minWidth = 0;
-        var $moduleChildren = this.$('[data-container=module-list]').children();
-
-        // The cube
-        var $first = $moduleChildren.first();
-        minWidth += $first.outerWidth() + 1;
-
-        // The current active module
-        var firstModule = $moduleChildren.filter('.active').not($first);
-        if (firstModule.length) {
-            minWidth += firstModule.outerWidth() + 1;
-        } else {
-            // or the first module
-            minWidth += $moduleChildren.eq(1).outerWidth() + 1;
-        }
-
-        // More Modules dropdown
-        minWidth += $moduleChildren.last().outerWidth() + 1;
-        return minWidth;
-    },
-
-    /**
      * Move modules from the dropdown to the list to fit the specified width.
      * @param {jQuery} $modules The jQuery element that contains all the
      *   modules.
      * @param {Number} width The current width we have available.
      */
     addModulesToList: function($modules, width) {
+
         var $dropdown = this._$moreModulesDD.find('[data-container=overflow]'),
             $toHide = $dropdown.children('li').not('.hidden').first(),
             currentWidth = $modules.outerWidth(true);
@@ -311,7 +258,8 @@
 
         var $toHide = this._$moreModulesDD.prev();
 
-        while ($modules.outerWidth(true) > width && $toHide.length > 0) {
+        while ($modules.outerWidth(true) >= width && $toHide.length > 0) {
+
             if (!this.isRemovableModule($toHide.data('module'))) {
                 $toHide = $toHide.prev();
                 continue;

@@ -13,11 +13,6 @@
   display: none;
 }
 
-.dnb-dashlet-height {
-  max-height: 250px;
-  overflow: auto;
-}
-
 /* notifications in dashlets*/
 #dnb-no-duns,
 #dnb-search-hint {
@@ -29,9 +24,11 @@
 div.dnb-company-label {
   font-size: @fontSizeSmall;
   color: darken(@grayLight, 5%);
+  padding-bottom: 2px;
 }
+
 div.txt {
-  font-size: 15px;
+  font-size: 12px;
   color: #454545;
 }
 /*dnb mixins*/
@@ -58,7 +55,7 @@ div.dnb-company-title {
 }
 
 div.url-txt {
-  font-size: 15px;
+  font-size: 13px;
   color: #1571CE;
 }
 
@@ -73,7 +70,7 @@ div.dnb-show-less {
 }
 
 div.dnb-show-all {
-  .dnb-dashlet-height
+  height: auto;
 }
 
 div.dnb-show-more {
@@ -326,6 +323,9 @@ li.txt {
 }
 
 /*Build A List Styles*/
+.dnb-bal-add-btn {
+  margin-top: -5px;
+}
 .dnb-bal-param-label {
   font-size: 14px;
 }
@@ -361,12 +361,8 @@ li.txt {
 }
 .dnb-rslt-chkbox {
   .dnb-chk-box;
-  margin: 10px 10px 10px 0px;
+  margin: 10px 0px;
 }
 .dnb-cntrl-chkbox {
   .dnb-chk-box;
-  margin-right: 10px;
-}
-#dnb-bal-result li:first-child {
-  background: @grayLighter;
 }

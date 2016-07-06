@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,22 +12,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Sekotāja atskaites',
-                                          'LBL_DESCRIPTION'      => 'Dašlets sekotāja datu atskaitēm',
-                                          'LBL_SAVING'           => 'Izpilda vaicājumu ...',
-                                          'LBL_SAVED'            => 'Vaicājums pabeigts',
-                                          'LBL_CLEAR'            => 'Dzēst',
-                                          'LBL_CLEAR_TOOLTIP'    => 'Notīra datuma lauka vērtību',
-                                          'LBL_CONFIGURE_TITLE'  => 'Amats',
-                                          'LBL_CONFIGURE_HEIGHT' => 'Augstums (1 - 300)',
-										  'LBL_SELECT_QUERY'     => 'Izvēlieties vaicājumu ...',
-										  'LBL_FILTER'              => 'Filtrs',
-										  'LBL_FILTER_TOOLTIP'      => 'Filtrē pēc vērtības datuma laukā',
-										  'LBL_SINCE'            => 'Kopš:',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
-										                               '  The date value entered will replace the default date value for the report.' .
-										                               '  For example, in the "My Activity (This Week)" report, the' .
-										                               ' value will be used to display all records after the filter date' .
-										                               ' instead of the default time period of one week.',
+$dashletStrings = array (
+  'TrackerDashlet' => 
+  array (
+    'LBL_CHOOSE_DATE_TOOLTIP' => 'Atskaišu atlasei ir jānorāda datuma filtrs. Ievadītais datums aizstās atskaites noklusētā  datuma vērtība. Piemēram, atskaitē "Manas darbības (Šonedēļ)", ievadītā vērtība tiks lietota, lai parādītu visus ierakstus pēc filtrā norādīta datuma, nevis vienas nedēļas noklusētā perioda datus.',
+    'LBL_CLEAR' => 'Notīrīt',
+    'LBL_CLEAR_TOOLTIP' => 'Notīra datuma lauka vērtību',
+    'LBL_CONFIGURE_HEIGHT' => 'Augstums (1 - 300)',
+    'LBL_CONFIGURE_TITLE' => 'Virsraksts',
+    'LBL_DESCRIPTION' => 'Dašlets sekotāja datu atskaitēm',
+    'LBL_FILTER' => 'Filtrs',
+    'LBL_FILTER_TOOLTIP' => 'Filtrē pēc vērtības datuma laukā',
+    'LBL_SAVED' => 'Vaicājums pabeigts',
+    'LBL_SAVING' => 'Izpilda vaicājumu ...',
+    'LBL_SELECT_QUERY' => 'Izvēlieties vaicājumu ...',
+    'LBL_SINCE' => 'Kopš:',
+    'LBL_TITLE' => 'Sekotāja atskaites',
+  ),
 );
+

@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,7 +12,10 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-'LBL_ASSIGNED_TO_ID'=>'分配的用户 ID',
-'LBL_ASSIGNED_TO_NAME' => '指派给',
+
+
+$mod_strings = array (
+  'LBL_ASSIGNED_TO_ID' => '获指派的用户ID',
+  'LBL_ASSIGNED_TO_NAME' => '指派给',
 );
+

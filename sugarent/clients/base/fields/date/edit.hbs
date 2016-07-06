@@ -11,7 +11,7 @@
  */
 --}}
 <div class="input-append date">
-    <input type="text" data-type="date" name="{{name}}" class="datepicker" value="{{value}}"{{#if def.tabindex}} tabindex="{{def.tabindex}}"{{/if}} placeholder="{{fieldPlaceholder}}">
+    <input type="text" data-type="date" class="datepicker" value="{{value}}"{{#if def.tabindex}} tabindex="{{def.tabindex}}"{{/if}} placeholder="{{fieldPlaceholder}}">
     <span class="add-on" data-icon="calendar"><i class="fa fa-calendar"></i></span>
     {{#unless hideHelp}}{{#if def.help}}<p class="help-block">{{str def.help module}}</p>{{/if}}{{/unless}}
 </div>

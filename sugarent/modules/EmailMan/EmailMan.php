@@ -344,7 +344,22 @@ class EmailMan extends SugarBean{
                 $retId = $this->ref_email->save();
 
                 foreach($notes as $note) {
-                    list($filename, $mime_type) = $this->getFileInfo($note);
+                    if($note->object_name == 'Note') {
+                        if (! empty($note->file->temp_file_location) && is_file($note->file->temp_file_location)) {
+                            $file_location = $note->file->temp_file_location;
+                            $filename = $note->file->original_file_name;
+                            $mime_type = $note->file->mime_type;
+                        } else {
+                            $file_location = "upload://{$note->id}";
+                            $filename = $note->id.$note->filename;
+                            $mime_type = $note->file_mime_type;
+                        }
+                    } elseif($note->object_name == 'DocumentRevision') { // from Documents
+                        $filename = $note->id.$note->filename;
+                        $file_location = "upload://$filename";
+                        $mime_type = $note->file_mime_type;
+                    }
+
                     $noteAudit = BeanFactory::getBean('Notes');
                     $noteAudit->parent_id = $retId;
                     $noteAudit->parent_type = $this->ref_email->module_dir;
@@ -352,8 +367,9 @@ class EmailMan extends SugarBean{
                     $noteAudit->name = $note->name;
                     $noteAudit->filename=$filename;
                     $noteAudit->file_mime_type=$mime_type;
-                    $noteAudit->upload_id = $note->getUploadId();
                     $noteAudit_id=$noteAudit->save();
+
+                    UploadFile::duplicate_file($note->id, $noteAudit_id, $filename);
                 }
             }
 
@@ -396,29 +412,6 @@ class EmailMan extends SugarBean{
        return $this->ref_email->id;
     }
 
-    /**
-     * Gets filename and mime_type for a note
-     * @param SugarBean $note
-     * @return array
-     */
-    protected function getFileInfo($note)
-    {
-        $filename = $mime_type = '';
-        if($note->object_name == 'Note') {
-            if (! empty($note->file->temp_file_location) && is_file($note->file->temp_file_location)) {
-                $filename = $note->file->original_file_name;
-                $mimetype = $note->file->mime_type;
-            } else {
-                $filename = $note->id.$note->filename;
-                $mimetype = $note->file_mime_type;
-            }
-        } elseif($note->object_name == 'DocumentRevision') { // from Documents
-            $filename = $note->id.$note->filename;
-            $mimetype = $note->file_mime_type;
-        }
-        return array($filename, $mimetype);
-    }
-
    /**
     * The function creates a copy of email send to each target.
     *
@@ -452,16 +445,12 @@ class EmailMan extends SugarBean{
         $retId                   = $email->save();
 
         foreach ($this->notes_array as $note) {
-            list($filename, $mime_type) = $this->getFileInfo($note);
             // create "audit" email without duping off the file to save on disk space
             $noteAudit              = BeanFactory::getBean('Notes');
             $noteAudit->parent_id   = $retId;
             $noteAudit->parent_type = $email->module_dir;
             $noteAudit->name        = $note->name;
             $noteAudit->description = "[{$note->filename}] {$mod_strings['LBL_ATTACHMENT_AUDIT']}";
-            $noteAudit->filename=$filename;
-            $noteAudit->file_mime_type=$mime_type;
-            $noteAudit->upload_id = $note->getUploadId();
             $noteAudit->save();
         }
 

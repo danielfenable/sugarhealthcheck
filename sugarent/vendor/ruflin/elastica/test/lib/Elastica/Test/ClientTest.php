@@ -5,10 +5,11 @@ namespace Elastica\Test;
 use Elastica\Client;
 use Elastica\Connection;
 use Elastica\Document;
+use Elastica\Exception\ClientException;
 use Elastica\Exception\Connection\HttpException;
+use Elastica\Script;
 use Elastica\Index;
 use Elastica\Request;
-use Elastica\Script;
 use Elastica\Test\Base as BaseTest;
 use Elastica\Type;
 
@@ -158,7 +159,7 @@ class ClientTest extends BaseTest
 
         $index->updateDocuments(array(
             new Document(1, array('name' => 'AnonCoin'), 'altcoin'),
-            new Document(2, array('name' => 'iXcoin'), 'altcoin'),
+            new Document(2, array('name' => 'iXcoin'), 'altcoin')
         ));
 
         $this->assertEquals('AnonCoin', $index->getType('altcoin')->getDocument(1)->get('name'));
@@ -189,7 +190,7 @@ class ClientTest extends BaseTest
 
         $type->updateDocuments(array(
             new Document(1, array('name' => 'LiteCoin')),
-            new Document(2, array('name' => 'NameCoin')),
+            new Document(2, array('name' => 'NameCoin'))
         ));
 
         $this->assertEquals('LiteCoin', $type->getDocument(1)->get('name'));
@@ -242,27 +243,27 @@ class ClientTest extends BaseTest
     }
 
     /**
-     * Test deleteIds method using string parameters
-     *
-     * This test ensures that the deleteIds method of
-     * the \Elastica\Client can properly accept and use
-     * an $index parameter and $type parameter that are
-     * strings
-     *
-     * This test is a bit more verbose than just sending the
-     * values to deleteIds and checking for exceptions or
-     * warnings.
-     *
-     * It will add a document, search for it, then delete it
-     * using the parameter types we are interested in, and then
-     * re-search to verify that they have been deleted
-     */
+    * Test deleteIds method using string parameters
+    *
+    * This test ensures that the deleteIds method of
+    * the \Elastica\Client can properly accept and use
+    * an $index parameter and $type parameter that are
+    * strings
+    *
+    * This test is a bit more verbose than just sending the
+    * values to deleteIds and checking for exceptions or
+    * warnings.
+    *
+    * It will add a document, search for it, then delete it
+    * using the parameter types we are interested in, and then
+    * re-search to verify that they have been deleted
+    */
     public function testDeleteIdsIdxStringTypeString()
     {
         $data = array('username' => 'hans');
         $userSearch = 'username:hans';
 
-        $index = $this->_createIndex(null, true, 2);
+        $index = $this->_createIndex('test', true, 2);
 
         // Create the index, deleting it first if it already exists
         $index->create(array(), true);
@@ -288,8 +289,8 @@ class ClientTest extends BaseTest
         // deleteIds are the type we are testing for
         $idxString = $index->getName();
         $typeString = $type->getName();
-        $this->assertTrue(is_string($idxString));
-        $this->assertTrue(is_string($typeString));
+        $this->assertEquals(true, is_string($idxString));
+        $this->assertEquals(true, is_string($typeString));
 
         // Try to delete doc with a routing value which hashes to
         // a different shard then the id.
@@ -317,22 +318,22 @@ class ClientTest extends BaseTest
     }
 
     /**
-     * Test deleteIds method using string parameter for $index
-     * and object parameter for $type
-     *
-     * This test ensures that the deleteIds method of
-     * the \Elastica\Client can properly accept and use
-     * an $index parameter that is a string and a $type
-     * parameter that is of type \Elastica\Type
-     *
-     * This test is a bit more verbose than just sending the
-     * values to deleteIds and checking for exceptions or
-     * warnings.
-     *
-     * It will add a document, search for it, then delete it
-     * using the parameter types we are interested in, and then
-     * re-search to verify that they have been deleted
-     */
+    * Test deleteIds method using string parameter for $index
+    * and object parameter for $type
+    *
+    * This test ensures that the deleteIds method of
+    * the \Elastica\Client can properly accept and use
+    * an $index parameter that is a string and a $type
+    * parameter that is of type \Elastica\Type
+    *
+    * This test is a bit more verbose than just sending the
+    * values to deleteIds and checking for exceptions or
+    * warnings.
+    *
+    * It will add a document, search for it, then delete it
+    * using the parameter types we are interested in, and then
+    * re-search to verify that they have been deleted
+    */
     public function testDeleteIdsIdxStringTypeObject()
     {
         $data = array('username' => 'hans');
@@ -362,8 +363,8 @@ class ClientTest extends BaseTest
         // And verify that the variables we are doing to send to
         // deleteIds are the type we are testing for
         $idxString = $index->getName();
-        $this->assertTrue(is_string($idxString));
-        $this->assertInstanceOf('Elastica\Type', $type);
+        $this->assertEquals(true, is_string($idxString));
+        $this->assertEquals(true, ($type instanceof Type));
 
         // Using the existing $index and $type variables which
         // are \Elastica\Index and \Elastica\Type objects respectively
@@ -379,22 +380,22 @@ class ClientTest extends BaseTest
     }
 
     /**
-     * Test deleteIds method using object parameter for $index
-     * and string parameter for $type
-     *
-     * This test ensures that the deleteIds method of
-     * the \Elastica\Client can properly accept and use
-     * an $index parameter that is  of type Elasitca_Index
-     * and a $type parameter that is a string
-     *
-     * This test is a bit more verbose than just sending the
-     * values to deleteIds and checking for exceptions or
-     * warnings.
-     *
-     * It will add a document, search for it, then delete it
-     * using the parameter types we are interested in, and then
-     * re-search to verify that they have been deleted
-     */
+    * Test deleteIds method using object parameter for $index
+    * and string parameter for $type
+    *
+    * This test ensures that the deleteIds method of
+    * the \Elastica\Client can properly accept and use
+    * an $index parameter that is  of type Elasitca_Index
+    * and a $type parameter that is a string
+    *
+    * This test is a bit more verbose than just sending the
+    * values to deleteIds and checking for exceptions or
+    * warnings.
+    *
+    * It will add a document, search for it, then delete it
+    * using the parameter types we are interested in, and then
+    * re-search to verify that they have been deleted
+    */
     public function testDeleteIdsIdxObjectTypeString()
     {
         $data = array('username' => 'hans');
@@ -424,8 +425,8 @@ class ClientTest extends BaseTest
         // And verify that the variables we are doing to send to
         // deleteIds are the type we are testing for
         $typeString = $type->getName();
-        $this->assertInstanceOf('Elastica\Index', $index);
-        $this->assertTrue(is_string($typeString));
+        $this->assertEquals(true, ($index instanceof Index));
+        $this->assertEquals(true, is_string($typeString));
 
         // Using the existing $index and $type variables which
         // are \Elastica\Index and \Elastica\Type objects respectively
@@ -441,22 +442,22 @@ class ClientTest extends BaseTest
     }
 
     /**
-     * Test deleteIds method using object parameter for $index
-     * and object parameter for $type
-     *
-     * This test ensures that the deleteIds method of
-     * the \Elastica\Client can properly accept and use
-     * an $index parameter that is an object and a $type
-     * parameter that is of type \Elastica\Type
-     *
-     * This test is a bit more verbose than just sending the
-     * values to deleteIds and checking for exceptions or
-     * warnings.
-     *
-     * It will add a document, search for it, then delete it
-     * using the parameter types we are interested in, and then
-     * re-search to verify that they have been deleted
-     */
+    * Test deleteIds method using object parameter for $index
+    * and object parameter for $type
+    *
+    * This test ensures that the deleteIds method of
+    * the \Elastica\Client can properly accept and use
+    * an $index parameter that is an object and a $type
+    * parameter that is of type \Elastica\Type
+    *
+    * This test is a bit more verbose than just sending the
+    * values to deleteIds and checking for exceptions or
+    * warnings.
+    *
+    * It will add a document, search for it, then delete it
+    * using the parameter types we are interested in, and then
+    * re-search to verify that they have been deleted
+    */
     public function testDeleteIdsIdxObjectTypeObject()
     {
         $data = array('username' => 'hans');
@@ -485,8 +486,8 @@ class ClientTest extends BaseTest
 
         // And verify that the variables we are doing to send to
         // deleteIds are the type we are testing for
-        $this->assertInstanceOf('Elastica\Index', $index);
-        $this->assertInstanceOf('Elastica\Type', $type);
+        $this->assertEquals(true, ($index instanceof Index));
+        $this->assertEquals(true, ($type instanceof Type));
 
         // Using the existing $index and $type variables which
         // are \Elastica\Index and \Elastica\Type objects respectively
@@ -536,6 +537,7 @@ class ClientTest extends BaseTest
             $client->request('_status', Request::GET);
             $this->fail('Should throw exception as no connection valid');
         } catch (HttpException $e) {
+            $this->assertTrue(true);
         }
 
         $connections = $client->getConnections();
@@ -556,7 +558,7 @@ class ClientTest extends BaseTest
         $object = $this;
 
         // Callback function which verifies that disabled connection objects are returned
-        $callback = function ($connection, $exception, $client) use (&$object, &$count) {
+        $callback = function($connection, $exception, $client) use (&$object, &$count) {
             $object->assertInstanceOf('Elastica\Connection', $connection);
             $object->assertInstanceOf('Elastica\Exception\ConnectionException', $exception);
             $object->assertInstanceOf('Elastica\Client', $client);
@@ -699,7 +701,7 @@ class ClientTest extends BaseTest
         $rawData = array(
             'doc' => array(
                 'field2' => 'value2',
-            ),
+            )
         );
 
         $response = $client->updateDocument(1, $rawData, $index->getName(), $type->getName(), array('retry_on_conflict' => 1));
@@ -938,9 +940,9 @@ class ClientTest extends BaseTest
                 'level2' => array(
                     'level3' => 'value3',
                 ),
-                'level21' => 'value21',
+                'level21' => 'value21'
             ),
-            'level11' => 'value11',
+            'level11' => 'value11'
         );
         $client = new Client($config);
 
@@ -956,50 +958,51 @@ class ClientTest extends BaseTest
         $this->assertEquals('value3', $client->getConfigValue(array('level1', 'level2', 'level3')));
         $this->assertInternalType('array', $client->getConfigValue(array('level1', 'level2')));
     }
-
+    
+    
     public function testArrayQuery()
     {
         $client = new Client();
-
+        
         $index = $client->getIndex('test');
         $index->create(array(), true);
         $type = $index->getType('test');
         $type->addDocument(new Document(1, array('username' => 'ruflin')));
         $index->refresh();
-
+        
         $query = array(
             'query' => array(
                 'query_string' => array(
                     'query' => 'ruflin',
-                ),
-            ),
+                )
+            )
         );
-
-        $path = $index->getName().'/'.$type->getName().'/_search';
-
+        
+        $path = $index->getName() . '/' . $type->getName() . '/_search';
+        
         $response = $client->request($path, Request::GET, $query);
         $responseArray = $response->getData();
-
+        
         $this->assertEquals(1, $responseArray['hits']['total']);
     }
-
+    
     public function testJSONQuery()
     {
         $client = new Client();
-
+        
         $index = $client->getIndex('test');
         $index->create(array(), true);
         $type = $index->getType('test');
         $type->addDocument(new Document(1, array('username' => 'ruflin')));
         $index->refresh();
-
+        
         $query = '{"query":{"query_string":{"query":"ruflin"}}}';
 
-        $path = $index->getName().'/'.$type->getName().'/_search';
-
+        $path = $index->getName() . '/' . $type->getName() . '/_search';
+        
         $response = $client->request($path, Request::GET, $query);
         $responseArray = $response->getData();
-
+        
         $this->assertEquals(1, $responseArray['hits']['total']);
     }
 }

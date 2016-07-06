@@ -24,27 +24,14 @@ class SugarCacheWincache extends SugarCacheAbstract
      */
     public function useBackend()
     {
-        if (!parent::useBackend()) {
+        if ( !parent::useBackend() )
             return false;
-        }
-
-        if (!empty($GLOBALS['sugar_config']['external_cache_disabled_wincache'])) {
-            return false;
-        }
-
-        if (!extension_loaded('wincache')) {
-            return false;
-        }
-
-        if (!ini_get('wincache.ucenabled')) {
-            return false;
-        }
-
-        if (php_sapi_name() === 'cli' && !ini_get('wincache.enablecli')) {
-            return false;
-        }
-
-        return true;
+        
+        if ( function_exists("wincache_ucache_get")
+                && empty($GLOBALS['sugar_config']['external_cache_disabled_wincache']))
+            return true;
+            
+        return false;
     }
     
     /**

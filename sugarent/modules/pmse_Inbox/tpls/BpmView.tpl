@@ -281,10 +281,8 @@ var {{$form_name}}_tabs = new YAHOO.widget.TabView("{{$form_name}}_tabs");
 </script>
 {{/if}}
 <script type="text/javascript">
-YAHOO.util.Event.onContentReady(
-    "{{$form_name}}",
-    function () {ldelim} {rdelim}
-);
+YAHOO.util.Event.onContentReady("{{$form_name}}",
+    function () {ldelim} initEditView(document.forms.{{$form_name}}) {rdelim});
 //window.setTimeout(, 100);
 {{if $module == "Users"}}
 window.onbeforeunload = function () {ldelim} return disableOnUnloadEditView(); {rdelim};
@@ -300,16 +298,8 @@ if ($.browser.msie){{/literal}} {ldelim}
   {rdelim});
 {rdelim}
 </script>
-{{if $detailView == false}}
-<script>
-    {foreach from=$readOnlyFields item=fd}
-        if ((document.getElementById('{$fd}') != null) )
-            document.getElementById('{$fd}').disabled = 'true';
-    {/foreach}
-</script>
-{{/if}}
-{{if isset($footerTpl)}}
+{if isset($footerTpl)}
 {{include file=$footerTpl}}
-{{/if}}
+{/if}
 <script src="{sugar_getjspath file='include/javascript/select2/select2.js'}"></script>
 <link rel="stylesheet" href="{sugar_getjspath file='include/javascript/select2/select2.css'}"/>

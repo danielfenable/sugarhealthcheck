@@ -243,10 +243,8 @@ abstract class SugarRelationship
         if (!empty($values)) {
             $query = "INSERT INTO {$this->getRelationshipTable(
             )} ($columns) VALUES ($values)";
-            return DBManagerFactory::getInstance()->query($query);
+            DBManagerFactory::getInstance()->query($query);
         }
-
-        return false;
     }
 
     /**
@@ -325,7 +323,8 @@ abstract class SugarRelationship
         )} WHERE $leftIDName='$leftID' AND $rightIDName='$rightID' $roleCheck AND deleted=0";
 
         $db = DBManagerFactory::getInstance();
-        $row = $db->fetchOne($query);
+        $result = $db->query($query);
+        $row = $db->fetchByAssoc($result);
         if (!empty($row)) {
             return $row;
         } else {
@@ -704,7 +703,6 @@ abstract class SugarRelationship
         self::$resaveIndex = array();
 
         SugarBean::clearRecursiveResave();
-        return true;
     }
 
     /**

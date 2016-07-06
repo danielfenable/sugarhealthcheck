@@ -57,7 +57,6 @@ $dependencies['Opportunities']['set_base_rate'] = array(
             'params' => array(
                 'target' => 'base_rate',
                 'label' => 'base_rate_lable', //normally <field>_label
-                // if this formula changes, make sure to update it in modules/Opportunities/include/OpportunityWithRevenueLineItem.php
                 'value' => 'ifElse(isForecastClosed($sales_stage), $base_rate, currencyRate($currency_id))', //Formula
             ),
         )

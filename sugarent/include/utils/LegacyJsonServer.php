@@ -172,11 +172,7 @@ class LegacyJsonServer
 
                     // match enum vals to text vals in language pack for return
                     if (!empty($app_list_strings[$list_return[$i]->field_name_map[$field]['options']])) {
-                        if (!empty($app_list_strings[$list_return[$i]->field_name_map[$field]['options']][$list_return[$i]->$field])) {
-                            $list_return[$i]->$field = $app_list_strings[$list_return[$i]->field_name_map[$field]['options']][$list_return[$i]->$field];
-                        } else {
-                            $list_return[$i]->$field = '';
-                        }
+                        $list_return[$i]->$field = $app_list_strings[$list_return[$i]->field_name_map[$field]['options']][$list_return[$i]->$field];
                     }
                 }
 
@@ -277,10 +273,6 @@ class LegacyJsonServer
                 $account_name = " {$table}id in ( SELECT  lnk.contact_id AS id FROM accounts ac, " .
                     "accounts_contacts lnk WHERE ac.id = lnk.account_id " .
                     "AND ac.deleted = 0 AND lnk.deleted = 0 AND ac.name LIKE '%{$condition['value']}%' )";
-                array_push($cond_arr, $account_name);
-            } elseif ($condition['name'] === 'account_name' && $module === 'Leads') {
-                $account_name = " {$table}id in ( SELECT leads.id AS id FROM accounts ac, leads " .
-                    "WHERE ac.id = leads.account_id AND ac.deleted = 0 AND leads.deleted = 0 AND ac.name LIKE '%{$condition['value']}%' )";
                 array_push($cond_arr, $account_name);
             } elseif ($condition['name'] === 'full_name') {
                 $query_parts = explode(' ', $condition['value']);

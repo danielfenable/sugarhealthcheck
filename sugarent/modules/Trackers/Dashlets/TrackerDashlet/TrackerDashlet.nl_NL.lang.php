@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +13,23 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Tracker rapport',
-                                          'LBL_DESCRIPTION'      => 'Een dashlet die wordt uitgevoerd tegen Trackergegevens',
-                                          'LBL_SAVING'           => 'Running Query...',
-                                          'LBL_SAVED'            => 'Query voltooid',
-                                          'LBL_CLEAR'            => 'Wissen',
-                                          'LBL_CLEAR_TOOLTIP'    => 'Wist de waarde van het gegevensveld',
-                                          'LBL_CONFIGURE_TITLE'  => 'Titel',
-                                          'LBL_CONFIGURE_HEIGHT' => 'Hoogte (1 - 300)',
-										  'LBL_SELECT_QUERY'     => 'Selecteer query...',
-										  'LBL_FILTER'              => 'Filteren',
-										  'LBL_FILTER_TOOLTIP'      => 'Filtert op de waarde in het gegevensveld',
-										  'LBL_SINCE'            => 'Since:',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
-										                               '  The date value entered will replace the default date value for the report.' .
-										                               '  For example, in the "My Activity (This Week)" report, the' .
-										                               ' value will be used to display all records after the filter date' .
-										                               ' instead of the default time period of one week.',
+
+$dashletStrings = array (
+  'TrackerDashlet' => 
+  array (
+    'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.  The date value entered will replace the default date value for the report.  For example, in the "My Activity (This Week)" report, the value will be used to display all records after the filter date instead of the default time period of one week.',
+    'LBL_CLEAR' => 'Clear',
+    'LBL_CLEAR_TOOLTIP' => 'Clears the date field value',
+    'LBL_CONFIGURE_HEIGHT' => 'Height (1 - 300)',
+    'LBL_CONFIGURE_TITLE' => 'Titel:',
+    'LBL_DESCRIPTION' => 'A dashlet to run queries against Tracker data',
+    'LBL_FILTER' => 'Filter',
+    'LBL_FILTER_TOOLTIP' => 'Filters by the value in the date field',
+    'LBL_SAVED' => 'Query Complete',
+    'LBL_SAVING' => 'Running Query...',
+    'LBL_SELECT_QUERY' => 'Select Query...',
+    'LBL_SINCE' => 'Since:',
+    'LBL_TITLE' => 'Tracker rapport',
+  ),
 );
+

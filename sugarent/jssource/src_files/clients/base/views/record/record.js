@@ -35,7 +35,7 @@
 
     events: {
         'click .record-edit-link-wrapper': 'handleEdit',
-        'click a[name=cancel_button]': '_deprecatedCancelClicked',
+        'click a[name=cancel_button]': 'cancelClicked',
         'click [data-action=scroll]': 'paginateRecord',
         'click .record-panel-header': 'togglePanel',
         'click #recordTab > .tab > a:not(.dropdown-toggle)': 'setActiveTab',
@@ -64,13 +64,10 @@
     // width of the layout that contains this view
     _containerWidth: 0,
 
-    /**
-     * @inheritdoc
-     */
     initialize: function(options) {
         _.bindAll(this);
         /**
-         * @inheritdoc
+         * @inheritDoc
          * @property {Object} meta
          * @property {boolean} meta.hashSync Set to `true` to update URL
          *   consistently with the view state (`edit` or `detail`)
@@ -79,61 +76,6 @@
         options.meta.hashSync = _.isUndefined(options.meta.hashSync) ? true : options.meta.hashSync;
         app.view.View.prototype.initialize.call(this, options);
         this.buttons = {};
-
-        /**
-         * An array of the {@link #alerts alert} names in this view.
-         *
-         * @property {Array}
-         * @protected
-         */
-        this._viewAlerts = [];
-
-        /**
-         * A collection of alert messages to be used in this view. The alert methods
-         * should be invoked by Function.prototype.call(), passing in an instance of
-         * a sidecar view. For example:
-         *
-         *     // ...
-         *     this.alerts.showInvalidModel.call(this);
-         *     // ...
-         *
-         * FIXME: SC-3451 will refactor this `alerts` structure.
-         * @property {Object}
-         */
-        this.alerts = {
-            showInvalidModel: function() {
-                if (!this instanceof app.view.View) {
-                    app.logger.error('This method should be invoked by Function.prototype.call(), passing in as argument' +
-                    'an instance of this view.');
-                    return;
-                }
-                var name = 'invalid-data';
-                this._viewAlerts.push(name);
-                app.alert.show(name, {
-                    level: 'error',
-                    messages: 'ERR_RESOLVE_ERRORS'
-                });
-            },
-            showNoAccessError: function() {
-                if (!this instanceof app.view.View) {
-                    app.logger.error('This method should be invoked by Function.prototype.call(), passing in as argument' +
-                    'an instance of this view.');
-                    return;
-                }
-                // dismiss the default error
-                app.alert.dismiss('data:sync:error');
-                // display no access error
-                app.alert.show('server-error', {
-                    level: 'error',
-                    messages: 'ERR_HTTP_404_TEXT_LINE1'
-                });
-                // discard any changes before redirect
-                this.handleCancel();
-                // redirect to list view
-                var route = app.router.buildRoute(this.module);
-                app.router.navigate(route, {trigger: true});
-            }
-        };
         this.createMode = this.context.get('create') ? true : false;
 
         // Even in createMode we want it to start in detail so that we, later, respect
@@ -145,16 +87,13 @@
         //Set the context to load the field list from the record metadata.
         this.context.set('dataView', 'record');
         this.model.on('duplicate:before', this.setupDuplicateFields, this);
-        // displays error msg when required field is missing
-        this.model.on('error:validation', this.alerts.showInvalidModel, this);
         this.on('editable:keydown', this.handleKeyDown, this);
         this.on('editable:mousedown', this.handleMouseDown, this);
         this.on('field:error', this.handleFieldError, this);
-        this.model.on('acl:change', this.handleAclChange, this);
 
         //event register for preventing actions
         // when user escapes the page without confirming deleting
-        app.routing.before('route', this.beforeRouteDelete, this);
+        app.routing.before('route', this.beforeRouteDelete, this, true);
         $(window).on('beforeunload.delete' + this.cid, _.bind(this.warnDeleteOnRefresh, this));
 
         this.delegateButtonEvents();
@@ -182,36 +121,6 @@
     },
 
     /**
-     * Handler for when the ACLs change on the model. Toggles the `hide` class
-     * on the pencil wrapper for each of the fields on this view that had ACL
-     * changes.
-     *
-     * @param {Object} diff The diff object of fields and whether or not they
-     *   had ACL changes.
-     */
-    handleAclChange: function(diff) {
-        var fields = _.keys(diff);
-
-        this._setNoEditFields();
-        this.setEditableFields();
-
-        var noEditFieldsMap = _.object(this.noEditFields, _.values(this.noEditFields));
-        var $pencils = this.$('[data-wrapper=edit]');
-
-        _.each($pencils, function(pencilEl) {
-            var $pencilEl = $(pencilEl);
-            var field = $pencilEl.data('name');
-
-            if (!diff[field]) {
-                return;
-            }
-
-            var hidePencil = !_.isUndefined(noEditFieldsMap[field]);
-            $pencilEl.toggleClass('hide', hidePencil);
-        }, this);
-    },
-
-    /**
      * Compare with last fetched data and return true if model contains changes.
      *
      * Check changes for fields that are editable only.
@@ -234,7 +143,7 @@
         if (this.resavingAfterMetadataSync)
             return false;
 
-        changedAttributes = this.model.changedAttributes(this.model.getSynced());
+        changedAttributes = this.model.changedAttributes(this.model.getSyncedAttributes());
 
         if (_.isEmpty(changedAttributes)) {
             return false;
@@ -244,11 +153,12 @@
         _.each(this.meta.panels, function(panel) {
             _.each(panel.fields, function(field) {
                 if (!field.readonly) {
-                    setAsEditable(field.name);
                     if (field.fields && _.isArray(field.fields)) {
                         _.each(field.fields, function(field) {
                             setAsEditable(field.name);
                         });
+                    } else {
+                        setAsEditable(field.name);
                     }
                 }
             });
@@ -297,7 +207,6 @@
         this.context.on('button:save_button:click', this.saveClicked, this);
         this.context.on('button:delete_button:click', this.deleteClicked, this);
         this.context.on('button:duplicate_button:click', this.duplicateClicked, this);
-        this.context.on('button:cancel_button:click', this.cancelClicked, this);
     },
 
     _render: function() {
@@ -338,7 +247,7 @@
         // initialize tab view only if the component is attached to DOM,
         // otherwise it's initialized partially and cannot be properly
         // re-initialized after the component is attached to DOM
-        if ($.contains(document.documentElement, this.$el[0])) {
+        if ($.contains(document, this.$el[0])) {
             this.handleActiveTab();
             this.overflowTabs();
         }
@@ -453,46 +362,6 @@
         var panelKey = app.user.lastState.key(panelID+':tabState', this);
         app.user.lastState.set(panelKey, state);
     },
-
-    /**
-     * Parses through an array of panels metadata and sets some of them
-     * as no edit fields.
-     *
-     * FIXME: SC-3940, remove this call to _setNoEditFields when we merge
-     * master_platform into master, as this was fixed by SC-3908.
-     *
-     * @param {Array} [panels] The panels to parse. This default to
-     *   `this.meta.panels`.
-     * @private
-     */
-    _setNoEditFields: function(panels) {
-        panels = panels || this.meta.panels;
-
-        delete this.noEditFields;
-        this.noEditFields = [];
-
-        _.each(panels, function(panel) {
-            _.each(panel.fields, function(field, index) {
-                var keys = _.keys(field);
-                // Make filler fields readonly
-                if (keys.length === 1 && keys[0] === 'span') {
-                    field.readonly = true;
-                }
-
-                // disable the pencil icon if the user doesn't have ACLs
-                if (field.type === 'fieldset') {
-                    if (field.readonly || _.every(field.fields, function(f) {
-                        return !app.acl.hasAccessToModel('edit', this.model, f.name);
-                    }, this)) {
-                        this.noEditFields.push(field.name);
-                    }
-                } else if (field.readonly || !app.acl.hasAccessToModel('edit', this.model, field.name)) {
-                    this.noEditFields.push(field.name);
-                }
-            }, this);
-        }, this);
-    },
-
     /**
      * sets editable fields
      */
@@ -599,11 +468,10 @@
             prefill = app.data.createBean(this.model.module);
 
         prefill.copy(this.model);
-        this._copyNestedCollections(this.model, prefill);
         self.model.trigger('duplicate:before', prefill);
         prefill.unset('id');
         app.drawer.open({
-            layout: 'create',
+            layout: 'create-actions',
             context: {
                 create: true,
                 model: prefill,
@@ -618,101 +486,6 @@
         prefill.trigger('duplicate:field', self.model);
     },
 
-    /**
-     * Clones the attributes that are collections by way of the
-     * {@link VirtualCollection} plugin.
-     *
-     * This guarantees that all related models in nested collection are copied
-     * instead of only the ones that have already been fetched.
-     *
-     * All models of the collection on the source model are fetched
-     * asynchronously and then added to the same collection on the target model
-     * once there are no more models to retrieve. Note that this leaves open
-     * the possibility for a race condition where the user clicks the Save
-     * button on the Create View before all models have been received.
-     *
-     * @param {Data.Bean} source
-     * @param {Data.Bean} target
-     * @private
-     */
-    _copyNestedCollections: function(source, target) {
-        var collections, view;
-
-        // only model's that utilize the VirtualCollection plugin support this
-        // functionality
-        if (!_.isFunction(source.getCollectionFieldNames)) {
-            return;
-        }
-
-        // avoid using the ambiguous `this` since there are references to many
-        // objects in this method: view, field, model, collection, source,
-        // target, etc.
-        view = this;
-
-        /**
-         * Removes the `_action` attribute from a model when cloning it.
-         *
-         * @param {Data.Bean} model
-         * @return {Data.Bean}
-         */
-        function cloneModel(model) {
-            var attributes = _.chain(model.attributes).clone().omit('_action').value();
-            return app.data.createBean(model.module, attributes);
-        }
-
-        /**
-         * Copies all of the models from a collection to the same collection on
-         * the target model.
-         *
-         * @param collection
-         */
-        function copyCollection(collection) {
-            var field, relatedFields, options;
-
-            /**
-             * Adds all of the records from the source collection to the same
-             * collection on the target model.
-             *
-             * @param {VirtualCollection} sourceCollection
-             * @param {Object} [options]
-             */
-            function done(sourceCollection, options) {
-                var targetCollection = target.get(collection.fieldName);
-
-                if (!targetCollection) {
-                    return;
-                }
-
-                targetCollection.add(sourceCollection.map(cloneModel));
-            }
-
-            field = view.getField(collection.fieldName, source);
-            relatedFields = [];
-
-            if (field.def.fields) {
-                relatedFields = _.map(field.def.fields, function(def) {
-                    return _.isObject(def) ? def.name : def;
-                });
-            }
-
-            options = {success: done};
-
-            // request the related fields from the field definition if possible
-            if (relatedFields.length > 0) {
-                options.fields = relatedFields;
-            }
-
-            collection.fetchAll(options);
-        }
-
-        // get all attributes from the source model that are collections
-        collections = _.intersection(source.getCollectionFieldNames(), _.keys(source.attributes));
-
-        _.each(collections, function(name) {
-            copyCollection(source.get(name));
-        });
-    },
-
     editClicked: function() {
         this.setButtonStates(this.STATE.EDIT);
         this.toggleEdit(true);
@@ -722,35 +495,7 @@
     saveClicked: function() {
         // Disable the action buttons.
         this.toggleButtons(false);
-        var allFields = this.getFields(this.module, this.model);
-        var fieldsToValidate = {};
-        for (var fieldKey in allFields) {
-            if (app.acl.hasAccessToModel('edit', this.model, fieldKey)) {
-                _.extend(fieldsToValidate, _.pick(allFields, fieldKey));
-            }
-        }
-        this.model.doValidate(fieldsToValidate, _.bind(this.validationComplete, this));
-    },
-
-    /**
-     * Handles when the cancel_button view event is triggered.
-     *
-     * FIXME: This method will be removed as part of BR-3945
-     *
-     * @private
-     *
-     * @deprecated Since 7.7. Will be removed in 7.9.
-     *   Use the `MetadataEventDriven` plugin events from the
-     *   `record.php` button metadata instead.
-     */
-    _deprecatedCancelClicked: function() {
-        var cancelBtn = this.getField('cancel_button');
-        if (!cancelBtn || !cancelBtn.def || !cancelBtn.def.events) {
-            app.logger.warn(this.module + ': Invoking the cancel_button from `this.events` has been deprecated' +
-                ' since 7.7. This handler will be removed in 7.9. Please use the `MetadataEventDriven` plugin' +
-                ' events from the \'record.php\' button metadata instead.');
-            this.cancelClicked.apply(this, arguments);
-        }
+        this.model.doValidate(this.getFields(this.module), _.bind(this.validationComplete, this));
     },
 
     cancelClicked: function() {
@@ -761,8 +506,8 @@
         this.unsetContextAction();
     },
 
-    deleteClicked: function(model) {
-        this.warnDelete(model);
+    deleteClicked: function() {
+        this.warnDelete();
     },
 
     /**
@@ -847,8 +592,10 @@
                 // Loop through the visible subpanels and have them sync. This is to update any related
                 // fields to the record that may have been changed on the server on save.
                 _.each(this.context.children, function(child) {
-                    if (child.get('isSubpanel') && !child.get('hidden')) {
-                        child.get('collapsed') ? child.resetLoadFlag(false) : child.reloadData({recursive: false});
+                    if (!_.isUndefined(child.attributes) && !_.isUndefined(child.attributes.isSubpanel)) {
+                        if (child.attributes.isSubpanel && !child.attributes.hidden) {
+                            child.reloadData({recursive: false});
+                        }
                     }
                 });
                 if (this.createMode) {
@@ -878,8 +625,6 @@
                             }
                         }
                     }, this));
-                } else if (error.status === 403 || error.status === 404) {
-                    this.alerts.showNoAccessError.call(this);
                 } else {
                     this.editClicked();
                 }
@@ -917,7 +662,6 @@
         this.model.revertAttributes();
         this.toggleEdit(false);
         this.inlineEditMode = false;
-        this._dismissAllAlerts();
     },
 
     /**
@@ -927,7 +671,7 @@
      */
     beforeRouteDelete: function() {
         if (this._modelToDelete) {
-            this.warnDelete(this._modelToDelete);
+            this.warnDelete();
             return false;
         }
         return true;
@@ -954,9 +698,9 @@
     /**
      * Popup dialog message to confirm delete action
      */
-    warnDelete: function(model) {
+    warnDelete: function() {
         var self = this;
-        this._modelToDelete = model;
+        this._modelToDelete = true;
 
         self._targetUrl = Backbone.history.getFragment();
         //Replace the url hash back to the current staying page
@@ -1001,11 +745,9 @@
             },
             success: function() {
                 var redirect = self._targetUrl !== self._currentUrl;
-
-                self.context.trigger('record:deleted', self._modelToDelete);
-
                 self._modelToDelete = false;
 
+                self.context.trigger('record:deleted');
                 if (redirect) {
                     self.unbindBeforeRouteDelete();
                     //Replace the url hash back to the current staying page
@@ -1110,8 +852,6 @@
                 field.hide();
             }
         }, this);
-
-        this.toggleButtons(true);
     },
 
     /**
@@ -1365,6 +1105,7 @@
                 } else {
                     ellipsisCellWidth = this._calculateEllipsifiedCellWidth($recordCells, $ellipsisCell);
                     this._setMaxWidthForEllipsifiedCell($ellipsisCell, ellipsisCellWidth);
+                    this._widenLastCell($recordCells);
                 }
             }
         }
@@ -1430,6 +1171,26 @@
             ellipsifiedCell.setMaxWidth(width);
         } else {
             $ellipsisCell.children().css({'max-width': width});
+        }
+    },
+
+    /**
+     * Widen the last cell to 100%.
+     * @param {jQuery} $cells
+     * @private
+     */
+    _widenLastCell: function($cells) {
+        var $cellToWiden;
+
+        _.each($cells, function(cell) {
+            var $cell = $(cell);
+            if ($cell.hasClass('record-cell') && (!$cell.hasClass('hide') || $cell.is(':visible'))) {
+                $cellToWiden = $cell;
+            }
+        });
+
+        if ($cellToWiden) {
+            $cellToWiden.css({'width': '100%'});
         }
     },
 
@@ -1608,20 +1369,5 @@
                 $primaryDropdown.click();
             }
         }, this);
-    },
-
-    /**
-     * Dismisses all {@link #_viewAlerts alerts} defined in this view.
-     *
-     * @protected
-     */
-    _dismissAllAlerts: function() {
-        if (_.isEmpty(this._viewAlerts)) {
-            return;
-        }
-        _.each(_.uniq(this._viewAlerts), function(alert) {
-            app.alert.dismiss(alert);
-        });
-        this._viewAlerts = [];
     }
 })

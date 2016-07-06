@@ -107,14 +107,6 @@ class Attachment
      * @param string $mimeType
      */
     public function setMimeType($mimeType = "") {
-        // Reject Email if it has Executable Attachments
-        if ($mimeType === 'application/x-dosexec') {
-            throw new MailerException(
-                "Executable attachment not accepted",
-                MailerException::ExecutableAttachment
-            );
-        }
-
         $this->mimeType = $mimeType;
     }
 

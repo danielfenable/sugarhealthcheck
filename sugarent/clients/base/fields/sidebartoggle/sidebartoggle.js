@@ -8,6 +8,6 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({events:{'click':'toggle'},_state:'open',_render:function(){this._super('_render');this.dataPlacement=app.lang.direction==='rtl'?'right':'left';return this;},initialize:function(options){this._super('initialize',[options]);var defaultLayout=this.closestComponent('sidebar');if(defaultLayout&&_.isFunction(defaultLayout.isSidePaneVisible)){this.toggleState(defaultLayout.isSidePaneVisible()?'open':'close');this.listenTo(defaultLayout,'sidebar:state:changed',this.toggleState);}
+({events:{'click':'toggle'},_state:'open',initialize:function(options){this._super('initialize',[options]);var defaultLayout=this.closestComponent('sidebar');if(defaultLayout&&_.isFunction(defaultLayout.isSidePaneVisible)){this.toggleState(defaultLayout.isSidePaneVisible()?'open':'close');this.listenTo(defaultLayout,'sidebar:state:changed',this.toggleState);}
 app.shortcuts.register('Sidebar:Toggle','t',this.toggle,this);},toggleState:function(state){if(state!=='open'&&state!=='close'){state=(this._state==='open')?'close':'open';}
 this._state=state;if(!this.disposed){this.render();}},toggle:function(event){var defaultLayout=this.closestComponent('sidebar');if(defaultLayout){defaultLayout.trigger('sidebar:toggle');}}})

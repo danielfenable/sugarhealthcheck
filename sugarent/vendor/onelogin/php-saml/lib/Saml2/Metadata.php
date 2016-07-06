@@ -32,11 +32,10 @@ class OneLogin_Saml2_Metadata
         $validUntilTime =  gmdate('Y-m-d\TH:i:s\Z', $validUntil);
 
         if (!isset($cacheDuration)) {
-            $cacheDuration = self::TIME_CACHED;
+            $cacheDuration = time() + self::TIME_CACHED;
         }
 
         $sls = '';
-
         if (isset($sp['singleLogoutService'])) {
             $sls = <<<SLS_TEMPLATE
         <md:SingleLogoutService Binding="{$sp['singleLogoutService']['binding']}"
@@ -94,13 +93,14 @@ CONTACT;
                      cacheDuration="PT{$cacheDuration}S"
                      entityID="{$sp['entityId']}">
     <md:SPSSODescriptor AuthnRequestsSigned="{$strAuthnsign}" WantAssertionsSigned="{$strWsign}" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
-{$sls}        <md:NameIDFormat>{$sp['NameIDFormat']}</md:NameIDFormat>
+        <md:NameIDFormat>{$sp['NameIDFormat']}</md:NameIDFormat>
         <md:AssertionConsumerService Binding="{$sp['assertionConsumerService']['binding']}"
                                      Location="{$sp['assertionConsumerService']['url']}"
                                      index="1" />
-    </md:SPSSODescriptor>{$strOrganization}{$strContacts}
+{$sls}    </md:SPSSODescriptor>{$strOrganization}{$strContacts}
 </md:EntityDescriptor>
 METADATA_TEMPLATE;
+
         return $metadata;
     }
 
@@ -113,9 +113,9 @@ METADATA_TEMPLATE;
      *
      * @return string Signed Metadata
      */
-    public static function signMetadata($metadata, $key, $cert, $signAlgorithm = XMLSecurityKey::RSA_SHA1)
+    public static function signMetadata($metadata, $key, $cert)
     {
-        return OneLogin_Saml2_Utils::addSign($metadata, $key, $cert, $signAlgorithm);
+        return OneLogin_Saml2_Utils::addSign($metadata, $key, $cert);
     }
 
     /**

@@ -272,10 +272,12 @@ class Audit extends SugarBean
         return $value;
     }
 
-    // FIXME TY-987:  we need to decide if we actually want to deprecate
-    // this and what we want to replace it with
-    public function get_audit_list()
+    /**
+     * @Deprecated
+     */
+   public function get_audit_list()
     {
+
         global $focus, $genericAssocFieldsArray, $moduleAssocFieldsArray, $current_user, $timedate, $app_strings;
         $audit_list = array();
         if (!empty($_REQUEST['record'])) {
@@ -304,6 +306,7 @@ class Audit extends SugarBean
                        $row['before_value_string'] = TeamSetManager::getCommaDelimitedTeams($row['before_value_string']);
                        $row['after_value_string'] = TeamSetManager::getCommaDelimitedTeams($row['after_value_string']);
                     }
+
                     $temp_list = array();
 
                     foreach ($fieldDefs as $field) {

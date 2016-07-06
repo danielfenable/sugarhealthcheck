@@ -23,7 +23,7 @@ class ReportsSearchApi extends PersonFilterApi
                 'reqType' => 'GET',
                 'path' => array('Reports'),
                 'pathVars' => array('module_list'),
-                'method' => 'filterList',
+                'method' => 'globalSearch',
                 'shortHelp' => 'Search Reports',
                 'longHelp' => 'include/api/help/getListModule.html',
             ),

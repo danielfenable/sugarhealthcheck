@@ -13,7 +13,7 @@
  *
  * @class View.Fields.Base.Forecasts.DatapointField
  * @alias SUGAR.App.view.fields.BaseForecastsDatapointField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
 

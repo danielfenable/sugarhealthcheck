@@ -10,14 +10,13 @@ nv.models.tree = function() {
   // http://mbostock.github.com/d3/talk/20111018/tree.html
   // https://groups.google.com/forum/#!topic/d3-js/-qUd_jcyGTw/discussion
   // http://ajaxian.com/archives/foreignobject-hey-youve-got-html-in-my-svg
-  // [possible improvements @ http://bl.ocks.org/robschmuecker/7880033]
 
   //============================================================
   // Public Variables with Default Settings
   //------------------------------------------------------------
 
   // specific to org chart
-  var r = 6,
+  var r = 5.5,
     padding = {'top': 10, 'right': 10, 'bottom': 10, 'left': 10}, // this is the distance from the edges of the svg to the chart,
     duration = 300,
     zoomExtents = {'min': 0.25, 'max': 2},
@@ -25,8 +24,6 @@ nv.models.tree = function() {
     nodeImgPath = '../img/',
     nodeRenderer = function(d) { return '<div class="nv-tree-node"></div>'; },
     zoomCallback = function(d) { return; },
-    nodeCallback = function(d) { return; },
-    nodeClick = function(d) { return; },
     horizontal = false;
 
   var id = Math.floor(Math.random() * 10000), //Create semi-unique ID in case user doesn't select one,
@@ -81,10 +78,9 @@ nv.models.tree = function() {
 
       var svg = d3.select(this);
       var availableSize = { // the size of the svg container minus padding
-            'width': parseInt(svg.style('width'), 10) - padding.left - padding.right,
-            'height': parseInt(svg.style('height'), 10) - padding.top - padding.bottom
-          };
-      var container = d3.select(svg.node().parentNode);
+          'width': parseInt(svg.style('width'), 10) - padding.left - padding.right,
+          'height': parseInt(svg.style('height'), 10) - padding.top - padding.bottom
+        };
 
       var wrap = svg.selectAll('.nv-wrap').data([1]);
       var wrapEnter = wrap.enter().append('g')
@@ -93,8 +89,7 @@ nv.models.tree = function() {
       wrap.call(zoom);
 
       wrapEnter.append('defs');
-      var defs = wrap.select('defs');
-      var nodeShadow = nv.utils.dropShadow('node_back_' + id, defs, {blur: 2});
+      var defsEnter = wrap.select('defs');
 
       wrapEnter.append('svg:rect')
             .attr('class', 'nv-chartBackground')
@@ -115,7 +110,7 @@ nv.models.tree = function() {
       // Compute the new tree layout.
       var tree = d3.layout.tree()
             .size(null)
-            .nodeSize([(horizontal ? nodeSize.height : nodeSize.width), 1])
+            .elementsize([(horizontal ? nodeSize.height : nodeSize.width), 1])
             .separation(function separation(a, b) {
               return a.parent == b.parent ? 1 : 1;
             });
@@ -138,8 +133,8 @@ nv.models.tree = function() {
 
         // the size of the chart itself
         var size = [
-              Math.abs(d3.min(nodes, getX)) + Math.abs(d3.max(nodes, getX)) + nodeSize.width,
-              Math.abs(d3.min(nodes, getY)) + Math.abs(d3.max(nodes, getY)) + nodeSize.height
+              d3.min(nodes, getX) + d3.max(nodes, getX) + (horizontal ? nodeSize.width :  0),
+              d3.min(nodes, getY) + d3.max(nodes, getY) + (horizontal ? 0 : nodeSize.height)
             ],
 
             // initial chart scale to fit chart in container
@@ -149,20 +144,19 @@ nv.models.tree = function() {
 
             // initial chart translation to position chart in the center of container
             center = [
-              Math.abs(d3.min(nodes, getX)) +
-                (xScale < yScale ? 0 : (availableSize.width / scale - size[0]) / 2),
-              Math.abs(d3.min(nodes, getY)) +
-                (xScale < yScale ? (availableSize.height / scale - size[1]) / 2 : 0)
+              xScale < yScale ? 0 : (availableSize.width  / scale - size[0]) / 2,
+              xScale > yScale ? 0 : (availableSize.height / scale - size[1]) / 2
             ],
 
+            // this is needed because the origin of a node is at the bottom
             offset = [
-              nodeSize.width / (horizontal ? 1 : 2),
-              nodeSize.height / (horizontal ? 2 : 1)
+              horizontal ? nodeSize.width : padding.left / 2,
+              horizontal ? padding.top / 2 : nodeSize.height
             ],
 
             translate = [
-              (center[0] + offset[0]) * scale + padding.left / (horizontal ? 2 : 1),
-              (center[1] + offset[1]) * scale + padding.top / (horizontal ? 1 : 2)
+              (offset[0] + center[0]) * scale,
+              (offset[1] + center[1]) * scale
             ];
 
         backg
@@ -174,7 +168,7 @@ nv.models.tree = function() {
 
       chart.orientation = function(orientation) {
         horizontal = (orientation === 'horizontal' || !horizontal ? true : false);
-        tree.nodeSize([(horizontal ? nodeSize.height : nodeSize.width), 1]);
+        tree.elementsize([(horizontal ? nodeSize.height : nodeSize.width), 1]);
         chart.update(_data);
       };
 
@@ -205,7 +199,6 @@ nv.models.tree = function() {
       };
 
       chart.zoomLevel = function(level) {
-
         var scale = Math.min(Math.max(level, zoomExtents.min), zoomExtents.max),
 
             prevScale = zoom.scale(),
@@ -288,7 +281,7 @@ nv.models.tree = function() {
         var root = nodes[0];
 
         nodes.forEach(function(d) {
-          setY(d, d.depth * 2 * (horizontal ? nodeSize.width : nodeSize.height));
+          setY(d, d.depth * (horizontal ? 2 * nodeSize.width : 2 * nodeSize.height));
         });
 
         // Update the nodes…
@@ -307,40 +300,16 @@ nv.models.tree = function() {
                 }
               });
 
-        var nodeOffsetX = (horizontal ? r - nodeSize.width : nodeSize.width / -2) + 'px',
-            nodeOffsetY = (horizontal ? (r - nodeSize.height) / 2 : r * 2 - nodeSize.height) + 'px';
-
-        nodeEnter.each(function(d) {
-          if (defs.select('#myshape-' + getId(d)).empty()) {
-            var nodeObject = defs.append('svg').attr('class', 'nv-foreign-object')
-                  .attr('id', 'myshape-' + getId(d))
-                  .attr('version', '1.1')
-                  .attr('xmlns', 'http://www.w3.org/2000/svg')
-                  .attr('xmlns:xmlns:xlink', 'http://www.w3.org/1999/xlink')
-                  .attr('x', nodeOffsetX)
-                  .attr('y', nodeOffsetY)
-                  .attr('width', nodeSize.width + 'px')
-                  .attr('height', nodeSize.height + 'px')
-                  .attr('viewBox', '0 0 ' + nodeSize.width + ' ' + nodeSize.height)
-                  .attr('xml:space', 'preserve');
-
-            var nodeContent = nodeObject.append('g').attr('class', 'nv-tree-node-content')
-                  .attr('transform', 'translate(' + r + ',' + r + ')');
-
-            nodeRenderer(nodeContent, d, nodeSize.width - r * 2, nodeSize.height - r * 3);
-
-            nodeContent.on('click', nodeClick);
-
-            nodeCallback(nodeObject);
-          }
-        });
-
         // node content
-        nodeEnter.append('use')
-            .attr('xlink:href', function(d) {
-              return '#myshape-' + getId(d);
-            })
-            .attr('filter', nodeShadow);
+        nodeEnter.append('foreignObject').attr('class', 'nv-foreign-object')
+            .attr('width', 1)
+            .attr('height', 1)
+            .attr('x', -1)
+            .attr('y', -1)
+            .attr('externalResourcesRequired', true)
+          .append('xhtml:body')
+            .style('font', '14px "Helvetica Neue"')
+            .html(nodeRenderer);
 
         // node circle
         var xcCircle = nodeEnter.append('svg:g').attr('class', 'nv-expcoll')
@@ -373,12 +342,11 @@ nv.models.tree = function() {
               .style('stroke', function(d) {
                 return (d._children && d._children.length) ? '#fff' : '#bbb';
               });
-
-            nodeUpdate.each(function(d) {
-              container.select('#myshape-' + getId(d))
-                .attr('x', nodeOffsetX)
-                .attr('y', nodeOffsetY);
-            });
+            nodeUpdate.selectAll('.nv-foreign-object')
+              .attr('width', nodeSize.width)
+              .attr('height', nodeSize.height)
+              .attr('x', (horizontal ? -nodeSize.width + r : -nodeSize.width / 2))
+              .attr('y', (horizontal ? -nodeSize.height / 2 + r : -nodeSize.height + r * 2));
 
         // Transition exiting nodes to the parent's new position.
         var nodeExit = node.exit().transition()
@@ -571,18 +539,6 @@ nv.models.tree = function() {
   chart.nodeRenderer = function(_) {
     if (!arguments.length) return nodeRenderer;
     nodeRenderer = _;
-    return chart;
-  };
-
-  chart.nodeCallback = function(_) {
-    if (!arguments.length) return nodeCallback;
-    nodeCallback = _;
-    return chart;
-  };
-
-  chart.nodeClick = function(_) {
-    if (!arguments.length) return nodeClick;
-    nodeClick = _;
     return chart;
   };
 

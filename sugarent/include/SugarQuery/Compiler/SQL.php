@@ -315,15 +315,10 @@ class SugarQuery_Compiler_SQL
 
     }
 
-    /**
-     * @param $field
-     * @param bool $compare Points that field is compared with another field.
-     * @return string
-     */
-    protected function compileField($field, $compare = false)
+    protected function compileField($field)
     {
-        if ($compare) {
-            $field->field = $field->getFieldCompare();
+        if (!is_object($field)) {
+            return $field;
         }
 
         if ($field instanceof SugarQuery_Builder_Field_Raw) {
@@ -483,8 +478,6 @@ class SugarQuery_Compiler_SQL
      */
     public function compileCondition(SugarQuery_Builder_Condition $condition)
     {
-        global $current_user;
-
         $sql = '';
         $field = $this->compileField($condition->field);
 
@@ -509,14 +502,10 @@ class SugarQuery_Compiler_SQL
                     if ($condition->values instanceof SugarQuery) {
                         $sql .= "(" . $condition->values->compileSql($this->sugar_query) . ")";
                     } else {
-                        if (empty($condition->values)) {
-                            $sql .= "(NULL)";
-                        } else {
-                            foreach ($condition->values as $val) {
-                                $valArray[] = $this->prepareValue($val, $condition);
-                            }
-                            $sql .= "(" . implode(',', $valArray) . ")";
+                        foreach ($condition->values as $val) {
+                            $valArray[] = $this->prepareValue($val, $condition);
                         }
+                        $sql .= "(" . implode(',', $valArray) . ")";
                     }
                     break;
                 case 'NOT IN':
@@ -525,14 +514,10 @@ class SugarQuery_Compiler_SQL
                     if ($condition->values instanceof SugarQuery) {
                         $sql .= '(' . $condition->values->compileSql($this->sugar_query) . ')';
                     } else {
-                        if (empty($condition->values)) {
-                            $sql .= "(NULL)";
-                        } else {
-                            foreach ($condition->values as $val) {
-                                $valArray[] = $this->prepareValue($val, $condition);
-                            }
-                            $sql .= '(' . implode(',', $valArray) . ')';
+                        foreach ($condition->values as $val) {
+                            $valArray[] = $this->prepareValue($val, $condition);
                         }
+                        $sql .= '(' . implode(',', $valArray) . ')';
                     }
                     $sql .= ')';
                     break;
@@ -593,22 +578,12 @@ class SugarQuery_Compiler_SQL
                     $sql .= $castedField . ' ' . $condition->operator . ' ';
                     if ($condition->values instanceof SugarQuery) {
                         $sql .= "(" . $condition->values->compileSql($this->sugar_query) . ")";
-                    } elseif ($condition->field->isFieldCompare()) {
-                        $sql .= $this->compileField($condition->field, true);
                     } else {
                         $sql .= $this->prepareValue($condition->values, $condition);
                     }
                     break;
             }
         }
-
-        if (!$condition->isAclIgnored()) {
-            $isFieldAccessible = ACLField::generateAclCondition($condition, $current_user);
-            if ($isFieldAccessible) {
-                $sql = '(' . $sql . ' AND (' . $this->compileWhere(array($isFieldAccessible)) . '))';
-            }
-        }
-
         return $sql;
     }
 

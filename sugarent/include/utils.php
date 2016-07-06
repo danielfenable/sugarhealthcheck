@@ -19,8 +19,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 require_once 'include/SugarObjects/SugarConfig.php';
 require_once 'include/utils/security_utils.php';
-require_once 'include/utils/array_utils.php';
-
 
 function make_sugar_config(&$sugar_config)
 {
@@ -247,7 +245,6 @@ function get_sugar_config_defaults()
     'oauth_token_expiry' => 0,
     'admin_export_only' => false,
     'export_delimiter' => ',',
-    'export_excel_compatible' => false,
     'cache_dir' => 'cache/',
     'calculate_response_time' => true,
     'create_default_user' => false,
@@ -316,7 +313,6 @@ function get_sugar_config_defaults()
     'lock_default_user_name' => false,
     'log_memory_usage' => false,
     'portal_view' => 'single_user',
-    'preview_edit' => false,
     'resource_management' => array (
         'special_query_limit' => 50000,
         'special_query_modules' => array('Reports', 'Export', 'Import', 'Administration', 'Sync'),
@@ -755,28 +751,117 @@ function get_user_name($id)
     $db = DBManagerFactory::getInstance();
 
     $q = "SELECT user_name FROM users WHERE id='{$id}'";
-    $a = $db->fetchOne($q);
+    $r = $db->query($q);
+    $a = $db->fetchByAssoc($r);
 
     return (empty($a)) ? '' : $a['user_name'];
 }
 
+
+//TODO Update to use global cache
 /**
- * @deprecated
- * @see User::getUserArray()
+ * get_user_array
+ *
+ * This is a helper function to return an Array of users depending on the parameters passed into the function.
+ * This function uses the get_register_value function by default to use a caching layer where supported.
+ *
+ * @param bool $add_blank Boolean value to add a blank entry to the array results, true by default
+ * @param string $status String value indicating the status to filter users by, "Active" by default
+ * @param string $user_id String value to specify a particular user id value (searches the id column of users table), blank by default
+ * @param bool $use_real_name Boolean value indicating whether or not results should include the full name or just user_name, false by default
+ * @param String $user_name_filter String value indicating the user_name filter (searches the user_name column of users table) to optionally search with, blank by default
+ * @param string $portal_filter String query filter for portal users (defaults to searching non-portal users), change to blank if you wish to search for all users including portal users
+ * @param bool $from_cache Boolean value indicating whether or not to use the get_register_value function for caching, true by default
+ * @return array Array of users matching the filter criteria that may be from cache (if similar search was previously run)
  */
-function get_user_array($add_blank=true, $status="Active", $user_id='', $use_real_name=false, $user_name_filter='', $portal_filter=' AND portal_only=0 ', $from_cache = true, $order_by = array())
+function get_user_array($add_blank=true, $status="Active", $user_id='', $use_real_name=false, $user_name_filter='', $portal_filter=' AND portal_only=0 ', $from_cache = true)
 {
-    $GLOBALS['log']->deprecated('get_user_array() is deprecated');
-    return BeanFactory::getBean('Users')->getUserArray(
-        $add_blank,
-        $status,
-        $user_id,
-        $use_real_name,
-        $user_name_filter,
-        $portal_filter,
-        $from_cache,
-        $order_by
-    );
+    global $locale, $current_user;
+
+    if (empty($locale)) {
+        $locale = Localization::getObject();
+    }
+
+    $db = DBManagerFactory::getInstance();
+
+    // Pre-build query for use as cache key
+    // Including deleted users for now.
+    if (empty($status)) {
+        $query = "SELECT id, first_name, last_name, user_name FROM users ";
+        $where = "1=1" . $portal_filter;
+    } else {
+        $query = "SELECT id, first_name, last_name, user_name FROM users ";
+        $where = "status='$status'" . $portal_filter;
+    }
+
+    $user = BeanFactory::getBean('Users');
+    $user->addVisibilityFrom($query);
+    $query .= " WHERE $where ";
+    $user->addVisibilityWhere($query);
+
+    if (!empty($user_name_filter)) {
+        $user_name_filter = $db->quote($user_name_filter);
+        $query .= " AND user_name LIKE '$user_name_filter%' ";
+    }
+    if (!empty($user_id)) {
+        $query .= " OR id='{$user_id}'";
+    }
+
+    //get the user preference for name formatting, to be used in order by
+    $order_by_string =' user_name ASC ';
+    if (!empty($current_user) && !empty($current_user->id)) {
+        $formatString = $current_user->getPreference('default_locale_name_format');
+    
+        //create the order by string based on position of first and last name in format string
+        $firstNamePos = strpos( $formatString, 'f');
+        $lastNamePos = strpos( $formatString, 'l');
+        if ($firstNamePos !== false || $lastNamePos !== false) {
+            //its possible for first name to be skipped, check for this
+            if ($firstNamePos===false) {
+                $order_by_string =  'last_name ASC';
+            } else {
+                $order_by_string =  ($lastNamePos < $firstNamePos) ? "last_name, first_name ASC" : "first_name, last_name ASC";
+            }
+        }
+    }
+
+    $query = $query.' ORDER BY '.$order_by_string;
+
+    if ($from_cache) {
+        $key_name = $query . $status . $user_id . $use_real_name . $user_name_filter . $portal_filter;
+        $key_name = md5($key_name);
+        $user_array = get_register_value('user_array', $key_name);
+    }
+
+    if (empty($user_array)) {
+        $temp_result = Array();
+        $GLOBALS['log']->debug("get_user_array query: $query");
+        $result = $db->query($query, true, "Error filling in user array: ");
+
+		// Get the id and the name.
+		while($row = $db->fetchByAssoc($result)) {
+			if($use_real_name == true || showFullName()) {
+				if(isset($row['last_name'])) { // cn: we will ALWAYS have both first_name and last_name (empty value if blank in db)
+                    $temp_result[$row['id']] = $locale->formatName('Users', $row);
+				} else {
+					$temp_result[$row['id']] = $row['user_name'];
+				}
+			} else {
+				$temp_result[$row['id']] = $row['user_name'];
+			}
+		}
+
+        $user_array = $temp_result;
+        if ($from_cache) {
+            set_register_value('user_array', $key_name, $temp_result);
+        }
+    }
+
+    if ($add_blank) {
+        $user_array[''] = '';
+    }
+
+    return $user_array;
 }
 
 
@@ -950,9 +1035,11 @@ function return_app_list_strings_language($language, $useCache = true)
         }
 
         $files = SugarAutoLoader::existing(
-            "custom/include/language/$lang.lang.php",
-            "custom/application/Ext/Language/$lang.lang.ext.php"
+            "custom/application/Ext/Language/$lang.lang.ext.php",
+            "custom/include/language/$lang.lang.php"
         );
+
+        $files = sortExtensionFiles($files);
 
         foreach ($files as $file) {
             $app_list_strings = _mergeCustomAppListStrings($file, $app_list_strings);
@@ -1070,8 +1157,8 @@ function return_application_language($language)
                 "include/language/$lang.lang.php",
                 "include/language/$lang.lang.override.php",
                 "include/language/$lang.lang.php.override",
-                "custom/include/language/$lang.lang.php",
-                "custom/application/Ext/Language/$lang.lang.ext.php"
+                "custom/application/Ext/Language/$lang.lang.ext.php",
+                "custom/include/language/$lang.lang.php"
         ) as $file) {
             include $file;
             $GLOBALS['log']->info("Found language file: $file");
@@ -1553,10 +1640,8 @@ function get_admin_modules_for_user($user)
 
  function get_workflow_admin_modules_for_user($user)
  {
-    global $moduleList;
-
     /* Workflow modules blacklist */
-    $blacklist = array(
+    $workflowNotSupportedModules = array(
         'iFrames',
         'Feeds',
         'Home',
@@ -1570,12 +1655,17 @@ function get_admin_modules_for_user($user)
         'pmse_Inbox', // Processes
     );
 
+    if (isset($_SESSION['get_workflow_admin_modules_for_user'])) {
+        return $_SESSION['get_workflow_admin_modules_for_user'];
+    }
+
+    global $moduleList;
     $workflow_mod_list = array();
     foreach ($moduleList as $module) {
         $workflow_mod_list[$module] = $module;
     }
 
-    // This list is taken from the previous version of workflow_utils.php
+    // This list is taken from teh previous version of workflow_utils.php
     $workflow_mod_list['Tasks'] = "Tasks";
     $workflow_mod_list['Calls'] = "Calls";
     $workflow_mod_list['Meetings'] = "Meetings";
@@ -1585,18 +1675,20 @@ function get_admin_modules_for_user($user)
     $workflow_mod_list['Opportunities'] = "Opportunities";
     // End of list
 
-    $wfModules = array();
+    $workflow_admin_modules = array();
     if (empty($user)) {
-        return $wfModules;
+        return $workflow_admin_modules;
     }
-
-    foreach ($workflow_mod_list as $key => $val) {
-        if (!in_array($val, $wfModules) && !in_array($val, $blacklist) && $user->isDeveloperForModule($key)) {
-            $wfModules[$key] = $val;
+    $actions = ACLAction::getUserActions($user->id);
+    foreach ($workflow_mod_list as $key=>$val) {
+        if (!in_array($val, $workflow_admin_modules) && !in_array($val, $workflowNotSupportedModules) &&
+           ($user->isDeveloperForModule($key))) {
+                $workflow_admin_modules[$key] = $val;
         }
     }
+    $_SESSION['get_workflow_admin_modules_for_user'] = $workflow_admin_modules;
 
-    return $wfModules;
+    return ($workflow_admin_modules);
 }
 
 // Check if user is admin for at least one module.
@@ -2158,6 +2250,7 @@ function clean_special_arguments()
     if (!empty($_REQUEST) && !empty($_REQUEST['login_theme'])) clean_string($_REQUEST['login_theme'], "STANDARD");
     if (!empty($_REQUEST) && !empty($_REQUEST['login_module'])) clean_string($_REQUEST['login_module'], "STANDARD");
     if (!empty($_REQUEST) && !empty($_REQUEST['login_action'])) clean_string($_REQUEST['login_action'], "STANDARD");
+    if (!empty($_REQUEST) && !empty($_REQUEST['ck_login_theme_20'])) clean_string($_REQUEST['ck_login_theme_20'], "STANDARD");
     if (!empty($_SESSION) && !empty($_SESSION['authenticated_user_theme'])) clean_string($_SESSION['authenticated_user_theme'], "STANDARD");
     if (!empty($_REQUEST) && !empty($_REQUEST['module_name'])) clean_string($_REQUEST['module_name'], "STANDARD");
     if (!empty($_REQUEST) && !empty($_REQUEST['module'])) clean_string($_REQUEST['module'], "STANDARD");
@@ -2391,16 +2484,24 @@ function getVersionedPath($path, $additional_attrs='', $time_modified=false)
         $GLOBALS['js_version_key'] = get_js_version_key();
     }
 
-    if (!is_scalar($additional_attrs)) {
-        $additional_attrs = serialize($additional_attrs);
+    if (inDeveloperMode() || $time_modified) {
+        if (file_exists($path)) {
+            $timestamp = filemtime($path);
+        } else {
+            // if the file doesn't exists, it means it was deleted during cache rebuild
+            // and will be regenerated in future.
+            // we need to invalidate client side cache in order to make the client request the resource from server
+            $timestamp = create_guid();
+        }
+        $dev = md5($timestamp);
+    } else {
+        $dev = '';
     }
-
-    if ((inDeveloperMode() || $time_modified) && file_exists($path)) {
-        $additional_attrs .= filemtime($path);
+    if (is_array($additional_attrs)) {
+        $additional_attrs = join("|",$additional_attrs);
     }
-
     // cutting 2 last chars here because since md5 is 32 chars, it's always ==
-    $str = substr(base64_encode(md5("{$GLOBALS['js_version_key']}|{$GLOBALS['sugar_config']['js_custom_version']}|$additional_attrs", true)), 0, -2);
+    $str = substr(base64_encode(md5("{$GLOBALS['js_version_key']}|{$GLOBALS['sugar_config']['js_custom_version']}|$dev|$additional_attrs", true)), 0, -2);
     // remove / - it confuses some parsers
     $str = strtr($str, '/+', '-_');
     if(empty($path)) return $str;
@@ -3006,10 +3107,10 @@ function check_php_version($sys_php_version = '')
     // versions below $min_considered_php_version considered invalid by default,
     // versions equal to or above this ver will be considered depending
     // on the rules that follow
-    $min_considered_php_version = '5.3.25';
+    $min_considered_php_version = '5.3.0';
     //always use .unsupported to make sure that the dev/beta/rc releases are excluded as well
 
-    $version_threshold  = '5.6.unsupported';
+    $version_threshold  = '5.5.unsupported';
 
     // only the supported versions,
     // should be mutually exclusive with $invalid_php_versions
@@ -3316,7 +3417,6 @@ function remove_logic_hook($module_name, $event, $action_array)
             $new_contents = replace_or_add_logic_type($hook_array);
             write_logic_file($module_name, $new_contents);
 
-            LogicHook::refreshHooks();
         }
     }
 }
@@ -3997,9 +4097,6 @@ function sugarArrayIntersectMerge($gimp, $dom)
  */
 function sugarLangArrayMerge($gimp, $dom)
 {
-    if (empty($gimp) && is_array($dom))
-        return $dom;
-
     if (is_array($gimp) && is_array($dom)) {
         foreach ($dom as $domKey => $domVal) {
             if (isset($gimp[$domKey])) {
@@ -4444,12 +4541,8 @@ function html_entity_decode_utf8($string)
     static $trans_tbl;
     // replace numeric entities
     //php will have issues with numbers with leading zeros, so do not include them in what we send to code2utf.
-    $string = preg_replace_callback('~&#x0*([0-9a-f]+);~i', function ($matches) {
-        return code2utf(hexdec($matches[1]));
-    }, $string);
-    $string = preg_replace_callback('~&#0*([0-9]+);~', function ($matches) {
-        return code2utf($matches[1]);
-    }, $string);
+    $string = preg_replace('~&#x0*([0-9a-f]+);~ei', 'code2utf(hexdec("\\1"))', $string);
+    $string = preg_replace('~&#0*([0-9]+);~e', 'code2utf(\\1)', $string);
     // replace literal entities
     if (!isset($trans_tbl)) {
         $trans_tbl = array();
@@ -4713,22 +4806,6 @@ function getTeamSetNameJoin($table_name)
 function inDeveloperMode()
 {
     return !empty($GLOBALS['sugar_config']['developerMode']);
-}
-
-/**
- * Checks if web resources should be minified
- *
- * @return bool
- */
-function shouldResourcesBeMinified()
-{
-    global $sugar_config;
-
-    if (!isset($sugar_config['minify_resources'])) {
-        return !inDeveloperMode();
-    }
-
-    return (bool) $sugar_config['minify_resources'];
 }
 
 /**
@@ -5038,7 +5115,7 @@ function verify_image_file($path, $jpeg = false)
             }
 
             fclose($fp);
-            if(preg_match("/<(\?php|html|!doctype|script|body|head|plaintext|table|img |pre(>| )|frameset|iframe|object|link|base|style|font|applet|meta|center|form|isindex)/i",
+            if(preg_match("/<(\?php|html|!doctype|script|body|head|plaintext|table|img |pre(>| )|frameset|iframe|object|link|base|style|font|applet|meta|center|form|isindex)/i",
                  $data, $m)) {
                 $GLOBALS['log']->fatal("Found {$m[0]} in $path, not allowing upload");
 
@@ -5139,11 +5216,9 @@ function sanitize($input, $quotes = ENT_QUOTES, $charset = 'UTF-8', $remove = fa
 
 /**
  * @return string - the full text search engine name
- * @deprecated
  */
 function getFTSEngineType()
 {
-    $GLOBALS['log']->deprecated('The usage of getFTSEngineType is deprecated');
     if (isset($GLOBALS['sugar_config']['full_text_engine']) && is_array($GLOBALS['sugar_config']['full_text_engine'])) {
         foreach ($GLOBALS['sugar_config']['full_text_engine'] as $name => $defs) {
             return $name;
@@ -5156,11 +5231,9 @@ function getFTSEngineType()
 /**
  * @param string $optionName - name of the option to be retrieved from app_list_strings
  * @return array - the array to be used in option element
- * @deprecated
  */
 function getFTSBoostOptions($optionName)
 {
-    $GLOBALS['log']->deprecated('The usage of getFTSBoostOptions is deprecated');
     if (isset($GLOBALS['app_list_strings'][$optionName])) {
         return $GLOBALS['app_list_strings'][$optionName];
     } else {
@@ -5653,27 +5726,6 @@ function getFunctionValue($bean, $function, $args = array())
 }
 
 /**
- * Get options for a field, based on it's definition.
- * @param array $vardef Field definition.
- * @return array|false Options for the field, or false otherwise.
- */
-function getOptionsFromVardef($vardef)
-{
-    if (!empty($vardef['function'])) {
-        if (!empty($vardef['function']['returns']) && !strcmp($vardef['function']['returns'], 'html')) {
-            return false;
-        }
-        return getFunctionValue(
-            isset($vardef['function_bean']) ? $vardef['function_bean'] : null,
-            $vardef['function']
-        );
-    } elseif (isset($vardef['options'])) {
-        return translate($vardef['options'], isset($vardef['module']) ? $vardef['module'] : '');
-    }
-    return false;
-}
-
-/**
  * Evaluates if a value is isTruthy
  * @param mixed $value
  * @return bool
@@ -5876,50 +5928,4 @@ function sortExtensionFiles(array $files)
     });
 
     return array_keys($sorted);
-}
-
-/**
- * Make sure a user isn't stealing sessions so check the ip to ensure that the ip address hasn't dramatically changed
- *
- * @param string $clientIp Client IP address
- * @param string $sessionIp Session IP address
- * @return bool
- */
-function validate_ip($clientIp, $sessionIp)
-{
-    global $sugar_config;
-
-    // check to see if config entry is present
-    if (isset($sugar_config['verify_client_ip']) && !$sugar_config['verify_client_ip']) {
-        return true;
-    }
-    
-    $isValidIP = true;
-
-    $classCheck = 0;
-
-    $session_parts = explode(".", $sessionIp);
-    $client_parts = explode(".", $clientIp);
-    if (count($session_parts) < 4) {
-        $classCheck = 0;
-    } else {
-        // match class C IP addresses
-        for ($i = 0; $i < 3; $i ++) {
-            if ($session_parts[$i] == $client_parts[$i]) {
-                $classCheck = 1;
-                continue;
-            } else {
-                $classCheck = 0;
-                break;
-            }
-        }
-    }
-
-    // we have a different IP address
-    if ($sessionIp != $clientIp && empty($classCheck)) {
-        $isValidIP = false;
-    }
-
-    return $isValidIP;
-
 }

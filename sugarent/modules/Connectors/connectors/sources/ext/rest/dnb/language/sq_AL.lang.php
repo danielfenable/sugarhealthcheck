@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,19 +12,15 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): contact@synolia.com - www.synolia.com
- * *******************************************************************************/
+	
+
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="7%" class="dataLabel"><img height="50" src="modules/Connectors/connectors/sources/ext/rest/dnb/images/DNB_corp30_pos.png"></td><td>D&amp;B for Sugar® u jep abonentëve të D&amp;B akses në informacionet më të fundit, më të plota dhe më të sakta të biznesit, duke përfshirë informacionet e kompanisë dhe ato individuale të kontaktit, konkurrentët, kompanitë familjare, aspektet financiare, të rejat dhe mediat sociale. Për të mësuar më shumë rreth D&amp;B for Sugar®, vizitoni <a  target="_blank" href="http://www.dnb.com/partner/dnb-for-sugarcrm.html">Dun &amp; Bradstreet</a>.</td></tr></table>',
-    'LBL_NAME' => 'Emri i përdoruesit të D&B',
-    'LBL_ID' => 'Emri i përdoruesit të D&B',
-    'company_url' => 'URL',
-    'dnb_username' => 'Emri i përdoruesit të D&B',
-    'dnb_password' => 'Çelësi i aplikacionit të D&B',
-    'dnb_env' => 'Ambienti i D&B'
+  'LBL_ID' => 'LBL_ID',
+  'LBL_LICENSING_INFO' => 'LBL_LICENCIMI_INFO',
+  'LBL_NAME' => 'LBL_EMRI',
+  'company_url' => 'kompania_url',
+  'dnb_env' => 'dnb_env',
+  'dnb_password' => 'dnb_fjalekalimi',
+  'dnb_username' => 'dnb_emripersoruesit',
 );
 
-?>

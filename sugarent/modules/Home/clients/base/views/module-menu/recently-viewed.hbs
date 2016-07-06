@@ -13,9 +13,8 @@
 {{#each collection.models}}
     <li><a class="ellipsis_inline" tabindex="-1"
            href="#{{buildRoute model=this}}"
-           data-route="#{{buildRoute model=this}}"
-           title="{{fieldValue this 'name'}}"><i
-            class="fa fa-clock-o active"></i>{{!FIXME this should be improved by SC-2622}}{{#if attributes.name}}{{fieldValue this 'name'}}{{else}}{{getModuleName attributes._module}}{{/if}}
+           data-route="#{{buildRoute model=this}}"><i
+            class="fa fa-clock-o active"></i>{{!FIXME this should be improved by SC-2622}}{{#if attributes.name}}{{fieldValue this "name"}}{{else}}{{getModuleName attributes._module}}{{/if}}
     </a></li>
 {{/each}}
 {{#if showRecentToggle}}

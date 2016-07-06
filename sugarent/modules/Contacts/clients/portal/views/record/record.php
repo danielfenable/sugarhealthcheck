@@ -12,7 +12,6 @@
  */
 
 $viewdefs['Contacts']['portal']['view']['record'] = array(
-    'hashSync' => false,
     'panels' => array(
         array(
             'name' => 'panel_header',

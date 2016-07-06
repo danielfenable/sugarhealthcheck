@@ -9,8 +9,9 @@ namespace Elastica\Exception;
  * @package Elastica
  * @author Ian Babrou <ibobrik@gmail.com>
  */
-class ElasticsearchException extends \Exception implements ExceptionInterface
+class ElasticsearchException extends \Exception
 {
+
     const REMOTE_TRANSPORT_EXCEPTION = 'RemoteTransportException';
 
     /**
@@ -30,7 +31,7 @@ class ElasticsearchException extends \Exception implements ExceptionInterface
     /**
      * Constructs elasticsearch exception
      *
-     * @param int    $code  Error code
+     * @param int $code Error code
      * @param string $error Error message from elasticsearch
      */
     public function __construct($code, $error)
@@ -63,7 +64,7 @@ class ElasticsearchException extends \Exception implements ExceptionInterface
     /**
      * Extract exception name from error response
      *
-     * @param  string      $error
+     * @param string $error
      * @return null|string
      */
     protected function _extractException($error)
@@ -71,7 +72,7 @@ class ElasticsearchException extends \Exception implements ExceptionInterface
         if (preg_match('/^(\w+)\[.*\]/', $error, $matches)) {
             return $matches[1];
         } else {
-            return;
+            return null;
         }
     }
 
@@ -94,4 +95,5 @@ class ElasticsearchException extends \Exception implements ExceptionInterface
     {
         return $this->_isRemote;
     }
+
 }

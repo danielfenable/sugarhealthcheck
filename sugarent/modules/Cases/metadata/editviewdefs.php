@@ -74,7 +74,6 @@ $viewdefs['Cases']['EditView'] = array(
 	array(
 	   array (
 		    'assigned_user_name',
-
 		    array('name'=>'team_name', 'displayParams'=>array('required'=>true)),
 	   ),
 	),

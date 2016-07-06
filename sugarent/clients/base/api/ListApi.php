@@ -105,7 +105,8 @@ class ListApi extends SugarListApi {
 
         // If we want the last page, here is the magic to get there.
         if($offset === 'end'){
-            if ( $row = $GLOBALS['db']->fetchOne($countQuery) ) {
+            $ret = $GLOBALS['db']->query($countQuery);
+            if ( $row = $GLOBALS['db']->fetchByAssoc($ret) ) {
                 $totalCount = $row['c'];
             } else {
                 $totalCount = 0;

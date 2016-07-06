@@ -88,9 +88,6 @@ $ie = BeanFactory::getBean('InboundEmail');
 if(!empty($_REQUEST['ie_id'])) {
     $ie->disable_row_level_security = true;
     $ie->retrieve($_REQUEST['ie_id']);
-    if (!empty($ie->email_password)) {
-        $ie->email_password = html_entity_decode($ie->email_password, ENT_QUOTES);
-    }
 }
 $ie->email_user     = $_REQUEST['email_user'];
 $ie->server_url     = $_REQUEST['server_url'];

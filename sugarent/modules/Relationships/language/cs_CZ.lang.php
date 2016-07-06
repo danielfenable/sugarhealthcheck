@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,19 +12,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
- /*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-  'LBL_ID' => 'ID vztahu',
-  'LBL_RELATIONSHIP_NAME' => 'Jméno vztahu',
-  'LBL_LHS_MODULE' => 'Jméno modulu LHS',
-  'LBL_LHS_TABLE' => 'Jméno tabulky LHS',
   'LBL_LHS_KEY' => 'Název klíče LHS',
   'LBL_RHS_MODULE' => 'Název modulu RHS',
   'LBL_RHS_TABLE' => 'Název tabulky RHS',
@@ -30,11 +22,15 @@ $mod_strings = array (
   'LBL_JOIN_TABLE' => 'Připojit název tabulky',
   'LBL_JOIN_KEY_LHS' => 'Připojit klíč LHS',
   'LBL_JOIN_KEY_RHS' => 'Připojit klíč RHS',
+  'LBL_ID' => 'ID vztahu',
+  'LBL_RELATIONSHIP_NAME' => 'Jméno vztahu',
+  'LBL_LHS_MODULE' => 'Jméno modulu LHS',
+  'LBL_LHS_TABLE' => 'Jméno tabulky LHS',
   'LBL_RELATIONSHIP_TYPE' => 'Typ vztahu',
   'LBL_RELATIONSHIP_ROLE_COLUMN' => 'Jméno sloupce s rolí vztahu',
   'LBL_RELATIONSHIP_ROLE_COLUMN_VALUE' => 'Hodnota sloupce s rolí vztahu',
-  'LBL_REVERSE' => 'Obrátit' ,
-  'LBL_DELETED' => 'Odstranit',
+  'LBL_REVERSE' => 'Obrátit',
+  'LBL_DELETED' => 'Odstranil',
 );
-  
-?>
+
+

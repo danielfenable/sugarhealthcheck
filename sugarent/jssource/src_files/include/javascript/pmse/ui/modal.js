@@ -39,7 +39,6 @@ var Modal = function (options) {
      * @type {Function}
      */
     this.clickHander = null;
-
     Modal.prototype.initObject.call(this, options);
 };
 
@@ -111,10 +110,8 @@ Modal.prototype.show = function (child) {
  * Hide the modal object
  */
 Modal.prototype.hide = function () {
-    var parentElement;
     if (this.visible) {
-        parentElement = this.html.parentElement;
-        parentElement.removeChild(this.html);
+        document.body.removeChild(this.html);
         this.setVisible(false);
     }
 };

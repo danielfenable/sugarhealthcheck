@@ -9,6 +9,11 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
+
 $viewdefs['base']['view']['create-actions'] = array(
     'template' => 'record',
     'buttons' => array(
@@ -32,33 +37,68 @@ $viewdefs['base']['view']['create-actions'] = array(
             ),
         ),
         array(
-            'name' => 'save_button',
-            'type' => 'button',
-            'label' => 'LBL_SAVE_BUTTON_LABEL',
+            'type' => 'actiondropdown',
+            'name' => 'main_dropdown',
             'primary' => true,
+            'switch_on_click' => true,
             'showOn' => 'create',
-            'events' => array(
-                'click' => 'button:save_button:click',
+            'buttons' => array(
+                array(
+                    'type' => 'rowaction',
+                    'name' => 'save_button',
+                    'label' => 'LBL_SAVE_BUTTON_LABEL',
+                    'events' => array(
+                        'click' => 'button:save_button:click',
+                    ),
+                ),
+                array(
+                    'type' => 'rowaction',
+                    'name' => 'save_view_button',
+                    'label' => 'LBL_SAVE_AND_VIEW',
+                    'events' => array(
+                        'click' => 'button:save_view_button:click',
+                    ),
+                ),
+                array(
+                    'type' => 'rowaction',
+                    'name' => 'save_create_button',
+                    'label' => 'LBL_SAVE_AND_CREATE_ANOTHER',
+                    'events' => array(
+                        'click' => 'button:save_create_button:click',
+                    ),
+                ),
             ),
         ),
         array(
-            'name' => 'duplicate_button',
-            'type' => 'button',
-            'label' => 'LBL_IGNORE_DUPLICATE_AND_SAVE',
+            'type' => 'actiondropdown',
+            'name' => 'duplicate_dropdown',
             'primary' => true,
             'showOn' => 'duplicate',
-            'events' => array(
-                'click' => 'button:save_button:click',
+            'buttons' => array(
+                array(
+                    'type' => 'rowaction',
+                    'name' => 'save_button',
+                    'label' => 'LBL_IGNORE_DUPLICATE_AND_SAVE',
+                    'events' => array(
+                        'click' => 'button:save_button:click',
+                    ),
+                ),
             ),
         ),
         array(
-            'name' => 'select_button',
-            'type' => 'button',
-            'label' => 'LBL_SAVE_BUTTON_LABEL',
+            'type' => 'actiondropdown',
+            'name' => 'select_dropdown',
             'primary' => true,
             'showOn' => 'select',
-            'events' => array(
-                'click' => 'button:save_button:click',
+            'buttons' => array(
+                array(
+                    'type' => 'rowaction',
+                    'name' => 'save_button',
+                    'label' => 'LBL_SAVE_BUTTON_LABEL',
+                    'events' => array(
+                        'click' => 'button:save_button:click',
+                    ),
+                ),
             ),
         ),
         array(

@@ -40,8 +40,6 @@ class CurrentUserApi extends SugarApi
         'default_locale_name_format' => 'default_locale_name_format',
         'fdow' => 'first_day_of_week',
         'sweetspot' => 'sweetspot',
-        'reminder_time' => 'reminder_time',
-        'email_reminder_time' => 'email_reminder_time',
     );
 
     const TYPE_ADMIN = "admin";
@@ -104,6 +102,7 @@ class CurrentUserApi extends SugarApi
                 'method' => 'userPreferencesSave',
                 'shortHelp' => "Mass Save Updated Preferences For a User",
                 'longHelp' => 'include/api/help/me_preferences_put_help.html',
+                'keepSession' => true,
             ),
 
             'userPreference' =>  array(
@@ -122,6 +121,7 @@ class CurrentUserApi extends SugarApi
                 'method' => 'userPreferenceSave',
                 'shortHelp' => "Create a preference for the current user",
                 'longHelp' => 'include/api/help/me_preference_preference_name_post_help.html',
+                'keepSession' => true,
             ),
             'userPreferenceUpdate' =>  array(
                 'reqType' => 'PUT',
@@ -130,6 +130,7 @@ class CurrentUserApi extends SugarApi
                 'method' => 'userPreferenceSave',
                 'shortHelp' => "Update a specific preference for the current user",
                 'longHelp' => 'include/api/help/me_preference_preference_name_put_help.html',
+                'keepSession' => true,
             ),
             'userPreferenceDelete' =>  array(
                 'reqType' => 'DELETE',
@@ -138,6 +139,7 @@ class CurrentUserApi extends SugarApi
                 'method' => 'userPreferenceDelete',
                 'shortHelp' => "Delete a specific preference for the current user",
                 'longHelp' => 'include/api/help/me_preference_preference_name_delete_help.html',
+                'keepSession' => true,
             ),
             'getMyFollowedRecords' => array(
                 'reqType' => 'GET',
@@ -168,13 +170,7 @@ class CurrentUserApi extends SugarApi
             }
         }
 
-        $data = $this->getUserData($api->platform, $args);
-
-        if (!empty($data['current_user']['preferences'])) {
-            $this->htmlDecodeReturn($data['current_user']['preferences']);
-        }
-
-        return $data;
+        return $this->getUserData($api->platform, $args);
     }
 
     protected function getUserHash($user)
@@ -756,9 +752,7 @@ class CurrentUserApi extends SugarApi
                         array();
         
         // Handle filtration of requested preferences
-        $data = $this->filterResults($prefs, $pref_filter);
-        $this->htmlDecodeReturn($data);
-        return $data;
+        return $this->filterResults($prefs, $pref_filter);
     }
     
     /**
@@ -841,10 +835,9 @@ class CurrentUserApi extends SugarApi
         // back an array keyed on the pref. This turns prefs like "m/d/Y" or ""
         // into {"datef": "m/d/Y"} on the client.
         if (!is_array($data) || !isset($data[$pref])) {
-            $data = array($pref => $data);
+            return array($pref => $data);
         }
 
-        $this->htmlDecodeReturn($data);
         return $data;
     }
 
@@ -921,7 +914,19 @@ class CurrentUserApi extends SugarApi
      */
     public function forceUserPreferenceReload($current_user)
     {
-        $current_user->reloadPreferences();
+        // If there is a unique_key in the session, save it and change it so that
+        // loadPreferences() on the user will be forced to collect a fresh set
+        // of preferences.
+        $uniqueKey = null;
+        if (isset($_SESSION['unique_key'])) {
+            $uniqueKey = $_SESSION['unique_key'];
+            $_SESSION['unique_key'] = 't_' . time();
+        }
+        
+        $current_user->loadPreferences();
+        
+        // Set this back to what it was
+        $_SESSION['unique_key'] = $uniqueKey;
     }
 
     /**

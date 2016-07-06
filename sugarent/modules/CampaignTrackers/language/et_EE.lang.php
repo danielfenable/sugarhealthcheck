@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,42 +10,37 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
-	'LBL_ID'=>'Id',
-	'LBL_TRACKER_KEY'=>'Trackeri väärtus',
-	'LBL_TRACKER_URL'=>'Trackeri URL',
-	'LBL_TRACKER_NAME'=>'Trackeri nimi',
-	'LBL_CAMPAIGN_ID'=>'Kampaania ID',
-	'LBL_DATE_ENTERED'=>'Sisestuskuupäev',
-	'LBL_DATE_MODIFIED'=>'Muutmiskuupäev',
-	'LBL_MODIFIED_USER_ID'=>'Muudetud kasutaja Id',
-	'LBL_CREATED_BY'=>'Looja:',
-	'LBL_DELETED'=>'Kustutatud',
-	'LBL_CAMPAIGN'=>'Kampaania',
-	'LBL_OPTOUT'=>'Opt-out',
-	
-	'LBL_MODULE_NAME'=>'Kampaana trackerid',
-	'LBL_MODULE_NAME_SINGULAR' => 'Campaign Tracker',
-	'LBL_EDIT_CAMPAIGN_NAME'=>'Kampaania nimi:',
-	'LBL_EDIT_TRACKER_NAME'=>'Trackeri nimi:',
-	'LBL_EDIT_TRACKER_URL'=>'Trackeri URL:',
-	
-	'LBL_SUBPANEL_TRACKER_NAME'=>'Nimi',
-	'LBL_SUBPANEL_TRACKER_URL'=>'URL',
-	'LBL_SUBPANEL_TRACKER_KEY'=>'Väärtus',
-	'LBL_EDIT_MESSAGE_URL'=>'Kampaania sõnumi URL:',
-	'LBL_EDIT_TRACKER_KEY'=>'Trackeri väärtus:',
-	'LBL_EDIT_OPT_OUT'=>'Opt-out link?',
-	'LNK_CAMPAIGN_LIST'=>'Kampaaniad',
-	'LBL_EDIT_LAYOUT' => 'Edit Layout' /*for 508 compliance fix*/,
+  'LBL_ID' => 'Id',
+  'LBL_OPTOUT' => 'Opt-out',
+  'LBL_SUBPANEL_TRACKER_URL' => 'URL',
+  'LBL_TRACKER_KEY' => 'Trackeri väärtus',
+  'LBL_TRACKER_URL' => 'Trackeri URL',
+  'LBL_TRACKER_NAME' => 'Trackeri nimi',
+  'LBL_CAMPAIGN_ID' => 'Kampaania ID',
+  'LBL_DATE_ENTERED' => 'Sisestuskuupäev',
+  'LBL_DATE_MODIFIED' => 'Muutmiskuupäev',
+  'LBL_MODIFIED_USER_ID' => 'Muudetud kasutaja Id',
+  'LBL_CREATED_BY' => 'Looja:',
+  'LBL_DELETED' => 'Kustutatud',
+  'LBL_CAMPAIGN' => 'Kampaania',
+  'LBL_MODULE_NAME' => 'Kampaana trackerid',
+  'LBL_EDIT_CAMPAIGN_NAME' => 'Kampaania nimi:',
+  'LBL_EDIT_TRACKER_NAME' => 'Trackeri nimi:',
+  'LBL_EDIT_TRACKER_URL' => 'Trackeri URL:',
+  'LBL_SUBPANEL_TRACKER_NAME' => 'Nimi',
+  'LBL_SUBPANEL_TRACKER_KEY' => 'Väärtus',
+  'LBL_EDIT_MESSAGE_URL' => 'Kampaania sõnumi URL:',
+  'LBL_EDIT_TRACKER_KEY' => 'Trackeri väärtus:',
+  'LBL_EDIT_OPT_OUT' => 'Opt-out link?',
+  'LNK_CAMPAIGN_LIST' => 'Kampaaniad',
 );
 
-?>

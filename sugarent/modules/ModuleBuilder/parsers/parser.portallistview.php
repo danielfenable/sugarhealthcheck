@@ -83,7 +83,7 @@ class ParserPortalListView extends ParserModifyListView
 			$listfielddef['id'] = strtoupper($modFieldDef['id_name']);
 			$listfielddef['link'] = in_array($listfielddef['module'], array('Cases', 
 			                                                                'Bugs', 
-			                                                                'KBContents'));
+			                                                                'KBDocuments'));
 			$listfielddef['related_fields'] = array (strtolower($modFieldDef['id_name']));
 		}
 		return $listfielddef;

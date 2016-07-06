@@ -151,4 +151,39 @@ $viewdefs['RevenueLineItems']['base']['view']['subpanel-list'] = array(
             'fields' => $fields
         ),
     ),
+    'selection' => array (
+        'type' => 'multi',
+        'actions' => array (
+            array(
+                'name' => 'delete_button',
+                'type' => 'button',
+                'label' => 'LBL_DELETE',
+                'acl_action' => 'delete',
+                'primary' => true,
+                'events' => array(
+                    'click' => 'list:massdelete:fire',
+                ),
+            ),
+        ),
+    ),
+    'rowactions' => array(
+        'actions' => array(
+            array(
+                'type' => 'rowaction',
+                'css_class' => 'btn',
+                'tooltip' => 'LBL_PREVIEW',
+                'event' => 'list:preview:fire',
+                'icon' => 'fa-eye',
+                'acl_action' => 'view',
+            ),
+            array(
+                'type' => 'rowaction',
+                'name' => 'edit_button',
+                'icon' => 'fa-pencil',
+                'label' => 'LBL_EDIT_BUTTON',
+                'event' => 'list:editrow:fire',
+                'acl_action' => 'edit',
+            ),
+        ),
+    ),
 );

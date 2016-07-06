@@ -49,13 +49,6 @@ class EditView
     public $formName = '';
 
     /**
-    * Array of additional tpl vars
-    * 
-    * @var array
-    */
-    protected $tpl_vars = array();
-
-    /**
      * EditView constructor
      * This is the EditView constructor responsible for processing the new
      * Meta-Data framework
@@ -691,10 +684,6 @@ class EditView
             $this->th->ss->assign('RICH_TEXT_EDITOR_WIDTH', '95%');
         }
 
-        foreach ($this->tpl_vars as $name => $value) {
-            $this->th->ss->assign($name, $value);
-        }
-
         $this->th->ss->assign('SHOW_VCR_CONTROL', $this->showVCRControl);
 
         $str = $this->showTitle($showTitle);
@@ -860,15 +849,6 @@ class EditView
     protected function getTemplateHandler()
     {
         return new TemplateHandler();
-    }
-
-    /**
-     * Add an additional variable to use in a template
-     * @param string $name Name of a variable
-     * @param string $value Value of the variable
-     */
-    public function assignVar($name, $value) {
-        $this->tpl_vars[$name] = $value;
     }
 }
 

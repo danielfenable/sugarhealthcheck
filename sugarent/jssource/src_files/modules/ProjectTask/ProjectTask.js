@@ -9,7 +9,7 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id$
+
 
 function prep_edit_task_in_grid(the_form)
 {

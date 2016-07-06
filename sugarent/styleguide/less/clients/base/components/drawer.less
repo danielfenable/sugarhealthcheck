@@ -84,61 +84,19 @@ body.noscroll {
     }
 }
 
-@media only screen and (orientation:landscape) {
-    .touch {
-        .drawer {
-            &.active {
-                .main-pane > div {
-                    display: inline;
-                    .flex-list-view-content {
-                        display: inline;
-                    }
-                    .list-view {
-                        height: 100%;
-                    }
-                }
-            }
-        }
+.touch .drawer.active {
+    &.transition .main-pane {
+        padding-top: 0 !important
     }
 }
 
-.touch {
-    .drawer {
-        &.active {
-            &.transition .main-pane {
-                padding-top: 0 !important
-            }
-        }
-        &.inactive {
-            .main-pane {
-                padding-top: 0 !important;
-            }
-            .dashboard {
-                padding-top: 0 !important;
-            }
-        }
+.touch .drawer.inactive {
+    .main-pane {
+        padding-top: 0 !important;
     }
-}
-
-.selection-context {
-  padding: 5px 8px;
-  background: #f6f6f6;
-  .reset-block {
-    margin-right: 5px;
-  }
-  .selected-records {
-    width: 100%;
-  }
-  .label-selected-records {
-    padding-left: 1px;
-  }
-  .selected-records-container {
-    padding-right: 63px;
-  }
-  .max-pills-label, .more-pills-label {
-    padding-top: 2px;
-    padding-left: 5px;
-  }
+    .dashboard {
+        padding-top: 0 !important;
+    }
 }
 
 @media (max-width: 768px) {
@@ -150,6 +108,7 @@ body.noscroll {
     }
     .drawer.active {
         overflow: auto;
+        background-image: url('@{textureSecondary}');
         .main-pane {
             background: @white;
         }

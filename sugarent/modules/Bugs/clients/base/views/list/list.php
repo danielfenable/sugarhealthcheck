@@ -31,7 +31,6 @@ $viewdefs['Bugs']['base']['view']['list'] = array(
                     'name'=>  'name',
                     'enabled' => true,
                     'default'=>true,
-                    'link' => true,
                 ),
                 array(
                     'name'=>  'status',

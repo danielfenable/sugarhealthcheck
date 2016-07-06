@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,35 +12,28 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-// $Id: en_us.lang.php 13782 2006-06-06 17:58:55 +0000 (Tue, 06 Jun 2006) majed $
+	
 
 $mod_strings = array (
-	'LBL_MODULE_NAME' => 'Holidays',
-	'LBL_MODULE_NAME_SINGULAR' => 'Holiday',
-	'LBL_MODULE_TITLE' => 'Holidays: Home',
-	'LBL_HOLIDAY' => 'Holiday:',
-	'LBL_HOLIDAY_DATE' => 'Holiday Date:',
-	'LBL_NAME' => 'Holiday Date:',
-	'LBL_DESCRIPTION' => 'Description:',
-	'LBL_RESOURCE_NAME' => 'Resource Name',
-	
-	'LBL_SEARCH_FORM_TITLE' => 'Holiday Search',
-	'LBL_LIST_FORM_TITLE' => 'Holiday List',		
-
-	'LNK_NEW_HOLIDAY' => 'Add Holiday',
-	'LNK_HOLIDAYS' => 'Holidays',
-	
-	'LBL_USERS_SUBPANEL_TITLE' => 'Users',
-	'LBL_USER_HOLIDAY_SUBPANEL_TITLE'	=> 'User Holidays',
-	
-	'LBL_RESOURCE' => 'Resource:',
-	'LBL_PERSON_TYPE' => 'Person type',
-	'LBL_RELATED_MODULE'=> 'Related Module:',
-	
-	// For HolidaysQuickCreate.php
-	'LBL_SELECT_RESOURCE_TYPE' => 'Select Resource Type...',
-	'LBL_USER' => 'User',
-	'LBL_CONTACT' => 'Contact',
+  'LBL_CONTACT' => 'Contact',
+  'LBL_DESCRIPTION' => 'Description:',
+  'LBL_HOLIDAY' => 'Holiday:',
+  'LBL_HOLIDAY_DATE' => 'Holiday Date:',
+  'LBL_LIST_FORM_TITLE' => 'Holiday List',
+  'LBL_MODULE_NAME' => 'Holidays',
+  'LBL_MODULE_NAME_SINGULAR' => 'Holiday',
+  'LBL_MODULE_TITLE' => 'Holidays: Home',
+  'LBL_NAME' => 'Holiday Date:',
+  'LBL_PERSON_TYPE' => 'Person type',
+  'LBL_RELATED_MODULE' => 'Related Module:',
+  'LBL_RESOURCE' => 'Resource:',
+  'LBL_RESOURCE_NAME' => 'Resource Name',
+  'LBL_SEARCH_FORM_TITLE' => 'Holiday Search',
+  'LBL_SELECT_RESOURCE_TYPE' => 'Select Resource Type...',
+  'LBL_USER' => 'User',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Users',
+  'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'User Holidays',
+  'LNK_HOLIDAYS' => 'Holidays',
+  'LNK_NEW_HOLIDAY' => 'Add Holiday',
 );
-?>
+

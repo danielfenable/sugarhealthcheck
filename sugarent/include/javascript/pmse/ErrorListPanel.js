@@ -22,11 +22,11 @@ newItem.setParent(this);newItem.onClick=this.onClickItem;this.items.push(newItem
 return this;};ErrorListPanel.prototype.getContainerMessageById=function(id){var item,i;for(i=0;i<this.items.length;i+=1){if(this.items[i].getErrorId()===id){item=this.items[i];}}
 if(item){return item;}else{null;}};ErrorListPanel.prototype.addNewMessage=function(containerId,message,messageId){var item;item=this.getContainerMessageById(containerId);if(item){item.addItem({message:message,messageId:messageId});}
 return this;};ErrorListPanel.prototype.removeMessage=function(containerId,messageId){var item,messageItem,index;item=this.getContainerMessageById(containerId);if(item){messageItem=item.getItemByMessageId(messageId);if(messageItem){index=item.items.indexOf(messageItem);item.removeItem(index);}}
-return this;};ErrorListPanel.prototype.removeItemById=function(id){var items=this.getItems(),i,index,item;if(!(typeof id==="string")){throw new Error("ErrorListPanel.removeItemById(): the value is invalid");}
-for(i=0;i<items.length;i+=1){if(items[i].getErrorId()===id){index=i;break;}}
-if(index!==undefined){item=this.getItem(index);this.removeItem(index);return item;}else{return null;}};ErrorListPanel.prototype.appendTo=function(tagId){var tag=tagId||"";if(jQuery(tag).length){jQuery(tag).append(this.getHTML());}
-return this;};ErrorListPanel.prototype.getItemById=function(id){var items=this.getItems(),i,index,item;if(!(typeof id==="string")){throw new Error("ErrorListPanel.removeItemById(): the value is invalid");}
-for(i=0;i<items.length;i+=1){if(items[i].getErrorId()===id){index=i;break;}}
+return this;};ErrorListPanel.prototype.removeItemById=function(id){var items=this.getItems(),i,index;if(!(typeof id==="string")){throw new Error("ErrorListPanel.removeItemById(): the value is invalid");}
+for(i=0;i<items.length;i+=1){if(items[i].getErrorId()===id){index=i;}}
+if(index!==undefined){item=this.getItem(index);this.removeItem(index);return item;return item;}else{return null;}};ErrorListPanel.prototype.appendTo=function(tagId){var tag=tagId||"";if(jQuery(tag).length){jQuery(tag).append(this.getHTML());}
+return this;};ErrorListPanel.prototype.getItemById=function(id){var items=this.getItems(),i,index;if(!(typeof id==="string")){throw new Error("ErrorListPanel.removeItemById(): the value is invalid");}
+for(i=0;i<items.length;i+=1){if(items[i].getErrorId()===id){index=i;}}
 if(index!==undefined){item=this.getItem(index);return item;}else{return null;}};ErrorListPanel.prototype.setSelectedItem=function(item){if(item instanceof ErrorListItem){this.selectedItem=item;}
 return this;};ErrorListPanel.prototype.getSelectedItem=function(){return this.selectedItem;};ErrorListPanel.prototype.getAllErros=function(){var count=0;for(i=0;i<this.items.length;i+=1){count=count+this.items[i].getItems().length;}
 return count;};ErrorListPanel.prototype.resizeWidthTitleItems=function(){var i;if(this.html){for(i=0;i<this.items.length;i+=1){this.getItem(i).resizeWidthTitle();}}

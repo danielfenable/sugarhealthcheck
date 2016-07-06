@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,20 +12,22 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
+$dashletStrings = array (
+  'RSSDashlet' => 
+  array (
+    'ERR_LOADING_FEED' => 'Неуспешно зареждане на RSS новини',
+    'LBL_AUTO_SCROLL' => 'Автоматично скролиране',
+    'LBL_CONFIGURE_HEIGHT' => 'Височина (1 - 300)',
+    'LBL_CONFIGURE_RSSURL' => 'RSS линк',
+    'LBL_CONFIGURE_TITLE' => 'Име',
+    'LBL_DBLCLICK_HELP' => ' ',
+    'LBL_DESCRIPTION' => 'Моят портал',
+    'LBL_SAVED' => 'Завършено',
+    'LBL_SAVING' => 'Запазване...',
+    'LBL_SCROLL_SPEED' => 'Скорост на скролиране (%)',
+    'LBL_TITLE' => 'Моят портал',
+  ),
+);
 
-
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Лента с новини',
-                                         'LBL_DESCRIPTION'      => 'Лента с новини',
-                                         'LBL_SAVING'           => 'Запазване...',
-                                         'LBL_SAVED'            => 'Завършена',
-                                         'LBL_AUTO_SCROLL'      => 'Автоматично скролиране',
-                                          'LBL_SCROLL_SPEED'      => 'Скорост на скролиране (%)',
-                                         'LBL_CONFIGURE_TITLE'  => 'Длъжност',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Височина (1 - 300)',
-                                         'LBL_CONFIGURE_RSSURL' => 'RSS линк',
-                                         'LBL_DBLCLICK_HELP'    => '',
-                                         'ERR_LOADING_FEED'     => 'Неуспешно зареждане на RSS новини',
-                                         );
-?>

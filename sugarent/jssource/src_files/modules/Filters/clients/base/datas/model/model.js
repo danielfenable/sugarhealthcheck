@@ -14,7 +14,7 @@
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     defaults: {
         editable: true
@@ -154,7 +154,7 @@
      */
     getFilterableFields: function(moduleName) {
         var moduleMeta = app.metadata.getModule(moduleName),
-            operatorMap = app.metadata.getFilterOperators(moduleName),
+            operatorMap = app.metadata.getFilterOperators(),
             fieldMeta = moduleMeta.fields,
             fields = {};
 

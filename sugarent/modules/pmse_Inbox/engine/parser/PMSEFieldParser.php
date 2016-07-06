@@ -132,7 +132,7 @@ class PMSEFieldParser implements PMSEDataParserInterface
         }
         return $criteriaToken;
     }
-
+    
     /**
      * parse the token ussing the old function
      * @global object $current_user
@@ -173,7 +173,7 @@ class PMSEFieldParser implements PMSEDataParserInterface
         }
 
         //$tokenValueArray = explode($delimiter, $criteriaToken->expLabel);
-        $tokenDelimiter = '::';
+        $tokenDelimiter = '::';        
         $newTokenArray = array('{', 'future', $criteriaToken->expModule, $criteriaToken->expField, '}');
         $assembledTokenString = implode($tokenDelimiter, $newTokenArray);
         $tokenValue = $this->parseTokenValue($assembledTokenString);
@@ -181,14 +181,14 @@ class PMSEFieldParser implements PMSEDataParserInterface
         $criteriaToken->currentValue = $tokenValue;
         $criteriaToken->expValue = $this->setExpValueFromCriteria($criteriaToken);
 
-        $fieldType = $this->evaluatedBean->field_name_map[$criteriaToken->expField]['type'];
-
-        if ($fieldType == 'date') {
-            $criteriaToken->expSubtype = 'date';
-        } elseif ($fieldType == 'datetime' || $fieldType =='datetimecombo') {
-            $criteriaToken->expSubtype = 'date';
-        } elseif ($fieldType == 'currency') {
-            $criteriaToken->expValue = $this->setCurrentValueIfCurrency($criteriaToken);
+        if (isset($this->evaluatedBean->field_name_map[$criteriaToken->expField])) {
+            if ($this->evaluatedBean->field_name_map[$criteriaToken->expField]['type'] == 'date') {
+                $criteriaToken->expSubtype = 'date';
+            } elseif ($this->evaluatedBean->field_name_map[$criteriaToken->expField]['type'] == 'datetime'
+                || $this->evaluatedBean->field_name_map[$criteriaToken->expField]['type'] == 'datetimecombo'
+            ) {
+                $criteriaToken->expSubtype = 'date';
+            }
         }
         return $criteriaToken;
     }
@@ -239,22 +239,14 @@ class PMSEFieldParser implements PMSEDataParserInterface
         $assembledTokenString = implode($tokenDelimiter, $newTokenArray);
         $tokenValue = $this->parseTokenValue($assembledTokenString);
         $criteriaToken->expToken = $assembledTokenString;
-        if ($criteriaToken->expSubtype == 'Currency') {
-            $value = json_decode($tokenValue);
-            $criteriaToken->expField = $value["currency_id"];
-            $criteriaToken->currentValue = $value["amount"];
-        } else {
-            $criteriaToken->currentValue = $tokenValue;
+        $criteriaToken->currentValue = $tokenValue;
+
+        if ($this->evaluatedBean->field_name_map[$criteriaToken->expValue]['type']=='date') {
+            $criteriaToken->expSubtype = 'date';
+        } elseif ($this->evaluatedBean->field_name_map[$criteriaToken->expValue]['type']=='datetime'
+                || $this->evaluatedBean->field_name_map[$criteriaToken->expValue]['type']=='datetimecombo') {
+            $criteriaToken->expSubtype = 'date';
         }
-        if (isset($this->evaluatedBean->field_name_map[$criteriaToken->expField])) {
-            if ($this->evaluatedBean->field_name_map[$criteriaToken->expField]['type'] == 'date') {
-                $criteriaToken->expSubtype = 'date';
-            } elseif ($this->evaluatedBean->field_name_map[$criteriaToken->expField]['type'] == 'datetime'
-                || $this->evaluatedBean->field_name_map[$criteriaToken->expField]['type'] == 'datetimecombo'
-               ) {
-                $criteriaToken->expSubtype = 'date';
-              }
-         }
         $criteriaToken->expValue = $criteriaToken->currentValue;
         return $criteriaToken;
     }
@@ -262,8 +254,7 @@ class PMSEFieldParser implements PMSEDataParserInterface
     /**
      * parser a token for a field element, is this: bool or custom fields
      * @param string $token field contains a parser
-     * @return string field value, in the case of a currency type it returns a serialized array with the amount and
-     * the currency id.
+     * @return string field value
      */
     public function parseTokenValue($token)
     {
@@ -328,19 +319,6 @@ class PMSEFieldParser implements PMSEDataParserInterface
         }
 
         return $token->expValue;
-    }
-
-    /**
-     * Parse the token value for Currency
-     * @param $token
-     * @return float
-     */
-    public function setCurrentValueIfCurrency($token)
-    {
-        $expCurrency = empty($token->expCurrency) ? '-99' : $token->expCurrency;
-        $defCurrency = SugarCurrency::getCurrency($this->evaluatedBean);
-        $amount = SugarCurrency::convertAmount((float)$token->expValue, $expCurrency, $defCurrency->id);
-        return $amount;
     }
 
     /**

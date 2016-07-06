@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,48 +11,9 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-require_once 'include/MVC/Controller/SugarController.php';
-
+require_once('include/MVC/Controller/SugarController.php');
 class ConfiguratorController extends SugarController
 {
-    /**
-     * List of allowed $sugar_config keys to be changed
-     * by `self::action_saveconfig`.
-     * @var array
-     */
-    protected $allowKeysSaveConfig = array(
-        'list_max_entries_per_page',
-        'list_max_entries_per_subpanel',
-        'collapse_subpanels',
-        'calculate_response_time',
-        'default_module_favicon',
-        'use_real_names',
-        'show_download_tab',
-        'lead_conv_activity_opt',
-        'enable_action_menu',
-        'lock_subpanels',
-        'preview_edit',
-        'verify_client_ip',
-        'log_memory_usage',
-        'dump_slow_queries',
-        'slow_query_time_msec',
-        'upload_maxsize',
-        'stack_trace_errors',
-        'developerMode',
-        'vcal_time',
-        'import_max_records_total_limit',
-        'noPrivateTeamUpdate',
-
-        // logger settings
-        'logger_file_name',
-        'logger_file_suffix',
-        'logger_file_maxSize',
-        'logger_file_dateFormat',
-        'logger_level',
-        'logger_file_maxLogs',
-        'logger_file_ext',
-    );
-
     /**
      * Go to the font manager view
      */
@@ -168,27 +130,13 @@ class ConfiguratorController extends SugarController
         SugarApplication::redirect('index.php?module=Users&action=Wizard&skipwelcome=1');
     }
 
-    /**
-     * savconfig action
-     */
-    public function action_saveconfig()
+    function action_saveconfig()
     {
         global $current_user;
-        if (!is_admin($current_user)) {
+        if(!is_admin($current_user)){
             sugar_die($GLOBALS['app_strings']['ERR_NOT_ADMIN']);
         }
-
-        $allowKeys = $this->allowKeysSaveConfig;
-
-        // Filter logger_* keys if logger is not visible
-        if (!SugarConfig::getInstance()->get('logger_visible', true)) {
-            $allowKeys = array_filter($allowKeys, function ($value) {
-                return (strpos($value, 'logger_') === 0) ? false : true;
-            });
-        }
-
         $configurator = new Configurator();
-        $configurator->setAllowKeys($allowKeys);
 
         $focus = BeanFactory::getBean('Administration');
         $focus->saveConfig();
@@ -196,9 +144,8 @@ class ConfiguratorController extends SugarController
         $configurator->saveConfig();
 
         // Clear the Contacts file b/c portal flag affects rendering
-        if (file_exists($cachedfile = sugar_cached('modules/Contacts/EditView.tpl'))) {
-            unlink($cachedfile);
-        }
+        if (file_exists($cachedfile = sugar_cached('modules/Contacts/EditView.tpl')))
+           unlink($cachedfile);
 
         echo '<script type="text/javascript">';
         echo 'parent && parent.SUGAR && parent.SUGAR.App && parent.SUGAR.App.sync();';

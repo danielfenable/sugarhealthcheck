@@ -1,5 +1,4 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -12,20 +11,26 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 /*********************************************************************************
 * Description:
 * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
 * Reserved. Contributor(s): contact@synolia.com - www.synolia.com
 * *******************************************************************************/
 
+/*********************************************************************************
+ * Hebrew vertion by:
+ * Menahem Lurie Consultancy and IT Management,SugarCRM partner - Israel
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * *******************************************************************************/
+
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">השג מפתח API ו-Secret מ-Twitter על-ידי רישום הפעלת ה-Sugar שלך כיישום חדש.<br/><br>צעדים לרישום ההופעה שלך:<br/><br/><ol><li>עבור לאתר המפתחים של Twitter: <a href=&#39;http://dev.twitter.com/apps/new&#39; target=&#39;_blank&#39;>http://dev.twitter.com/apps/new</a>.</li><li>התחבר בעזרת חשבון ה-Twitter שדרכו תרצו לרשום את היישום.</li><li>בטופס הרישום, הזן את שם היישום. זה השם שמשתמשים יראו כאשר הם מאמתים את חשבונות Twitter שלהם בתוך Sugar.</li><li>הזן תיאור.</li><li>הזן כתובת URL של אתר היישום.</li><li>הזן כתובת URL לאיתות (תוכל להכניס כל דבר מפני ש-Sugar עוקפת כתובת זו בתהליך האימות. דוגמה: הכנס את כתובת ה-URL של אתר Sugar שלך).</li><li>קבל את תנאי השירות של ה-API של Twitter.</li><li>לחץ על "צור את יישום Twitter שלך".</li><li>בעמוד היישום, מצא את מפתח ה-API ואת ה-API Secret תחת הסימנייה "מפתחות API". הכנס את המפתח ואת ה-Secret להלן.</li></ol></td></tr></table>',
-    'LBL_NAME' => 'שם משתמש Twitter',
-    'LBL_ID' => 'שם משתמש Twitter',
-	'company_url' => 'כתובת URL',
-    'oauth_consumer_key' => 'מפתח API',
-    'oauth_consumer_secret' => 'סוד API',
+    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obtain a Consumer Key and Secret from Twitter&amp;#169; by registering your Sugar instance as a new application.<br/><br>Steps to register your instance:<br/><br/><ol><li>Go to the Twitter&amp;#169; Developers site: <a href=\'http://dev.twitter.com/apps/new\' target=\'_blank\'>http://dev.twitter.com/apps/new</a>.</li><li>Sign In using the Twitter account under which you would like to register the application.</li><li>Within the registration form, enter a name for the application. This is the name users will see when they authenticate their Twitter accounts from within Sugar.</li><li>Enter a Description.</li><li>Enter an Application Website URL (could be anything).</li><li>Select "Browser" for Application Type.</li><li>After selecting "Browser" for Application Type, enter a Callback URL (could be anything since Sugar bypasses this on authentication. Example: Enter your Sugar root URL).</li><li>Enter the security words.</li><li>Click "Register application".</li><li>Accept the Twitter API Terms of Service.</li><li>Within the application page, find the Consumer Key and Consumer Secret. Enter the Key and Secret below.</li></ol></td></tr></table>',
+    'LBL_NAME' => 'שם משתמש בטוויטר',
+    'LBL_ID' => 'שם משתמש בטוויטר',
+	'company_url' => 'URL',
+    'oauth_consumer_key' => 'מפתח לקוח',
+    'oauth_consumer_secret' => 'סיסמא של הצרכן',
 );
-
-?>

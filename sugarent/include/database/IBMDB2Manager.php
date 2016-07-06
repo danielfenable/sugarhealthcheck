@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,13 +10,27 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+/*********************************************************************************
+
+* Description: This file handles the Data base functionality for the application using IBM DB2.
+* It acts as the DB abstraction layer for the application. It depends on helper classes
+* which generate the necessary SQL. This sql is then passed to PEAR DB classes.
+* The helper class is chosen in DBManagerFactory, which is driven by 'db_type' in 'dbconfig' under config.php.
+*
+* All the functions in this class will work with any bean which implements the meta interface.
+* The passed bean is passed to helper class which uses these functions to generate correct sql.
+* Please see DBManager file for details
+*
+*
+* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+* All Rights Reserved.
+* Contributor(s): ______________________________________..
+********************************************************************************/
+
 require_once 'include/database/IBMDB2PreparedStatement.php';
 
 /**
- * This class handles the Data base functionality for the application using
- * IBM DB2.
- *
- * Note: we are only supporting LUW 9.7 and higher at this moment.
+ * Note that we are only supporting LUW 9.7 and higher at this moment
  */
 class IBMDB2Manager  extends DBManager
 {
@@ -80,19 +93,6 @@ class IBMDB2Manager  extends DBManager
 
 	);
 
-    /**
-     * Integer fields' min and max values
-     * @var array
-     */
-    protected $type_range = array(
-        'int'      => array('min_value'=>-2147483648, 'max_value'=>2147483647),
-        'uint'     => array('min_value'=>-9223372036854775808, 'max_value'=>9223372036854775807),
-        'ulong'    => array('min_value'=>-99999999999999999999, 'max_value'=>99999999999999999999),//decimal(20,0)
-        'long'     => array('min_value'=>-9223372036854775808, 'max_value'=>9223372036854775807),
-        'short'    => array('min_value'=>-32768, 'max_value'=>32767),
-        'tinyint'  => array('min_value'=>-32767, 'max_value'=>32767),
-    );
-
 	/**+
 	 * @var array
 	 */
@@ -107,15 +107,14 @@ class IBMDB2Manager  extends DBManager
         "recursive_query" => true,
         "prepared_statements" => true,
 
-        /* Do not consider DB2 order stability as we have experienced issues
-         * that this is not something we can rely on. By disabling this flag
-         * sugar will add an additional id column in the ORDER BY clause to
-         * to ensure stability of the results during result paging. Although
-         * this below behavior is the default, leaving this capability flag
-         * in here as a reference as in previous versions we used to rely on
-         * DB2 order stability without altering the ORDER BY clause.
+        /* DB2 has stable order stability if no heavy insert/deletes are
+         * happening. With this capability enabled, the ORDER BY clauses
+         * will not get an additional id (unique) column added to ensure
+         * orderby stability in the query. Using this has negative impact
+         * on performance. Therefor for DB2 we rely on the default order
+         * stability of DB2 itself.
          */
-        "order_stability" => false,
+        "order_stability" => true,
 	);
 
 	public $preparedStatementClass = 'IBMDB2PreparedStatement';
@@ -268,7 +267,7 @@ class IBMDB2Manager  extends DBManager
 	 */
 	protected function freeDbResult($dbResult)
 	{
-		if(is_resource($dbResult))
+		if(!empty($dbResult))
 			db2_free_result($dbResult);
 	}
 
@@ -316,12 +315,6 @@ class IBMDB2Manager  extends DBManager
 	 */
 	public function get_columns($tablename)
 	{
-        // Sanity check for getting columns
-        if (empty($tablename)) {
-            $this->log->error(__METHOD__ . ' called with an empty tablename argument');
-            return array();
-        }        
-
 		$result = $this->query(
 			"SELECT * FROM SYSCAT.COLUMNS WHERE TABSCHEMA = '".$this->schema."' AND TABNAME = '".strtoupper($tablename)."'");
 
@@ -399,8 +392,11 @@ class IBMDB2Manager  extends DBManager
 		if ( !$row )
 			return false;
 		if ($this->checkDB2STMTerror($result) == false) {
-            // make the column keys as lower case
-            $row = array_change_key_case($row, CASE_LOWER);
+			$temp = $row;
+			$row = array();
+			foreach ($temp as $key => $val)
+				// make the column keys as lower case. Trim the val returned
+				$row[strtolower($key)] = is_string($val) ? trim($val) : $val;
 		}
 		else
 			return false;
@@ -476,76 +472,6 @@ class IBMDB2Manager  extends DBManager
             return array('ERR_DB_IBM_DB2_VERSION', $db_version);
         }
         return true;
-    }
-
-    /**
-     * Create conversion function to convert 10M blob to clob
-     */
-    public function createConversionFunctions()
-    {
-        $functionQuery = "
-        CREATE OR REPLACE PROCEDURE Blob2Clob (IN tableName VARCHAR (64), IN sourceColumn VARCHAR (64), IN tmpColumn VARCHAR (64))
-            LANGUAGE SQL
-            BEGIN
-                DECLARE SQLSTATE CHAR(5);
-
-                DECLARE sourceBlob BLOB (41943040);
-                DECLARE destClob CLOB (41943040) DEFAULT '';
-
-                DECLARE destOffset INTEGER DEFAULT 1;
-                DECLARE sourceOffset INTEGER DEFAULT 1;
-                DECLARE langContext INTEGER DEFAULT 0;
-                DECLARE warningCode INTEGER DEFAULT 0;
-
-                DECLARE selectQuery VARCHAR(512);
-                DECLARE updateQuery VARCHAR(512);
-
-                DECLARE selectStatement STATEMENT;
-                DECLARE updateStatement STATEMENT;
-
-                DECLARE updateCursor CURSOR FOR selectStatement;
-
-                SET selectQuery = 'SELECT ' || sourceColumn || ', ' || tmpColumn || ' FROM ' || tableName ||' FOR UPDATE OF ' || tmpColumn;
-                SET updateQuery = 'UPDATE ' || tableName || ' SET ' || tmpColumn || ' = ? WHERE CURRENT OF updateCursor';
-
-                PREPARE selectStatement FROM selectQuery;
-
-                OPEN updateCursor;
-
-                FETCH FROM updateCursor INTO sourceBlob, destClob;
-
-                WHILE (SQLSTATE = '00000') DO
-
-                    SET destOffset = 1;
-                    SET sourceOffset = 1;
-
-                    IF LENGTH(sourceBlob) > 0 THEN
-                        CALL DBMS_LOB.CONVERTTOCLOB(destClob,
-                                                    sourceBlob,
-                                                    dbms_lob.lobmaxsize,
-                                                    destOffset,
-                                                    sourceOffset,
-                                                    dbms_lob.default_csid,
-                                                    langContext,
-                                                    warningCode);
-
-                        PREPARE updateStatement FROM updateQuery;
-                        EXECUTE updateStatement USING destClob;
-                    END IF;
-
-                    FETCH FROM updateCursor INTO sourceBlob, destClob;
-
-                END WHILE;
-
-                CLOSE updateCursor;
-
-            END";
-        $this->query($functionQuery);
-    }
-
-    public function preInstall()
-    {
-        $this->createConversionFunctions();
     }
 
 	/**+
@@ -666,7 +592,6 @@ class IBMDB2Manager  extends DBManager
 		}
 		$this->ignoreErrors = false;
 		$this->log->info("Connect:".$this->database);
-
 		return !empty($this->database);
 	}
 
@@ -674,7 +599,6 @@ class IBMDB2Manager  extends DBManager
         '%Y-%m-%d' => 'YYYY-MM-DD',
         '%Y-%m' => 'YYYY-MM',
         '%Y' => 'YYYY',
-        '%v' => 'IW',
     );
 
 
@@ -787,8 +711,6 @@ public function convert($string, $type, array $additional_parameters = array())
 	{
 		// YYYY-MM-DD HH:MM:SS
 		switch($type) {
-            case 'id':
-            case 'char': return rtrim($string, ' ');
 			case 'date': return substr($string, 0, 10);
             case 'time':
                 if (strlen($string) >= 19) {
@@ -876,27 +798,6 @@ public function convert($string, $type, array $additional_parameters = array())
 		return "$action COLUMN $columnspec";
 	}
 
-    /**
-     * Generate sets of SQL Queries to convert Blob field to Clob field
-     * @param string $tablename Name of the table
-     * @param array $oldColumn Old column definition
-     * @param array $newColumn New column definition
-     * @param bool $ignoreRequired
-     * @return array
-     */
-    protected function alterBlobToClob($tablename, $oldColumn, $newColumn, $ignoreRequired)
-    {
-        $newColumn['name'] = 'tmp_' . mt_rand();
-        $sql = array();
-        $sql[] = $this->alterTableSQL($tablename,
-            $this->changeOneColumnSQL($tablename, $newColumn, 'ADD', $ignoreRequired));
-        $sql[] = "CALL Blob2Clob('" . $tablename . "','" . $oldColumn['name'] . "','" . $newColumn['name'] . "')";
-        $sql[] = $this->alterTableSQL($tablename,
-            $this->changeOneColumnSQL($tablename, $oldColumn, 'DROP', $ignoreRequired));
-        $sql[] = $this->renameColumnSQL($tablename, $newColumn['name'], $oldColumn['name']);
-        return $sql;
-    }
-
 	/**+
 	 *
 	 * Generates a sequence of SQL statements to accomplish the required column alterations
@@ -915,17 +816,6 @@ public function convert($string, $type, array $additional_parameters = array())
 		$req = $this->oneColumnSQLRep($def, $ignoreRequired, $tablename, true);
 		$alter = $this->alterTableSQL($tablename, $this->alterTableColumnSQL('ALTER', $req['name']));
 
-        $cols = $this->get_columns($tablename);
-        if (isset($cols[$def['name']])) {
-            $oldType = $cols[$def['name']]['type'];
-            $newType = $def['type'];
-
-            $alterMethod = 'alter' . ucfirst($oldType) . 'To' . ucfirst($newType);
-
-            if (method_exists($this, $alterMethod)) {
-                return $this->$alterMethod($tablename, $cols[$def['name']], $def, $ignoreRequired);
-            }
-        }
 		switch($req['required']) {
 			case 'NULL':        $sql[]= "$alter DROP NOT NULL";   break;
 			case 'NOT NULL':    $sql[]= "$alter SET NOT NULL";    break;
@@ -940,6 +830,7 @@ public function convert($string, $type, array $additional_parameters = array())
 			//       As a result we need to check if there is a default. We could use this verification also for
 			//       setting the DEFAULT. However for performance reasons we will always update the default if
 			//       there is a new one without making an extra call to the database.
+			$cols = $this->get_columns($tablename);
 			$olddef = isset($cols[$req['name']]['default'])? trim($cols[$req['name']]['default']) : '';
 			if($olddef != ''){
 				$this->log->info("IBMDB2Manager.alterOneColumnSQL: dropping old default $olddef as new one is empty");
@@ -1533,7 +1424,7 @@ FROM SYSIBMTS.TSINDEXES';
 	 */
 	public function renameColumnSQL($tablename, $column, $newname)
 	{
-        return "ALTER TABLE $tablename RENAME COLUMN $column TO $newname";
+		return "ALTER TABLE $tablename RENAME COLUMN '$column' TO '$newname'";
 	}
 
 	public function emptyValue($type)

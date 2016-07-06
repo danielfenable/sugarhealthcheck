@@ -158,6 +158,5 @@ $mod_strings = array (
 
     'LBL_EDITABLE_INVALID' => 'Invalid Value for {{field_name}}',
     'LBL_EDITABLE_INVALID_RANGE' => 'Value must be between {{min}} and {{max}}',
-    'LBL_MANAGER_NOTIFY' => 'The following {0} {1} was not included in latest commit after it was included in the previous one',
-    'LBL_MANAGER_NOTIFY_NAME' => '{0} Commitment Change'
+    'LBL_MANAGER_NOTIFY' => 'The following {0} {1} was not included in latest commit after it was included in the previous one'
 );

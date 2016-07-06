@@ -26,4 +26,4 @@ $dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'News Feed',
                                          'LBL_DBLCLICK_HELP'    => '',
                                          'ERR_LOADING_FEED'     => 'Failed loading RSS Feed',
                                          );
-?>
+ 

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,7 +10,13 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-'LBL_ASSIGNED_TO_ID'=>'ID de Utilizador Atribuído',
-'LBL_ASSIGNED_TO_NAME' => 'Atribuído a',
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
+$mod_strings = array (
+  'LBL_ASSIGNED_TO_ID' => 'Atribuído a',
+  'LBL_ASSIGNED_TO_NAME' => 'Atribuído a',
 );
+

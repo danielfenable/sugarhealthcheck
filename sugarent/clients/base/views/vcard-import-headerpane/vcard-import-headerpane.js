@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({extendsFrom:'HeaderpaneView',events:{'click [name=vcard_cancel_button]':'initiateCancel'},initialize:function(options){this._super('initialize',[options]);this.context.on('vcard:import-finish-button:toggle',this._toggleFinishButton,this);},_toggleFinishButton:function(enabled){this.getField('vcard_finish_button').setDisabled(!enabled);},initiateCancel:function(){app.drawer.close();}})
+({extendsFrom:'HeaderpaneView',events:{'click [name=vcard_finish_button]':'initiateFinish','click [name=vcard_cancel_button]':'initiateCancel'},initiateFinish:function(){this.context.trigger('vcard:import:finish');},initiateCancel:function(){app.drawer.close();}})

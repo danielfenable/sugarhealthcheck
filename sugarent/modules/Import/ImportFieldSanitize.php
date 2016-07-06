@@ -18,7 +18,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * All Rights Reserved.
  ********************************************************************************/
 require_once('modules/Import/sources/ImportFile.php');
-require_once 'include/SugarFields/SugarFieldHandler.php';
 
 class ImportFieldSanitize
 {
@@ -34,11 +33,6 @@ class ImportFieldSanitize
     public $num_grp_sep;
     public $dec_sep;
     public $default_locale_name_format;
-
-    /**
-     * @var SugarFieldHanlder
-     */
-    protected $sfh;
 
     /**
      * array of modules/users_last_import ids pairs that are created in this class
@@ -64,6 +58,12 @@ class ImportFieldSanitize
         $params
         )
     {
+        static $sfh;
+        
+        if(!isset($sfh)) {
+            require_once('include/SugarFields/SugarFieldHandler.php');
+            $sfh = new SugarFieldHandler();
+        }
         $value = $params[0];
         $vardef = $params[1];
         if ( isset($params[2]) )
@@ -75,7 +75,7 @@ class ImportFieldSanitize
         else
             $this->addRelatedBean = false;
         
-        $field = $this->getField($name);
+        $field = $sfh->getSugarField(ucfirst($name));
         if ( $field instanceOf SugarFieldBase ) {
             $value = $field->importSanitize($value,$vardef,$focus,$this);
         }
@@ -287,36 +287,4 @@ class ImportFieldSanitize
         return true;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function __construct()
-    {
-        $this->sfh = new SugarFieldHandler();
-    }
-
-    /**
-     * Get field with provided type.
-     * @param string $type Field type.
-     * @return SugarFieldBase
-     */
-    public function getField($type)
-    {
-        return $this->sfh->getSugarField(ucfirst($type));
-    }
-
-    /**
-     * Return options for field type, if available.
-     * @param string $type Field type.
-     * @param array $vardef Field definition
-     * @return bool|mixed Options if exist, false otherwise.
-     */
-    public function getOptions($type, $vardef)
-    {
-        $field = $this->getField($type);
-        if (method_exists($field, 'getOptions')) {
-            return $field->getOptions($vardef);
-        }
-        return false;
-    }
 }

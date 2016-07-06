@@ -281,7 +281,7 @@ class ImportMap extends SugarBean
         $result = $this->db->query($query,true," Error: ");
         $obj_arr = array();
 
-        while ($row = $this->db->fetchByAssoc($result,true) ) {
+        while ($row = $this->db->fetchByAssoc($result,FALSE) ) {
             $focus = BeanFactory::getBean('Import_1');
 
             foreach($this->column_fields as $field) {
@@ -366,7 +366,7 @@ class ImportMap extends SugarBean
         $stream = fopen('data://text/plain,', 'w+');
         fputcsv($stream, $output, $this->delimiter, $this->enclosure);
         rewind($stream);
-        $source = trim(stream_get_contents($stream));
+        $source = stream_get_contents($stream);
         fclose($stream);
         return $source;
     }

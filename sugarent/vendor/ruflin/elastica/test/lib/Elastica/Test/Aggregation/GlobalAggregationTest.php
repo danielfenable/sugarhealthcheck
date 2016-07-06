@@ -2,6 +2,7 @@
 
 namespace Elastica\Test\Aggregation;
 
+
 use Elastica\Aggregation\Avg;
 use Elastica\Aggregation\GlobalAggregation;
 
@@ -12,8 +13,8 @@ class GlobalAggregationTest extends BaseAggregationTest
         $expected = array(
             "global" => new \stdClass(),
             "aggs" => array(
-                "avg_price" => array("avg" => array("field" => "price")),
-            ),
+                "avg_price" => array("avg" => array("field" => "price"))
+            )
         );
 
         $agg = new GlobalAggregation("all_products");
@@ -23,3 +24,4 @@ class GlobalAggregationTest extends BaseAggregationTest
         $this->assertEquals($expected, $agg->toArray());
     }
 }
+ 

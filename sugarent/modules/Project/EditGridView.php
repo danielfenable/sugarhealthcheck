@@ -1,5 +1,4 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -332,6 +331,7 @@ if (isset($focus->team_set_id)) {
 // this checks to see if any teams in the project's teamset matches any teams
 // in the project's list of teams.
 $sugar_smarty->assign("CANEDIT",(bool)array_intersect(array_values($list_of_teams),array_keys($current_user->get_my_teams()))  || $current_user->id == $focus->assigned_user_id || $current_user->is_admin);
+
 
 require_once('include/Sugarpdf/sugarpdf_config.php');
 $sugar_smarty->assign("PDF_CLASS", PDF_CLASS);

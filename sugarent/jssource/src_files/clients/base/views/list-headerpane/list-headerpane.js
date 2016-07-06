@@ -16,19 +16,7 @@
 ({
     extendsFrom: 'HeaderpaneView',
 
-    /**
-     * @inheritdoc
-     */
     initialize: function(options) {
-        // FIXME: SC-3594 will address having child views extending metadata
-        // from its parent.
-        options.meta = _.extend(
-            {},
-            app.metadata.getView(null, 'list-headerpane'),
-            app.metadata.getView(options.module, 'list-headerpane'),
-            options.meta
-        );
-
         this._super('initialize', [options]);
 
         //shortcut keys

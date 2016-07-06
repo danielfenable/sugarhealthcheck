@@ -20,6 +20,13 @@ $viewdefs[$module_name]['base']['menu']['header'] = array(
         'icon' => 'fa-plus',
     ),
     array(
+        'route' => '#'.$module_name.'/layout/dnb-bal',
+        'label' => 'LBL_BAL',
+        'acl_action' => 'create',
+        'acl_module' => $module_name,
+        'icon' => 'fa-plus',
+    ),
+    array(
         'route'=>'#'.$module_name.'/vcard-import',
         'label' =>'LNK_IMPORT_VCARD',
         'acl_action'=>'create',
@@ -39,11 +46,5 @@ $viewdefs[$module_name]['base']['menu']['header'] = array(
         'acl_action'=>'import',
         'acl_module'=>$module_name,
         'icon' => 'fa-arrow-circle-o-up',
-    ),
-    array(
-        'type' => 'dnb-bal-import-menu-label',
-        'default_value' => 'LBL_BAL',
-        'icon' => 'fa-arrow-circle-o-up',
-        'route' => '#'.$module_name.'/layout/dnb-bal',
     ),
 );

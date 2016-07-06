@@ -101,20 +101,6 @@ class OracleManager extends DBManager
         'file'     => 'varchar2(255)',
         'decimal_tpl' => 'number(%d, %d)',
             );
-
-    /**
-     * Integer fields' min and max values
-     * @var array
-     */
-    protected $type_range = array(
-        'int'      => array('min_value'=>-99999999999999999999999999999999999999, 'max_value'=>99999999999999999999999999999999999999),
-        'uint'     => array('min_value'=>-999999999999999, 'max_value'=>999999999999999), // number(15)
-        'ulong'    => array('min_value'=>-99999999999999999999999999999999999999, 'max_value'=>99999999999999999999999999999999999999),
-        'long'     => array('min_value'=>-99999999999999999999999999999999999999, 'max_value'=>99999999999999999999999999999999999999),
-        'short'    => array('min_value'=>-999, 'max_value'=>999),// number(3)
-        'tinyint'  => array('min_value'=>-999, 'max_value'=>999), // number(3)
-    );
-
 	/**
      * List of known sequences
      * @var array
@@ -213,20 +199,7 @@ class OracleManager extends DBManager
         return $where;
     }
 
-    /**
-     * Builds the SQL commands that repair a table structure
-     *
-     * @param string $tablename Table name
-     * @param array  $fielddefs Field definitions, in vardef format
-     * @param array  $indices   Index definitions, in vardef format
-     * @param bool   $execute   optional, true if we want the queries executed instead of returned
-     * @param string $engine    optional, MySQL engine
-     *
-     * @return string
-     * {@inheritDoc}
-     * @see    DBManager::repairTableParams()
-     */
-    public function repairTableParams($tablename, $fielddefs, array $indices, $execute = true, $engine = null)
+    public function repairTableParams($tablename, $fielddefs, $indices, $execute = true, $engine = null)
     {
         //Modules with names close to 30 characters may have index names over 30 characters, we need to clean them
         foreach ($indices as $key => $value) {
@@ -286,13 +259,6 @@ class OracleManager extends DBManager
 
         $stmt = $suppress?@oci_parse($db, $sql):oci_parse($db, $sql);
 		if(!$this->checkError("$msg Parse Failed: $sql", $dieOnError)) {
-
-            $freeStmt = false;
-            if (!$keepResult && oci_statement_type($stmt) != 'SELECT' && oci_statement_type($stmt) != 'UPDATE'){ // getAffectedRowCount using UPDATE returned cursor
-                // free statement if not SELECT or UPDATE
-                $freeStmt = true;
-            }
-
 			$exec_result = $suppress?@oci_execute($stmt):oci_execute($stmt);
 	        $this->query_time = microtime(true) - $this->query_time;
 	        $GLOBALS['log']->info('Query Execution Time: '.$this->query_time);
@@ -300,26 +266,15 @@ class OracleManager extends DBManager
 			if($exec_result) {
 			    $result = $stmt;
 			}
-
-            if ($freeStmt){
-                $this->freeDbResult($stmt);
-                if($exec_result) {
-                    $result = true;
-                }
-            }
-
-            $this->lastQuery = $sql;
-            if($keepResult) {
-                $this->lastResult = $result;
-            }
-
-            if($this->checkError($msg.' Query Failed: ' . $sql, $dieOnError, $stmt)) {
-                // free statement
-                $this->freeDbResult($stmt);
-                return false;
-            }
 		}
 
+		$this->lastQuery = $sql;
+		if($keepResult)
+		    $this->lastResult = $result;
+
+		if($this->checkError($msg.' Query Failed: ' . $sql, $dieOnError, $stmt)) {
+		    return false;
+		}
         return $result;
     }
 
@@ -470,19 +425,17 @@ class OracleManager extends DBManager
     protected function ociFetchRow($result)
     {
         $row = oci_fetch_array($result, OCI_ASSOC|OCI_RETURN_NULLS|OCI_RETURN_LOBS);
-        if (!$row) {
-            // end of cursor, free this cursor
-            $this->freeDbResult($result);
+        if ( !$row )
             return false;
-        }
         if (!$this->checkError("Fetch error", false, $result)) {
-            // make the column keys as lower case
-            $row = array_change_key_case($row, CASE_LOWER);
+            $temp = $row;
+            $row = array();
+            foreach ($temp as $key => $val)
+                // make the column keys as lower case. Trim the val returned
+                $row[strtolower($key)] = is_string($val) ? trim($val) : $val;
         }
-        else {
-            $this->freeDbResult($result);
+        else
             return false;
-        }
 
         return $row;
     }
@@ -518,7 +471,7 @@ class OracleManager extends DBManager
         return false; // no database available
     }
 
-    /**+
+    /**
      * @see DBManager::tableExists()
      */
     public function tableExists($tableName)
@@ -563,7 +516,6 @@ class OracleManager extends DBManager
     {
         $this->tableName = $bean->getTableName();
         $msg = "Error updating table: ".$this->tableName;
-        // usePreparedStatements will be deprecated in 7.8 version and above
         if($this->usePreparedStatements) {
             list($sql, $data, $lobs) = $this->updateSQL($bean, $where, true);
             return $this->preparedQuery($sql, $data, $lobs, $msg);
@@ -583,7 +535,6 @@ class OracleManager extends DBManager
     {
         $this->tableName = $bean->getTableName();
         $msg = "Error inserting into table: ".$this->tableName;
-        // usePreparedStatements will be deprecated in 7.8 version and above
         if($this->usePreparedStatements) {
             list($sql, $data, $lobs) = $this->insertSQL($bean, true);
             return $this->preparedQuery($sql, $data, $lobs, $msg);
@@ -721,7 +672,7 @@ class OracleManager extends DBManager
         foreach ($lobs as $lob){
             $lob->free();
         }
-        $this->freeDbResult($stmt);
+        oci_free_statement($stmt);
 
         return $result;
     }
@@ -815,7 +766,6 @@ class OracleManager extends DBManager
 			$GLOBALS['log']->info("connected to db");
 
         $GLOBALS['log']->info("Connect:".$this->database);
-
         return true;
 	}
 
@@ -839,16 +789,14 @@ class OracleManager extends DBManager
      */
     protected function freeDbResult($dbResult)
     {
-        if(is_resource($dbResult)) {
+        if(!empty($dbResult))
             oci_free_statement($dbResult);
-        }
     }
 
 	protected $date_formats = array(
         '%Y-%m-%d' => 'YYYY-MM-DD',
         '%Y-%m' => 'YYYY-MM',
         '%Y' => 'YYYY',
-        '%v' => 'IW',
     );
 
 	 /**
@@ -961,7 +909,6 @@ class OracleManager extends DBManager
     {
         // YYYY-MM-DD HH:MM:SS
         switch($type) {
-            case 'char': return rtrim($string, ' ');
             case 'date': return substr($string, 0, 10);
             case 'time': return substr($string, 11);
 		}
@@ -1133,25 +1080,6 @@ class OracleManager extends DBManager
 	    }
 	    return $res;
 	}
-
-    /**
-     * Condition for number type in oracle if it don't have precision and scale
-     *
-     * Oracle does not allow to shrink column sizes or decrease precision
-     * if Precision and Scale of original col = 0 because number stored in database as it is
-     *
-     * @inheritdoc
-     */
-    public function compareVarDefs($fielddef1, $fielddef2, $ignoreName = false)
-    {
-        if (isset($fielddef1['type']) && isset($fielddef1['len']) && $fielddef1['type'] == 'number') {
-            list($dblen, $dbprec) = $this->parseLenPrecision($fielddef1);
-            if ($dblen == 38 && empty($dbprec) && $this->isNumericType($this->getFieldType($fielddef2))) {
-                return true;
-            }
-        }
-        return parent::compareVarDefs($fielddef1, $fielddef2, $ignoreName);
-    }
 
 	/**
 	 * Generate modify statement for one column
@@ -1336,7 +1264,6 @@ class OracleManager extends DBManager
                 WHERE INDEX_NAME = '$name'
                     OR INDEX_NAME = '".strtoupper($name)."'");
 		$row = $this->fetchByAssoc($result);
-        $this->freeDbResult($result);
 		return ($row['cnt'] > 1) ? $name . (intval($row['cnt']) + 1) : $name;
     }
 
@@ -1405,8 +1332,6 @@ class OracleManager extends DBManager
     	$sequence_name = $this->_getSequenceName($table, $field_name, true);
     	$result = $this->query("SELECT {$sequence_name}.NEXTVAL currval FROM DUAL");
     	$row = $this->fetchByAssoc($result);
-        // free statement
-        $this->freeDbResult($result);
     	$current = $row['currval'];
     	$change = $start_value - $current - 1;
     	$this->query("ALTER SEQUENCE {$sequence_name} INCREMENT BY $change");
@@ -1512,12 +1437,6 @@ LEFT JOIN user_constraints uc
      */
     public function get_columns($tablename)
     {
-        // Sanity check for getting columns
-        if (empty($tablename)) {
-            $this->log->error(__METHOD__ . ' called with an empty tablename argument');
-            return array();
-        }        
-
         $columns = array(
             'column_name',
             'data_type',
@@ -1811,8 +1730,6 @@ LEFT JOIN user_constraints uc
             return false;
         }
         if(@oci_statement_type($stmt) != "SELECT") {
-            // free statement
-            $this->freeDbResult($stmt);
             return false;
         }
         $valid = false;
@@ -1825,9 +1742,6 @@ LEFT JOIN user_constraints uc
                 $valid = true;
             }
         }
-
-        // free stmt
-        $this->freeDbResult($stmt);
         // just in case, rollback all changes
         @oci_rollback($this->database);
         return $valid;
@@ -1897,18 +1811,12 @@ LEFT JOIN user_constraints uc
             return 'Cannot parse statement';
         }
         if(oci_statement_type($stmt) != "SELECT") {
-            // free statement
-            $this->freeDbResult($stmt);
             return 'Wrong statement type';
         }
         // try query, but don't generate result set and do not commit
         $res = oci_execute($stmt, OCI_DESCRIBE_ONLY|OCI_DEFAULT);
         // just in case, rollback all changes
         $error = $this->lastError();
-
-        // free the statement
-        $this->freeDbResult($stmt);
-
         oci_rollback($this->database);
         if(empty($res)) {
             return 'Query failed to execute';

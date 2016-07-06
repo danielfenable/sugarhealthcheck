@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,20 +13,22 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 $mod_strings = array (
-    'LBL_BUNDLE_STAGE' => 'Groepsstadium:',
-    'LBL_DEAL_TOT'=>'Korting totaal',
-    'LBL_DEAL_TOT_USDOLLAR'=>'Korting totaal (US Dollar)',
-    'LBL_NEW_SUB' => 'Korting subtotaal:',
-    'LBL_SHIPPING' => 'Vervoerswijze:',
-    'LBL_SHIPPING_USDOLLAR'=>'Verzendkosten (USD)',
-    'LBL_SUBTOTAL_USDOLLAR'=>'Subtotaal (USD)',
-    'LBL_SUBTOTAL' => 'Subtotaal:',
-    'LBL_TAX_USDOLLAR'=>'BTW (USD)',
-    'LBL_TAX' => 'BTW:',
-    'LBL_TOTAL_USDOLLAR'=>'Totaal (USD)',
-    'LBL_TOTAL' => 'Totaal',
-    'LBL_QUOTE_BUNDLE_POSITION' => 'Offerte bundelpositie',
-    'EXCEPTION_INVALID_QUOTE_ID' => 'Offerte-ID ontbreekt aan de nettolading',
-    'EXCEPTION_NOT_FOUND_QUOTE' =>  'De offerte die u heeft aangevraagd werd niet gevonden'
+  'EXCEPTION_INVALID_QUOTE_ID' => 'Quote ID is missing from the payload',
+  'EXCEPTION_NOT_FOUND_QUOTE' => 'The Quote you requested was not found',
+  'LBL_BUNDLE_STAGE' => 'Groepsstadium:',
+  'LBL_DEAL_TOT' => 'Korting totaal',
+  'LBL_DEAL_TOT_USDOLLAR' => 'Korting totaal (US Dollar)',
+  'LBL_NEW_SUB' => 'Korting subtotaal:',
+  'LBL_QUOTE_BUNDLE_POSITION' => 'Quote Bundle Position',
+  'LBL_SHIPPING' => 'Vervoerswijze:',
+  'LBL_SHIPPING_USDOLLAR' => 'Verzendkosten (USD)',
+  'LBL_SUBTOTAL' => 'Subtotaal:',
+  'LBL_SUBTOTAL_USDOLLAR' => 'Subtotaal (USD)',
+  'LBL_TAX' => 'BTW:',
+  'LBL_TAX_USDOLLAR' => 'BTW (USD)',
+  'LBL_TOTAL' => 'Totaal',
+  'LBL_TOTAL_USDOLLAR' => 'Totaal (USD)',
 );
+

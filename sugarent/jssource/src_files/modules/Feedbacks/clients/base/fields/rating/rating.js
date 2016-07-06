@@ -28,12 +28,12 @@
  *
  * @class View.Fields.Base.Feedbacks.RatingField
  * @alias SUGAR.App.view.fields.BaseFeedbacksRatingField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Initializes default rate and generates stars based on that rate for
      * template.
@@ -45,7 +45,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Fills all stars up to `this.value`. `true` means fill, `false` means not
      * filled.
@@ -58,7 +58,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     unformat: function(value) {
         return value + 1;

@@ -1,4 +1,7 @@
 <?php
+
+if (!defined('sugarEntry') || !sugarEntry)
+    die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,8 +12,6 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-use Sugarcrm\Sugarcrm\Security\Crypto\CSPRNG;
 
 require_once 'modules/ModuleBuilder/parsers/ModuleBuilderParser.php';
 require_once 'modules/Administration/Administration.php';
@@ -99,7 +100,7 @@ class ParserModifyPortalConfig extends ModuleBuilderParser
                     'field' => 'date_modified',
                     'direction' => 'desc'
                 ),
-                'KBContents' => array(
+                'KBDocuments' => array(
                     'field' => 'date_modified',
                     'direction' => 'desc'
                 )
@@ -148,12 +149,10 @@ class ParserModifyPortalConfig extends ModuleBuilderParser
         //TODO: Remove after we resolve issues with test associated to this
         $GLOBALS['log']->info('Updating portal config');
         foreach ($portalConfig as $fieldKey => $fieldValue) {
-            if (is_string($fieldValue)) {
-                $fieldValue = SugarCleaner::stripTags($fieldValue);
-            }
+
             // TODO: category should be `support`, platform should be `portal`
             $admin = $this->getAdministrationBean();
-            if (!$admin->saveSetting('portal', $fieldKey, $fieldValue, 'support')) {
+            if (!$admin->saveSetting('portal', $fieldKey, json_encode($fieldValue), 'support')) {
                 $GLOBALS['log']->fatal("Error saving portal config var $fieldKey, orig: $fieldValue , json:".json_encode($fieldValue));
             }
         }
@@ -211,7 +210,7 @@ class ParserModifyPortalConfig extends ModuleBuilderParser
             $user->status = 'Active';
             $user->receive_notifications = 0;
             $user->is_admin = 0;
-            $random = CSPRNG::getInstance()->generate(32, true);
+            $random = time() . mt_rand();
             $user->authenicate_id = md5($random);
             $user->user_hash = User::getPasswordHash($random);
             $user->default_team = '1';
@@ -255,7 +254,7 @@ class ParserModifyPortalConfig extends ModuleBuilderParser
     public function getPortalACLRole()
     {
         global $mod_strings;
-        $allowedModules = array('Bugs', 'Cases', 'Notes', 'KBContents', 'Contacts');
+        $allowedModules = array('Bugs', 'Cases', 'Notes', 'KBDocuments', 'Contacts');
         $allowedActions = array('edit', 'admin', 'access', 'list', 'view');
         $role = BeanFactory::getBean('ACLRoles');
         $role->retrieve_by_string_fields(array('name' => 'Customer Self-Service Portal Role'));
@@ -286,7 +285,7 @@ class ParserModifyPortalConfig extends ModuleBuilderParser
                         } else {
                             $aclAllow = ACL_ALLOW_NONE;
                         }
-                        if ($moduleName == 'KBContents' && $actionName == 'edit') {
+                        if ($moduleName == 'KBDocuments' && $actionName == 'edit') {
                             $aclAllow = ACL_ALLOW_NONE;
                         }
                         if ($moduleName == 'Contacts') {

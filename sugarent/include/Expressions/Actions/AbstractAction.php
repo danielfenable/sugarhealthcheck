@@ -19,7 +19,7 @@ require_once("include/Expressions/Expression/AbstractExpression.php");
  * @api
  */
 abstract class AbstractAction {
-    protected $targetField = array();
+	protected $targetField = array();
     protected $params = array();
 
     /**

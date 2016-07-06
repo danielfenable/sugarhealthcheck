@@ -248,11 +248,11 @@ SUGAR.util.extend(SUGAR.expressions.AddDaysExpression, SUGAR.expressions.DateExp
             var d = new Date(date);
             d.setDate(d.getDate() + days);
 
-            // if we're calling this from Sidecar, we need to pass back the date
-            // as a string, not a Date object otherwise it won't validate properly
-            if (this.context.view) {
-                d = App.date.format(d, 'Y-m-d');
-            }
+            // if we're calling this from Sidecar, we need to pass back the date
+            // as a string, not a Date object otherwise it won't validate properly
+            if (this.context.view) {
+                d = App.date.format(d, 'Y-m-d');
+            }
 
             return d;
 	}
@@ -452,34 +452,6 @@ SUGAR.util.extend(SUGAR.expressions.RelatedFieldExpression, SUGAR.expressions.Ge
 });
 
 /**
- * Construct a new ForecastIncludedCommitStagesExpression.
- */
-SUGAR.expressions.ForecastIncludedCommitStagesExpression = function(params, context) {
-	this.context = context;
-	this.init(params);
-}
-SUGAR.util.extend(SUGAR.expressions.ForecastIncludedCommitStagesExpression, SUGAR.expressions.EnumExpression, {
-    className: "ForecastIncludedCommitStagesExpression",
-	evaluate: function() {
-
-            // this doesn't support BWC modules, so it should return the full list of dom elememnts
-            if (App === undefined) {
-                return SUGAR.language.get('app_list_strings', 'sales_stage_dom');
-            }
-
-            var config = App.metadata.getModule('Forecasts', 'config');
-
-            return config.commit_stages_included;
-	}
-	,getParamCount: function() {
-		return 0;
-	}
-	,getParameterTypes: function() {
-		return [];
-	}
-});
-
-/**
  * Construct a new SugarDropDownExpression.
  */
 SUGAR.expressions.SugarDropDownExpression = function(params, context) {
@@ -651,52 +623,6 @@ SUGAR.util.extend(SUGAR.expressions.SugarTranslatedDropDownExpression, SUGAR.exp
 });
 
 /**
- * Construct a new ForecastCommitStageExpression.
- */
-SUGAR.expressions.ForecastCommitStageExpression = function(params, context) {
-	this.context = context;
-	this.init(params);
-}
-SUGAR.util.extend(SUGAR.expressions.ForecastCommitStageExpression, SUGAR.expressions.EnumExpression, {
-    className: "ForecastCommitStageExpression",
-	evaluate: function() {
-			var value = this.getParameters().evaluate();
-
-			// this doesn't support BWC modules, so it should return false if it doesn't have app.
-			// we can't use underscore as it's not in BWC mode here
-			if (App === undefined) {
-		        return '';
-			}
-
-			var config = App.metadata.getModule('Forecasts', 'config');
-
-            // if forecast is not set, return an empty string
-			if (config.forecast_setup === 0) {
-                return '';
-			}
-
-			var ranges = config[config.forecast_ranges + '_ranges'],
-			    stage = '';
-
-            _.find(ranges, function(_range, _index) {
-                if (value >= _range.min && value <= _range.max) {
-                    stage = _index;
-                    return true;
-                }
-                return false;
-            });
-
-            return stage;
-	}
-	,getParamCount: function() {
-		return 1;
-	}
-	,getParameterTypes: function() {
-		return ['number'];
-	}
-});
-
-/**
  * Construct a new CharacterAtExpression.
  */
 SUGAR.expressions.CharacterAtExpression = function(params, context) {
@@ -831,15 +757,7 @@ SUGAR.expressions.DefineStringExpression = function(params, context) {
 SUGAR.util.extend(SUGAR.expressions.DefineStringExpression, SUGAR.expressions.StringExpression, {
     className: "DefineStringExpression",
 	evaluate: function() {
-        var value = this.getParameters().evaluate(),
-            string;
-        if (value instanceof Date) {
-            var dateOnly = value.type == "date";
-            string = App.date(value).formatUser(dateOnly);
-        } else {
-            string = value + "";
-        }
-        return string;
+			return this.getParameters().evaluate() + "";
 	}
 	,getParamCount: function() {
 		return 1;
@@ -937,8 +855,8 @@ SUGAR.util.extend(SUGAR.expressions.IsForecastClosedExpression, SUGAR.expression
 		        return SUGAR.expressions.Expression.FALSE;
 			}
 
-			var config = App.metadata.getModule('Forecasts', 'config'),
-			    status = ['Closed Won', 'Closed Lost'];
+			var config = App.metadata.getModule('Forecasts', 'config');
+			status = ['Closed Won', 'Closed Lost'];
             if (!_.isUndefined(config)) {
 			    status = _.union(
                     config.sales_stage_won,
@@ -2128,6 +2046,55 @@ SUGAR.util.extend(SUGAR.expressions.DivideExpression, SUGAR.expressions.NumericE
 });
 
 
+		SUGAR.forms.AssignToUserAction = function(valExpr) {
+			//If we are running in sidecar, this action will not function
+			if(SUGAR.App) return;
+			this.expr = valExpr;
+			this.target = 'assigned_user_name';
+			this.dataSource = new YAHOO.util.DataSource('index.php?', {
+        		responseType: YAHOO.util.XHRDataSource.TYPE_JSON,
+        		responseSchema: {
+                    resultsList: 'fields',
+                    total: 'totalCount',
+                    metaNode: 'fields',
+                    metaFields: {total: 'totalCount', fields:'fields'}
+        		},
+        		connMethodPost: true
+            });
+		};
+		SUGAR.util.extend(SUGAR.forms.AssignToUserAction, SUGAR.forms.AbstractAction, {
+			exec : function(context)
+			{
+				//If we are running in sidecar, this action will not function
+                if(SUGAR.App) return;
+
+				if (typeof(context) == 'undefined')
+                    context = this.context;
+				var userName = this.evalExpression(this.expr, context);
+				var params = SUGAR.util.paramsToUrl({
+                    to_pdf: 'true',
+                    module: 'Home',
+                    action: 'quicksearchQuery',
+                    data: YAHOO.lang.JSON.stringify(sqs_objects['EditView_' + this.target]),
+                    query: userName
+                });
+                this.sqs = sqs_objects['EditView_' + this.target];
+				this.dataSource.sendRequest(params, {
+	                	success:function(param, resp){
+	                		if(resp.results.length > 0)
+	                		{
+	                			var match = resp.results[0];
+	                			for (var i = 0; i < this.sqs.field_list.length; i++)
+	                			{
+	                				SUGAR.forms.AssignmentHandler.assign(this.sqs.populate_list[i], match[this.sqs.field_list[i]]);
+	                			}
+	                		}
+						},
+	                	scope:this
+					});
+			},
+			targetUrl:'index.php?module=Home&action=TaxRate&to_pdf=1'
+		});
 		SUGAR.forms.SetOptionsAction = function(target, keyExpr, labelExpr) {
 			this.afterRender = true;
 			if (_.isObject(target)){
@@ -2147,7 +2114,7 @@ SUGAR.util.extend(SUGAR.expressions.DivideExpression, SUGAR.expressions.NumericE
 
 				var keys = this.evalExpression(this.keyExpr, context),
 					labels = this.evalExpression(this.labelExpr, context),
-					empty,
+					empty = (_.size(keys) === 0 || _.size(keys) === 1) && (keys[0] == undefined || keys[0] === '');
 					selected = '';
 
 				if (context.view)
@@ -2157,14 +2124,6 @@ SUGAR.util.extend(SUGAR.expressions.DivideExpression, SUGAR.expressions.NumericE
 					if (!field) {
 					    return;
 					}
-
-                    selected = [].concat(field.model.get(this.target));
-                    if (!this.canSetValue(context)) {
-                        keys = keys.concat(selected);
-                    }
-
-                    empty = (_.size(keys) === 0 || _.size(keys) === 1) && (keys[0] == undefined || keys[0] === '');
-
 					if (_.isString(labels))
 						field.items = _.pick(App.lang.getAppListStrings(labels), keys);
 					else
@@ -2179,15 +2138,15 @@ SUGAR.util.extend(SUGAR.expressions.DivideExpression, SUGAR.expressions.NumericE
 					visAction.exec();
 
 					//Remove from the selected options those options that are no longer available to select
-					selected = _.filter(selected, function(key) {
+					selected = _.filter([].concat(field.model.get(this.target)), function(key) {
 					    return _.contains(keys, key);
 					});
 
-					if ((selected.length == 0 || (selected.length == 1 && selected[0] == '')) && field.model.fields[field.name].type != 'multienum') {
-					    selected = [(empty ? '' : keys[0])];
+					if (selected.length == 0 && field.model.fields[field.name].type != 'multienum') {
+					    selected = selected.concat(empty ? '' : keys[0]);
 					}
 
-                    context.setValue(this.target, selected);
+					context.setValue(this.target, selected);
 				}
 				else {
 					var field = context.getElement(this.target);
@@ -2448,7 +2407,6 @@ SUGAR.util.extend(SUGAR.expressions.DivideExpression, SUGAR.expressions.NumericE
 			if (_.isObject(target)){
 			    this.expr = target.value;
 			    this.target = target.target;
-			    this.errorValue = !_.isUndefined(target.errorValue) ? target.errorValue : null;
 			} else {
                 this.expr = valExpr;
                 this.target = target;
@@ -2457,22 +2415,19 @@ SUGAR.util.extend(SUGAR.expressions.DivideExpression, SUGAR.expressions.NumericE
 		SUGAR.util.extend(SUGAR.forms.SetValueAction, SUGAR.forms.AbstractAction, {
 			exec : function(context)
 			{
-				if (typeof(context) == 'undefined') {
+				if (typeof(context) == 'undefined')
 				    context = this.context;
-                }
 
 				try {
 				    var val = this.evalExpression(this.expr, context),
 				        cVal = context.getValue(this.target).evaluate();
                     // only set the value if the two numbers are different
                     // get rid of the flash
-                    if (!_.isUndefined(val) && val !== cVal && this.canSetValue(context)) {
-                        context.setValue(this.target, val);
+                    if (!_.isUndefined(val) && val !== cVal) {
+				        context.setValue(this.target, val);
 				    }
 				} catch (e) {
-				    if (!_.isUndefined(this.errorValue) && !_.isNull(this.errorValue)) {
-				        context.setValue(this.target, this.errorValue);
-				    }
+	                context.setValue(this.target, '');
 			    }
 	       }
 		});
@@ -2791,76 +2746,6 @@ SUGAR.forms.animation.Expand = function(target)
     
     expandAnim.animate();
 };
-        SUGAR.forms.AssignToAction = function(expr) {
-            if (_.isObject(expr)) {
-                expr = expr.value;
-            }
-            this.expr = expr;
-            this.target = 'assigned_user_name';
-            if (_.isUndefined(SUGAR.App)) {
-                // Initialize data source only for BWC
-                this.dataSource = new YAHOO.util.DataSource('index.php?', {
-                    responseType: YAHOO.util.XHRDataSource.TYPE_JSON,
-                    responseSchema: {
-                        resultsList: 'fields',
-                        total: 'totalCount',
-                        metaNode: 'fields',
-                        metaFields: {total: 'totalCount', fields:'fields'}
-                    },
-                    connMethodPost: true
-                });
-            }
-        };
-        SUGAR.util.extend(SUGAR.forms.AssignToAction, SUGAR.forms.AbstractAction, {
-            exec: function(context) {
-                if (typeof(context) == 'undefined') {
-                    context = this.context;
-                }
-
-                this.userName = this.evalExpression(this.expr, context);
-                if (context.view) {
-                    //We may get triggered before the view has rendered with the full field list.
-                    //If that occurs wait for the next render to apply.
-                    if (_.isEmpty(context.view.fields)) {
-                        context.view.once('render', function(){this.exec(context);}, this);
-                        return;
-                    }
-                    context.setAssignedUserName(this.target, this.userName);
-                } else {
-                    this.bwcExec(context);
-                }
-            },
-            bwcExec: function(context) {
-                if (typeof(context) == 'undefined') {
-                    context = this.context;
-                }
-
-                var params = SUGAR.util.paramsToUrl({
-                    to_pdf: 'true',
-                    module: 'Home',
-                    action: 'quicksearchQuery',
-                    data: YAHOO.lang.JSON.stringify(sqs_objects['EditView_' + this.target]),
-                    query: this.userName
-                });
-
-                this.sqs = sqs_objects['EditView_' + this.target];
-                this.dataSource.sendRequest(params, {
-                    success: function(param, resp) {
-                        if(resp.results.length > 0) {
-                            var match = resp.results[0];
-                            for (var i = 0; i < this.sqs.field_list.length; i++) {
-                                SUGAR.forms.AssignmentHandler.assign(
-                                    this.sqs.populate_list[i],
-                                    match[this.sqs.field_list[i]]
-                                );
-                            }
-                        }
-                    },
-                    scope: this
-                });
-            },
-            targetUrl: 'index.php?module=Home&action=TaxRate&to_pdf=1'
-        });
 SUGAR.forms.SetRequiredAction = function(variable, expr, label) {
     if (_.isObject(variable)){
         expr = variable.value;
@@ -2951,7 +2836,7 @@ SUGAR.util.extend(SUGAR.forms.SetRequiredAction, SUGAR.forms.AbstractAction, {
  * to parse expressions into objects.
  */
 SUGAR.FunctionMap = {
-	'hourOfDay'	:	SUGAR.expressions.HourOfDayExpression,	'time'	:	SUGAR.expressions.DefineTimeExpression,	'dayofweek'	:	SUGAR.expressions.DayOfWeekExpression,	'today'	:	SUGAR.expressions.TodayExpression,	'monthofyear'	:	SUGAR.expressions.MonthOfYearExpression,	'now'	:	SUGAR.expressions.NowExpression,	'maxRelatedDate'	:	SUGAR.expressions.MaxRelatedDateExpression,	'date'	:	SUGAR.expressions.DefineDateExpression,	'hoursUntil'	:	SUGAR.expressions.HoursUntilExpression,	'addDays'	:	SUGAR.expressions.AddDaysExpression,	'timestamp'	:	SUGAR.expressions.TimestampExpression,	'daysUntil'	:	SUGAR.expressions.DaysUntilExpression,	'valueAt'	:	SUGAR.expressions.IndexValueExpression,	'ifElse'	:	SUGAR.expressions.ConditionExpression,	'cond'	:	SUGAR.expressions.ConditionExpression,	'sugarField'	:	SUGAR.expressions.SugarFieldExpression,	'currencyRate'	:	SUGAR.expressions.CurrencyRateExpression,	'related'	:	SUGAR.expressions.RelatedFieldExpression,	'forecastIncludedCommitStages'	:	SUGAR.expressions.ForecastIncludedCommitStagesExpression,	'getDropdownKeySet'	:	SUGAR.expressions.SugarDropDownExpression,	'getDD'	:	SUGAR.expressions.SugarDropDownExpression,	'forecastSalesStages'	:	SUGAR.expressions.ForecastSalesStageExpression,	'getListWhere'	:	SUGAR.expressions.SugarListWhereExpression,	'createList'	:	SUGAR.expressions.DefineEnumExpression,	'enum'	:	SUGAR.expressions.DefineEnumExpression,	'getDropdownValueSet'	:	SUGAR.expressions.SugarTranslatedDropDownExpression,	'getTransDD'	:	SUGAR.expressions.SugarTranslatedDropDownExpression,	'forecastCommitStage'	:	SUGAR.expressions.ForecastCommitStageExpression,	'charAt'	:	SUGAR.expressions.CharacterAtExpression,	'translateLabel'	:	SUGAR.expressions.SugarTranslateExpression,	'translate'	:	SUGAR.expressions.SugarTranslateExpression,	'strToLower'	:	SUGAR.expressions.StrToLowerExpression,	'subStr'	:	SUGAR.expressions.SubStrExpression,	'strToUpper'	:	SUGAR.expressions.StrToUpperExpression,	'getDropdownValue'	:	SUGAR.expressions.SugarDropDownValueExpression,	'getDDValue'	:	SUGAR.expressions.SugarDropDownValueExpression,	'toString'	:	SUGAR.expressions.DefineStringExpression,	'string'	:	SUGAR.expressions.DefineStringExpression,	'contains'	:	SUGAR.expressions.ContainsExpression,	'formatName'	:	SUGAR.expressions.FormatedNameExpression,	'concat'	:	SUGAR.expressions.ConcatenateExpression,	'isForecastClosed'	:	SUGAR.expressions.IsForecastClosedExpression,	'isValidPhone'	:	SUGAR.expressions.IsValidPhoneExpression,	'greaterThan'	:	SUGAR.expressions.GreaterThanExpression,	'isAlpha'	:	SUGAR.expressions.IsAlphaExpression,	'isValidDBName'	:	SUGAR.expressions.IsValidDBNameExpression,	'doBothExist'	:	SUGAR.expressions.BinaryDependencyExpression,	'isWithinRange'	:	SUGAR.expressions.IsInRangeExpression,	'isAfter'	:	SUGAR.expressions.isAfterExpression,	'isValidEmail'	:	SUGAR.expressions.IsValidEmailExpression,	'isAlphaNumeric'	:	SUGAR.expressions.IsAlphaNumericExpression,	'and'	:	SUGAR.expressions.AndExpression,	'isValidDate'	:	SUGAR.expressions.IsValidDateExpression,	'not'	:	SUGAR.expressions.NotExpression,	'equal'	:	SUGAR.expressions.EqualExpression,	'isBefore'	:	SUGAR.expressions.isBeforeExpression,	'isForecastClosedWon'	:	SUGAR.expressions.IsForecastClosedWonExpression,	'isForecastClosedLost'	:	SUGAR.expressions.IsForecastClosedLostExpression,	'isInList'	:	SUGAR.expressions.IsInEnumExpression,	'isInEnum'	:	SUGAR.expressions.IsInEnumExpression,	'isNumeric'	:	SUGAR.expressions.IsNumericExpression,	'isValidTime'	:	SUGAR.expressions.IsValidTimeExpression,	'isRequiredCollection'	:	SUGAR.expressions.IsRequiredCollectionExpression,	'or'	:	SUGAR.expressions.OrExpression,	'rollupSum'	:	SUGAR.expressions.SumRelatedExpression,	'rollupCurrencySum'	:	SUGAR.expressions.SumRelatedExpression,	'floor'	:	SUGAR.expressions.FloorExpression,	'rollupMax'	:	SUGAR.expressions.MaxRelatedExpression,	'log'	:	SUGAR.expressions.LogExpression,	'rollupAve'	:	SUGAR.expressions.AverageRelatedExpression,	'rollupAvg'	:	SUGAR.expressions.AverageRelatedExpression,	'median'	:	SUGAR.expressions.MedianExpression,	'strlen'	:	SUGAR.expressions.StringLengthExpression,	'pow'	:	SUGAR.expressions.PowerExpression,	'countConditional'	:	SUGAR.expressions.CountConditionalRelatedExpression,	'count'	:	SUGAR.expressions.CountRelatedExpression,	'round'	:	SUGAR.expressions.RoundExpression,	'negate'	:	SUGAR.expressions.NegateExpression,	'average'	:	SUGAR.expressions.AverageExpression,	'avg'	:	SUGAR.expressions.AverageExpression,	'ceil'	:	SUGAR.expressions.CeilingExpression,	'ceiling'	:	SUGAR.expressions.CeilingExpression,	'ln'	:	SUGAR.expressions.NaturalLogExpression,	'number'	:	SUGAR.expressions.ValueOfExpression,	'min'	:	SUGAR.expressions.MinimumExpression,	'abs'	:	SUGAR.expressions.AbsoluteValueExpression,	'indexOf'	:	SUGAR.expressions.IndexOfExpression,	'stddev'	:	SUGAR.expressions.StandardDeviationExpression,	'max'	:	SUGAR.expressions.MaximumExpression,	'rollupMin'	:	SUGAR.expressions.MinRelatedExpression,	'multiply'	:	SUGAR.expressions.MultiplyExpression,	'currencyMultiply'	:	SUGAR.expressions.MultiplyExpression,	'mul'	:	SUGAR.expressions.MultiplyExpression,	'subtract'	:	SUGAR.expressions.SubtractExpression,	'currencySubtract'	:	SUGAR.expressions.SubtractExpression,	'sub'	:	SUGAR.expressions.SubtractExpression,	'add'	:	SUGAR.expressions.AddExpression,	'currencyAdd'	:	SUGAR.expressions.AddExpression,	'divide'	:	SUGAR.expressions.DivideExpression,	'currencyDivide'	:	SUGAR.expressions.DivideExpression,	'div'	:	SUGAR.expressions.DivideExpression,	'rollupConditionalSum'	:	SUGAR.expressions.SumConditionalRelatedExpression};
+	'hourOfDay'	:	SUGAR.expressions.HourOfDayExpression,	'time'	:	SUGAR.expressions.DefineTimeExpression,	'dayofweek'	:	SUGAR.expressions.DayOfWeekExpression,	'today'	:	SUGAR.expressions.TodayExpression,	'monthofyear'	:	SUGAR.expressions.MonthOfYearExpression,	'now'	:	SUGAR.expressions.NowExpression,	'maxRelatedDate'	:	SUGAR.expressions.MaxRelatedDateExpression,	'date'	:	SUGAR.expressions.DefineDateExpression,	'hoursUntil'	:	SUGAR.expressions.HoursUntilExpression,	'addDays'	:	SUGAR.expressions.AddDaysExpression,	'timestamp'	:	SUGAR.expressions.TimestampExpression,	'daysUntil'	:	SUGAR.expressions.DaysUntilExpression,	'valueAt'	:	SUGAR.expressions.IndexValueExpression,	'ifElse'	:	SUGAR.expressions.ConditionExpression,	'cond'	:	SUGAR.expressions.ConditionExpression,	'sugarField'	:	SUGAR.expressions.SugarFieldExpression,	'currencyRate'	:	SUGAR.expressions.CurrencyRateExpression,	'related'	:	SUGAR.expressions.RelatedFieldExpression,	'getDropdownKeySet'	:	SUGAR.expressions.SugarDropDownExpression,	'getDD'	:	SUGAR.expressions.SugarDropDownExpression,	'forecastSalesStages'	:	SUGAR.expressions.ForecastSalesStageExpression,	'getListWhere'	:	SUGAR.expressions.SugarListWhereExpression,	'createList'	:	SUGAR.expressions.DefineEnumExpression,	'enum'	:	SUGAR.expressions.DefineEnumExpression,	'getDropdownValueSet'	:	SUGAR.expressions.SugarTranslatedDropDownExpression,	'getTransDD'	:	SUGAR.expressions.SugarTranslatedDropDownExpression,	'charAt'	:	SUGAR.expressions.CharacterAtExpression,	'translateLabel'	:	SUGAR.expressions.SugarTranslateExpression,	'translate'	:	SUGAR.expressions.SugarTranslateExpression,	'strToLower'	:	SUGAR.expressions.StrToLowerExpression,	'subStr'	:	SUGAR.expressions.SubStrExpression,	'strToUpper'	:	SUGAR.expressions.StrToUpperExpression,	'getDropdownValue'	:	SUGAR.expressions.SugarDropDownValueExpression,	'getDDValue'	:	SUGAR.expressions.SugarDropDownValueExpression,	'toString'	:	SUGAR.expressions.DefineStringExpression,	'string'	:	SUGAR.expressions.DefineStringExpression,	'contains'	:	SUGAR.expressions.ContainsExpression,	'formatName'	:	SUGAR.expressions.FormatedNameExpression,	'concat'	:	SUGAR.expressions.ConcatenateExpression,	'isForecastClosed'	:	SUGAR.expressions.IsForecastClosedExpression,	'isValidPhone'	:	SUGAR.expressions.IsValidPhoneExpression,	'greaterThan'	:	SUGAR.expressions.GreaterThanExpression,	'isAlpha'	:	SUGAR.expressions.IsAlphaExpression,	'isValidDBName'	:	SUGAR.expressions.IsValidDBNameExpression,	'doBothExist'	:	SUGAR.expressions.BinaryDependencyExpression,	'isWithinRange'	:	SUGAR.expressions.IsInRangeExpression,	'isAfter'	:	SUGAR.expressions.isAfterExpression,	'isValidEmail'	:	SUGAR.expressions.IsValidEmailExpression,	'isAlphaNumeric'	:	SUGAR.expressions.IsAlphaNumericExpression,	'and'	:	SUGAR.expressions.AndExpression,	'isValidDate'	:	SUGAR.expressions.IsValidDateExpression,	'not'	:	SUGAR.expressions.NotExpression,	'equal'	:	SUGAR.expressions.EqualExpression,	'isBefore'	:	SUGAR.expressions.isBeforeExpression,	'isForecastClosedWon'	:	SUGAR.expressions.IsForecastClosedWonExpression,	'isForecastClosedLost'	:	SUGAR.expressions.IsForecastClosedLostExpression,	'isInList'	:	SUGAR.expressions.IsInEnumExpression,	'isInEnum'	:	SUGAR.expressions.IsInEnumExpression,	'isNumeric'	:	SUGAR.expressions.IsNumericExpression,	'isValidTime'	:	SUGAR.expressions.IsValidTimeExpression,	'isRequiredCollection'	:	SUGAR.expressions.IsRequiredCollectionExpression,	'or'	:	SUGAR.expressions.OrExpression,	'rollupSum'	:	SUGAR.expressions.SumRelatedExpression,	'rollupCurrencySum'	:	SUGAR.expressions.SumRelatedExpression,	'floor'	:	SUGAR.expressions.FloorExpression,	'rollupMax'	:	SUGAR.expressions.MaxRelatedExpression,	'log'	:	SUGAR.expressions.LogExpression,	'rollupAve'	:	SUGAR.expressions.AverageRelatedExpression,	'rollupAvg'	:	SUGAR.expressions.AverageRelatedExpression,	'median'	:	SUGAR.expressions.MedianExpression,	'strlen'	:	SUGAR.expressions.StringLengthExpression,	'pow'	:	SUGAR.expressions.PowerExpression,	'countConditional'	:	SUGAR.expressions.CountConditionalRelatedExpression,	'count'	:	SUGAR.expressions.CountRelatedExpression,	'round'	:	SUGAR.expressions.RoundExpression,	'negate'	:	SUGAR.expressions.NegateExpression,	'average'	:	SUGAR.expressions.AverageExpression,	'avg'	:	SUGAR.expressions.AverageExpression,	'ceil'	:	SUGAR.expressions.CeilingExpression,	'ceiling'	:	SUGAR.expressions.CeilingExpression,	'ln'	:	SUGAR.expressions.NaturalLogExpression,	'number'	:	SUGAR.expressions.ValueOfExpression,	'min'	:	SUGAR.expressions.MinimumExpression,	'abs'	:	SUGAR.expressions.AbsoluteValueExpression,	'indexOf'	:	SUGAR.expressions.IndexOfExpression,	'stddev'	:	SUGAR.expressions.StandardDeviationExpression,	'max'	:	SUGAR.expressions.MaximumExpression,	'rollupMin'	:	SUGAR.expressions.MinRelatedExpression,	'multiply'	:	SUGAR.expressions.MultiplyExpression,	'currencyMultiply'	:	SUGAR.expressions.MultiplyExpression,	'mul'	:	SUGAR.expressions.MultiplyExpression,	'subtract'	:	SUGAR.expressions.SubtractExpression,	'currencySubtract'	:	SUGAR.expressions.SubtractExpression,	'sub'	:	SUGAR.expressions.SubtractExpression,	'add'	:	SUGAR.expressions.AddExpression,	'currencyAdd'	:	SUGAR.expressions.AddExpression,	'divide'	:	SUGAR.expressions.DivideExpression,	'currencyDivide'	:	SUGAR.expressions.DivideExpression,	'div'	:	SUGAR.expressions.DivideExpression,	'rollupConditionalSum'	:	SUGAR.expressions.SumConditionalRelatedExpression};
 /**
  * The function to object map that is used by the Parser
  * to parse expressions into objects.

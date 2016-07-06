@@ -17,7 +17,7 @@
     extendsFrom: 'EnumField',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);
@@ -37,7 +37,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * If no value, set the application default language as default value.
      * If edit mode, set the application default language on the model.
      */
@@ -51,9 +51,9 @@
     },
 
     /**
-     * @override
+     * {@inheritdoc}
      *
-     * @return {string}  The default language as the default value
+     * @returns {String}  The default language as the default value
      */
     _getDefaultOption: function(optionsKeys) {
         return app.lang.getDefaultLanguage();

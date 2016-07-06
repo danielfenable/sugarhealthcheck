@@ -20,7 +20,7 @@ $object_name = strtolower($object_name);
 
   $object_name.'_type_dom' =>
   array (
-  	'Administration' => 'Administration',
+  	'Administration' => 'الإدارة',
     'Product' => 'المنتج',
     'User' => 'المستخدم',
   ),
@@ -35,7 +35,7 @@ $object_name = strtolower($object_name);
   ),
   $object_name.'_priority_dom' =>
   array (
-    'P1' => 'عالية',
+    'P1' => 'عالٍ',
     'P2' => 'متوسط',
     'P3' => 'منخفض',
   ),

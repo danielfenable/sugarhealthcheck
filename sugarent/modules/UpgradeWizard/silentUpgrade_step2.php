@@ -457,6 +457,7 @@ if($ce_to_pro_ent)
 			  'Products' => 'Products',
 			  'Forecasts' => 'Forecasts',
 			  'Contracts' => 'Contracts',
+			  'KBDocuments' => 'KBDocuments'
         );
         $newModuleList = array_merge($newModuleList,$must_have_modules);
 

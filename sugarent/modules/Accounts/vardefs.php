@@ -34,12 +34,6 @@ $dictionary['Account'] = array(
             'vname' => 'LBL_SIC_CODE',
             'type' => 'varchar',
             'len' => 10,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 1.21,
-                'type' => 'exact',
-            ),
             'comment' => 'SIC code of the account',
             'merge_filter' => 'enabled',
         ),
@@ -49,12 +43,6 @@ $dictionary['Account'] = array(
             'vname' => 'LBL_DUNS_NUM',
             'type' => 'varchar',
             'len' => 15,
-             'full_text_search' => array(
-                 'enabled' => true,
-                 'searchable' => true,
-                 'boost' => 1.23,
-                 'type' => 'exact',
-             ),
             'comment' => 'DUNS number of the account',
           ),
         'parent_name' => array(
@@ -327,6 +315,8 @@ $dictionary['Account'] = array(
         ),
     ),
     'indices' => array(
+        array('name' => 'idx_accnt_name_del', 'type' => 'index', 'fields' => array('name', 'deleted')), //bug #5530
+        array('name' => 'idx_accnt_assigned_del', 'type' => 'index', 'fields' => array('deleted', 'assigned_user_id')),
         array('name' => 'idx_accnt_parent_id', 'type' => 'index', 'fields' => array('parent_id')),
         array('name' => 'idx_account_billing_address_city', 'type' => 'index', 'fields' => array('billing_address_city')),
         array('name' => 'idx_account_billing_address_country', 'type' => 'index', 'fields' => array('billing_address_country')),
@@ -499,14 +489,3 @@ VardefManager::createVardef(
 //jc - adding for refactor for import to not use the required_fields array
 //defined in the field_arrays.php file
 $dictionary['Account']['fields']['name']['importable'] = 'required';
-
-//boost value for full text search
-$dictionary['Account']['fields']['name']['full_text_search']['boost'] = 1.91;
-$dictionary['Account']['fields']['email']['full_text_search']['boost'] = 1.89;
-$dictionary['Account']['fields']['phone_office']['full_text_search']['boost'] = 1.05;
-$dictionary['Account']['fields']['phone_fax']['full_text_search']['boost'] = 1.04;
-$dictionary['Account']['fields']['phone_alternate']['full_text_search']['boost'] = 1.03;
-$dictionary['Account']['fields']['description']['full_text_search']['boost'] = 0.72;
-$dictionary['Account']['fields']['billing_address_street']['full_text_search']['boost'] = 0.35;
-$dictionary['Account']['fields']['shipping_address_street']['full_text_search']['boost'] = 0.34;
-

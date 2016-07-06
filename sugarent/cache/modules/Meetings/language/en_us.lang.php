@@ -1,13 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:23
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team Id',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -27,13 +20,17 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'rem',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team Id',
   'ERR_DELETE_RECORD' => 'A record number must be specified to delete the Meeting.',
   'LBL_ACCEPT_THIS' => 'Accept?',
   'LBL_ADD_BUTTON' => 'Add',
   'LBL_ADD_INVITEE' => 'Add Invitees',
   'LBL_COLON' => ':',
   'LBL_CONTACT_NAME' => 'Contact:',
-  'LBL_CONTACT_ID' => 'Contact Id',
   'LBL_CONTACTS_SUBPANEL_TITLE' => 'Contacts',
   'LBL_CREATED_BY' => 'Created by',
   'LBL_DATE_END' => 'End Date',
@@ -125,7 +122,6 @@ $mod_strings = array (
   'LBL_ACCEPT_STATUS' => 'Accept Status',
   'LBL_ACCEPT_LINK' => 'Accept Link',
   'LBL_ERROR_LAUNCH_MEETING_GENERAL' => 'There was an error launching this meeting. Please contact your Administrator.',
-  'LBL_EXTERNAL_MEETING_NO_URL' => 'The link to launch {{meetingType}} was not generated properly when the meeting was created. Please contact your Administrator.',
   'LBL_EXTNOT_HEADER' => 'Error: Not Invited',
   'LBL_EXTNOT_MAIN' => 'You are not able to join this Meeting because you are not an Invitee.',
   'LBL_EXTNOT_RECORD_LINK' => 'View Meeting',
@@ -200,5 +196,7 @@ To create a {{meetings_singular_module}}:
 2. Add invitees to the {{meetings_singular_module}}.
     - Click "Select an Attendee" to add an existing user, contact, or lead to the {{meetings_singular_module}}.
     - Click the plus icon to the right of "Select an Attendee" to create a {{meetings_singular_module}} attendee as a new Sugar record.
-3. Click "Save" to finalize the new record and return to the previous page.',
+3. Click "Save" to finalize the new record and return to the previous page.
+    - Choose "Save and view" to open the new meeting in record view.
+    - Choose "Save and create new" to immediately create another new {{meetings_singular_module}}.',
 );

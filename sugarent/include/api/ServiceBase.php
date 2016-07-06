@@ -175,9 +175,8 @@ abstract class ServiceBase {
         if (ob_get_level() > 0 && ob_get_length() > 0) {
             // Looks like something errored out first
             $errorOutput = ob_get_clean();
-            if (trim(str_replace("\xEF\xBB\xBF", '', $errorOutput)) == '') {
-                // whitespace only and BOM
-                // we may let it slide on account of 6.x having broken templates with whitespace
+            if(trim($errorOutput) == '') {
+                // whitespace only, we may let it slide on account of 6.x having broken templates with whitespace
                 // See BR-1038
                 return;
             }

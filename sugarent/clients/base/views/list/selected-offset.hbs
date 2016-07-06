@@ -18,11 +18,7 @@
         {{str 'TPL_LISTVIEW_SELECTED_FIRST_OFFSET' this.module this}}
     {{/notEq}}
 {{else}}
-    {{#if all_selected}}
-        {{str 'TPL_LISTVIEW_SELECTED_ALL' this.module this}}
-    {{else}}
-        {{str 'TPL_LISTVIEW_SELECTED' this.module this}}
-    {{/if}}
+    {{str 'TPL_LISTVIEW_SELECTED_ALL' this.module this}}
 {{/if}}
 <button type="button" class="btn btn-link btn-inline" data-action="clear">
     {{str 'LBL_LISTVIEW_SELECTED_CLEAR'}}

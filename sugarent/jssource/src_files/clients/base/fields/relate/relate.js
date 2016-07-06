@@ -65,106 +65,45 @@
  *
  * @class View.Fields.Base.RelateField
  * @alias SUGAR.App.view.fields.BaseRelateField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
+    allow_single_deselect: true,
+    minChars: 1,
     fieldTag: 'input.select2',
     plugins: ['QuickSearchFilter', 'EllipsisInline'],
-
     /**
      * Initializes field and binds all function calls to this
      * @param {Object} options
      */
-    initialize: function(options) {
-        /**
-         * Boolean used for the 'allowClear' select2 option.
-         *
-         * @property {boolean}
-         * @protected
-         */
-        this._allow_single_deselect = true;
-        /**
-         * Minimum input characters to trigger the search. Used for
-         * `minimumInputLength` select2 option.
-         *
-         * @property {number}
-         * @protected
-         */
-        this._minChars = options.def.minChars || 1;
-        /**
-         * Separator used by select2 to separate values. Used for `separator`
-         * select2 option.
-         *
-         * @property {string}
-         * @protected
-         */
-        this._separator = '|';
-        /**
-         * Maximum number of records the user can select.
-         *
-         * @property {number}
-         * @protected
-         */
-        this._maxSelectedRecords = 20;
-
-        this._super('initialize', [options]);
-        /**
-         * The template used for a pill in case of multiselect field.
-         *
-         * @property {Function}
-         * @private
-         */
-        this._select2formatSelectionTemplate = app.template.getField('relate', 'pill', this.module);
-
+    initialize: function (options) {
+        this.minChars = options.def.minChars || this.minChars;
+        app.view.Field.prototype.initialize.call(this, options);
         var populateMetadata = app.metadata.getModule(this.getSearchModule());
 
         if (_.isEmpty(populateMetadata)) {
             return;
         }
-        _.each(this.def.populate_list, function(target, source) {
+        _.each(this.def.populate_list, function (target, source) {
             if (_.isUndefined(populateMetadata.fields[source])) {
                 app.logger.error('Fail to populate the related attributes: attempt to access undefined key - ' +
-                this.getSearchModule() + '::' + source);
+                    this.getSearchModule() + '::' + source);
             }
         }, this);
-
-        this._createSearchCollection();
     },
 
     /**
      * Creates a Filters BeanCollection to easily apply filters.
-     * The user must have `list` access to the search module to create a
-     * {@link Data.Base.FiltersBeanCollection}.
      *
      * @protected
      */
     _createFiltersCollection: function(options) {
         var searchModule = this.getSearchModule();
-
-        if (!app.acl.hasAccess('list', searchModule)) {
-            app.logger.debug('No "list" access to ' + searchModule + ' so skipping the creation of filter.');
-            return;
-        }
-
         if (app.metadata.getModule('Filters') && searchModule) {
             this.filters = app.data.createBeanCollection('Filters');
             this.filters.setModuleName(searchModule);
             this.filters.setFilterOptions(this.getFilterOptions());
             this.filters.load(options);
-        }
-    },
-    /**
-     * Creates a {@link Data.BeanCollection} for the search results pertaining
-     * to the search module.
-     *
-     * @protected
-     */
-    _createSearchCollection: function() {
-        var searchModule = this.getSearchModule();
-        if (searchModule && app.metadata.getModule(searchModule)) {
-            this.searchCollection = app.data.createBeanCollection(searchModule);
-        } else {
-            this.searchCollection = null;
         }
     },
 
@@ -200,42 +139,24 @@
         }
     },
 
-    focus: function() {
-        if (this.action !== 'disabled') {
+    focus: function () {
+        var self = this;
+        if(this.action !== 'disabled') {
             //Need to defer to ensure that all the related elements have finished
             //rendering before attempting to open the dropdown.
-            _.defer(_.bind(function() {
-                this.$(this.fieldTag).first().select2('open');
-            }, this));
+            _.defer(function(){self.$(self.fieldTag).select2('open')});
         }
     },
-
-    /**
-     * //FIXME: We shouldn't have this method. SC-4121 will address this.
-     * Creates the css classes to set to the select2 plugin.
-     *
-     * @return {string}
-     * @private
-     */
-    _buildCssClasses: function() {
-        var cssClasses = [];
-        if (this.view.name === 'recordlist') {
-            cssClasses.push('select2-narrow');
-        }
-        if (this.type === 'parent') {
-            cssClasses.push('select2-parent');
-        }
-        if (this.def.isMultiSelect) {
-            cssClasses.push('select2-choices-pills-close same-size-pills');
-        }
-        return cssClasses.join(' ');
-    },
-
     /**
      * Renders relate field
      */
     _render: function() {
         var searchModule = this.getSearchModule();
+
+        //Do not render if the related module is invalid
+        if (searchModule && !_.contains(app.metadata.getModuleNames(), searchModule)) {
+            return this;
+        }
 
         this._super('_render');
 
@@ -243,27 +164,13 @@
         switch(this.tplName) {
             case 'edit':
             case 'massupdate':
-                // `searchModule` can be undefined for a parent field when there
-                // is no value set (ie in create mode). In that case, we don't
-                // want to render the dropdown disabled.
-                if (!_.isUndefined(searchModule)) {
-                    if (!app.acl.hasAccess('list', searchModule) ||
-                        !_.contains(app.metadata.getModuleNames(), searchModule)) {
-                        this._renderDisabledDropdown();
-                        break;
-                    }
-                }
-                if (_.isUndefined(this.filters)) {
-                    this._createFiltersCollection({
-                        success: _.bind(function() {
-                            if (!this.disposed) {
-                                this._renderEditableDropdown();
-                            }
-                        }, this)
-                    });
-                } else {
-                    this._renderEditableDropdown();
-                }
+                this._createFiltersCollection({
+                    success: _.bind(function() {
+                        if (!this.disposed) {
+                            this._renderEditableDropdown();
+                        }
+                    }, this)
+                });
                 break;
             case 'disabled':
                 this._renderDisabledDropdown();
@@ -286,87 +193,79 @@
         var self = this;
         var $dropdown = this.$(this.fieldTag);
 
-        var loadingLabel = app.lang.get('LBL_LOADING', this.module);
+        var inList = (this.view.name === 'recordlist'),
+            cssClasses = (inList ? 'select2-narrow' : '') + (this.type === 'parent' ? ' select2-parent' : ''),
+            relatedModuleField = this.getRelatedModuleField();
 
-        var inList = this.view.name === 'recordlist';
         $dropdown.select2({
-            width: inList ? 'off' : '100%',
-            dropdownCssClass: _.bind(this._buildCssClasses, this),
-            multiple: !!this.def.isMultiSelect,
-            containerCssClass: _.bind(this._buildCssClasses, this),
-            separator: this._separator,
-            initSelection: _.bind(this._onInitSelect, this),
-            formatInputTooShort: function() {
+            width: inList?'off':'100%',
+            dropdownCssClass: cssClasses,
+            containerCssClass: cssClasses,
+            initSelection: function (el, callback) {
+                var $el = $(el),
+                    id = $el.data('id'),
+                    text = $el.val();
+                callback({id: id, text: text});
+            },
+            formatInputTooShort: function () {
                 return '';
             },
-            formatSelection: _.bind(this._onFormatSelection, this),
-            formatSearching: loadingLabel,
+            formatSearching: function () {
+                return app.lang.get("LBL_LOADING", self.module);
+            },
             placeholder: this.getPlaceHolder(),
-            allowClear: self._allow_single_deselect,
-            minimumInputLength: self._minChars,
-            maximumSelectionSize: 20,
+            allowClear: self.allow_single_deselect,
+            minimumInputLength: self.minChars,
             query: _.bind(this.search, this)
-        }).on('select2-open', _.bind(this._onSelect2Open, this))
-            .on('searchmore', function() {
-                $(this).select2('close');
-                self.openSelectDrawer();
-            }).on('change', function(e) {
-                var plugin = $(this).data('select2'),
-                    id = e.val;
-
-                if (_.isUndefined(id)) {
-                    return;
-                }
-
-                // For multiselect fields, we update the data-rname attributes
-                // so it stays in sync with the id list, and allows us to use
-                // 'setValue' method. The use of 'setValue' method is required
-                // to re-render the field.
-                if (self.def.isMultiSelect) {
-                    var dataRname = plugin.opts.element.data('rname');
-                    dataRname = dataRname ? dataRname.split(self._separator) : [];
-                    var ids = $(this).select2('val');
-
-                    if (e.added) {
-                        dataRname.push(e.added.text);
-                    } else if (e.removed) {
-                        dataRname = _.without(dataRname, e.removed.text);
-                    } else {
-                        return;
+        }).on("select2-open",function () {
+            var plugin = $(this).data('select2');
+            if (!plugin.searchmore) {
+                var $content = $('<li class="select2-result">').append(
+                        $('<div/>').addClass('select2-result-label')
+                            .html(app.lang.get('LBL_SEARCH_FOR_MORE', self.module))
+                    ).mousedown(function () {
+                        plugin.opts.element.trigger($.Event("searchmore"));
+                        plugin.close();
+                    });
+                plugin.searchmore = $('<ul class="select2-results">').append($content);
+                plugin.dropdown.append(plugin.searchmore);
+            }
+        }).on('searchmore', function() {
+            $(this).select2('close');
+            self.openSelectDrawer();
+        }).on("change", function (e) {
+            var id = e.val,
+                plugin = $(this).data('select2'),
+                value = (id) ? plugin.selection.find("span").text() : $(this).data('id'),
+                collection = plugin.context,
+                attributes = {};
+            if (_.isUndefined(id)) {
+                return;
+            }
+            //Update the source element or else reverting back to the original value will not trigger a change event.
+            plugin.opts.element.data("id", id);
+            if (collection && !_.isEmpty(id)) {
+                // if we have search results use that to set new values
+                var model = collection.get(id);
+                attributes.id = model.id;
+                attributes.value = model.get('name');
+                _.each(model.attributes, function (value, field) {
+                    if (app.acl.hasAccessToModel('view', model, field)) {
+                        attributes[field] = attributes[field] || model.get(field);
                     }
-                    var models = _.map(ids, function(id, index) {
-                        return {id: id, value: dataRname[index]};
-                    });
+                });
+            } else if (e.currentTarget.value && value) {
+                // if we have previous values keep them
+                attributes.id = value;
+                attributes.value = e.currentTarget.value;
+            } else {
+                // default to empty
+                attributes.id = '';
+                attributes.value = '';
+            }
 
-                    self.setValue(models);
-                    return;
-                }
-
-                var value = (id) ? plugin.selection.find('span').text() : $(this).data('rname'),
-                    collection = plugin.context,
-                    attributes = {};
-                if (collection && !_.isEmpty(id)) {
-                    // if we have search results use that to set new values
-                    var model = collection.get(id);
-                    attributes.id = model.id;
-                    attributes.value = model.get('name');
-                    _.each(model.attributes, function(value, field) {
-                        if (app.acl.hasAccessToModel('view', model, field)) {
-                            attributes[field] = attributes[field] || model.get(field);
-                        }
-                    });
-                } else if (e.currentTarget.value && value) {
-                    // if we have previous values keep them
-                    attributes.id = value;
-                    attributes.value = e.currentTarget.value;
-                } else {
-                    // default to empty
-                    attributes.id = '';
-                    attributes.value = '';
-                }
-
-                self.setValue(attributes);
-            });
+            self.setValue(attributes);
+        });
         var plugin = $dropdown.data('select2');
         if (plugin && plugin.focusser) {
             plugin.focusser.on('select2-focus', _.bind(_.debounce(this.handleFocus, 0), this));
@@ -384,83 +283,24 @@
 
         $dropdown.select2({
             width: '100%',
-            initSelection: function(el, callback) {
+            initSelection: function (el, callback) {
                 var $el = $(el),
-                    id = $el.val(),
-                    text = $el.data('rname');
+                    id = $el.data('id'),
+                    text = $el.val();
                 callback({id: id, text: text});
             },
-            formatInputTooShort: function() {
+            formatInputTooShort: function () {
                 return '';
             },
-            formatSearching: function() {
+            formatSearching: function () {
                 return loadingLabel;
             },
             placeholder: this.getPlaceHolder(),
-            allowClear: self._allow_single_deselect,
-            minimumInputLength: self._minChars,
+            allowClear: self.allow_single_deselect,
+            minimumInputLength: self.minChars,
             query: _.bind(this.search, this)
         });
         $dropdown.select2('disable');
-    },
-
-    /**
-     * Callback for select2 `initSelection` property.
-     *
-     * @param {HTMLElement} el The select2 element that stores values.
-     * @param {Function} callback select2 callback to initialize the plugin.
-     * @private
-     */
-    _onInitSelect: function(el, callback) {
-        var $el = $(el),
-            id = $el.val(),
-            text = $el.data('rname');
-
-        if (!this.def.isMultiSelect) {
-            return callback({id: id, text: text});
-        }
-        var ids = id.split(this._separator);
-        text = text.split(this._separator);
-        callback(_.map(ids, function(value, index) {
-            return {id: value, text: text[index]};
-        }));
-    },
-
-    /**
-     * Callback for select2 `formatSelection` property.
-     *
-     * @param {Object} obj object containing the item name.
-     * @return {string} A string containing template for a pill.
-     *
-     * @private
-    */
-    _onFormatSelection: function(obj) {
-        var ctx = {};
-        //TODO We should investigate why it's sometimes `text` and
-        //sometimes `id` and make it always same if possible.
-        ctx.text = obj.text || obj.id;
-        return this._select2formatSelectionTemplate(ctx);
-    },
-
-    /**
-     * Callback when select2 plugin opens.
-     * @private
-     * @param {Event} e The `click` event.
-     */
-    _onSelect2Open: function(e) {
-        var plugin = this.$(e.currentTarget).data('select2');
-        if (plugin.searchmore) {
-            return;
-        }
-        var label = app.lang.get('LBL_SEARCH_AND_SELECT_ELLIPSIS', this.module);
-        var $tpl = $('<div/>').addClass('select2-result-label').html(label);
-        var onMouseDown = function() {
-            plugin.opts.element.trigger($.Event('searchmore'));
-            plugin.close();
-        };
-        var $content = $('<li class="select2-result">').append($tpl).mousedown(onMouseDown);
-        plugin.searchmore = $('<ul class="select2-results">').append($content);
-        plugin.dropdown.append(plugin.searchmore);
     },
 
     /**
@@ -471,7 +311,7 @@
      * TODO since base.js has a build href, we should try to reuse code or
      * extend this one from other "link" field
      */
-    buildRoute: function(module, id) {
+    buildRoute: function (module, id) {
         var oldModule = module;
         // This is a workaround until bug 61478 is resolved to keep parity with 6.7
         if (module === 'Users' && this.context.get('module') !== 'Users') {
@@ -482,11 +322,8 @@
             return;
         }
         var action = (this.def.link && this.def.route)? this.def.route.action :"view";
-        if (!_.isEmpty(id) && app.acl.hasAccess(action, oldModule)) {
+        if(app.acl.hasAccess(action, oldModule)) {
             this.href = '#' + app.router.buildRoute(module, id);
-        } else {
-            // if no access to module, remove the href
-            this.href = undefined;
         }
     },
 
@@ -500,7 +337,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * When there is no value set and we are in a create view, we try to check
      * if the parent context module matches this relate field. If it matches,
@@ -522,24 +359,12 @@
         var parentCtx = this.context && this.context.parent,
             setFromCtx;
 
-        if (value) {
-            /**
-             * Flag to indicate that the value has been set from the context
-             * once, so if later the value is unset, we don't set it again on
-             * {@link #format}.
-             *
-             * @type {boolean}
-             * @protected
-             */
-            this._valueSetOnce = true;
-        }
-        setFromCtx = value === null && !this._valueSetOnce && parentCtx && _.isEmpty(this.context.get('model').link) &&
+        setFromCtx = value === null && parentCtx &&  _.isEmpty(this.context.get('model').link) &&
             this.view instanceof app.view.views.BaseCreateView &&
             parentCtx.get('module') === this.def.module &&
             this.module !== this.def.module;
 
         if (setFromCtx) {
-            this._valueSetOnce = true;
             var model = parentCtx.get('model');
             // FIXME we need a method to prevent us from doing this
             this.def.auto_populate = true;
@@ -548,79 +373,44 @@
             // FIXME we need to iterate over the populated_ that is causing
             // unsaved warnings when doing the auto populate.
         }
-        if (!this.def.isMultiSelect) {
-            this._buildRoute();
-        }
 
-        var idList = this.model.get(this.def.id_name);
-        if (_.isArray(value)) {
-            this.formattedRname = value.join(this._separator);
-            this.formattedIds = idList.join(this._separator);
-        } else {
-            this.formattedRname = value;
-            this.formattedIds = idList;
-        }
+        this._buildRoute();
         return value;
     },
 
     /**
-     * Sets the value in the field.
-     *
-     * @param {Object|Array} models The source models attributes.
+     * Relate takes care of its unformating
+     * stub this to return the unformated value off the model
+     * @param {String} value
+     * @returns {String} value off the model
      */
-    setValue: function(models) {
-        if (!models) {
+    unformat: function(value) {
+        return this.model.get(this.def.id_name);
+    },
+    setValue: function (model) {
+        if (!model) {
             return;
         }
-        var updateRelatedFields = true,
+        var silent = model.silent || false,
             values = {};
-        if (_.isArray(models)) {
-            // Does not make sense to update related fields if we selected
-            // multiple models
-            updateRelatedFields = false;
+        values[this.def.id_name] = model.id;
+        values[this.def.name] = model[this.getRelatedModuleField()] || model.value;
+        this.model.set(values, {silent: silent});
+
+        // TODO: move this to SidecarExpressionContext
+        // check if link field is currently populated
+        if (this.model.get(this.def.link)) {
+            // unset values of related bean fields in order to make the model load
+            // the values corresponding to the currently selected bean
+            this.model.unset(this.def.link);
         } else {
-            models = [models];
+            // unsetting what is not set won't trigger "change" event,
+            // we need to trigger it manually in order to notify subscribers
+            // that another related bean has been chosen.
+            // the actual data will then come asynchronously
+            this.model.trigger("change:" + this.def.link);
         }
 
-        values[this.def.id_name] = [];
-        values[this.def.name] = [];
-
-        _.each(models, _.bind(function(model) {
-            values[this.def.id_name].push(model.id);
-            values[this.def.name].push(model[this.getRelatedModuleField()] || model.value);
-        }, this));
-
-        // If it's not a multiselect relate, we get rid of the array.
-        if (!this.def.isMultiSelect) {
-            values[this.def.id_name] = values[this.def.id_name][0];
-            values[this.def.name] = values[this.def.name][0];
-        }
-        this.model.set(values);
-
-        if (updateRelatedFields) {
-            // TODO: move this to SidecarExpressionContext
-            // check if link field is currently populated
-            if (this.model.get(this.def.link)) {
-                // unset values of related bean fields in order to make the model load
-                // the values corresponding to the currently selected bean
-                this.model.unset(this.def.link);
-            } else {
-                // unsetting what is not set won't trigger "change" event,
-                // we need to trigger it manually in order to notify subscribers
-                // that another related bean has been chosen.
-                // the actual data will then come asynchronously
-                this.model.trigger('change:' + this.def.link);
-            }
-            this.updateRelatedFields(models[0]);
-        }
-    },
-
-    /**
-     * Handles update of related fields.
-     *
-     * @param {Object} model The source model attributes.
-     */
-    updateRelatedFields: function(model) {
         var newData = {},
             self = this;
         _.each(this.def.populate_list, function(target, source) {
@@ -713,25 +503,13 @@
      *      the value is the field name in the Opportunities record.
      */
     openSelectDrawer: function() {
-        var layout = 'selection-list';
-        var context = {
-            module: this.getSearchModule(),
-            fields: this.getSearchFields(),
-            filterOptions: this.getFilterOptions()
-        };
-
-        if (!!this.def.isMultiSelect) {
-            layout = 'multi-selection-list';
-            _.extend(context, {
-                preselectedModelIds: _.clone(this.model.get(this.def.id_name)),
-                maxSelectedRecords: this._maxSelectedRecords,
-                isMultiSelect: true
-            });
-        }
-
         app.drawer.open({
-            layout: layout,
-            context: context
+            layout: 'selection-list',
+            context: {
+                module: this.getSearchModule(),
+                fields: this.getSearchFields(),
+                filterOptions: this.getFilterOptions()
+            }
         }, _.bind(this.setValue, this));
     },
 
@@ -756,7 +534,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * We need this empty so it won't affect refresh the select2 plugin
      */
@@ -852,23 +630,26 @@
     },
 
     /**
-     * Searches for related field.
+     * Searches for related field
      * @param event
      */
-    search: _.debounce(function(query) {
+    search: _.debounce(function (query) {
         var term = query.term || '',
-            self = this,
+            self = this, searchCollection,
             searchModule = this.getSearchModule(),
             params = {},
             limit = self.def.limit || 5,
             relatedModuleField = this.getRelatedModuleField();
 
-        if (query.context) {
-            params.offset = this.searchCollection.next_offset;
-        }
-        params.filter = this.buildFilterDefinition(term);
+        searchCollection = query.context || app.data.createBeanCollection(searchModule);
 
-        this.searchCollection.fetch({
+        if (query.context) {
+            params.offset = searchCollection.next_offset;
+        }
+
+        params.filter = self.buildFilterDefinition(term);
+
+        searchCollection.fetch({
             //Don't show alerts for this request
             showAlerts: false,
             update: true,
@@ -877,8 +658,8 @@
             context: self,
             params: params,
             limit: limit,
-            success: function(data) {
-                var fetch = {results: [], more: data.next_offset > 0, context: data};
+            success: function (data) {
+                var fetch = {results: [], more: data.next_offset > 0, context: searchCollection};
                 if (fetch.more) {
                     var fieldEl = self.$(self.fieldTag),
                     //For teamset widget, we should specify which index element to be filled in
@@ -897,21 +678,17 @@
                         text: model.get(relatedModuleField) + ''
                     });
                 });
-                if (query.callback && _.isFunction(query.callback)) {
-                    query.callback(fetch);
-                }
+                query.callback(fetch);
             },
-            error: function() {
-                if (query.callback && _.isFunction(query.callback)) {
-                    query.callback({results: []});
-                }
+            error: function () {
+                query.callback({results: []});
                 app.logger.error("Unable to fetch the bean collection.");
             }
         });
     }, app.config.requiredElapsed || 500),
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Avoid rendering process on select2 change in order to keep focus.
      */
     bindDataChange: function() {
@@ -921,25 +698,14 @@
             }, this);
 
             this.model.on('change:' + this.name, function() {
-                if (this.disposed) {
-                    return;
-                }
                 var $dropdown = this.$(this.fieldTag);
                 if (!_.isEmpty($dropdown.data('select2'))) {
-                    var value = this.model.get(this.def.name);
-                    value = _.isArray(value) ? value.join(this._separator) : value;
-                    value = value ? value.trim() : value;
-
-                    $dropdown.data('rname', value);
-
-                    // `id` can be an array of ids if the field is a multiselect.
-                    var id = this.model.get(this.def.id_name);
-                    if (_.isEqual($dropdown.select2('val'), id)) {
-                        return;
-                    }
-
-                    $dropdown.select2('val', id);
-                } else {
+                    // Just setting the value on select2 doesn't cause the label to show up
+                    // so we need to render the field next after setting this value
+                    $dropdown.select2('val', this.model.get(this.name));
+                }
+                // double-check field isn't disposed before trying to render
+                if (!this.disposed) {
                     this.render();
                 }
             }, this);
@@ -950,5 +716,4 @@
         this.$(this.fieldTag).select2('destroy');
         app.view.Field.prototype.unbindDom.call(this);
     }
-
 })

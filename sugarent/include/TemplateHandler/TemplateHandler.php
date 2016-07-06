@@ -86,10 +86,6 @@ class TemplateHandler {
         $this->ss->assign('module', $module);
         $this->ss->assign('built_in_buttons', array('CANCEL', 'DELETE', 'DUPLICATE', 'EDIT', 'SHARE', 'FIND_DUPLICATES', 'SAVE', 'CONNECTOR'));
         $contents = $this->ss->fetch($tpl);
-        if ($view == "PMSEDetailView"){
-            $view = 'EditView';
-            $processAutorDefs = true;
-        }
         //Insert validation and quicksearch stuff here
         if($view == 'EditView' || strpos($view,'QuickCreate') || $ajaxSave || $view == "ConvertLead") {
 
@@ -97,22 +93,6 @@ class TemplateHandler {
             $mod = BeanFactory::getObjectName($module);
             $defs = $dictionary[$mod]['fields'];
             $defs2 = array();
-            if (!empty($processAutorDefs)){
-                if(!empty($this->ss->_tpl_vars['readOnlyFields'])){
-                    foreach ($this->ss->_tpl_vars['readOnlyFields'] as $readOnlyField) {
-                        if (!empty($defs[$readOnlyField])){
-                            $defs[$readOnlyField]['readonly'] = true;
-                        }
-                    }
-                }
-                if(!empty($this->ss->_tpl_vars['requiredFields'])){
-                    foreach ($this->ss->_tpl_vars['requiredFields'] as $requiredField) {
-                        if (!empty($defs[$requiredField])){
-                            $defs[$requiredField]['required'] = true;
-                        }
-                    }
-                }
-            }
             //Retrieve all panel field definitions with displayParams Array field set
             $panelFields = array();
 

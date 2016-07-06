@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,16 +11,33 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: JotPadDashlet.en_us.lang.php 51719 2009-10-22 17:18:00Z mitani $
 
-$defaultText = "";
-$dashletStrings['JotPadDashlet'] = array('LBL_TITLE'            => 'Jot Pad',
-                                         'LBL_DESCRIPTION'      => 'O foaie pe care sa iti tii notitele',
-                                         'LBL_SAVING'           => 'Salveaza JotPad',
-                                         'LBL_SAVED'            => 'Salvate',
-                                         'LBL_CONFIGURE_TITLE'  => 'Titlu:',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Inaltime(1 - 300)',
-                                         'LBL_DBLCLICK_HELP'    => 'Dublu clic dedesupt pentru editare',
-                                         'LBL_DEFAULT_TEXT'     => $defaultText,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$dashletStrings = array (
+  'JotPadDashlet' => 
+  array (
+    'LBL_TITLE' => 'Jot Pad',
+    'LBL_DESCRIPTION' => 'O foaie pe care sa iti tii notitele',
+    'LBL_SAVING' => 'Salveaza JotPad',
+    'LBL_SAVED' => 'Salvate',
+    'LBL_CONFIGURE_TITLE' => 'Titlu:',
+    'LBL_CONFIGURE_HEIGHT' => 'Inaltime(1 - 300)',
+    'LBL_DBLCLICK_HELP' => 'Dublu clic dedesupt pentru editare',
+    'LBL_DEFAULT_TEXT' => 'alb-',
+  ),
 );
-?>
+

@@ -242,7 +242,7 @@ eoq2;
             $this->context['autoconfirm'] = false;
         }
         $this->context['sendlog'] = !empty($this->context['sendlog']);
-        if ($this->context['zip_as_dir'] && !isset($this->context['extract_dir'])) {
+        if ($this->context['zip_as_dir']) {
             $this->context['extract_dir'] = $this->context['zip'];
             $this->context['health_check_path'] =
                 realpath($this->context['extract_dir']) . self::DEFAULT_HEALTHCHECK_PATH;
@@ -273,7 +273,6 @@ eoq2;
             if (!file_exists("$zip/manifest.php")) {
                 return $this->error("$zip does not contain manifest.php");
             }
-            $this->context['extract_dir'] = $zip;
             $this->log("Using $zip as extracted ZIP directory");
             return true;
         }
@@ -590,16 +589,12 @@ eoq2;
         if (file_exists(dirname(__FILE__).'/SugarSystemInfo.php') && version_compare($sugar_version, '7.2.2', '<')) {
             require_once 'SugarSystemInfo.php';
         }
-        
-        if (!class_exists('SugarHeartbeatClient')) {
+        if (!class_exists('SugarHeartbeatClient'))
             require_once 'SugarHeartbeatClient.php';
-        }
-        if (!class_exists('HealthCheckClient')) {
+        if (!class_exists('HealthCheckClient'))
             require_once 'HealthCheckClient.php';
-        }
-        if (!class_exists('HealthCheckHelper')) {
+        if (!class_exists('HealthCheckHelper'))
             require_once 'HealthCheckHelper.php';
-        }
 
         return HealthCheckHelper::getInstance();
     }

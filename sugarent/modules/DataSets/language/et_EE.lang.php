@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +12,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'LBL_PRESPACE_X' => 'Pre-Space Side:',
+  'LBL_WRAP' => 'Wrap Text:',
+  'LBL_PARENT_DATASET' => 'Parent Data Format:',
   'LBL_MODULE_NAME' => 'Andmeformaat',
-  'LBL_MODULE_NAME_SINGULAR' => 'Andmeformaat',
   'LBL_MODULE_TITLE' => 'Andmeformaadid: Avaleht',
   'LBL_SEARCH_FORM_TITLE' => 'Andmeformaadi otsing',
   'LBL_LIST_FORM_TITLE' => 'Andmeformaadi loend',
@@ -35,7 +33,6 @@ $mod_strings = array (
   'LBL_NAME' => 'Andmeformaadi nimi:',
   'LBL_DESCRIPTION' => 'Kirjeldus:',
   'LBL_TYPE' => 'Tüüp:',
-  'LBL_PARENT_DATASET' => 'Parent Data Format:',
   'LBL_QUERY_NAME' => 'Päringu nimi:',
   'LBL_OUTPUT_DEFAULT' => 'Vaikeväljundi tüüp:',
   'LBL_LIST_ORDER_Y' => 'Ava tellimus Y-teljel:',
@@ -46,7 +43,6 @@ $mod_strings = array (
   'LBL_TABLE_WIDTH' => 'Tabeli laius %:',
   'LBL_FONT_SIZE' => 'Fondi suurus:',
   'LBL_REPORT_NAME' => 'Aruande nimi:',
-  'LBL_PRESPACE_X' => 'Pre-Space Side:',
   'LBL_PRESPACE_Y' => 'Kombineeri eelmise andmeformaadiga:',
   'LBL_TABLE_WIDTH_TYPE' => 'Tabeli laiuse tüüp:',
   'LBL_BODY_TEXT_COLOR' => 'Kehateksti värv:',
@@ -56,12 +52,6 @@ $mod_strings = array (
   'LBL_USE_PREV_HEADER' => 'Grupeeri koos eelmise päisega:',
   'LBL_CHILD_NAME' => 'Alampäring:',
   'LBL_CUSTOM_LAYOUT' => 'Kohandatud paigutus:',
-  
-  
-  
-  
-  
-  
   'LNK_LIST_REPORTMAKER' => 'Enterprise aruande loend',
   'LNK_NEW_REPORTMAKER' => 'Loo aruanne',
   'LNK_LIST_DATASET' => 'Andmete formaadi loend',
@@ -71,22 +61,16 @@ $mod_strings = array (
   'LNK_NEW_QUERYBUILDER' => 'Loo päring',
   'LNK_QUERYBUILDER' => 'Päringu ehitaja',
   'LBL_ALL_REPORTS' => 'Kõik aruanded',
-  
   'NTC_DELETE_CONFIRMATION' => 'Oled kindel, et soovid seda kirjet kustutada?',
   'ERR_DELETE_RECORD' => 'Artikli kustutamiseks täpsusta kirje numbrit.',
-
   'LBL_LAYOUT_TYPE' => 'Paigutuse tüüp:',
   'LBL_LAYOUT_PARENT_VALUE' => 'Vaikeväärtus:',
   'LBL_LAYOUT_DISPLAY_TYPE' => 'Kuva tüüp:',
   'LBL_LAYOUT_LIST_ORDER_X' => 'Loendi tellimus X:',
   'LBL_LAYOUT_LIST_ORDER_Z' => 'Loendi tellimus Z:',
   'LBL_MODIFY_HEAD' => 'Muuda päise atribuute:',
-  'LBL_MODIFY_HEAD_HEADER' => 'Add/Edit Header Attributes:',
   'LBL_MODIFY_BODY' => 'Muuda keha atribuute:',
-  'LBL_MODIFY_BODY_HEADER' => 'Add/Edit Body Attributes:',
-  
   'LBL_BG_COLOR' => 'Tausta värv:',
-  'LBL_WRAP' => 'Wrap Text:',
   'LBL_DISPLAY_TYPE' => 'Kuva tüüp:',
   'LBL_STYLE' => 'Fondi stiil:',
   'LBL_DISPLAY_NAME' => 'Kuva nimi:',
@@ -94,13 +78,9 @@ $mod_strings = array (
   'LBL_FORMAT' => 'Formaat:',
   'LBL_CELL_SIZE' => 'Lahtri laius:',
   'LBL_HIDE_COLUMN' => 'Peida veerud aruandes',
-  
   'LBL_FINISHED_BUTTON' => 'Lõpetatud',
   'CONFIRM_LAYOUT_DISABLE' => 'Kohandatud paigutuse lubamine eemaldab kõik olemasolevad kohandatud paigutuste omadused.',
   'LBL_LEFT' => 'Vasak',
   'LBL_RIGHT' => 'Parem',
-  'LBL_EDIT_LAYOUT' => 'Edit Layout' /*for 508 compliance fix*/,
-  'LBL_INVALID_QUERY' => 'Invalid Query',
 );
 
-?>

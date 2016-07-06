@@ -89,22 +89,6 @@ class Person extends Basic
         // If we are saving due to relationship changes, don't bother trying to
         // update the emails
         if (static::inOperation('saving_related')) {
-            // In workflow, it is possible to trigger a relationship save from a
-            // relationship save (for example, when creating a contact from an
-            // Opportunity when the sales status is Closed Won, but was set that
-            // way from an RLI status change). This fixes that.
-            if ($this->in_workflow) {
-                // If there was a newly created related record, save that relationship
-                // here since it will get skipped later on because of the opStage
-                // containing 'saving_related'. But set an id so that relationship
-                // changes will actually stick
-                if (empty($this->id)) {
-                    $this->id = create_guid();
-                    $this->new_with_id = true;
-                }
-                $this->save_relationship_changes($this->isUpdate());
-            }
-
             parent::save($check_notify);
             return $this->id;
         }

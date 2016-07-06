@@ -122,27 +122,6 @@ function bpminbox_get_display_text($temp_module, $field, $field_value, $adv_type
     return $field_value;
 }
 
-function bpminbox_get_href($temp_module, $field, $field_value, $adv_type = null, $ext1 = null, $context = null)
-{
-    global $sugar_config;
-    $link = $sugar_config['site_url'];
-    if (isModuleBWC($temp_module->module_dir)) {
-        $params = array(
-            'module' => $temp_module->module_dir,
-            'action' => 'DetailView',
-            'record' => $temp_module->id,
-        );
-        $link .= '#bwc/index.php?' . http_build_query($params);
-    } else {
-        $link .= '/index.php#' . rawurlencode($temp_module->module_name);
-        if ($temp_module->id) {
-            $link .= '/' . rawurlencode($temp_module->id);
-        }
-    }
-
-    return "<a href=\"$link\">{$temp_module->name}</a>";
-}
-
 //////////////////////Processing actions
 
 function bpminbox_process_advanced_actions(& $focus, $field, $meta_array, & $rel_this)

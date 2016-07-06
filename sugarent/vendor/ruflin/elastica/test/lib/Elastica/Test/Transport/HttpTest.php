@@ -7,6 +7,7 @@ use Elastica\Document;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\Test\Base as BaseTest;
+use Elastica\Exception\ResponseException;
 
 class HttpTest extends BaseTest
 {
@@ -31,15 +32,15 @@ class HttpTest extends BaseTest
         return array(
             array(
                 array('transport' => 'Http'),
-                'GET',
+                'GET'
             ),
             array(
                 array('transport' => array('type' => 'Http', 'postWithRequestBody' => false)),
-                'GET',
+                'GET'
             ),
             array(
                 array('transport' => array('type' => 'Http', 'postWithRequestBody' => true)),
-                'POST',
+                'POST'
             ),
         );
     }
@@ -52,8 +53,8 @@ class HttpTest extends BaseTest
         $client = new Client($config);
 
         $index = $client->getIndex('dynamic_http_method_test');
+
         $index->create(array(), true);
-        $this->_waitForAllocation($index);
 
         $type = $index->getType('test');
         $type->addDocument(new Document(1, array('test' => 'test')));
@@ -82,10 +83,8 @@ class HttpTest extends BaseTest
     {
         $client = new \Elastica\Client();
         $index = $client->getIndex('curl_test');
-        $index->create(array(), true);
-        $this->_waitForAllocation($index);
-
         $type = $index->getType('item');
+
         // Force HEAD request to set CURLOPT_NOBODY = true
         $index->exists();
 
@@ -108,9 +107,6 @@ class HttpTest extends BaseTest
     {
         $client = new \Elastica\Client();
         $index = $client->getIndex('curl_test');
-        $index->create(array(), true);
-        $this->_waitForAllocation($index);
-
         $type = $index->getType('item');
 
         // Force HEAD request to set CURLOPT_NOBODY = true
@@ -191,8 +187,8 @@ class HttpTest extends BaseTest
         $client = new Client();
 
         $index = $client->getIndex('elastica_body_reuse_test');
+
         $index->create(array(), true);
-        $this->_waitForAllocation($index);
 
         $type = $index->getType('test');
         $type->addDocument(new Document(1, array('test' => 'test')));
@@ -215,17 +211,4 @@ class HttpTest extends BaseTest
         $this->assertEquals(1, $resultSet->getTotalHits());
     }
 
-    public function testPostWith0Body()
-    {
-        $client = new Client();
-
-        $index = $client->getIndex('elastica_0_body');
-        $index->create(array(), true);
-        $this->_waitForAllocation($index);
-        $index->refresh();
-
-        $tokens = $index->analyze('0');
-
-        $this->assertNotEmpty($tokens);
-    }
 }

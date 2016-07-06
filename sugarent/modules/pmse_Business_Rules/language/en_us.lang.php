@@ -61,8 +61,6 @@ $mod_strings = array (
     'LBL_PMSE_MESSAGE_LABEL_MIN_ROWS' => 'The decision table must have at least 1 row',
     'LBL_PMSE_MESSAGE_LABEL_MIN_CONDITIONS_COLS' => 'The decision table must have at least 1 condition column',
     'LBL_PMSE_MESSAGE_LABEL_MIN_CONCLUSIONS_COLS' => 'The decision table must have at least 1 conclusion column',
-    'LBL_PMSE_MESSAGE_LABEL_CHANGE_COLUMN_TYPE' => 'Values associated to this variable will be removed. Do you want to continue?',
-    'LBL_PMSE_MESSAGE_LABEL_REMOVE_VARIABLE' => 'Do you really want to remove this variable?',
 
     'LBL_PMSE_LABEL_CONDITIONS' => 'Conditions',
     'LBL_PMSE_LABEL_RETURN' => 'Return',
@@ -71,13 +69,10 @@ $mod_strings = array (
     'LBL_PMSE_TOOLTIP_ADD_CONDITION' => 'Add condition',
     'LBL_PMSE_TOOLTIP_ADD_CONCLUSION' => 'Add conclusion',
     'LBL_PMSE_TOOLTIP_ADD_ROW' => 'Add row',
-    'LBL_PMSE_TOOLTIP_REMOVE_COLUMN' => 'Remove column',
 
     'LBL_PMSE_DROP_DOWN_CHECKED' => 'Yes',
     'LBL_PMSE_DROP_DOWN_UNCHECKED' => 'No',
     'LBL_PMSE_IMPORT_BUSINESS_RULES_FAILURE' => 'Failed to create Process Business Rule from file',
 
-    'LBL_PMSE_MESSAGE_REQUIRED_FIELDS_BUSINESSRULES' => 'This Business Rule is invalid as it uses invalid fields or fields that are not found in your instance of SugarCRM. Please fix the errors below and save the Business Rule.',
-    'LBL_PMSE_PROCESS_BUSINESS_RULES_EDIT' => 'This Business Rule is currently being used in a Process Definition. Do you still want to edit this Business Rule?',
-    'LBL_PMSE_PROCESS_BUSINESS_RULES_DELETE' => "You cannot delete this Business Rule because it is currently used in a Process Definition.",
+    'LBL_PMSE_MESSAGE_REQUIRED_FIELDS_BUSINESSRULES' => 'This Business Rule cannot be displayed because it is associated with fields not available in this instance.',
 );

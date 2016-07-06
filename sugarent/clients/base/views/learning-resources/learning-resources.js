@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({tagName:'ul',className:'resource-list',plugins:['Dashlet'],resources:{},initialize:function(options){this._super('initialize',[options]);app.logger.warn('View.Views.Base.LearningResourcesView is deprecated since 7.7. Will be removed in 7.9.');},_renderHtml:function(){this.resources=this.dashletConfig.resources;this._super('_renderHtml');}})
+({tagName:'ul',className:'resource-list',plugins:['Dashlet'],resources:{},_renderHtml:function(){this.resources=this.dashletConfig.resources;this._super('_renderHtml');}})

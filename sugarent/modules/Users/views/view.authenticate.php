@@ -16,8 +16,6 @@ require_once "include/api/RestService.php";
 require_once 'clients/base/api/OAuth2Api.php';
 require_once 'include/SugarOAuth2/SugarOAuth2Server.php';
 
-use Sugarcrm\Sugarcrm\Session\SessionStorage;
-
 class UsersViewAuthenticate extends SidecarView
 {
     /**
@@ -28,12 +26,10 @@ class UsersViewAuthenticate extends SidecarView
 
     public function preDisplay()
     {
-        $sess = SessionStorage::getInstance();
-        if ($sess->getId()) {
+        if(session_id()) {
             // kill old session
-            $sess->destroy();
-        };
-
+            session_destroy();
+        }
         SugarAutoLoader::load('custom/include/RestService.php');
         $restServiceClass = SugarAutoLoader::customClass('RestService');
         $service = new $restServiceClass();
@@ -48,9 +44,6 @@ class UsersViewAuthenticate extends SidecarView
         if (!empty($_REQUEST['SAMLResponse'])) {
             $args['grant_type'] = SugarOAuth2Storage::SAML_GRANT_TYPE;
             $args['assertion'] = $_REQUEST['SAMLResponse'];
-        }
-        if (!empty($_REQUEST['MSID'])) {
-            $args['grant_type'] = SugarOAuth2Storage::SEAMLESS_GRANT_TYPE;
         } else {
             if(empty($args['grant_type'])) {
                 $args['grant_type'] = OAuth2::GRANT_TYPE_USER_CREDENTIALS;

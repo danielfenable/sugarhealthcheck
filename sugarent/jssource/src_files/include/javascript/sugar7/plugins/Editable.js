@@ -40,15 +40,15 @@
                 this.on('init', function() {
                     //event register for preventing actions
                     // when user escapes the page without saving unsaved changes
-
-                    app.routing.before('route', this.beforeRouteChange, this);
+                    app.routing.before('route', this.beforeRouteChange, this, true);
                     $(window).on('beforeunload.' + this.cid, _.bind(this.warnUnsavedChangesOnRefresh, this));
 
-                    this.before('unsavedchange', this.beforeViewChange, this);
+                    this.before('unsavedchange', this.beforeViewChange, this, true);
                     //If drawer is initialized, bind addtional before handler to prevent closing creation view
                     if (_.isEmpty(app.additionalComponents['drawer'])) {
                         return;
                     }
+                    app.drawer.before('reset', this.beforeRouteChange, this, true);
 
                     //when user confirms exit with unsaved changes, unbind all listeners - no multiple warnings
                     app.events.on('editable:beforehandlers:off', this.unbindBeforeHandler, this);
@@ -244,10 +244,6 @@
                     return false;
                 }
 
-                if (field.hasChanged() && viewName === 'detail') {
-                    return;
-                }
-
                 field.setMode(viewName);
 
                 if (viewName === 'edit') {
@@ -393,7 +389,7 @@
             },
 
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              * Unbind anonymous functions for key and mouse handlers.
              * Unbind beforeHandlers.
              */

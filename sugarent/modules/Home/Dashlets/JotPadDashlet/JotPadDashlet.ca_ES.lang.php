@@ -10,10 +10,26 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+/*********************************************************************************
+ * Description:  Defines the Catalan language pack for the base application. 
+ * $Id: cat_cat.lang.php,v 1.0 2009/08/04 16:13:27 rfeliu Exp $
+ * Source: SugarCRM 5.2.0
+ * Contributor(s): Ramón Feliu (ramon@slay.es).
+ ********************************************************************************/
 
- // $Id: JotPadDashlet.en_us.lang.php 51719 2009-10-22 17:18:00Z mitani $
+$defaultText = 
+<<<EOQ
+Benvingut a Sugar 5.2<br /><br />
 
-$defaultText = "";
+Les noves característiques inclouen:<br />
+
+Faci clic a <b>El Meu Compte</b> per establir les seves preferencies.<br />
+Faci clic a l´icono amb un <b>Interrogant</b> per accedir a la pàgina d´Ajuda de cada mòdul.<br /><br />
+
+Per a més informació sobre com introduir-se a Sugar, si us plau, visiti Sugar University.
+EOQ
+;
+
 $dashletStrings['JotPadDashlet'] = array('LBL_TITLE'            => 'JotPad',
                                          'LBL_DESCRIPTION'      => 'Un dashlet per guardar les seves notes',
                                          'LBL_SAVING'           => 'Guardant JotPad ...',
@@ -21,6 +37,6 @@ $dashletStrings['JotPadDashlet'] = array('LBL_TITLE'            => 'JotPad',
                                          'LBL_CONFIGURE_TITLE'  => 'Títol',
                                          'LBL_CONFIGURE_HEIGHT' => 'Altura (1 - 300)',
                                          'LBL_DBLCLICK_HELP'    => 'Faci doble clic abaix per Editar.',
-                                         'LBL_DEFAULT_TEXT'     => $defaultText,
+                                         'LBL_DEFAULT_TEXT'     => $defaultText, 
 );
-?>
+ 

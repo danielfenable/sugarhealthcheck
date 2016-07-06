@@ -146,123 +146,6 @@ AdamEvent.prototype = new AdamShape();
  */
 AdamEvent.prototype.type = "AdamEvent";
 
-AdamEvent.ACTION_TYPES = {
-    START_LEAD: 0,
-    START_OPPORTUNITY: 1,
-    START_DOCUMENT: 2,
-    START_OTHER: 3,
-    INTERMEDIATE_RECEIVE_MESSAGE: 4,
-    INTERMEDIATE_SEND_MESSAGE: 5,
-    INTERMEDIATE_TIMER: 6,
-    END_EMPTY: 7,
-    END_SEND_MESSAGE: 8,
-    END_TERMINATE: 9,
-    BOUNDARY_RECEIVE_MESSAGE: 10,
-    BOUNDARY_TIMER: 11
-};
-
-AdamEvent.ACTION_TYPE = [
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_LEADS',
-        cssStyle: 'adam-menu-icon-event-leads',
-        evn_marker: 'MESSAGE',
-        evn_message: 'Leads',
-        evn_behavior: 'CATCH',
-        evn_type: 'START',
-        evn_message: 'Leads',
-        nameIdentifier: 'AdamEventLead'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_OPPORTUNITIES',
-        cssStyle: 'adam-menu-icon-event-opportunities',
-        evn_marker: 'MESSAGE',
-        evn_message: 'Opportunities',
-        evn_behavior: 'CATCH',
-        evn_type:'START',
-        evn_message: 'Opportunities',
-        nameIdentifier: 'AdamEventOpportunity'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_DOCUMENTS',
-        cssStyle: 'adam-menu-icon-event-documents',
-        evn_marker: 'MESSAGE',
-        evn_message: 'Documents',
-        evn_behavior: 'CATCH',
-        evn_type: 'START',
-        evn_message: 'Documents',
-        nameIdentifier: 'AdamEventDocument'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_OTHER_MODULES',
-        cssStyle: '',
-        evn_marker: 'MESSAGE',
-        evn_message: '',
-        evn_behavior: 'CATCH',
-        evn_type: 'START',
-        evn_message: '',
-        nameIdentifier: 'AdamEventOtherModule'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_RECEIVE_MESSAGE',
-        cssStyle: 'adam-menu-icon-event-recive-message',
-        evn_marker: 'MESSAGE',
-        evn_behavior: 'CATCH',
-        evn_type: 'INTERMEDIATE',
-        nameIdentifier: 'AdamEventReceiveMessage'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_SEND_MESSAGE',
-        cssStyle: 'adam-menu-icon-event-send-message',
-        evn_marker: 'MESSAGE',
-        evn_behavior: 'THROW',
-        evn_type: 'INTERMEDIATE',
-        nameIdentifier: 'AdamEventMessage'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_TIMER',
-        cssStyle: 'adam-menu-icon-event-timer',
-        evn_marker: 'TIMER',
-        evn_behavior: 'CATCH',
-        evn_type: 'INTERMEDIATE',
-        nameIdentifier: 'AdamEventTimer'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_DO_NOTHING',
-        cssStyle: '',
-        evn_marker: 'EMPTY',
-        evn_behavior: 'THROW',
-        evn_type: 'END'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_SEND_MESSAGE',
-        cssStyle: 'adam-menu-icon-event-send-message',
-        evn_marker: 'MESSAGE',
-        evn_behavior: 'THROW',
-        evn_type: 'END'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_TERMINATE_PROCESS',
-        cssStyle: 'adam-menu-icon-event-terminate-process',
-        evn_marker: 'TERMINATE',
-        evn_behavior: 'THROW',
-        evn_type: 'END'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_RECEIVE_MESSAGE',
-        cssStyle: 'adam-menu-icon-event-recive-message',
-        evn_marker: 'MESSAGE',
-        evn_behavior: 'CATCH',
-        evn_type: 'BOUNDARY'
-    },
-    {
-        text: 'LBL_PMSE_CONTEXT_MENU_TIMER',
-        cssStyle: 'adam-menu-icon-event-timer',
-        evn_marker: 'TIMER',
-        evn_behavior: 'CATCH',
-        evn_type: 'BOUNDARY'
-    }
-];
-
 /**
  * Initialize the object with default values
  * @param {Object} options
@@ -591,70 +474,10 @@ AdamEvent.prototype.getEventMessage = function () {
     return this.evn_message;
 };
 
-AdamEvent.prototype._isSelectedAction = function (definition) {
-    switch (definition.evn_type) {
-        case 'START':
-            return (this.evn_marker === definition.evn_marker) &&
-                (this.evn_behavior === definition.evn_behavior) &&
-                (this.evn_type === definition.evn_type) &&
-                (definition.evn_message === '' ?
-                    (this.evn_message === definition.evn_message || this.evn_message === null)
-                    : this.evn_message === definition.evn_message);
-        case 'INTERMEDIATE':
-        case 'END':
-        case 'BOUNDARY':
-            return (this.evn_marker === definition.evn_marker) &&
-                (this.evn_behavior === definition.evn_behavior) &&
-                (this.evn_type === definition.evn_type);
-        default:
-            throw new Error("_isSelectedAction(): Invalid definition evn_type.");
-    }
-};
-
-AdamEvent.prototype._getActionHandler = function (definition) {
-    var self = this;
-    return function () {
-        var cfg = {};
-        var name;
-
-        if (definition.nameIdentifier) {
-            cfg.evn_name  = getAutoIncrementName(definition.nameIdentifier, self);
-        }
-
-        switch (definition.evn_type) {
-            case 'START':
-                cfg.message = definition.evn_message;
-            case 'INTERMEDIATE':
-            case 'END':
-            case 'BOUNDARY':
-                cfg.evn_marker = definition.evn_marker;
-                cfg.evn_behavior = definition.evn_behavior;
-                break;
-            default:
-                throw new Error("_getActionHandler(): Invalid definition evn_type.");
-        }
-        self.updateEventMarker(cfg);
-    };
-};
-
-AdamEvent.prototype._createAction = function (type) {
-    var actionDefinition = AdamEvent.ACTION_TYPE[type];
-    var actionCFG = {};
-
-    if (!actionDefinition) {
-        throw new Error("_createAction(): Invalid type.");
-    }
-
-    actionCFG.text = translate(actionDefinition.text);
-    actionCFG.cssStyle = actionDefinition.cssStyle;
-    actionCFG.selected = this._isSelectedAction(actionDefinition);
-    actionCFG.handler = this._getActionHandler(actionDefinition);
-
-    return new Action(actionCFG);
-};
-
 AdamEvent.prototype.getContextMenu = function () {
-    var deleteAction,
+    var deleteAction, leadAction, opportunityAction, documentAction, otherAction,
+        msgCatchAction, msgThrowAction, timerAction, endEmptyAction, endMessageAction, endTerminateAction,
+        boundaryMessageAction, boundaryTimerAction,
         startAction, intermediateAction, endAction,
         modulesMenu, typeMenu,
         self = this,
@@ -668,7 +491,7 @@ AdamEvent.prototype.getContextMenu = function () {
         handler: function () {
             self.updateEventType('START');
         },
-        selected: (this.evn_type === 'START')
+        disabled: (this.evn_type === 'START')
     });
 
     intermediateAction = new Action({
@@ -676,7 +499,7 @@ AdamEvent.prototype.getContextMenu = function () {
         handler: function () {
             self.updateEventType('INTERMEDIATE');
         },
-        selected: (this.evn_type === 'INTERMEDIATE')
+        disabled: (this.evn_type === 'INTERMEDIATE')
     });
 
     endAction = new Action({
@@ -684,7 +507,7 @@ AdamEvent.prototype.getContextMenu = function () {
         handler: function () {
             self.updateEventType('END');
         },
-        selected: (this.evn_type === 'END')
+        disabled: (this.evn_type === 'END')
     });
 
     typeMenu = {
@@ -709,6 +532,179 @@ AdamEvent.prototype.getContextMenu = function () {
         }
     });
 
+    leadAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_LEADS'),
+        cssStyle : 'adam-menu-icon-event-leads',
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'MESSAGE',
+                evn_message: 'Leads',
+                evn_behavior: 'CATCH'
+            });
+        },
+        disabled: (this.evn_marker === 'MESSAGE') &&
+                  (this.evn_behavior === 'CATCH') &&
+                  (this.evn_type === 'START') &&
+                  (this.evn_message === 'Leads')
+    });
+
+    opportunityAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_OPPORTUNITIES'),
+        cssStyle : 'adam-menu-icon-event-opportunities',
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'MESSAGE',
+                evn_message: 'Opportunities',
+                evn_behavior: 'CATCH'
+            });
+        },
+        disabled: (this.evn_marker === 'MESSAGE') &&
+                  (this.evn_behavior === 'CATCH') &&
+                  (this.evn_type === 'START') &&
+                  (this.evn_message === 'Opportunities')
+    });
+
+    documentAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_DOCUMENTS'),
+        cssStyle : 'adam-menu-icon-event-documents',
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'MESSAGE',
+                evn_message: 'Documents',
+                evn_behavior: 'CATCH'
+            });
+        },
+        disabled: (this.evn_marker === 'MESSAGE') &&
+                  (this.evn_behavior === 'CATCH') &&
+                  (this.evn_type === 'START') &&
+                  (this.evn_message === 'Documents')
+    });
+
+    otherAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_OTHER_MODULES'),
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'MESSAGE',
+                evn_message: '',
+                evn_behavior: 'CATCH'
+            });
+        },
+        disabled: (this.evn_marker === 'MESSAGE') &&
+                  (this.evn_behavior === 'CATCH') &&
+                  (this.evn_type === 'START') &&
+                  (this.evn_message === '' || this.evn_message === null)
+    });
+
+    msgCatchAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_RECEIVE_MESSAGE'),
+        cssStyle: 'adam-menu-icon-event-recive-message',
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'MESSAGE',
+                evn_behavior: 'CATCH'
+            });
+        },
+        disabled: (this.evn_marker === 'MESSAGE') &&
+                  (this.evn_behavior === 'CATCH') &&
+                  (this.evn_type === 'INTERMEDIATE')
+    });
+    msgThrowAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_SEND_MESSAGE'),
+        cssStyle: 'adam-menu-icon-event-send-message',
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'MESSAGE',
+                evn_behavior: 'THROW'
+            });
+        },
+        disabled: (this.evn_marker === 'MESSAGE') &&
+                  (this.evn_behavior === 'THROW') &&
+                  (this.evn_type === 'INTERMEDIATE')
+    });
+
+    timerAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_TIMER'),
+        cssStyle: 'adam-menu-icon-event-timer',
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'TIMER',
+                evn_behavior: 'CATCH'
+            });
+        },
+        disabled: (this.evn_marker === 'TIMER') &&
+                  (this.evn_behavior === 'CATCH') &&
+                  (this.evn_type === 'INTERMEDIATE')
+    });
+
+    endEmptyAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_DO_NOTHING'),
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'EMPTY',
+                evn_behavior: 'THROW'
+            });
+        },
+        disabled: (this.evn_marker === 'EMPTY') &&
+                  (this.evn_behavior === 'THROW') &&
+                  (this.evn_type === 'END')
+    });
+
+    endMessageAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_SEND_MESSAGE'),
+        cssStyle: 'adam-menu-icon-event-send-message',
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'MESSAGE',
+                evn_behavior: 'THROW'
+            });
+        },
+        disabled: (this.evn_marker === 'MESSAGE') &&
+                  (this.evn_behavior === 'THROW') &&
+                  (this.evn_type === 'END')
+    });
+
+    endTerminateAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_TERMINATE_PROCESS'),
+        cssStyle: 'adam-menu-icon-event-terminate-process',
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'TERMINATE',
+                evn_behavior: 'THROW'
+            });
+        },
+        disabled: (this.evn_marker === 'TERMINATE') &&
+                  (this.evn_behavior === 'THROW') &&
+                  (this.evn_type === 'END')
+    });
+
+    boundaryMessageAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_RECEIVE_MESSAGE'),
+        cssStyle: 'adam-menu-icon-event-recive-message',
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'MESSAGE',
+                evn_behavior: 'CATCH'
+            });
+        },
+        disabled: (this.evn_marker === 'MESSAGE') &&
+                  (this.evn_behavior === 'CATCH') &&
+                  (this.evn_type === 'BOUNDARY')
+    });
+
+    boundaryTimerAction = new Action({
+        text: translate('LBL_PMSE_CONTEXT_MENU_TIMER'),
+        cssStyle: 'adam-menu-icon-event-timer',
+        handler: function () {
+            self.updateEventMarker({
+                evn_marker: 'TIMER',
+                evn_behavior: 'CATCH'
+            });
+        },
+        disabled: (this.evn_marker === 'TIMER') &&
+                  (this.evn_behavior === 'CATCH') &&
+                  (this.evn_type === 'BOUNDARY')
+    });
+
     modulesMenu = {
         label: '',
         menu: {
@@ -718,31 +714,36 @@ AdamEvent.prototype.getContextMenu = function () {
     switch (this.evn_type) {
     case 'START':
         modulesMenu.label = translate('LBL_PMSE_CONTEXT_MENU_LISTEN');
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.START_LEAD));
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.START_OPPORTUNITY));
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.START_DOCUMENT));
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.START_OTHER));
+        modulesMenu.menu.items.push(leadAction);
+        modulesMenu.menu.items.push(opportunityAction);
+        modulesMenu.menu.items.push(documentAction);
+        modulesMenu.menu.items.push(otherAction);
         break;
     case 'INTERMEDIATE':
         modulesMenu.label = translate('LBL_PMSE_CONTEXT_MENU_ACTION');
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.INTERMEDIATE_RECEIVE_MESSAGE));
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.INTERMEDIATE_SEND_MESSAGE));
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.INTERMEDIATE_TIMER));
+        modulesMenu.menu.items.push(msgCatchAction);
+        modulesMenu.menu.items.push(msgThrowAction);
+        modulesMenu.menu.items.push(timerAction);
         break;
     case 'END':
         modulesMenu.label = translate('LBL_PMSE_CONTEXT_MENU_RESULT');
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.END_EMPTY));
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.END_SEND_MESSAGE));
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.END_TERMINATE));
+        modulesMenu.menu.items.push(endEmptyAction);
+        modulesMenu.menu.items.push(endMessageAction);
+        modulesMenu.menu.items.push(endTerminateAction);
         break;
     case 'BOUNDARY':
         modulesMenu.label = translate('LBL_PMSE_CONTEXT_MENU_EVENT');
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.BOUNDARY_RECEIVE_MESSAGE));
-        modulesMenu.menu.items.push(this._createAction(AdamEvent.ACTION_TYPES.BOUNDARY_TIMER));
+        modulesMenu.menu.items.push(boundaryMessageAction);
+        modulesMenu.menu.items.push(boundaryTimerAction);
         break;
     }
     modulesMenu.icon = 'adam-menu-icon-convert';
 
+    // if ((this.evn_marker === 'MESSAGE') &&
+    //               (this.evn_behavior === 'CATCH') &&
+    //               (this.evn_type === 'INTERMEDIATE')){
+    //     configureAction.setDisabled(true);
+    // }
     mitems.push(
         configureAction,
         {
@@ -832,7 +833,7 @@ AdamEvent.prototype.updateEventMarker = function (options) {
 
 AdamEvent.prototype.createConfigureAction = function () {
     var action, w, f, proxy, items, wWidth, wHeight, changeModule, initialValue = null, disabled = false,
-        oldModule, mp, cancelInformation, actiontimerType, durationRadio, i,
+        startCriteria = null, oldModule, newModule, mp, cancelInformation, actiontimerType, durationRadio, i,
         repeatEveryCombo, everyOptions, repeatEveryNumberCombo, cyclicDate, fixedRadio, cyclicRadio, incrementWasClicked = false,
         durationTextField, unitComboBox, fixedDate, incrementCkeck, durationTextField2, unitComboBox2, operationCombo, criteria,
         root = this, hiddenParams, hiddenFn, callback = {}, ddlModules, ddlEmailTemplate, aTemplate, criteriaField, emailTemplates, datecriteria;
@@ -867,10 +868,8 @@ AdamEvent.prototype.createConfigureAction = function () {
             fieldHeight: 80,
             dateFormat: App.date.getUserDateFormat(),
             timeFormat: App.user.getPreference("timepref"),
-            panelContext: '#container',
             decimalSeparator: SUGAR.App.config.defaultDecimalSeparator,
             numberGroupingSeparator: SUGAR.App.config.defaultNumberGroupingSeparator,
-            currencies: project.getMetadata("currencies"),
             operators: {
                 logic: true,
                 group: true
@@ -1026,6 +1025,29 @@ AdamEvent.prototype.createConfigureAction = function () {
                 }
             }
         };
+        /*mp = new MessagePanel({
+            title: "Module change warning",
+            wtype: 'Confirm',
+            message: translate('LBL_PMSE_MESSAGE_REMOVEALLSTARTCRITERIA'),
+            buttons: [
+                {
+                    jtype: 'normal',
+                    caption: translate('LBL_PMSE_BUTTON_OK'),
+                    handler: function () {
+                        criteriaField.clear().setRelatedModulesDataURL("pmse_Project/CrmData/related/" + ddlModules.value); //criteriaField.clear().setBaseModule(ddlModules.value);
+                        mp.hide();
+                    }
+                },
+                {
+                    jtype: 'normal',
+                    caption: translate('LBL_PMSE_BUTTON_CANCEL'),
+                    handler: function () {
+                        ddlModules.setValue(criteriaField.base_module);
+                        mp.hide();
+                    }
+                }
+            ]
+        });*/
         break;
     case 'INTERMEDIATE':
         if (this.evn_marker === 'MESSAGE') {
@@ -1354,6 +1376,27 @@ AdamEvent.prototype.createConfigureAction = function () {
                 }
             );
 
+
+
+            //repeatEveryCombo = new ComboboxField(
+            //    {
+            //        //jtype: 'combobox',
+            //        name: 'evn_cyclic_repeat',
+            //        label: translate('LBL_PMSE_LABEL_REPEATS'),
+            //        options: [
+            //            { text: translate('Every Day'), value: 'Every Day'},
+            //            { text: translate('Every working days (Monday to Friday)'), value: 'Every working days (Monday to Friday)'},
+            //            { text: translate('Every Monday, Wednesday and Friday'), value: 'Every Monday, Wednesday and Friday'},
+            //            { text: translate('Every Tuesday and Thursday'), value: 'Every Tuesday and Thursday'},
+            //            { text: translate('Every week'), value: 'Every week'},
+            //            { text: translate('Every month'), value: 'Every month'},
+            //            { text: translate('Every year'), value: 'Every year'}
+            //        ],
+            //        initialValue: 'Every Day',
+            //        required: true
+            //        //readOnly: true
+            //    }
+            //);
             everyOptions = [];
             for (i = 1; i <= 30; i += 1) {
                 everyOptions.push({text: translate(i), value: i});
@@ -1414,11 +1457,77 @@ AdamEvent.prototype.createConfigureAction = function () {
                 labelAlign: 'right',
                 onClick: function (e, ui) {
                     actiontimerType.setValue('fixed date');
+
                     durationTextField.disable();
                     unitComboBox.disable();
+
                     datecriteria.enable();
+                    //fixedDate.enable();
+                    //incrementCkeck.enable();
+                    //if (!incrementWasClicked) {
+                    //    durationTextField2.disable();
+                    //    unitComboBox2.disable();
+                    //    operationCombo.disable();
+                    //} else {
+                    //    durationTextField2.enable();
+                    //    unitComboBox2.enable();
+                    //    operationCombo.enable();
+                    //}
+
+
+                    //repeatEveryCombo.disable();
+                    //repeatEveryNumberCombo.disable();
+                    //cyclicDate.disable();
+
                 }
             });
+            /*datecriteria = new CriteriaField({
+                name: 'evn_criteria',
+                label: translate('LBL_PMSE_FORM_LABEL_CRITERIA'),
+                required: false,
+                fieldWidth: 300,
+                fieldHeight: 80,
+                timerCriteria: true,
+                restClient: this.parent.project.restClient,
+                panels: {
+                    businessRulesEvaluation: {
+                        enabled: false
+                    },
+                    formResponseEvaluation: {
+                        enabled: false
+                    },
+                    logic: {
+                        enabled: false
+                    },
+                    group: {
+                        enabled: false
+                    },
+                    userEvaluation: {
+                        enabled: false
+                    },
+                    fieldEvaluation: {
+                        enabled: false
+                    }
+
+                },
+                decimalSeparator: PMSE_DECIMAL_SEPARATOR
+            });*/
+            /*datecriteria = new ExpressionField({
+                name: 'evn_criteria',
+                label: translate('LBL_PMSE_LABEL_CRITERIA'),
+                required: false,
+                fieldWidth: 300,
+                fieldHeight: 80,
+                dateFormat: project.getMetadata("datePickerFormat"),
+                variablesDataFormat: 'hierarchical',
+                variablesChildRoot: 'fields',
+                variablesGroupNameField: 'text',
+                variablesGroupValueField: 'value',
+                variableNameField: 'text',
+                variableValueField: 'value',
+                variableTypeField: "type",
+                variableTypeFilter: ["Date", "Datetime"]
+            });*/
 
             datecriteria = new CriteriaField({
                 name: 'evn_criteria',
@@ -1428,7 +1537,6 @@ AdamEvent.prototype.createConfigureAction = function () {
                 fieldHeight: 80,
                 decimalSeparator: SUGAR.App.config.defaultDecimalSeparator,
                 numberGroupingSeparator: SUGAR.App.config.defaultNumberGroupingSeparator,
-                currencies: project.getMetadata("currencies"),
                 operators: {
                     arithmetic: ['+', '-']
                 },
@@ -1462,6 +1570,18 @@ AdamEvent.prototype.createConfigureAction = function () {
                     actiontimerType.setValue('cyclic');
                     durationTextField.disable();
                     unitComboBox.disable();
+
+                    //                    fixedDate.disable();
+                    //                    incrementCkeck.disable();
+                    //
+                    //                    durationTextField2.disable();
+                    //                    unitComboBox2.disable();
+                    //                    operationCombo.disable();
+
+                    //                    repeatEveryCombo.enable();
+                    //                    repeatEveryNumberCombo.enable();
+                    //                    cyclicDate.enable();
+
                 }
 
             });
@@ -1471,38 +1591,66 @@ AdamEvent.prototype.createConfigureAction = function () {
                 durationRadio,
                 durationTextField,
                 unitComboBox,
+
                 fixedRadio,
                 datecriteria
+                //                fixedDate,
+                //                incrementCkeck,
+                //                operationCombo,
+                //                durationTextField2,
+                //                unitComboBox2
+
+                //                cyclicRadio,
+                //                repeatEveryCombo,
+                //                repeatEveryNumberCombo,
+                //                cyclicDate
             ];
             wHeight = 450;
             wWidth = 690;
             callback = {
                 loaded: function (data) {
+
+                    /*project.addMetadata("fields", {
+                        dataURL: project.getMetadata("fieldsDataSource").url.replace("{MODULE}", project.process_definition.pro_module),
+                        dataRoot: project.getMetadata("fieldsDataSource").root,
+                        success: function (data) {
+                            //datecriteria.setVariablesData(data);
+                        }
+                    });*/
+
+                    //datecriteria.setBaseModule(PROJECT_MODULE);
                     root.canvas.emptyCurrentSelection();
                     switch (data.evn_params) {
                     case 'fixed date':
                         durationRadio.setValue(false);
                         fixedRadio.setValue(true);
                         actiontimerType.setValue('fixed date');
+
                         durationTextField.disable();
                         unitComboBox.disable();
+                        //  datecriteria.setBaseModule(PROJECT_MODULE);
                         datecriteria.enable();
 
                         break;
                     case 'cyclic':
                         actiontimerType.setValue('cyclic');
+
                         durationTextField.disable();
                         unitComboBox.disable();
+
+
                         break;
                     default:
                         actiontimerType.setValue('duration');
                         durationRadio.setValue(true);
                         fixedRadio.setValue(false);
                         durationTextField.enable();
+
                         durationTextField.setValue(data.evn_criteria || '');
                         unitComboBox.enable();
                         unitComboBox.setValue(data.evn_params || 'minute');
                         datecriteria.disable();
+
                         break;
                     }
                     App.alert.dismiss('upload');
@@ -1529,12 +1677,14 @@ AdamEvent.prototype.createConfigureAction = function () {
             ddlModules = new ComboboxField({
                 jtype: 'combobox',
                 required: true,
+                //related: 'beans',
                 name: 'evn_module',
                 initialValue: initialValue,
                 readOnly: true,
                 label: translate('LBL_PMSE_FORM_LABEL_MODULE'),
                 proxy: new SugarProxy({
                     url: 'pmse_Project/CrmData/modules',
+                    //restClient: this.canvas.project.restClient,
                     uid: "",
                     callback: null
                 }),
@@ -1549,6 +1699,8 @@ AdamEvent.prototype.createConfigureAction = function () {
                             ddlEmailTemplate.setOptions(aTemplate);
                         }
                     });
+
+                    //}
                 }
             });
             hiddenParams = new HiddenField({name: 'evn_params'});
@@ -1652,6 +1804,9 @@ AdamEvent.prototype.createConfigureAction = function () {
                                 success: function(params) {
                                     aTemplate = aTemplate.concat(params.result);
                                     ddlEmailTemplate.setOptions(aTemplate);
+            //if (params && params.result) {
+            //    ddlEmailTemplate.setValue(data.evn_criteria || ((params.result[0] && params.result[0].value) || null));
+            //}
                                     App.alert.dismiss('upload');
                                     w.html.style.display = 'inline';
                                 }

@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,41 +12,32 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
+  'ERR_DELETE_RECORD' => 'Необхідно вказати номер запису перед видаленням.',
+  'LBL_EDITLAYOUT' => 'Редагувати розташування',
+  'LBL_LIST_FORM_TITLE' => 'Список випусків',
+  'LBL_LIST_LIST_ORDER' => 'Порядок',
+  'LBL_LIST_NAME' => 'Випуск',
+  'LBL_LIST_ORDER' => 'Порядок:',
+  'LBL_LIST_STATUS' => 'Статус',
   'LBL_MODULE_NAME' => 'Випуски',
   'LBL_MODULE_NAME_SINGULAR' => 'Випуск',
   'LBL_MODULE_TITLE' => 'Випуски: Головна',
-  'LBL_SEARCH_FORM_TITLE' => 'Пошук випусків',
-  'LBL_LIST_FORM_TITLE' => 'Список випусків',
+  'LBL_NAME' => 'Випуск версії:',
   'LBL_NEW_FORM_TITLE' => 'Новий випуск',
   'LBL_RELEASE' => 'Випуск:',
-  'LBL_LIST_NAME' => 'Випуск',
-  'LBL_NAME' => 'Випуск версії:',
-  'LBL_LIST_LIST_ORDER' => 'Порядок',
-  'LBL_LIST_ORDER' => 'Порядок:',
-  'LBL_LIST_STATUS' => 'Статус',
+  'LBL_SEARCH_FORM_TITLE' => 'Пошук випусків',
   'LBL_STATUS' => 'Статус:',
-  'LNK_NEW_RELEASE' => 'Список випусків',
+  'LNK_NEW_RELEASE' => 'Список версій',
   'NTC_DELETE_CONFIRMATION' => 'Ви дійсно бажаєте видалити цей запис?',
-  'ERR_DELETE_RECORD' => 'Необхідно вказати номер запису перед видаленням.',
-  'NTC_STATUS' => 'Встановіть значення статусу Неактивно для того, щоб видалити цей випуск зі спадаючого списку Випусків',
   'NTC_LIST_ORDER' => 'Встановіть порядок, в якому цей випуск буде з&#39;являтися у спадаючому списку Випусків',
-  'LBL_ACTIVE_RELEASES' => 'Active releases',
-  'release_status_dom' =>
+  'NTC_STATUS' => 'Встановіть значення статусу Неактивно для того, щоб видалити цей випуск зі спадаючого списку Випусків',
+  'release_status_dom' => 
   array (
-    'Active' => 'Активна',
-    'Inactive' => 'Неактивна',
-),
-	'LBL_EDITLAYOUT' => 'Редагувати розташування' /*for 508 compliance fix*/,
+    'Active' => 'Активно',
+    'Inactive' => 'Неактивно',
+  ),
 );
 
-
-?>

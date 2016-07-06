@@ -44,3 +44,4 @@ strtolower($object_name).'_category_dom' =>
     'Pending' => 'Pending',
   ),
   );
+?>

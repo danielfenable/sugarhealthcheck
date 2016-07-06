@@ -123,7 +123,6 @@ class OAuthToken extends SugarBean
         $this->token_ts = time();
         if(!isset($this->id)) {
             $this->new_with_id = true;
-            dd("test");
             $this->id = $this->token;
         }
         parent::save();
@@ -271,7 +270,7 @@ class OAuthToken extends SugarBean
             if (!empty($this->contact_id)) {
                 $query .= " AND contact_id = '".$db->quote($this->contact_id)."' ";
             }
-
+            
         $db->query($query);
     }
 

@@ -16,8 +16,6 @@ require_once 'modules/pmse_Inbox/engine/PMSEElements/PMSEActivity.php';
 require_once 'modules/pmse_Inbox/engine/PMSEHistoryData.php';
 require_once 'modules/pmse_Inbox/engine/PMSEEngineUtils.php';
 
-use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
-
 class PMSEUserTask extends PMSEActivity
 {
 
@@ -28,10 +26,13 @@ class PMSEUserTask extends PMSEActivity
         $this->engineFields = array(
             'idInbox',
             'idFlow',
+            //'moduleName',
+            //'beanId',
             'date_entered',
             'date_modified',
             'created_by_name',
             'team_name',
+            'assigned_user_id',
             '__sugar_url',
         );
 
@@ -63,6 +64,7 @@ class PMSEUserTask extends PMSEActivity
      */
     public function run($flowData, $bean = null, $externalAction = '', $arguments = array())
     {
+//        $redirectAction = empty($externalAction)? 'ASSIGN': $this->processUserAction($flowData);
         $redirectAction = $this->processAction($flowData, $externalAction, $arguments);
         $saveBeanData = !empty($arguments) ? true : false;
         switch ($redirectAction) {
@@ -75,7 +77,6 @@ class PMSEUserTask extends PMSEActivity
                     $flowData['cas_adhoc_actions'] = json_encode(array('link_cancel', 'approve', 'reject', 'edit'));
                 }
                 $flowData['cas_flow_status'] = 'FORM';
-                $flowData['cas_assignment_method'] = $activityDefinitionBean->act_assignment_method;
                 $flowAction = 'CREATE';
                 $routeAction = 'WAIT';
                 $saveBeanData = false;
@@ -269,7 +270,7 @@ class PMSEUserTask extends PMSEActivity
                 }
             }
 
-            PMSEEngineUtils::saveAssociatedBean($beanObject);
+            $beanObject->save();
         }
 
         $fields['log_data'] = $historyData->getLog();
@@ -284,7 +285,7 @@ class PMSEUserTask extends PMSEActivity
     public function lockFlowRoute($id)
     {
         if (isset($_SESSION['locked_flows'])) {
-            if (!ArrayFunctions::in_array_access($id, $_SESSION['locked_flows'])) {
+            if (!in_array($id, $_SESSION['locked_flows'])) {
                 $_SESSION['locked_flows'][] = $id;
             }
         } else {

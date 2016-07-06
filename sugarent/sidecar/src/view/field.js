@@ -169,7 +169,6 @@
             if (this.model) {
                 this.model.on("error:validation:" + this.name, this.handleValidationError, this);
                 this.model.on('validation:start attributes:revert', this.removeValidationErrors, this);
-                this.model.on('acl:change:' + this.name, this.handleAclChange, this);
             }
         },
 
@@ -181,18 +180,6 @@
          */
         viewFallbackMap: {
             'edit': 'detail'
-        },
-
-        /**
-         * Handler for when an ACL changes at the field-level.
-         *
-         * FIXME SC-3363: The previous action needs to be cleared in order to
-         * load the correct template when the user potentially loses access to a
-         * field. SC-3363 will address this.
-         */
-        handleAclChange: function() {
-            this.action = void 0;
-            this.render();
         },
 
         /**
@@ -461,19 +448,6 @@
         },
 
         /**
-         * Checks to see if the field's value has been changed from the saved model
-         * This is not the same as {@link Backbone.Model#hasChanged} which checks if the model
-         * has changed from the last time it was set whereas this function checks if what is
-         * currently in the input field is the same as what is synced on the model
-         *
-         * @return {boolean} `true` if the value is different, `false` if field is synced with the
-         * saved model
-         */
-        hasChanged: function() {
-            return !_.isEqual(this.format(this.model.getSynced(this.name)), this.format(this.model.get(this.name)));
-        },
-
-        /**
          * Formats the value to be used in handlebars template and displayed on
          * screen.
          *
@@ -651,19 +625,40 @@
         },
 
         /**
-         * @inheritdoc
+         * Set current element's display property to be shown
          */
-        _show: function() {
-            this.getFieldElement().removeClass('hide').show();
-            this.updateVisibleState(true);
+        show: function() {
+            if (!this.isVisible()) {
+                if (!this.triggerBefore("show")) {
+                    return false;
+                }
+
+                this.getFieldElement().removeClass("hide").show();
+
+                this.trigger('show');
+            }
         },
 
         /**
-         * @inheritdoc
+         * Set current element's display property to be hidden
          */
-        _hide: function() {
-            this.getFieldElement().addClass('hide').hide();
-            this.updateVisibleState(false);
+        hide: function() {
+            if (this.isVisible()) {
+                if (!this.triggerBefore("hide")) {
+                    return false;
+                }
+
+                this.getFieldElement().addClass("hide").hide();
+
+                this.trigger('hide');
+            }
+        },
+
+        /**
+         *  Visibility Check
+         */
+        isVisible: function() {
+            return this.getFieldElement().css('display') !== 'none';
         },
 
         /**
@@ -677,7 +672,7 @@
         },
 
         /**
-         * @inheritdoc
+         * @inheritDoc
          */
         closestComponent: function(name) {
             if (!this.view) {

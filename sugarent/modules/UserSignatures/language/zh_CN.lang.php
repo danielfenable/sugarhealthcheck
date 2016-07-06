@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-    'LBL_MODULE_NAME'			=> '用户签名',
-    'LBL_MODULE_NAME_SINGULAR'		=> '用户签名',
-    'LBL_EMAIL_SIGNATURE_ERROR1' => '这个签名需要一个名字。',
-    'LBL_SIGNATURE_NAME'         => '名称',
-    'LBL_SIGNATURE'              => '签名',
-    'LBL_SIGNATURE_HTML'         => 'HTML 签名',
-    'LBL_SIGNATURE_DEFAULT'      => '使用签名?',
-    'LBL_SIGNATURE_PREPEND'      => '在回复上签名吗?',
-    'LBL_SIGNATURES'             => '签名',
+$mod_strings = array (
+  'LBL_EMAIL_SIGNATURE_ERROR1' => '这个签名需要一个名字。',
+  'LBL_MODULE_NAME' => '用户签名',
+  'LBL_MODULE_NAME_SINGULAR' => '用户签名',
+  'LBL_SIGNATURE' => '签名',
+  'LBL_SIGNATURES' => '签名',
+  'LBL_SIGNATURE_DEFAULT' => '使用签名?',
+  'LBL_SIGNATURE_HTML' => 'HTML签名',
+  'LBL_SIGNATURE_NAME' => '名称',
+  'LBL_SIGNATURE_PREPEND' => '在回复上签名吗?',
 );
+

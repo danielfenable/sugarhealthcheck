@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-    'LBL_MODULE_NAME'			=> 'Gebruikers handtekeningen',
-    'LBL_MODULE_NAME_SINGULAR'		=> 'Gebruikers handtekening',
-    'LBL_EMAIL_SIGNATURE_ERROR1' => 'Deze handtekening heeft een naam nodig',
-    'LBL_SIGNATURE_NAME'         => 'Naam',
-    'LBL_SIGNATURE'              => 'Handtekening',
-    'LBL_SIGNATURE_HTML'         => 'HTML handtekening',
-    'LBL_SIGNATURE_DEFAULT'      => 'Gebruik handtekening?',
-    'LBL_SIGNATURE_PREPEND'      => 'Handtekening bovenaan antwoord?',
-    'LBL_SIGNATURES'             => 'Handtekeningen',
+$mod_strings = array (
+  'LBL_EMAIL_SIGNATURE_ERROR1' => 'Deze handtekening heeft een naam nodig',
+  'LBL_MODULE_NAME' => 'Gebruikers handtekeningen',
+  'LBL_MODULE_NAME_SINGULAR' => 'Gebruikers handtekening',
+  'LBL_SIGNATURE' => 'Handtekening',
+  'LBL_SIGNATURES' => 'Handtekeningen',
+  'LBL_SIGNATURE_DEFAULT' => 'Gebruik handtekening?',
+  'LBL_SIGNATURE_HTML' => 'HTML handtekening',
+  'LBL_SIGNATURE_NAME' => 'Naam',
+  'LBL_SIGNATURE_PREPEND' => 'Handtekening bovenaan antwoord?',
 );
+

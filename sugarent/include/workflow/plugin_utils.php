@@ -11,7 +11,8 @@
  */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-// $Id: plugin_utils.php 51719 2009-10-22 17:18:00Z mitani $
+
+
 
 require_once('include/workflow/workflow_utils.php');
 	//workflow plugin utility functions

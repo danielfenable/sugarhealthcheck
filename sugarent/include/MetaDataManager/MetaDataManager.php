@@ -101,12 +101,6 @@ class MetaDataManager
     protected static $managers = array();
 
     /**
-     * In memory cache of module ACLs that are record independent
-     * @var array
-     */
-    protected static $aclForModules = array();
-
-    /**
      * The requested platform, or collection of platforms
      *
      * @var array
@@ -262,7 +256,6 @@ class MetaDataManager
         'collapse_subpanels' => true,
         'max_record_fetch_size' => true,
         'max_record_link_fetch_size' => true,
-        'upload_maxsize' => true,
         'mass_actions' => array(
             'mass_update_chunk_size' => true,
             'mass_delete_chunk_size' => true,
@@ -287,8 +280,6 @@ class MetaDataManager
         'calendar' => array(
             'max_repeat_count' => true,
         ),
-        'lead_conv_activity_opt' => true,
-        'preview_edit' => true,
     );
 
     /**
@@ -362,27 +353,6 @@ class MetaDataManager
      * @var MetaDataCache
      */
     protected $cache;
-
-    /**
-     * List of connector properties needed by the client
-     *
-     * @var array
-     */
-    protected $connectorProperties = array(
-        'id',
-        'name',
-        'enabled',
-        'configured',
-        'modules',
-    );
-
-    /**
-     * Additional vardefs that the front end may need to know about
-     * @var array
-     */
-    protected $additionalVardefProps = array(
-        'dynamic_subpanel_name',
-    );
 
     /**
      * The constructor for the class. Sets the visibility flag, the visibility
@@ -697,18 +667,6 @@ class MetaDataManager
     }
 
     /**
-     * This method collects all dependency data for a module (except view specific dependencies)
-     *
-     * @param string $moduleName The name of the sugar module to collect info about.
-     *
-     * @return Array A hash of all of the dependency data.
-     */
-    public function getModuleDependencies($moduleName)
-    {
-        return $this->getModuleClientData('dependency', $moduleName);
-    }
-
-    /**
      * This method collects all the collection controllers for a module
      *
      * @param string $moduleName The name of the sugar module to collect info about.
@@ -730,7 +688,7 @@ class MetaDataManager
     public function getModulesData(MetaDataContextInterface $context = null)
     {
         $filterModules = false;
-        if (SugarConfig::getInstance()->get('roleBasedViews') && !($context instanceof MetaDataContextDefault)) {
+        if (SugarConfig::getInstance()->get('roleBasedViews')) {
             $filterModules = true;
         }
         if (!isset($this->data['full_module_list'])) {
@@ -778,11 +736,6 @@ class MetaDataManager
         $data['menu'] = $this->getModuleMenu($moduleName);
         $data['config'] = $this->getModuleConfig($moduleName);
         $data['filters'] = $this->getModuleFilters($moduleName);
-        $deps = $this->getModuleDependencies($moduleName);
-        if (!empty($deps) && !empty($deps['dependencies'])) {
-            $data['dependencies'] = $deps['dependencies'];
-        }
-
 
         // Indicate whether Module Has duplicate checking enabled --- Rules must exist and Enabled flag must be set
         $data['dupCheckEnabled'] = isset($vardefs['duplicate_check']) && isset($vardefs['duplicate_check']['enabled']) && ($vardefs['duplicate_check']['enabled']===true);
@@ -805,13 +758,6 @@ class MetaDataManager
         // But this flag is here in case we add that feature in the future
         $data['followingEnabled'] = true;
 
-        // Check if module's vardefs contains any of the properties found in the additional vardef properties array
-        foreach($this->additionalVardefProps as $prop) {
-            if (isset($vardefs[$prop])) {
-                $data['additionalProperties'][$prop] = $vardefs[$prop];
-            }
-        }
-
         $data["_hash"] = $this->hashChunk($data);
 
         return $data;
@@ -826,7 +772,27 @@ class MetaDataManager
      */
     public function getGlobalSearchEnabled($seed, $vardefs, $platform = null)
     {
-        return !empty($vardefs['full_text_search']);
+        if (empty($platform)) {
+            $platform = $this->platforms[0];
+        }
+        // Is the argument set for this module
+        if (isset($vardefs['globalSearchEnabled'])) {
+            // Is it an array of platforms or a simple boolean
+            if (is_array($vardefs['globalSearchEnabled'])) {
+                // if the platform is set use that value; otherwise check if set in 'base'; lastly, fallback to true
+                if (isset($vardefs['globalSearchEnabled'][$platform])) {
+                    return $vardefs['globalSearchEnabled'][$platform];
+                } else {
+                    // Check if global search enabled set on the base platform. If so, and not set for platform at all, we've decided that we should fall back to base's value
+                    return isset($vardefs['globalSearchEnabled']['base']) ? $vardefs['globalSearchEnabled']['base'] : true;
+                }
+            } else {
+                // If a simple boolean we return that as it defines whether search enabled globally across all platforms
+                return $vardefs['globalSearchEnabled'];
+            }
+        }
+        // If globalSearchEnabled property not set, we check if valid bean (all "real" beans are, by default, global search enabled)
+        return !empty($seed);
     }
 
     /**
@@ -910,6 +876,9 @@ class MetaDataManager
             if (!isset($data['relationships'])) {
                 $data['relationships'] = array();
             }
+            if(!isset($data['fields'])) {
+                $data['fields'] = array();
+            }
         }
 
         // Bug 56505 - multiselect fields default value wrapped in '^' character
@@ -935,15 +904,6 @@ class MetaDataManager
      */
     public function getAclForModule($module, $userObject, $bean = false, $showYes = false)
     {
-        //Cache ACL per user/module
-        if (empty($bean->id)) {
-            $cacheKey = "$module-{$userObject->id}";
-            if ($showYes)
-                $cacheKey .= "-yes";
-            if (isset(static::$aclForModules[$cacheKey])) {
-                return static::$aclForModules[$cacheKey];
-            }
-        }
         $outputAcl = array('fields' => array());
         $outputAcl['admin'] = ($userObject->isAdminForModule($module)) ? 'yes' : 'no';
         $outputAcl['developer'] = ($userObject->isDeveloperForModule($module)) ? 'yes' : 'no';
@@ -1033,10 +993,6 @@ class MetaDataManager
             }
         }
         $outputAcl['_hash'] = $this->hashChunk($outputAcl);
-
-        if (!empty($cacheKey)){
-            static::$aclForModules[$cacheKey] = $outputAcl;
-        }
 
         return $outputAcl;
     }
@@ -1446,40 +1402,18 @@ class MetaDataManager
         //If this is private meta, we will still need to build the public javascript to verify that it hasn't changed.
         //If it has changed, the client will need to refresh to load it.
         if (!$this->public) {
-            $publicJsSource = $this->getPublicJsSource($context);
-            if ($publicJsSource) {
-                $data['jssource_public'] = $publicJsSource;
-            }
-        }
-        return $data;
-    }
-
-    /**
-     * Returns the file path for the current public javascript component file
-     * @param MetaDataContextInterface $context
-     *
-     * @return bool|string
-     *
-     */
-    protected function getPublicJsSource(MetaDataContextInterface $context)
-    {
-        $publicJsSource = false;
-        if (!$this->public) {
             $this->public = true;
             $cache = $this->getMetadataCache(true, $context);
             if (empty($cache['jssource'])) {
                 $publicMM = MetaDataManager::getManager($this->platforms, true);
-                $args = isset($this->args) ? $this->args : array();
-                $cache = $publicMM->getMetadata($args);
+                $cache = $publicMM->getMetadata($this->args);
             }
             if ($cache && !empty($cache['jssource'])) {
-                $publicJsSource = $cache['jssource'];
+                $data['jssource_public'] =  $cache['jssource'];
             }
             $this->public = false;
         }
-
-
-        return $publicJsSource;
+        return $data;
     }
 
     /**
@@ -1528,6 +1462,7 @@ class MetaDataManager
             $data = $this->getMetadataCache(true, $context);
 
             if (!empty($data)) {
+
                 // Handle the module(s)
                 foreach ((array) $modules as $module) {
                     // Only work on modules that was have already grabbed
@@ -1756,7 +1691,7 @@ class MetaDataManager
      */
     public static function refreshLanguagesCache($languages, $platforms = array(), $params = array())
     {
-        self::refreshCachePart('languages', $languages, $platforms, $params);
+        self::refreshCachePart('languages', $languages, $platforms, $params = array());
     }
 
     /**
@@ -2043,8 +1978,6 @@ class MetaDataManager
 
             if($auth->isExternal()) {
                 $configs['externalLogin'] = true;
-                $configs['externalLoginUrl'] = $auth->getLoginUrl(array('platform'=>$this->args['platform']));
-                $configs['externalLoginSameWindow'] = SugarConfig::getInstance()->get('SAML_SAME_WINDOW');
             }
         }
 
@@ -2064,44 +1997,7 @@ class MetaDataManager
             $configs['systemName'] = $administration->settings['system_name'];
         }
 
-        // Handle connectors
-        $connectors = ConnectorUtils::getConnectors();
-        $configs['connectors'] = $this->getFilteredConnectorList($connectors);
-
         return $configs;
-    }
-
-    /**
-     * Gets the current connector list, filtered for consumption by the client
-     * and normalized.
-     *
-     * @param array $connectors The current connector list
-     * @return array
-     */
-    protected function getFilteredConnectorList($connectors)
-    {
-        // Declare the return
-        $return = array();
-
-        // Loop over the connectors, cleaning up the name and parsing the known
-        // properties that the client needs
-        foreach ($connectors as $id => $connector) {
-            // The client doesn't need to know ext_eapm_googleapis, and besides,
-            // it's in the name property anyway
-            preg_match_all('#ext_(.*)_(.*)#', $id, $m, PREG_SET_ORDER);
-            if (isset($m[0][2])) {
-                $clientName = $m[0][2];
-
-                // Loop the required client properties and set from that
-                foreach ($this->connectorProperties as $prop) {
-                    if (isset($connector[$prop])) {
-                        $return[$clientName][$prop] = $connector[$prop];
-                    }
-                }
-            }
-        }
-
-        return $return;
     }
 
     /**
@@ -2306,7 +2202,7 @@ class MetaDataManager
         $oldHash = !empty($data['_hash']) ? $data['_hash'] : null;
 
         //If we failed to load the metadata from cache, load it now the hard way.
-        if (empty($data) || !$this->verifyJSSource($data, $context)) {
+        if (empty($data) || !$this->verifyJSSource($data)) {
             // Allow more time for private metadata builds since it is much heavier
             if (!$this->public) {
                 ini_set('max_execution_time', 0);
@@ -2361,21 +2257,10 @@ class MetaDataManager
      *
      * @return bool true if the js-component file for this metadata call exists, false otherwise
      */
-    protected function verifyJSSource($data, MetaDataContextInterface $context = null) {
+    protected function verifyJSSource($data) {
         if (!empty($data['jssource']) && !SugarAutoLoader::fileExists($data['jssource'])) {
             //The jssource file is invalid, we need to invalidate the hash as well.
             return false;
-        }
-        //It is possible for the public and private metadata caches to get otu of sync around the public
-        //JsSource. When this occurs we have to invalidated the private metadata cache.
-        if (!empty($data['jssource_public'])) {
-            if (!$context) {
-                $context = $this->getDefaultContext();
-            }
-            $publicJsSource = $this->getPublicJsSource($context);
-            if ($data['jssource_public'] != $publicJsSource || !SugarAutoLoader::fileExists($publicJsSource)) {
-                return false;
-            }
         }
 
         return true;
@@ -2509,7 +2394,7 @@ class MetaDataManager
         $js .= "}})(SUGAR.App);";
         $hash = md5($js);
         //If we are going to be using uglify to minify our JS, we should minify the entire file rather than each component separately.
-        if (shouldResourcesBeMinified() && SugarMin::isMinifyFast()) {
+        if (!inDeveloperMode() && SugarMin::isMinifyFast()) {
             $js = SugarMin::minify($js);
         }
         $path = "cache/javascript/$platform/components_$hash.js";
@@ -2713,12 +2598,12 @@ class MetaDataManager
     public function populateModules($data, MetaDataContextInterface $context = null)
     {
         $filterModules = false;
-        if (SugarConfig::getInstance()->get('roleBasedViews') && !($context instanceof MetaDataContextDefault)) {
+        if (SugarConfig::getInstance()->get('roleBasedViews')) {
             $filterModules = true;
         }
         $this->data['full_module_list'] = $data['full_module_list'] = $this->getModuleList($filterModules);
         $this->data['modules'] = $data['modules'] = $this->getModulesData($context);
-        $data['modules_info'] = $this->getModulesInfo(array(), $context);
+        $data['modules_info'] = $this->getModulesInfo();
         return $data;
     }
 
@@ -2748,12 +2633,12 @@ class MetaDataManager
      *
      * @return array An array with all the modules and their properties
      */
-    public function getModulesInfo($data = array(), MetaDataContextInterface $context = null)
+    public function getModulesInfo()
     {
         global $moduleList;
 
         $filterModules = false;
-        if (SugarConfig::getInstance()->get('roleBasedViews') && !($context instanceof MetaDataContextDefault)) {
+        if (SugarConfig::getInstance()->get('roleBasedViews')) {
             $filterModules = true;
         }
         $fullModuleList = $this->getFullModuleList($filterModules);
@@ -2981,25 +2866,13 @@ class MetaDataManager
             // don't force a metadata refresh
             $urlList[$lang] = getVersionedPath(
                 $this->getUrlForCacheFile($file),
-                $this->getLanguageCacheAttributes(),
+                $GLOBALS['sugar_config']['js_lang_version'],
                 true
             );
         }
         $urlList['default'] = $GLOBALS['sugar_config']['default_language'];
 
         return $urlList;
-    }
-
-    /**
-     * Returns additional language cache attributes for the given platform
-     *
-     * @return mixed
-     */
-    protected function getLanguageCacheAttributes()
-    {
-        return array(
-            'version' => $GLOBALS['sugar_config']['js_lang_version'],
-        );
     }
 
     public function getOrderedStringUrls() {
@@ -3696,10 +3569,7 @@ class MetaDataManager
         // flatten fields
         foreach ($viewData['meta']['panels'] as $panel) {
             if (isset($panel['fields']) && is_array($panel['fields'])) {
-                $fields = array_merge(
-                    $fields,
-                    $this->getFieldNames($moduleName, $panel['fields'], $fieldDefs, $displayParams)
-                );
+                $fields = array_merge($fields, $this->getFieldNames($panel['fields'], $fieldDefs, $displayParams));
             }
         }
 
@@ -3724,7 +3594,6 @@ class MetaDataManager
      * Return list of fields from view def field set and populate $displayParams with display parameters
      * of link and collection fields
      *
-     * @param string $module Module name
      * @param array $fieldSet The field set
      * @param array $fieldDefs Bean field definitions
      * @param array $displayParams Associative array of field names and their display params
@@ -3732,34 +3601,28 @@ class MetaDataManager
      *
      * @access protected Should be used only by SugarFieldBase and subclasses
      */
-    public function getFieldNames($module, array $fieldSet, array $fieldDefs, &$displayParams)
+    public function getFieldNames(array $fieldSet, array $fieldDefs, &$displayParams)
     {
         $fields = array();
-        $it = $this->getViewIterator($module, $fieldDefs);
-        $it->apply($fieldSet, function (array $field) use (&$fields, &$displayParams) {
-            $name = $field['name'];
-            unset($field['name']);
+        foreach ($fieldSet as $field) {
+            if (is_string($field)) {
+                // direct field name
+                $field = array('name' => $field);
+            }
+            if (is_array($field)) {
+                $type = 'base';
+                if (isset($field['name'])) {
+                    $fields[] = $field['name'];
+                    if (isset($fieldDefs[$field['name']]['type'])) {
+                        $type = $fieldDefs[$field['name']]['type'];
+                    }
+                }
 
-            $displayParams[$name] = $field;
-        });
-
-        $fields = array_keys($displayParams);
-
+                $sf = SugarFieldHandler::getSugarField($type);
+                $sf->processLayoutField($this, $field, $fieldDefs, $fields, $displayParams);
+            }
+        }
         return $fields;
-    }
-
-    /**
-     * Returns view iterator for the given module and field definitions
-     *
-     * @param string $module Module name
-     * @param array $fieldDefs Field definitions
-     *
-     * @return ViewIterator
-     */
-    protected function getViewIterator($module, array $fieldDefs)
-    {
-        require_once 'include/MetaDataManager/ViewIterator.php';
-        return new ViewIterator($module, $fieldDefs);
     }
 
     /**
@@ -3923,15 +3786,6 @@ class MetaDataManager
     public static function disableCache()
     {
         self::$isCacheEnabled = false;
-    }
-
-    /**
-     * Returns the current state of the metadata cache
-     * @return bool
-     */
-    public static function cacheEnabled()
-    {
-        return self::$isCacheEnabled;
     }
 
     /**

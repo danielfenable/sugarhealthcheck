@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
+
 $mod_strings = array (
-'LBL_DEFAULT'=>'Nije postavljeno',
-'LBL_READ_WRITE'=>'Čitanje/Upisivanje',
-'LBL_READ_OWNER_WRITE'=>'Čitanje/Upisivanje (vlasnik)',
-'LBL_READ_ONLY'=>'Samo za čitanje',
-'LBL_OWNER_READ_WRITE'=>'Čitanje (vlasnik)/Upisivanje (vlasnik)',
-'LBL_ALLOW_NONE'=>'Nijedna',
-'LBL_FIELDS'=>'Dozvole nad poljem',
-'LBL_NOT_DEFINED' => 'Nije definisano',
-)
-?>
+  'LBL_ALLOW_NONE' => 'Nijedna',
+  'LBL_DEFAULT' => 'Nije postavljeno',
+  'LBL_FIELDS' => 'Dozvole nad poljem',
+  'LBL_NOT_DEFINED' => 'Nije definisano',
+  'LBL_OWNER_READ_WRITE' => 'Čitanje (vlasnik)/Upisivanje (vlasnik)',
+  'LBL_READ_ONLY' => 'Samo za čitanje',
+  'LBL_READ_OWNER_WRITE' => 'Čitanje/Upisivanje (vlasnik)',
+  'LBL_READ_WRITE' => 'Čitanje/Upisivanje',
+);
+

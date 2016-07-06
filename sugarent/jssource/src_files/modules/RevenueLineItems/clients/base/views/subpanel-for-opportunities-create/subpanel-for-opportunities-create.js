@@ -28,16 +28,12 @@
     _addCustomFieldsToBean: function(bean) {
         if (bean.has('sales_stage')) {
             var dom = app.lang.getAppListStrings('sales_probability_dom'),
-                userCurrencyId = app.user.getPreference('currency_id') || app.currency.getBaseCurrencyId(),
-                attrs = {
-                    probability: dom[bean.get('sales_stage')],
-                    currency_id: userCurrencyId,
-                    base_rate: app.metadata.getCurrency(userCurrencyId).conversion_rate
-                };
-            // we need to set the defaults
-            bean.setDefault(attrs);
-            // just to make sure that any attributes that were already set, are set again.
-            bean.set(attrs);
+                userCurrencyId = app.user.getPreference('currency_id') || app.currency.getBaseCurrencyId();
+            bean.set({
+                probability: dom[bean.get('sales_stage')],
+                currency_id: userCurrencyId,
+                base_rate: app.metadata.getCurrency(userCurrencyId).conversion_rate
+            });
         }
 
         return bean;

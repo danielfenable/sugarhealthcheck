@@ -36,7 +36,6 @@ class DashboardListApi extends FilterApi
                 'method' => 'getDashboards',
                 'shortHelp' => 'Get dashboards for a module',
                 'longHelp' => 'include/api/help/get_dashboards.html',
-                'cacheEtag' => true,
             ),
             'getDashboardsForHome' => array(
                 'reqType' => 'GET',
@@ -53,7 +52,6 @@ class DashboardListApi extends FilterApi
                 'method' => 'getDashboards',
                 'shortHelp' => 'Get dashboards for home',
                 'longHelp' => 'include/api/help/get_dashboards.html',
-                'cacheEtag' => true,
             ),
         );
     }

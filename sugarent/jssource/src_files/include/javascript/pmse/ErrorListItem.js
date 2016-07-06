@@ -113,7 +113,7 @@ ErrorListItem.prototype.select = function () {
 	if (this.html){
 		if (this.parent){
 			item = this.parent.getSelectedItem();
-			if(item && typeof(item.deselect) != 'undefined'){
+			if(item){
 				item.deselect();
 			}
 			this.parent.setSelectedItem(this);

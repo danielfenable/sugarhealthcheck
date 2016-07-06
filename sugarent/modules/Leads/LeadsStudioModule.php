@@ -1,5 +1,4 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -12,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id: view.sugarpdf.php 
+
  * Description: This file is used to override the default Meta-data EditView behavior
  * to provide customization specific to the Quotes module.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.

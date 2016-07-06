@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,7 +10,27 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $mod_strings = array(
-'LBL_ASSIGNED_TO_ID'=>'Zugewiesene Benutzer-Id',
+'LBL_ASSIGNED_TO_ID'=>'Zugewiesene BenutzerID',
 'LBL_ASSIGNED_TO_NAME' => 'Zugewiesen an',
+
+
+
 );

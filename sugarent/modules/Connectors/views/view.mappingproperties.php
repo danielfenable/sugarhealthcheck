@@ -67,7 +67,6 @@ class ViewMappingProperties extends ViewList
 	    			   continue;
 	    			}
 	    			   
-
 	    			if($def['name'] == 'team_set_id') {
 	    			   continue;
 	    			}

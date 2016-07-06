@@ -29,8 +29,8 @@
          * Loads templates from local storage and populates `Handlebars.templates` collection.
          */
         init: function() {
-            _templates = app.config.cacheMeta ? app.cache.get('templates') || {} : {};
-            var src = '';
+            _templates = app.config.cacheMeta ? app.cache.get("templates") || {} : {};
+            var src = "";
             _.each(_templates, function(t) {
                 src += t;
             });
@@ -39,7 +39,7 @@
                 eval(_header + src + _footer);
             }
             catch (e) {
-                app.logger.error('Failed to eval templates retrieved from local storage:\n' + e);
+                app.logger.error("Failed to eval templates retrieved from local storage:\n" + e);
                 // TODO: Trigger app:error event
             }
         },
@@ -52,7 +52,7 @@
          * @param force
          * @private
          */
-        _add: function(tpl, src, force) {
+        _add : function(tpl, src, force) {
             var key = tpl[0],
                 loaded = this.get(key, false);
             if (loaded && !force) {
@@ -60,7 +60,7 @@
             }
             //If we have already loaded this template but with a different source, we need to mark it for recompilation
             if (loaded && force && _sources[key] != src) {
-                _templates[key] = Handlebars.templates[key] = null;
+                _templates[key] =  Handlebars.templates[key] = null;
             }
             _sources[key] = src;
         },
@@ -75,7 +75,7 @@
          */
         _compile: function(tpl, src, force) {
             Handlebars.templates = Handlebars.templates || {};
-            _templates[tpl[0]] = Handlebars.templates[tpl[0]] = (force || !tpl[1]) ? this.compile(tpl[0], src) : tpl[1];
+            _templates[tpl[0]] =  Handlebars.templates[tpl[0]] = (force || !tpl[1]) ? this.compile(tpl[0], src) : tpl[1];
             return _templates[tpl[0]];
         },
 
@@ -103,14 +103,14 @@
         /**
          * Retrieves a compiled handlebars template.
          * @param {String} key Identifier of the template to be retrieved.
-         * @param {boolean} (optional) compile force the template to compile if we have uncompiled source.
+         * @param {boolean=} (optional) compile force the template to compile if we have uncompiled source.
          *  Defaults to true.
          * @return {Function} Compiled Handlebars template.
          */
         get: function(key, compile) {
             //Undefined should default to true for compiled (not passed means compile)
             compile = _.isUndefined(compile) || compile;
-            if (compile && !Handlebars.templates[key] && _sources[key]) {
+            if (compile && !Handlebars.templates[key] && _sources[key]){
                 this._compile([key], _sources[key]);
             }
             return Handlebars.templates ? Handlebars.templates[key] : null;
@@ -118,14 +118,14 @@
 
         // Convenience private method
         _getView: function(name, module, compile) {
-            var key = name + (module ? ('.' + module) : '');
+            var key = name + (module ? ("." + module) : "");
             return [key, this.get(key, compile)];
         },
 
         /**
          * Gets compiled template for a view.
          * @param {String} name View name.
-         * @param {String} module (optional) Module name.
+         * @param {String} module(optional) Module name.
          * @return {Function} Compiled template.
          */
         getView: function(name, module) {
@@ -147,11 +147,10 @@
            {
                foundTemplate = this.get(prefix + module + fallbackTemplate, compile) || this.get(prefix + fallbackTemplate, compile);
                // If we got nothing for the requested fallback, use base as the last ditch fallback
-               if (!foundTemplate) {
-                   foundTemplate = this.get('f.base.' + view, compile) || this.get('f.base.' + fallbackTemplate, compile);
-               }
+               if (!foundTemplate)
+                   foundTemplate = this.get("f.base." + view, compile) || this.get("f.base." + fallbackTemplate, compile);
            }
-           return [key, foundTemplate];
+           return [key,foundTemplate];
        },
 
         /**
@@ -169,15 +168,15 @@
 
         // Convenience private method
         _getLayout: function(name, moduleName, compile) {
-            var key = 'l.' + (moduleName ? (moduleName + '.') : '') + name;
+            var key = "l." + (moduleName ? (moduleName + ".") : "") + name;
             return [key, this.get(key, compile)];
         },
 
         /**
          * Gets compiled template for a layout.
          * @param {String} type Layout Type
-         * @param {String} name (optional) Layout name.
-         * @param {String} moduleName (optional) Module name.
+         * @param {String} name(optional) Layout name.
+         * @param {String} moduleName(optional) Module name.
          * @return {Function} Compiled template.
          */
         getLayout: function(name, moduleName) {
@@ -261,14 +260,14 @@
          * </pre>
          *
          * @param {Object} metadata Metadata payload.
-         * @param {Boolean} force (optional) Flag indicating if the cache is ignored and the templates are to be recompiled.
+         * @param {Boolean} force(optional) Flag indicating if the cache is ignored and the templates are to be recompiled.
          */
         set: function(metadata, force) {
             if (metadata.views) {
                 _.each(metadata.views, function(view, name) {
-                    if (name != '_hash') {
+                    if (name != "_hash") {
                         _.each(view.templates, function(src, key) {
-                            key = name == key ? key : name + '.' + key;
+                            key = name == key ? key : name + "." + key;
                             this.setView(key, null, src, force);
                         }, this);
                     }
@@ -277,7 +276,7 @@
 
             if (metadata.fields) {
                 _.each(metadata.fields, function(field, type) {
-                    if (type != '_hash') {
+                    if (type != "_hash") {
                         _.each(field.templates, function(src, view) {
                             this.setField(type, view, null, src, force);
                         }, this);
@@ -287,9 +286,9 @@
 
             if (metadata.layouts) {
                 _.each(metadata.layouts, function(layout, type) {
-                    if (type != '_hash') {
+                    if (type != "_hash") {
                         _.each(layout.templates, function(src, key) {
-                            key = type == key ? key : type + '.' + key;
+                            key = type == key ? key : type + "." + key;
                             this.setLayout(key, null, src, force);
                         }, this);
                     }
@@ -304,10 +303,10 @@
          * @property {Function}
          */
         empty: function() {
-            return '';
+            return "";
         }
     };
 
-    app.augment('template', _templateManager);
+    app.augment("template", _templateManager);
 
 })(SUGAR.App);

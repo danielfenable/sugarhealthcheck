@@ -117,19 +117,6 @@ class SqlsrvManager extends MssqlManager
 	        'decimal_tpl' => 'decimal(%d, %d)',
     );
 
-    /**
-     * Integer fields' min and max values
-     * @var array
-     */
-    protected $type_range = array(
-        'int'      => array('min_value'=>-2147483648, 'max_value'=>2147483647),
-        'uint'     => array('min_value'=>-2147483648, 'max_value'=>2147483647), // int
-        'ulong'    => array('min_value'=>-2147483648, 'max_value'=>2147483647), // int
-        'long'     => array('min_value'=>-9223372036854775808, 'max_value'=>9223372036854775807),//bigint
-        'short'    => array('min_value'=>-32768, 'max_value'=>32767),
-        'tinyint'  => array('min_value'=>0, 'max_value'=>255),
-    );
-
 	/**
      * @see DBManager::connect()
      */
@@ -184,7 +171,6 @@ class SqlsrvManager extends MssqlManager
         $this->connectOptions = $configOptions;
 
         $GLOBALS['log']->info("Connect:".$this->database);
-
         return true;
     }
 
@@ -252,6 +238,10 @@ class SqlsrvManager extends MssqlManager
             return false;
         }
 
+        foreach($row as $key => $column) {
+            $row[$key] = is_string($column) ? trim($column) : $column;
+        }
+
         return $row;
 	}
 
@@ -307,7 +297,7 @@ class SqlsrvManager extends MssqlManager
      */
     protected function freeDbResult($dbResult)
     {
-        if(is_resource($dbResult))
+        if(!empty($dbResult))
             sqlsrv_free_stmt($dbResult);
     }
 
@@ -346,12 +336,6 @@ class SqlsrvManager extends MssqlManager
      */
     public function get_columns($tablename)
     {
-        // Sanity check for getting columns
-        if (empty($tablename)) {
-            $this->log->error(__METHOD__ . ' called with an empty tablename argument');
-            return array();
-        }        
-
         //find all unique indexes and primary keys.
         $result = $this->query("sp_columns_90 $tablename");
 

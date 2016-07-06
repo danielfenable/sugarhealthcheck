@@ -21,7 +21,7 @@ var translate = function (label, module, replace) {
         }
     }
     if (App) {
-        string = App.lang.get(label, module);
+        string = (App.lang.get(module)[label]) ? App.lang.get(module)[label] : label;
     } else {
         language = SUGAR.language.languages;
         arr = language[module];

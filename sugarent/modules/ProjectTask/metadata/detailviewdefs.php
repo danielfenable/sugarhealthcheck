@@ -22,7 +22,6 @@ $viewdefs['ProjectTask']['DetailView'] = array(
                                          	),
                             'form' => array(
 										'buttons' => array( 'EDIT',
-
 				                            				array( 'customCode' => '{if $bean->aclAccess("edit")}<input type="submit" name="EditTaskInGrid" value=" {$MOD.LBL_EDIT_TASK_IN_GRID_TITLE} " '.
 																					'title="{$MOD.LBL_EDIT_TASK_IN_GRID_TITLE}"  '.
 																					'class="button" onclick="this.form.record.value=\'{$fields.project_id.value}\';prep_edit_task_in_grid(this.form);" />{/if}',
@@ -68,11 +67,9 @@ $viewdefs['ProjectTask']['DetailView'] = array(
 		        'label' => 'LBL_ASSIGNED_USER_ID',
 		      ),
 		array (
-
 			'name' => 'team_name',
 		),
 	),    
-
 
     array (
       array (
@@ -95,7 +92,6 @@ $viewdefs['ProjectTask']['DetailView'] = array(
       ),
     ),    
 
-
     array (
       array(
       	'name' => 'resource_id',
@@ -111,7 +107,6 @@ $viewdefs['ProjectTask']['DetailView'] = array(
         'customCode' => '<a href="index.php?module=Project&action=DetailView&record={$fields.project_id.value}">{$fields.project_name.value}&nbsp;</a>',
         'label' => 'LBL_PARENT_ID',
       ),
-
       array(
       	'name' => 'actual_duration',
       	'customCode' => '{$fields.actual_duration.value}&nbsp;{$fields.duration_unit.value}',

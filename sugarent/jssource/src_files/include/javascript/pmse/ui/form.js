@@ -74,8 +74,6 @@ var Form = function (options) {
 
     this.parent = null;
 
-    this._closeOnClickContext = null;
-
     Form.prototype.initObject.call(this, options);
 };
 
@@ -102,7 +100,6 @@ Form.prototype.initObject = function (options) {
         footerHeight: 40,
         headerHeight: 0,
         closeContainerOnSubmit: false,
-        closeOnClickContext: '#container',
         language: {
             ERROR_INVALID_EMAIL: 'You must enter a valid email',
             ERROR_INVALID_INTEGER: 'Please enter only integer values',
@@ -144,9 +141,7 @@ Form.prototype.initObject = function (options) {
     };
     $.extend(true, defaults, options);
     this.language = defaults.language;
-
-    this._setCloseOnClickContext(defaults.closeOnClickContext)
-        .setUrl(defaults.url)
+    this.setUrl(defaults.url)
         .setData(defaults.data)
         .setProxyEnabled(defaults.proxyEnabled)
         .setProxy(defaults.proxy)
@@ -157,22 +152,6 @@ Form.prototype.initObject = function (options) {
         .setHeaderHeight(defaults.headerHeight)
         .setCloseContainerOnSubmit(defaults.closeContainerOnSubmit)
         .setFooterAlign(defaults.footerAlign);
-};
-
-/**
- * Sets the context in which a click action should autoclose the close-on-click elements, like FieldPanels.
- * @param {HTMLElement|String} context
- * @private
- */
-Form.prototype._setCloseOnClickContext = function (context) {
-    if (typeof context === 'string') {
-        context = $(context).get(0);
-    }
-    if (!isHTMLElement(context)) {
-        context = document.body;
-    }
-    this._closeOnClickContext = context;
-    return this;
 };
 
 /**
@@ -408,7 +387,6 @@ Form.prototype.addItem = function (item) {
                 newItem = new MultipleItemField(item, this);
                 break;
             case 'criteria':
-                item.panelContext = this._closeOnClickContext;
                 newItem = new CriteriaField(item, this);
                 break;
             case 'itemupdater':

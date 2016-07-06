@@ -31,22 +31,34 @@ class SugarUpgradeFixPMSESettings extends UpgradeScript
 
     public function run()
     {
-        // Originally the only supported upgrade for this was 7.6.0.0RC4 to 7.6.0.0
-        // but this has been adapted to include all upgrades from 7.6RC4 up
-        if (version_compare($this->from_version, '7.6.0.0RC4', '==') && version_compare($this->to_version, '7.6.0.0', '>=')) {
+        // The only supported upgrade for this is 7.6.0.0RC4 to 7.6.0.0
+        if (version_compare($this->from_version, '7.6.0.0RC4', '==') && version_compare($this->to_version, '7.6.0.0', '==')) {
+
+            // Fill in any missing settings
+            $defaults = get_sugar_config_defaults();
+            foreach ($defaults as $key => $default) {
+                if (!array_key_exists($key, $this->upgrader->config)) {
+                    $this->log("Setting $key does not exist. Setting the default value.");
+                    $this->upgrader->config[$key] = $default;
+                }
+            }
+
             // Get the known PMSE settings from the database
             $current = $this->getCurrentSettings();
 
             // Get the new default values
             $pmse = $this->getDefaultSettings();
 
-            // Loop over current settings in the database, replacing default
-            // settings with custom ones
-            foreach ($current as $key => $val) {
-                $pmse[$key] = $val;
-            }
+            // If there is no current entry in sugar_config for PMSE settings...
+            if (!isset($this->upgrader->config['pmse_settings_default'])) {
+                // ... loop over current settings in the database, replacing default
+                // settings with custom ones if they exist
+                foreach ($current as $key => $val) {
+                    $pmse[$key] = $val;
+                }
 
-            $this->upgrader->config['pmse_settings_default'] = $pmse;
+                $this->upgrader->config['pmse_settings_default'] = $pmse;
+            }
 
             // delete PMSESettings.php
             $this->fileToDelete('modules/pmse_Inbox/engine/PMSESettings.php');

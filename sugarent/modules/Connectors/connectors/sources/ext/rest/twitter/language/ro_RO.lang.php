@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-/*********************************************************************************
-* Description:
-* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
-* Reserved. Contributor(s): contact@synolia.com - www.synolia.com
-* *******************************************************************************/
-
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obţineţi Cheia API şi API Secret de pe Twitter, înregistrându-vă instanţa Sugar ca aplicaţie nouă.<br/><br>Paşi pentru înregistrarea instanţei:<br/><br/><ol><li>Accesaţi site-ul Twitter Developers: <a href=&#39;http://dev.twitter.com/apps/new&#39; target=&#39;_blank&#39;>http://dev.twitter.com/apps/new</a>.</li><li>Conectaţi-vă folosind contul Twitter în care doriţi să înregistraţi aplicaţia.</li><li>În formularul de înregistrare, introduceţi un nume pentru aplicaţie. Acesta este numele pe care îl vor vedea utilizatorii când se autentifică în conturile lor Twitter din Sugar.</li><li>Introduceţi o descriere.</li><li>Introduceţi un URL pentru site-ul web al aplicaţiei.</li><li>Introduceţi un URL de apelare inversă (poate fi orice fel de URL, deoarece Sugar îl omite la autentificare. Exemplu: Introduceţi adresa URL a site-ului dvs. Sugar)</li><li>Acceptaţi Termenii serviciului API Twitter</li><li>Faceţi clic pe „Creaţi-vă aplicaţia Twitter”.</li><li>În pagina aplicaţiei, găsiţi Cheia API şi API Secret în fila „Chei API”. Introduceţi Cheia API şi API Secret mai jos.</li></ol></td></tr></table>',
-    'LBL_NAME' => 'Nume utilizator Twitter',
-    'LBL_ID' => 'Nume utilizator Twitter',
-	'company_url' => 'URL',
-    'oauth_consumer_key' => 'Cheie API',
-    'oauth_consumer_secret' => 'API Secret',
+  'LBL_LICENSING_INFO' => 'Obtineti o cheie API si App Secret  de pe Facebook, creand o aplicatie pt Sugar<br /><br /> Pasi pt crearea aplicatiei:<br /><br /> 1.Mergi la http://www.facebook.com/developers/createapp.php. pt a crea aplicatia.<br /> 2.Conecteaza-te la Facebook folosnt contul, pt care ai creat aplicatia<br /> 3.La pagina \'\'Craete Aplication\'\' introduceti un nume de aplicare.Acesta este numele de utilizator cu care va autentificati la contul Sugar de pe Facebook<br /> 4.Selectati \'\'Agree\'\'  pt a fi de acord cu termenii Facebook<br /> 5.Faceti clic pe \'\'Create App\'\'<br /> 6.Introduceti cuvinele de securitate pt a trece de Controlul de Securitate<br /> 7.In cadrul paginii pt aplicatia dvs., mergi la site-ul \'\'website\'\' si introduceti URL-ul local al Sugar pt \'\'URL-ul site-ului \'\'<br /> 8. Faceti clic pe \'\'Salvati modificarile\'\'<br /> 9.Mergeti la \'\'Facebook Integration\'\'(link-ul din meniul stanga) si gasiti cheia API ai App Secret.Introduceti Application ID si A[pplication Secret de mai jos.',
+  'oauth_consumer_key' => 'Cheia OAuth Consum',
+  'oauth_consumer_secret' => 'Cheia OAuth Consum Secret',
+  'company_url' => 'URL',
+  'LBL_NAME' => 'Nume utilizator Twitter',
+  'LBL_ID' => 'Nume utilizator Twitter',
 );
 
-?>

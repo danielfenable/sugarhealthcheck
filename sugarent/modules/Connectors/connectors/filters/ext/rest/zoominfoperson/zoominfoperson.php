@@ -1,5 +1,5 @@
 <?php
-
+//FILE SUGARCRM flav=pro
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 /*

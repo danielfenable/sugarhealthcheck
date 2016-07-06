@@ -256,7 +256,7 @@ class Campaign extends SugarBean {
 			$type[0]='targeted';
 
 		$query_array['select'] ="SELECT campaign_log.* ";
-		$query_array['where'] = $query_array['where']. " AND activity_type='{$type[0]}' AND archived=0 AND target_id IS NOT NULL";
+		$query_array['where'] = $query_array['where']. " AND activity_type='{$type[0]}' AND archived=0";
         //add filtering by marketing id, if it exists
         if (!empty($mkt_id)) $query_array['where'] = $query_array['where']. " AND marketing_id ='$mkt_id' ";
 

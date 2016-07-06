@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,31 +12,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
- /*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'LBL_DELETED' => 'Vymazaný',
   'LBL_ID' => 'Väzba ID',
-  'LBL_RELATIONSHIP_NAME' => 'Názov väzby',
-  'LBL_LHS_MODULE' => 'Názov LHS modulu',
-  'LBL_LHS_TABLE' => 'Názov LHS tabuľky',
-  'LBL_LHS_KEY' => 'Názov LHS kľúča',
-  'LBL_RHS_MODULE' => 'Názov RHS modulu',
-  'LBL_RHS_TABLE' => 'Názov RHS tabuľky',
-  'LBL_RHS_KEY' => 'Názov RHS kľúča',
-  'LBL_JOIN_TABLE' => 'Meno spojovacej tabuľky',
   'LBL_JOIN_KEY_LHS' => 'Spojovací kľúč LHS',
   'LBL_JOIN_KEY_RHS' => 'Spojovací kľúč RHS',
-  'LBL_RELATIONSHIP_TYPE' => 'Typ väzby',
+  'LBL_JOIN_TABLE' => 'Meno spojovacej tabuľky',
+  'LBL_LHS_KEY' => 'Názov LHS kľúča',
+  'LBL_LHS_MODULE' => 'Názov LHS modulu',
+  'LBL_LHS_TABLE' => 'Názov LHS tabuľky',
+  'LBL_RELATIONSHIP_NAME' => 'Názov väzby',
   'LBL_RELATIONSHIP_ROLE_COLUMN' => 'Názov stĺpca role väzby',
   'LBL_RELATIONSHIP_ROLE_COLUMN_VALUE' => 'Hodnota stĺpca role väzby',
-  'LBL_REVERSE' => 'Obrátený' ,
-  'LBL_DELETED' => 'Vymazaný',
+  'LBL_RELATIONSHIP_TYPE' => 'Typ väzby',
+  'LBL_REVERSE' => 'Obrátený',
+  'LBL_RHS_KEY' => 'Názov RHS kľúča',
+  'LBL_RHS_MODULE' => 'Názov RHS modulu',
+  'LBL_RHS_TABLE' => 'Názov RHS tabuľky',
 );
-  
-?>
+

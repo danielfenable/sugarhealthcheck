@@ -40,10 +40,10 @@ class SugarRelationshipFactory {
         return self::$rfInstance;
     }
 
-    public static function rebuildCache($modules = array())
+    public static function rebuildCache()
     {
         $rf = self::getInstance();
-        $rf->buildRelationshipCache($modules);
+        $rf->buildRelationshipCache();
     }
 
     public static function deleteCache()
@@ -62,7 +62,7 @@ class SugarRelationshipFactory {
      */
     public function getRelationship($relationshipName)
     {
-        if (!$this->relationshipExists($relationshipName)) {
+        if (empty($this->relationships[$relationshipName])) {
             $GLOBALS['log']->error("Unable to find relationship $relationshipName");
             return false;
         }
@@ -106,10 +106,6 @@ class SugarRelationshipFactory {
         $GLOBALS['log']->fatal ("$relationshipName had an unknown type $type ");
 
         return false;
-    }
-
-    public function relationshipExists($relationshipName) {
-        return !empty($this->relationships[$relationshipName]);
     }
 
     /**
@@ -188,11 +184,9 @@ class SugarRelationshipFactory {
         } else {
             $this->buildRelationshipCache();
         }
-        //For now set the global relationships. These are deprecated but we need to keep them around for now.
-        $GLOBALS['relationships'] = $this->relationships;
     }
 
-    protected function buildRelationshipCache($modules = array())
+    protected function buildRelationshipCache()
     {
         global $beanList, $buildingRelCache;
         if ($buildingRelCache) {
@@ -200,13 +194,7 @@ class SugarRelationshipFactory {
         }
 
         $buildingRelCache = true;
-        $relationships = $this->getRelationshipData($modules);
-
-        // if there is a list of modules, it needs to merge it with the already loaded list
-        // so it doesn't have a partial list of relationships
-        if (!empty($modules) && is_array($this->relationships) && is_array($relationships)) {
-            $relationships = array_merge($this->relationships, $relationships);
-        }
+        $relationships = $this->getRelationshipData();
 
         //Save it out
         sugar_mkdir(dirname($this->getCacheFile()), null, true);
@@ -241,25 +229,18 @@ class SugarRelationshipFactory {
         $buildingRelCache = false;
 
         //Now load all vardefs a second time populating the rel_calc_fields
-        if (empty($modules)) {
-            //Reload ALL the module vardefs....
-            $modules = array_keys($beanList);
-        }
-
-        foreach ($modules as $moduleName) {
+        foreach ($beanList as $moduleName => $beanName) {
             // need to refresh the vardef so that the related calc fields are loaded
             VardefManager::loadVardef($moduleName, BeanFactory::getObjectName($moduleName), true);
         }
     }
 
-
     /**
      * Gets the relationship metadata data that is ultimately cached
-     * @param array $modules list of modules to rebuild vardefs for before loading relationship data.
-     *
+     * 
      * @return array
      */
-    protected function getRelationshipData($modules = array())
+    protected function getRelationshipData()
     {
         global $beanList, $dictionary;
         include("modules/TableDictionary.php");
@@ -268,12 +249,8 @@ class SugarRelationshipFactory {
             include("include/modules.php");
         }
 
-        if (empty($modules)) {
-            //Reload ALL the module vardefs....
-            $modules = array_keys($beanList);
-        }
-
-        foreach($modules as $moduleName)
+        //Reload ALL the module vardefs....
+        foreach($beanList as $moduleName => $beanName)
         {
             VardefManager::loadVardef($moduleName, BeanFactory::getObjectName($moduleName), false, array(
                 //If relationships are not yet loaded, we can't figure out the rel_calc_fields.
@@ -312,23 +289,4 @@ class SugarRelationshipFactory {
     protected function getCacheFile() {
         return sugar_cached("Relationships/relationships.cache.php");
     }
-
-    public function getRelationshipsBetweenModules($mod1, $mod2, $type = "")
-    {
-        $result = array();
-        foreach ($this->relationships as $name => $def) {
-            if (isset($def['lhs_module'], $def['rhs_module']) && (
-                    $def['lhs_module'] == $mod1 && $def['rhs_module'] == $mod2 ||
-                    $def['lhs_module'] == $mod2 && $def['rhs_module'] == $mod1
-                )
-            ) {
-                if (empty($type) || (isset($def['relationship_type']) && $def['relationship_type'] == $type)) {
-                    $result[] = $name;
-                }
-            }
-        }
-
-        return $result;
-    }
-
 }

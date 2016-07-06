@@ -11,7 +11,7 @@
  */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-// $Id: expression_utils.php 51719 2009-10-22 17:18:00Z mitani $
+
 
 function get_expression($express_type, $first, $second){
 	

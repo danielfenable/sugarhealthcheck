@@ -49,18 +49,13 @@
         //Load partial
         this.formRowTemplate = app.template.get("filter-rows.filter-row-partial");
 
-        this._super('initialize', [opts]);
-
-        this.loadFilterOperators(this.module);
-
-        /**
-         * FIXME: we should consider moving it to metadata instead. (see TY-177).
-         * Storage for operators that have no values associated with them
-         *
-         * @private
-         * @property {Array}
-         * */
-        this._operatorsWithNoValues = ['$empty', '$not_empty'];
+        var operators = app.metadata.getFilterOperators();
+        if (_.isEmpty(operators)) {
+            app.logger.error('Filter operators not found.');
+            operators = {};
+        }
+        this.filterOperatorMap = operators;
+        app.view.View.prototype.initialize.call(this, opts);
 
         this.listenTo(this.layout, "filterpanel:change:module", this.handleFilterChange);
         this.listenTo(this.layout, "filter:create:open", this.openForm);
@@ -70,51 +65,23 @@
     },
 
     /**
-     * Loads filterable fields and operators for supplied module.
-     *
-     * @param {string} module Selected module name.
+     * Handler for filter:change event
+     * Loads filterable fields for specified module
+     * @param moduleName
      */
-    handleFilterChange: function(module) {
-        if (_.isEmpty(app.metadata.getModule(module, 'filters')) || this.moduleName === module) {
+    handleFilterChange: function(moduleName) {
+        var moduleMeta = app.metadata.getModule(moduleName);
+        if (!moduleMeta) {
             return;
         }
-
-        /**
-         * Name of the selected module which triggered the filter change.
-         *
-         * @property {string}
-         */
-        this.moduleName = module;
-
-        this.loadFilterFields(module);
-        this.loadFilterOperators(module);
-    },
-
-    /**
-     * Loads the list of filter fields for supplied module.
-     *
-     * @param {string} module The module to load the filter fields for.
-     */
-    loadFilterFields: function(module) {
-        if (_.isEmpty(app.metadata.getModule(module, 'filters'))) {
-            return;
-        }
-
-        this.fieldList = app.data.getBeanClass('Filters').prototype.getFilterableFields(module);
+        this.fieldList = app.data.getBeanClass('Filters').prototype.getFilterableFields(moduleName);
         this.filterFields = {};
+        this.moduleName = moduleName;
 
+        // Translate text for the field list dropdown.
         _.each(this.fieldList, function(value, key) {
-            this.filterFields[key] = app.lang.get(value.vname, module);
+            this.filterFields[key] = app.lang.get(value.vname, moduleName);
         }, this);
-    },
-
-    /**
-     * Loads the list of filter operators for supplied module.
-     *
-     * @param {string} [module] The module to load the filters for.
-     */
-    loadFilterOperators: function(module) {
-        this.filterOperatorMap = app.metadata.getFilterOperators(module);
     },
 
     /**
@@ -209,7 +176,7 @@
     /**
      * Get filterable fields from the module metadata
      * @param {String} moduleName
-     * @return {Object}
+     * @returns {Object}
      */
     getFilterableFields: function(moduleName) {
         var moduleMeta = app.metadata.getModule(moduleName),
@@ -337,9 +304,9 @@
     removeRow: function(e) {
         var $row = this.$(e.currentTarget).closest('[data-filter=row]'),
             fieldOpts = [
-                {field: 'nameField', value: 'name'},
-                {field: 'operatorField', value: 'operator'},
-                {field: 'valueField', value: 'value'}
+                {'field': 'nameField', 'value': 'name'},
+                {'field': 'operatorField', 'value': 'operator'},
+                {'field': 'valueField', 'value': 'value'}
             ];
 
         this._disposeRowFields($row, fieldOpts);
@@ -372,17 +339,6 @@
     validateRow: function(row) {
         var $row = $(row),
             data = $row.data();
-
-        if (_.contains(this._operatorsWithNoValues, data.operator)) {
-            return true;
-        }
-
-        // for empty value in currency we dont want to validate
-        if (!_.isUndefined(data.valueField) && !_.isArray(data.valueField) && data.valueField.type ==='currency'
-            && (_.isEmpty(data.value) || (_.isObject(data.value) &&
-            _.isEmpty(data.valueField.model.get(data.name))))) {
-            return false;
-        }
 
         //For date range and predefined filters there is no value
         if (data.isDateRange || data.isPredefinedFilter) {
@@ -472,21 +428,13 @@
             } else if (key === '$and') {
                 var values = _.reduce(value, function(memo, obj) {
                         return _.extend(memo, obj);
-                    }, {});
-                var def = _.find(this.fieldList, function(fieldDef) {
-                        return _.has(values, fieldDef.id_name || fieldDef.name);
+                    }, {}),
+                    def = _.find(this.fieldList, function(fieldDef) {
+                        return _.has(values, fieldDef.id_name);
                     }, this);
 
-                var operator = '$equals';
                 key = def ? def.name : key;
-
-                //  We want to get the operator from our values object only for currency fields
-                if (def && !_.isString(values[def.name]) && def.type === 'currency') {
-                    operator = _.keys(values[def.name])[0];
-                    values[key] = values[key][operator];
-                }
-                value = {};
-                value[operator] = values;
+                value = {'$equals': values};
             } else if (!fieldMeta[key] && !isPredefinedFilter) {
                 return;
             }
@@ -499,19 +447,10 @@
                     return;
                 }
                 key = relate.name;
-                // for relate fields in version < 7.7 we used `$equals` and `$not_equals` operator so for version
-                // compatibility & as per TY-159 needed to fix this since 7.7 & onwards we will be using `$in` &
-                // `$not_in` operators for relate fields
-                if (_.isString(value) || _.isNumber(value)) {
-                    value = {$in: [value]};
-                } else if (_.keys(value)[0] === '$not_equals') {
-                    var val = _.values([value])[0];
-                    value = {$not_in: val};
-                }
             }
 
             if (_.isString(value) || _.isNumber(value)) {
-                value = {$equals: value};
+                value = {'$equals': value};
             }
             _.each(value, function(value, operator) {
                 this.initRow(null, {name: key, operator: operator, value: value});
@@ -527,9 +466,9 @@
         var $el = this.$(e.currentTarget);
         var $row = $el.parents('[data-filter=row]');
         var fieldOpts = [
-            {field: 'operatorField', value: 'operator'},
-            {field: 'valueField', value: 'value'}
-        ];
+                {'field': 'operatorField', 'value': 'operator'},
+                {'field': 'valueField', 'value': 'value'}
+            ];
         this._disposeRowFields($row, fieldOpts);
         this.initOperatorField($row);
     },
@@ -587,7 +526,7 @@
         _.each(types, function(operand) {
             payload[operand] = app.lang.get(
                 this.filterOperatorMap[fieldType][operand],
-                [this.moduleName, 'Filters']
+                [this.layout.moduleName, 'Filters']
             );
         }, this);
 
@@ -651,6 +590,7 @@
         var fieldOpts = [
             {'field': 'valueField', 'value': 'value'}
         ];
+
         this._disposeRowFields($row, fieldOpts);
         this.initValueField($row);
     },
@@ -667,11 +607,6 @@
         // Make sure the data attributes contain the right operator selected.
         data.operator = operation;
         if (!operation) {
-            return;
-        }
-
-        if (_.contains(this._operatorsWithNoValues, operation)) {
-            this.fireSearch();
             return;
         }
 
@@ -724,7 +659,6 @@
                 break;
             case 'relate':
                 fieldDef.auto_populate = true;
-                fieldDef.isMultiSelect = true;
                 break;
             case 'parent':
                 data.isFlexRelate = true;
@@ -752,15 +686,8 @@
 
         //If the operation is $between we need to set two inputs.
         if (operation === '$between' || operation === '$dateBetween') {
-            var minmax = [];
-            var value = $row.data('value') || [];
-            if (fieldType === 'currency' && $row.data('value')) {
-                value = $row.data('value') || {};
-                model.set(value);
-                value = value[fieldName] || [];
-                // FIXME: Change currency.js to retrieve correct unit for currency filters (see TY-156).
-                model.id = 'not_new';
-            }
+            var minmax = [],
+                value = $row.data('value') || [];
 
             model.set(fieldName + '_min', value[0] || '');
             model.set(fieldName + '_max', value[1] || '');
@@ -776,7 +703,6 @@
             }
 
             data['valueField'] = minmax;
-
             _.each(minmax, function(field) {
                 var fieldContainer = $(field.getPlaceholder().string);
                 $fieldValue.append(fieldContainer);
@@ -821,16 +747,7 @@
                 this._renderField(field, fieldContainer);
             }
         } else {
-            // value is either an empty object OR an object containing `currency_id` and currency amount
-            if (fieldType === 'currency' && $row.data('value')) {
-                // for stickiness & to retrieve correct saved values, we need to set the model with data.value object
-                model.set($row.data('value'));
-                // FIXME: Change currency.js to retrieve correct unit for currency filters (see TY-156).
-                // Mark this one as not_new so that model isn't treated as new
-                model.id = 'not_new';
-            } else {
-                model.set(fieldDef.id_name || fieldName, $row.data('value'));
-            }
+            model.set(fieldDef.id_name || fieldName, $row.data('value'));
             // Render the value field
             var field = this.createField(model, _.extend({}, fieldDef, {name: fieldName})),
                 fieldContainer = $(field.getPlaceholder().string);
@@ -843,24 +760,21 @@
                 field.$('.input-append').removeClass('date');
                 field.$('input, textarea').on('keyup',_.debounce(_.bind(_keyUpCallback, field), 400));
             });
-            if ((fieldDef.type === 'relate' || fieldDef.type === 'nestedset') &&
-                !_.isEmpty($row.data('value'))
-            ) {
+
+            if (fieldDef.type === 'relate' && $row.data('value')) {
                 var self = this,
                     findRelatedName = app.data.createBeanCollection(fieldDef.module);
-                findRelatedName.fetch({fields: [fieldDef.rname], params: {filter: [{'id': {'$in': $row.data('value')}}]},
-                    complete: function() {
-                        if (!self.disposed) {
-                            if (findRelatedName.length > 0) {
-                                model.set(fieldDef.id_name, findRelatedName.pluck('id'), { silent: true });
-                                model.set(fieldName, findRelatedName.pluck(fieldDef.rname), { silent: true });
-                            }
-                            if (!field.disposed) {
-                                self._renderField(field, fieldContainer);
-                            }
+                findRelatedName.fetch({fields: [fieldDef.rname], params: {filter: [{'id': $row.data('value')}]},
+                complete: function() {
+                    if (!self.disposed) {
+                        if (findRelatedName.first()) {
+                            model.set(fieldName, findRelatedName.first().get(fieldDef.rname), { silent: true });
+                        }
+                        if (!field.disposed) {
+                            self._renderField(field, fieldContainer);
                         }
                     }
-                });
+                }});
             } else {
                 this._renderField(field, fieldContainer);
             }
@@ -874,9 +788,6 @@
         // Manually trigger the filter request if a value has been selected lately
         // This is the case for checkbox fields or enum fields that don't have empty values.
         var modelValue = model.get(fieldDef.id_name || fieldName);
-
-        // To handle case: value is an object with 'currency_id' = 'xyz' and 'likely_case' = ''
-        // For currency fields, when value becomes an object, trigger change
         if (!_.isEmpty(modelValue) && modelValue !== $row.data('value')) {
             model.trigger('change');
         }
@@ -1032,41 +943,6 @@
                     idFilter[data.id_name] = valueField.model.get(data.id_name);
                     typeFilter[data.type_name] = valueField.model.get(data.type_name);
                     filter['$and'] = [idFilter, typeFilter];
-                // Creating currency filter. For all but `$between` operators we use type property from data.valueField.
-                // For `$between`, data.valueField is an array and therefore we check for type==='currency' from
-                // either of the elements.
-                } else if (data['valueField'] && (data['valueField'].type === 'currency' ||
-                    (_.isArray(data.valueField) && data.valueField[0].type === 'currency'))
-                    ) {
-                    // initially value is an array which we later convert into an object for saving and retrieving
-                    // purposes (stickiness structure constraints)
-                    var amountValue;
-                    if (_.isObject(value) && !_.isUndefined(value[name])) {
-                        amountValue = value[name];
-                    } else {
-                        amountValue = value;
-                    }
-
-                    var amountFilter = {};
-                    amountFilter[name] = {};
-                    amountFilter[name][operator] = amountValue;
-
-                    // for `$between`, we use first element to get dataField ('currency_id') since it is same
-                    // for both elements and also because data.valueField is an array
-                    var dataField;
-                    if (_.isArray(data.valueField)) {
-                        dataField = data.valueField[0];
-                    } else {
-                        dataField = data.valueField;
-                    }
-
-                    var currencyId;
-                    currencyId = dataField.getCurrencyField().name;
-
-                    var currencyFilter = {};
-                    currencyFilter[currencyId] = dataField.model.get(currencyId);
-
-                    filter['$and'] = [amountFilter, currencyFilter];
                 } else if (operator === '$equals') {
                     filter[name] = value;
                 } else if (data.isDateRange) {
@@ -1122,9 +998,9 @@
      *
      *     @example of an `opts` object param:
      *      [
-     *       {field: 'nameField', value: 'name'},
-     *       {field: 'operatorField', value: 'operator'},
-     *       {field: 'valueField', value: 'value'}
+     *       {'field': 'nameField', 'value': 'name'},
+     *       {'field': 'operatorField', 'value': 'operator'},
+     *       {'field': 'valueField', 'value': 'value'}
      *      ]
      *
      * @param  {jQuery} $row The row which fields are to be disposed.

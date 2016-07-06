@@ -11,15 +11,15 @@ $advancedSettings = array (
         // will be encrypted.
         'nameIdEncrypted' => false,
 
-        // Indicates whether the <samlp:AuthnRequest> messages sent by this SP
+        // Indicates whether the <samlp:AuthnRequest> messages sent by this SP 
         // will be signed.              [The Metadata of the SP will offer this info]
         'authnRequestsSigned' => false,
 
-        // Indicates whether the <samlp:logoutRequest> messages sent by this SP
+        // Indicates whether the <samlp:logoutRequest> messages sent by this SP 
         // will be signed.
         'logoutRequestSigned' => false,
 
-        // Indicates whether the <samlp:logoutResponse> messages sent by this SP
+        // Indicates whether the <samlp:logoutResponse> messages sent by this SP 
         // will be signed.
         'logoutResponseSigned' => false,
 
@@ -34,7 +34,7 @@ $advancedSettings = array (
 
         /** signatures and encryptions required **/
 
-        // Indicates a requirement for the <samlp:Response>, <samlp:LogoutRequest> and
+        // Indicates a requirement for the <samlp:Response>, <samlp:LogoutRequest> and 
         // <samlp:LogoutResponse> elements received by this SP to be signed.
         'wantMessagesSigned' => false,
 
@@ -45,28 +45,6 @@ $advancedSettings = array (
         // Indicates a requirement for the NameID received by
         // this SP to be encrypted.
         'wantNameIdEncrypted' => false,
-
-        // Authentication context.
-        // Set to false and no AuthContext will be sent in the AuthNRequest,
-        // Set true or don't present this parameter and you will get an AuthContext 'exact' 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport'
-        // Set an array with the possible auth context values: array ('urn:oasis:names:tc:SAML:2.0:ac:classes:Password', 'urn:oasis:names:tc:SAML:2.0:ac:classes:X509'),
-        'requestedAuthnContext' => true,
-
-        // Allows the authn comparison parameter to be set, defaults to 'exact' if
-        // the setting is not present.
-        'requestedAuthnContextComparison' => 'exact',
-
-        // Indicates if the SP will validate all received xmls.
-        // (In order to validate the xml, 'strict' and 'wantXMLValidation' must be true).
-        'wantXMLValidation' => true,
-
-        // Algorithm that the toolkit will use on signing process. Options:
-        //    'http://www.w3.org/2000/09/xmldsig#rsa-sha1'
-        //    'http://www.w3.org/2000/09/xmldsig#dsa-sha1'
-        //    'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'
-        //    'http://www.w3.org/2001/04/xmldsig-more#rsa-sha384'
-        //    'http://www.w3.org/2001/04/xmldsig-more#rsa-sha512'
-        'signatureAlgorithm' => 'http://www.w3.org/2000/09/xmldsig#rsa-sha1',
     ),
 
     // Contact information template, it is recommended to suply a technical and support contacts

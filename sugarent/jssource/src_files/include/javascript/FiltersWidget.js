@@ -1,5 +1,6 @@
 
 
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -204,7 +205,7 @@ SUGAR.FiltersWidget = function() {
 			if (id == SUGAR.language.get('Reports','LBL_FILTER') + ".1") {
 				panelHTML = panelStartRow + "<table width='100%'><tr><td>&nbsp;&nbsp;&nbsp;</td><td>" +
 						"<table width='100%' id='" + id + "_table'></table>" +
-						"</td></tr><tr><td>&nbsp;&nbsp;&nbsp;</td><td><div id='"+ id + "_body_div'><table width='70%' valign='center' id='inlineFiltersHelpTable'><tr><td>"+SUGAR.language.get('Reports','LBL_FILTERS_HELP_DESC')+"</td></tr></table></div></td></tr></table>";
+						"</td></tr><tr><td>&nbsp;&nbsp;&nbsp;</td><td><div id='"+ id + "_body_div'><table width='70%' valign='center' class='button' id='inlineFiltersHelpTable'><tr><td>"+SUGAR.language.get('Reports','LBL_FILTERS_HELP_DESC')+"</td></tr></table></div></td></tr></table>";
 				
 			} // if
 			var title = "";

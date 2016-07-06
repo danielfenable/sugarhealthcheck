@@ -62,6 +62,7 @@
                 default:
                     // no valid operator, just return number
                     return n1;
+                    break;
             }
             return (fixed && !_.isString(result)) ? result.toFixed(decimals) : result;
         },
@@ -139,7 +140,7 @@
          * @param {String|Number} newValue      The New Value
          * @param {String|Number} oldValue      The Old Value
          * @param {Number} (precision)          What precision should we use (optional)
-         * @return {boolean}
+         * @returns {boolean}
          */
         isDifferentWithPrecision: function(newValue, oldValue, precision) {
             var config = app.metadata.getConfig(),

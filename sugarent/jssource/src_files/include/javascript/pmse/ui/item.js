@@ -45,16 +45,6 @@ var Item = function (options, parent) {
      * @type {String}
      */
     this.toolTip = null;
-    /**
-     * Defines the tooltip value
-     * @type {String}
-     */
-    this.toolTip = null;
-    /**
-     * Define an selected state
-     * @type {null}
-     */
-    this.selected = null;
 
     this.disabled = null;
 
@@ -88,7 +78,6 @@ Item.prototype.initObject = function (options, parent) {
         label: null,
         menu: null,
         toolTip: null,
-        selected: false,
         parentMenu: parent || null,
         disabled: false,
         focused: false,
@@ -100,7 +89,6 @@ Item.prototype.initObject = function (options, parent) {
         $.extend(true, defaults, options);
         this.setLabel(defaults.label)
             .setToolTip(defaults.toolTip)
-            .setSelected(defaults.selected)
             .setParentMenu(defaults.parentMenu)
             .setDisabled(defaults.disabled)
             .setIcon(defaults.icon)
@@ -126,8 +114,6 @@ Item.prototype.loadAction = function (action, parent) {
     this.action = action;
     this.setLabel(this.action.text);
     this.setIcon(this.action.cssStyle);
-    this.setToolTip(this.action.toolTip);
-    this.setSelected(this.action.selected);
     this.setDisabled(this.action.disabled);
     this.setParentMenu(parent);
     this.setFocused(false);
@@ -216,23 +202,11 @@ Item.prototype.setToolTip = function (value) {
     return this;
 };
 
-/**
- * Sets the selected value
- * @param {Boolean} value
- * @return {*}
- */
-Item.prototype.setSelected = function (value) {
-    this.selected = value;
-    return this;
-};
-
 Item.prototype.createHTML = function () {
     var li;
     li = this.createHTMLElement('li');
     li.className = 'adam-item';
-    if (this.selected) {
-        li.className = li.className + ' adam-selected';
-    } else if (this.disabled) {
+    if (this.disabled) {
         li.className = li.className + ' adam-disabled';
     }
     li.id = UITools.getIndex();

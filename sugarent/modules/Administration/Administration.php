@@ -35,19 +35,7 @@ class Administration extends SugarBean {
 
     );
     var $disable_custom_fields = true;
-    public $checkbox_fields = array(
-        'notify_send_by_default',
-        'mail_smtpauth_req',
-        'notify_on',
-        'tweettocase_on',
-        'skypeout_on',
-        'system_mailmerge_on',
-        'proxy_auth',
-        'proxy_on',
-        'system_ldap_enabled',
-        'captcha_on',
-        'honeypot_on',
-        );
+    var $checkbox_fields = Array("notify_send_by_default", "mail_smtpauth_req", "notify_on", 'tweettocase_on', 'skypeout_on', 'system_mailmerge_on', 'proxy_auth', 'proxy_on', 'system_ldap_enabled','captcha_on', 'honeypot_on');
     public $disable_row_level_security = true;
     public static $passwordPlaceholder = "::PASSWORD::";
 
@@ -184,14 +172,9 @@ class Administration extends SugarBean {
         $row = $this->db->fetchByAssoc($result);
         $row_count = $row['the_count'];
 
-        if (is_array($value)) {
-            $value = json_encode($value);
-        }
-
         if($category."_".$key == 'ldap_admin_password' || $category."_".$key == 'proxy_password')
             $value = $this->encrpyt_before_save($value);
 
-        $value = $this->db->quote($value);
         if( $row_count == 0){
             $sql = "INSERT INTO config (value, category, name, platform) VALUES ('$value','$category', '$key', '$platform')";
         }
@@ -207,11 +190,10 @@ class Administration extends SugarBean {
         sugar_cache_clear('admin_settings_cache');
 
         // check to see if category is a module
-        if (!empty($platform)) {
+        if(!empty($platform)) {
             // we have an api call so lets clear out the cache for the module + platform
             global $moduleList;
-            // FIXME TY-839 'portal' should be the platform, not category
-            if (in_array($category, $moduleList) || $category == 'portal') {
+            if(in_array($category, $moduleList)) {
                 $cache_key = "ModuleConfig-" . $category;
                 if($platform != "base")  {
                     $cache_key .= $platform;
@@ -304,11 +286,13 @@ class Administration extends SugarBean {
      */
     protected function decodeConfigVar($var)
     {
-        $var = html_entity_decode($var);
+        $var = html_entity_decode(stripslashes($var));
         // make sure the value is not null and the length is greater than 0
         if (!is_null($var) && strlen($var) > 0) {
             // if it looks like a JSON string then lets run the json_decode on it
-            if ($var[0] == '{' || $var[0] == '[') {
+            if ($var[0] == '{' 
+                || $var[0] == '['
+                || $var[0] == '"') {
                 $decoded = json_decode($var, true);
                 // if we didn't get a json error, then put the decoded value as the value we want to return
                 if(json_last_error() == JSON_ERROR_NONE) {

@@ -3,94 +3,6 @@
   'table' => 'saved_search',
   'fields' => 
   array (
-    'id' => 
-    array (
-      'name' => 'id',
-      'vname' => 'LBL_NAME',
-      'type' => 'id',
-      'required' => true,
-      'reportable' => false,
-    ),
-    'name' => 
-    array (
-      'name' => 'name',
-      'type' => 'varchar',
-      'vname' => 'LBL_NAME',
-      'len' => 150,
-    ),
-    'search_module' => 
-    array (
-      'name' => 'search_module',
-      'type' => 'varchar',
-      'vname' => 'LBL_MODULE',
-      'len' => 150,
-    ),
-    'deleted' => 
-    array (
-      'name' => 'deleted',
-      'vname' => 'LBL_CREATED_BY',
-      'type' => 'bool',
-      'required' => true,
-      'reportable' => false,
-    ),
-    'date_entered' => 
-    array (
-      'name' => 'date_entered',
-      'vname' => 'LBL_DATE_ENTERED',
-      'type' => 'datetime',
-      'required' => true,
-    ),
-    'date_modified' => 
-    array (
-      'name' => 'date_modified',
-      'vname' => 'LBL_DATE_MODIFIED',
-      'type' => 'datetime',
-      'required' => true,
-    ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'assigned_user_id',
-      'vname' => 'LBL_ASSIGNED_TO',
-      'type' => 'id',
-      'isnull' => 'false',
-      'reportable' => true,
-      'massupdate' => false,
-    ),
-    'assigned_user_name' => 
-    array (
-      'name' => 'assigned_user_name',
-      'vname' => 'LBL_ASSIGNED_TO_NAME',
-      'type' => 'varchar',
-      'reportable' => false,
-      'massupdate' => false,
-      'source' => 'non-db',
-      'table' => 'users',
-    ),
-    'contents' => 
-    array (
-      'name' => 'contents',
-      'type' => 'text',
-      'vname' => 'LBL_DESCRIPTION',
-      'isnull' => true,
-    ),
-    'description' => 
-    array (
-      'name' => 'description',
-      'type' => 'text',
-      'vname' => 'LBL_DESCRIPTION',
-      'isnull' => true,
-    ),
-    'assigned_user_link' => 
-    array (
-      'name' => 'assigned_user_link',
-      'type' => 'link',
-      'relationship' => 'saved_search_assigned_user',
-      'vname' => 'LBL_ASSIGNED_TO_USER',
-      'link_type' => 'one',
-      'module' => 'Users',
-      'bean_name' => 'User',
-      'source' => 'non-db',
-    ),
     'team_id' => 
     array (
       'name' => 'team_id',
@@ -114,6 +26,10 @@
       'studio' => 'false',
       'dbType' => 'id',
       'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
     ),
     'team_count' => 
     array (
@@ -210,19 +126,97 @@
       'studio' => 'false',
       'reportable' => false,
     ),
+    'id' => 
+    array (
+      'name' => 'id',
+      'vname' => 'LBL_NAME',
+      'type' => 'id',
+      'required' => true,
+      'reportable' => false,
+    ),
+    'name' => 
+    array (
+      'name' => 'name',
+      'type' => 'varchar',
+      'vname' => 'LBL_NAME',
+      'len' => 150,
+    ),
+    'search_module' => 
+    array (
+      'name' => 'search_module',
+      'type' => 'varchar',
+      'vname' => 'LBL_MODULE',
+      'len' => 150,
+    ),
+    'deleted' => 
+    array (
+      'name' => 'deleted',
+      'vname' => 'LBL_CREATED_BY',
+      'type' => 'bool',
+      'required' => true,
+      'reportable' => false,
+    ),
+    'date_entered' => 
+    array (
+      'name' => 'date_entered',
+      'vname' => 'LBL_DATE_ENTERED',
+      'type' => 'datetime',
+      'required' => true,
+    ),
+    'date_modified' => 
+    array (
+      'name' => 'date_modified',
+      'vname' => 'LBL_DATE_MODIFIED',
+      'type' => 'datetime',
+      'required' => true,
+    ),
+    'assigned_user_id' => 
+    array (
+      'name' => 'assigned_user_id',
+      'vname' => 'LBL_ASSIGNED_TO',
+      'type' => 'id',
+      'isnull' => 'false',
+      'reportable' => true,
+      'massupdate' => false,
+    ),
+    'assigned_user_name' => 
+    array (
+      'name' => 'assigned_user_name',
+      'vname' => 'LBL_ASSIGNED_TO_NAME',
+      'type' => 'varchar',
+      'reportable' => false,
+      'massupdate' => false,
+      'source' => 'non-db',
+      'table' => 'users',
+    ),
+    'contents' => 
+    array (
+      'name' => 'contents',
+      'type' => 'text',
+      'vname' => 'LBL_DESCRIPTION',
+      'isnull' => true,
+    ),
+    'description' => 
+    array (
+      'name' => 'description',
+      'type' => 'text',
+      'vname' => 'LBL_DESCRIPTION',
+      'isnull' => true,
+    ),
+    'assigned_user_link' => 
+    array (
+      'name' => 'assigned_user_link',
+      'type' => 'link',
+      'relationship' => 'saved_search_assigned_user',
+      'vname' => 'LBL_ASSIGNED_TO_USER',
+      'link_type' => 'one',
+      'module' => 'Users',
+      'bean_name' => 'User',
+      'source' => 'non-db',
+    ),
   ),
   'relationships' => 
   array (
-    'saved_search_assigned_user' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'SavedSearch',
-      'rhs_table' => 'saved_search',
-      'rhs_key' => 'assigned_user_id',
-      'relationship_type' => 'one-to-many',
-    ),
     'savedsearch_team_count_relationship' => 
     array (
       'lhs_module' => 'Teams',
@@ -256,9 +250,28 @@
       'rhs_key' => 'team_id',
       'relationship_type' => 'one-to-many',
     ),
+    'saved_search_assigned_user' => 
+    array (
+      'lhs_module' => 'Users',
+      'lhs_table' => 'users',
+      'lhs_key' => 'id',
+      'rhs_module' => 'SavedSearch',
+      'rhs_table' => 'saved_search',
+      'rhs_key' => 'assigned_user_id',
+      'relationship_type' => 'one-to-many',
+    ),
   ),
   'indices' => 
   array (
+    'team_set_saved_search' => 
+    array (
+      'name' => 'idx_saved_search_tmst_id',
+      'type' => 'index',
+      'fields' => 
+      array (
+        0 => 'team_set_id',
+      ),
+    ),
     0 => 
     array (
       'name' => 'savedsearchpk',
@@ -278,15 +291,6 @@
         1 => 'deleted',
       ),
     ),
-    'team_set_saved_search' => 
-    array (
-      'name' => 'idx_saved_search_tmst_id',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'team_set_id',
-      ),
-    ),
   ),
   'name_format_map' => 
   array (
@@ -302,8 +306,8 @@
   array (
     'team_security' => 'team_security',
   ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

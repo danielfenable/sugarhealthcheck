@@ -29,6 +29,15 @@
   border-radius: 10px;
   border: 6px solid rgba(0,0,0,.5);
 
+  &.has-results {
+    min-height: 142px;
+    ul {
+      background-color: @grayLighter;
+      min-height: 85px;
+      max-height: 460px;
+    }
+  }
+
   &[data-theme=light] {
     border-radius: 2px;
     border: 1px solid #DDDDDD;

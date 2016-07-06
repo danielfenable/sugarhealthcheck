@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,22 +10,27 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array (
-'LBL_ALLOW_ALL'=>'Kõik',
-'LBL_ALLOW_NONE'=>'Midagi',
-'LBL_ALLOW_OWNER'=>'Omanik',
-'LBL_ROLE'=>'Roll',
-'LBL_NAME'=>'Nimi',
-'LBL_DESCRIPTION'=>'Kirjeldus',
-'LIST_ROLES'=>'Rollide loend',
-'LBL_USERS_SUBPANEL_TITLE'=>'Kasutajad',
-'LIST_ROLES_BY_USER'=>'Rollide loend kasutajati',
-'LBL_ROLES_SUBPANEL_TITLE'=>'Kasutaja rollid',
-'LBL_SEARCH_FORM_TITLE'=>'Otsi',
-'LBL_NO_ACCESS'=>'Ligipääs puudub. Kontakteeru saidi administraatoriga ligipääsu taotlemiseks.',
-'LBL_REDIRECT_TO_HOME'=>'Redirect to Home in',
-'LBL_SECONDS'=>'sekundeid',
-'LBL_ADDING'=>'Adding for',
 
-)
-?>
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
+$mod_strings = array (
+  'LBL_ADDING' => 'Adding for',
+  'LBL_ALLOW_ALL' => 'Kõik',
+  'LBL_ALLOW_NONE' => 'Midagi',
+  'LBL_ALLOW_OWNER' => 'Omanik',
+  'LBL_ROLE' => 'Roll',
+  'LBL_NAME' => 'Nimi',
+  'LBL_DESCRIPTION' => 'Kirjeldus',
+  'LIST_ROLES' => 'Rollide loend',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Kasutajad',
+  'LIST_ROLES_BY_USER' => 'Rollide loend kasutajati',
+  'LBL_ROLES_SUBPANEL_TITLE' => 'Kasutaja rollid',
+  'LBL_SEARCH_FORM_TITLE' => 'Otsi',
+  'LBL_NO_ACCESS' => 'Ligipääs puudub. Kontakteeru saidi administraatoriga ligipääsu taotlemiseks.',
+);
+

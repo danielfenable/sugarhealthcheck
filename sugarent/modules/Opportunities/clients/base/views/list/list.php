@@ -24,8 +24,7 @@ $viewdefs['Opportunities']['base']['view']['list'] = array(
                     'default' => true,
                     'related_fields' => array(
                         'total_revenue_line_items',
-                        'closed_revenue_line_items',
-                        'included_revenue_line_items',
+                        'closed_revenue_line_items'
                     )
                 ),
                 array(
@@ -39,11 +38,6 @@ $viewdefs['Opportunities']['base']['view']['list'] = array(
                 array(
                     'name' => 'sales_stage',
                     'label' => 'LBL_LIST_SALES_STAGE',
-                    'enabled' => true,
-                    'default' => true,
-                ),
-                array(
-                    'name' => 'commit_stage',
                     'enabled' => true,
                     'default' => true,
                 ),

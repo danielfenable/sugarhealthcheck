@@ -1,8 +1,29 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("series-combo",function(e,t){e.ComboSeries=e.Base.create("comboSeries",e.CartesianSeries,[e.Fills,e.Lines,e.Plots],{drawSeries:function(){this.get("showAreaFill")&&this.drawFill.apply(this,this._getClosingPoints()),this.get("showLines")&&this.drawLines(),this.get("showMarkers")&&this.drawPlots()},_toggleVisible:function(e){var t,n,r,i;this.get("showAreaFill")&&this._path&&this._path.set("visible",e),this.get("showLines")&&this._lineGraphic&&this._lineGraphic.set("visible",e);if(this.get("showMarkers")){t=this.get("markers");if(t){i=0,r=t.length;for(;i<r;++i)n=t[i],n&&n.set("visible",e)}}},_getDefaultStyles:function(){var t=e.ComboSeries.superclass._getDefaultStyles();return t.line=this._getLineDefaults(),t.marker=this._getPlotDefaults(),t.area=this._getAreaDefaults(),t}},{ATTRS:{type:{value:"combo"},showAreaFill:{value:!1},showLines:{value:!0},showMarkers:{value:!0},marker:{lazyAdd:!1,getter:function(){return this.get("styles").marker},setter:function(e){this.set("styles",{marker:e})}},line:{lazyAdd:!1,getter:function(){return this.get("styles").line},setter:function(e){this.set("styles",{line:e})}},area:{lazyAdd:!1,getter:function(){return this.get("styles").area},setter:function(e){this.set("styles",{area:e})}}}})},"3.15.0",{requires:["series-cartesian","series-line-util","series-plot-util","series-fill-util"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('series-combo',function(Y,NAME){Y.ComboSeries=Y.Base.create("comboSeries",Y.CartesianSeries,[Y.Fills,Y.Lines,Y.Plots],{drawSeries:function()
+{if(this.get("showAreaFill"))
+{this.drawFill.apply(this,this._getClosingPoints());}
+if(this.get("showLines"))
+{this.drawLines();}
+if(this.get("showMarkers"))
+{this.drawPlots();}},_toggleVisible:function(visible)
+{var markers,marker,len,i;if(this.get("showAreaFill")&&this._path)
+{this._path.set("visible",visible);}
+if(this.get("showLines")&&this._lineGraphic)
+{this._lineGraphic.set("visible",visible);}
+if(this.get("showMarkers"))
+{markers=this.get("markers");if(markers)
+{i=0;len=markers.length;for(;i<len;++i)
+{marker=markers[i];if(marker)
+{marker.set("visible",visible);}}}}},_getDefaultStyles:function()
+{var styles=Y.ComboSeries.superclass._getDefaultStyles();styles.line=this._getLineDefaults();styles.marker=this._getPlotDefaults();styles.area=this._getAreaDefaults();return styles;}},{ATTRS:{type:{value:"combo"},showAreaFill:{value:false},showLines:{value:true},showMarkers:{value:true},marker:{lazyAdd:false,getter:function()
+{return this.get("styles").marker;},setter:function(val)
+{this.set("styles",{marker:val});}},line:{lazyAdd:false,getter:function()
+{return this.get("styles").line;},setter:function(val)
+{this.set("styles",{line:val});}},area:{lazyAdd:false,getter:function()
+{return this.get("styles").area;},setter:function(val)
+{this.set("styles",{area:val});}}}});},'3.15.0',{"requires":["series-cartesian","series-line-util","series-plot-util","series-fill-util"]});

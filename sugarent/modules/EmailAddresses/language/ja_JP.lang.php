@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,21 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-    'LBL_EMAIL_ADDRESS_ID' => 'ID',
-    'LBL_EMAIL_ADDRESS' => 'Eメールアドレス',
-    'LBL_EMAIL_ADDRESS_CAPS' => 'Eメールアドレス(大文字)',
-    'LBL_INVALID_EMAIL' => '無効なEメール',
-    'LBL_OPT_OUT' => 'メール送信除外',
-    'LBL_DATE_CREATE' => '作成日',
-    'LBL_DATE_MODIFIED' => '更新日',
-    'LBL_DELETED' => '削除',
+  'LBL_DATE_CREATE' => '作成日',
+  'LBL_DATE_MODIFIED' => '更新日',
+  'LBL_DELETED' => '削除',
+  'LBL_EMAIL_ADDRESS' => 'Eメールアドレス',
+  'LBL_EMAIL_ADDRESS_CAPS' => 'Eメールアドレス(大文字)',
+  'LBL_EMAIL_ADDRESS_ID' => 'ID',
+  'LBL_INVALID_EMAIL' => '無効なEメール',
+  'LBL_OPT_OUT' => 'メール送信除外',
 );
+

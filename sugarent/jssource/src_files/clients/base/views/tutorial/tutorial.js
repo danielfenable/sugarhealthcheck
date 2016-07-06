@@ -23,8 +23,6 @@
     className: '', //override default class
 
     initialize: function(options) {
-        app.events.trigger('app:help:hide');
-
         this.resizeCallback = _.debounce(_.bind(function(){
             this.highlightItem(this.index);
         }, this), 400);

@@ -105,7 +105,6 @@ div.snipError{
 </style>
 {/literal}
 {$TITLE}
-
 	{if $SNIP_STATUS!='notpurchased'}
 	<table class="actionsContainer" border="0" cellpadding="0" cellspacing="1" width="100%">
 	<tbody>

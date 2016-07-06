@@ -178,7 +178,7 @@ class ForecastReset
 
         /* @var $admin Administration */
         $admin = BeanFactory::getBean('Administration');
-        $admin->saveSetting('Forecasts', 'worksheet_columns', $columns, 'base');
+        $admin->saveSetting('Forecasts', 'worksheet_columns', json_encode($columns), 'base');
 
         // update the metadata
         $this->updateConfigWorksheetColumnsMetadata($forecast_by);

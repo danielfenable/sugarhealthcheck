@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,9 +13,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">השג מפתח ו-Secret מ-IBM SmartCloud על-ידי רישום הפעלת ה-Sugar שלך כיישום חדש.<br>&nbsp;<br>צעדים לרישום ההופעה שלך:<br>&nbsp;<br><ol><li>התחבר לחשבון ה-IBM SmartCloud שלך (אתה צריך להיות מנהל מערכת)</li><li>עבור ל-&#39;ניהול&#39; -> &#39;נהל ארגון&#39;</li><li>עבור לקישור "אפליקציות משולבות של צד שלישי" בסרגל הצידי והפוך את SugarCRM לזמין עבור כל המשתמשים.</li><li>עבור ל-"אפליקציות פנימיות" בסרגל הצידי ואז "רשום אפליקציה"</li><li>תן לאפליקציה זו את השם שתרצה (למשל, "SugarCRM Production"), ותוודא שלא לסמן את תיבת הסימון &#39;Oauth 2.x&#39; בתחתית החלון הנפתח. </li><li>לאחר שיצרת את האפליקציה, לחץ על המשולש הקטן מימין לשם האפליקציה ובחר ב-"הצג אישורים" מהתפריט הנפתח.</li><li>העתק את האישורים להלן.</li></ol> </td></tr></table>',
-    'oauth_consumer_key' => 'OAuth מפתח לקוח',
-    'oauth_consumer_secret' => 'OAuth סיסמא סודית ללקוח',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">The OAuth Consumer Key and Secret are strings you obtain from LotusLive©.</td></tr></table>',
+  'oauth_consumer_key' => 'OAuth מפתח לקוח',
+  'oauth_consumer_secret' => 'OAuth סיסמא סודית ללקוח',
 );
 

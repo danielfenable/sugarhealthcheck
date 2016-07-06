@@ -50,7 +50,6 @@ $viewdefs['Contacts']['base']['layout']['subpanels'] = array (
     array (
       'layout' => "subpanel",
       'label' => 'LBL_OPPORTUNITIES_SUBPANEL_TITLE',
-      'override_subpanel_list_view' => 'subpanel-for-contacts',
       'context' => array (
         'link' => 'opportunities',
       ),
@@ -93,18 +92,14 @@ $viewdefs['Contacts']['base']['layout']['subpanels'] = array (
     ),
     array (
       'layout' => 'subpanel',
-      'label' => 'LBL_QUOTES_SHIP_TO',
+      'label' => 'LBL_QUOTES_SUBPANEL_TITLE',
         'context' => array (
           'link' => 'quotes',
-          'ignore_role' => 0,
-        ),
-    ),
-    array (
-        'layout' => 'subpanel',
-        'label' => 'LBL_QUOTES_BILL_TO',
-        'context' => array (
-            'link' => 'billing_quotes',
-            'ignore_role' => 0
+          'collectionOptions' => array(
+            'params' => array(
+              'ignore_role' => 1,
+            ),
+          ),
         ),
     ),
     array (

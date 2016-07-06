@@ -324,13 +324,11 @@ class ExtAPIWebEx extends ExternalAPIBase implements WebMeeting {
               $xpath = new DOMXPath($responseXML);
 
               // Get the base node of the xpath query result to see if there is
-              // something we can inspect further. NOTE: Casting a DomNodeList to
-              // a string will have unexpected consequences.
-              $baseNode = $xpath->query('/serv:message/serv:header/serv:response/serv:result');
+              // something we can inspect further
+              $baseNode = (string)$xpath->query('/serv:message/serv:header/serv:response/serv:result');
 
-              // If there is no baseNode then we fail here. No base node is either
-              // an empty $baseNode var or a baseNode->length of 0
-              if (empty($baseNode) || $baseNode->length == 0) {
+              // If there is no baseNode then we fail here
+              if (empty($baseNode)) {
                 $reply['success'] = false;
                 $reply['errorMessage'] = translate('LBL_ERR_NO_RESPONSE', 'EAPM');
               } else {
@@ -342,7 +340,7 @@ class ExtAPIWebEx extends ExternalAPIBase implements WebMeeting {
                 } else {
                     $GLOBALS['log']->debug("Status:\n".print_r($status,true));
                     $reply['success'] = false;
-                    $reply['errorMessage'] = '' . $xpath->query('/serv:message/serv:header/serv:response/serv:reason')->item(0)->nodeValue;
+                    $reply['errorMessage'] = (string)$xpath->query('/serv:message/serv:header/serv:response/serv:reason')->item(0)->nodeValue;
                 }
               }
           }

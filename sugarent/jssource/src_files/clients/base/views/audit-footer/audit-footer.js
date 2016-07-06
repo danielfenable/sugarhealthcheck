@@ -15,7 +15,7 @@
  */
 ({
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Initialize the audited fields on the parent model.
      */
     initialize: function(options) {
@@ -23,7 +23,6 @@
         if (this.context.parent) {
             var baseModule = this.context.parent.get('module');
             this.auditedFields = this._getAuditedFields(baseModule);
-            this.hasCurrencyFields = this._hasCurrencyFields(baseModule);
         }
     },
 
@@ -39,17 +38,5 @@
             .filter(function(o) {return o.audited;})
             .map(function(o) {return app.lang.get(o.vname, baseModule);})
             .value();
-    },
-
-    /**
-     *  Look to see if the baseModule has any currency fields
-     *
-     *  @return {boolean}
-     *  @protected
-     */
-    _hasCurrencyFields: function(baseModule) {
-        return _.some(app.metadata.getModule(baseModule, 'fields'), function(field) {
-           return field.audited && field.type && field.type == 'currency';
-        });
     }
 })

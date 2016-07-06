@@ -22,6 +22,7 @@ $class_map = array(
     'CustomSugarView' => 'custom/include/MVC/View/SugarView.php',
     'Sugar_Smarty' => 'include/SugarSmarty/Sugar_Smarty.php',
     'HTMLPurifier_Bootstrap' => 'vendor/HTMLPurifier/HTMLPurifier.standalone.php',
+    'SugarSearchEngineFullIndexer'=>'include/SugarSearchEngine/SugarSearchEngineFullIndexer.php',
     'SugarCurrency'=>'include/SugarCurrency/SugarCurrency.php',
     'SugarRelationshipFactory' => 'data/Relationships/RelationshipFactory.php',
     'DBManagerFactory' => 'include/database/DBManagerFactory.php',

@@ -76,6 +76,7 @@ $dictionary['EAPM'] = array(
     'dbType' => 'varchar',
     'len' => '255',
     'unified_search' => true,
+    'full_text_search' => array('enabled' => true, 'boost' => 3),
     'importable' => 'required',
     'massupdate' => 0,
     'comments' => '',

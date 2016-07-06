@@ -196,26 +196,14 @@
             'desc': 'LBL_DNB_LONG_DESC'
         },
         'phone': {
-            'json_path': 'Telecommunication.TelephoneNumber.0',
-            'desc': 'LBL_DNB_PHONE_DESC',
-            'sub_object': {
-                'data_type': 'phone_idc',
-                'data_name': 'phone_office',
-                'phone_no': 'TelecommunicationNumber',
-                'id_code': 'InternationalDialingCode',
-                'label': 'LBL_DNB_PHONE'
-            }
+            'json_path': 'Telecommunication.TelephoneNumber.0.TelecommunicationNumber',
+            'label': 'LBL_DNB_PHONE',
+            'desc': 'LBL_DNB_PHONE_DESC'
         },
         'fax': {
-            'json_path': 'Telecommunication.FacsimileNumber.0',
-            'desc': 'LBL_DNB_FAX_DESC',
-            'sub_object': {
-                'data_type': 'phone_idc',
-                'data_name': 'fax',
-                'phone_no': 'TelecommunicationNumber',
-                'id_code': 'InternationalDialingCode',
-                'label': 'LBL_DNB_FAX'
-            }
+            'json_path': 'Telecommunication.FacsimileNumber.0.TelecommunicationNumber',
+            'label': 'LBL_DNB_FAX',
+            'desc': 'LBL_DNB_FAX_DESC'
         },
         'webpage': {
             'json_path': 'Telecommunication.WebPageAddress.0.TelecommunicationAddress',
@@ -503,8 +491,7 @@
         'responseMsg': 'OrderProductResponse.TransactionResult.ResultText',
         'industry': 'OrderProductResponse.OrderProductResponseDetail.Product.Organization.IndustryCode.IndustryCode',
         'product': 'OrderProductResponse.OrderProductResponseDetail.Product.Organization',
-        'duns': 'OrderProductResponse.OrderProductResponseDetail.InquiryDetail.DUNSNumber',
-        'idc': 'Telecommunication.TelephoneNumber.0.InternationalDialingCode'
+        'duns': 'OrderProductResponse.OrderProductResponseDetail.InquiryDetail.DUNSNumber'
     },
     //common json paths
     commonJSONPaths: {
@@ -685,8 +672,7 @@
             'tpa': this.formatTPA,
             'sales_rev': this.formatAnnualSales,
             'prim_sic': this.formatPrimSic,
-            'org_id': this.formatOrgId,
-            'phone_idc': this.formatPhone
+            'org_id': this.formatOrgId
         };
         this.leadsAttr = this.contactAttr.slice();
         this.leadsAttr.push('account_name');
@@ -773,14 +759,6 @@
         } else {
             this.template = app.template.get('dnb.dnb-error');
         }
-
-        this.renderErrorMessage();
-    },
-
-    /**
-     * Renders the actual error message that has been set on the error template
-     */
-    renderErrorMessage: function() {
         this.render();
         this.$('div#error-display').show();
         this.$('.showLessData').hide();
@@ -1131,41 +1109,6 @@
     },
 
     /**
-     * Preprocesses search result
-     * @param {Object} phoneObj D&B Current Principal Object
-     * @param {Object} phoneDD Data Dictionary
-     * @return {Object} with label and dataelement
-     */
-    formatPhone: function(phoneObj, phoneDD) {
-        var dnbDataObj = null;
-        var phoneNo = this.getJsonNode(phoneObj, phoneDD.phone_no);
-        var idCode = this.getJsonNode(phoneObj, phoneDD.id_code);
-        if (phoneNo) {
-            dnbDataObj = {};
-            dnbDataObj.dataElement = this.appendIDCPhone(phoneNo, idCode);
-            dnbDataObj.dataName = phoneDD.data_name;
-            dnbDataObj.dnbLabel = app.lang.get(phoneDD.label);
-        }
-        return dnbDataObj;
-    },
-
-    /**
-     * Preprocesses search result
-     * @param {Number} phoneNo Phone Number
-     * @param {Number} idCode International Dailing Code
-     * @return {String} phone Number with international dailing code
-     */
-    appendIDCPhone: function (phoneNo, idCode) {
-        var retVal;
-        if(idCode) {
-            retVal = '+' + idCode + phoneNo.replace(/^0+/, '');
-        } else {
-            retVal = phoneNo;
-        }
-        return retVal;
-    },
-
-    /**
      * Renders the dnb company details for adding companies from dashlets
      * @param {Object} companyDetails dnb api response for company details
      */
@@ -1229,7 +1172,7 @@
         if (!_.isUndefined(accountsModel)) {
             var self = this;
             app.drawer.open({
-                layout: 'create',
+                layout: 'create-actions',
                 context: {
                     create: true,
                     module: 'Accounts',
@@ -1254,7 +1197,6 @@
     getAccountsModel: function(companyApiResponse) {
         var organizationDetails = this.getJsonNode(companyApiResponse, this.appendSVCPaths.product);
         var accountsModel = null;
-        var idcode = this.getJsonNode(organizationDetails, this.appendSVCPaths.idc);
         if (!_.isUndefined(organizationDetails)) {
             var accountsBean = {};
             if (companyApiResponse.primarySIC) {
@@ -1265,8 +1207,6 @@
                 if (dnbDataElement) {
                     if (sugarColumnName === 'annual_revenue') {
                         dnbDataElement = this.formatSalesRevenue(dnbDataElement);
-                    } else if (sugarColumnName === 'phone_office') {
-                        dnbDataElement = this.appendIDCPhone(dnbDataElement, idcode)
                     }
                     accountsBean[sugarColumnName] = dnbDataElement;
                 }
@@ -1370,24 +1310,13 @@
                 }
             }
         }, this);
-
-        // Import new data, but only if updated data is empty, otherwise the
-        // next conditional block will handle it
+        //importing new data
         if (newData.length > 0) {
             this.updateAccountsModel(newData, setModelFlag);
         }
-
-        // Update the model based on changes, making sure to not save the model
+        //update existing data
         if (updatedData.length > 0) {
-            var confirmationMsgKey;
-            var confirmationMsgData;
-
-            // Import flag is true when we've already set the model based on an
-            // import selection. If it comes in again as false, the model will
-            // save when updated, which will save a new record in the database
-            // without a save event being fired. This fixes that.
-            var setModelOnlyFlag = importFlag === true;
-
+            var confirmationMsgKey, confirmationMsgData;
             //show a detailed warning message about the single data element being imported
             if (updatedData.length === 1) {
                 var fieldName = app.lang.get(accountsModel.fields[updatedData[0].propName].vname, 'Accounts');
@@ -1419,7 +1348,7 @@
                 level: 'confirmation',
                 title: 'LBL_WARNING',
                 messages: confirmationMsgTpl(confirmationMsgData),
-                onConfirm: _.bind(this.updateAccountsModel, this, updatedData, setModelOnlyFlag)
+                onConfirm: _.bind(this.updateAccountsModel, this, updatedData)
             });
         }
     },
@@ -1880,7 +1809,7 @@
         var model = this.getModuleModel(this.currentContact, moduleName);
         var self = this;
         app.drawer.open({
-            layout: 'create',
+            layout: 'create-actions',
             context: {
                 create: true,
                 module: model.module,

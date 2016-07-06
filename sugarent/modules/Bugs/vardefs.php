@@ -10,11 +10,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$dictionary['Bug'] = array(
-    'table' => 'bugs',  'audited'=>true, 'activity_enabled' => true,
-    'comment' => 'Bugs are defects in products and services','duplicate_merge'=>true,
-    'unified_search' => true, 'full_text_search' => true, 'unified_search_default_enabled' => true,
-    'fields' => array (
+$dictionary['Bug'] = array('table' => 'bugs',    'audited'=>true, 'activity_enabled' => true, 'comment' => 'Bugs are defects in products and services','duplicate_merge'=>true
+                               ,'unified_search' => true, 'unified_search_default_enabled' => true, 'fields' => array (
   'found_in_release'=>
   	array(
   	'name'=>'found_in_release',
@@ -27,8 +24,8 @@ $dictionary['Bug'] = array(
     'duplicate_merge' => 'disabled',
     'audited' =>true,
   	'studio' => array(
-          'fields' => 'false', 
-          'listview' => false, 
+          'fields' => 'false',
+          'listview' => false,
           // Bug 54507 - Add wireless and portal to exclude list
           'wirelesslistview' => false,
           // Bug 54507 - Add wireless and portal to exclude list
@@ -56,7 +53,6 @@ $dictionary['Bug'] = array(
 	'studio' => array(
        'editview' => false,
        'detailview' => false,
-       'recordview' => false,
        'quickcreate' => false,
        'basic_search' => false,
        'advanced_search' => false,
@@ -66,8 +62,8 @@ $dictionary['Bug'] = array(
 	   'wireless_basic_search' => false,
 	   'wireless_advanced_search' => false,
        // Bug 54507 - Add portal to exclude from layout list
-       'portalrecordview' => false,
-       'portallistview' => false,
+       'portalrecordview' => 'visible',
+       'portallistview' => 'visible',
        'portalsearchview' => false,
 	   ),
       'exportable'=>true,
@@ -84,8 +80,8 @@ $dictionary['Bug'] = array(
     'duplicate_merge' => 'disabled',
     'audited' =>true,
   	'studio' => array(
-          'fields' => 'false', 
-          'listview' => false, 
+          'fields' => 'false',
+          'listview' => false,
           // Bug 54507 - Add wireless and portal to exclude list
           'wirelesslistview' => false,
           // Bug 54507 - Add wireless and portal to exclude list
@@ -114,7 +110,6 @@ $dictionary['Bug'] = array(
 	'studio' => array(
        'editview' => false,
        'detailview' => false,
-       'recordview' => false,
        'quickcreate' => false,
        'basic_search' => false,
        'advanced_search' => false,
@@ -124,8 +119,8 @@ $dictionary['Bug'] = array(
        'wireless_basic_search' => false,
        'wireless_advanced_search' => false,
        // Bug 54507 - Add portal to exclude from layout list
-       'portalrecordview' => false,
-       'portallistview' => false,
+       'portalrecordview' => 'visible',
+       'portallistview' => 'visible',
        'portalsearchview' => false,
        ),
       'exportable'=>true,
@@ -364,9 +359,4 @@ VardefManager::createVardef('Bugs','Bug', array('default', 'assignable',
 //defined in the field_arrays.php file
 $dictionary['Bug']['fields']['name']['importable'] = 'required';
 
-//boost value for full text search
-$dictionary['Bug']['fields']['name']['full_text_search']['boost'] = 1.51;
-$dictionary['Bug']['fields']['bug_number']['full_text_search']['boost'] = 1.27;
-$dictionary['Bug']['fields']['description']['full_text_search']['boost'] = 0.68;
-$dictionary['Bug']['fields']['work_log']['full_text_search']['boost'] = 0.67;
-
+?>

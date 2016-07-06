@@ -10,12 +10,12 @@
  */
 (function (app) {
     app.events.on('app:init', function () {
-        app.plugins.register('DragdropAttachments', ['view', 'field'], {
+        app.plugins.register('DragdropAttachments', ['view'], {
             events: {
-                'dragenter [data-attachable=true]': 'expandNewPost',
-                'dragover [data-attachable=true]': 'dragoverNewPost',
-                'dragleave [data-attachable=true]': 'shrinkNewPost',
-                'drop [data-attachable=true]': 'dropAttachment'
+                'dragenter .attachable': 'expandNewPost',
+                'dragover .attachable': 'dragoverNewPost',
+                'dragleave .attachable': 'shrinkNewPost',
+                'drop .attachable': 'dropAttachment'
             },
 
             expandNewPost: function(event) {
@@ -34,41 +34,7 @@
                 return false;
             },
 
-            /**
-             * Handler that is called when user drops file on the file field.
-             *
-             * Example to override the default behavior in the view:
-             *
-             *     this.before('attachments:drop', this._onAttachmentDrop, this);
-             *
-             *     _onAttachmentDrop: function(event) {
-             *         // the override code
-             *         // return false to make sure we won't execute the default behavior
-             *         return false;
-             *     }
-             *
-             * The override cannot trigger the `attachments:drop` event (because it would trigger the
-             * event while the before event is happening).
-             *
-             * @param {Event} event Drop event.
-             */
             dropAttachment: function(event) {
-                if (!this.triggerBefore('attachments:drop', event)) {
-                    return;
-                }
-                this._onAttachmentDropDefault(event);
-                this.trigger('attachments:drop', event);
-            },
-
-            /**
-             * Default handler for 'attachments:drop' event.
-             * This event is triggered when user drops file on the file field.
-             *
-             * @param {Event} event Drop event.
-             * @private
-             */
-            _onAttachmentDropDefault: function(event) {
-
                 // Use originalEvent to access the dataTransfer property since it may not exist on the jQuery event
                 // see http://bugs.jquery.com/ticket/7808 for more information
                 var text = $.trim(event.originalEvent.dataTransfer.getData('text')),
@@ -90,15 +56,6 @@
                                 size_index = 0,
                                 size = file.size,
                                 unique = _.uniqueId('activitystream_attachment');
-
-                            // Is the file too large?
-                            if (size > app.config.uploadMaxsize) {
-                                app.alert.show('file_too_big', {
-                                    level: 'error',
-                                    messages: 'ERROR_MAX_FILESIZE_EXCEEDED'
-                                });
-                                return;
-                            }
 
                             while (size > 1024 && size_index < sizes.length - 1) {
                                 size_index++;
@@ -155,7 +112,7 @@
 
             onAttach: function(component, plugin) {
                 component.on('render', function() {
-                    this.$('[data-attachable=true]').attr('dropzone', 'copy');
+                    this.$('.attachable').attr('dropzone', 'copy');
                 });
 
                 component.on('attachments:process', function() {
@@ -165,13 +122,6 @@
                         noteAttrs = this._mapNoteParentAttributes();
 
                     component.trigger('attachments:start');
-
-                    if (_.size(attachments) > 0){
-                        app.alert.show('uploading_attachments', {
-                            level: 'process',
-                            title: app.lang.get('LBL_UPLOADING')
-                        });
-                    }
 
                     _.each(attachments, function(file) {
                         var note = app.data.createBean('Notes');
@@ -185,9 +135,6 @@
                                 note.save(null, {
                                     success: function(noteModel) {
                                         callback(null, noteModel);
-                                    },
-                                    error: function() {
-                                        callback(true);
                                     }
                                 });
                             },
@@ -210,8 +157,6 @@
                                     contentType: false
                                 }).then(function() {
                                     callback(null);
-                                }, function() {
-                                    callback(true);
                                 });
                             },
                             //then create the 'attach' type activity
@@ -233,25 +178,16 @@
                                     success: function(activityModel) {
                                         self.collection.add(activityModel);
                                         callback(null, activityModel);
-                                    },
-                                    error: function() {
-                                        callback(true);
                                     }
                                 });
                             }
                         ], function(err, activity) {
-                            var options;
-
-                            app.alert.dismiss('uploading_attachments');
                             component.trigger('attachments:end');
                             if (err) {
-                                app.alert.show('upload_failed', {
-                                    level: 'error',
-                                    messages: app.lang.get('LBL_EMAIL_ATTACHMENT_UPLOAD_FAILED')
-                                });
+                                var errorMessage = app.lang.get('LBL_EMAIL_ATTACHMENT_UPLOAD_FAILED');
+                                app.alert.show('upload_error', errorMessage);
                             } else {
-                                options = _.extend({recursive: false}, self.context.get('collectionOptions') || {});
-                                self.context.reloadData(options);
+                                self.context.reloadData({recursive: false});
                                 self.clearAttachments.call(self);
                             }
                         });
@@ -263,11 +199,13 @@
              * Map parentId and parentType into note attributes
              * Do nothing if parentId or parentType are empty
              *
+             * @param {string} parentId id of the parent (null if no parent)
+             * @param {string} parentType module of the parent record
              * @private
              */
             _mapNoteParentAttributes: function() {
-                var parentId = this.context.parent.get('model').id;
-                var parentType = this.context.parent.get('model').module;
+                var parentId = this.context.parent.get('model').id,
+                    parentType = this.context.parent.get('model').module;
 
                 if (parentType && parentId) {
                     switch (parentType) {
@@ -287,7 +225,7 @@
                                 'parent_type': parentType
                             };
                     }
-                } else if (parentType) {
+                } else if (parentType && parentType === 'Activities') {
                     return {
                         'parent_type': parentType
                     };

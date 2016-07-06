@@ -238,14 +238,7 @@ class ViewConfigureshortcutbar extends SugarView
         }
 
         sugar_mkdir(dirname("custom/{$quickCreateFile}"), null, true);
-        $result = write_array_to_file($arrayName, $metadata, "custom/{$quickCreateFile}");
-
-        //if custom file was written correctly, update the cached menu file
-        if ($result) {
-            MetaDataFiles::buildModuleClientCache(array('base'), 'menu', $module);
-        }
-
-        return $result;
+        return (write_array_to_file($arrayName, $metadata, "custom/{$quickCreateFile}"));
     }
 
     /**

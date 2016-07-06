@@ -63,7 +63,7 @@ class SugarUpgradeRebuild extends UpgradeScript
         foreach ($dictionary as $meta) {
 	        $tablename = $meta['table'];
 
-            if (empty($tablename) || isset($repairedTables[$tablename])) {
+	        if(isset($repairedTables[$tablename])) {
 	           continue;
 	        }
 

@@ -10,8 +10,8 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 --}}
-<div class="alert {{alertClass}} alert-block{{#if closeable}} closeable{{/if}}">
-    {{#if closeable}}<button class="close" data-action="close"><i class="fa fa-times"></i></button>{{/if}}
+<div class="alert {{alertClass}} alert-block">
+    <button class="close" data-action="close"><i class="fa fa-times"></i></button>
     {{#if title}}<strong>{{title}}</strong>{{/if}}
     {{#each messages}}{{./this}}{{/each}}
 </div>

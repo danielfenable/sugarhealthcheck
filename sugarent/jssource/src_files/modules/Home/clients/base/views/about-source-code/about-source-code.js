@@ -22,7 +22,7 @@
     serverInfo: null,
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);

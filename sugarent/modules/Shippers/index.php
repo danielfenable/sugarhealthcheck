@@ -73,8 +73,6 @@ $ListView->setHeaderTitle($mod_strings['LBL_LIST_FORM_TITLE'] . $header_text);
 $ListView->setHeaderText($button);
 $ListView->show_export_button = false;
 $ListView->show_mass_update = false;
-$ListView->show_select_menu = false;
-$ListView->show_delete_button = false;
 $ListView->setQuery("", "", "list_order", "SHIPPER");
 $ListView->processListView($focus, "main", "SHIPPER");
 

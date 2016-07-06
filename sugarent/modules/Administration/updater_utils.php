@@ -303,26 +303,23 @@ function shouldCheckSugar(){
  */
 function authenticateDownloadKey()
 {
+    // Retreive license if required
+    if ((!is_array($GLOBALS['license']->settings) ||
+         empty($GLOBALS['license']->settings['license_validation_key'])) &&
+         shouldCheckSugar()) {
+        check_now(get_sugarbeat());
+    }
 
-    $licenseSettings = isset($GLOBALS['license']->settings) ? $GLOBALS['license']->settings : '';
-
-    // Retrieve license if required
-	if ((!is_array($licenseSettings) ||
-			empty($licenseSettings['license_validation_key'])) &&
-		shouldCheckSugar()) {
-		check_now(get_sugarbeat());
-	}
-	
     // Validation key is required
-    if (!is_array($licenseSettings) ||
-        empty($licenseSettings['license_validation_key'])) {
+    if (!is_array($GLOBALS['license']->settings) ||
+        empty($GLOBALS['license']->settings['license_validation_key'])) {
         return false;
     }
 
     // We are good if a validation is already set
-    if (is_array($licenseSettings) &&
-        is_array($licenseSettings['license_validation_key']) &&
-        !empty($licenseSettings['license_validation_key']['validation'])) {
+    if (is_array($GLOBALS['license']->settings) &&
+        is_array($GLOBALS['license']->settings['license_validation_key']) &&
+        !empty($GLOBALS['license']->settings['license_validation_key']['validation'])) {
         return true;
     };
 
@@ -359,20 +356,20 @@ function authenticateDownloadKey()
     $data = array();
     foreach ($fromGlobals as $source => $defs) {
         $target = empty($defs['target']) ? $source : $defs['target'];
-        if (isset($licenseSettings[$source])) {
+        if (isset($GLOBALS['license']->settings[$source])) {
             switch ($defs['type']) {
                 case 'int':
-                    $data[$target] = intval($licenseSettings[$source]);
+                    $data[$target] = intval($GLOBALS['license']->settings[$source]);
                     break;
                 default:
-                    $data[$target] = $licenseSettings[$source];
+                    $data[$target] = $GLOBALS['license']->settings[$source];
                     break;
             }
         }
     }
 
     // Decode the received validation key and compare with current settings
-    $og = unserialize(sugarDecode('validation', $licenseSettings['license_validation_key']));
+    $og = unserialize(sugarDecode('validation', $GLOBALS['license']->settings['license_validation_key']));
     foreach ($og as $name => $value) {
         if (!isset($data[$name]) || $data[$name] != $value) {
             return false;

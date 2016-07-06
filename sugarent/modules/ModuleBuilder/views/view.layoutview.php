@@ -115,7 +115,7 @@ class ViewLayoutView extends SugarView
 		            $disableLayout = $parser2->getSyncDetailEditViews();
                 }
                 if(!empty($_REQUEST['copyFromEditView'])){
-                    $editViewPanels = $parser2->convertFromCanonicalForm($parser2->_viewdefs['panels']);
+                    $editViewPanels = $parser2->convertFromCanonicalForm ( $parser2->_viewdefs [ 'panels' ] , $parser2->_fielddefs ) ;
                     $parser->_viewdefs [ 'panels' ] = $editViewPanels;
                     $parser->_fielddefs = $parser2->_fielddefs;
                     $parser->setUseTabs($parser2->getUseTabs());
@@ -311,30 +311,11 @@ class ViewLayoutView extends SugarView
                 . ')';
         }
 
-        $restoreDefaultDisabled = $disableLayout;
-
-        // Handle Opps+RLI mode switch creating one history item on install.
-        if ($this->editModule == 'Opportunities') {
-            if ($history->getCount() == 1) {
-                $restoreDefaultDisabled = true;
-            } else if ($history->getCount() > 1) {
-                $historyList = $history->getList();
-                $historyItem = $historyList[1];
-
-                $action = 'ModuleBuilder.history.revert('
-                    . '"' . $this->editModule . '",'
-                    . '"' . $this->editLayout . '",'
-                    . '"' . $historyItem . '",'
-                    . '""'
-                    . ')';
-            }
-        }
-
         $buttons [] = array(
             'id' => 'historyDefault',
-            'text' => translate('LBL_RESTORE_DEFAULT_LAYOUT'),
+            'text' => translate('LBL_RESTORE_DEFAULT'),
             'actionScript' => "onclick='$action'",
-            'disabled' => $restoreDefaultDisabled,
+            'disabled' => $disableLayout,
         );
         $implementation = $this->parser->getImplementation();
         if ($this->editLayout == MB_DETAILVIEW || $this->editLayout == MB_QUICKCREATE) {

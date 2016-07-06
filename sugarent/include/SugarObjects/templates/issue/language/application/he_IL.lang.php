@@ -1,5 +1,5 @@
 <?php
- /*
+/*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
  * http://support.sugarcrm.com/06_Customer_Center/10_Master_Subscription_Agreements/.
@@ -9,6 +9,13 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+ /*********************************************************************************
+ * Hebrew vertion by:
+ * Menahem Lurie Consultancy and IT Management,SugarCRM partner - Israel
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * *******************************************************************************/
+
 /*
  * Created on Aug 14, 2007
  *
@@ -20,18 +27,18 @@ $object_name = strtolower($object_name);
 
   $object_name.'_type_dom' =>
   array (
-  	'Administration' => 'Administration',
+  	'Administration' => 'ניהול מערכת',
     'Product' => 'מוצר',
     'User' => 'משתמש',
   ),
    $object_name.'_status_dom' =>
   array (
     'New' => 'חדש',
-    'Assigned' => 'הוקצו',
+    'Assigned' => 'הוקצה',
     'Closed' => 'נסגר',
     'Pending Input' => 'קלט תלוי ועומד',
     'Rejected' => 'נדחה',
-    'Duplicate' => 'שכפל',
+    'Duplicate' => 'שוכפל',
   ),
   $object_name.'_priority_dom' =>
   array (
@@ -43,10 +50,10 @@ $object_name = strtolower($object_name);
   array (
   	'' => '',
   	'Accepted' => 'התקבל',
-    'Duplicate' => 'שכפל',
+    'Duplicate' => 'שוכפל',
     'Closed' => 'נסגר',
     'Out of Date' => 'לא רלוונטי',
-    'Invalid' => 'לא תקין',
+    'Invalid' => 'לא חוקי',
   ),
   );
-?>
+

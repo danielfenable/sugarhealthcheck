@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,16 +11,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$dashletStrings['CalendarDashlet'] = array(
-					'LBL_TITLE'            => 'Kalenterini',
-                         'LBL_DESCRIPTION'      => 'Kuvaus',
-                         'LBL_CONFIGURE_TITLE'  => 'Nimike',
-                         'LBL_CONFIGURE_VIEW'  => 'Näytä',
-                         'LBL_SAVE_BUTTON_LABEL' => 'Tallenna',
-                         
-                         'LBL_VIEW_DAY' => 'Päivä',
-                         'LBL_VIEW_WEEK' => 'Viikko',
-                         'LBL_VIEW_MONTH' => 'Kuukausi',
-
-);
-?>
+$dashletStrings['CalendarDashlet'] = 
+  array(
+        'LBL_TITLE' => 'Kalenterini',
+        'LBL_DESCRIPTION'      => 'Kuvaus',
+        'LBL_CONFIGURE_TITLE' => 'Otsikko',
+        'LBL_CONFIGURE_VIEW' => 'Näkymä',
+        'LBL_SAVE_BUTTON_LABEL' => 'Tallenna',
+        'LBL_VIEW_DAY' => 'Päivä',
+        'LBL_VIEW_WEEK' => 'Viikko',
+        'LBL_VIEW_MONTH' => 'Kuukausi',
+        );

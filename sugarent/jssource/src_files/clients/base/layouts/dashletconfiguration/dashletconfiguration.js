@@ -34,6 +34,6 @@
             main_panel.layout.components = _.union(main_panel.layout.components, options.meta.components);
         }
         options.meta = meta;
-        this._super('initialize', [options]);
+        app.view.Layout.prototype.initialize.call(this, options);
     }
 })

@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'צפה ביומן שינויים',
-    'LBL_FIELD_NAME' => 'שדה',
-    'LBL_OLD_NAME' => 'ערך ישן',
-    'LBL_NEW_VALUE' => 'ערך חדש',
-    'LBL_CREATED_BY' => 'ונה על ידי',
-    'LBL_LIST_DATE' => 'שונה בתאריך',
-    'LBL_AUDITED_FIELDS' => 'Fields audited in this module:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'אין שדות שעברו ביקורת במודול זה',
-    'LBL_CHANGE_LOG' => 'יומן שינויים',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'כאשר שדות מטבע מבוקרים נשמרים במטבע שאינו מטבע ברירת המחדל של המערכת, יומן רישום השינויים יציג את הערכים הישנים והחדשים במטבע ברירת המחדל שהומר והוגדר במערכת.'
+
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Fields audited in this module:',
+  'LBL_AUDIT_TITLE' => 'צפה ביומן שינויים',
+  'LBL_CHANGE_LOG' => 'יומן שינויים',
+  'LBL_CREATED_BY' => 'ונה על ידי',
+  'LBL_FIELD_NAME' => 'שדה',
+  'LBL_LIST_DATE' => 'שונה בתאריך',
+  'LBL_NEW_VALUE' => 'ערך חדש',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'There are no fields audited in this module',
+  'LBL_OLD_NAME' => 'ערך ישן',
 );
+

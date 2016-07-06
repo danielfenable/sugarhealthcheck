@@ -1,7 +1,6 @@
 <?php
 
 namespace Elastica\Index;
-
 use Elastica\Index as BaseIndex;
 use Elastica\Request;
 
@@ -71,7 +70,7 @@ class Stats
             if (isset($data[$arg])) {
                 $data = $data[$arg];
             } else {
-                return;
+                return null;
             }
         }
 

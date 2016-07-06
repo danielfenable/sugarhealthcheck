@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id$
+
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
@@ -78,7 +78,6 @@ class ReportsController extends SugarController
 	{
 		$this->view = 'classic';
 	}
-
 	public function action_get_teamset_field() 
 	{
 		require_once('include/SugarFields/Fields/Teamset/ReportsSugarFieldTeamsetCollection.php');

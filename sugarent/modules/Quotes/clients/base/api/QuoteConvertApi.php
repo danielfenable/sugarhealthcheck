@@ -113,10 +113,7 @@ class QuoteConvertApi extends SugarApi
             // just setting sales_stage will now set probability correctly
             $opp->sales_stage = isset($app_list_strings['sales_stage_dom']['Proposal/Price Quote'])
                 ? 'Proposal/Price Quote' : null;
-            $opp->probability = isset($opp->sales_stage)
-                ? $app_list_strings['sales_probability_dom'][$opp->sales_stage] : 0;
             $opp->amount = $quote->total;
-            $opp->commit_stage = $this->getCommitStage($opp->probability);
         }
         $opp->quote_id = $quote->id;
         $opp->currency_id = $quote->currency_id;
@@ -135,7 +132,7 @@ class QuoteConvertApi extends SugarApi
      */
     protected function convertQuoteLineItemsToRevenueLineItems(Quote $quote, Opportunity $opp)
     {
-        global $app_list_strings;
+
         $forecastConfig = $this->getForecastConfig();
 
         // TODO: this will need to change when we have the switch for Opportunities,
@@ -146,36 +143,17 @@ class QuoteConvertApi extends SugarApi
         // load the revenue line items
         $opp->load_relationship('revenuelineitems');
 
-         $bundles = $quote->get_product_bundles();
-        foreach($bundles as $bundle) {
-            $products = $bundle->getProducts();
-            /* @var $product Product */
-            foreach ($products as $product) {
-                $rli = $product->convertToRevenueLineItem();
-                $rli->date_closed = $quote->date_quote_expected_closed;
-                $rli->sales_stage = isset($app_list_strings['sales_stage_dom']['Proposal/Price Quote'])
-                    ? 'Proposal/Price Quote' : null;
-                $rli->probability = isset($rli->sales_stage)
-                    ? $app_list_strings['sales_probability_dom'][$rli->sales_stage] : 0;
-                $rli->assigned_user_id = $quote->assigned_user_id;
-                $rli->commit_stage = $this->getCommitStage($rli->probability);
-                $rli->save();
+        $products = $quote->get_linked_beans('products', 'Products');
+        /* @var $product Product */
+        foreach ($products as $product) {
+            $rli = $product->convertToRevenueLineItem();
+            $rli->date_closed = $quote->date_quote_expected_closed;
+            $rli->sales_stage = isset($app_list_strings['sales_stage_dom']['Proposal/Price Quote']) ? 'Proposal/Price Quote' : null;
+            $rli->assigned_user_id = $quote->assigned_user_id;
+            $rli->save();
 
-                // save the RLI to the relationship
-                $opp->revenuelineitems->add($rli);
-            }
-        }
-    }
-
-    protected function getCommitStage($probability)
-    {
-        $forecastConfig = $this->getForecastConfig();
-        $ranges = $forecastConfig[$forecastConfig['forecast_ranges'] . '_ranges'];
-
-        foreach($ranges as $commit_stage => $range) {
-            if ($range['min']<= $probability && $range['max'] >= $probability) {
-                return $commit_stage;
-            }
+            // save the RLI to the relationship
+            $opp->revenuelineitems->add($rli);
         }
     }
 

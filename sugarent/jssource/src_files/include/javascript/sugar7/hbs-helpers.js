@@ -138,40 +138,5 @@
         Handlebars.registerHelper('buildUrl', function(options) {
             return new Handlebars.SafeString(app.utils.buildUrl(options.hash.url));
         });
-
-        /**
-         * @method loading
-         * Display animated loading message.
-         *
-         * To display loading message with default markup:
-         *
-         *     {{loading 'LBL_ALERT_TITLE_LOADING' }}
-         *
-         * You can also apply specific css classes:
-         *
-         *     // this will add the class `someCssClass` to `div.loading`.
-         *     {{loading 'LBL_ALERT_TITLE_LOADING' cssClass='someCssClass'}}
-         *
-         * @param {Object} [options] Optional params.
-         * @param {Object} [options.hash] The hash of the optional params.
-         * @param {string} [options.hash.cssClass] A space-separated list of
-         *   classes to apply to `div.loading`.
-         */
-        Handlebars.registerHelper('loading', function(str, options) {
-            str = app.lang.get(str);
-            var cssClass = ['loading'];
-            if (_.isString(options.hash.cssClass)) {
-                cssClass = _.unique(cssClass.concat(
-                    Handlebars.Utils.escapeExpression(options.hash.cssClass).split(' ')
-                ));
-            }
-            return new Handlebars.SafeString(
-                '<div class="' + cssClass.join(' ') + '">'
-                + Handlebars.Utils.escapeExpression(str)
-                + '<i class="l1">&#46;</i><i class="l2">&#46;</i><i class="l3">&#46;</i>'
-                + '</div>'
-            );
-        });
-
     });
 })(SUGAR.App);

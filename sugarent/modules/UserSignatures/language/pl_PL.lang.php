@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-    'LBL_MODULE_NAME'			=> 'Podpisy użytkownika',
-    'LBL_MODULE_NAME_SINGULAR'		=> 'Podpis użytkownika',
-    'LBL_EMAIL_SIGNATURE_ERROR1' => 'Ten podpis wymaga podania nazwy.',
-    'LBL_SIGNATURE_NAME'         => 'Nazwa',
-    'LBL_SIGNATURE'              => 'Podpis',
-    'LBL_SIGNATURE_HTML'         => 'Podpis w HTML',
-    'LBL_SIGNATURE_DEFAULT'      => 'Wstaw podpis',
-    'LBL_SIGNATURE_PREPEND'      => 'Podpis nad oryginalną wiadomością',
-    'LBL_SIGNATURES'             => 'Podpisy',
+$mod_strings = array (
+  'LBL_EMAIL_SIGNATURE_ERROR1' => 'Ten podpis wymaga podania nazwy.',
+  'LBL_MODULE_NAME' => 'Podpisy użytkownika',
+  'LBL_MODULE_NAME_SINGULAR' => 'Podpis użytkownika',
+  'LBL_SIGNATURE' => 'Podpis',
+  'LBL_SIGNATURES' => 'Podpisy',
+  'LBL_SIGNATURE_DEFAULT' => 'Wstaw podpis',
+  'LBL_SIGNATURE_HTML' => 'Podpis w HTML',
+  'LBL_SIGNATURE_NAME' => 'Nazwa',
+  'LBL_SIGNATURE_PREPEND' => 'Podpis nad oryginalną wiadomością',
 );
+

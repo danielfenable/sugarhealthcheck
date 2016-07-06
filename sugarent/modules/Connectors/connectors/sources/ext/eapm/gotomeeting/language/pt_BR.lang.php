@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-Obter a chave de API do Citrix Online GoToMeeting registrando um novo aplicativo<br>
-&nbsp;<br>
-Etapas para registrar sua instância:<br>
-&nbsp;<br>
-<ol>
-<li>Faça logon em sua conta de desenvolvedor do Citrix Online: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>Clique em Aplicar à chave do desenvolvedor</li>
-<li>Em API do produto, selecione GoToMeeting e insira a URL de sua instância na URL do aplicativo</li>
-<li>Você verá uma coluna chamada Chave de API em Seus Aplicativos</li>
-<li>Copie-a abaixo.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'Chave de API',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => 'Obter chave de API do Citrix online GoToMeeting registrando uma nova aplicação.<br /> <br />Passos para se registar sua instância:<br /><br />     Faça login na sua conta de desenvolvedor Citrix online: https://developer.citrixonline.com/<br />     Clique em Aplicar para Chave do desenvolvedor<br />     Na API de produtos selecione GoToMeeting, e digitar a URL na URL de aplicação da instância <br />     Você verá uma coluna chamada API Key em seus aplicativos<br />     Copie-o abaixo.',
+  'oauth_consumer_key' => 'Chave API',
 );
+

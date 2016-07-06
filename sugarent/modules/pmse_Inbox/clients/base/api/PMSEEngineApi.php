@@ -343,31 +343,47 @@ class PMSEEngineApi extends SugarApi
     public function engineClaim($api, $args)
     {
         $this->checkACL($api, $args);
+        global $db;
         $cas_id = $args['cas_id'];
         $cas_index = $args['cas_index'];
         $taskName = $args['taskName'];
+        $today = TimeDate::getInstance()->nowDb();
 
-        $flowBean = BeanFactory::getBean('pmse_BpmFlow');
-        $flowBean->retrieve_by_string_fields(array(
-            'cas_id' => $cas_id,
-            'cas_index' => $cas_index,
-        ));
+        $query = "select cas_flow_status, cas_started, bpmn_type, bpmn_id " .
+                " from pmse_bpm_flow where cas_id = $cas_id and cas_index = $cas_index ";
+        $result = $db->Query($query);
+        $row = $db->fetchByAssoc($result);
+        $cas_flow_status = $row['cas_flow_status'];
+        $cas_started = $row['cas_started'];
+        $bpmn_type = $row['bpmn_type'];
+        $bpmn_id = $row['bpmn_id'];
 
-        if ($flowBean->cas_started != 1) {
+        if ($cas_started != 1) {
             //get the bpm_activity_definition record, to check if it is SELFSERVICE
-            if ($flowBean->cas_flow_status== 'FORM' && $flowBean->bpmn_type == 'bpmnActivity') {
-                $activityDefinitionBean = BeanFactory::getBean('pmse_BpmActivityDefinition', $flowBean->bpmn_id);
-                if (trim($activityDefinitionBean->act_assignment_method) == 'selfservice') {
+            $isSelfService = '';
+            if ($cas_flow_status == 'FORM' && $bpmn_type == 'bpmnActivity') {
+                $queryAct = "select act_assignment_method from pmse_bpm_activity_definition where id = '$bpmn_id'";
+                $resultAct = $db->Query($queryAct);
+                $rowAct = $db->fetchByAssoc($resultAct);
+                $assign_method = trim($rowAct['act_assignment_method']);
+                if ($assign_method == 'selfservice') {
                     global $current_user;
-                    $flowBean->assigned_user_id = $current_user->id;
-                    $flowBean->cas_user_id =  $current_user->id;
-                    $flowBean->cas_assignment_method = 'static';
+                    $isSelfService = ", cas_user_id = '" . $current_user->id . "' ";
                 }
             }
-            $flowBean->cas_start_date = TimeDate::getInstance()->nowDb();
-            $flowBean->cas_started = 1;
-            $flowBean->save();
+
+            $query = "update pmse_bpm_flow set " .
+                    " cas_start_date = '$today', " .
+                    " cas_started    = 1 " .
+                    $isSelfService .
+                    " where cas_id = $cas_id and cas_index = $cas_index ";
+
+            if ($db->query($query, true, "Error updating pmse_bpm_flow record ")) {
+                return array('success' => false);
+            }
         }
+        //$readable = $cas_id . '-' . $cas_index;
+        //return PMSEEngineUtils::simpleEncode($readable);
         return array('success' => true);
     }
 
@@ -1048,7 +1064,8 @@ class PMSEEngineApi extends SugarApi
         //INNER JOIN USERS TABLE
         $q->joinTable('users', array('alias' => 'users', 'joinType' => 'INNER', 'linkingTable' => true))
                 ->on()
-                ->equalsField('users.id', 'cas_user_id');
+                ->equalsField('users.id', 'cas_user_id')
+                ->equals('users.deleted', 0);
 
         $q->where()
                 ->equals('cas_flow_status', 'FORM')
@@ -1148,13 +1165,10 @@ class PMSEEngineApi extends SugarApi
         $data_aux->cas_task_start_date = $returnArray['case']['flow']['cas_task_start_date'];
         $data_aux->cas_delegate_date = $returnArray['case']['flow']['cas_delegate_date'];
 
-        // Commenting out below line. We don't want due date to be calculated dynamically. Once a process due date is set it should stay.
-        // $returnArray['case']['title']['time'] = $this->caseWrapper->expectedTime($activity->act_expected_time, $data_aux);
-        $returnArray['case']['title']['time'] = $this->caseWrapper->processDueDateTime($returnArray['case']['flow']['cas_due_date']);
+        $returnArray['case']['title']['time'] = $this->caseWrapper->expectedTime($activity->act_expected_time,
+            $data_aux);
         $bpmnProcess = BeanFactory::retrieveBean('pmse_BpmnProcess', $bpmFlow->pro_id);
         $returnArray['case']['title']['process'] = $bpmnProcess->name;
-        $bpmInbox = BeanFactory::retrieveBean('pmse_Inbox', $args['id']);
-        $returnArray['case']['title']['rec_name'] = $bpmInbox->name;
         $bpmnActivity = BeanFactory::retrieveBean('pmse_BpmnActivity', $bpmFlow->bpmn_id);
         $returnArray['case']['title']['activity'] = $bpmnActivity->name;
         $returnArray['case']['inboxId'] = $bpmnActivity->name;
@@ -1194,9 +1208,6 @@ class PMSEEngineApi extends SugarApi
                 'label' => translate('LBL_CANCEL_BUTTON_LABEL', $module_name),
                 'css_class' => 'btn-invisible btn-link',
                 'showOn' => 'edit',
-                'events' => array(
-                    'click' => 'button:cancel_button:click',
-                ),
             ),
             'approve' => array(
                 'type' => 'rowaction',

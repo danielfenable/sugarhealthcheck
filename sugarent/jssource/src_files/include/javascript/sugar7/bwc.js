@@ -42,17 +42,17 @@
                     // Set the session name into the cache so that certain bwc
                     // modules can access it as needed (studio)
                     if (data && data.name) {
-                        app.cache.set('SessionName', data.name);
+                        app.cache.set("SessionName", data.name);
                     }
 
                     // If there was a callback, call it. This will almost always
-                    // be used exclusively by studio when trying to refresh the
+                    // be used exlusively by studio when trying to refresh the 
                     // session after it expires.
                     if (callback) {
                         callback();
                     }
 
-                    // If there was a redirectUrl passed, go there. This will
+                    // If there was a redirectUrl passed, go there. This will 
                     // almost always be the case, except in studio when a login
                     // is simply updating the session id
                     if (redirectUrl) {
@@ -123,15 +123,11 @@
         _createRelatedRecordUrlParams: function(parentModel, link) {
             var params = {
                 parent_type: parentModel.module,
-                parent_name: parentModel.get('name')
-                                || parentModel.get('full_name')
-                                || app.utils.formatNameLocale(parentModel.attributes),
+                parent_name: parentModel.get('name') || parentModel.get('full_name'),
                 parent_id: parentModel.get("id"),
                 return_module: parentModel.module,
                 return_id: parentModel.get("id"),
-                return_name: parentModel.get('name')
-                                || parentModel.get('full_name')
-                                || app.utils.formatNameLocale(parentModel.attributes)
+                return_name: parentModel.get('name') || parentModel.get('full_name')
             };
 
             // find relationship name
@@ -149,7 +145,7 @@
             //Set relate field values as part of URL so they get pre-filled
             var fields = app.data.getRelateFields(parentModel.module, link);
             _.each(fields, function(field){
-                params[field.name] = parentModel.get(field.rname) || app.utils.formatNameLocale(parentModel.attributes);
+                params[field.name] = parentModel.get(field.rname);
                 params[field.id_name] = parentModel.get("id");
                 if(field.populate_list) {
                     // We need to populate fields from parent record into new related record
@@ -176,7 +172,7 @@
             // "Are you sure" dialog.  By using the syncedAttributes, it won't take any unsaved values,
             // but on the off chance that the value doesn't exist in the synced attributes, it will fall back to the
             // parentModel
-            var syncedAttributes = parentModel.getSynced();
+            var syncedAttributes = parentModel.getSyncedAttributes();
             //Special case for Contacts->meetings. The parent should be the account rather than the contact
             if (parentModel.module == 'Contacts' &&
                     parentModel.has('account_id') &&

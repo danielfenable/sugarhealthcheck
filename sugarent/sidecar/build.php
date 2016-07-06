@@ -11,12 +11,12 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /**
- * This script is used to built the javascript associated to the sidecar framework
+ * This script is used to built the javascript associated to the sidecar framework 
  *
  * It will concatenate and minify any files specified in an array in src/include-manifest.php. It will
  * also build documentation for the framework if the appropriate library is available.
  *
- * The variable $buildFiles is specified in src/include-manifest.php and consists of an array of the format below.
+ * The variable $buildFiles is specified in src/inlcude-mainifest.php and consists of an array of the format below.
  * $buildFiles = array(
  *     'outputFileName' => array(
  *         'file1.js',
@@ -27,8 +27,8 @@
  *
  * How to include Sidecar:
  * =======================
- * In your HTML file include the following lines:
- *
+ * In your HMTL file include the following lines:
+ * 
  * <script type="text/javascript" src="/path/to/minified/sidecar.min.js" data-config="relative/path/from/sidecar/to/config.js">
  *     var App = SUGAR.App.init({
  *         el: "#sidecar",
@@ -37,14 +37,14 @@
  *         }
  *     });
  * </script>
- *
+ * 
  * // Or...
- *
+ * 
  * <script type="text/javascript" src="/path/to/minified/sidecar.min.js"></script>
  * <script type="text/javascript" src="/path/to/config.js"></script>
- *
+ * 
  * // And put the following before the end of the closing body tag...
- *
+ * 
  * <script type="text/javascript">
  *     var App = SUGAR.App.init({
  *         el: "#sidecar",
@@ -53,14 +53,14 @@
  *         }
  *     });
  * </script>
- *
- *
+ * 
+ * 
  * Development guide:
  * ==================
  * To allow to easier development, a non-minified version of sidecar
  * is created during the build.  To use this version, simply include
  * `sidecar.js` instead of `sidecar.min.js`.
- *
+ * 
  * The development version loads the dependent files individually so
  * that it is as close to adding the individual files as possible.
  *
@@ -114,10 +114,7 @@ function main($buildFiles)
 // Entry point
 main($buildFiles);
 
-/**
- * @param array $buildFiles array of files to build
- * @param string $outputDir where to put the built files
- */
+
 function build($buildFiles, $outputDir)
 {
     global $createdGroups;
@@ -143,21 +140,21 @@ function build($buildFiles, $outputDir)
 
 /**
  * Creates and writes built JavaScript file.
- *
+ * 
  * For production version, the files in the given file list are read and the
  * contents of each are concatenated to a buffer, which is then minified
- * and written to disk.
- *
+ * and writen to disk.
+ * 
  * For development version, the files in the given file list read and
- * some JavaScript is written for each that will load the file contents
+ * some JavaScript is writen for each that will load the file contents
  * on page load.
- *
+ * 
  * For both versions, custom JavaScript is inserted to allow for dynamic
  * inclusion of the config.js file that may be defined in as a data
  * attribute on the tag that includes the built file. Another piece of
  * the custom JavaScript allows for the bootstrap code
  * (i.e., SUGAR.App.init(...)) to be placed inside the script tag.
- *
+ * 
  * @param  String  $outputDir    Where the built file will be created.
  * @param  String  $fileName     The name of the file to be created.
  * @param  Array   $files        The list of files to include in the built file.
@@ -173,7 +170,8 @@ function buildFile($outputDir, $fileName, $files, $prodVersion)
     if ($prodVersion) {
         $contents .= _concatFiles($files);
         $contents = _minifyJS($contents);
-    } else {
+    }
+    else {
         foreach ($files as $file) {
             $contents .= "\n    include(sidecarUrl + '" . $file . "');";
         }
@@ -214,7 +212,7 @@ JS;
  * @param  String $outputDir The path of the directory to create.
  * @return null
  */
-function createOutputDirectory($outputDir)
+function createOutputDirectory($outputDir) 
 {
     remove($outputDir);
     mkdir($outputDir, 0777, true);
@@ -272,9 +270,7 @@ function remove($path)
     $d = dir($path);
     
     while ($e = $d->read()) {
-        if ($e == '.' || $e =='..') {
-            continue;
-        }
+        if ($e == '.' || $e =='..') continue;
         $nPath = $path . '/'. $e;
         remove($nPath);
     }
@@ -295,20 +291,19 @@ function generateDocumentation()
 /**
  * Verifies that the appropriate files were created and exits with
  * the appropriate exit status.
- * @param {String} $outputDir output folder
  * @return null
  */
-function verifyAndExit($outputDir)
+function verifyAndExit($outputDir) 
 {
     global $createdGroups;
     $exitStatus = 0;
     
     foreach ($createdGroups as $groupName) {
-        if (!file_exists($outputDir . '/' . $groupName . '.min.js')) {
+        if ( !file_exists($outputDir . '/' . $groupName . '.min.js') ) {
             fwrite(STDERR, "Could not find minified file for grouping '$groupName'!\n");
             $exitStatus = 1;
         }
-        if (!file_exists($outputDir . '/' . $groupName . '.js')) {
+        if ( !file_exists($outputDir . '/' . $groupName . '.js') ) {
             fwrite(STDERR, "Could not find development file for grouping '$groupName'!\n");
             $exitStatus = 1;
         }
@@ -343,7 +338,7 @@ function _lintFiles($files)
 {
     foreach ($files as $file) {
         // Only lint files not in the /lib directory
-        if (0 == preg_match('/^\W*lib\/.*$/i', $file) && file_exists($file)) {
+        if ( 0 == preg_match('/^\W*lib\/.*$/i', $file) && file_exists($file) ) {
             _jshintFile($file);
         }
     }
@@ -380,16 +375,18 @@ function _minifyJS($content)
 
     $uglify = shell_exec('which uglifyjs 2>&1');
 
-    // if -u was passed, force uglify as it will produce smaller file output
-    if (!$useUglify || empty($uglify)) {
-        // If the JSMIn extension is loaded, use that as it can be as much as 1000x faster than JShrink
-        if (extension_loaded("jsmin")) {
+    //if -u was passed, force uglify as it will produce smaller file output
+    if (!$useUglify || empty($uglify))
+    {
+        //If the JSMIn extension is loaded, use that as it can be as much as 1000x faster than JShrink
+        if (extension_loaded("jsmin"))
+        {
             return jsmin($content);
         }
     }
 
-    // next fall back to uglify
-    if (!empty($uglify)) {
+    //next fall back to uglify
+    if(!empty($uglify)){
         $descriptorspec = array(
            0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
            1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
@@ -402,18 +399,17 @@ function _minifyJS($content)
             fclose($pipes[1]);
             proc_close($process);
             return $out;
-        }
+         }
     }
 
-    // Finally attempt to use JShrink
-    if (file_exists('Minifier.php')) {
+    //Finally attempt to use JShrink
+    if (file_exists('Minifier.php'))
         require_once('Minifier.php');
-    } elseif (file_exists('../jssource/Minifier.php')) {
+    elseif (file_exists('../jssource/Minifier.php'))
         require_once('../jssource/Minifier.php');
-    } else {
-        // No minifier found, just return the content
+    else
+        //No minifier found, just return the content
         return $content;
-    }
 
     return JShrink\Minifier::minify($content);
 }
@@ -422,7 +418,7 @@ function _minifyJS($content)
  * Lint the given file and echo the results.
  * @param  String $file  Path to the file to lint.
  */
-function _jshintFile($file)
+function _jshintFile($file) 
 {
     $jshintError = shell_exec('jshint ' . $file . ' 2>&1');
     if ($jshintError) {

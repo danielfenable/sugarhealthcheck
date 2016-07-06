@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,23 +12,15 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-   'LBL_YOURS' => 'Ваш',
-   'LBL_IN_DATABASE' => 'У базі даних',
-   'LBL_CONFLICT_EXISTS' => 'Є конфлікт для -',
-   'LBL_ACCEPT_DATABASE' => 'Прийняти з бази даних',
-   'LBL_ACCEPT_YOURS' => 'Прийняти Ваш',
-   'LBL_RECORDS_MATCH' => 'Відповідність записів',
-   'LBL_NO_LOCKED_OBJECTS' => 'Немає заблокованих об&#39;єктів',
-   
+  'LBL_ACCEPT_DATABASE' => 'Прийняти з бази даних',
+  'LBL_ACCEPT_YOURS' => 'Прийняти Ваш',
+  'LBL_CONFLICT_EXISTS' => 'Є конфлікт для -',
+  'LBL_IN_DATABASE' => 'У базі даних',
+  'LBL_NO_LOCKED_OBJECTS' => 'Немає заблокованих об&#39;єктів',
+  'LBL_RECORDS_MATCH' => 'Відповідність записів',
+  'LBL_YOURS' => 'Ваш',
 );
 
-?>

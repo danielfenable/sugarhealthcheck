@@ -286,20 +286,6 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
         return true;
     }
 
-    /**
-     * Helper method to determine whether a field is allowed on a list view on
-     * populateFromRequest.
-     *
-     * @param string $field The name of the field to check
-     * @return boolean
-     */
-    protected function isAllowedField($field)
-    {
-        // By default, all fields in the List parser that are sent to populate
-        // are allowed. Child classes can change this logic.
-        return true;
-    }
-
     protected function _populateFromRequest() {
         $GLOBALS [ 'log' ]->debug ( get_class ( $this ) . "->populateFromRequest() - fielddefs = ".print_r($this->_fielddefs, true));
         // Transfer across any reserved fields, that is, any where studio !== true, which are not editable but must be preserved
@@ -343,20 +329,9 @@ class ListLayoutMetaDataParser extends AbstractMetaDataParser implements MetaDat
                 //create a definition from the fielddefs
                 else
                 {
-                    // if we don't have a valid fieldname then just ignore it and move on...
-                    if (!isset($this->_fielddefs[$fieldname])) {
-                        continue;
-                    }
-
-                    // We really shouldn't allow invalid fields to be added to a
-                    // layout. Usually this is handled in studio itself, but in
-                    // some cases, a BWC parser is instantiated after a sidecar
-                    // parser to allow keeping things in sync between sidecar and
-                    // bwc views. When that happens, there is no field validation
-                    // done on those fields. This fixes that in child classes.
-                    if (!$this->isAllowedField($fieldname)) {
-                        continue;
-                    }
+	                // if we don't have a valid fieldname then just ignore it and move on...
+					if ( ! isset ( $this->_fielddefs [ $fieldname ] ) )
+						continue ;
 
 	                $newViewdefs [ $fieldname ] = $this->_trimFieldDefs($this->_fielddefs [ $fieldname ]) ;
 

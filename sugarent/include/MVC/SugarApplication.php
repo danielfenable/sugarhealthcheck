@@ -13,9 +13,6 @@
 require_once 'include/MVC/Controller/ControllerFactory.php';
 require_once 'include/MVC/View/ViewFactory.php';
 
-use Sugarcrm\Sugarcrm\Session\SessionStorage;
-use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
-
 /**
  * SugarCRM application
  *
@@ -70,29 +67,7 @@ class SugarApplication
 
         // make sidecar view load faster
         // TODO the rest of the code will be removed as soon as we migrate all modules to sidecar
-        if (!empty($_REQUEST['MSID'])
-            && ($this->controller->action !== 'Authenticate' || $this->controller->module !== 'Users')
-        ) {
-            //This is not longer a valid path for MSID. We can only accept it through view.authenticate.php
-            $url = 'index.php?module=Users&action=Authenticate&MSID=' . urlencode($_REQUEST['MSID']);
-            $req = array_diff_key($this->getRequestVars(), array("MSID" => 1));
-            if (!empty($req['module'])) {
-                if (isModuleBWC($req['module'])) {
-                    $url .= '#bwc/index.php?' . http_build_query($req);
-                } else {
-                    // otherwise compose basic Sidecar route
-                    $url .= '#' . rawurlencode($req['module']);
-                    if (isset($req['record'])) {
-                        $url .= '/' . rawurlencode($req['record']);
-                    }
-                }
-            }
-            SessionStorage::getInstance()->unlock();
-            header('HTTP/1.1 301 Moved Permanently');
-            header("Location: $url");
-
-            exit();
-        } elseif ($this->controller->action === 'sidecar' ||
+        if ($this->controller->action === 'sidecar' ||
             (
                 $this->controller->action === 'index' && $this->controller->module === 'Home' &&
                 (empty($_REQUEST['entryPoint']) || (isset($_REQUEST['action']) && $_REQUEST['action'] === 'DynamicAction'))
@@ -326,8 +301,6 @@ EOF;
     function loadUser()
     {
         global $authController, $sugar_config;
-        $sess = SessionStorage::getInstance();
-
         // Double check the server's unique key is in the session.  Make sure this is not an attempt to hijack a session
         $user_unique_key = (isset($_SESSION['unique_key'])) ? $_SESSION['unique_key'] : '';
         $server_unique_key = (isset($sugar_config['unique_key'])) ? $sugar_config['unique_key'] : '';
@@ -340,10 +313,7 @@ EOF;
         if (($user_unique_key != $server_unique_key) && (!in_array($this->controller->action, $allowed_actions))
             && (!isset($_SESSION['login_error']))
         ) {
-
-            if ($sess->getId()) {
-                $sess->destroy();
-            };
+            session_destroy();
 
             if (!empty($this->controller->action)) {
                 if (strtolower($this->controller->action) == 'delete') {
@@ -371,19 +341,62 @@ EOF;
 			if(!$authController->sessionAuthenticate()){
 				 // if the object we get back is null for some reason, this will break - like user prefs are corrupted
 				$GLOBALS['log']->fatal('User retrieval for ID: ('.$_SESSION['authenticated_user_id'].') does not exist in database or retrieval failed catastrophically.  Calling session_destroy() and sending user to Login page.');
-                if ($sess->getId()) {
-                    $sess->destroy();
-                };
+				session_destroy();
 				SugarApplication::redirect($this->getUnauthenticatedHomeUrl());
 				die();
             } else {
-                $this->trackSession();
+                $trackerManager = TrackerManager::getInstance();
+                $monitor = $trackerManager->getMonitor('tracker_sessions');
+                $active = $monitor->getValue('active');
+                if ($active == 0
+                    && (!isset($GLOBALS['current_user']->portal_only) || $GLOBALS['current_user']->portal_only != 1)
+                ) {
+                    // We are starting a new session
+                    $result = $GLOBALS['db']->query(
+                        "SELECT id FROM " . $monitor->name . " WHERE user_id = '" . $GLOBALS['db']->quote(
+                            $GLOBALS['current_user']->id
+                        ) . "' AND active = 1 AND session_id <> '" . $GLOBALS['db']->quote(
+                            $monitor->getValue('session_id')
+                        ) . "' ORDER BY date_end DESC"
+                    );
+                    $activeCount = 0;
+                    while ($row = $GLOBALS['db']->fetchByAssoc($result)) {
+                        $activeCount++;
+                        if ($activeCount > 1) {
+                            $GLOBALS['db']->query(
+                                "UPDATE " . $monitor->name . " SET active = 0 WHERE id = '" . $GLOBALS['db']->quote(
+                                    $row['id']
+                                ) . "'"
+                            );
+                        }
+                    }
+                }
             }
         }
         $GLOBALS['log']->debug('Current user is: ' . $GLOBALS['current_user']->user_name);
         $GLOBALS['logic_hook']->call_custom_logic('', 'after_load_user');
         // Reset ACLs in case after_load_user hook changed ACL setups
         SugarACL::resetACLs();
+
+		//set cookies
+		if(isset($_SESSION['authenticated_user_theme'])){
+			$GLOBALS['log']->debug("setting cookie ck_login_theme_20 to ".$_SESSION['authenticated_user_theme']);
+			self::setCookie('ck_login_theme_20', $_SESSION['authenticated_user_theme'], time() + 86400 * 90);
+		}
+		if(isset($_SESSION['authenticated_user_theme_color'])){
+			$GLOBALS['log']->debug("setting cookie ck_login_theme_color_20 to ".$_SESSION['authenticated_user_theme_color']);
+			self::setCookie('ck_login_theme_color_20', $_SESSION['authenticated_user_theme_color'], time() + 86400 * 90);
+		}
+		if(isset($_SESSION['authenticated_user_theme_font'])){
+			$GLOBALS['log']->debug("setting cookie ck_login_theme_font_20 to ".$_SESSION['authenticated_user_theme_font']);
+			self::setCookie('ck_login_theme_font_20', $_SESSION['authenticated_user_theme_font'], time() + 86400 * 90);
+		}
+		if(isset($_SESSION['authenticated_user_language'])){
+			$GLOBALS['log']->debug("setting cookie ck_login_language_20 to ".$_SESSION['authenticated_user_language']);
+			self::setCookie('ck_login_language_20', $_SESSION['authenticated_user_language'], time() + 86400 * 90);
+		}
+		//check if user can access
+
     }
 
     public function ACLFilter()
@@ -577,7 +590,8 @@ EOF;
                 $GLOBALS['sugar_db_version']
             );
 
-            $row = $GLOBALS['db']->fetchOne($version_query);
+            $result = $GLOBALS['db']->query($version_query);
+            $row = $GLOBALS['db']->fetchByAssoc($result);
             $row_count = $row['the_count'];
             sugar_cache_put('checkDatabaseVersion_row_count', $row_count);
         }
@@ -778,7 +792,7 @@ EOF;
      *
      * Checks a request to ensure the request is coming from a valid source or it is for one of the white listed actions
      */
-    public function checkHTTPReferer($dieIfInvalid = true)
+    protected function checkHTTPReferer($dieIfInvalid = true)
     {
         global $sugar_config;
         if (!empty($sugar_config['http_referer']['actions'])) {
@@ -819,59 +833,100 @@ EOF;
 
     function startSession()
     {
-        $sess = SessionStorage::getInstance();
         $sessionIdCookie = isset($_COOKIE['PHPSESSID']) ? $_COOKIE['PHPSESSID'] : null;
-        if (can_start_session()) {
-            $sess->start();
+        if (isset($_REQUEST['MSID'])) {
+            session_id($_REQUEST['MSID']);
+            session_start();
+            if (isset($_SESSION['user_id']) && isset($_SESSION['seamless_login'])) {
+                unset ($_SESSION['seamless_login']);
+            } else {
+                if (isset($_COOKIE['PHPSESSID'])) {
+                    self::setCookie('PHPSESSID', '', time() - 42000, '/');
+                }
+                sugar_cleanup(false);
+                session_destroy();
+                exit('Not a valid entry method');
+            }
+        } else {
+            if (can_start_session()) {
+                session_start();
+            }
         }
 
         if (isset($_REQUEST['login_module']) && isset($_REQUEST['login_action'])
             && !($_REQUEST['login_module'] == 'Home' && $_REQUEST['login_action'] == 'index')
         ) {
-            if (!is_null($sessionIdCookie) && empty($sess)) {
+            if (!is_null($sessionIdCookie) && empty($_SESSION)) {
                 self::setCookie('loginErrorMessage', 'LBL_SESSION_EXPIRED', time() + 30, '/');
             }
         }
 
+        self::trackLogin();
+
         LogicHook::initialize()->call_custom_logic('', 'after_session_start');
     }
 
+
     /**
-     * This function writes log entries to the tracker_sessions table to record a login session.
+     * trackLogin
      *
-     * @deprecated use SugarApplication::trackSession() instead
+     * This is a protected function used to separate tracking the login information.  This allows us to better cleanly
+     * separate a PRO feature as well as unit test this block.  This function writes log entries to the tracker_sessions
+     * table to record a login session.
+     *
      */
     public static function trackLogin()
     {
-        $GLOBALS['log']->deprecated('Please use SugarApplication::trackSession() for session logging');
-        self::trackSession();
-    }
-
-    /**
-     * Save Session Tracker info if on
-     */
-    public static function trackSession()
-    {
         $trackerManager = TrackerManager::getInstance();
         if ($monitor = $trackerManager->getMonitor('tracker_sessions')) {
-            $trackerManager->saveMonitor($monitor);
+            $db = DBManagerFactory::getInstance();
+            $session_id = $monitor->getValue('session_id');
+            $query = "SELECT date_start, round_trips, active FROM $monitor->name WHERE session_id = '" . $db->quote(
+                $session_id
+            ) . "'";
+            $result = $db->query($query);
+
+            if (isset($_SERVER['REMOTE_ADDR'])) {
+                $monitor->setValue('client_ip', $_SERVER['REMOTE_ADDR']);
+            }
+
+            if (($row = $db->fetchByAssoc($result))) {
+                if ($row['active'] != 1 && !empty($_SESSION['authenticated_user_id'])) {
+                    $GLOBALS['log']->error(
+                        'User ID: (' . $_SESSION['authenticated_user_id']
+                            . ') has too many active sessions. Calling session_destroy() and sending user to Login page.'
+                    );
+                    session_destroy();
+                    $msg_name = 'TO' . 'O_MANY_' . 'CONCUR' . 'RENT';
+                      SugarApplication::redirect('index.php?action=Login&module=Users&loginErrorMessage=LBL_'.$msg_name);
+                    die();
+                }
+                $monitor->setValue('date_start', $db->fromConvert($row['date_start'], 'datetime'));
+                $monitor->setValue('round_trips', $row['round_trips'] + 1);
+                $monitor->setValue('active', 1);
+            } else {
+                // We are creating a new session
+                // Don't set the session as active until we have made sure it checks out.
+                $monitor->setValue('active', 0);
+                $monitor->setValue('date_start', TimeDate::getInstance()->nowDb());
+                $monitor->setValue('round_trips', 1);
+            }
         }
     }
 
-    /**
-     * Destroy a session, and update Session Tracker if on
-     */
-    public static function endSession()
+
+
+    function endSession()
     {
+
         $trackerManager = TrackerManager::getInstance();
         if ($monitor = $trackerManager->getMonitor('tracker_sessions')) {
-            $monitor->closeSession();
-            $trackerManager->saveMonitor($monitor);
+            $monitor->setValue('date_end', TimeDate::getInstance()->nowDb());
+            $seconds = strtotime($monitor->date_end) - strtotime($monitor->date_start);
+            $monitor->setValue('seconds', $seconds);
+            $monitor->setValue('active', 0);
         }
-        $sess = SessionStorage::getInstance();
-        if ($sess->getId()) {
-            $sess->destroy();
-        };
+        session_destroy();
     }
 
     /**
@@ -917,7 +972,7 @@ EOF;
 
     public static function appendErrorMessage($error_message)
     {
-        if (empty($_SESSION['user_error_message']) || !ArrayFunctions::is_array_access($_SESSION['user_error_message'])) {
+        if (empty($_SESSION['user_error_message']) || !is_array($_SESSION['user_error_message'])) {
             $_SESSION['user_error_message'] = array();
         }
         $_SESSION['user_error_message'][] = $error_message;
@@ -925,7 +980,7 @@ EOF;
 
     public static function getErrorMessages()
     {
-        if (isset($_SESSION['user_error_message']) && ArrayFunctions::is_array_access($_SESSION['user_error_message'])) {
+        if (isset($_SESSION['user_error_message']) && is_array($_SESSION['user_error_message'])) {
             $msgs = $_SESSION['user_error_message'];
             unset($_SESSION['user_error_message']);
             return $msgs;

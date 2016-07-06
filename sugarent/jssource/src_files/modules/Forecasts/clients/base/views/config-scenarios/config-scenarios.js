@@ -27,6 +27,11 @@
     selectedOptions: [],
 
     /**
+     * Holds the option from config that users cannot change
+     */
+    defaultOption: {},
+
+    /**
      * Holds the select2 instance of the default scenario that users cannot change
      */
     defaultSelect2: undefined,
@@ -51,6 +56,7 @@
         this._super('initialize', [options]);
 
         this.selectedOptions = [];
+        this.defaultOption = {};
         this.scenarioOptions = [];
 
         // set up scenarioOptions
@@ -63,12 +69,14 @@
             // Check if this field is the one we don't want users to delete
             if(field.name == this.defaultForecastedAmountKey) {
                 obj['locked'] = true;
+                this.defaultOption = obj;
+            } else {
+                // Push fields to all other scenario options
+                this.scenarioOptions.push(obj);
             }
 
-            this.scenarioOptions.push(obj);
-
             // if this should be selected by default and it is not the undeletable scenario, push it to selectedOptions
-            if(this.model.get(field.name) == 1) {
+            if(this.model.get(field.name) == 1 && !obj.locked) {
                 // push fields that should be selected to selectedOptions
                 this.selectedOptions.push(obj);
             }
@@ -118,15 +126,42 @@
     _render: function() {
         this._super('_render');
 
+        // handle default/un-delete-able scenario
+        this.defaultSelect2 = this.$('#scenariosLocked').select2({
+            data: this.defaultOption,
+            multiple: true,
+            dropdownCss: {width:'auto'},
+            dropdownCssClass: 'search-related-dropdown',
+            containerCss: "border: none",
+            containerCssClass: 'select2-choices-pills-close select2-container-disabled',
+            escapeMarkup: function(m) {
+                return m;
+            },
+            initSelection : _.bind(function (element, callback) {
+                callback(this.defaultOption);
+            }, this)
+        });
+
         this.$('.select2-container-disabled').width('auto');
         this.$('.select2-search-field').css('display','none');
+        // set the default value
+        this.defaultSelect2.select2('val', this.defaultOption);
+
+        // disable the select2
+        this.defaultSelect2.select2('disable');
 
         // handle setting up select2 options
         var isRTL = app.lang.direction === 'rtl';
         this.optionsSelect2 = this.$('#scenariosSelect').select2({
             data: this.scenarioOptions,
             multiple: true,
-            width: "100%",
+            dropdownCss: {
+                width: 'auto',
+                left: isRTL ? '' : '71px', //prevent calculated value
+                right: isRTL ? '71px' : ''
+            },
+            width: "90%",
+            containerCss: "border: none",
             containerCssClass: "select2-choices-pills-close",
             escapeMarkup: function(m) {
                 return m;

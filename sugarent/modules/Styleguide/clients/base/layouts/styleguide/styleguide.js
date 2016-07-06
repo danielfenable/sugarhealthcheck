@@ -8,5 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({className:'row-fluid',initialize:function(options){this._super('initialize',[options]);if($('head #styleguide_css').length===0){$('<link>').attr({rel:'stylesheet',href:'styleguide/assets/css/styleguide.css',id:'styleguide_css'}).appendTo('head');}
-document.title=$('<span/>').html('Styleguide &#187; SugarCRM').text();},_placeComponent:function(component){this.$('.styleguide').append(component.$el);}})
+({className:'row-fluid',initialize:function(options){this._super('initialize',[options]);if($('head #styleguide_css').length===0){$('<link>').attr({rel:'stylesheet',href:'styleguide/assets/css/styleguide.css',id:'styleguide_css'}).appendTo('head');}},_placeComponent:function(component){this.$('.styleguide').append(component.$el);}})

@@ -62,7 +62,7 @@ if(SUGAR.util.isTouchScreen() && typeof iScroll == 'undefined') {
 	{
 		setAttribute("id", "newScript", 0);
 		setAttribute("type", "text/javascript", 0);
-		setAttribute("src", "include/javascript/iscroll.js?v="+SUGAR.VERSION_MARK, 0);
+		setAttribute("src", "include/javascript/iscroll.js", 0);
 	}
 
 }

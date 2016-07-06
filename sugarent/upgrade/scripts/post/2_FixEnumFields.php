@@ -25,19 +25,7 @@ class SugarUpgradeFixEnumFields extends UpgradeScript
         }
         $this->log('Checking for broken enum fields');
         $drop_ids = array();
-
-        $searchValue = $this->db->quoted($this->db->massageValue('s:0:""', array('type' => 'text'), true));
-        $searchQuery = "SELECT * FROM fields_meta_data WHERE type='enum' AND deleted=0 AND ext4 IS NOT NULL AND ";
-
-        //In Oracle it is impossible use CLOB value (filed = value) in where comparison
-        if ($this->db instanceof OracleManager) {
-            $searchQuery .= "dbms_lob.compare(ext4, ' ') != 0  AND dbms_lob.compare(ext4, $searchValue) != 0";
-        } else {
-            $searchQuery .= "ext4 != '' AND ext4 != " . $searchValue;
-        }
-
-        $res = $this->db->query($searchQuery);
-
+    	$res = $this->db->query("SELECT * FROM fields_meta_data WHERE type='enum' AND deleted=0 AND ext4 IS NOT NULL AND ext4 != '' AND ext4 != 's:0:\"\";'");
         while($row = $this->db->fetchByAssoc($res, false)) {
             if(empty($row['ext4'])) {
                 // shouldn't happen but just in case

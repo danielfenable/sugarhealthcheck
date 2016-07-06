@@ -199,7 +199,7 @@
             toggleAll(false, true);
         });
 
-        $('select[name=dropdown_role]').on('change', function () {
+        $('select').on('change', function () {
             if ($(this).val() === '') {
                 this.form.action.value = 'dropdown';
             } else {

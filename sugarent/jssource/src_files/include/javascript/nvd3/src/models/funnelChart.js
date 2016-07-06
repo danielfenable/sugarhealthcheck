@@ -37,21 +37,21 @@ nv.models.funnelChart = function() {
         .align('center'),
       yScale = d3.scale.linear();
 
-  var showTooltip = function(eo, offsetElement, properties) {
+  var showTooltip = function(e, offsetElement, properties) {
     var xVal = 0;
     // defense against the dark divide-by-zero arts
     if (properties.total > 0) {
-      xVal = (eo.point.value * 100 / properties.total).toFixed(1);
+      xVal = (e.point.value * 100 / properties.total).toFixed(1);
     }
-    var key = eo.series.key,
+    var left = e.pos[0],
+        top = e.pos[1],
         x = xVal,
-        y = eo.point.value,
-        content = tooltipContent(key, x, y, eo, chart),
-        gravity = eo.value < 0 ? 'n' : 's';
-    tooltip = nv.tooltip.show(eo.e, content, gravity, null, offsetElement);
+        y = e.point.value,
+        content = tooltipContent(e.series.key, x, y, e, chart);
+    tooltip = nv.tooltip.show([left, top], content, e.value < 0 ? 'n' : 's', null, offsetElement);
   };
 
-  var seriesClick = function(data, e, chart) {
+  var seriesClick = function(data, e) {
     return;
   };
 
@@ -76,8 +76,8 @@ nv.models.funnelChart = function() {
         container.transition().duration(durationMs).call(chart);
       };
 
-      chart.dataSeriesActivate = function(eo) {
-        var series = eo.series;
+      chart.dataSeriesActivate = function(e) {
+        var series = e.series;
 
         series.active = (!series.active || series.active === 'inactive') ? 'active' : 'inactive';
         series.values[0].active = series.active;
@@ -198,10 +198,9 @@ nv.models.funnelChart = function() {
       //------------------------------------------------------------
       // Title & Legend
 
-      var titleBBox = {width: 0, height: 0};
-      titleWrap.select('.nv-title').remove();
-
       if (showTitle && properties.title) {
+        titleWrap.select('.nv-title').remove();
+
         titleWrap
           .append('text')
             .attr('class', 'nv-title')
@@ -213,41 +212,38 @@ nv.models.funnelChart = function() {
             .attr('stroke', 'none')
             .attr('fill', 'black');
 
-        titleBBox = nv.utils.getTextBBox(g.select('.nv-title'));
+        innerMargin.top += parseInt(g.select('.nv-title').node().getBoundingClientRect().height / 1.15, 10) +
+          parseInt(g.select('.nv-title').style('margin-top'), 10) +
+          parseInt(g.select('.nv-title').style('margin-bottom'), 10);
 
-        innerMargin.top += titleBBox.height + 12;
+        if (!showLegend) {
+          innerMargin.top += 4;
+        }
       }
 
       if (showLegend) {
         legend
           .id('legend_' + chart.id())
           .strings(chart.strings().legend)
+          .margin({top: 10, right: 10, bottom: 10, left: 10})
           .align('center')
           .height(availableHeight - innerMargin.top);
         legendWrap
           .datum(data)
           .call(legend);
+
         legend
           .arrange(availableWidth);
 
-        var legendLinkBBox = nv.utils.getTextBBox(legendWrap.select('.nv-legend-link')),
-            legendSpace = availableWidth - titleBBox.width - 6,
-            legendTop = showTitle && legend.collapsed() && legendSpace > legendLinkBBox.width ? true : false,
-            xpos = direction === 'rtl' || !legend.collapsed() ? 0 : availableWidth - legend.width(),
-            ypos = titleBBox.height;
-        if (legendTop) {
-          ypos = titleBBox.height - legend.height() / 2 - legendLinkBBox.height / 2;
-        } else if (!showTitle) {
-          ypos = - legend.margin().top;
-        }
-
         legendWrap
-          .attr('transform', 'translate(' + xpos + ',' + ypos + ')');
+          .attr('transform', 'translate(' + (direction === 'rtl' || !legend.collapsed() ? 0 : availableWidth - legend.width()) + ',' + innerMargin.top + ')');
 
-        innerMargin.top += legendTop ? 0 : legend.height() - 12;
+        innerMargin.top += legend.height() + 4;
       }
 
+      //------------------------------------------------------------
       // Recalc inner margins
+
       innerHeight = availableHeight - innerMargin.top - innerMargin.bottom;
 
       //------------------------------------------------------------
@@ -268,7 +264,7 @@ nv.models.funnelChart = function() {
       var tickValues = resetScale(yScale, funnelData);
 
       function resetScale(scale, data) {
-        var series1 = [[0]];
+        var series1 = [0];
         var series2 = data.filter(function(d) {
                 return !d.disabled;
               })
@@ -310,29 +306,23 @@ nv.models.funnelChart = function() {
       legend.dispatch.on('legendClick', function(d, i) {
         d.disabled = !d.disabled;
 
-        if (!data.filter(function(d) { return !d.disabled; }).length) {
-          data.map(function(d) {
+        if (!funnelData.filter(function(d) { return !d.disabled; }).length) {
+          funnelData.map(function(d) {
             d.disabled = false;
             wrap.selectAll('.nv-series').classed('disabled', false);
             return d;
           });
         }
 
-        state.disabled = data.map(function(d) { return !!d.disabled; });
+        state.disabled = funnelData.map(function(d) { return !!d.disabled; });
         dispatch.stateChange(state);
 
         container.transition().duration(durationMs).call(chart);
       });
 
-      dispatch.on('tooltipShow', function(eo) {
+      dispatch.on('tooltipShow', function(e) {
         if (tooltips) {
-          showTooltip(eo, that.parentNode, properties);
-        }
-      });
-
-      dispatch.on('tooltipMove', function(e) {
-        if (tooltip) {
-          nv.tooltip.position(that.parentNode, tooltip, e);
+          showTooltip(e, that.parentNode, properties);
         }
       });
 
@@ -342,27 +332,32 @@ nv.models.funnelChart = function() {
         }
       });
 
+      dispatch.on('tooltipMove', function(e) {
+        if (tooltip) {
+          nv.tooltip.position(tooltip, e.pos);
+        }
+      });
+
       // Update chart from a state object passed to event handler
-      dispatch.on('changeState', function(eo) {
-        if (typeof eo.disabled !== 'undefined') {
+      dispatch.on('changeState', function(e) {
+        if (typeof e.disabled !== 'undefined') {
           funnelData.forEach(function(series, i) {
-            series.disabled = eo.disabled[i];
+            series.disabled = e.disabled[i];
           });
-          state.disabled = eo.disabled;
+          state.disabled = e.disabled;
         }
 
         container.transition().duration(durationMs).call(chart);
       });
 
-      dispatch.on('chartClick', function() {
+      dispatch.on('chartClick', function(e) {
         if (legend.enabled()) {
-          legend.dispatch.closeMenu();
+          legend.dispatch.closeMenu(e);
         }
       });
 
-      funnel.dispatch.on('elementClick', function(eo) {
-        dispatch.chartClick();
-        seriesClick(data, eo, chart);
+      funnel.dispatch.on('elementClick', function(e) {
+        seriesClick(data, e);
       });
 
     });
@@ -374,16 +369,16 @@ nv.models.funnelChart = function() {
   // Event Handling/Dispatching (out of chart's scope)
   //------------------------------------------------------------
 
-  funnel.dispatch.on('elementMouseover.tooltip', function(eo) {
-    dispatch.tooltipShow(eo);
+  funnel.dispatch.on('elementMouseover.tooltip', function(e) {
+    dispatch.tooltipShow(e);
+  });
+
+  funnel.dispatch.on('elementMouseout.tooltip', function(e) {
+    dispatch.tooltipHide(e);
   });
 
   funnel.dispatch.on('elementMousemove.tooltip', function(e) {
     dispatch.tooltipMove(e);
-  });
-
-  funnel.dispatch.on('elementMouseout.tooltip', function() {
-    dispatch.tooltipHide();
   });
 
 
@@ -397,7 +392,7 @@ nv.models.funnelChart = function() {
   chart.legend = legend;
 
   d3.rebind(chart, funnel, 'id', 'x', 'y', 'xDomain', 'yDomain', 'forceX', 'forceY', 'color', 'fill', 'classes', 'gradient');
-  d3.rebind(chart, funnel, 'fmtValueLabel', 'clipEdge', 'delay', 'wrapLabels', 'minLabelWidth');
+  d3.rebind(chart, funnel, 'fmtValueLabel', 'clipEdge', 'delay');
 
   chart.colorData = function(_) {
     var type = arguments[0],

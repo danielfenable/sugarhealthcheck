@@ -52,9 +52,6 @@
                     {{str "LBL_CALENDAR_EVENT_SCHEDULE_UNAVAILABLE" ../../module}}
                 </div>
             {{/notEq}}
-            {{#eq module 'Users'}}
-                <div class="start_end_overlay"></div>
-            {{/eq}}
             <div class="container">
                 <div class="timeblock">
                     <span></span>
@@ -113,10 +110,13 @@
             </div>
         </div>
         <div class="cell buttons">
-            <div class="btn-toolbar pull-right">
-                <button type="button" class="btn{{#unless preview.enabled}} disabled{{/unless}}" rel="tooltip" title="{{str preview.label}}" data-action="previewRow" data-module="{{module}}" data-id="{{id}}">
-                    <i class="fa fa-eye"></i>
-                </button>
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <button type="button" class="btn{{#unless preview.enabled}} disabled{{/unless}}" rel="tooltip" title="{{str preview.label}}" data-action="previewRow" data-module="{{module}}" data-id="{{id}}">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+                <div class="btn-group"></div>
             </div>
         </div>
     </div>
@@ -125,5 +125,5 @@
     </div>
     {{/each}}
 </div>
-<button class="btn btn-link btn-invisible more" data-action="show-more">{{showMoreTemplate}}</button>
+<button class="btn btn-link btn-invisible more padded" data-action="show-more">{{showMoreTemplate}}</button>
 {{/if}}

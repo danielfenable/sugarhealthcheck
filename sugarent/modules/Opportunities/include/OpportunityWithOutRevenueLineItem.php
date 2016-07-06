@@ -82,7 +82,6 @@ class OpportunityWithOutRevenueLineItem extends OpportunitySetup
             'studio' => true,
             'massupdate' => true,
             'reportable' => true,
-            'importable' => 'required',
         ),
         'sales_status' => array(
             'studio' => false,
@@ -102,16 +101,6 @@ class OpportunityWithOutRevenueLineItem extends OpportunitySetup
             'reportable' => false,
             'workflow' => false
         )
-    );
-
-    /**
-     * Which reports should be shown and hidden.
-     *
-     * @var array
-     */
-    protected $reportchange = array(
-        'show' => array('Current Quarter Forecast', 'Detailed Forecast'),
-        'hide' => array()
     );
 
     /**
@@ -138,16 +127,7 @@ class OpportunityWithOutRevenueLineItem extends OpportunitySetup
         // fix the various list views
         $this->fixListViews(
             array(
-                'commit_stage' => $this->isForecastSetup(),
                 'sales_status' => 'sales_stage',
-                'probability' => true,
-            )
-        );
-
-        $this->fixFilter(
-            array(
-                'sales_stage' => true,
-                'sales_status' => false,
                 'probability' => true,
             )
         );
@@ -193,12 +173,6 @@ class OpportunityWithOutRevenueLineItem extends OpportunitySetup
             }
         }
 
-        // set the current loaded instance up
-        if (isset($GLOBALS['dictionary']['RevenueLineItem'])) {
-            $GLOBALS['dictionary']['RevenueLineItem']['importable'] = false;
-            $GLOBALS['dictionary']['RevenueLineItem']['unified_search'] = false;
-        }
-
         if (SugarAutoLoader::fileExists($this->appExtFolder . '/Include/' . $this->rliModuleExtFile)) {
             SugarAutoLoader::unlink($this->appExtFolder . '/Include/' . $this->rliModuleExtFile);
         }
@@ -210,8 +184,6 @@ class OpportunityWithOutRevenueLineItem extends OpportunitySetup
         if (SugarAutoLoader::fileExists($this->rliModuleExtFolder . '/Vardefs/' . $this->rliModuleExtVardefFile)) {
             SugarAutoLoader::unlink($this->rliModuleExtFolder . '/Vardefs/' . $this->rliModuleExtVardefFile);
         }
-
-        $this->cleanupUnifiedSearchCache();
 
         // hide the RLI module in workflows
         $affected_modules = $this->toggleRevenueLineItemsLinkInWorkFlows(false);
@@ -248,11 +220,6 @@ class OpportunityWithOutRevenueLineItem extends OpportunitySetup
         $this->queueRevenueLineItemsForNotesOnOpportunities();
         $this->setOpportunityDataFromRevenueLineItems();
         $this->deleteRevenueLineItems();
-
-        if ($this->isForecastSetup()) {
-            SugarAutoLoader::load('include/SugarQueue/jobs/SugarJobUpdateOpportunities.php');
-            SugarJobUpdateOpportunities::updateOpportunitiesForForecasting();
-        }
     }
 
     /**
@@ -460,7 +427,6 @@ class OpportunityWithOutRevenueLineItem extends OpportunitySetup
             $sql = 'UPDATE opportunities SET date_closed = ' . $db->quoted((!empty($result['dc_open']) ? $result['dc_open'] : $result['dc_closed'])) . ',
                 date_closed_timestamp = ' . $db->quoted((!empty($result['dct_open']) ? $result['dct_open'] : $result['dct_closed'])) . ',
                 sales_stage = ' . $db->quoted($list_value[$result['sales_stage']]) . ',
-                included_revenue_line_items = 0, total_revenue_line_items = 0, closed_revenue_line_items = 0,
                 probability = ' . $db->quoted($app_list_strings['sales_probability_dom'][$list_value[$result['sales_stage']]]) . ',
                 sales_status = ' . $db->quoted('') . ', commit_stage = ' . $db->quoted('');
 
@@ -473,6 +439,11 @@ class OpportunityWithOutRevenueLineItem extends OpportunitySetup
             $sql .= ' WHERE id = ' . $db->quoted($result['opportunity_id']);
 
             $db->query($sql);
+        }
+
+        if ($this->isForecastSetup()) {
+            SugarAutoLoader::load('include/SugarQueue/jobs/SugarJobUpdateOpportunities.php');
+            SugarJobUpdateOpportunities::updateOpportunitiesForForecasting();
         }
     }
 

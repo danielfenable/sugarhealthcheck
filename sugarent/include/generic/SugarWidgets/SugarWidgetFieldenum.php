@@ -109,10 +109,24 @@ class SugarWidgetFieldEnum extends SugarWidgetReportField
 		}
 		$cell = '';
 
-        $list = getOptionsFromVardef($field_def);
-        if ($list && isset($list[$value])) {
-            $cell = $list[$value];
+        if (isset($field_def['type']) && $field_def['type'] == 'enum' && isset($field_def['function'])) {
+            if (isset($field_def['function_bean'])) {
+                    $bean = BeanFactory::getBean($field_def['function_bean']);
+                    $list = $bean->$field_def['function']();
+                } else {
+                    global $beanFiles;
+                    if (empty($beanFiles)) {
+                        include('include/modules.php');
+                    }
+                    $bean_name = get_singular_bean_name($field_def['module']);
+                    require_once($beanFiles[$bean_name]);
+                    $list = $field_def['function']();
+                }
+                $cell = $list[$value];
+        } elseif (isset($field_def['options'])) {
+            $cell = translate($field_def['options'], $field_def['module'], $value);
         }
+
         if (is_array($cell)) {
 
 			//#22632
@@ -136,12 +150,33 @@ class SugarWidgetFieldEnum extends SugarWidgetReportField
 		} else {
 			$order_by = $this->_get_column_select($layout_def);
 		}
+		$list = array();
+        if(isset($field_def['options'])) {
+		    $list = translate($field_def['options'], $field_def['module']);
+        } elseif(isset($field_def['type']) && $field_def['type'] == 'enum' && isset($field_def['function'])) {
+	        global $beanFiles;
+		    if(empty($beanFiles)) {
+		        include('include/modules.php');
+		    }
 
-        $list = getOptionsFromVardef($field_def);
-        if ($list === false) {
             $list = array();
-        }
+            $checkedFunction = false;
+            //use bean function if function and function bean have been specified
+            if (!empty($field_def['function_bean'])) {
+                $bean = BeanFactory::getBean($field_def['function_bean']);
+                if ( method_exists($bean, $field_def['function'])) {
+                    $list = $bean->$field_def['function']();
+                    $checkedFunction = true;
+                }
+            }
 
+            //if list was not filled through a bean function, try method
+            if(!$checkedFunction) {
+                $bean_name = get_singular_bean_name($field_def['module']);
+                require_once($beanFiles[$bean_name]);
+                $list = $field_def['function']();
+            }
+        }
 		if (empty ($layout_def['sort_dir']) || $layout_def['sort_dir'] == 'a') {
 			$order_dir = "ASC";
 		} else {

@@ -20,6 +20,6 @@ if(this.disposed){return;}
 if(this.module!==collection.module){this.rowTemplate=app.template.getView(this.name+'.row',collection.module)||this.rowTemplate;}
 if(_.isEmpty(this.$tableBody)||!this.rowTemplate){app.logger.warn('Create a row.hbs template to avoid a full render.');this.render();return;}
 if(!this.triggerBefore('render:rows',data)){return false;}
-_.each(data,function(model){this._renderRow(this.collection.get(model.id));},this);this.trigger('render:rows');},this);if(this.limit){options.limit=this.limit;}
+_.each(data,function(model){this._renderRow(this.collection.get(model.id));},this);this.trigger('render:rows');this.trigger('render');},this);if(this.limit){options.limit=this.limit;}
 var _complete=options.complete;options.complete=_.bind(function(xhr,status){if(_.isFunction(_complete)){_complete.call(this,xhr,status);}
 this.collection.options=originalOptions;},this);beanCollection.paginate(options);},_renderRow:function(model){this.rowModel=model;var $row=$(this.rowTemplate(this)),self=this;this.$tableBody.append($row);$row.find('span[sfuuid]').each(function(){var $this=$(this),sfId=$this.attr('sfuuid');if(self.fields[sfId]){self.fields[sfId].setElement($this);self.fields[sfId].render();}});}});});})(SUGAR.App);

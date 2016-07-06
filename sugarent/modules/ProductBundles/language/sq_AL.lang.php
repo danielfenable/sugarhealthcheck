@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,20 +13,22 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 $mod_strings = array (
-    'LBL_BUNDLE_STAGE' => 'Faza e grupit:',
-    'LBL_DEAL_TOT'=>'Totali i zbritjes',
-    'LBL_DEAL_TOT_USDOLLAR'=>'Zbritje totale (US Dollar)',
-    'LBL_NEW_SUB' => 'Nëntotali i zbritur',
-    'LBL_SHIPPING' => 'Transporti:',
-    'LBL_SHIPPING_USDOLLAR'=>'Transporti (US Dollar)',
-    'LBL_SUBTOTAL_USDOLLAR'=>'Nëntotali (US Dollar)',
-    'LBL_SUBTOTAL' => 'Nëntotali:',
-    'LBL_TAX_USDOLLAR'=>'Tatimi (US Dollar)',
-    'LBL_TAX' => 'Tatimi:',
-    'LBL_TOTAL_USDOLLAR'=>'Totali (US Dollar)',
-    'LBL_TOTAL' => 'Totali:',
-    'LBL_QUOTE_BUNDLE_POSITION' => 'Pozicioni i kuotës deng',
-    'EXCEPTION_INVALID_QUOTE_ID' => 'ID e kuotës mungon nga payload',
-    'EXCEPTION_NOT_FOUND_QUOTE' =>  'Kuota të cilën e keni kërkuar nuk u gjet'
+  'EXCEPTION_INVALID_QUOTE_ID' => 'ID e kuotës mungon nga payload',
+  'EXCEPTION_NOT_FOUND_QUOTE' => 'Kuota të cilën e keni kërkuar nuk u gjet',
+  'LBL_BUNDLE_STAGE' => 'Faza e grupit:',
+  'LBL_DEAL_TOT' => 'Totali i zbritjes',
+  'LBL_DEAL_TOT_USDOLLAR' => 'Zbritje totale (US Dollar)',
+  'LBL_NEW_SUB' => 'Nëntotali i zbritur',
+  'LBL_QUOTE_BUNDLE_POSITION' => 'Pozicioni i kuotës deng',
+  'LBL_SHIPPING' => 'Transporti:',
+  'LBL_SHIPPING_USDOLLAR' => 'Transporti (US Dollar)',
+  'LBL_SUBTOTAL' => 'Nëntotali:',
+  'LBL_SUBTOTAL_USDOLLAR' => 'Nëntotali (US Dollar)',
+  'LBL_TAX' => 'Tatimi:',
+  'LBL_TAX_USDOLLAR' => 'Tatimi (US Dollar)',
+  'LBL_TOTAL' => 'Totali:',
+  'LBL_TOTAL_USDOLLAR' => 'Totali (US Dollar)',
 );
+

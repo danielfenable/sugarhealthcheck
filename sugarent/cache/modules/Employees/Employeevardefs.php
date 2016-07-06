@@ -137,12 +137,6 @@
       'dbType' => 'varchar',
       'type' => 'name',
       'len' => '30',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 1.71,
-      ),
     ),
     'last_name' => 
     array (
@@ -153,12 +147,6 @@
       'len' => '30',
       'importable' => 'required',
       'required' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 1.6899999999999999,
-      ),
     ),
     'full_name' => 
     array (
@@ -266,18 +254,6 @@
         'wirelesseditview' => false,
       ),
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_entered' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'date_modified' => 
     array (
@@ -292,18 +268,6 @@
         'wirelesseditview' => false,
       ),
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_modified' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'last_login' => 
     array (
@@ -325,20 +289,6 @@
       'isnull' => 'false',
       'dbType' => 'id',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'modified_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'modified_by_name' => 
     array (
@@ -361,37 +311,14 @@
       'dbType' => 'id',
       'studio' => false,
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'created_by' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_CREATED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'created_by_name' => 
     array (
       'name' => 'created_by_name',
       'vname' => 'LBL_CREATED_BY_NAME',
-      'type' => 'relate',
-      'reportable' => false,
-      'link' => 'created_by_link',
-      'rname' => 'full_name',
+      'type' => 'varchar',
       'source' => 'non-db',
-      'table' => 'users',
-      'id_name' => 'created_by',
-      'module' => 'Users',
-      'duplicate_merge' => 'disabled',
-      'importable' => false,
-      'massupdate' => false,
-      'duplicate_on_record_copy' => 'no',
+      'importable' => 'false',
       'studio' => 
       array (
         'related' => false,
@@ -399,21 +326,6 @@
         'rollup' => false,
       ),
       'readonly' => true,
-      'sort_on' => 
-      array (
-        0 => 'last_name',
-      ),
-    ),
-    'created_by_link' => 
-    array (
-      'name' => 'created_by_link',
-      'type' => 'link',
-      'relationship' => 'employees_created_by',
-      'vname' => 'LBL_CREATED_USER',
-      'link_type' => 'one',
-      'module' => 'Users',
-      'bean_name' => 'User',
-      'source' => 'non-db',
     ),
     'title' => 
     array (
@@ -781,17 +693,6 @@
       'source' => 'non-db',
       'vname' => 'LBL_CALLS',
     ),
-    'kbusefulness' => 
-    array (
-      'name' => 'kbusefulness',
-      'type' => 'link',
-      'reportable' => false,
-      'relationship' => 'usefulness',
-      'link_file' => 'modules/KBContents/UsefulnessLink.php',
-      'link_class' => 'UsefulnessLink',
-      'source' => 'non-db',
-      'vname' => 'LBL_USEFULNESS',
-    ),
     'meetings' => 
     array (
       'name' => 'meetings',
@@ -868,6 +769,12 @@
       'required' => true,
       'merge_filter' => 'enabled',
       'studio' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+        'boost' => 3,
+        'index' => 'not_analyzed',
+      ),
       'exportable' => true,
     ),
     'email' => 
@@ -892,16 +799,11 @@
       array (
         'visible' => false,
         'searchview' => true,
+        'editview' => true,
         'editField' => true,
       ),
       'sort_on' => 'email_addresses',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 1.6699999999999999,
-      ),
-      'required' => true,
+      'required' => false,
     ),
     'email_addresses' => 
     array (
@@ -1243,10 +1145,6 @@
       ),
     ),
   ),
-  'required_import_indexes' => 
-  array (
-    0 => 'idx_user_name::user_name',
-  ),
   'relationships' => 
   array (
     'user_direct_reports' => 
@@ -1382,35 +1280,14 @@
       'rhs_key' => 'acl_role_set_id',
       'relationship_type' => 'one-to-many',
     ),
-    'users_created_by' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'created_by',
-      'rhs_module' => 'Users',
-      'rhs_table' => 'users',
-      'rhs_key' => 'id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'employees_created_by' => 
-    array (
-      'lhs_module' => 'Employees',
-      'lhs_table' => 'users',
-      'lhs_key' => 'created_by',
-      'rhs_module' => 'Users',
-      'rhs_table' => 'users',
-      'rhs_key' => 'id',
-      'relationship_type' => 'one-to-many',
-    ),
   ),
   'acls' => 
   array (
     'SugarACLUsers' => true,
     'SugarACLStatic' => true,
   ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
-  'full_text_search' => true,
+  'custom_fields' => false,
 );

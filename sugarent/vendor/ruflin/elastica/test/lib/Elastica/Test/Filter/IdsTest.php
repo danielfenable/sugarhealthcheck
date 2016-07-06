@@ -15,7 +15,9 @@ class IdsTest extends BaseTest
 
     public function setUp()
     {
-        $index = $this->_createIndex();
+        $client = $this->_getClient();
+        $index = $client->getIndex('test');
+        $index->create(array(), true);
 
         $type1 = $index->getType('helloworld1');
         $type2 = $index->getType('helloworld2');
@@ -41,6 +43,13 @@ class IdsTest extends BaseTest
 
         $this->_type = $type1;
         $this->_index = $index;
+    }
+
+    public function tearDown()
+    {
+        $client = $this->_getClient();
+        $index = $client->getIndex('test');
+        $index->delete();
     }
 
     public function testSetIdsSearchSingle()
@@ -183,24 +192,10 @@ class IdsTest extends BaseTest
     public function testFilterTypeAndTypeCollision()
     {
         // This test ensures that Elastica\Type and Elastica\Filter\Type
-        // do not collide when used together, which at one point
+        // do not collide when used together, which at one point 
         // happened because of a use statement in Elastica\Filter\Ids
         // Test goal is to make sure a Fatal Error is not triggered
         $filterType = new Type();
         $filter = new Ids();
-    }
-
-    public function testAddType()
-    {
-        $filter = new Ids();
-
-        $filter->addType('foo');
-        $this->assertEquals(array('foo'), $filter->getParam('type'));
-
-        $filter->addType($this->_type);
-        $this->assertEquals(array('foo', $this->_type->getName()), $filter->getParam('type'));
-
-        $returnValue = $filter->addType('bar');
-        $this->assertInstanceOf('Elastica\Filter\Ids', $returnValue);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,22 +12,23 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array (
-'LBL_ALLOW_ALL'=>'Hepsi',
-'LBL_ALLOW_NONE'=>'Yok',
-'LBL_ALLOW_OWNER'=>'Sahibi',
-'LBL_ROLE'=>'Rol',
-'LBL_NAME'=>'İsim',
-'LBL_DESCRIPTION'=>'Tanım',
-'LIST_ROLES'=>'Roller Listesi',
-'LBL_USERS_SUBPANEL_TITLE'=>'Kullanıcılar',
-'LIST_ROLES_BY_USER'=>'Rolleri Kullanıcılara Göre Listele',
-'LBL_ROLES_SUBPANEL_TITLE'=>'Kullanıcı Rolleri',
-'LBL_SEARCH_FORM_TITLE'=>'Ara',
-'LBL_NO_ACCESS'=>'Bu bölüme erişim izniniz yok. İzin için lütfen site yöneticiniz ile temasa geçin.',
-'LBL_REDIRECT_TO_HOME'=>'Ana Sayfaya Yönlendirme süresi',
-'LBL_SECONDS'=>'saniye',
-'LBL_ADDING'=>'Ekleme yapılıyor:',
+	
 
-)
-?>
+$mod_strings = array (
+  'LBL_ADDING' => 'Ekleme yapılıyor:',
+  'LBL_ALLOW_ALL' => 'Hepsi',
+  'LBL_ALLOW_NONE' => 'Yok',
+  'LBL_ALLOW_OWNER' => 'Sahibi',
+  'LBL_DESCRIPTION' => 'Tanım',
+  'LBL_NAME' => 'İsim',
+  'LBL_NO_ACCESS' => 'Bu bölüme erişim izniniz yok. İzin için lütfen site yöneticiniz ile temasa geçin.',
+  'LBL_REDIRECT_TO_HOME' => 'Ana Sayfaya Yönlendirme süresi',
+  'LBL_ROLE' => 'Rol',
+  'LBL_ROLES_SUBPANEL_TITLE' => 'Kullanıcı Rolleri',
+  'LBL_SEARCH_FORM_TITLE' => 'Ara',
+  'LBL_SECONDS' => 'saniye',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Kullanıcılar',
+  'LIST_ROLES' => 'Roller Listesi',
+  'LIST_ROLES_BY_USER' => 'Rolleri Kullanıcılara Göre Listele',
+);
+

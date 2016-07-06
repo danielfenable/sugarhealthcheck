@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,22 +12,23 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array (
-'LBL_ALLOW_ALL'=>'Visi',
-'LBL_ALLOW_NONE'=>'Joks',
-'LBL_ALLOW_OWNER'=>'Savininkas',
-'LBL_ROLE'=>'Rolė',
-'LBL_NAME'=>'Vardas',
-'LBL_DESCRIPTION'=>'Aprašymas',
-'LIST_ROLES'=>'Rolių sąrašas',
-'LBL_USERS_SUBPANEL_TITLE'=>'Vartotojai',
-'LIST_ROLES_BY_USER'=>'Vartotojo rolių sąrašas',
-'LBL_ROLES_SUBPANEL_TITLE'=>'Vartotojo rolė',
-'LBL_SEARCH_FORM_TITLE'=>'Ieškoti',
-'LBL_NO_ACCESS'=>'Jūs neturite teisės prieiti. Susisiekite su administratoriumi, kad gauti leidimą',
-'LBL_REDIRECT_TO_HOME'=>'Nukreipti į pradinį langą per',
-'LBL_SECONDS'=>'sekundes',
-'LBL_ADDING'=>'Pridedama',
+	
 
-)
-?>
+$mod_strings = array (
+  'LBL_ADDING' => 'Pridedama',
+  'LBL_ALLOW_ALL' => 'Visi',
+  'LBL_ALLOW_NONE' => 'Joks',
+  'LBL_ALLOW_OWNER' => 'Savininkas',
+  'LBL_DESCRIPTION' => 'Aprašymas',
+  'LBL_NAME' => 'Vardas',
+  'LBL_NO_ACCESS' => 'Jūs neturite teisės prieiti. Susisiekite su administratoriumi, kad gauti leidimą',
+  'LBL_REDIRECT_TO_HOME' => 'Nukreipti į pradinį langą per',
+  'LBL_ROLE' => 'Rolė',
+  'LBL_ROLES_SUBPANEL_TITLE' => 'Vartotojo rolė',
+  'LBL_SEARCH_FORM_TITLE' => 'Ieškoti',
+  'LBL_SECONDS' => 'sekundes',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Vartotojai',
+  'LIST_ROLES' => 'Rolių sąrašas',
+  'LIST_ROLES_BY_USER' => 'Vartotojo rolių sąrašas',
+);
+

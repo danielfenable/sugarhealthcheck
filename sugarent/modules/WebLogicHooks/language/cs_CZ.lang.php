@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$mod_strings = array(
-    'LBL_MODULE_NAME' => 'Webové háčky',
-    'LBL_MODULE_NAME_SINGULAR' => 'Webový háček',
-    'LBL_MODULE_TITLE' => 'Webové háčky',
-    'LNK_NEW_LOGIC_HOOK' => 'Vytvořit webový háček',
-    'LNK_LOGIC_HOOK_LIST' => 'Zobrazit webové háčky',
-    'LBL_TARGET_NAME' => 'Název modulu',
-    'LBL_REQUEST_METHOD' => 'Vyžádat metodu',
-    'LBL_TRIGGER_EVENT' => 'Spustit událost',
-    'LBL_URL' => 'Adresa URL',
+$mod_strings = array (
+  'LBL_MODULE_NAME' => 'Webové háčky',
+  'LBL_MODULE_NAME_SINGULAR' => 'Webový háček',
+  'LBL_MODULE_TITLE' => 'Webové háčky',
+  'LBL_REQUEST_METHOD' => 'Vyžádat metodu',
+  'LBL_TARGET_NAME' => 'Název modulu',
+  'LBL_TRIGGER_EVENT' => 'Spustit událost',
+  'LBL_URL' => 'URL',
+  'LNK_LOGIC_HOOK_LIST' => 'Zobrazit webové háčky',
+  'LNK_NEW_LOGIC_HOOK' => 'Vytvořit webový háček',
 );
+

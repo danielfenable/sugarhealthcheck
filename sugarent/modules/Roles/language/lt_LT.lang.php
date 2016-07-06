@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,27 +12,25 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-// $Id: en_us.lang.php 13782 2006-06-06 17:58:55Z majed $
+	
 
 $mod_strings = array (
-	'LBL_ROLE' => 'Rolė',
-	'LBL_LANGUAGE' => 'Kalba:',
-	'LBL_MODULE_NAME' => 'Rolė',
-	'LBL_MODULE_NAME_SINGULAR' => 'Rolė',
-	'LBL_MODULE_TITLE' => 'Rolės pradžia',
-	'LBL_SEARCH_FORM_TITLE' => 'Rolių paieška',
-	'LBL_LIST_FORM_TITLE' => 'Rolių sąrašas',
-	'LNK_NEW_ROLE' => 'Sukurti rolę',
-	'LNK_ROLES' => 'Rolė',
-	'LBL_NAME' => 'Vardas:',
-	'LBL_DESCRIPTION' => 'Aprašymas:',
-	'LBL_ALLOWED_MODULES' => 'Leidžiami moduliai:',
-	'LBL_DISALLOWED_MODULES' => 'Neleidžiami moduliai:',
-	'LBL_ASSIGN_MODULES' => 'Redaguoti modulius:',
-	'LBL_DEFAULT_SUBPANEL_TITLE' => 'Rolė',
-	'LBL_USERS'=>'Vartotojai',
-	
-	'LBL_USERS_SUBPANEL_TITLE' => 'Vartotojai',
+  'LBL_ALLOWED_MODULES' => 'Leidžiami moduliai:',
+  'LBL_ASSIGN_MODULES' => 'Redaguoti modulius:',
+  'LBL_DEFAULT_SUBPANEL_TITLE' => 'Rolė',
+  'LBL_DESCRIPTION' => 'Aprašymas:',
+  'LBL_DISALLOWED_MODULES' => 'Neleidžiami moduliai:',
+  'LBL_LANGUAGE' => 'Kalba:',
+  'LBL_LIST_FORM_TITLE' => 'Rolių sąrašas',
+  'LBL_MODULE_NAME' => 'Rolė',
+  'LBL_MODULE_NAME_SINGULAR' => 'Rolė',
+  'LBL_MODULE_TITLE' => 'Rolės pradžia',
+  'LBL_NAME' => 'Vardas:',
+  'LBL_ROLE' => 'Rolė',
+  'LBL_SEARCH_FORM_TITLE' => 'Rolių paieška',
+  'LBL_USERS' => 'Vartotojai',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Vartotojai',
+  'LNK_NEW_ROLE' => 'Sukurti rolę',
+  'LNK_ROLES' => 'Rolė',
 );
-?>
+

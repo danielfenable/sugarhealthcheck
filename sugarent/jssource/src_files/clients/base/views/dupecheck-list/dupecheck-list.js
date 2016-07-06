@@ -20,7 +20,7 @@
     additionalTableClasses: null,
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * The metadata used is the default `dupecheck-list` metadata, extended by
      * the module specific `dupecheck-list` metadata, extended by subviews
@@ -37,7 +37,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     bindDataChange: function() {
         this.collection.on('reset', function() {
@@ -47,7 +47,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _renderHtml: function() {
         var classesToAdd = 'duplicates highlight';

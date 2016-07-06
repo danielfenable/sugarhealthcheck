@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,19 +11,27 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
 
 
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Uudisvoog',
-                                         'LBL_DESCRIPTION'      => 'Uudisvoog',
-                                         'LBL_SAVING'           => 'Sõelumine...',
-                                         'LBL_SAVED'            => 'Lõpetatud',
-                                         'LBL_AUTO_SCROLL'      => 'Auto Scroll',
-                                          'LBL_SCROLL_SPEED'      => 'Skrollimiskiirus (%)',
-                                         'LBL_CONFIGURE_TITLE'  => 'Tiitel',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Kõrgus (1-300)',
-                                         'LBL_CONFIGURE_RSSURL' => 'RSS Url',
-                                         'LBL_DBLCLICK_HELP'    => '',
-                                         'ERR_LOADING_FEED'     => 'RSS voo laadimine ebaõnnestus',
-                                         );
-?>
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
+$dashletStrings = array (
+  'RSSDashlet' => 
+  array (
+    'LBL_AUTO_SCROLL' => 'Auto Scroll',
+    'LBL_CONFIGURE_RSSURL' => 'RSS Url',
+    'LBL_TITLE' => 'Uudisvoog',
+    'LBL_DESCRIPTION' => 'Uudisvoog',
+    'LBL_SAVING' => 'Sõelumine...',
+    'LBL_SAVED' => 'Lõpetatud',
+    'LBL_SCROLL_SPEED' => 'Skrollimiskiirus (%)',
+    'LBL_CONFIGURE_TITLE' => 'Tiitel',
+    'LBL_CONFIGURE_HEIGHT' => 'Kõrgus (1-300)',
+    'LBL_DBLCLICK_HELP' => 'LBL_DBLCLICK_HELP',
+    'ERR_LOADING_FEED' => 'RSS voo laadimine ebaõnnestus',
+  ),
+);
+

@@ -22,8 +22,6 @@ if(!calendar){var navConfig={strings:{month:SUGAR.language.get('app_strings','LB
 {if(SUGAR.language.languages['app_list_strings']['dom_cal_month_long'].length==13)
 {SUGAR.language.languages['app_list_strings']['dom_cal_month_long'].shift();}
 calendar.cfg.setProperty('MONTHS_LONG',SUGAR.language.languages['app_list_strings']['dom_cal_month_long']);}
-if(typeof SUGAR.language.languages['app_list_strings']!='undefined'&&SUGAR.language.languages['app_list_strings']['dom_cal_month_short']!='undefined'){if(SUGAR.language.languages['app_list_strings']['dom_cal_month_short'].length==13){SUGAR.language.languages['app_list_strings']['dom_cal_month_short'].shift();}
-calendar.cfg.setProperty('MONTHS_SHORT',SUGAR.language.languages['app_list_strings']['dom_cal_month_short']);}
 if(typeof SUGAR.language.languages['app_list_strings']!='undefined'&&typeof SUGAR.language.languages['app_list_strings']['dom_cal_day_short']!='undefined')
 {if(SUGAR.language.languages['app_list_strings']['dom_cal_day_short'].length==8)
 {SUGAR.language.languages['app_list_strings']['dom_cal_day_short'].shift();}

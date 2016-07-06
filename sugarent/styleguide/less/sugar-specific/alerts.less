@@ -10,9 +10,6 @@
   .box-shadow(@shadowWidget);
   .border-radius(@baseBorderRadius);
   position: relative;
-  &.closeable {
-    padding-right: 30px;
-  }
 }
 .alert .fa {
   color: inherit;
@@ -46,6 +43,7 @@
   background-color: @successBackground;
   border-color: @successBorder;
   color: @successText !important;
+  padding-right: 30px;
 }
 .alert-danger,
 .alert-error,
@@ -54,6 +52,7 @@
   background: @errorBackground;
   border-color: @errorBorder;
   color: @errorTextAlert !important;
+  padding-right: 30px;
 }
 .alert-success a,
 .alert-danger a,
@@ -71,12 +70,14 @@
   border: 1px solid @warningBorder;
   background-color: @warningBackground;
   color: @warningText !important;
+  padding-right: 30px;
 }
 .alert-info,
 .alert-info .alert-heading {
   background-color: @infoBackground;
   border-color: @infoBorder;
   color:  @infoText  !important;
+  padding-right: 30px;
 }
 
 

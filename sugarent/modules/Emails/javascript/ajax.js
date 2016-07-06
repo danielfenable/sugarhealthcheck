@@ -170,6 +170,7 @@ var AjaxObject = {
 	        SUGAR.util.evalScript(teamOptionsString);
         }
 
+
 		// apply attachment values
 		SUGAR.email2.composeLayout.loadAttachments(a.attachments);
 
@@ -305,8 +306,7 @@ var AjaxObject = {
 		//history subpanel.  If it was initiated by quickcreate from shortcut bar, then
 		//close the shortcut bar menu
 		if ( (typeof(action_sugar_grp1) != 'undefined')) {
-		    //make sure if the history subpanel exists before showing it
-		    if(action_sugar_grp1 == 'DetailView' && document.getElementById("subpanel_history")) {
+			if(action_sugar_grp1 == 'DetailView') {
 				showSubPanel('history',null,true);
 		  	} else if(action_sugar_grp1 == 'quickcreate') {
 		  		closeEmailOverlay();
@@ -714,7 +714,7 @@ AjaxObject.detailView = {
             SED.quickCreateDialog.setHeader(app_strings.LBL_EMAIL_QUICK_CREATE);
 		} // end lazy load
 		if (ret.html) {
-			ret.html = ret.html.replace('<script type="text/javascript" src="include/SugarEmailAddress/SugarEmailAddress.js?v='+SUGAR.VERSION_MARK+'"></script>', "");
+			ret.html = ret.html.replace('<script type="text/javascript" src="include/SugarEmailAddress/SugarEmailAddress.js"></script>', "");
 		}
 		SED.quickCreateDialog.setBody(ret.html ? ret.html : "&nbsp;");
 		SED.quickCreateDialog.render();
@@ -1556,7 +1556,7 @@ var callbackReplyForward = {
             if(!isReOrFwDraft){
                 html += "<div><hr></div>";
             }
-            html += SE.util.nl2br(a.description);
+            html +=  a.description;
 
 			t.setContent(html);//
 

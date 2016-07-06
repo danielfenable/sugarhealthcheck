@@ -2,12 +2,13 @@
 
 namespace Elastica\Test\Suggest;
 
-use Elastica\Document;
-use Elastica\Index;
 use Elastica\Suggest;
 use Elastica\Suggest\CandidateGenerator\DirectGenerator;
 use Elastica\Suggest\Phrase;
 use Elastica\Test\Base as BaseTest;
+use Elastica\Query;
+use Elastica\Document;
+use Elastica\Index;
 
 class PhraseTest extends BaseTest
 {
@@ -21,7 +22,7 @@ class PhraseTest extends BaseTest
     protected function setUp()
     {
         parent::setUp();
-        $this->_index = $this->_createIndex();
+        $this->_index = $this->_createIndex('test_suggest_phrase');
         $docs = array();
         $docs[] = new Document(1, array('text' => 'Github is pretty cool'));
         $docs[] = new Document(2, array('text' => 'Elasticsearch is bonsai cool'));
@@ -31,6 +32,11 @@ class PhraseTest extends BaseTest
         $type = $this->_index->getType(self::TEST_TYPE);
         $type->addDocuments($docs);
         $this->_index->refresh();
+    }
+
+    protected function tearDown()
+    {
+        $this->_index->delete();
     }
 
     public function testToArray()
@@ -49,10 +55,10 @@ class PhraseTest extends BaseTest
                     'text' => 'elasticsearch is bansai coor',
                     'phrase' => array(
                         'field' => 'text',
-                        'analyzer' => 'simple',
-                    ),
-                ),
-            ),
+                        'analyzer' => 'simple'
+                    )
+                )
+            )
         );
 
         $this->assertEquals($expected, $suggest->toArray());

@@ -343,8 +343,8 @@
                  */
                 number: function(field, value) {
                     if (_.indexOf(['int', 'float', 'currency'], field.type) != -1) {
-                        return (_.isBoolean(value) || (_.isString(value) && value.trim().length == 0) ||
-                            isNaN(parseFloat(value)) || !_.isFinite(value)) ?
+                        return (_.isBoolean(value) || (_.isString(value) && value.trim().length == 0)
+                            || isNaN(parseFloat(value)) || !_.isFinite(value)) ?
                             true : undefined;
                     }
                 },
@@ -371,8 +371,10 @@
                  */
                 isAfter: function(field, value, model) {
                     return _isBeforeAfter(field, value, 'isafter', model);
-                }
-            };
+                },
+
+                // TODO: More validators will be added as we need them
+            }
         })(),
 
         /**

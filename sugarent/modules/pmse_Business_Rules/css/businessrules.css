@@ -202,12 +202,6 @@
   border-right-width: 2px;
 }
 
-select.field-invalid {
-  border-style: solid;
-  border-width: 3px;
-  border-color: #e61718;
-}
-
 table.decision-table-index span {
   padding-left: 0px;
   padding-right: 0px;
@@ -612,7 +606,6 @@ table.decision-table-index span {
 
 .adam.form-panel-field {
   margin-bottom: 0.5em;
-  vertical-align: top;
 }
 
 .adam.form-panel-button {
@@ -632,20 +625,6 @@ table.decision-table-index span {
 }
 .adam.form-panel-field-control .formpanel-radio {
   margin-right: 5px;
-}
-
-.adam.form-panel-field.adam-formpanelnumber .adam.form-panel-field-control,
-.adam.form-panel-field.adam-formpanelcurrency .adam.form-panel-field-control {
-  text-align: right;
-}
-
-.adam.form-panel-field.adam-formpanelcurrency input[type="text"].adam.form-panel-field-control {
-  width: 50% !important;
-}
-
-.adam-formpanelcurrency .currency-part {
-  width: 50%;
-  float: left;
 }
 
 .adam.form-panel-footer {

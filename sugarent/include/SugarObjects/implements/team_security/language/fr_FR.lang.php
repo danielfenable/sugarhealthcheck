@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,8 +10,31 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-'LBL_TEAM'=>'Équipes',
-'LBL_TEAMS'=>'Équipes',
-'LBL_TEAM_ID'=>'Équipe (ID)',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+
+    $mod_strings = array (
+    'LBL_TEAM' => 'Equipe',
+    'LBL_TEAMS' => 'Equipes',
+
+    'LBL_TEAM_ID' => 'Equipe (ID)'
 );
+
+?>

@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 26872 2007-09-18 20:54:51Z sujata $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -35,7 +35,7 @@ $mod_strings = array (
   'LNK_NEW_SHIPPER' => 'لائحة مزودي الشحن',
   'LNK_NEW_TAXRATE' => 'لائحة سعر الضريبة',
   'NTC_DELETE_CONFIRMATION' => 'هل تريد بالتأكيد حذف هذا السجل؟',
-  'ERR_DELETE_RECORD' => 'يجب عليك تحديد رقم السجل لحذف جهة الشحن.',
+  'ERR_DELETE_RECORD' => 'يجب عليك تحديد رقم سجل لحذف جهة الشحن.',
   'NTC_STATUS' => 'قم بتعيين الحالة على "غير نشط" لإزالة مزود الشحن هذا من القوائم المنسدلة لمزودي الشحن',
   'NTC_LIST_ORDER' => 'قم بتعيين الترتيب الذي سيظهر به مزود الشحن هذا في القوائم المنسدلة لمزودي الشحن',
   'shipper_status_dom' => 

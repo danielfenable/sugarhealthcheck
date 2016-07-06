@@ -413,11 +413,6 @@ class Email extends SugarBean {
 		global $current_user;
 		global $timedate;
 
-        // The fully constructed MIME message -- the email as it was transmitted to the mail server, complete with
-        // headers and message parts -- is stored in this variable to allow the caller to choose to do something with
-        // original content that was delivered.
-        $sentMessage = null;
-
         $saveAsDraft = !empty($request['saveDraft']);
         if (!$saveAsDraft && !empty($request["MAIL_RECORD_STATUS"]) &&  $request["MAIL_RECORD_STATUS"]=='archived') {
             $archived = true;
@@ -493,22 +488,14 @@ class Email extends SugarBean {
 			            $object_arr[$bean->module_dir] = $bean->id;
 			        }
 			}
-			foreach ($toAddresses as $addrMeta) {
-			    $addr = $addrMeta['email'];
-			    $beans = $sea->getBeansByEmailAddress($addr);
-			    if (count($beans) == 1) {
-			        if (!isset($object_arr[$beans[0]->module_dir])) {
-			            $object_arr[$beans[0]->module_dir] = $beans[0]->id;
-			        }
-			    } else {
-			        foreach ($beans as $bean) {
-			            if (!isset($object_arr[$bean->module_dir]) &&
-			                !empty($addrMeta['display']) && $addrMeta['display'] == $bean->name) {
-			                $object_arr[$bean->module_dir] = $bean->id;
-			                break;
-			            }
-			        }
-			    }
+			foreach($toAddresses as $addrMeta) {
+				$addr = $addrMeta['email'];
+				$beans = $sea->getBeansByEmailAddress($addr);
+				foreach($beans as $bean) {
+					if (!isset($object_arr[$bean->module_dir])) {
+						$object_arr[$bean->module_dir] = $bean->id;
+					}
+				}
 			}
 
 	        /* template parsing */
@@ -531,12 +518,6 @@ class Email extends SugarBean {
                 $this->status = 'sent';
             }
         }
-
-        // Register the Email so it can be used in relationship logic hooks even before it is saved. As recommended by
-        // BeanFactory::registerBean, this is done once the object has an ID. It just so happens that the ID could have
-        // been set up to 3 times prior to this point. So this is done as late as possible -- after the last potential
-        // opportunity to set the ID and before the first opportunity to use the object in a logic hook.
-        BeanFactory::registerBean($this);
 
         if(isset($_REQUEST['parent_type']) && empty($_REQUEST['parent_type']) &&
 			isset($_REQUEST['parent_id']) && empty($_REQUEST['parent_id']) ) {
@@ -774,7 +755,7 @@ class Email extends SugarBean {
                                 // only save attachments if we're archiving or drafting
                                 if ((($this->type == 'draft') && !empty($this->id)) || (isset($request['saveToSugar']) && $request['saveToSugar'] == 1)) {
                                     if ($note->parent_id != $this->id) {
-                                        $this->saveTempNoteAttachments($filename, $fileLocation, $mime_type, $noteGUID);
+                                        $this->saveTempNoteAttachments($filename, $fileLocation, $mime_type);
                                     }
                                 } // if
                             } // if
@@ -811,7 +792,7 @@ class Email extends SugarBean {
             }
 
             if (!is_null($mailer)) {
-                $sentMessage = $mailer->send();
+                $mailer->send();
             }
         }
         catch (MailerException $me) {
@@ -889,19 +870,9 @@ class Email extends SugarBean {
 			$teamSet = BeanFactory::getBean('TeamSets');
 			$teamIdsArray = (isset($_REQUEST['teamIds']) ?  explode(",", $_REQUEST['teamIds']) : array($current_user->getPrivateTeamID()));
 			$this->team_set_id = $teamSet->addTeams($teamIdsArray);
+			$this->assigned_user_id = $current_user->id;
 
-            if ($archived && !empty($request['assignedUser'])) {
-                $this->assigned_user_id = $request['assignedUser'];
-            } else {
-                $this->assigned_user_id = $current_user->id;
-            }
-
-            if ($archived && !empty($request['dateSent'])) {
-                $this->date_sent = $request['dateSent'];
-            } else {
-                $this->date_sent = $timedate->now();
-            }
-
+			$this->date_sent = $timedate->now();
 			///////////////////////////////////////////////////////////////////
 			////	LINK EMAIL TO SUGARBEANS BASED ON EMAIL ADDY
 
@@ -939,37 +910,31 @@ class Email extends SugarBean {
 			$this->save();
 		}
 
-        $mailConfigId = ($mailConfig instanceof OutboundEmailConfiguration) ? $mailConfig->getConfigId() : null;
 
-        if (!empty($request['fromAccount']) && !empty($sentMessage) && !empty($mailConfigId)) {
-            $ie = BeanFactory::getBean('InboundEmail', $request['fromAccount']);
-            $oe = new OutboundEmail();
-            $oe->retrieve($mailConfigId);
-
-            if (isset($ie->id) && !$ie->isPop3Protocol() && !empty($oe->id) && $oe->mail_smtptype != 'gmail') {
-                $sentFolder = $ie->get_stored_options('sentFolder');
-
-                if (!empty($sentFolder)) {
-                    $ie->mailbox = $sentFolder;
-
-                    if ($ie->connectMailserver() == 'true') {
-                        $connectString = $ie->getConnectString($ie->getServiceString(), $ie->mailbox);
-
-                        if (imap_append($ie->conn, $connectString, $sentMessage, '\\Seen')) {
-                            $GLOBALS['log']->info("copied email ({$this->id}) to {$ie->mailbox} for {$ie->name}");
-                        } else {
-                            $GLOBALS['log']->debug("could not copy email to {$ie->mailbox} for {$ie->name}");
-                        }
-                    } else {
-                        $GLOBALS['log']->debug(
-                            "could not connect to mail server for folder {$ie->mailbox} for {$ie->name}"
-                        );
-                    }
-                } else {
-                    $GLOBALS['log']->debug("could not copy email to {$ie->mailbox} sent folder as its empty");
-                }
-            }
-        }
+        /**** --------------------------------- ?????????
+		if(!empty($request['fromAccount'])) {
+            $ie = new InboundEmail();
+            $ie->retrieve($request['fromAccount']);
+			if (isset($ie->id) && !$ie->isPop3Protocol() && $mail->oe->mail_smtptype != 'gmail') {
+				$sentFolder = $ie->get_stored_options("sentFolder");
+				if (!empty($sentFolder)) {
+					$data = $mail->CreateHeader() . "\r\n" . $mail->CreateBody() . "\r\n";
+					$ie->mailbox = $sentFolder;
+					if ($ie->connectMailserver() == 'true') {
+						$connectString = $ie->getConnectString($ie->getServiceString(), $ie->mailbox);
+						$returnData = imap_append($ie->conn,$connectString, $data, "\\Seen");
+						if (!$returnData) {
+							$GLOBALS['log']->debug("could not copy email to {$ie->mailbox} for {$ie->name}");
+						} // if
+					} else {
+						$GLOBALS['log']->debug("could not connect to mail serve for folder {$ie->mailbox} for {$ie->name}");
+					} // else
+				} else {
+					$GLOBALS['log']->debug("could not copy email to {$ie->mailbox} sent folder as its empty");
+				} // else
+			} // if
+		} // if
+        ------------------------------------- ****/
 
 		return true;
 	} // end email2Send
@@ -1122,7 +1087,7 @@ class Email extends SugarBean {
 	 * @param string $fileLocation
 	 * @param string $mimeType
 	 */
-	function saveTempNoteAttachments($filename,$fileLocation, $mimeType, $uploadId = null)
+	function saveTempNoteAttachments($filename,$fileLocation, $mimeType)
 	{
 	    $tmpNote = BeanFactory::getBean('Notes');
 	    $tmpNote->id = create_guid();
@@ -1134,17 +1099,10 @@ class Email extends SugarBean {
 	    $tmpNote->file_mime_type = $mimeType;
 	    $tmpNote->team_id = $this->team_id;
 	    $tmpNote->team_set_id = $this->team_set_id;
-        if (!empty($uploadId)) {
-            // do not duplicate actual file
-            $uploadNote = BeanFactory::getBean('Notes', $uploadId);
-            $tmpNote->upload_id = $uploadNote->getUploadId();
-        }
-        else {
-            $noteFile = "upload://{$tmpNote->id}";
-            if(!file_exists($fileLocation) || (!copy($fileLocation, $noteFile))) {
-                $GLOBALS['log']->fatal("EMAIL 2.0: could not copy SugarDocument revision file $fileLocation => $noteFile");
-            }
-        }
+	    $noteFile = "upload://{$tmpNote->id}";
+        if(!file_exists($fileLocation) || (!copy($fileLocation, $noteFile))) {
+    	    $GLOBALS['log']->fatal("EMAIL 2.0: could not copy SugarDocument revision file $fileLocation => $noteFile");
+	    }
 	    $tmpNote->save();
         return $tmpNote;
 	}
@@ -1373,22 +1331,6 @@ class Email extends SugarBean {
         return $row;
     }
 
-    /**
-     * This marks an item as deleted.
-     *
-     * @param $id String id of the record to be marked as deleted.
-     */
-    public function mark_deleted($id)
-    {
-        $q = "UPDATE emails_text SET deleted = 1 WHERE email_id = '{$id}'";
-        $this->db->query($q);
-
-        $q = "UPDATE folders_rel SET deleted = 1 WHERE polymorphic_id = '{$id}' AND polymorphic_module = 'Emails'";
-        $this->db->query($q);
-
-        parent::mark_deleted($id);
-    }
-
 	function delete($id='') {
 		if(empty($id))
 			$id = $this->id;
@@ -1516,9 +1458,6 @@ class Email extends SugarBean {
 		if(empty($text)) {
 			return '';
 		}
-        // <p></p> is not really needed here and it will make TinyMCE to inert <br> between them and 
-        // cause more display issues
-        $text = preg_replace('/<p[^>]*><\/p>/i', '', $text);
 		$out = "<div style='border-left:1px solid #00c; padding:5px; margin-left:10px;'>{$text}</div>";
 
 		return $out;
@@ -2652,6 +2591,7 @@ class Email extends SugarBean {
                                     AND er_to.address_type='to' AND ea_to.email_address LIKE '%" . $to_addrs . "%'";
         }
 
+		$this->add_team_security_where_clause($query['joins']);
         $query['where'] = " WHERE (emails.type= 'inbound' OR emails.type='archived' OR emails.type='out') AND emails.deleted = 0 ";
 		if( !empty($additionalWhereClause) )
     	    $query['where'] .= "AND $additionalWhereClause";
@@ -2663,8 +2603,6 @@ class Email extends SugarBean {
             $query['where'] .= " AND EXISTS ( SELECT id FROM notes n WHERE n.parent_id = emails.id AND n.deleted = 0 AND n.filename is not null )";
         else if( !empty($_REQUEST['attachmentsSearch']) &&  $_REQUEST['attachmentsSearch'] == 2 )
              $query['where'] .= " AND NOT EXISTS ( SELECT id FROM notes n WHERE n.parent_id = emails.id AND n.deleted = 0 AND n.filename is not null )";
-
-        $this->addVisibilityWhere($query['where'], array('where_condition' => true));
 
         $fullQuery = "SELECT " . $query['select'] . " " . $query['joins'] . " " . $query['where'];
 
@@ -2968,6 +2906,7 @@ eoq;
 		$setTeamUserFunction .= 'return;';
 		$setTeamUserFunction .= '}';
 
+
 		// get users
 		$r = $this->db->query("SELECT users.id, users.user_name, users.first_name, users.last_name FROM users WHERE deleted=0 AND status = 'Active' AND is_group=0 ORDER BY users.last_name, users.first_name");
 
@@ -3124,8 +3063,7 @@ eoq;
 	        // ensure the image is in the cache
             sugar_mkdir(sugar_cached("images/"));
 			$imgfilename = sugar_cached("images/")."$noteId.".strtolower($subtype);
-			$note = BeanFactory::getBean('Notes', $noteId);
-			$src = "upload://".$note->getUploadId();
+			$src = "upload://$noteId";
 			if(!file_exists($imgfilename) && file_exists($src)) {
 				copy($src, $imgfilename);
 			}

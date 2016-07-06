@@ -27,10 +27,11 @@ $vardefs = array(
                 'name' => 'name',
                 'vname' => 'LBL_NAME',
                 'type' => 'name',
+                'link' => true, // bug 39288
                 'dbType' => 'varchar',
                 'len' => 255,
                 'unified_search' => true,
-                'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 1.55),
+                'full_text_search' => array('enabled' => true, 'boost' => 3),
                 'required' => true,
                 'importable' => 'required',
                 'duplicate_merge' => 'enabled',
@@ -52,15 +53,6 @@ $vardefs = array(
                 'duplicate_on_record_copy' => 'no',
                 'readonly' => true,
                 'massupdate' => false,
-                'full_text_search' => array(
-                    'enabled' => true,
-                    'searchable' => false,
-                    'aggregations' => array(
-                        'date_entered' => array(
-                            'type' => 'DateRange',
-                        ),
-                    ),
-                ),
             ),
         'date_modified' => array(
                 'name' => 'date_modified',
@@ -69,15 +61,6 @@ $vardefs = array(
                 'group' => 'modified_by_name',
                 'comment' => 'Date record last modified',
                 'enable_range_search' => true,
-                'full_text_search' => array(
-                    'enabled' => true,
-                    'searchable' => false,
-                    'aggregations' => array(
-                        'date_modified' => array(
-                            'type' => 'DateRange',
-                        ),
-                    ),
-                ),
                 'studio' => array(
                     'portaleditview' => false, // Bug58408 - hide from Portal edit layout
                 ),
@@ -101,17 +84,6 @@ $vardefs = array(
                 'massupdate' => false,
                 'duplicate_on_record_copy' => 'no',
                 'readonly' => true,
-                'full_text_search' => array(
-                    'enabled' => true,
-                    'searchable' => false,
-                    'type' => 'id',
-                    'aggregations' => array(
-                        'modified_user_id' => array(
-                            'type' => 'MyItems',
-                            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-                        ),
-                    ),
-                ),
             ),
         'modified_by_name' => array(
                 'name' => 'modified_by_name',
@@ -145,17 +117,6 @@ $vardefs = array(
                 'massupdate' => false,
                 'duplicate_on_record_copy' => 'no',
                 'readonly' => true,
-                'full_text_search' => array(
-                    'enabled' => true,
-                    'searchable' => false,
-                    'type' => 'id',
-                    'aggregations' => array(
-                        'created_by' => array(
-                            'type' => 'MyItems',
-                            'label' => 'LBL_AGG_CREATED_BY_ME',
-                        ),
-                    ),
-                ),
             ),
         'created_by_name' => array(
                 'name' => 'created_by_name',
@@ -176,12 +137,35 @@ $vardefs = array(
                 'sort_on' => array('last_name'),
                 'exportable' => true,
             ),
+        'doc_owner' => array(
+                'name' => 'doc_owner',
+                'vname' => 'LBL_DOC_OWNER',
+                'type' => 'id',
+                'reportable'=>false,
+                'source'=>'non-db',
+                'duplicate_merge'=>'disabled',
+                'importable' => 'false',
+                'massupdate' => false,
+                'full_text_search' => array('enabled' => true),
+                'default' => '', // Force attribute to be set for fts indexer reevaluation
+            ),
+        'user_favorites' => array(
+                'name' => 'user_favorites',
+                'vname' => 'LBL_USER_FAVORITES',
+                'type' => 'id',
+                'reportable'=>false,
+                'source'=>'non-db',
+                'duplicate_merge'=>'disabled',
+                'importable' => 'false',
+                'massupdate' => false,
+                'full_text_search' => array('enabled' => true),
+                'default' => '', // Force attribute to be set for fts indexer reevaluation
+            ),
         'description' => array(
                 'name' => 'description',
                 'vname' => 'LBL_DESCRIPTION',
                 'type' => 'text',
                 'comment' => 'Full text of the note',
-                'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 0.5),
                 'rows' => 6,
                 'cols' => 80,
                 'duplicate_on_record_copy' => 'always',
@@ -230,7 +214,7 @@ $vardefs = array(
     ),
     'indices' => array(
         'id' => array(
-            'name' => 'idx_' . preg_replace('/[^a-z0-9_\-]/i', '', strtolower($module)) . '_pk',
+            'name' => 'idx_' . preg_replace('/[^a-z_\-]/i', '', strtolower($module)) . '_pk',
             'type' => 'primary',
             'fields' => array('id')
         ),
@@ -248,11 +232,6 @@ $vardefs = array(
             'name' => 'idx_' . strtolower($table_name) . '_date_entered',
             'type' => 'index',
             'fields' => array('date_entered')
-        ),
-        'name_del' => array(
-            'name' => 'idx_' . strtolower($table_name) . '_name_del',
-            'type' => 'index',
-            'fields' => array('name', 'deleted')
         ),
     ),
     'relationships' => array(
@@ -295,7 +274,6 @@ $vardefs = array(
     'uses' => array(
         'following',
         'favorite',
-        'taggable',
     ),
     'duplicate_check' => array(
         'enabled' => true,

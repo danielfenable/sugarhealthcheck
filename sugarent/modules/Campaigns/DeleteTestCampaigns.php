@@ -44,10 +44,7 @@ function deleteTestRecords($focus)
     $test_list_ids = array_keys($test_list_ids);
     unset($res);
     if(!empty($test_ids)) {
-        $joinedIds = join("','", $test_ids);
-        $focus->db->query("UPDATE emails SET deleted=1 WHERE id IN ('".$joinedIds."')");
-        $focus->db->query("UPDATE emails_text SET deleted=1 WHERE email_id IN ('".$joinedIds."')");
-        $focus->db->query("UPDATE folders_rel SET deleted=1 WHERE polymorphic_module = 'Emails' AND polymorphic_id IN ('".$joinedIds."')");
+        $focus->db->query("UPDATE emails SET deleted=1 WHERE id IN ('".join("','", $test_ids)."')");
     }
 
     if(!empty($test_list_ids)) {

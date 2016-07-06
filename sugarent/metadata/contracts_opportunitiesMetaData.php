@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id: contracts_opportunitiesMetaData.php 55782 2010-04-02 21:07:20Z clee $
+
 
 
 $dictionary['contracts_opportunities'] = array (

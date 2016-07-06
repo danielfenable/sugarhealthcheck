@@ -28,6 +28,9 @@ class SugarConfig
 
     function get($key, $default = null) {
         if (!isset($this->_cached_values[$key])) {
+            if (!class_exists('SugarArray', true)) {
+				require 'include/utils/array_utils.php';
+			}
             $this->_cached_values[$key] = isset($GLOBALS['sugar_config']) ?
                 SugarArray::staticGet($GLOBALS['sugar_config'], $key, $default) :
                 $default;

@@ -37,7 +37,7 @@ $settings = array (
         // Specifies constraints on the name identifier to be used to
         // represent the requested subject.
         // Take a look on lib/Saml2/Constants.php to see the NameIdFormat supported
-        'NameIDFormat' => 'urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified',
+        'nameIdFormat' => 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',
 
         // Usually x509cert and privateKey of the SP are provided by files placed at
         // the certs folder. But we can also provide them with the following parameters
@@ -71,14 +71,8 @@ $settings = array (
         'x509cert' => '',
         /*
          *  Instead of use the whole x509cert you can use a fingerprint
-         *  (openssl x509 -noout -fingerprint -in "idp.crt" to generate it,
-         *   or add for example the -sha256 , -sha384 or -sha512 parameter)
-         *
-         *  If a fingerprint is provided, then the certFingerprintAlgorithm is required in order to
-         *  let the toolkit know which Algorithm was used. Possible values: sha1, sha256, sha384 or sha512
-         *  'sha1' is the default value.
+         *  (openssl x509 -noout -fingerprint -in "idp.crt" to generate it)
          */
         // 'certFingerprint' => '',
-        // 'certFingerprintAlgorithm' => 'sha1',
     ),
 );

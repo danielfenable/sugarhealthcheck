@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,56 +11,20 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-/**
- * Configurator class around `$sugar_config`
- */
-class Configurator {
 
+
+
+class Configurator {
 	var $config = '';
 	var $override = '';
+    public $allow_undefined = array (
+        'stack_trace_errors', 'export_delimiter', 'use_real_names', 'developerMode', 'default_module_favicon',
+        'authenticationClass', 'SAML_loginurl', 'SAML_X509Cert', 'SAML_SLO', 'dashlet_auto_refresh_min',
+        'show_download_tab', 'enable_action_menu', 'offlineEnabled', 'noPrivateTeamUpdate');
 	var $errors = array ('main' => '');
 	var $logger = NULL;
 	var $previous_sugar_override_config_array = array();
 	var $useAuthenticationClass = false;
-
-    /**
-     * List of allowed undefined `$sugar_config` keys to be set
-     * @var array
-     */
-    protected $allowUndefined = array(
-        'stack_trace_errors',
-        'export_delimiter',
-        'use_real_names',
-        'developerMode',
-        'default_module_favicon',
-        'authenticationClass',
-        'SAML_loginurl',
-        'SAML_X509Cert',
-        'SAML_SLO',
-        'SAML_SAME_WINDOW',
-        'dashlet_auto_refresh_min',
-        'show_download_tab',
-        'enable_action_menu',
-        'offlineEnabled',
-        'noPrivateTeamUpdate',
-    );
-
-    /**
-     * List of keys allowed to be accepted through POST. If this list is empty
-     * then no filtering will happen when populating this object from POST.
-     * @var array
-     */
-    protected $allowKeys = array();
-
-    /**
-     * List of POST keys to be ignored when populating from POST
-     * @var array
-     */
-    protected $ignoreKeys = array(
-        'action',
-        'module',
-        'save',
-    );
 
     /**
      * This is a depreciated method, please start using __construct() as this method will be removed in a future version
@@ -72,121 +37,43 @@ class Configurator {
         self::__construct();
     }
 
-    /**
-     * Ctor
-     */
-    public function __construct()
-    {
-        $this->logger = LoggerManager::getLogger();
-        $this->loadConfig();
-    }
+	public function __construct() {
+		$this->loadConfig();
+	}
 
-    /**
-     * Load `$sugar_config`
-     */
-    public function loadConfig()
-    {
+	function loadConfig() {
+		$this->logger = LoggerManager::getLogger();
 		global $sugar_config;
 		$this->config = $sugar_config;
 	}
 
-    /**
-     * Setter for allowKeys
-     * @param array $allowKeys
-     */
-    public function setAllowKeys(array $allowKeys)
-    {
-        $this->allowKeys = $allowKeys;
-    }
+	function populateFromPost() {
+		$sugarConfig = SugarConfig::getInstance();
+		foreach ($_POST as $key => $value) {
 
-    /**
-     * Populate $sugar_config from POST. If no list of allowed keys is passed
-     * in then no filtering happens and basically exposes every available
-     * $sugar_config settings to be changed if already present or if allowed
-     * as an undefined key.
-     */
-    public function populateFromPost()
-    {
-
-        $sugarConfig = SugarConfig::getInstance();
-        $filterAllowKeys = empty($this->allowKeys) ? false : true;
-
-        foreach ($_POST as $key => $value) {
-
-            // Skip ignored keys silently
-            if (in_array($key, $this->ignoreKeys)) {
-                continue;
-            }
-
-            // If filtering is requested do so
-            if ($filterAllowKeys && !in_array($key, $this->allowKeys)) {
-                $GLOBALS['log']->debug("Skip unallowed key '$key' from POST");
-                continue;
-            }
-
-            // This kind of validation needs to move to a dedicated validator
-            // around `$sugar_config` in the first place. Keeping it in here
-            // until this validation can be handled in a generic way.
-			if ($key === "logger_file_ext") {
-
-                // Validate logger file extension format
-                if (!preg_match('/^.([A-Za-z]+)$/', $value, $ext)) {
-                    $GLOBALS['log']->security("Invalid log file extension format, expecting .xxx format, '$value' given");
-                    continue;
-                }
-
-                // Check logger file extension against bad extensions
-                $ext = strtolower($ext[1]);
-                if (in_array($ext, $this->config['upload_badext'])) {
-                    $GLOBALS['log']->security("Invalid log file extension: trying to use bad file extension '$value'.");
-                    continue;
-                }
-            }
-
-            // Validate logger file name
-            if ($key === "logger_file_name" && strcmp(trim($value), '') == 0) {
-                $GLOBALS['log']->error("Invalid log file name: Log file name should not blank.");
-                continue;
-            }
-
-            // Validate logger file max size
-            if ($key === "logger_file_maxSize" && strcmp(trim($value), '') == 0) {
-                $GLOBALS['log']->error("Invalid log file max size: Log file max size should not be blank.");
-                continue;
-            }
-
-            // Validate logger file max logs
-            if ($key === "logger_file_maxLogs" && $value <= 0) {
-                $GLOBALS['log']->error("Invalid maximum number of logs: should be 1 or greater.");
-                continue;
-            }
-
-            // We can set the value directly if key exists or if allowed as undefined
-            if (isset($this->config[$key]) || in_array($key, $this->allowUndefined)) {
-
-                // compensate booleans as strings
-                if (strcmp("$value", 'true') === 0) {
-                    $value = true;
-                }
-                if (strcmp("$value", 'false') === 0) {
-                    $value = false;
-                }
-
-                // set config key
+			if ($key == "logger_file_ext") {
+			    $trim_value = preg_replace('/.*\.([^\.]+)$/', '\1', $value);
+			    if(in_array($trim_value, $this->config['upload_badext'])) {
+			        $GLOBALS['log']->security("Invalid log file extension: trying to use invalid file extension '$value'.");
+			        continue;
+			    }
+			}
+			if (isset ($this->config[$key]) || in_array($key, $this->allow_undefined)) {
+				if (strcmp("$value", 'true') == 0) {
+					$value = true;
+				}
+				if (strcmp("$value", 'false') == 0) {
+					$value = false;
+				}
                 $this->config[$key] = $value;
+			} else {
+                $v = $sugarConfig->get(str_replace('_', '.', $key));
+            if ($v  !== null){
+			   setDeepArrayValue($this->config, $key, $value);
+			}}
 
-            } else {
+		}
 
-                // Check if key exists by looking up value for multidimensional
-                // keys. This is pretty sketchy as some newer keys can have
-                // underscores.
-                if ($sugarConfig->get(str_replace('_', '.', $key)) !== null) {
-                    setDeepArrayValue($this->config, $key, $value);
-                } else {
-                    $GLOBALS['log']->debug("Skipping unknown config key '$key' from POST");
-                }
-            }
-        }
 	}
 
 	function handleOverride()
@@ -220,7 +107,7 @@ class Configurator {
         }
 
 		foreach($overrideArray as $key => $val) {
-            if (in_array($key, $this->allowUndefined) || isset ($sugar_config[$key])) {
+			if (in_array($key, $this->allow_undefined) || isset ($sugar_config[$key])) {
 				if (is_string($val) && strcmp($val, 'true') == 0) {
 					$val = true;
 					$this->config[$key] = $val;
@@ -244,7 +131,7 @@ class Configurator {
         global $sugar_config, $sugar_version;
         list($oldConfig, $currentConfigArray) = $this->readOverride();
         foreach($currentConfigArray as $key => $val) {
-            if (in_array($key, $this->allowUndefined) || isset ($sugar_config[$key])) {
+            if (in_array($key, $this->allow_undefined) || isset ($sugar_config[$key])) {
                 if (empty($val) ) {
                     if(!empty($this->previous_sugar_override_config_array['stack_trace_errors']) && $key == 'stack_trace_errors'){
                         require_once('include/TemplateHandler/TemplateHandler.php');
@@ -295,9 +182,9 @@ class Configurator {
 	        $GLOBALS['log']->fatal("Unable to write to the config_override.php file. Check the file permissions");
 	        return;
 	    }
-
-        // write out contents to file
-        sugar_file_put_contents_atomic('config_override.php', $override);
+		$fp = sugar_fopen('config_override.php', 'w');
+		fwrite($fp, $override);
+		fclose($fp);
 	}
 
 	function overrideClearDuplicates($array_name, $key) {
@@ -367,6 +254,9 @@ class Configurator {
 	 */
 
 	function parseLoggerSettings(){
+		if(!function_exists('setDeepArrayValue')){
+			require('include/utils/array_utils.php');
+		}
 		if (file_exists('log4php.properties')) {
 			$fileContent = file_get_contents('log4php.properties');
 			$old_props = explode('\n', $fileContent);

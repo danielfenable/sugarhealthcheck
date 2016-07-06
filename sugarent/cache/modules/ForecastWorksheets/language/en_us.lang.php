@@ -1,19 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:25
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_CURRENCY' => 'Currency',
-  'LBL_CURRENCIES' => 'Currencies',
-  'LBL_CURRENCY_NAME' => 'Currency Name',
-  'LBL_CURRENCY_SYMBOL' => 'Currency Symbol',
-  'LBL_CURRENCY_RATE' => 'Currency Rate',
-  'LBL_CURRENCY_ID' => 'Currency ID',
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team Id',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Entered',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -33,6 +20,11 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team Id',
   'LBL_MODULE_NAME' => 'Forecast Worksheets',
   'LBL_MODULE_NAME_SINGULAR' => 'Forecast Worksheet',
   'LNK_NEW_OPPORTUNITY' => 'Create Opportunity',
@@ -125,6 +117,9 @@ $mod_strings = array (
   'LBL_RESET_WOKSHEET' => 'Reset Worksheet',
   'LBL_SHOW_CHART' => 'View Chart',
   'LBL_RESET_CHECK' => 'All worksheet data for the selected Time Period and logged in user will be removed. Continue?',
+  'LBL_CURRENCY' => 'Currency',
+  'LBL_CURRENCY_ID' => 'Currency ID',
+  'LBL_CURRENCY_RATE' => 'Currency Rate',
   'LBL_BASE_RATE' => 'Base Rate',
   'LBL_QUOTA' => 'Quota',
   'LBL_FORECAST' => 'Forecast',
@@ -150,5 +145,4 @@ $mod_strings = array (
   'LBL_EDITABLE_INVALID' => 'Invalid Value for {{field_name}}',
   'LBL_EDITABLE_INVALID_RANGE' => 'Value must be between {{min}} and {{max}}',
   'LBL_MANAGER_NOTIFY' => 'The following {0} {1} was not included in latest commit after it was included in the previous one',
-  'LBL_MANAGER_NOTIFY_NAME' => '{0} Commitment Change',
 );

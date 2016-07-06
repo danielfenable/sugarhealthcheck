@@ -1278,8 +1278,6 @@ var SearchableCombobox = function (options, parent) {
     this._searchLabel = null;
     this._searchFunction = null;
     this._searchDelay = null;
-    this._searchMore = null;
-    this._searchMoreList = null;
     SearchableCombobox.prototype.initObject.call(this, options, parent);
 };
 
@@ -1298,8 +1296,7 @@ SearchableCombobox.prototype.initObject = function (options, parent) {
         searchURL: null,
         searchLabel: "text",
         searchValue: "value",
-        searchDelay: 1500,
-        searchMore: false
+        searchDelay: 1500
     };
 
     $.extend(true, defaults, options);
@@ -1314,51 +1311,6 @@ SearchableCombobox.prototype.initObject = function (options, parent) {
         .setSearchLabel(defaults.searchLabel)
         .setSearchURL(defaults.searchURL)
         .setOptions(defaults.options);
-
-    if (defaults.searchMore) {
-        this.enableSearchMore(defaults.searchMore);
-    } else {
-        this.disableSearchMore();
-    }
-};
-
-SearchableCombobox.prototype._createSearchMoreOption = function () {
-    var dropdownHTML, additionalList, listItem, tpl;
-    if (this.controlObject && ! this._searchMoreList) {
-        dropdownHTML = this.controlObject.data("select2").dropdown;
-        additionalList = this.createHTMLElement('ul');
-        additionalList.className = 'select2-results adam-searchmore-list';
-        listItem = this.createHTMLElement('li');
-        tpl = this.createHTMLElement('div');
-        tpl.className = 'select2-result-label';
-        tpl.appendChild(document.createTextNode(translate('LBL_SEARCH_AND_SELECT_ELLIPSIS')));
-        listItem.appendChild(tpl);
-        additionalList.appendChild(listItem);
-        dropdownHTML.append(additionalList);
-        this._searchMoreList = additionalList;
-    }
-    return this;
-};
-
-SearchableCombobox.prototype.enableSearchMore = function (options) {
-    if (typeof options !== 'object') {
-        throw new Error("enableSearchMore(): The parameter must be an object.");
-    }
-    this._searchMore = options;
-    if (this.controlObject) {
-        this._createSearchMoreOption();
-        this._searchMoreList.style.display = '';
-    }
-    return this;
-};
-
-SearchableCombobox.prototype.disableSearchMore = function () {
-    this._searchMore = false;
-    if (this.controlObject) {
-        this._createSearchMoreOption();
-        this._searchMoreList.style.display = 'none';
-    }
-    return this;
 };
 
 SearchableCombobox.prototype.setSearchDelay = function (delay) {
@@ -1575,7 +1527,7 @@ SearchableCombobox.prototype._initSelection = function () {
         callback({
             id: value,
             text: text || value
-        });
+        })
     };
 };
 
@@ -1588,29 +1540,9 @@ SearchableCombobox.prototype.getSelectedText = function () {
     return data.text || "";
 };
 
-SearchableCombobox.prototype._openSearchMore = function() {
-    var that = this, zIndex = $(that.html).closest(".adam-modal").zIndex();
-    return function () {
-        that.controlObject.select2("close");
-        $(that.html).closest(".adam-modal").zIndex(-1);
-        App.drawer.open({
-                layout: "selection-list",
-                context: that._searchMore
-            },
-            _.bind(function (drawerValues) {
-                $(that.html).closest(".adam-modal").zIndex(zIndex);
-            if (!_.isUndefined(drawerValues)) {
-                that.setValue({text: drawerValues.value, value: drawerValues.id}, true);
-                that.onChange();
-            }
-        }, this));
-    };
-};
-
 SearchableCombobox.prototype.attachListeners = function () {
     var that = this;
     if (this.controlObject) {
-        $(this._searchMoreList).find('li').on('mousedown', this._openSearchMore());
         this.controlObject.on("change", function () {
             that.value = that.controlObject.select2("val");
             that.onChange();
@@ -1641,16 +1573,8 @@ SearchableCombobox.prototype.createHTML = function () {
         placeholder: this._placeholder,
         query: this._queryFunction(),
         initSelection: this._initSelection(),
-        width: this.fieldWidth || "200px",
-        formatNoMatches: function (term) {
-            return (term && (term !== '')) ? translate('LBL_PA_FORM_COMBO_NO_MATCHES_FOUND') : '';
-        }
+        width: this.fieldWidth || "200px"
     });
-    if (this._searchMore) {
-        this.enableSearchMore(this._searchMore);
-    } else {
-        this.disableSearchMore();
-    }
     this.controlObject.select2("val", this.value, false);
     if (this.readOnly) {
         this.setReadOnly(true);

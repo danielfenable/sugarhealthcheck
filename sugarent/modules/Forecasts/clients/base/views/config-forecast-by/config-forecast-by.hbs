@@ -17,7 +17,7 @@
     <div class="accordion-inner">
         {{#each meta.panels}}
             {{#each fields}}
-                <label for="{{name}}">{{str label module}}</label>
+                <label for="{{name}}">{{str label currentModule}}</label>
                 {{field ../../this model=../../model}}
             {{/each}}
         {{/each}}

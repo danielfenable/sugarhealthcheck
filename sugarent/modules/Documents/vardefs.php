@@ -25,7 +25,7 @@ $dictionary['Document'] = array('table' => 'documents',
             'required' => true,
             'importable' => 'required',
             'unified_search' => true,
-            'full_text_search' => array('enabled' => true, 'searchable' => true, 'boost' => 0.82),
+            'full_text_search' => array('enabled' => true, 'boost' => 3),
         ),
         'name' => array(
             'name' => 'name',
@@ -127,7 +127,7 @@ $dictionary['Document'] = array('table' => 'documents',
         'status_id' =>
         array(
             'name' => 'status_id',
-            'vname' => 'LBL_DOC_STATUS',
+            'vname' => 'LBL_DOC_STATUS_ID',
             'type' => 'enum',
             'len' => 100,
             'options' => 'document_status_dom',
@@ -141,7 +141,6 @@ $dictionary['Document'] = array('table' => 'documents',
             'type' => 'varchar',
             'source' => 'non-db',
             'comment' => 'Document status for Meta-Data framework',
-            'studio' => 'false',
         ),
 
         'document_revision_id' =>
@@ -481,7 +480,4 @@ $dictionary['Document'] = array('table' => 'documents',
 VardefManager::createVardef('Documents', 'Document', array('default', 'assignable',
     'team_security',
 ));
-
-//boost value for full text search
-$dictionary['Document']['fields']['description']['full_text_search']['boost'] = 0.61;
-
+?>

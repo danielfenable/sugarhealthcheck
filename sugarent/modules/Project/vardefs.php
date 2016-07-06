@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id: vardefs.php 56115 2010-04-26 17:08:09Z kjing $
+
 
 $dictionary['Project'] = array(
     'table' => 'project',
@@ -37,15 +37,6 @@ $dictionary['Project'] = array(
 		    'enable_range_search' => true,
 		    'options' => 'date_range_search_dom',
             'readonly' => true,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-                'aggregations' => array(
-                    'date_entered' => array(
-                        'type' => 'DateRange',
-                    ),
-                ),
-            ),
 		),
 		'date_modified' => array(
 			'name' => 'date_modified',
@@ -55,15 +46,6 @@ $dictionary['Project'] = array(
 		    'enable_range_search' => true,
 		    'options' => 'date_range_search_dom',
             'readonly' => true,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-                'aggregations' => array(
-                    'date_modified' => array(
-                        'type' => 'DateRange',
-                    ),
-                ),
-            ),
 		),
 		'assigned_user_id' => array(
 			'name' => 'assigned_user_id',
@@ -72,17 +54,7 @@ $dictionary['Project'] = array(
 			'required' => false,
 			'isnull' => false,
 			'reportable'=>false,
-            'comment' => 'User assigned to this record',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-                'aggregations' => array(
-                    'assigned_user_id' => array(
-                        'type' => 'MyItems',
-                        'label' => 'LBL_AGG_ASSIGNED_TO_ME',
-                    ),
-                ),
-            ),
+			'comment' => 'User assigned to this record'
 		),
 		'modified_user_id' => array(
 			'name' => 'modified_user_id',
@@ -94,18 +66,7 @@ $dictionary['Project'] = array(
 			'isnull' => 'false',
 			'dbType' => 'id',
 			'reportable'=>true,
-            'comment' => 'User who last modified record',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-                'type' => 'id',
-                'aggregations' => array(
-                    'modified_user_id' => array(
-                        'type' => 'MyItems',
-                        'label' => 'LBL_AGG_MODIFIED_BY_ME',
-                    ),
-                ),
-            ),
+			'comment' => 'User who last modified record'
 		),
 		'modified_by_name' =>
 	  array (
@@ -131,17 +92,6 @@ $dictionary['Project'] = array(
 			'isnull' => 'false',
 			'dbType' => 'id',
 			'comment' => 'User who created record',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-                'type' => 'id',
-                'aggregations' => array(
-                    'created_by' => array(
-                        'type' => 'MyItems',
-                        'label' => 'LBL_AGG_CREATED_BY_ME',
-                    ),
-                ),
-            ),
 		),
 		'created_by_name' =>
 	  array (
@@ -166,11 +116,7 @@ $dictionary['Project'] = array(
 			'type' => 'name',
 			'len' => 50,
 			'unified_search' => true,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 0.84,
-            ),
+            'full_text_search' => array('enabled' => true, 'boost' => 3),
 			'comment' => 'Project name',
 			'importable' => 'required',
             'required' => true,
@@ -180,11 +126,6 @@ $dictionary['Project'] = array(
 			'vname' => 'LBL_DESCRIPTION',
 			'required' => false,
 			'type' => 'text',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 0.46,
-            ),
 			'comment' => 'Project description'
 		),
 		'deleted' => array(
@@ -225,10 +166,6 @@ $dictionary['Project'] = array(
             'vname' => 'LBL_STATUS',
             'type' => 'enum',
             'options' => 'project_status_dom',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-            ),
         ),
 
         'priority' =>
@@ -237,10 +174,6 @@ $dictionary['Project'] = array(
             'vname' => 'LBL_PRIORITY',
             'type' => 'enum',
             'options' => 'projects_priority_options',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-            ),
         ),
         'is_template' => array(
             'name' => 'is_template',

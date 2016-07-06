@@ -20,7 +20,7 @@ class SugarUpgradeCheckUpgrader extends UpgradeScript
 {
     public $order = 50;
     public $type = self::UPGRADE_ALL;
-    const ALLOWED_UPGRADER_VERSION = '7.7.0.0';
+    const ALLOWED_UPGRADER_VERSION = '7.6.0.0';
 
     public function run()
     {

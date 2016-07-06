@@ -21,7 +21,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDocs}
      */
     initDashlet: function(view) {
         // check if we're on the config screen
@@ -166,7 +166,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     loadData: function(options) {
         options = options || {};
@@ -220,14 +220,14 @@
 
         var data = serverData.reportData,
             properties = serverData.chartData.properties[0],
-            config = this.getChartConfig(properties.type),
             params = this.getDefaultSettings(),
+            barType = this._getBarType(properties.type),
             defaults = {
                 label: data.name,
-                chart_type: config.chartType || properties.type,
+                chart_type: properties.type,
                 report_title: properties.title,
                 show_legend: properties.legend === 'on' ? true : false,
-                stacked: config.barType === 'stacked' || config.barType === 'basic' ? true : false,
+                stacked: barType === 'stacked' || barType === 'basic' ? true : false,
                 x_axis_label: this._getXaxisLabel(data),
                 y_axis_label: this._getYaxisLabel(data)
             };
@@ -252,91 +252,6 @@
 
         // set the title of the dashlet to the report title
         this.$('[name="label"]').val(this.settings.get('label'));
-    },
-
-    /**
-     * Builds the chart config based on the type of chart
-     * @return {Mixed}
-     */
-    getChartConfig: function(chartType) {
-        var chartConfig;
-
-        switch (chartType) {
-            case 'pie chart':
-                chartConfig = {
-                    chartType: 'pie chart'
-                };
-                break;
-
-            case 'line chart':
-                chartConfig = {
-                    chartType: 'line chart'
-                };
-                break;
-
-            case 'funnel chart 3D':
-                chartConfig = {
-                    chartType: 'funnel chart'
-                };
-                break;
-
-            case 'gauge chart':
-                chartConfig = {
-                    chartType: 'gauge chart'
-                };
-                break;
-
-            case 'stacked group by chart':
-                chartConfig = {
-                    orientation: 'vertical',
-                    barType: 'stacked',
-                    chartType: 'group by chart'
-                };
-                break;
-
-            case 'group by chart':
-                chartConfig = {
-                    orientation: 'vertical',
-                    barType: 'grouped',
-                    chartType: 'group by chart'
-                };
-                break;
-
-            case 'bar chart':
-                chartConfig = {
-                    orientation: 'vertical',
-                    barType: 'basic',
-                    chartType: 'bar chart'
-                };
-                break;
-
-            case 'horizontal group by chart':
-                chartConfig = {
-                    orientation: 'horizontal',
-                    barType: 'stacked',
-                    chartType: 'horizontal group by chart'
-                };
-                break;
-
-            case 'horizontal bar chart':
-            case 'horizontal':
-                chartConfig = {
-                    orientation: 'horizontal',
-                    barType: 'basic',
-                    chartType: 'horizontal bar chart'
-                };
-                break;
-
-            default:
-                chartConfig = {
-                    orientation: 'vertical',
-                    barType: 'stacked',
-                    chartType: 'bar chart'
-                };
-                break;
-        }
-
-        return chartConfig;
     },
 
     /**
@@ -365,6 +280,46 @@
             });
         }
         return label;
+    },
+
+    /**
+     * Returns the barType chart property based on the type of chart
+     * @return {String}
+     */
+    _getBarType: function(type) {
+        var barType;
+
+        switch (type) {
+            case 'pie chart':
+            case 'line chart':
+            case 'gauge chart':
+            case 'funnel chart 3D':
+                barType = 'disabled';
+                break;
+
+            case 'stacked group by chart':
+            case 'horizontal group by chart':
+                barType = 'stacked';
+                break;
+
+            case 'group by chart':
+                barType = 'grouped';
+                break;
+
+            case 'vertical bar chart':
+            case 'vertical':
+            case 'horizontal bar chart':
+            case 'horizontal':
+            case 'bar chart':
+                barType = 'basic';
+                break;
+
+            default:
+                barType = 'disabled';
+                break;
+        }
+
+        return barType;
     },
 
     /**
@@ -430,7 +385,7 @@
             this.$('[data-action=loading]').removeClass(dt.cssIconDefault).addClass(dt.cssIconRefresh);
         }
 
-        app.api.call('create', app.api.buildURL('Reports/chart/' + reportId), {'ignore_datacheck': true}, {
+        app.api.call('create', app.api.buildURL('Reports/chart/' + reportId), null, {
             success: _.bind(function(serverData) {
                 if (options && options.success) {
                     options.success.apply(this, arguments);
@@ -465,7 +420,6 @@
      */
     _toggleChartFields: function() {
         if (this.meta.config) {
-
             var xOptionsFieldset = this.getField('x_label_options'),
                 tickDisplayMethods = this.getField('tickDisplayMethods'),
                 yOptionsFieldset = this.getField('y_label_options'),
@@ -475,9 +429,7 @@
                 showDimensionOptions = false,
                 showBarOptions = false,
                 showTickOptions = false,
-                showStacked = false,
-                xOptionsLabel = app.lang.get('LBL_CHART_CONFIG_SHOW_XAXIS_LABEL'),
-                yOptionsLabel = app.lang.get('LBL_CHART_CONFIG_SHOW_YAXIS_LABEL');
+                showStacked = false;
 
             switch (this.settings.get('chart_type')) {
                 case 'pie chart':
@@ -502,9 +454,9 @@
 
                 case 'vertical bar chart':
                 case 'vertical':
-                case 'bar chart':
                 case 'horizontal bar chart':
                 case 'horizontal':
+                case 'bar chart':
                     showDimensionOptions = true;
                     showBarOptions = true;
                     showStacked = false;
@@ -520,28 +472,20 @@
                     case 'horizontal group by chart':
                     case 'horizontal bar chart':
                     case 'horizontal':
-                        showTickOptions = false;
-                        xOptionsLabel = app.lang.get('LBL_CHART_CONFIG_SHOW_YAXIS_LABEL');
-                        yOptionsLabel = app.lang.get('LBL_CHART_CONFIG_SHOW_XAXIS_LABEL');
-                        break;
                     case 'line chart':
                         showTickOptions = false;
                         break;
+
                     default:
                         showTickOptions = true;
-                        xOptionsLabel = app.lang.get('LBL_CHART_CONFIG_SHOW_XAXIS_LABEL');
-                        yOptionsLabel = app.lang.get('LBL_CHART_CONFIG_SHOW_YAXIS_LABEL');
                 }
             }
 
             if (xOptionsFieldset) {
                 xOptionsFieldset.$el.closest('.record-cell').toggleClass('hide', !showDimensionOptions);
-                xOptionsFieldset.$el.closest('.record-cell').find('.record-label').text(xOptionsLabel);
-                yOptionsFieldset.$el.closest('.record-cell').find('.record-label').text(yOptionsLabel);
             }
             if (tickDisplayMethods) {
                 tickDisplayMethods.$el.closest('.record-cell').toggleClass('hide', !showDimensionOptions || !showTickOptions);
-                tickDisplayMethods.$el.find('.disabled').find('input').prop( 'checked', true ).prop('disabled', true);
             }
 
             if (yOptionsFieldset) {
@@ -557,7 +501,6 @@
                     stackedField.$el.toggleClass('hide', !showStacked);
                 }
             }
-
         }
     },
 

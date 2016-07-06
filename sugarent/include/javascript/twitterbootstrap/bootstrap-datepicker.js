@@ -667,7 +667,6 @@
 			var parts = dateIn.split(format.separator),
 				date = new Date(), isLegalDate = true,
 				val, i, cnt, originalDate, len, 
-				day, month, year,
 				monthsSet = false, dayValue = null, isValid = true;
 
 			// First check separator is correct
@@ -715,7 +714,6 @@
 					switch(format.parts[i]) {
 						case 'dd':
 						case 'd':
-							day = val;
 							// We must set months first and if format is dd-mm we defer setting day until month
 							if (!monthsSet) {
 								dayValue = val;	
@@ -725,7 +723,6 @@
 							break;
 						case 'mm':
 						case 'm':
-							month = val - 1;
 							if (_isInRange(val, 1, 12)) {
 								// If October 31 and we do setMonth(10) we get December since not 31 days in Nov!
 								originalDate = date.getDate();
@@ -745,7 +742,6 @@
 							}
 							break;
 						case 'yy':
-							year = 2000 + val;
 							len = val.toString().length;
 							// Auto correct when exactly four digits and current century
 							if (len === 4 && century() === val.toString().substr(0, 2)) {
@@ -758,7 +754,6 @@
 							}
 							break;
 						case 'yyyy':
-							year = val;
 							len = val.toString().length;
 							if (_isInRange(val, 0, 9999)) {
 
@@ -777,9 +772,6 @@
 							}
 							break;
 					}
-				}
-				if (isValid) {
-					date = new Date(year, month, day, 0, 0, 0);
 				}
 			} else {
 				isValid = false;

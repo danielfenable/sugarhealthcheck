@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-Na základě registrace nové aplikace získejte z produktu Citrix Online GoToMeeting klíč API Key.<br>
-&nbsp;<br>
-Postup registrace vaší instance:<br>
-&nbsp;<br>
-<ol>
-<li>Přihlaste se ke svému vývojářskému účtu Citrix Online: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/.</a></li>
-<li>Klikněte na položku Apply for Developer Key.</li>
-<li>V části Product API vyberte GoToMeeting a do položky Application URL zadejte adresu URL vaší instance.</li>
-<li>V části Your Applications uvidíte sloupec s názvem API Key.</li>
-<li>Ten zkopírujte níže.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'Klíč rozhraní API',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />Získejte klíč z Citrix Online GoToMeeting registrací nové aplikace.<br><br />&nbsp;<br><br />Kroky k registraci vaší instance:<br><br />&nbsp;<br><br /><ol><br /><li>Přihlašte se k vašemu Citrix Online developer account: https://developer.citrixonline.com/</li><br /><li>Klikněte na Apply for Developer Key</li><br /><li>V Product API vyberte GoToMeeting, a zadejte URL vaší instance do Application URL</li><br /><li>Uvidíte sloupec nazvaný API Key pod Your Applications</li><br /><li>Zkopírujte jej níže.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'API klíč (OAuth)',
 );
+

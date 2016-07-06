@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({extendsFrom:'ButtonField',hasAccess:function(){if(this.def.acl_action=='current_user'){var su=this.context.get('selectedUser')||app.user.toJSON();return su.id===app.user.get('id');}else{return this._super('hasAccess');}}})
+({extendsFrom:'ButtonField',hasAccess:function(){if(this.def.acl_action=='current_user'){var su=(this.context.get('selectedUser'))||app.user.toJSON();return(su.id===app.user.get('id'))}else{return this._super("hasAccess");}}})

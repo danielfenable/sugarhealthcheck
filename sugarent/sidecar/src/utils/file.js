@@ -140,6 +140,7 @@
                     return (!_.isEmpty(fieldValue) && !_.isEmpty($field.attr("name")));
                 }, this);
             }
-        };
+        }
+
     })(), false);
 })(SUGAR.App);

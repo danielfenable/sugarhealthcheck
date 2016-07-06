@@ -43,26 +43,23 @@ class One2MBeanRelationship extends One2MRelationship
 
         $lhsLinkName = $this->lhsLink;
         $rhsLinkName = $this->rhsLink;
-        $success = true;
+
         //Since this is bean based, we know updating the RHS's field will overwrite any old value,
         //But we need to use delete to make sure custom logic is called correctly
         if ($rhs->load_relationship($rhsLinkName)) {
             $oldLink = $rhs->$rhsLinkName;
             $prevRelated = $oldLink->getBeans(null);
             foreach($prevRelated as $oldLHS) {
-                if ($oldLHS->id != $lhs->id) {
-                    if($this->remove($oldLHS, $rhs, false) === false) {
-                        LoggerManager::getLogger()->error("Warning: failed trying to call remove() for relationship {$this->name} within One2MBeanRelationship->add(). rhsLinkName: $rhsLinkName");
-                        $success = false;
-                    }
-                }
+                if ($oldLHS->id != $lhs->id)
+                    $this->remove($oldLHS, $rhs, false);
             }
         }
+
         //Make sure we load the current relationship state to the LHS link
         if ((isset($lhs->$lhsLinkName) && is_a(
-                    $lhs->$lhsLinkName,
-                    "Link2"
-                )) || $lhs->load_relationship($lhsLinkName)
+            $lhs->$lhsLinkName,
+            "Link2"
+        )) || $lhs->load_relationship($lhsLinkName)
         ) {
             $lhs->$lhsLinkName->load();
         }
@@ -91,7 +88,7 @@ class One2MBeanRelationship extends One2MRelationship
             SugarRelationship::resaveRelatedBeans(false);
         }
 
-        return $success;
+        return true;
     }
 
     protected function updateLinks($lhs, $lhsLinkName, $rhs, $rhsLinkName)
@@ -107,10 +104,9 @@ class One2MBeanRelationship extends One2MRelationship
 
     protected function updateFields($lhs, $rhs, $additionalFields)
     {
-        //Now update the RHS bean's key field
-        $lhsID = $this->def['lhs_key'];
+        //Now update the RHS bean's ID field
         $rhsID = $this->def['rhs_key'];
-        $rhs->$rhsID = $lhs->$lhsID;
+        $rhs->$rhsID = $lhs->id;
         foreach ($additionalFields as $field => $val) {
             $rhs->$field = $val;
         }
@@ -125,7 +121,7 @@ class One2MBeanRelationship extends One2MRelationship
     public function remove($lhs, $rhs, $save = true)
     {
         $rhsID = $this->def['rhs_key'];
-        $success = true;
+
         // If this relationship has already been removed, we can just return.
         // Check both current value of related ID field and the one from fetched row.
         // The latter is valid in case, if relation was removed by changing bean's related ID field to another value.
@@ -134,7 +130,7 @@ class One2MBeanRelationship extends One2MRelationship
             return false;
         }
 
-        $rhs->$rhsID = null;
+        $rhs->$rhsID = '';
 
         if (empty($_SESSION['disable_workflow']) || $_SESSION['disable_workflow'] != "Yes") {
             $this->callBeforeDelete($lhs, $rhs, $this->getLHSLink());
@@ -151,17 +147,15 @@ class One2MBeanRelationship extends One2MRelationship
             $sql = "UPDATE {$rhs->table_name}
                     SET {$rhsID} = $nullValue
                     WHERE id = '{$rhs->id}'";
-            if ($rhs->db->query($sql) === false) {
-                $success = false;
-                LoggerManager::getLogger()->error("Warning: failed trying to set null value on rhs for relationship {$this->name} within One2MBeanRelationship->remove(). sql: $sql");
-            }
+            $rhs->db->query($sql);
         }
+
         if (empty($_SESSION['disable_workflow']) || $_SESSION['disable_workflow'] != "Yes") {
             $this->callAfterDelete($lhs, $rhs, $this->getLHSLink());
             $this->callAfterDelete($rhs, $lhs, $this->getRHSLink());
         }
 
-        return $success;
+        return true;
     }
 
     /**
@@ -459,10 +453,10 @@ class One2MBeanRelationship extends One2MRelationship
      */
     public function relationship_exists($lhs, $rhs)
     {
+        // we need the key that is stored on the rhs to compare tok
         $lhsIDName = $this->def['rhs_key'];
-        $rhsIDName = $this->def['lhs_key'];
 
-        return (isset($rhs->fetched_row[$lhsIDName]) && $rhs->$lhsIDName == $rhs->fetched_row[$lhsIDName] && $rhs->$lhsIDName == $lhs->$rhsIDName);
+        return (isset($rhs->fetched_row[$lhsIDName]) && $rhs->$lhsIDName == $rhs->fetched_row[$lhsIDName] && $rhs->$lhsIDName == $lhs->id);
     }
 
     public function getRelationshipTable()

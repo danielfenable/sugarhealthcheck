@@ -329,7 +329,6 @@ AdamProject.prototype.loadProject = function (response) {
         this.process_definition.pro_status = response.project.process_definition.pro_status;
         this.process_definition.pro_locked_variables = response.project.process_definition.pro_locked_variables;
         this.process_definition.pro_terminate_variables = response.project.process_definition.pro_terminate_variables;
-        this.script_tasks = response.project.script_tasks;
 
         this.canvas.setDiaUid(diagram.dia_uid);
 

@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,37 +12,32 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * $Id$
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
- 
+	
+
+$object_name = strtolower($object_name);
 $app_list_strings = array (
-strtolower($object_name).'_category_dom' =>
-    array (
-    '' => '',
-    'Marketing' => 'Marketing',
+  $object_name.'_category_dom' => 
+  array (
+    '' => '[-üres-]',
     'Knowledege Base' => 'Tudásbázis',
+    'Marketing' => 'Marketing',
     'Sales' => 'Eladások',
   ),
-
-    strtolower($object_name).'_subcategory_dom' =>
-    array (
-    '' => '',
-    'Marketing Collateral' => 'Marketinganyagok',
-    'Product Brochures' => 'Termékismertetők',
-    'FAQ' => 'GYIK',
-  ),
-
-    strtolower($object_name).'_status_dom' =>
-    array (
+  $object_name.'_status_dom' => 
+  array (
     'Active' => 'Aktív',
     'Draft' => 'Piszkozat',
-    'FAQ' => 'GYIK',
     'Expired' => 'Lejárt',
-    'Under Review' => 'Felülvizsgálat alatt',
+    'FAQ' => 'GYIK',
     'Pending' => 'Függőben lévő',
+    'Under Review' => 'Felülvizsgálat alatt',
   ),
-  );
+  $object_name.'_subcategory_dom' => 
+  array (
+    '' => '[-üres-]',
+    'FAQ' => 'GYIK',
+    'Marketing Collateral' => 'Marketinganyagok',
+    'Product Brochures' => 'Termékismertetők',
+  ),
+);
+

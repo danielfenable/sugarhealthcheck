@@ -14,6 +14,7 @@
  * @extends View.Views.Base.DnbView
  */
 ({
+
     extendsFrom: 'DnbView',
 
     events: {
@@ -49,6 +50,12 @@
         this.layout.layout.context.on('dashboard:collapse:fire', this.loadIndustryInfo, this);
     },
 
+    loadData: function(options) {
+        if (this.model.get('duns_num')) {
+            this.duns_num = this.model.get('duns_num');
+        }
+    },
+
     /**
      * Refresh dashlet once Refresh link clicked from gear button
      * To show updated industry information from DNB service
@@ -66,12 +73,11 @@
         if (!isCollapsed) {
             //check if Hoovers Industry Code is set in context by refresh dashlet
             if (this.checkFieldExists('sic_code')) {
-                var sicFromContext = app.controller.context.get('dnb_temp_hoovers_ind_code'),
-                    sicFromModel = this.model.get('sic_code');
-                if (!_.isUndefined(sicFromContext)) {
-                    this.getDNBIndustryInfo(sicFromContext);
-                } else if (sicFromModel) {
-                    this.getDNBIndustryInfoFromSIC(sicFromModel);
+                if (!_.isUndefined(app.controller.context.get('dnb_temp_hoovers_ind_code'))) {
+                    this.getDNBIndustryInfo(app.controller.context.get('dnb_temp_hoovers_ind_code'));
+                } else if (this.model.get('sic_code')) {
+                    var sicToHicParams = {'industryType': this.commonConst.sic_to_hic, 'industryCode': this.model.get('sic_code')};
+                    this.getDNBIndustryInfoFromSIC(sicToHicParams);
                 } else {
                     this.template = app.template.get(this.name + '.dnb-no-sic');
                     if (!this.disposed) {
@@ -88,42 +94,59 @@
     },
 
     /**
-     * Get D&B industry information from SIC codes
-     * @param  {String} sicCode
+     * Display Loading Message
+     * @param  {String} duns_num
      */
-    getDNBIndustryInfoFromSIC: function(sicCode) {
-        var self = this;
-        var sicToHicParams = {
-            'industryType': this.commonConst.sic_to_hic,
-            'industryCode': sicCode.substring(0,4) //use only the first 4 digits of the sic
-        };
-        self.template = app.template.get(self.name);
-        if (!self.disposed) {
-            self.render();
+    showDNBLoading: function(duns_num) {
+        this.template = app.template.get(this.name);
+        if (this.disposed) {
+            return;
         }
-        self.$('#dnb-industry-list-loading').show();
-        self.$('#dnb-industry-info').hide();
-        //check if cache has this data already
-        var cacheKey = 'dnb:industrydet:' + sicToHicParams.industryType + ':' + sicToHicParams.industryCode;
-        if (app.cache.get(cacheKey)) {
-            self.renderIndustryInfo.call(self, app.cache.get(cacheKey));
+        this.render();
+        this.$('#dnb-industry-list-loading').show();
+        this.$('#dnb-industry-info').hide();
+    },
+
+    /**
+     * Get D&B industry information from SIC codes
+     * @param  {Object} sicToHicParams
+     */
+    getDNBIndustryInfoFromSIC: function(sicToHicParams) {
+        var self = this;
+        if (sicToHicParams.industryType === this.commonConst.sic_to_hic && sicToHicParams.industryCode) {
+            self.template = app.template.get(self.name);
+            if (!self.disposed) {
+                self.render();
+            }
+            self.$('#dnb-industry-list-loading').show();
+            self.$('#dnb-industry-info').hide();
+            //check if cache has this data already
+            var cacheKey = 'dnb:industrydet:' + sicToHicParams.industryType + ':' + sicToHicParams.industryCode;
+            if (app.cache.get(cacheKey)) {
+                self.renderIndustryInfo.call(self, app.cache.get(cacheKey));
+            } else {
+                var dnbIndustryURL = app.api.buildURL('connector/dnb/industry', '', {}, {});
+                var resultData = {'product': null, 'errmsg': null};
+                app.api.call('create', dnbIndustryURL, {'qdata': sicToHicParams}, {
+                    success: function(data) {
+                        var responseCode = self.getJsonNode(data, self.appendSVCPaths.responseCode),
+                            responseMsg = self.getJsonNode(data, self.appendSVCPaths.responseMsg);
+                        if (responseCode && responseCode === self.responseCodes.success) {
+                            resultData.product = data;
+                            app.cache.set(cacheKey, resultData);
+                        } else {
+                            resultData.errmsg = responseMsg || app.lang.get('LBL_DNB_SVC_ERR');
+                        }
+                        self.renderIndustryInfo.call(self, resultData);
+                    },
+                    error: _.bind(self.checkAndProcessError, self)
+                });
+            }
         } else {
-            var dnbIndustryURL = app.api.buildURL('connector/dnb/industry', '', {}, {});
-            var resultData = {'product': null, 'errmsg': null};
-            app.api.call('create', dnbIndustryURL, {'qdata': sicToHicParams}, {
-                success: function(data) {
-                    var responseCode = self.getJsonNode(data, self.appendSVCPaths.responseCode),
-                        responseMsg = self.getJsonNode(data, self.appendSVCPaths.responseMsg);
-                    if (responseCode && responseCode === self.responseCodes.success) {
-                        resultData.product = data;
-                        app.cache.set(cacheKey, resultData);
-                    } else {
-                        resultData.errmsg = responseMsg || app.lang.get('LBL_DNB_SVC_ERR');
-                    }
-                    self.renderIndustryInfo.call(self, resultData);
-                },
-                error: _.bind(self.checkAndProcessError, self)
-            });
+            self.template = app.template.get(self.name + '.dnb-no-duns');
+            if (!self.disposed) {
+                self.render();
+            }
         }
     },
 

@@ -1,5 +1,5 @@
 <?php
-// created: 2016-06-29 10:48:37
+// created: 2016-07-06 08:17:12
 $connectors = array (
   'ext_rest_twitter' => 
   array (
@@ -93,7 +93,7 @@ $connectors = array (
   'ext_rest_dnb' => 
   array (
     'testing_enabled' => true,
-    'test_passed' => false,
+    'test_passed' => true,
     'eapm_bean' => false,
     'field_mapping' => 
     array (
@@ -109,5 +109,5 @@ $connectors = array (
     'id' => 'ext_rest_dnb',
     'name' => 'D&B',
   ),
-  '_hash' => 'c8d8d29eeca7465654442c12bab33645',
+  '_hash' => '0e5c290e3e1b585e3a4c0138450d548b',
 );

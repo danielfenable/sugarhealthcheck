@@ -188,12 +188,6 @@ class ImportDuplicateCheck
             unset($_focus);
         }
 
-        //force duplicate check on certain indexes defined in vardefs
-        global $dictionary;
-        if (isset($dictionary[$this->_focus->object_name]['required_import_indexes'])) {
-            $indexlist = array_merge($dictionary[$this->_focus->object_name]['required_import_indexes'], $indexlist);
-        }
-
         //lets strip the indexes of the name field in the value and leave only the index name
         $origIndexList = $indexlist;
         $indexlist=array();

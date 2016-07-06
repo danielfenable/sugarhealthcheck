@@ -31,7 +31,6 @@
                     delete options.module;
                 }
 
-                this.synced = [];
                 this.defaults = [];
 
                 app.BeanCollection.prototype.initialize.call(this, models, options);
@@ -44,24 +43,8 @@
              * @param {Data.Bean} model
              * @return {boolean}
              */
-            isSynced: function(model) {
-                return _.contains(this.synced, model.id);
-            },
-
-            /**
-             * @deprecated since 7.7. Will be removed in 7.9.
-             *   Use {link Link#isSynced} instead.
-             *
-             * Returns `true` if the model has already been linked; `false` if
-             * not.
-             *
-             * @param {Data.Bean} model
-             * @return {boolean}
-             */
             isDefault: function(model) {
-                app.logger.warn('Link.isDefault is deprecated. ' +
-                    'Please update your code to use Link.isSynced instead.');
-                return this.isSynced(model);
+                return _.contains(this.defaults, model.id);
             },
 
             /**
@@ -119,7 +102,7 @@
              * @chainable
              */
             linkRecord: function(model) {
-                model.set('_action', this.isSynced(model) ? 'update' : 'create');
+                model.set('_action', this.isDefault(model) ? 'update' : 'create');
                 this.add(model, {merge: true});
 
                 return this;
@@ -136,7 +119,7 @@
              * @chainable
              */
             unlinkRecord: function(model) {
-                if (this.isSynced(model)) {
+                if (this.isDefault(model)) {
                     model.set('_action', 'delete');
                     this.add(model, {merge: true});
                 } else {
@@ -149,91 +132,16 @@
             /**
              * Removes a model so that it is neither linked or unlinked.
              *
-             * If model was set as a default, it is also removed from the list
-             * of defaults.
-             *
              * @param {Data.Bean} model
              * @chainable
              */
             undo: function(model) {
-                this.removeDefault(model);
                 this.remove(model);
 
                 return this;
             },
 
             /**
-             * Appends the model's ID to the list of defaults so it will not be
-             * considered when checking for changes in the collection.
-             *
-             * Model is left in the collection as it still needs to be synced.
-             *
-             * @param {Data.Bean} model Model whose ID should be appended to the
-             *   list of defaults
-             * @chainable
-             */
-            appendDefault: function(model) {
-                this.defaults.push(model.id);
-
-                return this;
-            },
-
-            /**
-             * Remove the model's ID from list of defaults.
-             *
-             * @param {Data.Bean} model Model whose ID should be removed from
-             *   the list of defaults
-             * @chainable
-             */
-            removeDefault: function(model) {
-                this.defaults = _.without(this.defaults, model.id);
-
-                return this;
-            },
-
-            /**
-             * Returns `true` if the link's model collection has changed beyond
-             * the models marked as defaults; `false` if not.
-             *
-             * @return {boolean}
-             */
-            hasChanged: function() {
-                return _.difference(_.pluck(this.models, 'id'), this.defaults).length > 0;
-            },
-
-            /**
-             * Stores the ID's of the models known to be related through this
-             * relationship.
-             *
-             * There may be more that can be found through pagination.
-             *
-             * Models that were set to be linked or unlinked are removed from
-             * the collection.
-             *
-             * @param {Array} [models] Array of model ID's. If empty, then the
-             * ID's of the models currently in the collection will be used.
-             * @chainable
-             */
-            setSynced: function(models) {
-                var undos = [];
-
-                this.synced = _.isArray(models) ? models.slice() : this.pluck('id');
-
-                this.each(function(model) {
-                    if (_.contains(this.synced, model.id)) {
-                        undos.push(model);
-                    }
-                }, this);
-
-                _.each(undos, this.undo, this);
-
-                return this;
-            },
-
-            /**
-             * @deprecated since 7.7. Will be removed in 7.9.
-             *   Use {link Link#setSynced} instead.
-             *
              * Stores the ID's of the models know to be related through this
              * relationship.
              *
@@ -247,34 +155,22 @@
              * @chainable
              */
             setDefaults: function(models) {
-                app.logger.warn('Link.setDefaults is deprecated. ' +
-                    'Please update your code to use Link.setSynced instead.');
-                return this.setSynced(models);
-            },
+                var undos = [];
 
-            /**
-             * Clears the changes to the link.
-             *
-             * Models that were linked are added to the synced set. Models
-             * that were unlinked are removed from the synced set.
-             * @chainable
-             */
-            clearAndUpdateSynced: function() {
-                var linked, unlinked;
+                this.defaults = _.isArray(models) ? models.slice() : this.pluck('id');
 
-                linked = _.union(this.where({'_action': 'create'}), this.where({'_action': 'update'}));
-                unlinked = this.where({'_action': 'delete'});
+                this.each(function(model) {
+                    if (_.contains(this.defaults, model.id)) {
+                        undos.push(model);
+                    }
+                }, this);
 
-                this.setSynced(_.union(this.synced, _.pluck(linked, 'id')));
-                this.setSynced(_.difference(this.synced, _.pluck(unlinked, 'id')));
+                _.each(undos, this.undo, this);
 
                 return this;
             },
 
             /**
-             * @deprecated since 7.7. Will be removed in 7.9.
-             *   Use {link Link#clearAndUpdateSynced} instead.
-             *
              * Clears the changes to the link.
              *
              * Models that were linked are added to the default set. Models
@@ -282,31 +178,18 @@
              * @chainable
              */
             clearAndUpdateDefaults: function() {
-                app.logger.warn('Link.clearAndUpdateDefaults is deprecated. ' +
-                    'Please update your code to use Link.clearAndUpdateSynced instead.');
-                return this.clearAndUpdateSynced();
-            },
+                var linked, unlinked;
 
-            /**
-             * Sets a model as synced.
-             *
-             * If the model was set to be linked or unlinked, then that change
-             * will be undone.
-             *
-             * @param {Data.Bean} model
-             * @chainable
-             */
-            addSynced: function(model) {
-                this.synced.push(model.id);
-                this.undo(model);
+                linked = _.union(this.where({'_action': 'create'}), this.where({'_action': 'update'}));
+                unlinked = this.where({'_action': 'delete'});
+
+                this.setDefaults(_.union(this.defaults, _.pluck(linked, 'id')));
+                this.setDefaults(_.difference(this.defaults, _.pluck(unlinked, 'id')));
 
                 return this;
             },
 
             /**
-             * @deprecated since 7.7. Will be removed in 7.9.
-             *   Use {link Link#addSynced} instead.
-             *
              * Sets a model as a default.
              *
              * If the model was set to be linked or unlinked, then that change
@@ -316,9 +199,10 @@
              * @chainable
              */
             addDefault: function(model) {
-                app.logger.warn('Link.addDefault is deprecated. ' +
-                    'Please update your code to use Link.addSynced instead.');
-                return this.addSynced(model);
+                this.defaults.push(model.id);
+                this.undo(model);
+
+                return this;
             }
         }, false);
 
@@ -341,7 +225,7 @@
              * collection on the server and do not need to be linked or
              * unlinked. Each {@link Link} instance is reset at the end of
              * construction to avoid marking the initial models to be linked or
-             * unlinked. These synced models are stored for reference.
+             * unlinked. These defaults are stored for reference.
              *
              * To force all models to be linked during synchronization, create
              * the collection without models (`[]`) and subsequently add all
@@ -363,11 +247,11 @@
 
                 _.each(this.links, function(link) {
                     // don't want change actions for the initial set
-                    link.setSynced();
+                    link.setDefaults();
 
                     if (_.isUndefined(this.offsets[link.link.name])) {
                         // set the default offset for this link for use during pagination
-                        this.offsets[link.link.name] = link.synced.length;
+                        this.offsets[link.link.name] = link.defaults.length;
                     }
                 }, this);
             },
@@ -378,7 +262,7 @@
              * {@link Link} instances are instantiated for each relationship
              * managed by the collection. The changes in each {@link Link}
              * instance are cleared when the collection is synchronized (See
-             * {@link Link#clearAndUpdateSynced}).
+             * {@link Link#clearAndUpdateDefaults}).
              *
              * @param {Object} options
              * @param {Data.Bean} options.parent The model to which this
@@ -421,7 +305,7 @@
 
                 this.parent.on('sync', function() {
                     _.each(this.links, function(link) {
-                        link.clearAndUpdateSynced();
+                        link.clearAndUpdateDefaults();
                     });
                 }, this);
 
@@ -478,7 +362,7 @@
                             relationship.linkRecord(model);
                         }
                     } else {
-                        if (relationship.isSynced(model)) {
+                        if (relationship.isDefault(model)) {
                             // reset the model in the relationship as there is
                             // no change
                             relationship.undo(model);
@@ -492,10 +376,6 @@
                     if (!existingModel || options.merge) {
                         app.MixedBeanCollection.prototype.add.call(this, model, options);
                         added.push(this.get(model.id));
-                    }
-
-                    if (options.default) {
-                        relationship.appendDefault(model);
                     }
                 }, this);
 
@@ -557,10 +437,10 @@
              * Models that are found in the collection on the server but not in
              * the new set of models will be marked to be unlinked.
              *
-             * TODO: The new models that are not synced should be marked to
+             * TODO: The new models that are not defaults should be marked to
              * be linked. This will require a refactor where reset is called by
              * revert, instead of the other way around, and will impact
-             * initialization with the synced models.
+             * initialization with the default models.
              *
              * @fires See {@link VirtualCollection#_triggerChange}.
              * @chainable
@@ -634,7 +514,7 @@
                 // to be thrown off
                 _.each(this.links, function(relationship) {
                     relationship.each(function(model) {
-                        if (relationship.isSynced(model)) {
+                        if (relationship.isDefault(model)) {
                             add.push(model);
                         } else {
                             remove.push(model);
@@ -662,7 +542,7 @@
                 var changed = false;
 
                 _.each(this.links, function(link) {
-                    if (link.hasChanged()) {
+                    if (link.length > 0) {
                         changed = true;
                     }
                 }, this);
@@ -766,49 +646,6 @@
             },
 
             /**
-             * Fetches all records in the collection, one page at a time.
-             *
-             * @param {Object} [options]
-             * @param {Function} [options.success] The callback to call once
-             * all records have been retrieved.
-             */
-            fetchAll: function(options) {
-                var self, success;
-
-                /**
-                 * Paginate through the collection until all records have been
-                 * fetched.
-                 *
-                 * Calls `options.success` when there are no more records to fetch.
-                 */
-                function paginate() {
-                    if (self.hasMore()) {
-                        self.paginate(options);
-                    } else {
-                        if (success) {
-                            success(self, options);
-                        }
-                    }
-                }
-
-                self = this;
-
-                options || (options = {});
-
-                if (options.success) {
-                    success = options.success;
-                    delete options.success;
-                }
-
-                options.success = paginate;
-
-                // increase the limit to reduce the number of requests
-                options.limit = _.max([options.limit, app.config.maxSubpanelResult, app.config.maxQueryResult]);
-
-                paginate();
-            },
-
-            /**
              * @inheritdoc
              *
              * Upon success...
@@ -823,7 +660,7 @@
              * already exist in the collection. The change events will only be
              * triggered on the parent model once.
              *
-             * 3. Each of the returned records will be added as synced for
+             * 3. Each of the returned records will be added as a default for
              * their respective links.
              */
             paginate: function(options) {
@@ -859,7 +696,7 @@
                         var model;
 
                         model = this._prepareModel(record);
-                        this.links[model.link.name].addSynced(model);
+                        this.links[model.link.name].addDefault(model);
                     }, this);
 
                     if (success) {
@@ -1009,11 +846,14 @@
              *
              * @param {Data.Bean} model The model to copy to the collection
              * field of the target.
-             * @return {Data.Bean} copied model
+             * @return {Object} Attributes hash for the model.
              */
             clone = function(model) {
-                var attributes = _.chain(model.attributes).clone().omit('_action').value();
-                return app.data.createBean(model.module, attributes);
+                var attributes = _.clone(model.attributes);
+
+                delete attributes._action;
+
+                return attributes;
             };
 
             _.each(fields, function(name) {
@@ -1071,38 +911,8 @@
          * without any models.
          */
         BeanOverrides.prototype.set = function(attr, options) {
-            var isEqual = function(previous, current) {
-                var previousFiltered,
-                    currentFiltered,
-                    filter = function(collection) {
-                        return _.map(collection.toJSON(), function(model) {
-                            var result = {};
-                            _.each(model, function(value, key) {
-                                if (key.indexOf('_') !== 0) {
-                                    result[key] = value;
-                                }
-                            });
-                            return result;
-                        });
-                    };
-
-                if (previous) {
-                    previousFiltered = filter(previous);
-                }
-
-                if (current) {
-                    currentFiltered = filter(current);
-                }
-
-                return _.isEqual(previousFiltered, currentFiltered);
-            };
-
-            if (!this.model._changing) {
-                this.model.changed = {}; //attributes that have changed
-            }
-
             _.each(attr, function(models, key) {
-                var collection, previous;
+                var collection;
 
                 options = _.extend({}, options, {
                     parent: this,
@@ -1130,17 +940,8 @@
 
                 collection = new VirtualCollection(models, options);
 
-                previous = this.get(key);
                 this.attributes[key] = collection;
                 this.setDefault(key, collection);
-
-                // Has the attribute changed since the last time it has been set?
-                if (!isEqual(previous, this.get(key))) {
-                    this.changed[key] = collection;
-                    if (!options.silent) {
-                        this.trigger('change:' + key, collection);
-                    }
-                }
             }, this.model);
 
             return this.model;
@@ -1218,38 +1019,9 @@
          *
          * TODO: Don't assume the collection is synchronized when moving
          * collection field support to sidecar.
-         *
-         * @deprecated since 7.7. Will be removed in 7.9.
-         * Use {@link BeanOverrides#getSynced} instead.
          */
         BeanOverrides.prototype.getSyncedAttributes = function() {
-            app.logger.warn('BeanOverrides#getSyncedAttributes is deprecated. ' +
-            'Please update your code to use getSynced');
-            return this.getSynced();
-        };
-
-        /**
-         * {@link Data.Bean#getSynced}
-         *
-         * Includes in the return value all collection fields and their
-         * associated link attributes. When comparing objects, Backbone does
-         * not do a deep comparison. As collections are objects, the current
-         * state of the collection is assumed to be synchronized. This method
-         * handles the deep comparison for us. If a key is provided, only that
-         * attribute is returned.
-         *
-         * TODO: Don't assume the collection is synchronized when moving
-         * collection field support to sidecar.
-         *
-         * @param {string} [key] The attribute name.
-         * @return {Mixed} The synced attribute's value.
-         */
-        BeanOverrides.prototype.getSynced = function(key) {
             var syncedAttributes = {};
-
-            if (key) {
-                return this.model.get(key);
-            }
 
             _.reduce(this.model.getCollectionFieldNames(), function(memo, attr) {
                 var collection = this.get(attr);
@@ -1279,7 +1051,6 @@
              * {@link Data.Bean#changedAttributes}
              * {@link Data.Bean#revertAttributes}
              * {@link Data.Bean#getSyncedAttributes}
-             * {@link Data.Bean#getSynced}
              *
              * @param {Data.Bean} model The model to which the plugin is
              * attached.
@@ -1355,9 +1126,7 @@
                  * and {@link Data.Bean#set} to handle the others.
                  */
                 this.set = _.wrap(this.set, function(_super, key, val, options) {
-                    var attrs, collections,
-                        hasChanged,
-                        changedAttributes;
+                    var attrs, collections;
 
                     if (key == null) {
                         return this;
@@ -1376,19 +1145,8 @@
                     attrs = _.omit(attrs, _.keys(collections));
 
                     overrides.set(collections, options);
-                    changedAttributes = this.changed; //any collection attributes changed since the last set()?
 
-                    _super.call(this, attrs, options);
-
-                    // If non-collection attributes haven't changed but collection attributes have,
-                    // fire the change event.
-                    hasChanged = this.hasChanged();
-                    _.extend(this.changed, changedAttributes);
-                    if (!options.silent && !hasChanged && !_.isEmpty(changedAttributes)) {
-                        this.trigger('change', this, options);
-                    }
-
-                    return this;
+                    return _super.call(this, attrs, options);
                 });
 
                 /**
@@ -1421,23 +1179,9 @@
                 /**
                  * See {@link Data.Bean#getSyncedAttributes} and
                  * {@link BeanOverrides#getSyncedAttributes}.
-                 *
-                 * @deprecated since 7.7. Will be removed in 7.9.
-                 * Use {@link #getSynced} instead.
-                 *
                  */
-                this.getSyncedAttributes = function() {
-                    app.logger.warn('Data.Bean#getSyncedAttributes is deprecated. ' +
-                    'Please update your code to use Data.Bean#getSynced');
-                    return this.getSynced();
-                };
-
-                /**
-                 * See {@link Data.Bean#getSynced} and
-                 * {@link BeanOverrides#getSynced}.
-                 */
-                this.getSynced = _.wrap(this.getSynced, function(_super, key) {
-                    return _.extend(app.utils.deepCopy(_super.call(this, key) || {}), overrides.getSynced(key));
+                this.getSyncedAttributes = _.wrap(this.getSyncedAttributes, function(_super) {
+                    return _.extend(app.utils.deepCopy(_super.call(this) || {}), overrides.getSyncedAttributes());
                 });
             },
 

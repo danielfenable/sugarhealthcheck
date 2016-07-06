@@ -36,6 +36,10 @@ $dictionary['pmse_BpmGroup'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '36',
     'size' => '36',
@@ -58,7 +62,11 @@ $dictionary['pmse_BpmGroup'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
-     'calculated' => false,
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
+      'calculated' => false,
       'len' => '4',
       'size' => '20',
       'enable_range_search' => false,

@@ -20,7 +20,6 @@ $viewdefs['Calls']['base']['filter']['default'] = array(
         'date_modified' => array(),
         'assigned_user_name' => array(),
         'team_name' => array(),
-        'tag' => array(),
         '$owner' => array(
             'predefined_filter' => true,
             'vname' => 'LBL_CURRENT_USER_FILTER',

@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,18 +11,34 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
 
 
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Fuente de Noticias',
-                                         'LBL_DESCRIPTION'      => 'Fuente de Noticias',
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+
+$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Fuentes de Noticias',
+                                         'LBL_DESCRIPTION'      => 'Fuentes de Noticias',
                                          'LBL_SAVING'           => 'Analizando ...',
                                          'LBL_SAVED'            => 'Completado',
                                          'LBL_AUTO_SCROLL'      => 'Desplazamiento Automático',
                                           'LBL_SCROLL_SPEED'      => 'Velocidad de Desplazamiento (%)',
                                          'LBL_CONFIGURE_TITLE'  => 'Título',
                                          'LBL_CONFIGURE_HEIGHT' => 'Altura (1 - 300)',
-                                         'LBL_CONFIGURE_RSSURL' => 'URL del RSS',
+                                         'LBL_CONFIGURE_RSSURL' => 'URL RSS',
                                          'LBL_DBLCLICK_HELP'    => '',
                                          'ERR_LOADING_FEED'     => 'Error al cargar Fuente RSS',
                                          );

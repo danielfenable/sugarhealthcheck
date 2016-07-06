@@ -26,7 +26,7 @@
     extendsFrom: 'ButtonField',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Add the `EmailClientLaunch` plugin and force use of `ButtonField`
      * templates.
@@ -61,7 +61,7 @@
      * Map mass collection models to the appropriate format
      * required to prepopulate the to_addresses on email compose
      *
-     * @return {Object} options to prepopulate on the email compose
+     * @returns {Object} options to prepopulate on the email compose
      * @private
      */
     _retrieveEmailOptionsFromLink: function() {

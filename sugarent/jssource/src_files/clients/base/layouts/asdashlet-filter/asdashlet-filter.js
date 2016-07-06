@@ -17,7 +17,7 @@
     className: 'dashablelist-filter',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initialize: function(options) {
         this._super('initialize', [options]);

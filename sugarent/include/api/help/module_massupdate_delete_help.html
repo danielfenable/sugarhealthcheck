@@ -51,7 +51,35 @@
             A list of ids.
         </td>
         <td>
-            True
+            False
+        </td>
+    </tr>
+    <tr>
+        <td>
+            massupdate_params.entire
+        </td>
+        <td>
+            Boolean
+        </td>
+        <td>
+            True for all records.
+        </td>
+        <td>
+            False
+        </td>
+    </tr>
+    <tr>
+        <td>
+            massupdate_params.filter
+        </td>
+        <td>
+            Array
+        </td>
+        <td>
+            The filter expression. More information on filter expressions can be found in <code>/&lt;module&gt;/filter</code>.
+        </td>
+        <td>
+            False
         </td>
     </tr>
     </tbody>
@@ -66,6 +94,31 @@
             "ebf22b86-94ea-1601-4f4f-512d09173438",
             "e3b71c55-d96b-80bb-1696-512d09672398"
         ]
+    }
+}
+</pre>
+
+<h4>Mass Deleting with a Filter</h4>
+<pre class="pre-scrollable">
+{
+   "massupdate_params":{
+      "entire":true,
+      "filter":[
+         [
+            {
+               "name":"airline"
+            }
+         ]
+      ]
+   }
+}
+</pre>
+
+<h4>Mass Deleting All Records in a Module</h4>
+<pre class="pre-scrollable">
+{
+    "massupdate_params":{
+        "entire":true
     }
 }
 </pre>
@@ -89,7 +142,18 @@
             String
         </td>
         <td>
-            The status of the mass update. Possible value is 'done'.
+            The status of the mass update. Possible values are 'done' and 'queued'.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            jobid
+        </td>
+        <td>
+            String
+        </td>
+        <td>
+            The ID of the job if queued. This is only returned if the status is 'queued'.
         </td>
     </tr>
     </tbody>
@@ -99,6 +163,14 @@
 <pre class="pre-scrollable">
 {
     "status":"done"
+}
+</pre>
+
+<h3>Output Queued Example</h3>
+<pre class="pre-scrollable">
+{
+    "status":"queued",
+    "jobId":"1530025c-7329-5243-be2e-512ff0171b7a"
 }
 </pre>
 

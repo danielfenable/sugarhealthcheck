@@ -15,15 +15,15 @@
      * @inheritdoc
      */
     initialize: function(options) {
-        this.plugins = _.union(this.plugins || [], ['HistoricalSummary', 'CommittedDeleteWarning']);
+        this.plugins = _.union(this.plugins || [], ['HistoricalSummary']);
         this._super('initialize', [options]);
-        app.utils.hideForecastCommitStageField(this.meta.panels);
+        this._parsePanelFields(this.meta.panels);
     },
 
     /**
      * @inheritdoc
      */
-    cancelClicked: function() {
+    cancelClicked: function () {
         /**
          * todo: this is a sad way to work around some problems with sugarlogic and revertAttributes
          * but it makes things work now. Probability listens for Sales Stage to change and then by
@@ -35,9 +35,12 @@
          * exact same thing, but that time, since the model was already set, it doesn't see anything in
          * this.model.changed, so it doesn't warn the user.
          */
-        var changedAttributes = this.model.changedAttributes(this.model.getSynced());
-        this.model.set(changedAttributes, { revert: true });
+        var changedAttributes = this.model.changedAttributes(this.model.getSyncedAttributes());
+        this.model.set(changedAttributes);
         this._super('cancelClicked');
+
+        // re-trigger this event for dashlets to listen for
+        this.context.trigger('button:cancel_button:click');
     },
 
     /**
@@ -73,7 +76,32 @@
      */
     bindDataChange: function() {
         this.model.on('duplicate:before', this._handleDuplicateBefore, this);
+        this.model.on('change:likely_case', this._handleLikelyChange, this);
         this._super('bindDataChange');
+    },
+
+    /**
+     * Handle a change to likely value (requiring copy to unit price when empty).
+     */
+    _handleLikelyChange: function(new_model, val, options) {
+        if (
+            _.isEmpty(options) &&
+            _.isEmpty(new_model.get('product_template_id')) &&
+            !_.isFinite(new_model.get('discount_price'))
+        ) {
+            var quantity = new_model.get('quantity'),
+                new_value = '';
+
+            if (!_.isFinite(quantity) || parseFloat(quantity) === 0) {
+                quantity = 1;
+            }
+
+            if (!_.isEmpty(val)) {
+                new_value = app.math.div(val, quantity);
+            }
+
+            new_model.set({discount_price: new_value});
+        }
     },
 
     /**
@@ -85,5 +113,31 @@
     _handleDuplicateBefore: function(new_model) {
         new_model.unset('quote_id');
         new_model.unset('quote_name');
+    },
+
+    /**
+     * Parse the fields in the panel for the different requirement that we have
+     *
+     * @param {Array} panels
+     * @protected
+     */
+    _parsePanelFields: function(panels) {
+        _.each(panels, function(panel) {
+            if (!app.metadata.getModule('Forecasts', 'config').is_setup) {
+                // use _.every so we can break out after we found the commit_stage field
+                _.every(panel.fields, function(field, index) {
+                    if (field.name == 'commit_stage') {
+                        panel.fields[index] = {
+                            'name': 'spacer',
+                            'label': field.label,
+                            'span': 6,
+                            'readonly': true
+                        };
+                        return false;
+                    }
+                    return true;
+                }, this);
+            }
+        }, this);
     }
 })

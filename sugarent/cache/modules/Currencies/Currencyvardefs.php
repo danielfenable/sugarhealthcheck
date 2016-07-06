@@ -98,6 +98,14 @@
       'required' => true,
       'comment' => 'User ID who created record',
     ),
+    'forecastworksheet' => 
+    array (
+      'name' => 'forecastworksheet',
+      'type' => 'link',
+      'relationship' => 'forecastworksheets_currencies',
+      'source' => 'non-db',
+      'vname' => 'LBL_FORECAST_WORKSHEET',
+    ),
   ),
   'acls' => 
   array (
@@ -128,8 +136,9 @@
       ),
     ),
   ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
+    0 => 'forecastworksheet',
   ),
+  'custom_fields' => false,
 );

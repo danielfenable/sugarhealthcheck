@@ -110,7 +110,7 @@
 			{counter start=0 name="colCounter" print=false assign="colCounter"}
 			{foreach from=$displayColumns key=colHeader item=params}
 				<th scope='col' width='{$params.width}%'>
-					<div width='100%' align='{$params.align|default:'left'}'>
+					<div style='white-space: normal;'width='100%' align='{$params.align|default:'left'}'>
 	                {if $params.sortable|default:true}
 	                    {if $params.url_sort}
 	                        <a href='{$pageData.urls.orderBy}{$params.orderBy|default:$colHeader|lower}' class='listViewThLinkS1'>
@@ -215,7 +215,7 @@
 	                       {sugar_field parentFieldArray=$rowData vardef=$params displayType=ListView field=$col}
 	                       
 						{/if}
-						{if empty($rowData.$col) && empty($params.customCode)}{/if}
+						{if empty($rowData.$col) && empty($params.customCode)}&nbsp;{/if}
 						{if $params.link && !$params.customCode}
 							</{$pageData.tag.$id[$params.ACLTag]|default:$pageData.tag.$id.MAIN}>
 	                    {/if}

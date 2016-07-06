@@ -1,7 +1,6 @@
 <?php
 
 namespace Elastica\Query;
-
 use Elastica\Query as BaseQuery;
 
 /**
@@ -18,7 +17,7 @@ class TopChildren extends AbstractQuery
      * Construct topChildren query
      *
      * @param string|\Elastica\Query|\Elastica\Query\AbstractQuery $query
-     * @param string                                               $type  Parent document type
+     * @param string                $type  Parent document type
      */
     public function __construct($query, $type = null)
     {
@@ -43,7 +42,7 @@ class TopChildren extends AbstractQuery
     /**
      * Set type of the parent document
      *
-     * @param  string                      $type Parent document type
+     * @param  string                          $type Parent document type
      * @return \Elastica\Query\TopChildren Current object
      */
     public function setType($type)

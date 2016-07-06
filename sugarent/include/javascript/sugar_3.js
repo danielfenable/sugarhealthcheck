@@ -16,7 +16,7 @@ return false;};function checkMinSupported(c,s){var current=c.split(".");var supp
 return true;}
 function checkMaxSupported(c,s){var current=c.split(".");var supported=s.split(".");for(var i in supported){if(current[i]&&parseInt(current[i])>parseInt(supported[i]))return false;else if(current[i]&&parseInt(current[i])<parseInt(supported[i]))return true;}
 return true;}
-SUGAR.isSupportedBrowser=function(){var supportedBrowsers={msie:{min:11},safari:{min:600},mozilla:{min:41},chrome:{min:537.36}};var current=String($.browser.version);var supported;if($.browser.msie){supported=supportedBrowsers['msie'];}
+SUGAR.isSupportedBrowser=function(){var supportedBrowsers={msie:{min:9,max:11},safari:{min:537},mozilla:{min:41},chrome:{min:537.36}};var current=String($.browser.version);var supported;if($.browser.msie){supported=supportedBrowsers['msie'];}
 else if($.browser.mozilla){supported=supportedBrowsers['mozilla'];}
 else{$.browser.chrome=/chrome/.test(navigator.userAgent.toLowerCase());if($.browser.chrome){supported=supportedBrowsers['chrome'];}
 else if($.browser.safari){supported=supportedBrowsers['safari'];}}
@@ -66,11 +66,8 @@ function addToValidateBinaryDependency(formname,name,type,required,msg,compareTo
 function addToValidateComparison(formname,name,type,required,msg,compareTo){addToValidate(formname,name,type,required,msg);validate[formname][validate[formname].length-1][jstypeIndex]='comparison';validate[formname][validate[formname].length-1][compareToIndex]=compareTo;}
 function addToValidateIsInArray(formname,name,type,required,msg,arr,operator){addToValidate(formname,name,type,required,msg);validate[formname][validate[formname].length-1][jstypeIndex]='in_array';validate[formname][validate[formname].length-1][arrIndex]=arr;validate[formname][validate[formname].length-1][operatorIndex]=operator;}
 function addToValidateVerified(formname,name,type,required,msg,arr,operator){addToValidate(formname,name,type,required,msg);validate[formname][validate[formname].length-1][jstypeIndex]='verified';}
-function addToValidateMaxLength(formname,name,type,required,max,msg)
-{addToValidate(formname,name,type,required,msg);validate[formname][validate[formname].length-1][jstypeIndex]='maxlen';validate[formname][validate[formname].length-1][maxIndex]=max;}
 function addToValidateLessThan(formname,name,type,required,msg,max,max_field_msg){addToValidate(formname,name,type,required,msg);validate[formname][validate[formname].length-1][jstypeIndex]='less';validate[formname][validate[formname].length-1][maxIndex]=max;validate[formname][validate[formname].length-1][altMsgIndex]=max_field_msg;}
 function addToValidateMoreThan(formname,name,type,required,msg,min){addToValidate(formname,name,type,required,msg);validate[formname][validate[formname].length-1][jstypeIndex]='more';validate[formname][validate[formname].length-1][minIndex]=min;}
-function addToValidateUrl(formname,name,type,required,msg){addToValidate(formname,name,type,required,msg);validate[formname][validate[formname].length-1][jstypeIndex]='url';}
 function removeFromValidate(formname,name){for(i=0;i<validate[formname].length;i++)
 {if(validate[formname][i][nameIndex]==name)
 {validate[formname].splice(i--,1);}}}
@@ -122,8 +119,7 @@ var firstLocalChar=emailStr.charAt(0);if(firstLocalChar.match(/\./)){return fals
 var pos=emailStr.lastIndexOf("@");var localPart=emailStr.substr(0,pos);var lastLocalChar=localPart.charAt(localPart.length-1);if(lastLocalChar.match(/\./)){return false;}
 var reg=/@.*?;/g;var results;while((results=reg.exec(emailStr))!=null){var original=results[0];parsedResult=results[0].replace(';','::;::');emailStr=emailStr.replace(original,parsedResult);}
 reg=/.@.*?,/g;while((results=reg.exec(emailStr))!=null){var original=results[0];if(original.indexOf("::;::")==-1){var parsedResult=results[0].replace(',','::;::');emailStr=emailStr.replace(original,parsedResult);}}
-var emailArr=emailStr.split(/::;::/);for(var i=0;i<emailArr.length;i++){var emailAddress=emailArr[i];if(trim(emailAddress)!=''){var matches=/^.*<(.*)>\s*$/.exec(emailAddress);if(matches!==null){emailAddress=matches[1];}
-if(!/^\s*[\w.%+\-&'#!\$\*=\?\^_`\{\}~\/]+@[^@]+\s*$/i.test(emailAddress)){return false;}}}
+var emailArr=emailStr.split(/::;::/);for(var i=0;i<emailArr.length;i++){var emailAddress=emailArr[i];if(trim(emailAddress)!=''){if(!/^\s*[\w.%+\-&'#!\$\*=\?\^_`\{\}~\/]+@([A-Z0-9-]+\.)*[A-Z0-9-]+\.[\w-]{2,}\s*$/i.test(emailAddress)&&!/^.*<[A-Z0-9._%+\-&'#!\$\*=\?\^_`\{\}~]+?@([A-Z0-9-]+\.)*[A-Z0-9-]+\.[\w-]{2,}>\s*$/i.test(emailAddress)){return false;}}}
 return true;}
 function isValidPhone(phoneStr){if(phoneStr.length==0){return true;}
 if(!/^[0-9\-\(\)\s]+$/.test(phoneStr))
@@ -151,16 +147,14 @@ if((item1==''&&item2!='')||(item1!=''&&item2=='')){return false;}
 return true;}
 trim=YAHOO.lang.trim;function check_form(formname){if(typeof(siw)!='undefined'&&siw&&typeof(siw.selectingSomething)!='undefined'&&siw.selectingSomething)
 return false;return validate_form(formname,'');}
-function disable_submit(formname){var form=document.forms[formname];var inputs=form.getElementsByTagName('input');for(var i=0;i<inputs.length;i++){if(inputs[i].type==='submit'){inputs[i].disabled='disabled';}}}
-var REQUIRED_VALIDATION_MESSAGE_CLASS='required validation-message';function remove_error_style(formName,input){try
-{inputHandle=typeof input==="object"?input:document.forms[formname][input];var errorElements=$(inputHandle).parent().children().filter(function(){var $el=$(this);if($el.hasClass(REQUIRED_VALIDATION_MESSAGE_CLASS)){return $el;}});errorElements.each(function(){$(this).remove();});}catch(e)
-{}}
-function add_error_style(formname,input,txt,flash){if(typeof flash=="undefined")
-flash=true;try{inputHandle=typeof input=="object"?input:document.forms[formname][input];style=get_current_bgcolor(inputHandle);if(txt.substring(txt.length-1)===':'){txt=txt.substring(0,txt.length-1)}
-remove_error_style(formname,input);errorTextNode=document.createElement('div');errorTextNode.className=REQUIRED_VALIDATION_MESSAGE_CLASS;errorTextNode.innerHTML=txt;if(inputHandle.parentNode.className.indexOf('x-form-field-wrap')!=-1){inputHandle.parentNode.parentNode.appendChild(errorTextNode);}
+function add_error_style(formname,input,txt,flash){var raiseFlag=false;if(typeof flash=="undefined")
+flash=true;try{inputHandle=typeof input=="object"?input:document.forms[formname][input];style=get_current_bgcolor(inputHandle);if(txt.substring(txt.length-1)==':')
+txt=txt.substring(0,txt.length-1)
+requiredTxt=SUGAR.language.get('app_strings','ERR_MISSING_REQUIRED_FIELDS');invalidTxt=SUGAR.language.get('app_strings','ERR_INVALID_VALUE');nomatchTxt=SUGAR.language.get('app_strings','ERR_SQS_NO_MATCH_FIELD');matchTxt=txt.replace(requiredTxt,'').replace(invalidTxt,'').replace(nomatchTxt,'');$(inputHandle).parent().children().each(function(){var $el=$(this);if($el.hasClass('required validation-message')&&$el.text().indexOf(matchTxt)>0){raiseFlag=true;}});if(!raiseFlag){errorTextNode=document.createElement('div');errorTextNode.className='required validation-message';errorTextNode.innerHTML=txt;if(inputHandle.parentNode.className.indexOf('x-form-field-wrap')!=-1){inputHandle.parentNode.parentNode.appendChild(errorTextNode);}
 else{inputHandle.parentNode.appendChild(errorTextNode);}
-if(flash){inputHandle.style.backgroundColor="#FF0000";}
-inputsWithErrors.push(inputHandle);if(flash)
+if(flash)
+inputHandle.style.backgroundColor="#FF0000";inputsWithErrors.push(inputHandle);}
+if(flash)
 {if(inputsWithErrors.length==1){for(var wp=1;wp<=10;wp++){window.setTimeout('fade_error_style(style, '+wp*10+')',1000+(wp*50));}}
 if(typeof(window[formname+"_tabs"])!="undefined"){var tabView=window[formname+"_tabs"];var parentDiv=YAHOO.util.Dom.getAncestorByTagName(inputHandle,"div");if(tabView.get){var tabs=tabView.get("tabs");for(var i in tabs){if(tabs[i].get("contentEl")==parentDiv||YAHOO.util.Dom.isAncestor(tabs[i].get("contentEl"),inputHandle))
 {tabs[i].get("labelEl").style.color="red";if(inputsWithErrors.length==1)
@@ -187,9 +181,6 @@ function isFieldHidden(field,type)
 {var Dom=YAHOO.util.Dom;if(Dom.getAttribute(field,"type")=="hidden"&&type!="datetimecombo"){return true;}
 var td=Dom.getAncestorByTagName(field,'TD');if(type=='date'&&!Dom.hasClass(td,'vis_action_hidden')){td=Dom.getAncestorByTagName(td,'TD');}
 return Dom.hasClass(td,'vis_action_hidden');}
-function isUrl(str){if(str.length===0){return true;}
-if(!/^(https?|ftp):\/\/[^\s\/$.?#]+\.[^\s]+$/.test(str)){console.log('false');return false;}
-return true;}
 function validate_form(formname,startsWith){requiredTxt=SUGAR.language.get('app_strings','ERR_MISSING_REQUIRED_FIELDS');invalidTxt=SUGAR.language.get('app_strings','ERR_INVALID_VALUE');if(typeof(formname)=='undefined')
 {return false;}
 if(typeof(validate[formname])=='undefined')
@@ -218,7 +209,6 @@ break;case'error':isError=true;add_error_style(formname,validate[formname][i][na
 if(typeof validate[formname][i][jstypeIndex]!='undefined'){switch(validate[formname][i][jstypeIndex]){case'callback':if(typeof validate[formname][i][callbackIndex]=='function')
 {var result=validate[formname][i][callbackIndex](formname,validate[formname][i][nameIndex],i);if(result==false)
 {isError=true;add_error_style(formname,validate[formname][i][nameIndex],validate[formname][i][msgIndex]);}}
-break;case'url':if(!isUrl(trim(form[validate[formname][i][nameIndex]].value))){isError=true;add_error_style(formname,validate[formname][i][nameIndex],validate[formname][i][msgIndex]+" "+SUGAR.language.get('app_strings','LBL_VALIDATE_URL'));}
 break;case'range':if(!inRange(trim(form[validate[formname][i][nameIndex]].value),validate[formname][i][minIndex],validate[formname][i][maxIndex])){isError=true;var lbl_validate_range=SUGAR.language.get('app_strings','LBL_VALIDATE_RANGE');if(typeof validate[formname][i][minIndex]=='number'&&typeof validate[formname][i][maxIndex]=='number')
 {add_error_style(formname,validate[formname][i][nameIndex],validate[formname][i][msgIndex]+" value "+form[validate[formname][i][nameIndex]].value+" "+lbl_validate_range+" ("+validate[formname][i][minIndex]+" - "+validate[formname][i][maxIndex]+")");}
 else if(typeof validate[formname][i][minIndex]=='number')
@@ -226,7 +216,6 @@ else if(typeof validate[formname][i][minIndex]=='number')
 else if(typeof validate[formname][i][maxIndex]=='number')
 {add_error_style(formname,validate[formname][i][nameIndex],validate[formname][i][msgIndex]+" "+SUGAR.language.get('app_strings','MSG_IS_MORE_THAN')+' '+validate[formname][i][maxIndex]);}}
 break;case'isbefore':compareTo=form[validate[formname][i][compareToIndex]];if(typeof compareTo!='undefined'){if(trim(compareTo.value)!=''||(validate[formname][i][allowblank]!='true')){date2=trim(compareTo.value);date1=trim(form[validate[formname][i][nameIndex]].value);if(trim(date1).length!=0&&!isBefore(date1,date2)){isError=true;add_error_style(formname,validate[formname][i][nameIndex],validate[formname][i][msgIndex]+"("+date1+") "+SUGAR.language.get('app_strings','MSG_IS_NOT_BEFORE')+' '+date2);}}}
-break;case'maxlen':value=trim(form[validate[formname][i][nameIndex]].value);maximum=parseFloat(validate[formname][i][maxIndex]);if(typeof maximum!='undefined'){if(value.length>maximum){isError=true;add_error_style(formname,validate[formname][i][nameIndex],validate[formname][i][msgIndex]+" "+SUGAR.language.get('app_strings','MSG_EXCEEDS_MAXLEN'));}}
 break;case'less':value=unformatNumber(trim(form[validate[formname][i][nameIndex]].value),num_grp_sep,dec_sep);maximum=parseFloat(validate[formname][i][maxIndex]);if(typeof maximum!='undefined'){if(value>maximum){isError=true;add_error_style(formname,validate[formname][i][nameIndex],validate[formname][i][msgIndex]+" "+SUGAR.language.get('app_strings','MSG_IS_MORE_THAN')+' '+validate[formname][i][altMsgIndex]);}}
 break;case'more':value=unformatNumber(trim(form[validate[formname][i][nameIndex]].value),num_grp_sep,dec_sep);minimum=parseFloat(validate[formname][i][minIndex]);if(typeof minimum!='undefined'){if(value<minimum){isError=true;add_error_style(formname,validate[formname][i][nameIndex],validate[formname][i][msgIndex]+" "+SUGAR.language.get('app_strings','MSG_SHOULD_BE')+' '+minimum+' '+SUGAR.language.get('app_strings','MSG_OR_GREATER'));}}
 break;case'binarydep':compareTo=form[validate[formname][i][compareToIndex]];if(typeof compareTo!='undefined'){item1=trim(form[validate[formname][i][nameIndex]].value);item2=trim(compareTo.value);if(!bothExist(item1,item2)){isError=true;add_error_style(formname,validate[formname][i][nameIndex],validate[formname][i][msgIndex]);}}
@@ -461,8 +450,22 @@ el=document.getElementById(el);if(el&&el.parentNode)
 el.parentNode.removeChild(el);return el;},paramsToUrl:function(params){var parts=[];for(var i in params)
 {if(params.hasOwnProperty(i))
 {parts.push(encodeURIComponent(i)+'='+encodeURIComponent(params[i]));}}
-return parts.join("&")+"&";},globalEval:function(data){var rnotwhite=/\S/;if(data&&rnotwhite.test(data)){(window.execScript||function(data){window["eval"].call(window,data);})(data);}},evalScript:function(text){var elements=$.parseHTML(text,document,true);YUI({comboBase:'index.php?entryPoint=getYUIComboFile&'}).use("io-base","get",function(Y){_.each(elements,function(el){if(el.tagName&&el.tagName.toUpperCase()=="SCRIPT"){try{if(el.src){var r1=/:\/\//igm;if(r1.test(el.src)&&el.src.indexOf(window.location.hostname)==-1){Y.Get.script(el.src,{autopurge:false,onSuccess:function(o){},onFailure:function(o){},onTimeout:function(o){}});}
-else{Y.io(el.src,{method:'GET',sync:true,on:{success:function(transactionid,response,arguments){SUGAR.util.globalEval(response.responseText);}}});}}else{SUGAR.util.globalEval(el.innerHTML||el.innerText);}}catch(e){if(typeof(console)!="undefined"&&typeof(console.log)=="function"){console.log("error adding script");console.log(e);console.log(el.src||el.innerHTML||el.innerText);}}}});});},getLeftColObj:function(){leftColObj=document.getElementById('leftCol');while(leftColObj.nodeName!='TABLE'){leftColObj=leftColObj.firstChild;}
+return parts.join("&")+"&";},globalEval:function(data){var rnotwhite=/\S/;if(data&&rnotwhite.test(data)){(window.execScript||function(data){window["eval"].call(window,data);})(data);}},evalScript:function(text){if(isSafari){var waitUntilLoaded=function(){SUGAR.evalScript_waitCount--;if(SUGAR.evalScript_waitCount==0){var headElem=document.getElementsByTagName('head')[0];for(var i=0;i<SUGAR.evalScript_evalElem.length;i++){var tmpElem=document.createElement('script');tmpElem.type='text/javascript';tmpElem.text=SUGAR.evalScript_evalElem[i];headElem.appendChild(tmpElem);}}};var tmpElem=document.createElement('div');tmpElem.innerHTML=text;var results=tmpElem.getElementsByTagName('script');if(results==null){return;}
+var headElem=document.getElementsByTagName('head')[0];var tmpElem=null;SUGAR.evalScript_waitCount=0;SUGAR.evalScript_evalElem=new Array();for(var i=0;i<results.length;i++){if(typeof(results[i])!='object'){continue;};tmpElem=document.createElement('script');tmpElem.type='text/javascript';if(results[i].src!=null&&results[i].src!=''){tmpElem.src=results[i].src;}else{SUGAR.evalScript_evalElem[SUGAR.evalScript_evalElem.length]=results[i].text;continue;}
+tmpElem.addEventListener('load',waitUntilLoaded);SUGAR.evalScript_waitCount++;headElem.appendChild(tmpElem);}
+SUGAR.evalScript_waitCount++;waitUntilLoaded();return;}
+var objRegex=/<\s*script([^>]*)>((.|\s|\v|\0)*?)<\s*\/script\s*>/igm;YUI({comboBase:'index.php?entryPoint=getYUIComboFile&'}).use("io-base","get",function(Y){var lastIndex=-1;var result=objRegex.exec(text);while(result&&result.index>lastIndex){lastIndex=result.index
+try{if(result[1].indexOf("src=")>-1){var srcRegex=/.*src=['"]([a-zA-Z0-9_\-\&\/\.\?=:-]*)['"].*/igm;var srcResult=result[1].replace(srcRegex,'$1');var r1=/:\/\//igm;if(r1.test(srcResult)&&srcResult.indexOf(window.location.hostname)==-1)
+{Y.Get.script(srcResult,{autopurge:false,onSuccess:function(o){},onFailure:function(o){},onTimeout:function(o){}});}
+else
+{Y.io(srcResult,{method:'GET',sync:true,on:{success:function(transactionid,response,arguments)
+{SUGAR.util.globalEval(response.responseText);}}});}}else{var srcRegex=/<!--([\s\S]*?)-->/;var srcResult=srcRegex.exec(result[2]);if(srcResult&&srcResult.index>-1)
+{SUGAR.util.globalEval(srcResult[1]);}
+else
+{SUGAR.util.globalEval(result[2]);}}}
+catch(e){if(typeof(console)!="undefined"&&typeof(console.log)=="function")
+{console.log("error adding script");console.log(e);console.log(result);}}
+result=objRegex.exec(text);}});},getLeftColObj:function(){leftColObj=document.getElementById('leftCol');while(leftColObj.nodeName!='TABLE'){leftColObj=leftColObj.firstChild;}
 leftColTable=leftColObj;leftColTd=leftColTable.getElementsByTagName('td')[0];leftColTdRegion=YAHOO.util.Dom.getRegion(leftColTd);leftColTd.style.width=(leftColTdRegion.right-leftColTdRegion.left)+'px';return leftColTd;},fillShortcuts:function(e,shortcutContent){return;},retrieveAndFill:function(url,theDiv,postForm,callback,callbackParam,appendMode){if(typeof theDiv=='string'){try{theDiv=document.getElementById(theDiv);}
 catch(e){return;}}
 var success=function(data){if(typeof theDiv!='undefined'&&theDiv!=null)
@@ -480,7 +483,7 @@ $dialog.dialog('open');$(".ui-dialog").appendTo("#content");},getStaticAdditiona
 $(".ui-dialog").find(".open").dialog("close");var $dialog=$('<div class="open"></div>').html(body).dialog({autoOpen:false,title:caption,width:300,position:{my:'right top',at:'left top',of:$(el)}});if(show_buttons){$(".ui-dialog").find('.ui-dialog-titlebar-close').css("display","none");$(".ui-dialog").find('.ui-dialog-title').css("width","100%");}
 var width=$dialog.dialog("option","width");var pos=$(el).offset();var ofWidth=$(el).width();if((pos.left+ofWidth)-40<width){$dialog.dialog("option","position",{my:'left top',at:'right top',of:$(el)});}
 $dialog.dialog('open');$(".ui-dialog").appendTo("#content");},closeStaticAdditionalDetails:function(){$(".ui-dialog").find(".open").dialog("close");},getAdditionalDetails:function(bean,id,spanId,show_buttons){if(typeof show_buttons=="undefined")
-show_buttons=false;var el='#'+spanId;go=function(){oReturn=function(body,caption,width,theme){$(".ui-dialog").find(".open").dialog("close");var $dialog=$('<div class="open"></div>').html(body).dialog({autoOpen:false,width:300,position:{my:'right top',at:'left top',of:$(el)}});$(".ui-dialog").find(".ui-dialog-title").html(caption);if(show_buttons){$(".ui-dialog").find('.ui-dialog-titlebar-close').css("display","none");$(".ui-dialog").find('.ui-dialog-title').css("width","100%");}
+show_buttons=false;var el='#'+spanId;go=function(){oReturn=function(body,caption,width,theme){$(".ui-dialog").find(".open").dialog("close");var $dialog=$('<div class="open"></div>').html(body).dialog({autoOpen:false,title:caption,width:300,position:{my:'right top',at:'left top',of:$(el)}});if(show_buttons){$(".ui-dialog").find('.ui-dialog-titlebar-close').css("display","none");$(".ui-dialog").find('.ui-dialog-title').css("width","100%");}
 var width=$dialog.dialog("option","width");var pos=$(el).offset();var ofWidth=$(el).width();if((pos.left+ofWidth)-40<width){$dialog.dialog("option","position",{my:'left top',at:'right top',of:$(el)});}
 $dialog.dialog('open');$(".ui-dialog").appendTo("#content");}
 success=function(data){eval(data.responseText);SUGAR.util.additionalDetailsCache[id]=new Array();SUGAR.util.additionalDetailsCache[id]['body']=result['body'];SUGAR.util.additionalDetailsCache[id]['caption']=result['caption'];SUGAR.util.additionalDetailsCache[id]['width']=result['width'];SUGAR.util.additionalDetailsCache[id]['theme']=result['theme'];ajaxStatus.hideStatus();return oReturn(SUGAR.util.additionalDetailsCache[id]['body'],SUGAR.util.additionalDetailsCache[id]['caption'],SUGAR.util.additionalDetailsCache[id]['width'],SUGAR.util.additionalDetailsCache[id]['theme']);}

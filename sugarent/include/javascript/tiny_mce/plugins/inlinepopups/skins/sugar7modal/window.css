@@ -295,39 +295,3 @@
   right: 0;
   cursor: se-resize;
 }
-
-/* Alert/Confirm */
-.sugar7modal .mceButton {
-    font-weight: bold;
-    bottom: 10px;
-    width: 80px;
-    height: 30px;
-    line-height: 30px;
-    vertical-align: middle;
-    text-align: center;
-    outline: 0
-}
-
-.sugar7modal .mceAlert .mceMiddle, .sugar7modal .mceConfirm .mceMiddle {
-    height: 100%;
-    background: #D6D7D5
-}
-
-.sugar7modal .mceAlert .mceOk {
-    display: none;
-}
-
-.sugar7modal .mceAlert .mceTop, .sugar7modal .mceConfirm .mceTop {
-    height: 100%;
-}
-
-.sugar7modal .mceConfirm .mceOk {
-    left: 50%;
-    top: auto;
-    margin-left: -90px
-}
-
-.sugar7modal .mceConfirm .mceCancel {
-    left: 50%;
-    top: auto
-}

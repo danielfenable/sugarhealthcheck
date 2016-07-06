@@ -161,19 +161,3 @@ ul.ui-autocomplete {
     padding: 3px;
     margin: 0 0 0 2px;
 }
-
-#fb_ac_wrapper ul.fb_ac_menu {
-    border-radius: 0;
-}
-
-#fb_ac_wrapper ul.fb_ac_menu li.ui-menu-item {
-    line-height: 1.5;
-    padding: 0.2em 0.4em;
-}
-
-#fb_ac_wrapper ul.fb_ac_menu li.ui-state-focus {
-    font-weight: bold;
-    background: #dadada url("../../../include/javascript/jquery/themes/base/images/ui-bg_glass_75_dadada_1x400.png") repeat-x scroll 50% 50%;
-    border: 1px solid #999;
-    color: #212121;
-}

@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,33 +12,25 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'LBL_ACCEPT_CLIENT' => 'Client voittaa',
+  'LBL_ACCEPT_SERVER' => 'Palvelin voittaa',
+  'LBL_CHECKING_SYNC_AVAILABLE' => 'Tarkistetaan palvelimen saatavuutta...',
+  'LBL_CLEAN_ALERT' => 'Puhdas synkronointi poistaa kaikki tietueet tästä client-koneessa',
+  'LBL_CLEAN_SYNC' => 'Puhdas synkronointi:',
+  'LBL_GO_ONLINE' => 'Siirry online-tilaan',
+  'LBL_INITIAL_SYNC_MESSAGE' => 'Olet juuri asentanut Offline Clientin. Klikkaa alla olevaa painiketta aloittaaksesi synkronointiprosessin.',
   'LBL_MODULE_NAME' => 'Synkronointi',
   'LBL_MODULE_NAME_SINGULAR' => 'Synkronointi',
   'LBL_MODULE_TITLE' => 'Synkronointi: Etusivu',
-  'LBL_GO_ONLINE' => 'Siirry online-tilaan',
-  'LBL_SYNC_AVAILABLE' => 'Tarkista palvelimen saatavuus',
-  'LBL_CHECKING_SYNC_AVAILABLE' => 'Tarkistetaan palvelimen saatavuutta...',
+  'LBL_POWERED_BY_SUGAR' => 'Powered By SugarCRM',
+  'LBL_PROMPT' => 'Kysymys',
   'LBL_SERVER_AVAILABLE' => 'Palvelin saatavilla',
   'LBL_SERVER_UNAVAILABLE' => 'Palvelin ei ole saatavilla &mdash; tarkista, että olet internetissä.',
-  'LBL_START_SYNC'=>'Aloita synkronointi',
-  'LBL_SYNC_SETUP'=>'Synkronoinnin asennus',
-  'LBL_PROMPT'=> 'Kysymys',
-  'LBL_ACCEPT_SERVER'=>'Palvelin voittaa',
-  'LBL_ACCEPT_CLIENT'=>'Client voittaa',
-  'LBL_CLEAN_SYNC'=>'Puhdas synkronointi:',
-  'LBL_CLEAN_ALERT'=>'Puhdas synkronointi poistaa kaikki tietueet tästä client-koneessa',
-  'LBL_INITIAL_SYNC_MESSAGE' => 'Olet juuri asentanut Offline Clientin. Klikkaa alla olevaa painiketta aloittaaksesi synkronointiprosessin.',
-	'LBL_POWERED_BY_SUGAR' => 'Powered By SugarCRM' /*for 508 compliance fix*/,
+  'LBL_START_SYNC' => 'Aloita synkronointi',
+  'LBL_SYNC_AVAILABLE' => 'Tarkista palvelimen saatavuus',
+  'LBL_SYNC_SETUP' => 'Synkronoinnin asennus',
 );
 
-
-?>

@@ -58,8 +58,6 @@ require_once 'modules/ModuleBuilder/parsers/parser.portalconfig.php';
 require_once 'include/MetaDataManager/MetaDataManager.php';
 include_once 'modules/Administration/QuickRepairAndRebuild.php';
 
-use Sugarcrm\Sugarcrm\SearchEngine\SearchEngine;
-
 class ModuleBuilderController extends SugarController
 {
 
@@ -306,22 +304,6 @@ class ModuleBuilderController extends SugarController
             //recreate acl cache
             $actions = ACLAction::getUserActions($current_user->id, true);
             //bug 44269 - end
-
-            //add the mapping to Elastic for the modules in this package
-            //Note that this works for newly created custom modules only.
-            //The existing modules will need deletion of mappings and data first,
-            //before rebuilding of the mappings.
-            if (isset($zip)) {
-                $modules = array();
-                foreach ($zip->modules as $module) {
-                    $modules[] = $module->key_name;
-                }
-
-                $engine = SearchEngine::getInstance()->getEngine();
-                if (isset($engine)) {
-                    $engine->addMappings($modules);
-                }
-            }
         }
 
         echo 'complete';
@@ -356,9 +338,9 @@ class ModuleBuilderController extends SugarController
         $mb = new ModuleBuilder ();
         $load = (!empty ($_REQUEST ['original_name'])) ? $_REQUEST ['original_name'] : $_REQUEST ['name'];
         if (!empty ($load)) {
-            $package = $mb->getPackage($_REQUEST['package']);
-            $package->loadModuleTitles();
-            $module = $package->getModule($load);
+            $mb->getPackage($_REQUEST ['package']);
+            $mb->packages [$_REQUEST ['package']]->getModule($load);
+            $module = & $mb->packages [$_REQUEST ['package']]->modules [$load];
             $module->populateFromPost();
             $mb->save();
             if (!empty ($_REQUEST ['duplicate'])) {
@@ -526,7 +508,6 @@ class ModuleBuilderController extends SugarController
             $module->save();
         }
         $this->view = 'modulefields';
-        LanguageManager::invalidateJsLanguageCache();
     }
 
     public function action_saveSugarField()
@@ -670,7 +651,6 @@ class ModuleBuilderController extends SugarController
         if (empty($_REQUEST ['view_package'])) {
             $relationships->build();
             LanguageManager::clearLanguageCache($_REQUEST ['view_module']);
-            LanguageManager::invalidateJsLanguageCache();
         }
         $GLOBALS['log']->debug("\n\nEND BUILD");
         $this->view = 'relationships';
@@ -703,7 +683,6 @@ class ModuleBuilderController extends SugarController
         MetaDataManager::refreshSectionCache(MetaDataManager::MM_LABELS);
         MetaDataManager::refreshSectionCache(MetaDataManager::MM_ORDEREDLABELS);
         MetaDataManager::refreshSectionCache(MetaDataManager::MM_EDITDDFILTERS);
-        LanguageManager::invalidateJsLanguageCache();
         $this->view = 'dropdowns';
     }
 
@@ -969,27 +948,24 @@ class ModuleBuilderController extends SugarController
     public function action_popupSave()
     {
         $this->view = 'popupview';
-        $packageName = (isset($_REQUEST['view_package']) && (strtolower($_REQUEST['view_package']) != 'studio')) ? $_REQUEST['view_package'] : null;
-        $parser = ParserFactory::getParser($_REQUEST['view'], $_REQUEST['view_module'], $packageName);
+        $packageName = (isset ($_REQUEST ['view_package']) && (strtolower($_REQUEST['view_package']) != 'studio')) ? $_REQUEST ['view_package'] : null;
+        $parser = ParserFactory::getParser($_REQUEST ['view'], $_REQUEST ['view_module'], $packageName);
         $parser->handleSave();
 
-        if ($_REQUEST['view'] != MB_POPUPSEARCH) {
-            $parser = ParserFactory::getParser(MB_POPUPLIST, $_REQUEST['view_module'], $packageName);
-            $parser->handleSave();
-        }
-
+        // Save popupdefs too because it's used on BWC pages (related fields).
+        $parser = ParserFactory::getParser(MB_POPUPLIST, $_REQUEST['view_module'], $packageName);
+        $parser->handleSave();
         if (empty($packageName)) {
             include_once 'modules/Administration/QuickRepairAndRebuild.php';
             global $mod_strings;
             $mod_strings['LBL_ALL_MODULES'] = 'all_modules';
             $repair = new RepairAndClear();
             $repair->show_output = false;
-            $class_name = $GLOBALS['beanList'][$_REQUEST['view_module']];
+            $class_name = $GLOBALS ['beanList'] [$_REQUEST ['view_module']];
             $repair->module_list = array($class_name);
             $repair->clearTpls();
-            // Clear the module metadata but nothing else
-            $repair->repairMetadataAPICache(false);
         }
+
     }
 
     public function action_searchViewSave()

@@ -24,7 +24,7 @@
 {/if}
 <input type='button' name='saveLayout' value='{sugar_translate label="LBL_BTN_SAVE" module="ModuleBuilder"}'
     class='button' onclick='ModuleBuilder.saveConvertLeadLayout();' style="margin-bottom:5px;">
-<img class="spacer" src="{sugar_getjspath file='include/images/blank.gif'}" style="width:50px;height:5px"/>
+<img class="spacer" src="include/images/blank.gif" style="width:50px;height:5px"/>
 {html_options name="convertSelectNewModule" id="convertSelectNewModule" options=$availableModules}
 <input type='button' name='addModule' value='{sugar_translate label="LBL_CONVERT_ADD_MODULE"}'
     class='button' onclick='ModuleBuilder.addConvertLeadLayout();' style="margin-bottom:5px;">
@@ -46,13 +46,8 @@ function getModuleNameFromLabel(label) {
 
 var removeLayout = function(row) {
     if (confirm("Are you sure you wish to remove this layout?")) {
-        var module = row.getData("module");
-        var moduleName = row.getData("moduleName");
-
         ModuleBuilder.convertLayoutGrid.deleteRow(row);
-        ModuleBuilder.state.markAsDirty();
-
-        addOption(module, moduleName);
+        ModuleBuilder.saveConvertLeadLayout();
     }
 };
 
@@ -186,7 +181,6 @@ ModuleBuilder.saveConvertLeadLayout = function() {
         data:YAHOO.lang.JSON.stringify(out)
     };
 
-    ModuleBuilder.state.markAsClean();
 	ModuleBuilder.asyncRequest(params, function(o) {
 	    ajaxStatus.hideStatus();
 	    ModuleBuilder.updateContent(o);
@@ -194,22 +188,13 @@ ModuleBuilder.saveConvertLeadLayout = function() {
 };
 
 ModuleBuilder.addConvertLeadLayout = function() {
-    var select = YAHOO.util.Dom.get("convertSelectNewModule");
-    if (select.selectedIndex < 0) {
-        return;
-    }
+    var Dom = YAHOO.util.Dom,
+        newModule = Dom.get("convertSelectNewModule").value,
+        insertIndex = determineNewRowIndex(newModule),
+        newRowSettings = moduleDefaults[newModule];
 
-    var option = select.options[select.selectedIndex],
-        module = option.value,
-        insertIndex = determineNewRowIndex(module),
-        data = YAHOO.lang.merge({}, moduleDefaults[module], {
-            module: module,
-            moduleName: option.text
-        });
-
-    ModuleBuilder.convertLayoutGrid.addRow(data, insertIndex);
-    select.removeChild(option);
-    ModuleBuilder.state.markAsDirty();
+    ModuleBuilder.convertLayoutGrid.addRow(newRowSettings, insertIndex);
+    ModuleBuilder.saveConvertLeadLayout();
 };
 
 var determineNewRowIndex = function(newModule) {
@@ -238,21 +223,6 @@ var determineNewRowIndex = function(newModule) {
         insertIndex = tempIndex;
     }
     return insertIndex;
-};
-
-var addOption = function(module, moduleName) {
-    var select = YAHOO.util.Dom.get("convertSelectNewModule"),
-        options = select.options;
-    for (var i = 0, length = select.length; i < length; i++) {
-        if (options[i].text.localeCompare(moduleName) >= 0) {
-            break;
-        }
-    }
-
-    var option = document.createElement("option");
-    option.value = module;
-    option.text = moduleName;
-    select.add(option, i);
 };
 
 {/literal}

@@ -8,6 +8,6 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({extendsFrom:'FlexListView',plugins:['ListColumnEllipsis','Pagination','MassCollection'],unbindData:function(){var massCollection=this.context.get('mass_collection');if(massCollection){massCollection.off(null,null,this);}
-this._super("unbindData");},getFieldNames:function(module){return['name','email'];},_setOrderBy:function(options){this.context.set('sortOptions',options);options.query=this.context.get('query');options.module_list=this.context.get('module_list');options.offset=0;options.update=false;this._super('_setOrderBy',options);},_render:function(){if(app.acl.hasAccessToAny('developer')){this._super('_render');}
+({extendsFrom:'RecordlistView',plugins:['ListColumnEllipsis','ListRemoveLinks','Pagination'],unbindData:function(){var massCollection=this.context.get('mass_collection');if(massCollection){massCollection.off(null,null,this);}
+this._super("unbindData");},getFieldNames:function(module){return['name','email'];},_render:function(){if(app.acl.hasAccessToAny('developer')){this._super('_render');}
 else{app.controller.loadView({layout:'access-denied'});}},_renderField:function(field){this._super("_renderField",[field]);},_dispose:function(){jQuery('.adam-modal').remove();this._super("_dispose",arguments);}})

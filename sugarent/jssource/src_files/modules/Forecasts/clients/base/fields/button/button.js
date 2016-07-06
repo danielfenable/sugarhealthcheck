@@ -18,9 +18,6 @@
 
     /**
      * Override so we can have a custom hasAccess for forecast to check on the header-pane buttons
-     *
-     * @inheritdoc
-     * @override
      * @returns {*}
      */
     hasAccess: function() {
@@ -28,10 +25,10 @@
         // currently the only buttons that set acl_action == 'current_user' are the save_draft and commit buttons
         // if it's not equal to 'current_user' then go up the prototype chain.
         if(this.def.acl_action == 'current_user') {
-            var su = this.context.get('selectedUser') || app.user.toJSON();
-            return su.id === app.user.get('id');
+            var su = (this.context.get('selectedUser')) || app.user.toJSON();
+            return (su.id === app.user.get('id'))
         } else {
-            return this._super('hasAccess');
+            return this._super("hasAccess");
         }
     }
 })

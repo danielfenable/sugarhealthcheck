@@ -1236,17 +1236,14 @@
      * We are just routing to Record View for now since we can't
      * open Sidecar record views in a drawer (and allow the user to close)
      *
-     * Only open the record if we are not dragging the event around the calendar.
-     *
      * @param {String} module_name The name of the module
      * @param {String} record The id of the record
      * @param {Boolean} edit_all_recurrences Whether there are recurrences
      */
     CAL.load_form = function (module_name, record, edit_all_recurrences) {
-        if (CAL.records_openable) {
-            var navigateUrl = '#' + app.router.buildRoute(module_name, record);
-            app.router.navigate(navigateUrl, {trigger: true});
-        }
+        //TODO: Open this in a drawer in edit mode - right now we can't do this
+        var navigateUrl = '#' + app.router.buildRoute(module_name, record);
+        app.router.navigate(navigateUrl, {trigger: true});
     };
 
 	CAL.editAllRecurrences = function() {
@@ -1510,17 +1507,7 @@
                 'date_end': app.date(dateStart).add('m', meetingDurationMinutes).formatServer(),
                 'duration_hours': 0,
                 'duration_minutes': meetingDurationMinutes
-            },
-            $userDiv;
-
-        if (CAL.view === 'shared') {
-            $userDiv = $(cell).closest('div[user_id][user_name]');
-
-            if ($userDiv.length > 0) {
-                meetingAttributes.assigned_user_id = $userDiv.attr('user_id');
-                meetingAttributes.assigned_user_name = $userDiv.attr('user_full_name');
-            }
-        }
+            };
 
         CAL.openActivityCreateDrawer('Meetings', meetingAttributes);
 
@@ -1960,7 +1947,7 @@
         // Open prepopulated meeting create form
         prefill.set(prefillAttributes);
         app.drawer.open({
-            layout: 'create',
+            layout: 'create-actions',
             context: {
                 create: true,
                 model: prefill,
@@ -1968,8 +1955,6 @@
                 forceNew: true
             }
         }, _.bind(function(context, model) {
-            app.alert.dismiss('create-option-alert');
-
             if (model) {
                 //reload the iframe to display new calendar events
                 document.location.reload();
@@ -1990,7 +1975,7 @@
         // Open prepopulated meeting create form
         prefill.set(prefillAttributes);
         app.drawer.load({
-            layout: 'create',
+            layout: 'create-actions',
             context: {
                 create: true,
                 model: prefill,

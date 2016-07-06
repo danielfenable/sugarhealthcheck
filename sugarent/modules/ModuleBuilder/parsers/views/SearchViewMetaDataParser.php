@@ -54,8 +54,8 @@ class SearchViewMetaDataParser extends ListLayoutMetaDataParser
         {
         	if (empty ( $packageName ))
         	{
-                require_once 'modules/ModuleBuilder/parsers/views/DeployedSearchMetaDataImplementation.php';
-                $this->implementation = new DeployedSearchMetaDataImplementation($searchLayout, $moduleName, $client);
+            	require_once 'modules/ModuleBuilder/parsers/views/DeployedMetaDataImplementation.php' ;
+            	$this->implementation = new DeployedMetaDataImplementation ( $searchLayout, $moduleName, $client ) ;
         	} else
         	{
             	require_once 'modules/ModuleBuilder/parsers/views/UndeployedMetaDataImplementation.php' ;
@@ -137,16 +137,8 @@ class SearchViewMetaDataParser extends ListLayoutMetaDataParser
         if($this->_searchLayout == 'basic_search' && isset($this->_viewdefs['team_name'])) {
            $this->_viewdefs['team_name']['label'] = 'LBL_TEAM';  //Change to singular form label
         }
-
-        //For the layout modified in the studio, use the metadata passed from the request;
-        //For the layout unchanged, only do the conversion from the numeric-indexed to the fieldname-indexed.
-        foreach ($this->_saved ['layout'] as $key => $layout) {
-            if ($key == self::$variableMap [ $this->_searchLayout ]) {
-                $this->_saved ['layout'][$key] = $this->convertSearchViewToListView($this->_viewdefs);
-            } else {
-                $this->_saved ['layout'][$key] = $this->convertSearchViewToListView($layout);
-            }
-        }
+            
+        $this->_saved [ 'layout' ] [ self::$variableMap [ $this->_searchLayout ] ] = $this->convertSearchViewToListView($this->_viewdefs);;
         $this->implementation->deploy ( $this->_saved ) ;
     }
 

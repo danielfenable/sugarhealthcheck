@@ -18,7 +18,7 @@
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);
@@ -63,7 +63,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _renderHtml: function() {
         if (!app.acl.hasAccess('admin', 'Administration')) {

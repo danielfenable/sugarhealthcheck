@@ -11,7 +11,7 @@
  */
 --}}
 {{title}}
-{{name}}
+{{fieldValue model 'name'}}
 {{str "MSG_JS_ALERT_MTG_REMINDER_START"}} {{dateStart}}
 {{#if parentName}}{{str "LBL_RELATED_TO" module}} {{parentName}}{{/if}}
 {{#eq module "Calls"}}{{#if description}}{{str "MSG_JS_ALERT_MTG_REMINDER_DESC"}} {{description}}{{/if}}

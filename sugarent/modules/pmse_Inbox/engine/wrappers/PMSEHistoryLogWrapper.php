@@ -230,15 +230,13 @@ class PMSEHistoryLogWrapper
             if ($caseData['cas_previous'] == 0) {
                 //cas_flow_status field should set something instead be empty.
                 $dataString = sprintf(translate('LBL_PMSE_HISTORY_LOG_CREATED_CASE', 'pmse_Inbox'), $caseData['cas_id']);
-            } else if ($caseData['bpmn_type'] === 'bpmnFlow') {
-                $dataString = translate('LBL_PMSE_HISTORY_LOG_FLOW', 'pmse_Inbox');
             } else {
                 if ($caseData['cas_flow_status'] == 'CLOSED') {
                     $dataString = sprintf(translate('LBL_PMSE_HISTORY_LOG_DERIVATED_CASE', 'pmse_Inbox'),
-                        $caseData['cas_id']);
+                        $caseData['bpmn_id']);
                 } else {
                     $dataString = sprintf(translate('LBL_PMSE_HISTORY_LOG_CURRENTLY_HAS_CASE', 'pmse_Inbox'),
-                        $caseData['cas_id']);
+                        $caseData['bpmn_id']);
                 }
             }
 
@@ -257,18 +255,11 @@ class PMSEHistoryLogWrapper
                         'user_id' => $caseData['cas_user_id']
                     ));
                     if (isset($this->formAction->frm_action) && !empty($this->formAction->frm_action)) {
-                        // frm_action can contains action strings such as "Approved" or json return values (in 
-                        // case of Business Rules). We want to skip json return values from appearing in the 
-                        // Process History 
-                        if (json_decode($this->formAction->frm_action) == null) {
-                            $action = strtoupper($this->formAction->frm_action);
-                        }
+                        $action = strtoupper($this->formAction->frm_action);
                     } else {
-                        $action = translate('LBL_PMSE_HISTORY_LOG_NOT_REGISTERED_ACTION', 'pmse_Inbox');
+                        $action = translate('LBL_PMSE_HISTORY_LOG_NOT_REGISTED_ACTION', 'pmse_Inbox');
                     }
-                    if (!empty($action)) {
-                        $dataString .= sprintf(translate('LBL_PMSE_HISTORY_LOG_ACTION_PERFORMED', 'pmse_Inbox'), $action);
-                    }
+                    $dataString .= sprintf(translate('LBL_PMSE_HISTORY_LOG_ACTION_PERFORMED', 'pmse_Inbox'), $action);
                     if (isset($this->formAction->cas_pre_data)) {
                         $logdata = json_decode($this->formAction->cas_pre_data);
                         $entry['var_values'] = $logdata;
@@ -287,7 +278,7 @@ class PMSEHistoryLogWrapper
                 } else {
                     if ($caseData['bpmn_type'] == 'bpmnGateway') {
                         $name = sprintf(translate('LBL_PMSE_HISTORY_LOG_ACTIVITY_NAME', 'pmse_Inbox'),
-                            $this->getGatewayName($caseData['bpmn_id']));
+                            $this->getEventName($caseData['bpmn_id']));
                         $currentCaseState = sprintf(translate('LBL_PMSE_HISTORY_LOG_WITH_GATEWAY', 'pmse_Inbox'),
                             $name);
                         $dataString .= sprintf(translate('LBL_PMSE_HISTORY_LOG_MODULE_ACTION', 'pmse_Inbox'),
@@ -295,7 +286,6 @@ class PMSEHistoryLogWrapper
                     }
                 }
             }
-            $dataString .= '.';
             $entry['data_info'] = $dataString;
             $entries[] = $entry;
         }
@@ -331,17 +321,6 @@ class PMSEHistoryLogWrapper
     }
 
     /**
-     * Get Gateway name by id. make the query and return the name of an gateway
-     * @param integer $id
-     * @return string
-     */
-    private function getGatewayName($id)
-    {
-        $gatewayBean = BeanFactory::getBean('pmse_BpmnGateway', $id);
-        return $gatewayBean->name;
-    }
-
-    /**
      * Get Module name by id. make the query and return the name of an sugar module
      * @param array $caseData
      * @return string
@@ -349,19 +328,21 @@ class PMSEHistoryLogWrapper
     private function getActivityModule($caseData)
     {
         global $beanList;
-
+        //global $db;
         $activityDefinitionBean = BeanFactory::getBean('pmse_BpmActivityDefinition', $caseData['bpmn_id']);
-
+        //$query = "select act_field_module from bpm_activity_definition where act_id = " . $caseData->bpmn_id;
+        //$result = $this->db->Query($query);
+        //$row = $this->db->fetchByAssoc($result);
         if (empty($activityDefinitionBean) || empty($activityDefinitionBean->act_field_module)) {
-            return PMSEEngineUtils::getModuleLabelFromModuleName($beanList[$caseData['cas_sugar_module']]);
+            return $beanList[$caseData['cas_sugar_module']];
         }
 
         $related_module_data = $this->getRelationshipData($activityDefinitionBean->act_field_module);
 
         if ($related_module_data == null) {
-            return PMSEEngineUtils::getModuleLabelFromModuleName($activityDefinitionBean->act_field_module);
+            return $activityDefinitionBean->act_field_module;
         }
-        return PMSEEngineUtils::getModuleLabelFromModuleName($related_module_data['rhs_module']);
+        return $related_module_data['rhs_module'];
     }
 
     /**
@@ -371,7 +352,11 @@ class PMSEHistoryLogWrapper
      */
     private function getRelationshipData($relationName)
     {
-        return SugarRelationshipFactory::getInstance()->getRelationshipDef($relationName);
+//        global $db;
+        $query = "select * from relationships where relationship_name='" . $relationName . "'";
+        $result = $this->db->Query($query);
+        $row = $this->db->fetchByAssoc($result);
+        return $row;
     }
 
     /**

@@ -26,7 +26,8 @@ $mod_strings = array(
     // handlebars helper isn't confused by a template that returns no text.
     'TPL_ACTIVITY_ON' => '{{#if object}} on {{{str "TPL_ACTIVITY_RECORD" "Activities" object}}}.{{/if}}{{#if module}} on {{str "LBL_MODULE_NAME_SINGULAR" module}}.{{else}} {{/if}}',
     'TPL_COMMENT' => '{{{value}}}',
-    'TPL_MORE_COMMENT' => '{{this}} comentariu în plus&hellip;',
-    'TPL_MORE_COMMENTS' => '{{this}} comentarii în plus&hellip;',
+    'TPL_MORE_COMMENT' => '{{this}} more comment&hellip;',
+    'TPL_MORE_COMMENTS' => '{{this}} more comments&hellip;',
     'TPL_SHOW_MORE_MODULE' => 'Mai multe posturi...',
 );
+

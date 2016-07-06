@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,6 +10,7 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
 
 require_once 'data/SugarVisibility.php';
 
@@ -135,23 +137,15 @@ class BeanVisibility
     }
 
     /**
-     * Get strategy objects
-     * @return array
-     */
-    public function getStrategies()
-    {
-        return $this->strategies;
-    }
-
-    /**
      * Called before the bean is indexed so that any calculated attributes can updated.
      * Propagates to all registered strategies.
      * @return void
-     * @deprecated
      */
     public function beforeSseIndexing()
     {
-        $GLOBALS['log']->deprecated("BeanVisibility::beforeSseIndexing is deprecated !");
+        foreach ($this->strategies as $strategy) {
+            $strategy->beforeSseIndexing();
+        }
     }
 
     /**
@@ -159,11 +153,14 @@ class BeanVisibility
      * @param SugarSearchEngineInterface $engine Sugar search engine object
      * @param mixed $filter Current filter used as base
      * @return mixed
-     * @deprecated
+     *
+     * FIXME: $filter is tightly coupled to Elasticsearch
      */
     public function addSseVisibilityFilter(SugarSearchEngineInterface $engine, $filter)
     {
-        $GLOBALS['log']->deprecated("BeanVisibility::addSseVisibilityFilter is deprecated !");
+        foreach ($this->strategies as $strategy) {
+            $filter = $strategy->addSseVisibilityFilter($engine, $filter);
+        }
         return $filter;
     }
 }

@@ -25,6 +25,11 @@
     titleViewNameTitle: '',
 
     /**
+     * The current module we're in
+     */
+    currentModule: '',
+
+    /**
      * Holds the collapsible toggle title template
      */
     toggleTitleTpl: {},
@@ -47,10 +52,11 @@
     initialize: function(options) {
         this._super('initialize', [options]);
 
+        this.currentModule = app.controller.context.get('module');
         this.toggleTitleTpl = app.template.getView('config-panel.title');
 
         if (this.meta.label) {
-            this.titleViewNameTitle = app.lang.get(this.meta.label, this.module);
+            this.titleViewNameTitle = app.lang.get(this.meta.label, this.currentModule);
         }
     },
 

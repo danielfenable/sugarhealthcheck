@@ -28,6 +28,7 @@ class DependencyManager
         "RecordlistView",
         "ListView",
         "Subpanel-listView",
+        "Create-actionsView",
     );
 
     /**
@@ -54,10 +55,8 @@ class DependencyManager
                 $dep = new Dependency($field);
                 $dep->setTrigger(new Trigger('true', $triggerFields));
 
-                $errorValue = array_key_exists('errorValue', $def) ? $def['errorValue'] : null;
-                $dep->addAction(ActionFactory::getNewAction('SetValue', array('target' => $field,
-                                                                              'value' => $def['formula'],
-                                                                              'errorValue' => $errorValue)));
+                $dep->addAction(ActionFactory::getNewAction('SetValue', array('target' => $field, 'value' => $def['formula'])));
+
                 if (isset($def['enforced']) && $def['enforced'] &&
                     //Check for the string "false"
                     (!is_string($def['enforced']) || strtolower($def['enforced']) !== "false")

@@ -54,28 +54,18 @@
         },
 
         /**
-         * @inheritdoc
+         * @inheritDoc
          */
         initialize: function(attributes) {
             Backbone.Model.prototype.initialize.call(this, attributes);
             // assume our attributes from creation are synced
             this.setSyncedAttributes(attributes);
-
-            this._bindEvents();
+            this.on('sync',
+                function() {
+                    this.setSyncedAttributes(this.attributes);
+                }
+                , this);
             this._relatedCollections = null;
-
-            /**
-             * The request object that is currently syncing against the server.
-             *
-             * This object is needed to determine if a fetch request should be
-             * aborted for the collection (e.g. if a new fetch request returns a
-             * response prior to a previous fetch request).
-             *
-             * @private
-             * @member Data.Bean
-             * @property {SUGAR.Api.HttpRequest}
-             */
-            this._activeFetchRequest = null;
 
             // Populate with default values only if the model is new and has not yet been populated
             if (this.isNew() && this._defaults) {
@@ -92,100 +82,6 @@
             }
 
             this.addValidationTask('sidecar', _.bind(this._doValidate, this));
-        },
-
-        /**
-         * Fetches the bean.
-         *
-         * Only one fetch request can be executed at a time - previous fetch
-         * requests will be aborted.
-         *
-         * @param {Object} [options] Fetch options.
-         * @param {Function} [options.success] The success callback to execute.
-         * @param {Function} [options.error] The error callback to execute.
-         */
-        fetch: function(options) {
-            options = _.extend({}, this.getOption(), options);
-            this.abortFetchRequest();
-            this._activeFetchRequest = Backbone.Model.prototype.fetch.call(this, options);
-            return this._activeFetchRequest;
-        },
-
-        /**
-         * Getter for {@link #_activeFetchRequest}.
-         *
-         * @return {SUGAR.Api.HttpRequest} The active fetch request.
-         */
-        getFetchRequest: function() {
-            return this._activeFetchRequest;
-        },
-
-        /**
-         * Aborts the {@link #_activeFetchRequest current fetch request}.
-         */
-        abortFetchRequest: function() {
-            var req = this.getFetchRequest();
-            if (req) {
-                app.api.abortRequest(req.uid);
-            }
-        },
-
-        /**
-         * Binds events on {@link Data.Bean the model}.
-         *
-         * @protected
-         */
-        _bindEvents: function() {
-            this.on('sync', function() {
-                this.setSyncedAttributes(this.attributes);
-                this._checkAcl();
-            }, this);
-        },
-
-        /**
-         * Checks if the `_acl` attribute has changed from its previous value on
-         * {@link Data.Bean the model}, and triggers the
-         * `acl:change:<fieldname>` event on all the fields whose ACLs have
-         * changed. Also triggers the `acl:change` event if one field had ACL
-         * changes. All events are triggered on {@link Data.Bean the model}.
-         *
-         * @private
-         */
-        _checkAcl: function() {
-            var _acl = this.get('_acl');
-            var acls = _acl && _acl.fields || {};
-
-            /**
-             * Hash of the previous field-level ACL changes.
-             *
-             * @property {Object}
-             */
-            this._prevAcls = this._prevAcls || {};
-
-            // Get the hash of fields with potential ACL changes.
-            var aclDiff = _.changed(acls, this._prevAcls);
-            // Set the old ACLs to the new ACLs.
-            this._prevAcls = acls;
-
-            if (!aclDiff) {
-                return;
-            }
-
-            var aclChange = false;
-            _.each(aclDiff, function(changed, field) {
-                if (changed) {
-                    aclChange = true;
-                    this.trigger('acl:change:' + field);
-                } else {
-                    // We don't care about fields that didn't have ACL
-                    // changes.
-                    delete aclDiff[field];
-                }
-            }, this);
-
-            if (aclChange) {
-                this.trigger('acl:change', aclDiff);
-            }
         },
 
         /**
@@ -233,78 +129,42 @@
         /**
          * Validates a bean asynchronously.
          *
-         * This method simply runs validation on the bean and calls the callback
-         * with the result - it does not fire any events or display any alerts.
-         * If you need events and alerts, use {@link Data.Bean#doValidate}.
-         * Note: This method is different from the standard Backbone `isValid`
-         * method which does not support the async validation we require.
-         *
-         * @param {Array|Object} [fields] A hash of field definitions or array
-         *   of field names to validate. If not specified, all fields will be
-         *   validated. View-agnostic validation will be run. Keys are field
-         *   names, values are field definitions (combination of view defs and
-         *   vardefs).
-         * @param {Function} [callback] Function called with isValid flag and
-         *   any errors once the validation is complete.
-         */
-        isValidAsync: function(fields, callback) {
-            fields = fields || this.fields;
-
-            async.waterfall(
-                // run all validation tasks
-                _.flatten([
-                    function(waterfallCallback) {
-                        waterfallCallback(null, fields, {});
-                    },
-                    _.sortBy(this._validationTasks)
-                ]),
-                // waterfall callback
-                function(didWaterfallFail, fields, errors) {
-                    if (!didWaterfallFail) {
-                        var isValid = _.isEmpty(errors);
-                        if (_.isFunction(callback)) {
-                            callback(isValid, errors);
-                        }
-                    }
-                }
-            );
-        },
-
-        /**
-         * Validates a bean asynchronously - firing events on start, complete,
-         * and failure.
-         *
          * This method is called before {@link Data.Bean#save}.
+         * Failed validations trigger an `"error:validation:<field-name>"` event.
          *
-         * Triggers:
-         * - `validation:success` if validation passes,
-         * - `error:validation` if validation fails,
-         * - `error:validation:<field-name>` for each invalid field,
-         * - `validation:complete` when validation completes.
-         *
-         * @param {Array|Object} [fields] A hash of field definitions or array
-         *   of field names to validate. If not specified, all fields will be
-         *   validated. View-agnostic validation will be run. Keys are field
-         *   names, values are field definitions (combination of view defs and
-         *   vardefs).
-         * @param {Function} [callback] Function called with isValid flag once
-         *   the validation is complete.
+         * @param {Array/Object} fields(optional) A hash of field definitions or array of field names to validate.
+         * If not specified, all fields will be validated. View-agnostic validation will be run.
+         * Keys are field names, values are field definitions (combination of view defs and vardefs).
+         * @param {Function} callback(optional) Function called with isValid flag once the validation is complete.
          */
         doValidate: function(fields, callback) {
             var self = this;
+            fields = fields || this.fields;
 
             this.trigger('validation:start');
 
-            this.isValidAsync(fields, function(isValid, errors) {
-                if (isValid) {
-                    self.trigger('validation:success');
+            async.waterfall(
+                //Validation tasks
+                _.flatten([
+                    function(callback) {
+                        callback(null, fields, {});
+                    },
+                    _.sortBy(self._validationTasks)
+                ]),
+                //Callback
+                function(didItFail, fields, errors) {
+                    if (!didItFail) {
+                        var isValid = _.isEmpty(errors);
+                        if(isValid){
+                            self.trigger('validation:success');
+                        }
+                        self.trigger("validation:complete", self._processValidationErrors(errors));
+                        if (_.isFunction(callback)) callback(isValid);
+                    }
                 }
-                self.trigger('validation:complete', self._processValidationErrors(errors));
+            );
 
-                if (_.isFunction(callback)) {
-                    callback(isValid);
-                }
-            });
+            return;
         },
 
         /**
@@ -498,10 +358,9 @@
         },
 
         /**
-         * Returns whether the bean was populated as a result of a copy.
+         * Returns whether the bean was populated as a result of a copy
          *
-         * @return {boolean} `true` if the bean was populated as a result of a
-         *   copy, `false` otherwise.
+         * @returns {boolean} was the bean populated as a result of a copy
          */
         isCopy: function() {
             return (this.isCopied === true);
@@ -510,10 +369,9 @@
         /**
          * Uploads a file.
          * @param {string} fieldName Name of the file field.
-         * @param {Array} $files List of DOM elements that contain file inputs.
-         * @param {Object} [callbacks] Callback hash.
-         * @param {Object} [options] Upload options. See {@link SUGAR.Api#file}
-         *   method for details.
+         * @param $files List of DOM elements that contain file inputs.
+         * @param callbacks(options) Callback hash.
+         * @param options(optional) Upload options. See {@link SUGAR.Api#file} method for details.
          * @return {Object} XHR object.
          */
         uploadFile: function(fieldName, $files, callbacks, options) {
@@ -536,7 +394,7 @@
 
         /**
          * Favorites or un-favorites a record.
-         * @param {boolean} flag Flag indicating if the record must be marked as favorite (`true`).
+         * @param {Boolean} flag Flag indicating if the record must be marked as favorite (`true`).
          * @param {Object} options(optional) Standard Backbone options for Backbone.Model#save operation.
          */
         favorite: function(flag, options) {
@@ -569,15 +427,13 @@
         },
 
         /**
-         * Returns an object of attributes. This method is called when
-         * JSON.stringify() is called on the bean. When the bean's attribute
-         * has toJSON() method, it will call its function.
+         * Returns an object of attributes. This method is called when JSON.stringify() is called on the
+         * bean. When the bean's attribute has toJSON() method, it will call its function.
          *
          * @inheritdoc
          *
-         * @param {Object} [options]
-         * @param {Object} [options.fields] List of field names to be included
-         *   in the object of attributes. It retrieves all fields by default.
+         * @param {Object} [options.fields] - List of field names to be included in the object of attributes.
+         * It retrieves all fields by default.
          * @return {Object}
          */
         toJSON: function(options) {
@@ -606,14 +462,13 @@
         /**
          * Reverts model attributes to the last values from last sync or values on creation.
          *
-         * @fires attributes:revert if `options.silent` is falsy.
+         * @triggers attributes:revert if `options.silent` is falsy.
          *
          * @param options Options are passed onto set such as `silent:true`.
          */
         revertAttributes: function(options) {
             options = options || {};
-            options.revert = true;
-            var changedAttr = this.changedAttributes(this.getSynced());
+            var changedAttr = this.changedAttributes(this.getSyncedAttributes());
             this.set(app.utils.deepCopy(changedAttr) || {}, options);
             if (!options.silent) {
                 this.trigger('attributes:revert');
@@ -627,30 +482,12 @@
         setSyncedAttributes: function(attributes) {
             this._syncedAttributes = attributes ? app.utils.deepCopy(attributes) : {};
         },
-
         /**
          * Gets internal synced attribute hash.
          * @return {Object}
-         *
-         * @deprecated since 7.7. Will be removed in 7.9.
-         * Use {@link #getSynced} instead.
          */
         getSyncedAttributes: function() {
-            app.logger.warn('Data.Bean.getSyncedAttributes is deprecated. ' +
-            'Please update your code to use Data.Bean.getSynced');
             return this._syncedAttributes;
-        },
-
-        /**
-         * Gets the value of the synced attribute for the given key. If no key
-         * is passed, {@link #_syncedAttributes all synced attributes} are
-         * returned
-         *
-         * @param {string} [key] The attribute name.
-         * @return {Mixed} The synced attribute's value.
-         */
-        getSynced: function(key) {
-            return key ? this._syncedAttributes[key] : this._syncedAttributes;
         },
 
         /**
@@ -779,64 +616,6 @@
             this._defaults = _.extend({}, this._defaults, attrs);
             this.attributes = _.defaults(this.attributes, attrs);
             return this;
-        },
-
-        /**
-         * Sets the default fetch options (one or many) on the model.
-         *
-         * @param {string|Object} key The name of the option, or an hash of
-         * options.
-         * @param {Mixed} [val] The value for the `key` option.
-         *
-         * @chainable
-         */
-        setOption: function(key, val) {
-            var attrs;
-            if (_.isObject(key)) {
-                attrs = key;
-            } else {
-                (attrs = {})[key] = val;
-            }
-
-            /**
-             * List of persistent fetch options.
-             *
-             * @type {Object}
-             * @private
-             */
-            this._persistentOptions = _.extend({}, this._persistentOptions, attrs);
-            return this;
-        },
-
-        /**
-         * Unsets a default fetch option (or all).
-         *
-         * @param {string|Object} [key] The name of the option to unset, or
-         * nothing to unset all options.
-         *
-         * @chainable
-         */
-        unsetOption: function(key) {
-            if (key) {
-                this.setOption(key, void 0);
-            } else {
-                this._persistentOptions = {};
-            }
-            return this;
-        },
-
-        /**
-         * Gets one or all persistent fetch options.
-         *
-         * @param {string|Object} [key] The name of the option to retrieve, or
-         * nothing to retrieve all options.
-         * @return {Mixed} A specific option, or the list of options.
-         */
-        getOption: function(key) {
-            if (key) {
-                return this._persistentOptions[key];
-            }
-            return this._persistentOptions;
         }
     }), false);
 

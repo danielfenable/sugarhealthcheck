@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,22 +12,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Sporingsrapport',
-                                          'LBL_DESCRIPTION'      => 'En dashlet til at køre forspørgsler mod sportingsdata',
-                                          'LBL_SAVING'           => 'Udfører forespørgsel...',
-                                          'LBL_SAVED'            => 'Forespørgsel fuldført',
-                                          'LBL_CLEAR'            => 'Ryd',
-                                          'LBL_CLEAR_TOOLTIP'    => 'Nulstiller datofeltets værdi',
-                                          'LBL_CONFIGURE_TITLE'  => 'Titel',
-                                          'LBL_CONFIGURE_HEIGHT' => 'Højde (1-300)',
-										  'LBL_SELECT_QUERY'     => 'Vælg forespørgsel...',
-										  'LBL_FILTER'              => 'Filter',
-										  'LBL_FILTER_TOOLTIP'      => 'Filtre ved værdien i datofeltet',
-										  'LBL_SINCE'            => 'Siden:',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
-										                               '  The date value entered will replace the default date value for the report.' .
-										                               '  For example, in the "My Activity (This Week)" report, the' .
-										                               ' value will be used to display all records after the filter date' .
-										                               ' instead of the default time period of one week.',
+$dashletStrings = array (
+  'TrackerDashlet' => 
+  array (
+    'LBL_CHOOSE_DATE_TOOLTIP' => 'For valgte rapporter kan du anvende et datofilter. Den indtastede dato vil erstatte standard datoen for rapporten. For eksempel i "mine aktiviter (denne uge)" rapporten vil datoen blive brugt til at vise alle poster udfra filter datoen, i stedet for standard perioden på en uge.',
+    'LBL_CLEAR' => 'Ryd',
+    'LBL_CLEAR_TOOLTIP' => 'Nulstiller datofeltets værdi',
+    'LBL_CONFIGURE_HEIGHT' => 'Højde (1-300)',
+    'LBL_CONFIGURE_TITLE' => 'Titel',
+    'LBL_DESCRIPTION' => 'En dashlet til at køre forspørgsler mod sportingsdata',
+    'LBL_FILTER' => 'Filter',
+    'LBL_FILTER_TOOLTIP' => 'Filtre ved værdien i datofeltet',
+    'LBL_SAVED' => 'Forespørgsel fuldført',
+    'LBL_SAVING' => 'Udfører forespørgsel...',
+    'LBL_SELECT_QUERY' => 'Vælg forespørgsel...',
+    'LBL_SINCE' => 'Siden:',
+    'LBL_TITLE' => 'Sporingsrapport',
+  ),
 );
+

@@ -226,10 +226,8 @@ class OneLogin_Saml2_Utils
                 $param = urlencode($name) . '=' . urlencode($value);
             }
 
-            if (!empty($param)) {
-                $url .= $paramPrefix . $param;
-                $paramPrefix = '&';
-            }
+            $url .= $paramPrefix . $param;
+            $paramPrefix = '&';
         }
 
         if ($stay) {
@@ -260,14 +258,19 @@ class OneLogin_Saml2_Utils
             $protocol = 'http';
         }
 
-        if (isset($_SERVER["HTTP_X_FORWARDED_PORT"])) {
-            $portnumber = $_SERVER["HTTP_X_FORWARDED_PORT"];
-        } else if (isset($_SERVER["SERVER_PORT"])) {
+        if (isset($_SERVER["SERVER_PORT"])) {
             $portnumber = $_SERVER["SERVER_PORT"];
-        }
-
-        if (isset($portnumber) && ($portnumber != '80') && ($portnumber != '443')) {
             $port = ':' . $portnumber;
+
+            if ($protocol == 'http') {
+                if ($portnumber == '80') {
+                    $port = '';
+                }
+            } elseif ($protocol == 'https') {
+                if ($portnumber == '443') {
+                    $port = '';
+                }
+            }
         }
 
         return $protocol."://" . $currenthost . $port;
@@ -310,9 +313,10 @@ class OneLogin_Saml2_Utils
      */
     public static function isHTTPS()
     {
-        $isHttps =  (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        $isHttps = (!empty($_SERVER['HTTPS'])
+                    && $_SERVER['HTTPS'] !== 'off'
                     || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
-                    || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
+        );
         return $isHttps;
     }
 
@@ -375,19 +379,6 @@ class OneLogin_Saml2_Utils
             }
         }
         return $selfURLhost . $requestURI;
-    }
-
-     /**
-     * Extract a query param - as it was sent - from $_SERVER[QUERY_STRING]
-     *
-     * @param string The param to-be extracted
-     */
-    public static function extractOriginalQueryParam ($name)
-    {
-        $index = strpos($_SERVER['QUERY_STRING'], $name.'=');
-        $substring = substr($_SERVER['QUERY_STRING'], $index + strlen($name) + 1);
-        $end = strpos($substring, '&');
-        return $end ? substr($substring, 0, strpos($substring, '&')) : $substring;
     }
 
     /**
@@ -634,7 +625,7 @@ class OneLogin_Saml2_Utils
      *
      * @return string Formated fingerprint
      */
-    public static function calculateX509Fingerprint($x509cert, $alg='sha1')
+    public static function calculateX509Fingerprint($x509cert)
     {
         assert('is_string($x509cert)');
 
@@ -659,20 +650,11 @@ class OneLogin_Saml2_Utils
                 $data .= $line;
             }
         }
-        $decodedData = base64_decode($data);
 
-        switch ($alg) {
-            case 'sha512':
-            case 'sha384':
-            case 'sha256':
-                $fingerprint = hash($alg, $decodedData, FALSE);
-                break;
-            case 'sha1':
-            default:
-                $fingerprint = strtolower(sha1($decodedData));
-                break;
-        }
-        return $fingerprint;
+        /* $data now contains the certificate as a base64-encoded string. The fingerprint
+         * of the certificate is the sha1-hash of the certificate.
+         */
+        return strtolower(sha1(base64_decode($data)));
     }
 
     /**
@@ -705,9 +687,7 @@ class OneLogin_Saml2_Utils
         $doc = new DOMDocument();
 
         $nameId = $doc->createElement('saml:NameID');
-        if (isset($spnq)) {
-            $nameId->setAttribute('SPNameQualifier', $spnq);
-        }
+        $nameId->setAttribute('SPNameQualifier', $spnq);
         $nameId->setAttribute('Format', $format);
         $nameId->appendChild($doc->createTextNode($value));
 
@@ -767,12 +747,7 @@ class OneLogin_Saml2_Utils
 
         $messageEntry = self::query($dom, '/samlp:Response/samlp:Status/samlp:StatusMessage', $statusEntry->item(0));
         if ($messageEntry->length == 0) {
-            $subCodeEntry = self::query($dom, '/samlp:Response/samlp:Status/samlp:StatusCode/samlp:StatusCode', $statusEntry->item(0));
-            if ($subCodeEntry->length > 0) {
-                $status['msg'] = $subCodeEntry->item(0)->getAttribute('Value');
-            } else {
-                $status['msg'] = '';
-            }
+            $status['msg'] = '';
         } else {
             $msg = $messageEntry->item(0)->textContent;
             $status['msg'] = $msg;
@@ -827,17 +802,17 @@ class OneLogin_Saml2_Utils
             $encKey = $symmetricKeyInfo->encryptedCtx;
             $symmetricKeyInfo->key = $inputKey->key;
             $keySize = $symmetricKey->getSymmetricKeySize();
-            if ($keySize === null) {
-                // To protect against "key oracle" attacks
-                throw new Exception('Unknown key size for encryption algorithm: ' . var_export($symmetricKey->type, true));
+            if ($keySize === NULL) {
+                // To protect against "key oracle" attacks 
+                throw new Exception('Unknown key size for encryption algorithm: ' . var_export($symmetricKey->type, TRUE));
             }
 
             $key = $encKey->decryptKey($symmetricKeyInfo);
             if (strlen($key) != $keySize) {
                 $encryptedKey = $encKey->getCipherValue();
                 $pkey = openssl_pkey_get_details($symmetricKeyInfo->key);
-                $pkey = sha1(serialize($pkey), true);
-                $key = sha1($encryptedKey . $pkey, true);
+                $pkey = sha1(serialize($pkey), TRUE);
+                $key = sha1($encryptedKey . $pkey, TRUE);
 
                 /* Make sure that the key has the correct length. */
                 if (strlen($key) > $keySize) {
@@ -896,7 +871,7 @@ class OneLogin_Saml2_Utils
             return $key;
         }
         $keyInfo = openssl_pkey_get_details($key->key);
-        if ($keyInfo === false) {
+        if ($keyInfo === FALSE) {
             throw new Exception('Unable to get key details from XMLSecurityKey.');
         }
         if (!isset($keyInfo['key'])) {
@@ -910,12 +885,11 @@ class OneLogin_Saml2_Utils
     /**
      * Adds signature key and senders certificate to an element (Message or Assertion).
      *
-     * @param string|DomDocument $xml            The element we should sign
-     * @param string             $key            The private key
-     * @param string             $cert           The public
-     * @param string             $signAlgorithm Signature algorithm method
+     * @param string|DomDocument $xml  The element we should sign
+     * @param string             $key  The private key
+     * @param string             $cert The public
      */
-    public static function addSign($xml, $key, $cert, $signAlgorithm = XMLSecurityKey::RSA_SHA1)
+    public static function addSign($xml, $key, $cert)
     {
         if ($xml instanceof DOMDocument) {
             $dom = $xml;
@@ -928,7 +902,7 @@ class OneLogin_Saml2_Utils
         }
 
         /* Load the private key. */
-        $objKey = new XMLSecurityKey($signAlgorithm, array('type' => 'private'));
+        $objKey = new XMLSecurityKey(XMLSecurityKey::RSA_SHA1, array('type' => 'private'));
         $objKey->loadKey($key, false);
 
         /* Get the EntityDescriptor node we should sign. */
@@ -951,8 +925,8 @@ class OneLogin_Saml2_Utils
         $objXMLSecDSig->add509Cert($cert, true);
 
         $insertBefore = $rootNode->firstChild;
-        $messageTypes = array('AuthnRequest', 'Response', 'LogoutRequest','LogoutResponse');
-        if (in_array($rootNode->localName, $messageTypes)) {
+        $messageTypes = array('samlp:AuthnRequest', 'samlp:Response', 'samlp:LogoutRequest','samlp:LogoutResponse');
+        if (in_array($rootNode->tagName, $messageTypes)) {
             $issuerNodes = self::query($dom, '/'.$rootNode->tagName.'/saml:Issuer');
             if ($issuerNodes->length == 1) {
                 $insertBefore = $issuerNodes->item(0)->nextSibling;
@@ -974,12 +948,11 @@ class OneLogin_Saml2_Utils
     /**
      * Validates a signature (Message or Assertion).
      *
-     * @param string|DomDocument $xml            The element we should validate
-     * @param string|null        $cert           The pubic cert
-     * @param string|null        $fingerprint    The fingerprint of the public cert
-     * @param string|null        $fingerprintalg The algorithm used to get the fingerprint
+     * @param string|DomDocument $xml         The element we should validate
+     * @param string|null        $cert        The pubic cert
+     * @param string|null        $fingerprint The fingerprint of the public cert
      */
-    public static function validateSign($xml, $cert = null, $fingerprint = null, $fingerprintalg = 'sha1')
+    public static function validateSign ($xml, $cert = null, $fingerprint = null)
     {
         if ($xml instanceof DOMDocument) {
             $dom = clone $xml;
@@ -988,22 +961,6 @@ class OneLogin_Saml2_Utils
         } else {
             $dom = new DOMDocument();
             $dom = self::loadXML($dom, $xml);
-        }
-
-        # Check if Reference URI is empty
-        try {
-            $signatureElems = $dom->getElementsByTagName('Signature');
-            foreach ($signatureElems as $signatureElem) {
-                $referenceElems = $dom->getElementsByTagName('Reference');
-                if (count($referenceElems) > 0) {
-                    $referenceElem = $referenceElems->item(0);
-                    if ($referenceElem->getAttribute('URI') == '') {
-                        $referenceElem->setAttribute('URI', '#'.$signatureElem->parentNode->getAttribute('ID'));
-                    }
-                }
-            }
-        } catch (Exception $e) {
-            continue;
         }
 
         $objXMLSecDSig = new XMLSecurityDSig();
@@ -1034,7 +991,7 @@ class OneLogin_Saml2_Utils
             return ($objXMLSecDSig->verify($objKey) === 1);
         } else {
             $domCert = $objKey->getX509Certificate();
-            $domCertFingerprint = OneLogin_Saml2_Utils::calculateX509Fingerprint($domCert, $fingerprintalg);
+            $domCertFingerprint = OneLogin_Saml2_Utils::calculateX509Fingerprint($domCert);
             if (OneLogin_Saml2_Utils::formatFingerPrint($fingerprint) !== $domCertFingerprint) {
                 return false;
             } else {

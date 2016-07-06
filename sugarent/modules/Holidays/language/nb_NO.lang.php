@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,35 +12,28 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-// $Id: en_us.lang.php 13782 2006-06-06 17:58:55 +0000 (Tue, 06 Jun 2006) majed $
+	
 
 $mod_strings = array (
-	'LBL_MODULE_NAME' => 'Ferier',
-	'LBL_MODULE_NAME_SINGULAR' => 'Ferie',
-	'LBL_MODULE_TITLE' => 'Ferier: Hjem',
-	'LBL_HOLIDAY' => 'Ferie:',
-	'LBL_HOLIDAY_DATE' => 'Feriedato:',
-	'LBL_NAME' => 'Feriedato:',
-	'LBL_DESCRIPTION' => 'Beskrivelse:',
-	'LBL_RESOURCE_NAME' => 'Kildenavn:',
-	
-	'LBL_SEARCH_FORM_TITLE' => 'Søk ferie',
-	'LBL_LIST_FORM_TITLE' => 'Ferieliste',		
-
-	'LNK_NEW_HOLIDAY' => 'Legg till ferie',
-	'LNK_HOLIDAYS' => 'Ferier',
-	
-	'LBL_USERS_SUBPANEL_TITLE' => 'Brukere',
-	'LBL_USER_HOLIDAY_SUBPANEL_TITLE'	=> 'Brukerferier',
-	
-	'LBL_RESOURCE' => 'Kilde:',
-	'LBL_PERSON_TYPE' => 'Type person',
-	'LBL_RELATED_MODULE'=> 'Relaterte moduler:',
-	
-	// For HolidaysQuickCreate.php
-	'LBL_SELECT_RESOURCE_TYPE' => 'Velg kildetype...',
-	'LBL_USER' => 'Bruker',
-	'LBL_CONTACT' => 'Kontakt',
+  'LBL_CONTACT' => 'Kontakt',
+  'LBL_DESCRIPTION' => 'Beskrivelse:',
+  'LBL_HOLIDAY' => 'Ferie:',
+  'LBL_HOLIDAY_DATE' => 'Feriedato:',
+  'LBL_LIST_FORM_TITLE' => 'Ferieliste',
+  'LBL_MODULE_NAME' => 'Ferier',
+  'LBL_MODULE_NAME_SINGULAR' => 'Ferie',
+  'LBL_MODULE_TITLE' => 'Ferier: Hjem',
+  'LBL_NAME' => 'Feriedato:',
+  'LBL_PERSON_TYPE' => 'Type person',
+  'LBL_RELATED_MODULE' => 'Relaterte moduler:',
+  'LBL_RESOURCE' => 'Kilde:',
+  'LBL_RESOURCE_NAME' => 'Kildenavn:',
+  'LBL_SEARCH_FORM_TITLE' => 'Søk ferie',
+  'LBL_SELECT_RESOURCE_TYPE' => 'Velg kildetype...',
+  'LBL_USER' => 'Bruker',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Brukere',
+  'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'Brukerferier',
+  'LNK_HOLIDAYS' => 'Ferier',
+  'LNK_NEW_HOLIDAY' => 'Legg till ferie',
 );
-?>
+

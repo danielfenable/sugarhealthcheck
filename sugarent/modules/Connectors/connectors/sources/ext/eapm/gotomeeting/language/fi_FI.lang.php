@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,9 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-Hanki API-avain Citrix Online GoToMeeting -palvelusta rekisteröimällä uusi sovellus.<br>
-&nbsp;<br>
-Rekisteröinti vaiheittain:<br>
-&nbsp;<br>
-<ol>
-<li>Kirjaudu sisään Citrix Online -kehittäjätilillesi: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>Napsauta "Apply for Developer Key"</li>
-<li>Valitse "Product API" -sivulla GoToMeeting ja kirjoita instanssin URL-osoite "Application URL" -kohtaan</li>
-<li>Näet "Your Applications" -kohdassa "API Key" -sarakkeen.</li>
-<li>Kopioi avain alle.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'API-avain',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => '<table border=\'0\' cellspacing=\'1\'><tr><td valign=\'top\' width=\'35%\' class=\'dataLabel\'><br />Kanki API-avain Citrix Online GoToMeeting:lta rekisteröimällä uusi sovellus.<br /><br />&nbsp;<br /><br />Instanssisi rekisteröinnin vaiheet:<br /><br />&nbsp;<br /><br /><ol><br /><li>Kirjaudu Citrix Online -kehittäjätiliisi: <a href=\'https://developer.citrixonline.com/\'>https://developer.citrixonline.com/</a></li><br /><li>Klikkaa “Apply for Developer Key”.</li><br /><li>Product API -alueella valitse GoToMeeting, ja syötä instanssisi URL “Application URL” -kohtaan.</li><br /><li>Kaiken mennessä hyvin, näet “API Key” -nimisen sarakkeen “Your Applications” -alueella.</li><br /><li>Kopioi se alla olevaan kenttään.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'API-avain',
 );

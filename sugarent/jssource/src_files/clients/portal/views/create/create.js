@@ -8,11 +8,6 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/**
- * @class View.Views.Portal.CreateView
- * @alias SUGAR.App.view.views.PortalCreateView
- * @extends View.Views.Base.CreateView
- */
 ({
     extendsFrom: 'CreateView',
 

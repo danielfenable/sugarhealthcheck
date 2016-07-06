@@ -10,6 +10,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+ 
+/*********************************************************************************
+ * pl_pl.lang.php for SugarCRM 6.5.0
+ * Translator: eVolpe
+ * All Rights Reserved.
+ * Any bugs report welcome: support@evolpe.pl
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
 
 $dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Raporty śledzenia',
                                           'LBL_DESCRIPTION'      => 'Dashlet do uruchamiania zapytań po danych Trackera',
@@ -17,15 +25,15 @@ $dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Raporty śl
                                           'LBL_SAVED'            => 'Zapytanie ukończone',
                                           'LBL_CLEAR'            => 'Wyczyść',
                                           'LBL_CLEAR_TOOLTIP'    => 'Czyści wartości pól danych',
-                                          'LBL_CONFIGURE_TITLE'  => 'Stanowisko',
+                                          'LBL_CONFIGURE_TITLE'  => 'Tytuł',
                                           'LBL_CONFIGURE_HEIGHT' => 'Wysokość (1 - 300)',
 										  'LBL_SELECT_QUERY'     => 'Wybieranie zapytania ...',
 										  'LBL_FILTER'              => 'Filtr',
 										  'LBL_FILTER_TOOLTIP'      => 'Filtruje po wartość pól danych',
 										  'LBL_SINCE'            => 'Od: ',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
-										                               '  The date value entered will replace the default date value for the report.' .
-										                               '  For example, in the "My Activity (This Week)" report, the' .
-										                               ' value will be used to display all records after the filter date' .
-										                               ' instead of the default time period of one week.',
+										  'LBL_CHOOSE_DATE_TOOLTIP' => 'Dla wybranych raportów możesz podać filtr danych.' .
+										                               '  Wartośc daty zastąpi domyślną wartość dla raportu.' .
+										                               '  Np., w raporcie Moje wydarzenia (ten tydzień) wartość' .
+										                               ' zostanie użyta do wyświetlenia wszystkich rekordów po zadanej dacie' .
+										                               ' zamiast domyślnego przedziału czasu.',
 );

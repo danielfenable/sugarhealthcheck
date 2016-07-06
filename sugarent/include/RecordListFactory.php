@@ -31,7 +31,9 @@ class RecordListFactory
             $user = $GLOBALS['current_user'];
         }
 
-        $row = $db->fetchOne("SELECT * FROM record_list WHERE id = '".$db->quote($id)."' AND assigned_user_id = '".$db->quote($user->id)."'",true, '', false);
+        $ret = $db->query("SELECT * FROM record_list WHERE id = '".$db->quote($id)."' AND assigned_user_id = '".$db->quote($user->id)."'",true);
+
+        $row = $db->fetchByAssoc($ret, false);
 
         if (!empty($row['records'])) {
             $data = $row;
@@ -53,7 +55,8 @@ class RecordListFactory
     public static function saveRecordList($recordList, $module, $id = null, $user = null)
     {
         global $dictionary;
-        
+        include_once 'metadata/recordListMetaData.php';
+
         $db = DBManagerFactory::getInstance();
 
         if ($user == null) {

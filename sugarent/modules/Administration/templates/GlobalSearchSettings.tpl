@@ -13,7 +13,7 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
     <td colspan="100">
-        <h2>{$MOD.LBL_FTS_SETTINGS}</h2>
+        <h2> {$moduleTitle}</h2>
     </td>
 </tr>
 <tr>
@@ -98,8 +98,6 @@
 	</table>
 </form>
 
-</table>
-
 <div id='selectFTSModules' class="yui-hidden">
     <div style="background-color: white; padding: 20px; overflow:scroll; height:400px;">
         <div id='selectFTSModulesTable' ></div>
@@ -146,28 +144,28 @@
 	SUGAR.globalSearchEnabledTable.render();
 	SUGAR.globalSearchDisabledTable.render();
 
-        SUGAR.getModulesFromTable = function(table)
+    SUGAR.getEnabledModules = function()
+    {
+        var enabledTable = SUGAR.globalSearchEnabledTable;
+        var modules = "";
+        for(var i=0; i < enabledTable.getRecordSet().getLength(); i++)
         {
-            var modules = "";
-            for(var i=0; i < table.getRecordSet().getLength(); i++)
-            {
-                var data = table.getRecord(i).getData();
-                if (data.module && data.module != '')
-                    modules += "," + data.module;
-            }
-            modules = modules == "" ? modules : modules.substr(1);
-            return modules;
+            var data = enabledTable.getRecord(i).getData();
+            if (data.module && data.module != '')
+                modules += "," + data.module;
         }
-        SUGAR.getEnabledModulesForFTSSched = function()
+        return modules;
+    }
+    SUGAR.getEnabledModulesForFTSSched = function()
+    {
+        var enabledTable = SUGAR.FTS.selectedDataTable;
+        var modules = [];
+        var selectedIDs = enabledTable.getSelectedRows();
+        for(var i=0; i < selectedIDs.length; i++)
         {
-            var enabledTable = SUGAR.FTS.selectedDataTable;
-            var modules = [];
-            var selectedIDs = enabledTable.getSelectedRows();
-            for(var i=0; i < selectedIDs.length; i++)
-            {
-                var data = enabledTable.getRecord(selectedIDs[i]).getData();
-                modules.push(data.module);
-            }
+            var data = enabledTable.getRecord(selectedIDs[i]).getData();
+            modules.push(data.module);
+        }
 
         return modules;
     }
@@ -199,8 +197,9 @@
             if(!check_form('GlobalSearchSettings'))
                 return;
         }
-        var enabled = SUGAR.getModulesFromTable(SUGAR.globalSearchEnabledTable);
-        var disabled = SUGAR.getModulesFromTable(SUGAR.globalSearchDisabledTable);
+		var enabledTable = SUGAR.globalSearchEnabledTable;
+		var modules = SUGAR.getEnabledModules();
+		modules = modules == "" ? modules : modules.substr(1);
 
         var urlParams = {
             module: "Administration",
@@ -208,9 +207,8 @@
             host: host,
             port: port,
             type: type,
-            enabled_modules: enabled,
-            disabled_modules: disabled,
-            csrf_token: SUGAR.csrf.form_token
+            enabled_modules: modules,
+            csrf_token: SUGAR.csrf.form_token 
         }
 
 		ajaxStatus.showStatus(SUGAR.language.get('Administration', 'LBL_SAVING'));
@@ -230,8 +228,11 @@
         var response = YAHOO.lang.trim(o.responseText);
         if (response === "true") {
             var app = parent.SUGAR.App;
-            app.sync();
-            window.location.assign('index.php?module=Administration&action=index');
+            app.metadata.sync(function (){
+                app.additionalComponents.header.getComponent('globalsearch').populateModules();
+            });
+
+	       window.location.assign('index.php?module=Administration&action=index');
 	   } else {
             YAHOO.SUGAR.MessageBox.show({msg: response});
 	   }

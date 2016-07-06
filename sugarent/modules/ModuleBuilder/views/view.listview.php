@@ -254,7 +254,7 @@ class ViewListView extends SugarView
         $buttons [] = array ( 'id' =>'savebtn', 'name' => 'savebtn' , 'type' => 'submit', 'image' => $imageSave , 'text' => (! $this->fromModuleBuilder)?$GLOBALS [ 'mod_strings' ] [ 'LBL_BTN_SAVEPUBLISH' ]: $GLOBALS [ 'mod_strings' ] [ 'LBL_BTN_SAVE' ]);
         $buttons [] = array ( 'id' => 'spacer' , 'width' => '50px' ) ;
         $buttons [] = array ( 'id' =>'historyBtn',       'name' => 'historyBtn' , 'text' => translate ( 'LBL_HISTORY' ) , 'actionScript' => "onclick='$histaction'" ) ;
-        $buttons [] = array ( 'id' => 'historyRestoreDefaultLayout' , 'name' => 'historyRestoreDefaultLayout',  'text' => translate ( 'LBL_RESTORE_DEFAULT_LAYOUT' ) , 'actionScript' => $restoreAction ) ;
+        $buttons [] = array ( 'id' => 'historyDefault' , 'name' => 'historyDefault',  'text' => translate ( 'LBL_RESTORE_DEFAULT' ) , 'actionScript' => $restoreAction ) ;
 
         $smarty->assign ( 'buttons', $this->_buildImageButtons ( $buttons ) ) ;
 

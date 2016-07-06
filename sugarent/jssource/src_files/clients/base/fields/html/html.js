@@ -11,20 +11,20 @@
 /**
  * @class View.Fields.Base.HtmlField
  * @alias SUGAR.App.view.fields.BaseHtmlField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     fieldSelector: '.htmlareafield', //iframe selector
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * The direction for this field should always be `ltr`.
      */
     direction: 'ltr',
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * The html area is always a readonly field.
      * (see htmleditable for an editable html field)
@@ -35,7 +35,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * Set the name of the field on the iframe as well as the contents
      *

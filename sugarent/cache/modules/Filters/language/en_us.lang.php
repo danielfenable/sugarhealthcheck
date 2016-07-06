@@ -1,13 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:31
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team Id',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -27,6 +20,11 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team Id',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
   'LBL_LISTVIEW_FILTER_ALL' => 'All {0}',
   'LBL_CREATED_BY_ME' => 'Created by Me',
   'LBL_LIST_FORM_TITLE' => 'Filters List',
@@ -71,8 +69,6 @@ $mod_strings = array (
   'LBL_FILTER_NEW_NAME' => 'Enter new filter name',
   'LBL_OPERATOR_CONTAINS' => 'is any of',
   'LBL_OPERATOR_NOT_CONTAINS' => 'is not any of',
-  'LBL_OPERATOR_EMPTY' => 'is empty',
-  'LBL_OPERATOR_NOT_EMPTY' => 'is not empty',
   'LBL_OPERATOR_MATCHES' => 'exactly matches',
   'LBL_OPERATOR_IS' => 'is',
   'LBL_OPERATOR_IS_NOT' => 'is not',

@@ -1,5 +1,4 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -27,12 +26,14 @@ $viewdefs[$module_name]['mobile']['view']['list'] = array(
                 array(
                     'name' => 'team_name',
                     'label' => 'LBL_TEAM',
+                    'width' => 9,
                     'default' => true,
                     'enabled' => true,
                 ),
                 array(
                     'name' => 'assigned_user_name',
                     'label' => 'LBL_ASSIGNED_TO_NAME',
+                    'width' => 9,
                     'default' => true,
                     'enabled' => true,
                     'link' => true,

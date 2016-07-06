@@ -405,7 +405,7 @@
      * Searches the post to identify links and make them as actual links
      *
      * @param {String} post
-     * @return {string}
+     * @returns {String}
      */
     formatLinks: function(post) {
         var formattedPost = '';
@@ -427,10 +427,6 @@
      * Resize the iframe that embeds video
      */
     resizeVideo: function() {
-        // if this is disposed, then just bail as the code below with throw errors
-        if (this.disposed === true) {
-            return;
-        }
         var data = this.model.get('data'),
             $embed = this.$('.embed'),
             $iframes = $embed.find('iframe'),
@@ -483,7 +479,7 @@
      * Builds and returns the url for the user's profile picture based on fetching from cache
      * @param model
      * @param activityType
-     * @return {string}
+     * @returns string
      */
     getAvatarUrlForUser: function (model, activityType){
         var createdBy = model.get('created_by'),
@@ -497,7 +493,7 @@
      *
      * @param model The User
      * @param activityType
-     * @return {boolean} whether user has a picture
+     * @returns {boolean} whether user has a picture
      */
     checkUserHasPicture: function (model, activityType) {
         var createdBy = model.get('created_by'),
@@ -557,7 +553,7 @@
      * Respects cache TTL, returns undefined if expired
      *
      * @param userId
-     * @return {boolean|undefined} whether user has picture or `undefined` if cache not set or expired
+     * @returns {boolean|undefined} whether user has picture or undefined if cache not set or expired
      * @private
      */
     getUserPictureStatus: function(userId) {
@@ -583,7 +579,7 @@
      * Build the file url for the given user's avatar
      *
      * @param userId
-     * @return {string} The avatar url
+     * @returns {String} The avatar url
      * @private
      */
     buildAvatarUrl: function(userId) {
@@ -603,7 +599,7 @@
      * Retrieve comment entered inside content editable and translate any tags into text format
      * so that it can be saved in the database as JSON string.
      *
-     * @return {string}
+     * @returns {String}
      */
     getComment: function() {
         return this.unformatTags(this.$('div.reply'));
@@ -669,7 +665,7 @@
      *
      * @param layoutName to look for up the context hierarchy
      * @param context start of context hierarchy
-     * @return {Mixed}
+     * @returns {*}
      * @private
      */
     _getParentModel: function(layoutName, context) {

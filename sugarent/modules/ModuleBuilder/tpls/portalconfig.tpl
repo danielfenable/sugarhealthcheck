@@ -97,7 +97,6 @@
         width: '50%'
     });
     addToValidateRange(0, "maxQueryResult", "int", true,{/literal}"{$mod.LBL_PORTAL_LIST_NUMBER}"{literal},1,100);
-    addToValidateUrl(0, 'logoURL', 'alphanumeric', false, {/literal}"{$mod.LBL_PORTAL_LOGO_URL}"{literal});
     $('#gobutton').click(function(event){
         var $field, fields, props, i, key, val;
         fields = $('.portalField');
@@ -121,8 +120,6 @@
     function retrieve_portal_page(props) {
         if (validate_form(0,'')) {
             ModuleBuilder.getContent("module=ModuleBuilder&action=portalconfigsave&" + props);
-            removeFromValidate(0, 'maxQueryResult');
-            removeFromValidate(0, 'logoURL');
         }
     }
 </script>

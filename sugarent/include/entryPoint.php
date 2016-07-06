@@ -60,13 +60,6 @@ if (!defined('SUGAR_BASE_DIR')) {
     define('SUGAR_BASE_DIR', str_replace('\\', '/', realpath(dirname(__FILE__) . '/..')));
 }
 
-if (!defined('SHADOW_INSTANCE_DIR') && extension_loaded('shadow') && ini_get('shadow.enabled')) {
-    $shadowConfig = shadow_get_config();
-    if ($shadowConfig['instance']) {
-        define('SHADOW_INSTANCE_DIR', $shadowConfig['instance']);
-    }
-}
-
 set_include_path(
     SUGAR_BASE_DIR . PATH_SEPARATOR .
     SUGAR_BASE_DIR . '/vendor' . PATH_SEPARATOR .
@@ -80,7 +73,6 @@ if (!defined('PHP_VERSION_ID')) {
 
 if(empty($GLOBALS['installing']) && !file_exists('config.php'))
 {
-
 	header('Location: install.php');
 	exit ();
 }
@@ -110,10 +102,6 @@ if (!empty($sugar_config['xhprof_config']))
 
 // make sure SugarConfig object is available
 require_once 'include/SugarObjects/SugarConfig.php';
-
-// Compatibility library with PHP 5.5's simplified password hashing API
-// This can be removed when SugarCRM's minimum PHP version is 5.5
-require_once 'vendor/ircmaxell/password-compat/lib/password.php';
 
 require_once('include/utils.php');
 register_shutdown_function('sugar_cleanup');
@@ -184,10 +172,10 @@ $error_notice = '';
 $use_current_user_login = false;
 
 // Allow for the session information to be passed via the URL for printing.
-if (!empty($_GET['PHPSESSID'])) {
-    if (!empty($_COOKIE['PHPSESSID']) && strcmp($_GET['PHPSESSID'], $_COOKIE['PHPSESSID']) == 0) {
+if(isset($_GET['PHPSESSID'])){
+    if(!empty($_COOKIE['PHPSESSID']) && strcmp($_GET['PHPSESSID'],$_COOKIE['PHPSESSID']) == 0) {
         session_id($_REQUEST['PHPSESSID']);
-    } else {
+    }else{
         unset($_GET['PHPSESSID']);
     }
 }

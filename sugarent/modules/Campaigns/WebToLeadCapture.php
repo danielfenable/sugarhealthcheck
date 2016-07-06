@@ -84,7 +84,7 @@ if (isset($_POST['campaign_id']) && !empty($_POST['campaign_id'])) {
             $_POST['dup_checked'] = true;
 
             // checkRequired needs a major overhaul before it works for web to lead forms.
-            $lead = $leadForm->handleSave($prefix, false, false, false, $lead, false);
+            $lead = $leadForm->handleSave($prefix, false, false, false, $lead);
             
 			if(!empty($lead)){
 				
@@ -105,9 +105,9 @@ if (isset($_POST['campaign_id']) && !empty($_POST['campaign_id'])) {
 
 		        //link campaignlog and lead
 
-		        if (isset($_POST['email']) && $_POST['email'] != null)
+		        if (isset($_POST['email1']) && $_POST['email1'] != null)
                 {
-                    $lead->email1 = $_POST['email'];
+                    $lead->email1 = $_POST['email1'];
 		        } 
                 //in case there are old forms used webtolead_email1
                 elseif (isset($_POST['webtolead_email1']) && $_POST['webtolead_email1'] != null)

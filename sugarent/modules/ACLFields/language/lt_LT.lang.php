@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +10,21 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
-'LBL_DEFAULT'=>'Nenustatyta',
-'LBL_READ_WRITE'=>'Skaityti/Rašyti',
-'LBL_READ_OWNER_WRITE'=>'Skaityti/Rašyti savininkas',
-'LBL_READ_ONLY'=>'Tik skaityti',
-'LBL_OWNER_READ_WRITE'=>'Skaityti savininkas/Rašyti savininkas',
-'LBL_ALLOW_NONE'=>'Joks',
-'LBL_FIELDS'=>'Laukų leidimai',
-'LBL_NOT_DEFINED' => 'Not Defined',
-)
-?>
+  'LBL_DEFAULT' => 'Nenustatyta',
+  'LBL_READ_WRITE' => 'Skaityti/Rašyti',
+  'LBL_READ_OWNER_WRITE' => 'Skaityti/Rašyti savininkas',
+  'LBL_READ_ONLY' => 'Tik skaityti',
+  'LBL_OWNER_READ_WRITE' => 'Skaityti savininkas/Rašyti savininkas',
+  'LBL_ALLOW_NONE' => 'Joks',
+  'LBL_FIELDS' => 'Laukų leidimai',
+);
+

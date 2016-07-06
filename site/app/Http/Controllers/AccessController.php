@@ -54,7 +54,6 @@ class AccessController extends Controller
         $system = Session::get('system')->name;
         $access = new CallAccess();
         $result = $access->perform($system, $user);
-        dd($result);
         if ($result == 'false' || !$result) return 'Could not get access token.';
         // Have O-Auth refresh ID
         return "<div id='auth_token'>" . $result . "</div>" . "<div id='system'>" . env(

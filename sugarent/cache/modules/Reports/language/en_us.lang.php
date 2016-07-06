@@ -1,5 +1,5 @@
 <?php
-// created: 2016-07-04 12:09:24
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
   'LBL_TEAM' => 'Teams',
   'LBL_TEAMS' => 'Teams',
@@ -233,7 +233,6 @@ $mod_strings = array (
   'LBL_WEIGHTED_AVG_AMOUNT' => 'Weighted Avg Amount',
   'LBL_WEIGHTED_SUM_AMOUNT' => 'Weighted Sum Amount',
   'ERR_SELECT_COLUMN' => 'Please select a display column first.',
-  'LBL_BY_WEEK' => 'By Week',
   'LBL_BY_MONTH' => 'By Month',
   'LBL_BY_YEAR' => 'By Year',
   'LBL_BY_QUARTER' => 'By Quarter',
@@ -245,7 +244,6 @@ $mod_strings = array (
   'LBL_MAX' => 'MAX',
   'LBL_MIN' => 'MIN',
   'LBL_QUARTER_ABBREVIATION' => 'Q',
-  'LBL_WEEK' => 'Week',
   'LBL_MONTH' => 'Month',
   'LBL_YEAR' => 'Year',
   'LBL_QUARTER' => 'Quarter',

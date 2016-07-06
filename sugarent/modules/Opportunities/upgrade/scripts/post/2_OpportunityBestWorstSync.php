@@ -30,13 +30,13 @@ class SugarUpgradeOpportunityBestWorstSync extends UpgradeScript
         $this->log('Syncing Opportunity Amount to Best Case if it\'s empty or null');
         $sql = "UPDATE opportunities
                 SET    best_case = amount
-                WHERE  (COALESCE({$this->db->convert('best_case', 'length')}, 0) = 0)";
+                WHERE  (COALESCE({$this->db->convert('best_case', 'length')}, 0) = 0);";
         $this->db->query($sql);
 
         $this->log('Syncing Opportunity Amount to Worst Case if it\'s empty or null');
         $sql = "UPDATE opportunities
                 SET    worst_case = amount
-                WHERE  (COALESCE({$this->db->convert('worst_case', 'length')}, 0) = 0)";
+                WHERE  (COALESCE({$this->db->convert('worst_case', 'length')}, 0) = 0);";
         $this->db->query($sql);
 
         $this->log('Done Syncing Opportunity Best and Worst Case with Amount Field');

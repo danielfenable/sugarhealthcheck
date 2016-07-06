@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 global $sugar_version, $js_custom_version;
-$lang_curr = isset($_SESSION['language']) ? $_SESSION['language'] : '';
+$lang_curr = $_SESSION['language'];
 require_once('ModuleInstall/PackageManager/PackageManagerDisplay.php');
 
 if(!isset( $install_script ) || !$install_script || empty($_SESSION['setup_db_admin_user_name'])){

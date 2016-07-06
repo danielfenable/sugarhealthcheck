@@ -2121,16 +2121,17 @@ SE.composeLayout = {
             //bug 48179
             //check tinyHTML for closing tags
             var body = tinyHTML.lastIndexOf('</body>');
+            spacing = '<span id="spacing"><br /><br /><br /></span>&nbsp;';
 
             if (body > -1)
             {
                 var part1 = tinyHTML.substr(0, body);
                 var part2 = tinyHTML.substr(body, tinyHTML.length);
-                var newHtml = part1 + composePackage.body + part2;
+                var newHtml = part1 + spacing + composePackage.body + part2;
             }
             else
             {
-                var newHtml = tinyHTML + composePackage.body;
+                var newHtml = tinyHTML + spacing + composePackage.body;
             }
             //end bug 48179
 
@@ -2337,6 +2338,7 @@ SE.composeLayout = {
 	        teamOptions.innerHTML = teamOptionsString;
 	        SUGAR.util.evalScript(teamOptionsString);
 		}
+
         // signatures
         var sigs = document.getElementById('signatures' + idx);
         SE.util.emptySelectOptions(sigs);
@@ -2393,28 +2395,6 @@ SE.composeLayout = {
     },
 
     /**
-     * Move email addresses from To field to BCC field
-     */
-    moveToBCC : function (addrType,idx) {
-
-        var toVal = $.trim($("#addressTO"+idx).val());
-        var BCCVal =$.trim($("#addressBCC"+idx).val());
-
-        if (toVal.length != 0)
-        {
-            // get rid of first comma in BCC field and last comma in TO field
-            // so we don't end up with double commas in BCC field
-            BCCVal = BCCVal.replace(/^,/, '');
-            toVal = toVal.replace(/\,$/, '');
-
-            $("#addressBCC"+idx).val(toVal +","+BCCVal);
-            $("#addressTO"+idx).val("");     // empty out the to field
-        }
-        // show the BCC field
-        SE.composeLayout.showHiddenAddress('bcc', SE.composeLayout.currentInstanceId);
-    },
-
-    /**
     *  Show the hidden cc or bcc fields
     */
     showHiddenAddress: function(addrType,idx){
@@ -2458,17 +2438,6 @@ SE.composeLayout = {
 ///////////////////////////////////////////////////////////////////////////////
 ////    SE.util
 SE.util = {
-    /**
-     * nl2br implementation on client-side
-     * @param string
-     * @param bool
-     * @return string
-     */
-    nl2br : function(str, is_xhtml) {
-        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
-        return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-    },
-
     /**
      * Cleans serialized UID lists of duplicates
      * @param string

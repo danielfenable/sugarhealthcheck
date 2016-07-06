@@ -44,6 +44,11 @@ $(document).ready(function(){
         $("ul.clickMenu").each(function(index, node){
             $(node).sugarActionMenu();
         });
+
+        //HACK: This will tell profileactions to reload the user avatar
+        if (window.parent.SUGAR && window.parent.SUGAR.App) {
+            window.parent.SUGAR.App.events.trigger("bwc:profile:entered");
+        }
     });
 {/literal}
 </script>

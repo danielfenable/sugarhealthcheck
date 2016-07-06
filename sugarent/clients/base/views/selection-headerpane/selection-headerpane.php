@@ -20,10 +20,6 @@ $viewdefs['base']['view']['selection-headerpane'] = array(
             'type' => 'label',
             'default_value' => 'LBL_SEARCH_AND_SELECT',
         ),
-        array(
-            'name' => 'collection-count',
-            'type' => 'collection-count',
-        ),
     ),
     'buttons' => array(
         array(
@@ -36,32 +32,18 @@ $viewdefs['base']['view']['selection-headerpane'] = array(
             'css_class' => 'btn-invisible btn-link',
         ),
         array(
-            'type' => 'actiondropdown',
-            'name' => 'main_dropdown',
-            'primary' => true,
-            'buttons' => array(
-                array(
-                    'name' => 'link_button',
-                    'type' => 'link-button',
-                    'label' => 'LBL_ADD_BUTTON',
-                    'events' => array(
-                        'click' => 'selection:link:fire',
-                    ),
-                ),
-                array(
-                    'name' => 'create_button',
-                    'type' => 'rowaction',
-                    'label' => 'LBL_CREATE_BUTTON_LABEL',
-                    'acl_action' => 'create',
-                ),
-                array(
-                    'name' => 'select_button',
-                    'type' => 'button',
-                    'label' => 'LBL_SELECT_BUTTON_LABEL',
-                    'events' => array(
-                        'click' => 'selection:select:fire',
-                    ),
-                ),
+            'name' => 'create_button',
+            'type' => 'button',
+            'label' => 'LBL_CREATE_BUTTON_LABEL',
+            'acl_action' => 'create',
+        ),
+        array(
+            'name' => 'link_button',
+            'type' => 'button',
+            'label' => 'LBL_LINK_BUTTON',
+            'css_class' => 'btn-primary',
+            'events' => array(
+                'click' => 'selection:link:fire',
             ),
         ),
         array(

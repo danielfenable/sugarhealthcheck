@@ -1,8 +1,14 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("attribute-observable",function(e,t){function s(){this._ATTR_E_FACADE={},n.call(this,{emitFacade:!0})}var n=e.EventTarget,r="Change",i="broadcast";s._ATTR_CFG=[i],s.prototype={set:function(e,t,n){return this._setAttr(e,t,n)},_set:function(e,t,n){return this._setAttr(e,t,n,!0)},setAttrs:function(e,t){return this._setAttrs(e,t)},_setAttrs:function(e,t){var n;for(n in e)e.hasOwnProperty(n)&&this.set(n,e[n],t);return this},_fireAttrChange:function(t,n,i,s,o,u){var a=this,f=this._getFullType(t+r),l=a._state,c,h,p;u||(u=l.data[t]||{}),u.published||(p=a._publish(f),p.emitFacade=!0,p.defaultTargetOnly=!0,p.defaultFn=a._defAttrChangeFn,h=u.broadcast,h!==undefined&&(p.broadcast=h),u.published=!0),o?(c=e.merge(o),c._attrOpts=o):c=a._ATTR_E_FACADE,c.attrName=t,c.subAttrName=n,c.prevVal=i,c.newVal=s,a._hasPotentialSubscribers(f)?a.fire(f,c):this._setAttrVal(t,n,i,s,o,u)},_defAttrChangeFn:function(e,t){var n=e._attrOpts;n&&delete e._attrOpts,this._setAttrVal(e.attrName,e.subAttrName,e.prevVal,e.newVal,n)?t||(e.newVal=this.get(e.attrName)):t||e.stopImmediatePropagation()}},e.mix(s,n,!1,null,1),e.AttributeObservable=s,e.AttributeEvents=s},"3.15.0",{requires:["event-custom"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('attribute-observable',function(Y,NAME){var EventTarget=Y.EventTarget,CHANGE="Change",BROADCAST="broadcast";function AttributeObservable(){this._ATTR_E_FACADE={};EventTarget.call(this,{emitFacade:true});}
+AttributeObservable._ATTR_CFG=[BROADCAST];AttributeObservable.prototype={set:function(name,val,opts){return this._setAttr(name,val,opts);},_set:function(name,val,opts){return this._setAttr(name,val,opts,true);},setAttrs:function(attrs,opts){return this._setAttrs(attrs,opts);},_setAttrs:function(attrs,opts){var attr;for(attr in attrs){if(attrs.hasOwnProperty(attr)){this.set(attr,attrs[attr],opts);}}
+return this;},_fireAttrChange:function(attrName,subAttrName,currVal,newVal,opts,cfg){var host=this,eventName=this._getFullType(attrName+CHANGE),state=host._state,facade,broadcast,e;if(!cfg){cfg=state.data[attrName]||{};}
+if(!cfg.published){e=host._publish(eventName);e.emitFacade=true;e.defaultTargetOnly=true;e.defaultFn=host._defAttrChangeFn;broadcast=cfg.broadcast;if(broadcast!==undefined){e.broadcast=broadcast;}
+cfg.published=true;}
+if(opts){facade=Y.merge(opts);facade._attrOpts=opts;}else{facade=host._ATTR_E_FACADE;}
+facade.attrName=attrName;facade.subAttrName=subAttrName;facade.prevVal=currVal;facade.newVal=newVal;if(host._hasPotentialSubscribers(eventName)){host.fire(eventName,facade);}else{this._setAttrVal(attrName,subAttrName,currVal,newVal,opts,cfg);}},_defAttrChangeFn:function(e,eventFastPath){var opts=e._attrOpts;if(opts){delete e._attrOpts;}
+if(!this._setAttrVal(e.attrName,e.subAttrName,e.prevVal,e.newVal,opts)){if(!eventFastPath){e.stopImmediatePropagation();}}else{if(!eventFastPath){e.newVal=this.get(e.attrName);}}}};Y.mix(AttributeObservable,EventTarget,false,null,1);Y.AttributeObservable=AttributeObservable;Y.AttributeEvents=AttributeObservable;},'3.15.0',{"requires":["event-custom"]});

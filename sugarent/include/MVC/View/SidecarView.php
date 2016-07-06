@@ -71,15 +71,12 @@ class SidecarView extends SugarView
         $theme = new SidecarTheme();
         $this->ss->assign("css_url", $theme->getCSSURL());
         $this->ss->assign("developerMode", inDeveloperMode());
-        $this->ss->assign('shouldResourcesBeMinified', shouldResourcesBeMinified());
 
         //Loading label
         $this->ss->assign('LBL_LOADING', $app_strings['LBL_ALERT_TITLE_LOADING']);
         $this->ss->assign('LBL_ENABLE_JAVASCRIPT', $app_strings['LBL_ENABLE_JAVASCRIPT']);
 
-        $slFunctionsPath = shouldResourcesBeMinified()
-            ? 'cache/Expressions/functions_cache.js'
-            : 'cache/Expressions/functions_cache_debug.js';
+        $slFunctionsPath = inDeveloperMode() ? "cache/Expressions/functions_cache_debug.js" : "cache/Expressions/functions_cache.js";
         if (!is_file($slFunctionsPath)) {
             $GLOBALS['updateSilent'] = true;
             include("include/Expressions/updatecache.php");

@@ -39,7 +39,7 @@ pre {
 /* default loading indicator for ajax calls */
 .loading-indicator {
 	font-size:8pt;
-	background-image:url('../../resources/images/grid/loading.gif?v={VERSION_MARK}');
+	background-image:url('../../resources/images/grid/loading.gif');
 	background-repeat: no-repeat;
 	background-position: left;
 	padding-left:20px;

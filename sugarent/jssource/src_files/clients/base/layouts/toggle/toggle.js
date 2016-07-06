@@ -29,29 +29,13 @@
      */
     defaultToggle: null,
 
-    /**
-     * @inheritdoc
-     */
     initialize: function(options) {
         this.toggleComponents = [];
         this.componentsList = {};
         this.availableToggles = this.options.meta.available_toggles || this.availableToggles;
         this.defaultToggle = this.options.meta.default_toggle || this.defaultToggle;
 
-        this._super('initialize', [options]);
-    },
-
-    /**
-     * @inheritdoc
-     */
-    initComponents: function(components, context, module) {
-        this._super('initComponents', [components, context, module]);
-
-        _.each(this.componentsList, function(comp) {
-            if (_.isFunction(comp.initComponents)) {
-                comp.initComponents();
-            }
-        });
+        app.view.Layout.prototype.initialize.call(this, options);
 
         if (this.defaultToggle) {
             this.showComponent(this.defaultToggle);
@@ -85,27 +69,11 @@
     },
 
     /**
-     * Show the given component and hide the other toggle-able components.
-     * Render the named component if it is in our list of components that have
-     * not yet been rendered and append it to the appropriate container.
-     *
-     * The firing of the 'append' event is done after showing the component to
-     * ensure that its DOM surroundings (ie. element width) are completely set
-     * up - allowing anything listening to adjust accordingly.
-     *
-     * @param {string} name Name of the component to show
+     * Show the given component and hide the other toggle-able components
+     * @param name
      */
     showComponent: function(name) {
         var oldToggle = this.currentToggle;
-
-        _.each(this.toggleComponents, function(component) {
-            if (component.name === name) {
-                component.show();
-            } else {
-                component.hide();
-            }
-        }, this);
-
         if (this.componentsList[name]) {
             this.componentsList[name].render();
             this._components.push(this.componentsList[name]);
@@ -116,6 +84,13 @@
             this.componentsList[name] = null;
         }
 
+        _.each(this.toggleComponents, function(component) {
+            if (component.name === name) {
+                component.show();
+            } else {
+                component.hide();
+            }
+        }, this);
         this.currentToggle = name;
         this.trigger('toggle:change', name, oldToggle);
     },

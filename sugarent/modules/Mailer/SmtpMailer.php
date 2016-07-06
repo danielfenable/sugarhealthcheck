@@ -1,4 +1,8 @@
 <?php
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -45,9 +49,10 @@ class SmtpMailer extends BaseMailer
     const MailTransmissionProtocol = "smtp";
 
     /**
-     * Sends email using PHPMailer.
+     * Performs the send of an email using PHPMailer (currently version 5.2.1).
      *
-     * {@inheritDoc}
+     * @access public
+     * @throws MailerException
      */
     public function send()
     {
@@ -75,7 +80,7 @@ class SmtpMailer extends BaseMailer
 
         try {
             // send the email with PHPMailer
-            $mailer->send();
+            $mailer->Send();
 
             /*--- Debug Only ----------------------------------------------------*/
             $message = "MAIL SENT:\n";
@@ -87,8 +92,6 @@ class SmtpMailer extends BaseMailer
             $message .= "--- Mail Headers ---\n" . print_r($headers, true);
             $GLOBALS["log"]->debug($message);
             /*--- Debug Only ----------------------------------------------------*/
-
-            return $mailer->getSentMIMEMessage();
         } catch (Exception $e) {
             // eat the phpmailerException but use it's message to provide context for the failure
             $me = new MailerException($e->getMessage(), MailerException::FailedToSend);
@@ -120,7 +123,7 @@ class SmtpMailer extends BaseMailer
     {
         // explicitly set the language even though PHPMailer will do it on its own
         // this call could fail (only if English is not used), but it should be safe to ignore it
-        $mailer->setLanguage();
+        $mailer->SetLanguage();
 
         // transfer the basic configurations to PHPMailer
         $mailer->Mailer   = $this->getMailTransmissionProtocol();
@@ -151,15 +154,17 @@ class SmtpMailer extends BaseMailer
     {
         try {
             // have PHPMailer attempt to connect to the SMTP server
-            $mailer->smtpConnect();
+            $mailer->SmtpConnect();
         } catch (Exception $e) {
-            //TODO: it would be better if the caller added the details to the message so that the mailer has no
-            // knowledge of what it means to be a system or personal configuration
-            $message = ($this->config->getConfigType() === 'system')
-                ? $GLOBALS['app_strings']['LBL_EMAIL_INVALID_SYSTEM_OUTBOUND']
-                : $GLOBALS['app_strings']['LBL_EMAIL_INVALID_PERSONAL_OUTBOUND'];
+            //TODO: need to tell the class what error messages to use, so the following is for reference only
+//            global $app_strings;
+//            if(isset($this->oe) && $this->oe->type == "system") {
+//                $this->SetError($app_strings['LBL_EMAIL_INVALID_SYSTEM_OUTBOUND']);
+//            } else {
+//                $this->SetError($app_strings['LBL_EMAIL_INVALID_PERSONAL_OUTBOUND']);
+//            }
             throw new MailerException(
-                "Failed to connect to outbound SMTP Mail Server: {$message}",
+                "Failed to connect to outbound SMTP Mail Server",
                 MailerException::FailedToConnectToRemoteServer
             );
         }
@@ -192,7 +197,7 @@ class SmtpMailer extends BaseMailer
 
                     // set PHPMailer's From so that PHPMailer can correctly construct the From header at send time
                     try {
-                        $mailer->setFrom($value[0], $value[1]);
+                        $mailer->SetFrom($value[0], $value[1]);
                     } catch (Exception $e) {
                         throw new MailerException(
                             "Failed to add the " . EmailHeaders::From . " header: " . $e->getMessage(),
@@ -204,7 +209,7 @@ class SmtpMailer extends BaseMailer
                 case EmailHeaders::ReplyTo:
                     // only allow PHPMailer to automatically set the Reply-To if this header isn't provided
                     // so clear PHPMailer's Reply-To array if this header is provided
-                    $mailer->clearReplyTos();
+                    $mailer->ClearReplyTos();
 
                     if (!empty($value[1])) {
                         // perform character set and HTML character translations on the Reply-To name
@@ -221,7 +226,7 @@ class SmtpMailer extends BaseMailer
                         // PHPMailer's AddReplyTo could return true or false or allow an exception to bubble up. We
                         // want the same behavior to be applied for both false and on error, so throw a
                         // phpMailerException on failure.
-                        if (!$mailer->addReplyTo($value[0], $value[1])) {
+                        if (!$mailer->AddReplyTo($value[0], $value[1])) {
                             // doesn't matter what the message is since we're going to eat phpmailerExceptions
                             throw new phpmailerException();
                         }
@@ -266,7 +271,7 @@ class SmtpMailer extends BaseMailer
                 default:
                     // it's not known, so it must be a custom header; add it to PHPMailer's custom headers array
                     //TODO: any need for charset translations for from_html on the value?
-                    $mailer->addCustomHeader($key, $value);
+                    $mailer->AddCustomHeader($key, $value);
                     break;
             }
         }
@@ -282,7 +287,7 @@ class SmtpMailer extends BaseMailer
     {
         // clear the recipients from PHPMailer; only necessary if the PHPMailer object can be re-used, but there is
         // no harm in doing it anyway
-        $mailer->clearAllRecipients();
+        $mailer->ClearAllRecipients();
 
         // get the recipients
         $to  = $this->recipients->getTo();
@@ -303,7 +308,7 @@ class SmtpMailer extends BaseMailer
 
             try {
                 // attempt to add the recipient to PHPMailer in the To list
-                $mailer->addAddress($recipient->getEmail(), $name);
+                $mailer->AddAddress($recipient->getEmail(), $name);
             } catch (Exception $e) {
                 // eat the exception for now as we'll send to as many valid recipients as possible
             }
@@ -322,7 +327,7 @@ class SmtpMailer extends BaseMailer
 
             try {
                 // attempt to add the recipient to PHPMailer in the CC list
-                $mailer->addCC($recipient->getEmail(), $name);
+                $mailer->AddCC($recipient->getEmail(), $name);
             } catch (Exception $e) {
                 // eat the exception for now as we'll send to as many valid recipients as possible
             }
@@ -341,7 +346,7 @@ class SmtpMailer extends BaseMailer
 
             try {
                 // attempt to add the recipient to PHPMailer in the BCC list
-                $mailer->addBCC($recipient->getEmail(), $name);
+                $mailer->AddBCC($recipient->getEmail(), $name);
             } catch (Exception $e) {
                 // eat the exception for now as we'll send to as many valid recipients as possible
             }
@@ -398,7 +403,7 @@ class SmtpMailer extends BaseMailer
             $htmlBody = $this->prepareHtmlBody($htmlBody);
 
             // there is an HTML part so set up PHPMailer appropriately for sending a multi-part email
-            $mailer->isHTML(true);
+            $mailer->IsHTML(true);
             $mailer->Encoding = Encoding::Base64; // so that embedded images are encoded properly
             $mailer->Body     = $htmlBody;        // the HTML part is the primary message body
         }
@@ -426,7 +431,7 @@ class SmtpMailer extends BaseMailer
     {
         // clear the attachments from PHPMailer; only necessary if the PHPMailer object can be re-used, but there is
         // no harm in doing it anyway
-        $mailer->clearAttachments();
+        $mailer->ClearAttachments();
 
         foreach ($this->attachments as $attachment) {
             if ($attachment instanceof EmbeddedImage) {
@@ -440,7 +445,7 @@ class SmtpMailer extends BaseMailer
                 );
 
                 // transfer the image to PHPMailer so it can be embedded correctly at send time
-                if (!$mailer->addEmbeddedImage(
+                if (!$mailer->AddEmbeddedImage(
                     $attachment->getPath(),
                     $attachment->getCid(),
                     $name,
@@ -463,7 +468,7 @@ class SmtpMailer extends BaseMailer
                     );
 
                     // transfer the attachment to PHPMailer so it can be attached correctly at send time
-                    $mailer->addAttachment(
+                    $mailer->AddAttachment(
                         $attachment->getPath(),
                         $name,
                         $attachment->getEncoding(),

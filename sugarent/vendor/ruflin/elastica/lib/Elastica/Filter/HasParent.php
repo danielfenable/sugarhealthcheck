@@ -15,7 +15,7 @@ class HasParent extends AbstractFilter
      * Construct HasParent filter
      *
      * @param string|\Elastica\Query|\Elastica\Filter\AbstractFilter $query Query string or a Query object or a filter
-     * @param string|\Elastica\Type                                  $type  Parent document type
+     * @param string                $type  Parent document type
      */
     public function __construct($query, $type)
     {
@@ -31,7 +31,7 @@ class HasParent extends AbstractFilter
      * Sets query object
      *
      * @param  string|\Elastica\Query|\Elastica\Query\AbstractQuery $query
-     * @return \Elastica\Filter\HasParent                           Current object
+     * @return \Elastica\Filter\HasParent                    Current object
      */
     public function setQuery($query)
     {
@@ -42,28 +42,36 @@ class HasParent extends AbstractFilter
     }
 
     /**
-     * Sets filter object
+     * Sets query object
      *
      * @param  \Elastica\Filter\AbstractFilter $filter
-     * @return \Elastica\Filter\HasParent      Current object
+     * @return \Elastica\Filter\HasParent Current object
      */
     public function setFilter($filter)
     {
-        return $this->setParam('filter', $filter->toArray());
+        $data = $filter->toArray();
+        return $this->setParam('filter', $data);
     }
 
     /**
      * Set type of the parent document
      *
-     * @param  string|\Elastica\Type      $type Parent document type
+     * @param  string                          $type Parent document type
      * @return \Elastica\Filter\HasParent Current object
      */
     public function setType($type)
     {
-        if ($type instanceof \Elastica\Type) {
-            $type = $type->getName();
-        }
+        return $this->setParam('type', $type);
+    }
 
-        return $this->setParam('type', (string) $type);
+    /**
+     * Sets the scope
+     *
+     * @param  string                          $scope Scope
+     * @return \Elastica\Filter\HasParent Current object
+     */
+    public function setScope($scope)
+    {
+        return $this->setParam('_scope', $scope);
     }
 }

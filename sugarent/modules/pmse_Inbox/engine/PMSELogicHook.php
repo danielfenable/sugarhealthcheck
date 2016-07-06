@@ -84,6 +84,7 @@ class PMSELogicHook
             'SavedReport',
             'ForecastManagerWorksheet',
             'KBDocumentRevision',
+            'KBContent',
             'KBDocumentKBTag',
             'EmailTemplate',
             'TeamMembership',

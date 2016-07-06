@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-* $Id: MssqlManager.php 56825 2010-06-04 00:09:04Z smalyshev $
+
 * Description: This file handles the Data base functionality for the application.
 * It acts as the DB abstraction layer for the application. It depends on helper classes
 * which generate the necessary SQL. This sql is then passed to PEAR DB classes.
@@ -236,7 +236,6 @@ class MssqlManager extends DBManager
         $this->connectOptions = $configOptions;
 
         $GLOBALS['log']->info("Connect:".$this->database);
-
         return true;
     }
 
@@ -1033,7 +1032,9 @@ class MssqlManager extends DBManager
         if (empty($row)) {
             return false;
         }
-
+        foreach($row as $key => $column) {
+            $row[$key] = is_string($column) ? trim($column) : $column;
+        }
         return $row;
 	}
 
@@ -1048,7 +1049,7 @@ class MssqlManager extends DBManager
         return str_replace("'","''", $this->quoteInternal($string));
     }
 
-    /**+
+    /**
      * @see DBManager::tableExists()
      */
     public function tableExists($tableName)
@@ -1168,10 +1169,6 @@ class MssqlManager extends DBManager
         '%Y-%m-%d' => 10,
         '%Y-%m' => 7,
         '%Y' => 4,
-        '%v' => array(
-            'format' => 'isoww',
-            'function' => 'datepart',
-        ),
     );
 
     /**
@@ -1202,12 +1199,8 @@ class MssqlManager extends DBManager
                     $additional_parameters[0] = trim($additional_parameters[0], "'");
                 }
                 if(!empty($additional_parameters) && isset($this->date_formats[$additional_parameters[0]])) {
-                    $parameters = $this->date_formats[$additional_parameters[0]];
-                    if (is_array($parameters) && isset($parameters['format']) && isset($parameters['function'])) {
-                        return "{$parameters['function']}({$parameters['format']}, $string)";
-                    } else {
-                        return "LEFT(CONVERT(varchar($parameters)," . $string . ",120),$parameters)";
-                    }
+                    $len = $this->date_formats[$additional_parameters[0]];
+                    return "LEFT(CONVERT(varchar($len),". $string . ",120),$len)";
                 } else {
                    return "LEFT(CONVERT(varchar(10),". $string . ",120),10)";
                 }
@@ -1251,7 +1244,6 @@ class MssqlManager extends DBManager
     public function fromConvert($string, $type)
     {
         switch($type) {
-            case 'char': return rtrim($string, ' ');
             case 'datetimecombo':
             case 'datetime': return substr($string, 0,19);
             case 'date': return substr($string, 0, 10);
@@ -1648,12 +1640,6 @@ INNER JOIN sys.columns c
      */
     public function get_columns($tablename)
     {
-        // Sanity check for getting columns
-        if (empty($tablename)) {
-            $this->log->error(__METHOD__ . ' called with an empty tablename argument');
-            return array();
-        }        
-
         //find all unique indexes and primary keys.
         $result = $this->query("sp_columns $tablename");
 
@@ -2042,7 +2028,7 @@ EOQ;
      */
     protected function freeDbResult($dbResult)
     {
-        if(is_resource($dbResult))
+        if(!empty($dbResult))
             mssql_free_result($dbResult);
     }
 

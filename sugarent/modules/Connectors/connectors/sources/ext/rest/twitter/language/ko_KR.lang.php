@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-/*********************************************************************************
-* Description:
-* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
-* Reserved. Contributor(s): contact@synolia.com - www.synolia.com
-* *******************************************************************************/
-
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Sugar 인스턴스를 새 어플리케이션으로 등록하여 Twitter 에서 Key 및 Secret를 얻으십시오.<br/><br>인스턴스 등록 단계는 다음과 같습니다:<br/><br/><ol><li>Twitter 개발자 사이트인 <a href=&#39;http://dev.twitter.com/apps/new&#39; target=&#39;_blank&#39;>http://dev.twitter.com/apps/new</a>로 이동합니다.</li><li>등록할 어플리케이션의 Twitter계정을 사용하여 로그인합니다.</li><li>등록 양식에 어플리케이션 이름을 입력합니다. 이 이름은 사용자가 Sugar 내 Twitter계정 인증시 사용하는 이름입니다. </li><li>설명을 입력합니다.</li><li>어플리케이션 웹사이트 URL을 입력합니다. </li><li>콜백 URL(Sugar에서 인증시 이를 무시하므로 아무 거나 입력해도 됩니다. 예: 귀하의 Sugar 사이트 URL)을 입력합니다.</li><li>Twitter API 약관에 동의합니다.</li><li>"귀하의 Twitter어플리케이션 만들기"을 클릭합니다.</li><li>어플리케이션 페이지의 "API 키" 탭에서 API Key 및 API Secret을 찾습니다. Key 및 Secret을 아래에 입력합니다. </li></ol></td></tr></table>',
-    'LBL_NAME' => 'Twitter 사용자 이름',
-    'LBL_ID' => 'Twitter 사용자 이름',
-	'company_url' => 'URL',
-    'oauth_consumer_key' => 'API 키',
-    'oauth_consumer_secret' => 'API 비밀',
+  'LBL_ID' => '트위터 사용자명',
+  'LBL_LICENSING_INFO' => '신규 어플리케이션으로 Sugar 예시를 Twitter©에 등록함으로써 소비자키와 비밀 얻기<br /><br />귀하의 예시를 등록하는 단계<br />1.  개발자 사이트인 http://dev.twitter.com/apps/new. 에 접속합니다.<br />2. 등록하고자 하는 어플리케이션의 Twitter계정을 사용해 접속합니다.<br />3. 등록양식에 어플리케이션 이름을 입력합니다. 이 이름은 Sugar 내 Twitter계정 인증시 사용됩니다.<br />4. 설명을 입력합니다.<br />5 어플리케이션 웹사이트 URL을 입력합니다.(무엇이든 가능합니다.)<br />6. 어플리케이션의 브라우저 유형을 선택합니다.<br />7. 브라우저 선택후 회수 URL을 입력합니다. (Sugar가 인증하므로 무엇이든 가능합니다, 예;Sugar 기본 URL)<br />8. 보안 단어를 입력합니다.<br />9. 등록 어플리케이션을 클립합니다.<br />10. Twitter API 서비스 조건을 수락합니다.<br />11. 어플리케이션 페이지내 소비자키와 소비자 비밀을 찾아 아래에 입력합니다.',
+  'LBL_NAME' => '트위터 사용자명',
+  'company_url' => 'URL',
+  'oauth_consumer_key' => '소비자키',
+  'oauth_consumer_secret' => '소비자 비밀',
 );
 
-?>

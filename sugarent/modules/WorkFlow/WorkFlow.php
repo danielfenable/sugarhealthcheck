@@ -512,6 +512,7 @@ function get_trigger_contents(){
 
 		$eval_dump = "";
 
+
 		/*Special note about this query.
 
 		This query is designed to only get workflow objects that have at least a primary
@@ -679,7 +680,7 @@ $alert_file_contents = "";
                 $eval_dump .= "\t \$workflow_id = '" . $row['id'] . "'; \n\n";
 
 				$eval_dump .= 'if(!empty($_SESSION["workflow_cron"]) && $_SESSION["workflow_cron"]=="Yes" &&
-				!empty($_SESSION["workflow_id_cron"]) && ArrayFunctions::in_array_access($workflow_id, $_SESSION["workflow_id_cron"])){
+				!empty($_SESSION["workflow_id_cron"]) && in_array($workflow_id, $_SESSION["workflow_id_cron"])){
 				';
 			//end if type is time
 			}
@@ -705,12 +706,11 @@ $alert_file_contents = "";
 
 			if($row['fire_order']=='alerts_actions'){
 				$eval_dump .= "\t" . $this->get_alert_contents($row['id'], $trigger_count, $this->base_module);
-				$eval_dump .= "\t" . $this->get_action_contents($row['id'], $trigger_count, $this->base_module, $randID);
+				$eval_dump .= "\t" . $this->get_action_contents($row['id'], $trigger_count, $this->base_module);
 			}
 
 			if($row['fire_order']=='actions_alerts'){
-                $eval_dump .= "\t"
-                    . $this->get_action_contents($row['id'], $trigger_count, $this->base_module, $randID);
+				$eval_dump .= "\t" . $this->get_action_contents($row['id'], $trigger_count, $this->base_module);
 				$out_data = $this->get_alert_contents_for_file($row['id'], $trigger_count, $this->base_module);
                 $eval_dump .= "\t" . $out_data[0];
                 $alert_file_contents .= $out_data[1];
@@ -1042,10 +1042,10 @@ function get_alert_contents_for_file($workflow_id, $trigger_count, $alert_array_
     $alert_count = 0;
 
     $alert_string = "";
-    $eval_dump = '$_SESSION[\'WORKFLOW_ALERTS\'] = isset($_SESSION[\'WORKFLOW_ALERTS\']) && ArrayFunctions::is_array_access($_SESSION[\'WORKFLOW_ALERTS\']) ? $_SESSION[\'WORKFLOW_ALERTS\'] : array();'."\n";
+	$eval_dump = '$_SESSION[\'WORKFLOW_ALERTS\'] = isset($_SESSION[\'WORKFLOW_ALERTS\']) && is_array($_SESSION[\'WORKFLOW_ALERTS\']) ? $_SESSION[\'WORKFLOW_ALERTS\'] : array();'."\n";
 	$eval_dump .= "\t\t".'$_SESSION[\'WORKFLOW_ALERTS\'][\''.$alert_array_name.'\'] = isset($_SESSION[\'WORKFLOW_ALERTS\'][\''.$alert_array_name.'\']) '
-	            . '&& ArrayFunctions::is_array_access($_SESSION[\'WORKFLOW_ALERTS\'][\''.$alert_array_name.'\']) ? $_SESSION[\'WORKFLOW_ALERTS\'][\''.$alert_array_name.'\'] : array();'."\n";
-	$eval_dump .= "\t\t".'$_SESSION[\'WORKFLOW_ALERTS\'][\''.$alert_array_name.'\'] = ArrayFunctions::array_access_merge($_SESSION[\'WORKFLOW_ALERTS\'][\''.$alert_array_name.'\'],array (';
+	            . '&& is_array($_SESSION[\'WORKFLOW_ALERTS\'][\''.$alert_array_name.'\']) ? $_SESSION[\'WORKFLOW_ALERTS\'][\''.$alert_array_name.'\'] : array();'."\n";
+	$eval_dump .= "\t\t".'$_SESSION[\'WORKFLOW_ALERTS\'][\''.$alert_array_name.'\'] = array_merge($_SESSION[\'WORKFLOW_ALERTS\'][\''.$alert_array_name.'\'],array (';
         $query = "  SELECT $this->rel_alertshells_table.parent_id parent_id,
                             $this->rel_alertshells_table.id id,
                     $this->rel_alertshells_table.alert_text alert_text,
@@ -1107,7 +1107,7 @@ return array($eval_dump, $alert_string);
 }
 
 
-function get_action_contents($workflow_id, $trigger_count, $action_module_name, $workflow_trigger_id = ''){
+function get_action_contents($workflow_id, $trigger_count, $action_module_name){
 
 	$action_count = 0;
 
@@ -1177,12 +1177,6 @@ function get_action_contents($workflow_id, $trigger_count, $action_module_name, 
 
 						$this->glue_object->build_trigger_actions($row['id'], $array_position_name, $row);
 
-						// Some processes need to keep track of workflows that have
-						// fired while away from the workflow engine. This allows
-						// for that.
-						if ($workflow_trigger_id) {
-							$action_string .= "\t \$action_meta_array['".$array_position_name."']['trigger_id'] = '$workflow_trigger_id'; \n ";
-						}
 						$action_string .= "\t process_workflow_actions(\$focus, \$action_meta_array['".$array_position_name."']); \n ";
 
 						++ $action_count;
@@ -1263,16 +1257,7 @@ function get_rel_module($var_rel_name, $get_rel_name = false){
 	//get the vardef fields relationship name
 	//get the base_module bean
 	$module_bean = BeanFactory::getBean($this->base_module);
-    if (!empty($module_bean->field_defs[$var_rel_name]['type'])
-        && $module_bean->field_defs[$var_rel_name]['type'] == "link"
-        && $module_bean->load_relationship($var_rel_name)
-    ) {
-        //Have to set the relationshpip name for this workflow object
-        $this->rel_name = $module_bean->$var_rel_name->getRelationshipObject()->name;
-        return $module_bean->$var_rel_name->getRelatedModuleName();
-    }
-
-	require_once 'data/Link.php';
+	require_once('data/Link.php');
 	$rel_name = Relationship::retrieve_by_modules($var_rel_name, $this->base_module, $GLOBALS['db']);
 	if(!empty($module_bean->field_defs[$rel_name])){
 		$var_rel_name = $rel_name;

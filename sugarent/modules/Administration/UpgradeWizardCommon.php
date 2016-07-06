@@ -173,7 +173,7 @@ class UpgradeWizardCommon
             $acceptable_sugar_versions = self::addAcceptableVersionRegex($acceptable_sugar_versions);
             if (empty($acceptable_sugar_versions['regex_matches']) && !empty($manifest['built_in_version'])) {
                 $built_version = explode('.', $manifest['built_in_version']);
-                $acceptable_sugar_versions['regex_matches'] = array("^{$built_version[0]}\.([0-9]+)\.([0-9]+)");
+                $acceptable_sugar_versions['regex_matches'] = array("{$built_version[0]}\.([0-9]+)\.([0-9]+)");
             }
         }
 
@@ -317,10 +317,10 @@ class UpgradeWizardCommon
             $version_parts = explode('.', $version);
             if (isset($version_parts[1])) {
                 // Major and minor matching
-                $regex[$index] = "^{$version_parts[0]}\.{$version_parts[1]}\.([0-9]+)";
+                $regex[$index] = "{$version_parts[0]}\.{$version_parts[1]}\.([0-9]+)";
             } elseif (isset($version_parts[0])) {
                 // Major only
-                $regex[$index] = "^{$version_parts[0]}\.([0-9]+)\.([0-9]+)";
+                $regex[$index] = "{$version_parts[0]}\.([0-9]+)\.([0-9]+)";
             } else {
                 // Full match
                 $regex[$index] = $version;

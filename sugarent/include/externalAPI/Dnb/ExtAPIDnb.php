@@ -12,7 +12,6 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
 require_once('include/externalAPI/Base/OAuthPluginBase.php');
 require_once('include/externalAPI/Base/WebFeed.php');
 require_once 'include/SugarQuery/SugarQuery.php';
@@ -46,7 +45,6 @@ class ExtAPIDnb extends ExternalAPIBase
     private $dnbIndustryConversionURL = "V4.0/industries?IndustryCode-1=%s&ReturnOnlyPremiumIndustryIndicator=true&IndustryCodeTypeCode-1=%s&findindustry=true";
     private $dnbRefreshCheckURL = "V4.0/organizations?refresh=refresh&DunsNumber-1=%s";
     private $dnbContactsBALURL = "V6.0/organizations?CandidateMaximumQuantity=1000&findcontact=true&SearchModeDescription=Advanced";
-    private $dnbMeterURL = "V3.0/meterinformation";
     private $dnbApplicationId;
     private $dnbUsername;
     private $dnbPassword;
@@ -81,17 +79,12 @@ class ExtAPIDnb extends ExternalAPIBase
 
     function __construct()
     {
-        $this->contactModules = array('Contacts','Leads','Prospects');
-        $this->logger = LoggerManager::getLogger();
-        $this->setCurlWrapper(new DnbCurlWrapper());
-        $this->loadConnectionCredentials();
-    }
-
-    private function loadConnectionCredentials()
-    {
         $this->dnbUsername = trim($this->getConnectorParam('dnb_username'));
         $this->dnbPassword = trim($this->getConnectorParam('dnb_password'));
         $this->dnbEnv = trim($this->getConnectorParam('dnb_env'));
+        $this->contactModules = array('Contacts','Leads','Prospects');
+        $this->logger = LoggerManager::getLogger();
+        $this->setCurlWrapper(new DnbCurlWrapper());
     }
 
     /**
@@ -199,21 +192,6 @@ class ExtAPIDnb extends ExternalAPIBase
         $dnbendpoint = $this->dnbBaseURL[$this->dnbEnv] . sprintf($this->dnbFinancialURL, $duns_num);
         //check if result exists in cache
         $reply = $this->dnbServiceRequest($cache_key, $dnbendpoint, 'GET');
-        return $reply['responseJSON'];
-    }
-
-    /**
-     * Gets D&B API Usage
-     * @return jsonarray
-     */
-    public function dnbMeterInfo()
-    {
-        $dnbendpoint = $this->dnbBaseURL[$this->dnbEnv] . $this->dnbMeterURL;
-        $reply = $this->makeRequest('GET', $dnbendpoint);
-        if (!$reply['success']) {
-            $this->logger->error('DNB failed, reply said: ' . print_r($reply, true));
-            return array('error' => 'ERROR_DNB_CONFIG');
-        }
         return $reply['responseJSON'];
     }
 
@@ -737,7 +715,7 @@ class ExtAPIDnb extends ExternalAPIBase
     public function checkTokenValidity($save = true)
     {
         $dnbToken = $this->getAuthenticationToken($save);
-        return !empty($dnbToken);
+        return isset($dnbToken);
     }
 
     /**
@@ -858,12 +836,6 @@ class ExtAPIDnb extends ExternalAPIBase
     private function getAuthenticationToken($save = true)
     {
         global $current_user;
-
-        // In test, these values will be set AFTER contruction, so load them now
-        if ($this->inTest || empty($this->dnbUsername) || empty($this->dnbPassword)) {
-            $this->loadConnectionCredentials();
-        }
-
         $username = $this->dnbUsername;
         $password = $this->dnbPassword;
         $curl_headers = array(

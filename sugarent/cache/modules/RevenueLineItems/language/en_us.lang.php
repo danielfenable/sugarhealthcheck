@@ -1,19 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:24
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_CURRENCY' => 'Currency:',
-  'LBL_CURRENCIES' => 'Currencies',
-  'LBL_CURRENCY_NAME' => 'Currency Name',
-  'LBL_CURRENCY_SYMBOL' => 'Currency Symbol',
-  'LBL_CURRENCY_RATE' => 'Currency Rate',
-  'LBL_CURRENCY_ID' => 'Currency ID:',
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team Id',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User ID',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -33,6 +20,11 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User ID',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team Id',
   'LBL_CAMPAIGN_PRODUCT' => 'Campaign Product',
   'LBL_MODULE_NAME' => 'Revenue Line Items',
   'LBL_MODULE_NAME_SINGULAR' => 'Revenue Line Item',
@@ -84,7 +76,6 @@ $mod_strings = array (
   'LBL_TYPE' => 'Type:',
   'LBL_PRODUCT_TYPE' => 'Product Type:',
   'LBL_CATEGORY' => 'Product Category:',
-  'LBL_CATEGORY_ID' => 'Product Category ID:',
   'LBL_QUANTITY' => 'Quantity:',
   'LBL_STATUS' => 'Status:',
   'LBL_TAX_CLASS' => 'Tax Class:',
@@ -101,6 +92,10 @@ $mod_strings = array (
   'NTC_DELETE_CONFIRMATION' => 'Are you sure you want to delete this record?',
   'NTC_REMOVE_CONFIRMATION' => 'Are you sure you want to remove this product relationship?',
   'ERR_DELETE_RECORD' => 'A record number must be specified to delete the product.',
+  'LBL_CURRENCY' => 'Currency:',
+  'LBL_CURRENCY_ID' => 'Currency ID:',
+  'LBL_CURRENCY_NAME' => 'Currency Name',
+  'LBL_CURRENCY_SYMBOL' => 'Currency Symbol',
   'LBL_ASSET_NUMBER' => 'Asset Number:',
   'LBL_SERIAL_NUMBER' => 'Serial Number:',
   'LBL_BOOK_VALUE' => 'Book Value:',
@@ -129,7 +124,7 @@ $mod_strings = array (
   'LBL_PRODUCT_TEMPLATES' => 'Product Templates',
   'LBL_PRODUCT_CATEGORIES' => 'Product Categories',
   'LBL_PRODUCT_TYPES' => 'Product Types',
-  'LBL_ASSIGNED_TO' => 'Assigned To',
+  'LBL_ASSIGNED_TO' => 'Assigned User Name',
   'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Assigned User Name',
   'LBL_EXPORT_ASSIGNED_USER_ID' => 'Assigned User ID',
   'LBL_CAMPAIGN_ID' => 'Campaign ID',
@@ -153,6 +148,7 @@ $mod_strings = array (
   'LNK_IMPORT_REVENUELINEITEMS' => 'Import Revenue Line Items',
   'LBL_EDITLAYOUT' => 'Edit Layout',
   'LBL_EXPORT_CURRENCY_ID' => 'Currency ID',
+  'LBL_CURRENCY_RATE' => 'Currency Rate',
   'LBL_DATE_CLOSED' => 'Expected Close Date',
   'LBL_DATE_CLOSED_TIMESTAMP' => 'Expected Close Date Timestamp',
   'LBL_COMMIT_STAGE' => 'Commit Stage',
@@ -174,6 +170,8 @@ $mod_strings = array (
   'SAVE_RLI_QUOTE_NOTICE' => 'This item has already been converted to Quote. Your changes will not be updated in the corresponding Quote.',
   'LBL_QUOTED' => 'Quoted',
   'LBL_NOT_QUOTED' => 'Not Quoted',
+  'WARNING_DELETED_RECORD_RECOMMIT_1' => 'This record was included in a ',
+  'WARNING_DELETED_RECORD_RECOMMIT_2' => 'It will be removed and you will need to re-commit your ',
   'WARNING_DELETED_RECORD_LIST_RECOMMIT_1' => 'One or more records were included in a ',
   'WARNING_DELETED_RECORD_LIST_RECOMMIT_2' => 'They will be removed and you will need to re-commit your ',
   'WARNING_MERGE_RLIS_WITH_DIFFERENT_OPPORTUNITIES' => 'One or more of the records you\'ve selected can not be merged together as they belong to different Opportunities',
@@ -191,7 +189,9 @@ To create a {{module_name}}:
 1. Provide values for the fields as desired.
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
-2. Click "Save" to finalize the new record and return to the previous page.',
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
   'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'Top 10 Sales Revenue Line Items',
   'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Displays top ten Revenue Line Items in a bubble chart.',
   'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'My Revenue Line Items',

@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,13 +10,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
   'LBL_MODULE_NAME' => 'مزامنة',
@@ -37,6 +30,3 @@ $mod_strings = array (
   'LBL_INITIAL_SYNC_MESSAGE' => 'لقد قمت للتو بتثبيت عميل دون اتصال.  يرجى النقر فوق الزر التالي لكي تبدأ عملية المزامنة.',
 	'LBL_POWERED_BY_SUGAR' => 'بدعم SugarCRM' /*for 508 compliance fix*/,
 );
-
-
-?>

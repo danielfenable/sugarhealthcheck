@@ -83,7 +83,7 @@ array (
     'width' => '2', 
     'label' => 'LBL_LIST_TEAM',
     'default' => false
-  ),
+  ),        
   'ASSIGNED_USER_NAME' => 
   array (
     'width' => '2%',

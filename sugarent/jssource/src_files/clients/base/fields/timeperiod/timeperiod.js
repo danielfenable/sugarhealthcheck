@@ -30,6 +30,11 @@
     tooltipTemplate: '',
 
     /**
+     * Collection for fetching all the Timeperiods
+     */
+    tpCollection: undefined,
+
+    /**
      * Mapping of ID's with the start ane end dates formatted for use when the tooltip is displayed
      */
     tpTooltipMap: {},
@@ -50,33 +55,23 @@
     tooltipDir: 'right',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initialize: function(options) {
         if (app.lang.direction === 'rtl') {
             this.tooltipDir = 'left';
         }
 
-
-        var collectionParams = {
-            limit: 100,
-            params: {}
-        };
-
+        var collectionParams = {limit: 100, params: {}};
         this._super('initialize', [options]);
 
         if (this.def.use_generic_timeperiods) {
             collectionParams.params.use_generic_timeperiods = true;
         }
 
-        /**
-         * Collection for fetching all the Timeperiods.
-         *
-         * @property {Data.BeanCollection}
-         */
+        // get timeperiods list
         this.tpCollection = app.data.createBeanCollection('TimePeriods');
         this.tpCollection.once('reset', this.formatTooltips, this);
-        this.tpCollection.on('sync', this.render, this);
         this.tpCollection.fetch(collectionParams);
 
         // load the tooltip template
@@ -90,7 +85,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Add a change event handler for initializing all the plugin tooltips again
      */
@@ -118,7 +113,7 @@
           }
         }, this);
         // since we don't need it any more, destroy it
-        this._destroyTplCollection();
+        this.tpCollection = undefined;
 
         if(this.updateDefaultTooltip) {
             this.updateDefaultTooltip = false;
@@ -129,7 +124,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _render: function() {
         this._super("_render");
@@ -166,7 +161,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     getSelect2Options: function(optionsKeys) {
         var options = this._super("getSelect2Options", [optionsKeys]);
@@ -191,7 +186,7 @@
      * that gets output
      *
      * @param {Object} object
-     * @return {string}
+     * @returns {string}
      */
     formatOption: function(object) {
         // check once if the tpTooltipMap has been built yet
@@ -201,25 +196,5 @@
             value: object.text,
             tooltipDir: this.tooltipDir
         });
-    },
-
-    /**
-     * Disposes the {@link #tplCollection} properly.
-     *
-     * @private
-     */
-    _destroyTplCollection: function() {
-        if (this.tpCollection) {
-            this.tpCollection.off(null, null, this);
-            this.tplCollection = null;
-        }
-    },
-
-    /**
-     * @inheritdoc
-     */
-    _dispose: function() {
-        this._destroyTplCollection();
-        this._super('_dispose');
     }
 })

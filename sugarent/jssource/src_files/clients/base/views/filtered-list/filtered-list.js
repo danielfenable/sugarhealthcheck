@@ -114,7 +114,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Sort the collection based on user input.
      * In order to activate sorting on the field,
@@ -143,7 +143,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     bindDataChange: function() {
         this.on('render', this._initFilter, this);

@@ -37,7 +37,6 @@ $mod_strings = array (
   'ERR_DELETE_RECORD' => 'You must specify a record number to delete the release.',
   'NTC_STATUS' => 'Set status to Inactive to remove this release from the Release dropdown lists',
   'NTC_LIST_ORDER' => 'Set the order this release will appear in the Release dropdown lists',
-  'LBL_ACTIVE_RELEASES' => 'Active releases',
   'release_status_dom' =>
   array (
     'Active' => 'Active',

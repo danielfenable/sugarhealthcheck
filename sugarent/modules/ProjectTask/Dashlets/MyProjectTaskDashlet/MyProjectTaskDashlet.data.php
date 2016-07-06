@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: MyProjectTaskDashlet.data.php 56115 2010-04-26 17:08:09Z kjing $
+
 
 global $current_user;
 

@@ -83,7 +83,7 @@ abstract class SugarApi {
         return $data;
     }
 
-    protected function formatBeans(ServiceBase $api, $args, $beans, $options = array())
+    protected function formatBeans(ServiceBase $api, $args, $beans)
     {
         if (!empty($args['fields']) && !is_array($args['fields'])) {
             $args['fields'] = explode(',',$args['fields']);
@@ -95,7 +95,7 @@ abstract class SugarApi {
             if (!is_subclass_of($bean, 'SugarBean')) {
                 continue;
             }
-            $ret[] = $this->formatBean($api, $args, $bean, $options);
+            $ret[] = $this->formatBean($api, $args, $bean);
         }
 
         return $ret;
@@ -114,7 +114,7 @@ abstract class SugarApi {
                 }
             }
             // htmldecode screws up bools..returns '1' for true
-            elseif (is_string($value) && !empty($data) && !empty($value)) {
+            elseif(!is_bool($value) && (!empty($data) && !empty($value))) {
                 // USE ENT_QUOTES TO REMOVE BOTH SINGLE AND DOUBLE QUOTES, WITHOUT THIS IT WILL NOT CONVERT THEM
                 $data[$key] = html_entity_decode($value, ENT_COMPAT|ENT_QUOTES, 'UTF-8');
             }
@@ -146,7 +146,7 @@ abstract class SugarApi {
             throw new SugarApiExceptionNotFound('Could not find record: '.$args['record'].' in module: '.$args['module']);
         }
 
-        if (SugarACLStatic::fixUpActionName($aclToCheck) != 'view' && !$bean->ACLAccess(SugarACLStatic::fixUpActionName($aclToCheck), $options)) {
+        if (SugarACLStatic::fixUpActionName($aclToCheck) != 'view' && !$bean->ACLAccess(SugarACLStatic::fixUpActionName($aclToCheck))) {
             throw new SugarApiExceptionNotAuthorized('SUGAR_API_EXCEPTION_RECORD_NOT_AUTHORIZED',array($aclToCheck));
         }
 
@@ -280,6 +280,7 @@ abstract class SugarApi {
     }
 
 
+
     /**
      * Verifies field level access for a bean and field for the logged in user
      *
@@ -377,11 +378,7 @@ abstract class SugarApi {
             $fieldDefs = $bean->field_defs;
             foreach ($fields as $field) {
                 if (!empty($fieldDefs[$field]) && isset($fieldDefs[$field]['type'])) {
-                    $type = $fieldDefs[$field]['type'];
-                    if (in_array($type, $bean::$relateFieldTypes)) {
-                        $type = 'relate';
-                    }
-                    switch ($type) {
+                    switch ($fieldDefs[$field]['type']) {
                         case 'relate':
                             if (!empty($fieldDefs[$field]['id_name'])) {
                                 $fields[] = $fieldDefs[$field]['id_name'];

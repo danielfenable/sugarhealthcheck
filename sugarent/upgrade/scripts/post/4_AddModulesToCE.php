@@ -60,6 +60,7 @@ class SugarUpgradeAddModulesToCE extends UpgradeScript
                 'Products' => 'Products',
                 'Forecasts' => 'Forecasts',
                 'Contracts' => 'Contracts',
+                'KBDocuments' => 'KBDocuments'
         );
         $newModuleList = array_merge($newModuleList,$must_have_modules);
 

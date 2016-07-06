@@ -111,7 +111,7 @@ class PMSEActivityDefinitionWrapper
         $this->activity->retrieve_by_string_fields(array('act_uid' => $args['record']));
         if ($this->activity->fetched_row != false) {
 //            $this->activityDefinition = new BpmActivityDefinition();
-            $this->activityDefinition->retrieve($this->activity->id);
+            $this->activityDefinition->retrieve_by_string_fields(array('id' => $this->activity->id));
             if ($this->activityDefinition->fetched_row != false) {
                 $result['success'] = true;
                 if (empty($this->activityDefinition->fetched_row['act_readonly_fields'])) {
@@ -195,7 +195,7 @@ class PMSEActivityDefinitionWrapper
 
 
                     $args['id'] = $this->activity->id;
-                    $this->activityDefinition->retrieve($this->activity->id);
+                    $this->activityDefinition->retrieve_by_string_fields(array('id' => $this->activity->id));
 
                     $args = $args['data'];
 
@@ -203,7 +203,7 @@ class PMSEActivityDefinitionWrapper
                         if ($key == 'act_readonly_fields' || $key == 'act_required_fields' || $key == 'act_expected_time' || $key == 'act_related_modules') {
                             $this->activityDefinition->$key = base64_encode(json_encode($args[$key]));
                         } else {
-                            $this->activityDefinition->$key = !empty($args[$key]) ? $args[$key] : '';
+                            $this->activityDefinition->$key = $args[$key];
                         }
                     }
                     if ($this->activity->act_type != 'TASK') {
@@ -270,7 +270,7 @@ class PMSEActivityDefinitionWrapper
      */
     public function getDefaultRequiredFields()
     {
-        $this->processDefinition->retrieve($this->activityDefinition->pro_id);
+        $this->processDefinition->retrieve_by_string_fields(array('id' => $this->activityDefinition->pro_id));
         $bean = $this->factory->getBean($this->processDefinition->pro_module);
         $fieldsData = isset($bean->field_defs) ? $bean->field_defs : array();
 

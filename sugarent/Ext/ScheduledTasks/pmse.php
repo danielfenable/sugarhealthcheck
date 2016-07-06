@@ -22,12 +22,8 @@ if (!function_exists("PMSEEngineCron")) {
     {
         require_once("modules/pmse_Inbox/engine/PMSEHandlers/PMSEHookHandler.php");
 
-//      Calls and Meetings modules uses this session variable on save function,
-//      in order to do not send notification email to the owner. (within Process Author cron)
-        $_SESSION['process_author_cron'] = true;
         $hookHandler = new PMSEHookHandler();
         $hookHandler->executeCron();
-        unset($_SESSION['process_author_cron']);
 
         return true;
     }

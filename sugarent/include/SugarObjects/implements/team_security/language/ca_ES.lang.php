@@ -9,8 +9,14 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+/*********************************************************************************
+ * Description:  Defines the Catalan language pack for the base application. 
+ * $Id: cat_cat.lang.php,v 1.0 2009/08/04 16:13:27 rfeliu Exp $
+ * Source: SugarCRM 5.2.0
+ * Contributor(s): Ramón Feliu (ramon@slay.es).
+ ********************************************************************************/
 $mod_strings = array(
 'LBL_TEAM'=>'Equip',
 'LBL_TEAMS'=>'Equips',
-'LBL_TEAM_ID'=>'ID de l&#39;equip',
+'LBL_TEAM_ID'=>'Id Equip',
 );

@@ -11,20 +11,27 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$module_name = 'Accounts';
-$viewdefs[$module_name]['base']['menu']['header'] = array(
+$moduleName = 'Accounts';
+$viewdefs[$moduleName]['base']['menu']['header'] = array(
     array(
         'label' =>'LNK_NEW_ACCOUNT',
         'acl_action'=>'create',
-        'acl_module'=>$module_name,
+        'acl_module'=>$moduleName,
         'icon' => 'fa-plus',
-        'route'=>'#'.$module_name.'/create',
+        'route'=>'#'.$moduleName.'/create',
     ),
     array(
-        'route'=>'#'.$module_name,
+        'label' => 'LBL_BAL',
+        'acl_action' => 'create',
+        'acl_module' => $moduleName,
+        'icon' => 'fa-plus',
+        'route' => '#'.$moduleName.'/layout/dnb-bal',
+    ),
+    array(
+        'route'=>'#'.$moduleName,
         'label' =>'LNK_ACCOUNT_LIST',
         'acl_action'=>'list',
-        'acl_module'=>$module_name,
+        'acl_module'=>$moduleName,
         'icon' => 'fa-bars',
     ),
     array(
@@ -32,14 +39,14 @@ $viewdefs[$module_name]['base']['menu']['header'] = array(
             array(
                 'module' => 'Reports',
                 'action' => 'index',
-                'view' => $module_name,
+                'view' => $moduleName,
                 'query' => 'true',
-                'report_module' => $module_name,
+                'report_module' => $moduleName,
             )
         ),
         'label' =>'LNK_ACCOUNT_REPORTS',
         'acl_action'=>'list',
-        'acl_module'=>$module_name,
+        'acl_module'=>$moduleName,
         'icon' => 'fa-bar-chart-o',
     ),
     array(
@@ -47,18 +54,12 @@ $viewdefs[$module_name]['base']['menu']['header'] = array(
             array(
                 'module' => 'Import',
                 'action' => 'Step1',
-                'import_module' => $module_name,
+                'import_module' => $moduleName,
             )
         ),
         'label' =>'LNK_IMPORT_ACCOUNTS',
         'acl_action'=>'import',
-        'acl_module'=>$module_name,
+        'acl_module'=>$moduleName,
         'icon' => 'fa-arrow-circle-o-up',
-    ),
-    array(
-        'type' => 'dnb-bal-import-menu-label',
-        'default_value' => 'LBL_BAL',
-        'icon' => 'fa-arrow-circle-o-up',
-        'route' => '#'.$module_name.'/layout/dnb-bal',
     ),
 );

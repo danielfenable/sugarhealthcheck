@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,35 +12,28 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-// $Id: en_us.lang.php 13782 2006-06-06 17:58:55 +0000 (Tue, 06 Jun 2006) majed $
+	
 
 $mod_strings = array (
-	'LBL_MODULE_NAME' => 'Szabadság',
-	'LBL_MODULE_NAME_SINGULAR' => 'Szabadság',
-	'LBL_MODULE_TITLE' => 'Szabadság: Főoldal',
-	'LBL_HOLIDAY' => 'Szabadság:',
-	'LBL_HOLIDAY_DATE' => 'Szabadság ideje:',
-	'LBL_NAME' => 'Szabadság ideje:',
-	'LBL_DESCRIPTION' => 'Leírás:',
-	'LBL_RESOURCE_NAME' => 'Forrás neve',
-	
-	'LBL_SEARCH_FORM_TITLE' => 'Szabadság keresése',
-	'LBL_LIST_FORM_TITLE' => 'Szabadságlista',		
-
-	'LNK_NEW_HOLIDAY' => 'Szabadság felvitele',
-	'LNK_HOLIDAYS' => 'Szabadság',
-	
-	'LBL_USERS_SUBPANEL_TITLE' => 'Felhasználók',
-	'LBL_USER_HOLIDAY_SUBPANEL_TITLE'	=> 'A felhasználó szabadságai',
-	
-	'LBL_RESOURCE' => 'Forrás:',
-	'LBL_PERSON_TYPE' => 'Személy típusa:',
-	'LBL_RELATED_MODULE'=> 'Kapcsolódó modul:',
-	
-	// For HolidaysQuickCreate.php
-	'LBL_SELECT_RESOURCE_TYPE' => 'Válasszon forrás típust...',
-	'LBL_USER' => 'Felhasználó',
-	'LBL_CONTACT' => 'Kapcsolat',
+  'LBL_CONTACT' => 'Kapcsolat',
+  'LBL_DESCRIPTION' => 'Leírás:',
+  'LBL_HOLIDAY' => 'Szabadság:',
+  'LBL_HOLIDAY_DATE' => 'Szabadság ideje:',
+  'LBL_LIST_FORM_TITLE' => 'Szabadságlista',
+  'LBL_MODULE_NAME' => 'Szabadság',
+  'LBL_MODULE_NAME_SINGULAR' => 'Szabadság',
+  'LBL_MODULE_TITLE' => 'Szabadság: Főoldal',
+  'LBL_NAME' => 'Szabadság ideje:',
+  'LBL_PERSON_TYPE' => 'Személy típusa:',
+  'LBL_RELATED_MODULE' => 'Kapcsolódó modul:',
+  'LBL_RESOURCE' => 'Forrás:',
+  'LBL_RESOURCE_NAME' => 'Forrás neve',
+  'LBL_SEARCH_FORM_TITLE' => 'Szabadság keresése',
+  'LBL_SELECT_RESOURCE_TYPE' => 'Válasszon forrás típust...',
+  'LBL_USER' => 'Felhasználó',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Felhasználók',
+  'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'A felhasználó szabadságai',
+  'LNK_HOLIDAYS' => 'Szabadság',
+  'LNK_NEW_HOLIDAY' => 'Szabadság felvitele',
 );
-?>
+

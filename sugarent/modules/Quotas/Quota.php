@@ -89,12 +89,7 @@ class Quota extends SugarBean
         // get the quota type as a label
         $quota_type = '';
         if (!empty($this->quota_type)) {
-            if ($this->quota_type == 'Direct') {
-                $quota_type = $mod_strings['LBL_MODULE_NAME_SINGULAR'] . ' ';
-            }
-            else if ($this->quota_type == 'Rollup') {
-                $quota_type = $mod_strings['LBL_MODULE_NAME_SINGULAR'] . ' (' . $mod_strings['LBL_ADJUSTED'] . ') ';
-            }
+            $quota_type = $mod_strings['LBL_' . strtoupper($this->quota_type)] . ' ' . $mod_strings['LBL_MODULE_NAME_SINGULAR'] . ' ';
         }
 
         return "{$timeperiod->name} {$quota_type}- $this->user_full_name";

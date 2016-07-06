@@ -26,7 +26,6 @@ nv.models.multiBar = function() {
       delay = 200,
       xDomain,
       yDomain,
-      nice = false,
       color = function(d, i) { return nv.utils.defaultColor()(d, d.series); },
       fill = color,
       barColor = null, // adding the ability to set the color for each rather than the whole group
@@ -57,6 +56,8 @@ nv.models.multiBar = function() {
           maxY = vertical ? availableHeight : availableWidth,
           dimX = vertical ? 'width' : 'height',
           dimY = vertical ? 'height' : 'width',
+          limDimX = 0,
+          limDimY = 0,
           valX = vertical ? 'x' : 'y',
           valY = vertical ? 'y' : 'x',
           valuePadding = 0,
@@ -117,16 +118,20 @@ nv.models.multiBar = function() {
         height = h;
         availableWidth = w - margin.left - margin.right;
         availableHeight = h - margin.top - margin.bottom;
-        resetScale();
-      };
-
-      function resetScale() {
         maxX = vertical ? availableWidth : availableHeight;
         maxY = vertical ? availableHeight : availableWidth;
+      };
+
+      chart.resetScale = function() {
+
+        availableWidth = width - margin.left - margin.right;
+        availableHeight = height - margin.top - margin.bottom;
+        limDimX = vertical ? availableWidth : availableHeight;
+        limDimY = vertical ? availableHeight : availableWidth;
 
         var boundsWidth = stacked ? baseDimension : baseDimension * seriesCount + baseDimension,
             gap = baseDimension * (stacked ? 0.25 : 1),
-            outerPadding = Math.max(0.25, (maxX - (groupCount * boundsWidth) - gap) / (2 * boundsWidth));
+            outerPadding = Math.max(0.25, (maxX - (groupCount * boundsWidth + gap)) / (2 * boundsWidth));
 
         if (withLine) {
           /*TODO: used in reports to keep bars from being too wide
@@ -143,11 +148,8 @@ nv.models.multiBar = function() {
                 negOffset = (vertical ? d.y : 0);
             return stacked ? (d.y > 0 ? d.y1 + posOffset : d.y1 + negOffset) : d.y;
           }).concat(forceY)))
-          .range(vertical ? [availableHeight, 0] : [0, availableWidth]);
-
-        if (nice) {
-          y.nice();
-        }
+          .range(vertical ? [availableHeight, 0] : [0, availableWidth])
+          .nice();
 
         x0 = x0 || x;
         y0 = y0 || y;
@@ -171,18 +173,18 @@ nv.models.multiBar = function() {
           if (vertical) {
             y.range([
               maxY - (y.domain()[0] < 0 ? valuePadding : 0),
-                      y.domain()[1] > 0 ? valuePadding : 0
+                         y.domain()[1] > 0 ? valuePadding : 0
             ]);
           } else {
             y.range([
-                      y.domain()[0] < 0 ? valuePadding : 0,
+                         y.domain()[0] < 0 ? valuePadding : 0,
               maxY - (y.domain()[1] > 0 ? valuePadding : 0)
             ]);
           }
         }
-      }
+      };
 
-      resetScale();
+      chart.resetScale();
 
 
       //------------------------------------------------------------
@@ -268,47 +270,69 @@ nv.models.multiBar = function() {
 
       barsEnter.append('rect')
         .attr(dimX, 0)
-        .attr(dimY, 0);
+        .attr(dimY, 0); //x.rangeBand() / (stacked ? 1 : data.length)
 
-      function buildEventObject(e, d, i, j) {
-        return {
+      bars
+        .on('mouseover', function(d, i, j) { //TODO: figure out why j works above, but not here
+          d3.select(this).classed('hover', true);
+          dispatch.elementMouseover({
+            value: getY(d, i),
+            point: d,
+            series: data[j],
+            pos: [d3.event.pageX, d3.event.pageY],
+            pointIndex: i,
+            seriesIndex: j,
+            e: d3.event
+          });
+        })
+        .on('mouseout', function(d, i, j) {
+          d3.select(this).classed('hover', false);
+          dispatch.elementMouseout({
             value: getY(d, i),
             point: d,
             series: data[j],
             pointIndex: i,
             seriesIndex: j,
-            id: id,
-            e: e
-          };
-      }
-
-      bars
-        .on('mouseover', function(d, i, j) { //TODO: figure out why j works above, but not here
-          d3.select(this).classed('hover', true);
-          var eo = buildEventObject(d3.event, d, i, j);
-          dispatch.elementMouseover(eo);
+            e: d3.event
+          });
         })
         .on('mousemove', function(d, i, j) {
-          dispatch.elementMousemove(d3.event);
-        })
-        .on('mouseout', function(d, i, j) {
-          d3.select(this).classed('hover', false);
-          dispatch.elementMouseout();
+          dispatch.elementMousemove({
+            point: d,
+            pointIndex: i,
+            pos: [d3.event.pageX, d3.event.pageY],
+            id: id
+          });
         })
         .on('click', function(d, i, j) {
+          dispatch.elementClick({
+            value: getY(d, i),
+            point: d,
+            series: data[j],
+            pos: [
+              x(getX(d, i)) + (x.rangeBand() * (stacked ? data.length / 2 : j + 0.5) / data.length),
+              y(getY(d, i) + (stacked ? d.y0 : 0))
+            ],  // TODO: Figure out why the value appears to be shifted
+            pointIndex: i,
+            seriesIndex: j,
+            e: d3.event
+          });
           d3.event.stopPropagation();
-          var eo = buildEventObject(d3.event, d, i, j);
-          dispatch.elementClick(eo);
         })
         .on('dblclick', function(d, i, j) {
+          dispatch.elementDblClick({
+            value: getY(d, i),
+            point: d,
+            series: data[j],
+            pos: [
+              x(getX(d, i)) + (x.rangeBand() * (stacked ? data.length / 2 : j + 0.5) / data.length),
+              y(getY(d, i) + (stacked ? d.y0 : 0))
+            ],  // TODO: Figure out why the value appears to be shifted
+            pointIndex: i,
+            seriesIndex: j,
+            e: d3.event
+          });
           d3.event.stopPropagation();
-          // I have no clue why this was here
-          // pos = [
-          //     x(getX(d, i)) + (x.rangeBand() * (stacked ? data.length / 2 : j + 0.5) / data.length),
-          //     y(getY(d, i) + (stacked ? d.y0 : 0))
-          //   ];
-          var eo = buildEventObject(d3.event, d, i, j);
-          dispatch.elementDblClick(eo);
         });
 
 
@@ -767,14 +791,6 @@ nv.models.multiBar = function() {
       return direction;
     }
     direction = _;
-    return chart;
-  };
-
-  chart.nice = function(_) {
-    if (!arguments.length) {
-      return nice;
-    }
-    nice = _;
     return chart;
   };
 

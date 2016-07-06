@@ -66,7 +66,6 @@ $viewdefs[$module_name]['base']['filter']['default'] = array(
         'employees' => array(),
         'ticker_symbol' => array(),
         'email' => array(),
-        'tag' => array(),
         'assigned_user_name' => array(),
         '$owner' => array(
             'predefined_filter' => true,

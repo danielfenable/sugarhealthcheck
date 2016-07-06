@@ -18,18 +18,7 @@ if (isset($_GET['sso'])) {
     $returnTo = $spBaseUrl.'/demo1/attrs.php';
     $auth->login($returnTo);
 } else if (isset($_GET['slo'])) {
-    $returnTo = null;
-    $paramters = array();
-    $nameId = null;
-    $sessionIndex = null;
-    if (isset($_SESSION['samlNameId'])) {
-        $nameId = $_SESSION['samlNameId'];
-    }
-    if (isset($_SESSION['samlSessionIndex'])) {
-        $sessionIndex = $_SESSION['samlSessionIndex'];
-    }
-
-    $auth->logout($returnTo, $paramters, $nameId, $sessionIndex);
+    $auth->logout();
 } else if (isset($_GET['acs'])) {
     $auth->processResponse();
 
@@ -45,8 +34,6 @@ if (isset($_GET['sso'])) {
     }
 
     $_SESSION['samlUserdata'] = $auth->getAttributes();
-    $_SESSION['samlNameId'] = $auth->getNameId();
-    $_SESSION['samlSessionIndex'] = $auth->getSessionIndex();        
     if (isset($_POST['RelayState']) && OneLogin_Saml2_Utils::getSelfURL() != $_POST['RelayState']) {
         $auth->redirectTo($_POST['RelayState']);
     }

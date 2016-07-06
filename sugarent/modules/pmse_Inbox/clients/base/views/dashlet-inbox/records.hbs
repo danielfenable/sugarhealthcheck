@@ -49,8 +49,8 @@
                             {{str "LBL_UNASSIGNED" this.module}}
                         {{/if}}
                         <!--&#44;&nbsp; attributes.record_date //task_name -->
-                        <!--<date class="date">{{relativeTime attributes.overdue}}</date>
-                        <date class="date">{{relativeTime attributes.date_due}}</date>-->
+                        <!--<date class="date">{{timeago attributes.overdue "TPL_TABBED_DASHLET_TIME_RELATIVE"}}</date>
+                        <date class="date">{{timeago attributes.date_due "TPL_TABBED_DASHLET_TIME_RELATIVE"}}</date>-->
                         <strong>{{getFieldValue this "task_name"}}</strong>
                         <!--{{#if attributes.act_expected_time}}-->
                         <!--&#44;&nbsp;-->
@@ -58,15 +58,7 @@
                         <!--{{/if}}-->
                                 <br/>
                         <strong>{{getFieldValue this "pro_title"}}</strong>
-                        {{#if useRelativeTime}}
-                            Due
-                            {{relativeTime attributes.record_date class='date'}}
-                        {{else}}
-                            {{#if useAbsoluteTime}}
-                                Due on
-                                {{formatDate attributes.record_date class='date'}}
-                            {{/if}}
-                        {{/if}}
+                        {{relativeTime attributes.cas_due_date class='date'}}
                     </div>
                 </li>
                 {{/if}}

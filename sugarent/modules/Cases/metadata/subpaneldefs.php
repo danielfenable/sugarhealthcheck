@@ -35,6 +35,19 @@ $layout_defs['Cases'] = array(
 				),
 			),
 		),
+        'kbdocuments' => array(
+            'order'             => 20,
+            'module'            => 'KBDocuments',
+            'subpanel_name'     => 'default',
+            'sort_order'        => 'desc',
+            'sort_by'           => 'name',
+            'title_key'         => 'LBL_KBDOCUMENTS_SUBPANEL_TITLE',
+            'get_subpanel_data' => 'kbdocuments',
+            'top_buttons' => array(
+                array('widget_class' => 'SubPanelTopCreateButton'),
+                array('widget_class' => 'SubPanelTopSelectButton'),
+            ),
+        ),
 		'activities' => array(
 			'order' => 10,
 			'sort_order' => 'desc',

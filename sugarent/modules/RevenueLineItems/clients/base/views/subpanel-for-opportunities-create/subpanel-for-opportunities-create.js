@@ -8,6 +8,6 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({extendsFrom:'SubpanelListCreateView',_addCustomFieldsToBean:function(bean){if(bean.has('sales_stage')){var dom=app.lang.getAppListStrings('sales_probability_dom'),userCurrencyId=app.user.getPreference('currency_id')||app.currency.getBaseCurrencyId(),attrs={probability:dom[bean.get('sales_stage')],currency_id:userCurrencyId,base_rate:app.metadata.getCurrency(userCurrencyId).conversion_rate};bean.setDefault(attrs);bean.set(attrs);}
+({extendsFrom:'SubpanelListCreateView',_addCustomFieldsToBean:function(bean){if(bean.has('sales_stage')){var dom=app.lang.getAppListStrings('sales_probability_dom'),userCurrencyId=app.user.getPreference('currency_id')||app.currency.getBaseCurrencyId();bean.set({probability:dom[bean.get('sales_stage')],currency_id:userCurrencyId,base_rate:app.metadata.getCurrency(userCurrencyId).conversion_rate});}
 return bean;},parseFields:function(){var catalog=this._super('parseFields'),config=app.metadata.getModule('Forecasts','config'),isForecastSetup=config.is_setup;_.each(catalog,function(group,i){if(isForecastSetup){catalog[i]=_.filter(group,function(fieldMeta){if(fieldMeta.name.indexOf('_case')!=-1){var field='show_worksheet_'+fieldMeta.name.replace('_case','');return(config[field]==1);}
 return true;});}else{catalog[i]=_.filter(group,function(fieldMeta){return(fieldMeta.name!='commit_stage');});}});return catalog;}})

@@ -48,7 +48,16 @@
                  * @param {jQuery} $tooltips
                  */
                 destroy: function($tooltips) {
-                    $tooltips.tooltip('destroy');
+                    if ($tooltips) {
+                        _.each($tooltips, function(tooltip) {
+                            var plugin;
+                            if (this.has(tooltip)) {
+                                plugin = this.get(tooltip);
+                                plugin.leave(plugin); //need to call leave() first because of a bug in tooltip v3
+                                plugin.destroy();
+                            }
+                        }, this);
+                    }
                 },
 
                 /**
@@ -95,117 +104,134 @@
             },
 
             /**
-             * If Forecasts is not setup, it will convert commit_stage into a spacer field and show no-data
-             *
-             * @param {Object} panels
-             */
-            hideForecastCommitStageField: function(panels) {
-                var config = app.metadata.getModule('Forecasts', 'config'),
-                    isSetup = (config && config.is_setup);
-                if (!isSetup) {
-                    _.each(panels, function(panel) {
-                        // use _.every so we can break out after we found the commit_stage field
-                        _.every(panel.fields, function(field, index) {
-                            if (field.name == 'commit_stage') {
-                                panel.fields[index] = {
-                                    'name': 'spacer',
-                                    'label': field.label,
-                                    'span': 6,
-                                    'readonly': true
-                                };
-                                return false;
-                            }
-                            return true;
-                        }, this);
-                    }, this);
-                }
-            },
-
-            /**
              * Takes two Forecasts models and returns HTML for the history log
              *
-             * @param {Backbone.Model} oldestModel the oldest model by date_entered
-             * @param {Backbone.Model} newestModel the most recent model by date_entered
-             * @param {boolean} isRepWorksheet Are we showing the history log on the rep worksheet?
+             * @param oldestModel {Backbone.Model} the oldest model by date_entered
+             * @param newestModel {Backbone.Model} the most recent model by date_entered
              * @return {Object}
              */
-            createHistoryLog: function(oldestModel, newestModel, isRepWorksheet) {
-                var labels = [];
+            createHistoryLog: function(oldestModel, newestModel) {
+                var is_first_commit = false;
 
-                if (_.isEmpty(oldestModel)) {
+                if(_.isEmpty(oldestModel)) {
                     oldestModel = new Backbone.Model({
                         best_case: 0,
                         likely_case: 0,
                         worst_case: 0,
                         date_entered: ''
                     });
-                    labels.push('LBL_COMMITTED_HISTORY_SETUP_FORECAST');
-                } else {
-                    labels.push('LBL_COMMITTED_HISTORY_UPDATED_FORECAST');
+                    is_first_commit = true;
+                }
+                var best_difference = this.getDifference(oldestModel, newestModel, 'best_case'),
+                    best_direction = this.getDirection(best_difference),
+                    likely_difference = this.getDifference(oldestModel, newestModel, 'likely_case'),
+                    likely_direction = this.getDirection(likely_difference),
+                    worst_difference = this.getDifference(oldestModel, newestModel, 'worst_case'),
+                    worst_direction = this.getDirection(worst_difference),
+                    args = [],
+                    best_arrow = this.getArrowDirectionSpan(best_direction),
+                    likely_arrow = this.getArrowDirectionSpan(likely_direction),
+                    worst_arrow = this.getArrowDirectionSpan(worst_direction),
+                    num_shown = 0,
+                    hb = Handlebars.compile("{{{str key module args}}}"),
+                    lang_string_key = '',
+                    final_args = [],
+                    labels = [],
+                    config = app.metadata.getModule('Forecasts', 'config'),
+                    likely_args = {
+                        changed: likely_difference != 0,
+                        show: config.show_worksheet_likely
+                    },
+                    best_args = {
+                        changed: best_difference != 0,
+                        show: config.show_worksheet_best
+                    },
+                    worst_args = {
+                        changed: worst_difference != 0,
+                        show: config.show_worksheet_worst
+                    };
+
+                // increment num_shown for each variable that is true
+                likely_args.show ? num_shown++ : '';
+                best_args.show ? num_shown++ : '';
+                worst_args.show ? num_shown++ : '';
+
+                // set the key for the lang string
+                lang_string_key = 'LBL_COMMITTED_HISTORY_' + num_shown + '_SHOWN';
+
+                if(worst_args.changed && worst_args.show) {
+                    final_args.push(
+                        this.gatherLangArgsByParams(
+                            worst_direction,
+                            worst_arrow,
+                            worst_difference,
+                            newestModel,
+                            'worst_case'
+                        )
+                    );
+                } else if(worst_args.show) {
+                    // push an empty array for args
+                    final_args.push([]);
                 }
 
-                var fields = ['worst', 'likely', 'best'],
-                    final = [],
-                    num_shown = 0,
-                    config = app.metadata.getModule('Forecasts', 'config'),
-                    aclModule = (isRepWorksheet) ? config.forecast_by : newestModel.module;
+                //determine what changed and add parts to the array for displaying the changes
+                if(likely_args.changed && likely_args.show) {
+                    final_args.push(
+                        this.gatherLangArgsByParams(
+                            likely_direction,
+                            likely_arrow,
+                            likely_difference,
+                            newestModel,
+                            'likely_case'
+                        )
+                    );
+                } else if(likely_args.show) {
+                    // push an empty array for args
+                    final_args.push([]);
+                }
 
-                _.each(fields, function(field) {
-                    var fieldName = field + '_case';
-                    if (config['show_worksheet_' + field] && app.acl.hasAccess('view', aclModule, null, fieldName)) {
-                        var diff = this.getDifference(oldestModel, newestModel, fieldName);
-                        num_shown++;
+                if(best_args.changed && best_args.show) {
+                    final_args.push(
+                        this.gatherLangArgsByParams(
+                            best_direction,
+                            best_arrow,
+                            best_difference,
+                            newestModel,
+                            'best_case'
+                        )
+                    );
+                } else if(best_args.show) {
+                    // push an empty array for args
+                    final_args.push([]);
+                }
 
-                        if (diff != 0) {
-                            var direction = this.getDirection(diff);
-                            final.push(
-                                this.gatherLangArgsByParams(
-                                    direction,
-                                    this.getArrowDirectionSpan(direction),
-                                    diff,
-                                    newestModel,
-                                    fieldName
-                                )
-                            );
-                            labels.push('LBL_COMMITTED_HISTORY_' + field.toUpperCase() + '_CHANGED');
-                        } else {
-                            final.push([]);
-                            labels.push('LBL_COMMITTED_HISTORY_' + field.toUpperCase() + '_SAME');
-                        }
-                    }
-                }, this);
+                // get the final args to go into the main text
+                labels = this.getCommittedHistoryLabel(best_args, likely_args, worst_args, is_first_commit);
 
-                var lang_string_key = 'LBL_COMMITTED_HISTORY_' + num_shown + '_SHOWN',
-                    hb = Handlebars.compile('{{{str key module args}}}');
-
-                final = this.parseArgsAndLabels(final, labels);
+                final_args = this.parseArgsAndLabels(final_args, labels);
 
                 //Compile the language string for the log
-                var text = hb({'key': lang_string_key, 'module': 'Forecasts', 'args': final});
+                var text = hb({'key': lang_string_key, 'module': "Forecasts", 'args': final_args});
 
-                // need to tell Handlebars not to escape the string when it renders it, since there might be
+                // need to tell Handelbars not to escape the string when it renders it, since there might be
                 // html in the string, args returned for testing purposes
-                return {
-                    'text': new Handlebars.SafeString(text),
-                    'text2': app.date(newestModel.get('date_modified')).formatUser(false, app.user)
-                };
+                return {'text': new Handlebars.SafeString(text)};
             },
 
             /**
              * Returns an array of three args for the html for the arrow,
              * the difference (amount changed), and the new value
              *
-             * @param {String} dir direction of the arrow, LBL_UP/LBL_DOWN
-             * @param {String} arrow HTML for the arrow string
-             * @param {Number} diff difference between the new model and old model
-             * @param {Backbone.Model} model the newestModel being used so we can get the current caseStr
-             * @param {String} attrStr the attr string to get from the newest model
-             * @return {Object}
+             * @param dir {String} direction of the arrow, LBL_UP/LBL_DOWN
+             * @param arrow {String} HTML for the arrow string
+             * @param diff {Number} difference between the new model and old model
+             * @param model {Backbone.Model} the newestModel being used so we can get the current caseStr
+             * @param attrStr {String} the attr string to get from the newest model
              */
             gatherLangArgsByParams: function(dir, arrow, diff, model, attrStr) {
                 return {
                     'direction' : new Handlebars.SafeString(app.lang.get(dir, 'Forecasts') + arrow),
-                    'from' : app.currency.formatAmountLocale(Math.abs(diff)),
+                    'from' :app.currency.formatAmountLocale(Math.abs(diff)),
                     'to' : app.currency.formatAmountLocale(model.get(attrStr))
                 };
             },
@@ -213,19 +239,19 @@
             /**
              * checks the direction class passed in to determine what span to create to show the appropriate arrow
              * or lack of arrow to display on the
-             * @param {String} directionClass class being used for the label ('LBL_UP' or 'LBL_DOWN')
+             * @param directionClass class being used for the label ('LBL_UP' or 'LBL_DOWN')
              * @return {String}
              */
             getArrowDirectionSpan: function(directionClass) {
-                return directionClass == 'LBL_UP' ? '&nbsp;<i class="fa fa-arrow-up font-green"></i>' :
-                    directionClass == 'LBL_DOWN' ? '&nbsp;<i class="fa fa-arrow-down font-red"></i>' : '';
+                return directionClass == "LBL_UP" ? '&nbsp;<i class="fa fa-arrow-up font-green"></i>' :
+                    directionClass == "LBL_DOWN" ? '&nbsp;<i class="fa fa-arrow-down font-red"></i>' : '';
             },
 
             /**
              * Centralizes our forecast type switch.
              *
-             * @param {Boolean} isManager
-             * @param {Boolean} showOpps
+             * @param isManager
+             * @param showOpps
              * @return {String} 'Direct' or 'Rollup'
              */
             getForecastType: function(isManager, showOpps) {
@@ -240,23 +266,71 @@
             },
 
             /**
+             * builds the args to look up for the history label based on what has changed in the model
+             * @param best {Object}
+             * @param likely {Object}
+             * @param worst {Object}
+             * @param is_first_commit {bool}
+             * @return {Array}
+             */
+            getCommittedHistoryLabel: function(best, likely, worst, is_first_commit) {
+                var args = [];
+
+                // Handle if this is the first commit
+                if(is_first_commit) {
+                    args.push('LBL_COMMITTED_HISTORY_SETUP_FORECAST');
+                } else {
+                    args.push('LBL_COMMITTED_HISTORY_UPDATED_FORECAST');
+                }
+
+                // Handle Worst
+                if(worst.show) {
+                    if(worst.changed) {
+                        args.push('LBL_COMMITTED_HISTORY_WORST_CHANGED');
+                    } else {
+                        args.push('LBL_COMMITTED_HISTORY_WORST_SAME');
+                    }
+                }
+
+                // Handle Likely
+                if(likely.show) {
+                    if(likely.changed) {
+                        args.push('LBL_COMMITTED_HISTORY_LIKELY_CHANGED');
+                    } else {
+                        args.push('LBL_COMMITTED_HISTORY_LIKELY_SAME');
+                    }
+                }
+
+                // Handle Best
+                if(best.show) {
+                    if(best.changed) {
+                        args.push('LBL_COMMITTED_HISTORY_BEST_CHANGED');
+                    } else {
+                        args.push('LBL_COMMITTED_HISTORY_BEST_SAME');
+                    }
+                }
+
+                return args;
+            },
+
+            /**
              * Parses through labels array and adds the proper args in to the string
              *
-             * @param {Array} argsArray of args (direction arrow html, amount difference and the new amount)
-             * @param {Array} labels of lang key labels to use
+             * @param argsArray {Array} of args (direction arrow html, amount difference and the new amount)
+             * @param labels {Array} of lang key labels to use
              * @return {Array}
              */
             parseArgsAndLabels: function(argsArray, labels) {
                 var retArgs = {},
                     argsKeys = ['first', 'second', 'third'],
-                    hb = Handlebars.compile('{{{str key module args}}}');
+                    hb = Handlebars.compile("{{{str key module args}}}");
 
                 // labels should have one more item in its array than argsArray
                 // because of the SETUP or UPDATED label which has no args
-                if ((argsArray.length + 1) != labels.length) {
+                if((argsArray.length + 1) != labels.length) {
                     // SOMETHING CRAAAAZY HAPPENED!
-                    var msg = 'ForecastsUtils.parseArgsAndLabels() :: ' +
-                            'argsArray and labels params are not the same length';
+                    var msg = 'ForecastsUtils.parseArgsAndLabels() :: '
+                            + 'argsArray and labels params are not the same length';
                     app.logger.error(msg);
                     return null;
                 }
@@ -278,9 +352,9 @@
             /**
              * Returns the difference between the newest model and the oldest
              *
-             * @param {Backbone.Model} oldModel
-             * @param {Backbone.Model} newModel
-             * @param {String} attr the attribute key to get from the models
+             * @param oldModel {Backbone.Model}
+             * @param newModel {Backbone.Model}
+             * @param attr {String} the attribute key to get from the models
              * @return {*}
              */
             getDifference: function(oldModel, newModel, attr) {
@@ -292,7 +366,7 @@
             /**
              * Returns the proper direction label to use
              *
-             * @param {Number} difference the amount of difference between newest and oldest models
+             * @param difference the amount of difference between newest and oldest models
              * @return {String} LBL_UP, LBL_DOWN, or ''
              */
             getDirection: function(difference) {
@@ -302,160 +376,26 @@
             /**
              * Returns the subpanel list with link module name and corresponding LBL_
              *
-             * @param {module} string
+             * @param module
              * @return {Object} The subpanel list
              */
             getSubpanelList: function(module) {
                 var list = {},
-                    subpanels = app.metadata.getModule(module),
-                    comps;
-
-                // Get the subpanel metadata for layouts...
+                    subpanels = app.metadata.getModule(module);
                 if (subpanels && subpanels.layouts) {
                     subpanels = subpanels.layouts.subpanels;
-                    if (subpanels && subpanels.meta) {
-                        // If this module defines itself as using dynamic
-                        // subpanels then let it do it's thing
-                        if (subpanels.meta.dynamic) {
-                            comps = this.getDynamicSubpanelList(module);
-                            if (comps && comps.meta) {
-                                comps = comps.meta.components || [];
+                    if (subpanels && subpanels.meta && subpanels.meta.components) {
+                        _.each(subpanels.meta.components, function(comp) {
+                            if (comp.context && comp.context.link) {
+                                list[comp.label] = comp.context.link;
+                            } else {
+                                app.logger.warning("Subpanel's subpanels.meta.components "
+                                    + "has component with no context or context.link");
                             }
-                        } else {
-                            // Otherwise use what we have in metadata
-                            comps = subpanels.meta.components || [];
-                        }
+                        });
                     }
                 }
-
-                // If there are components, traverse them and get what is needed
-                if (comps) {
-                    _.each(comps, function(comp) {
-                        if (comp.context && comp.context.link) {
-                            list[comp.label] = comp.context.link;
-                        } else {
-                            app.logger.warning("Subpanel's subpanels.meta.components "
-                                + "has component with no context or context.link");
-                        }
-                    });
-                }
-
                 return list;
-            },
-
-            /**
-             * Gets a list of subpanel metadata for a module.
-             * @return {object}
-             */
-            getDynamicSubpanelList: function(module) {
-                var dSubpanels = this.getDynamicSubpanelMetadata(module);
-                return {meta: dSubpanels};
-            },
-
-            /**
-             * Gets dynamic subpanel metadata for a module from the relationships
-             * for that module that are marked as dynamic subpanels
-             * @return {object}
-             */
-            getDynamicSubpanelMetadata: function(module) {
-                // Get our relationship metadata for validation
-                var rels = app.metadata.get().relationships,
-                    // Get the fields for the tags module to get the links from
-                    fields = app.metadata.getModule(module).fields,
-                    // Need the modules for validation as well
-                    modules = app.metadata.getModules(),
-                    // Declaring the components array for return
-                    comps = [],
-                    // Because javascript
-                    self = this;
-
-                // Loop over each field and get the link fields from the field def
-                _.each(fields, function(fDefs, fName) {
-                    var relModule,
-                        relDefName,
-                        spLabel;
-
-                    // If this field is a link type and there is a relationship for it...
-                    if (fDefs.type && fDefs.type === 'link' && fDefs.relationship) {
-                        relDefName = fDefs.relationship;
-                        // If the relationship exists and supports dynamic subpanels...
-                        if (self.hasDynamicSubpanelDef(rels, relDefName, module)) {
-                            relModule = rels[relDefName].lhs_module;
-                            // And the left side module is in the module list...
-                            if (modules[relModule]) {
-                                // Add handling for modules whose subpanel layouts are not just 'subpanel'
-                                var layoutName = 'subpanel';
-                                if (modules[relModule].additionalProperties
-                                    && modules[relModule].additionalProperties.dynamic_subpanel_name) {
-                                    layoutName = modules[relModule].additionalProperties.dynamic_subpanel_name;
-                                }
-                                // Add it to the components array
-                                comps.push({
-                                    context: {link: fDefs.name},
-                                    label: self.getDynamicSubpanelLabel(module, relModule),
-                                    layout: layoutName
-                                });
-                            }
-                        }
-                    }
-                });
-
-                return {components: comps};
-            },
-
-            /**
-             * Gets the label for the Subpanel from the module or related module
-             *
-             * @param {string} module The parent module
-             * @param {string} relModule The relate module
-             * @return {string} The label for the subpanel
-             */
-            getDynamicSubpanelLabel: function(module, relModule) {
-                // Define the label index we need to check for a named module
-                var lIndex = 'LBL_' + relModule.toUpperCase() + '_SUBPANEL_TITLE';
-                // Definitions to apply in order to find the label
-                var stackDef = [
-                    // Start with the default subpanel title for the related module first to pick
-                    // up renamed module names
-                    {key: 'LBL_DEFAULT_SUBPANEL_TITLE', mod: relModule},
-
-                    // Try the parent module to see any hardcoded subpanel titles
-                    {key: lIndex, mod: module},
-
-                    // Try getting the label from the related module
-                    {key: lIndex, mod: relModule},
-
-                    // Lastly, try getting the label from the related module name
-                    {key: 'LBL_MODULE_NAME', mod: relModule}
-                ];
-                // The label to return
-                var label;
-
-                // Loop through stackDef and break if we find a label
-                for (var i in stackDef) {
-                    if (label = app.lang.getModString(stackDef[i].key, stackDef[i].mod)) {
-                        return label;
-                    }
-                }
-
-                // If we couldn't find a label, return the related module
-                return relModule;
-            },
-
-            /**
-             * Checks if a relationship def supports dynamic subpanel loading
-             *
-             * @param {object} rels The relationship collection
-             * @param {string} relDefName The name of the current relationship
-             * @param {string} module The module to check against
-             * @return {Boolean}
-             */
-            hasDynamicSubpanelDef: function(rels, relDefName, module) {
-                return rels[relDefName]
-                       && rels[relDefName].dynamic_subpanel
-                       && rels[relDefName].lhs_module
-                       && rels[relDefName].rhs_module
-                       && rels[relDefName].rhs_module === module;
             },
 
             /**
@@ -607,7 +547,7 @@
             /**
              * Returns if the current browser has touch events
              *
-             * @return {boolean}
+             * @returns {Boolean}
              */
             isTouchDevice: function() {
                 return Modernizr.touch;
@@ -620,7 +560,7 @@
              * is in BWC or not. If not, this will fallback to default
              * {@link Core.Routing#buildRoute}.
              *
-             * @inheritdoc
+             * {@inheritDoc}
              * @param {Boolean} inBwc If `true` it will force bwc, if `false`
              * it will force sidecar, if not defined, will use metadata
              * information on module. This is a temporary param (hack) and will
@@ -727,10 +667,6 @@
                 // Special case for `Person` type modules
                 } else if (model.has('first_name') && model.has('last_name')) {
                     return model.get('first_name') + ' ' + model.get('last_name');
-
-                // Special case for `Person` type modules
-                } else if (model.has('last_name')) {
-                    return model.get('last_name');
 
                 // Default behavior
                 } else {

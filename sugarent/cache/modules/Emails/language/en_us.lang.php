@@ -1,5 +1,5 @@
 <?php
-// created: 2016-07-04 12:09:23
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
   'LBL_TEAM' => 'Teams',
   'LBL_TEAMS' => 'Teams',
@@ -297,7 +297,6 @@ $mod_strings = array (
   'LBL_ADD_CC' => 'Add Cc',
   'LBL_CC_BUTTON' => 'Cc',
   'LBL_ADD_BCC' => 'Add Bcc',
-  'LBL_MOVE_TO_BCC' => 'Move To Bcc',
   'LBL_BCC_BUTTON' => 'Bcc',
   'LBL_ADD_TO_ADDR' => 'Add To',
   'LBL_SELECTED_ADDR' => 'Selected',
@@ -366,7 +365,6 @@ $mod_strings = array (
   'LBL_INVALID_EMAIL' => 'Please provide correct email addresses.',
   'LBL_FAILED_TO_CONNECT' => 'Could not connect to the email server. Please make sure that email configuration has been setup correctly.',
   'LBL_INVALID_ATTACHMENT' => 'Could not attach the file provided. Please try again.',
-  'LBL_EXECUTABLE_ATTACHMENT' => 'Executable attachments are not accepted by your SMTP server. Email not sent.',
   'LBL_MISSING_CONFIGURATION' => 'Email configuration was not specified. Please provide a valid email configuration.',
   'LBL_INVALID_MAILAPI_STATUS' => 'Invalid email status was sent on the request. Please provide a valid status.',
   'LBL_EXCEPTION' => 'Exception occurred',

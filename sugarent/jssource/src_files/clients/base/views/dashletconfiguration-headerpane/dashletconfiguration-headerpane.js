@@ -29,7 +29,7 @@
     _translatedLabel: null,
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Binds the listener for the before `save` event.
      */
     initialize: function(options) {
@@ -54,7 +54,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Compare with the previous attributes and translated dashlet's label
      * in order to warn unsaved changes.
      *
@@ -95,7 +95,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * Translate model label before render using model attributes.
      */

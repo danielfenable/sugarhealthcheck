@@ -1,4 +1,5 @@
 <?php
+
 namespace Elastica\Test\Exception;
 
 use Elastica\Document;
@@ -9,14 +10,6 @@ use Elastica\Test\Base as BaseTest;
 
 class PartialShardFailureExceptionTest extends BaseTest
 {
-    public function testInheritance()
-    {
-        $exception = $this->getMockBuilder('Elastica\Exception\PartialShardFailureException')
-                          ->disableOriginalConstructor()
-                          ->getMock();
-        $this->assertInstanceOf('Exception', $exception);
-        $this->assertInstanceOf('Elastica\Exception\ExceptionInterface', $exception);
-    }
 
     public function testPartialFailure()
     {
@@ -25,8 +18,8 @@ class PartialShardFailureExceptionTest extends BaseTest
         $index->create(array(
             'index' => array(
                 'number_of_shards'   => 5,
-                'number_of_replicas' => 0,
-            ),
+                'number_of_replicas' => 0
+            )
         ), true);
 
         $type = $index->getType('folks');
@@ -58,4 +51,5 @@ class PartialShardFailureExceptionTest extends BaseTest
             $this->assertEquals(0, count($resultSet->getResults()));
         }
     }
+
 }

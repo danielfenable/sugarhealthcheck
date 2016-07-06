@@ -10,43 +10,7 @@
  */
 (function(app) {
     app.events.on('app:init', function() {
-        var createDuplicateCollection, duplicateCheckIsDisabledHandler;
-
-        /**
-         * Skips the Duplicate Check API request.
-         *
-         * Mimics the completion of fetching data to satisfy the expectations
-         * of the caller. The collection's `dataFetched` property is set to
-         * `true` and the optional success callback is immediately called if
-         * one exists.
-         *
-         * Triggers an error event on the collection in case the caller wants
-         * to be notified. The parameter is an `Error` with a message denoting
-         * that Duplicate Check is disabled for the particular module.
-         *
-         * @fires duplicatecheck:error
-         * @param {Data.BeanCollection} collection
-         * @param {Object} [options]
-         */
-        duplicateCheckIsDisabledHandler = function(collection, options) {
-            var errorMessage;
-
-            options = options || {};
-            collection.dataFetched = true;
-
-            errorMessage = app.lang.get(
-                'ERR_DUPLICATE_CHECK_IS_DISABLED',
-                collection.module,
-                {module: collection.module}
-            );
-            collection.trigger('duplicatecheck:error', new Error(errorMessage));
-
-            if (options.success) {
-                options.success(collection, undefined, {});
-            }
-        };
-
-        createDuplicateCollection = function(dupeCheckModel, module) {
+        var createDuplicateCollection = function(dupeCheckModel, module) {
             var collection = app.data.createBeanCollection(module || this.module),
                 collectionSync = collection.sync;
             _.extend(collection, {
@@ -58,33 +22,20 @@
                 dupeCheckModel: dupeCheckModel,
 
                 /**
-                 * @inheritdoc
+                 * {@inheritDoc}
                  *
                  * Override endpoint in order to fetch custom api.
-                 *
-                 * Does not follow through with calling the DuplicateCheckApi
-                 * if Duplicate Check is disabled for the particular module.
                  */
                 sync: function(method, model, options) {
-                    var checkForDuplicates, metadata;
-
                     options = options || {};
-                    checkForDuplicates = _.isEmpty(model.filterDef);
-                    metadata = app.metadata.getModule(this.module);
-
-                    if (checkForDuplicates) {
+                    if (_.isEmpty(model.filterDef)) {
                         options.endpoint = _.bind(this.endpoint, this);
                     }
-
-                    if (checkForDuplicates && !metadata.dupCheckEnabled) {
-                        duplicateCheckIsDisabledHandler(this, options);
-                    } else {
-                        collectionSync(method, model, options);
-                    }
+                    collectionSync(method, model, options);
                 },
 
                 /**
-                 * @inheritdoc
+                 * {@inheritDoc}
                  *
                  * Custom endpoint for duplicate check.
                  */
@@ -100,7 +51,7 @@
 
         app.plugins.register('FindDuplicates', ['view'], {
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              *
              * Bind the find duplicate button handler.
              */
@@ -149,7 +100,7 @@
             createDuplicateCollection: createDuplicateCollection,
 
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              *
              * Clean up associated event handlers.
              */

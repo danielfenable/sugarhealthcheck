@@ -296,7 +296,7 @@ AdamGateway.prototype.getContextMenu = function () {
         handler: function () {
             self.updateGatewayType('EXCLUSIVE');
         },
-        selected: exclusiveActive
+        disabled: exclusiveActive
     });
 
     parallelAction = new Action({
@@ -305,7 +305,7 @@ AdamGateway.prototype.getContextMenu = function () {
         handler: function () {
             self.updateGatewayType('PARALLEL');
         },
-        selected: parallelActive
+        disabled: parallelActive
     });
 
     inclusiveAction = new Action({
@@ -314,7 +314,7 @@ AdamGateway.prototype.getContextMenu = function () {
         handler: function () {
             self.updateGatewayType('INCLUSIVE');
         },
-        selected: inclusiveActive
+        disabled: inclusiveActive
     });
 
     eventbasedAction = new Action({
@@ -323,14 +323,14 @@ AdamGateway.prototype.getContextMenu = function () {
         handler: function () {
             self.updateGatewayType('EVENTBASED');
         },
-        selected: eventbasedActive
+        disabled: eventbasedActive
     });
     if (elements.length > 1) {
         defaultflownoneAction = new Action({
             text: translate('LBL_PMSE_CONTEXT_MENU_NONE'),
             cssStyle : 'adam-menu-icon-none',
             handler: handle(''),
-            selected: (self.gat_default_flow !== 0) ? false : true
+            disabled: (self.gat_default_flow !== 0) ? false : true
         });
 
         defaultflowItems.push(defaultflownoneAction);
@@ -357,7 +357,7 @@ AdamGateway.prototype.getContextMenu = function () {
                         text: name,
                         cssStyle: self.getCanvas().getTreeItem(shape).icon,
                         handler: handle(connection.getID()),
-                        selected: (self.gat_default_flow === connection.getID()) ? true : false
+                        disabled: (self.gat_default_flow === connection.getID()) ? true : false
                     })
                 );
             }
@@ -399,7 +399,7 @@ AdamGateway.prototype.getContextMenu = function () {
         handler: function () {
             self.updateDirection('UNSPECIFIED');
         },
-        selected: unspecifiedDirectionActive
+        disabled: unspecifiedDirectionActive
     });
     convergingDirectionAction = new Action({
         text: translate('LBL_PMSE_CONTEXT_MENU_CONVERGING'),
@@ -409,7 +409,7 @@ AdamGateway.prototype.getContextMenu = function () {
             self.cleanFlowConditions();
 
         },
-        selected: convergingDirectionActive
+        disabled: convergingDirectionActive
     });
     divergingDirectionAction = new Action({
         text: translate('LBL_PMSE_CONTEXT_MENU_DIVERGING'),
@@ -417,7 +417,7 @@ AdamGateway.prototype.getContextMenu = function () {
         handler: function () {
             self.updateDirection('DIVERGING');
         },
-        selected: divergingDirectionActive
+        disabled: divergingDirectionActive
     });
     mixedDirectionAction = new Action({
         text: translate('LBL_PMSE_CONTEXT_MENU_MIXED'),
@@ -425,7 +425,7 @@ AdamGateway.prototype.getContextMenu = function () {
         handler: function () {
             self.updateDirection('MIXED');
         },
-        selected: mixedDirectionActive
+        disabled: mixedDirectionActive
     });
     direction = {
         label: translate('LBL_PMSE_CONTEXT_MENU_DIRECTION'),
@@ -660,7 +660,6 @@ AdamGateway.prototype.createConfigureAction = function () {
                                 fieldHeight: 128,
                                 decimalSeparator: SUGAR.App.config.defaultDecimalSeparator,
                                 numberGroupingSeparator: SUGAR.App.config.defaultNumberGroupingSeparator,
-                                currencies: project.getMetadata("currencies"),
                                 dateFormat: App.date.getUserDateFormat(),
                                 timeFormat: App.user.getPreference("timepref"),
                                 operators: {
@@ -674,9 +673,6 @@ AdamGateway.prototype.createConfigureAction = function () {
                                         dataURL: 'pmse_Project/CrmData/related/' + project.process_definition.pro_module,
                                         dataRoot: 'result',
                                         fieldDataURL: 'pmse_Project/CrmData/fields/{{MODULE}}',
-                                        fieldDataURLAttr: {
-                                            call_type: 'GT'
-                                        },
                                         fieldDataRoot: "result",
                                         fieldTypeField: "type"
                                     },

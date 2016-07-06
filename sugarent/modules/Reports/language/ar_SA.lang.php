@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 56874 2010-06-09 18:30:46Z smalyshev $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -86,9 +86,9 @@ $mod_strings = array (
   'LBL_MY_TEAMS_REPORTS' => 'تقارير فريقي',
   'LBL_REPORT_NAME' => 'اسم التقرير',
   'LBL_REPORT_ATT_NAME' => 'الاسم',
-  'LBL_CURRENT_QUARTER_FORECAST' => 'التوقع ربع سنوي الحالي',
+  'LBL_CURRENT_QUARTER_FORECAST' => 'النشرة ربع السنوية الحالية',
   'LBL_ALL_PUBLISHED_REPORTS' => 'جميع التقارير المنشورة',
-  'LBL_DETAILED_FORECAST' => 'توقع مفصل',
+  'LBL_DETAILED_FORECAST' => 'نشرة مفصلة',
   'LBL_PARTNER_ACCOUNT_LIST' => 'قائمة حساب شريك',
   'LBL_CUSTOMER_ACCOUNT_LIST' => 'قائمة حساب عميل',
   'LBL_CALL_LIST_BY_LAST_DATE_CONTACTED' => 'قائمة المكالمات حسب آخر تاريخ اتصال',
@@ -145,7 +145,7 @@ $mod_strings = array (
   'LBL_MY_TEAM_TASK_REPORTS' => 'تقارير مهام فريقي',
   'LBL_MY_TEAM_EMAIL_REPORTS' => 'تقارير البريد الإلكتروني لفريقي',
 
-  'LBL_MY_TEAM_FORECAST_REPORTS' => 'تقارير التوقعات لفريقي',
+  'LBL_MY_TEAM_FORECAST_REPORTS' => 'تقارير النشرات لفريقي',
   'LBL_MY_TEAM_PROSPECT_REPORTS' =>'تقارير هدف فريقي',
   'LBL_MY_TEAM_CONTRACT_REPORTS' => 'تقارير تعاقدات فريقي',
   'LBL_MY_TEAM_PROJECT_TASK_REPORTS' => 'تقارير مهام المشروع لفريقي',
@@ -212,7 +212,7 @@ $mod_strings = array (
   'LBL_PUBLISHED_MEETING_REPORTS' => 'تقارير اجتماع منشورة',
   'LBL_PUBLISHED_TASK_REPORTS' => 'تقارير مهام منشورة',
   'LBL_PUBLISHED_EMAIL_REPORTS' => 'تقارير بريد إلكتروني منشورة',
-  'LBL_PUBLISHED_FORECAST_REPORTS' => 'تقارير التوقع المنشورة',
+  'LBL_PUBLISHED_FORECAST_REPORTS' => 'تقارير نشرة منشورة',
   'LBL_PUBLISHED_PROSPECT_REPORTS' =>'تقارير هدف منشورة',
   'LBL_THERE_ARE_NO_REPORTS_OF_THIS_TYPE' => 'لا توجد تقارير من هذا النوع.',
   'LBL_AND' => 'و',
@@ -246,7 +246,7 @@ $mod_strings = array (
   'LBL_GROUP_BY' => 'مجموعة حسب',
   'LBL_ADD_COLUMN' => 'إضافة عمود',
   'LBL_GRAND_TOTAL' => 'الإجمالي الكلي',
-  'LBL_FORECAST_REPORTS' => 'تقارير التوقع',
+  'LBL_FORECAST_REPORTS' => 'تقارير نشرة',
   'LBL_MY_PROJECT_TASK_REPORTS'=>'تقارير مهام مشروعي',
   'LBL_PUBLISHED_PROJECT_TASK_REPORTS'=>'تقارير مهام مشروع منشورة',
   'LBL_PROJECT_TASK_REPORTS'=>'تقارير مهام مشروع',
@@ -264,7 +264,6 @@ $mod_strings = array (
   	'LBL_WEIGHTED_AVG_AMOUNT' => "حجم متوسط الوزن",
   	'LBL_WEIGHTED_SUM_AMOUNT' => "كم المبلغ",
     'ERR_SELECT_COLUMN' => 'يُرجى تحديد عمود عرض أولاً.',
-    'LBL_BY_WEEK' => 'حسب الأسبوع',
     'LBL_BY_MONTH' => 'شهريًا',
     'LBL_BY_YEAR' => 'سنويًا',
     'LBL_BY_QUARTER' => 'ربع سنوي',
@@ -276,7 +275,6 @@ $mod_strings = array (
     'LBL_MAX' => 'أقصى',
     'LBL_MIN' => 'أدنى',
     'LBL_QUARTER_ABBREVIATION' => 'ربع سنوي',
-    'LBL_WEEK' => 'أسبوع',
     'LBL_MONTH' => 'شهر',
     'LBL_YEAR' => 'سنة',
     'LBL_QUARTER' => 'ربع سنة',
@@ -295,8 +293,8 @@ $mod_strings = array (
 	'LBL_NEXT_MONTH'=>'الشهر التالي',
 	'LBL_LAST_QUARTER'=>'ربع السنة الماضي',
 	'LBL_THIS_QUARTER'=>'ربع السنة الحالي',
-	'LBL_LAST_YEAR'=>'السنة الماضية',
-	'LBL_NEXT_YEAR'=>'السنة القادمة',
+	'LBL_LAST_YEAR'=>'العام الماضي',
+	'LBL_NEXT_YEAR'=>'العام القادم',
     'LBL_PREVIOUS_FISCAL_YEAR' => 'السنة المالية السابقة',
     'LBL_PREVIOUS_FISCAL_QUARTER' => 'الربع سنوي المالي السابق',
     'LBL_CURRENT_FISCAL_YEAR' => 'السنة المالية الحالية',
@@ -316,7 +314,7 @@ $mod_strings = array (
   'LBL_THIS_MONTH'=>'هذا الشهر',
   'LBL_LAST_30_DAYS'=>'آخر 30 يومًا',
   'LBL_NEXT_30_DAYS'=>'الـ 30 يومًا المقبلة',
-  'LBL_THIS_YEAR'=>'هذة السنة',
+  'LBL_THIS_YEAR'=>'هذا العام',
   'LBL_LIST_FORM_TITLE' =>'التقارير',
   'LBL_PROSPECT_REPORTS'=>'تقارير هدف',
   'LBL_CHART_TYPE'=>'نوع المخطط',
@@ -361,7 +359,7 @@ $mod_strings = array (
     'LBL_NEXT_QUARTER'=>'ربع السنة القادم',
     'LBL_ADD_RELATE' => "إضافة مرتبطة",
     'LBL_DEL_THIS' => "إزالة",
-    'LBL_ALERT_CANT_ADD' => 'يتعذر عليك إضافة وحدة مرتبطة حتى تقوم بتحديد جدول من تحديد وحدة من القائمة المنسدلة على اليسار من زر &#39;إضافة مرتبطة&#39; الذي قمت بالنقر فوقه.',
+    'LBL_ALERT_CANT_ADD' => 'يتعذر عليك إضافة وحدة مرتبطة حتى تقوم بتحديد جدول من تحديد وحدة من القائمة المنسدلة على اليسار من زر \'إضافة مرتبطة\' الذي قمت بالنقر فوقه.',
     'LBL_BY_DAY' => 'يوميًا',
     'LBL_DAY' => 'يوم',
     'LBL_OUTER_JOIN_CHECKBOX' => 'وحدات مرتبطة اختيارية',
@@ -384,11 +382,11 @@ $mod_strings = array (
     'LBL_TABLE_CHANGED' => 'تم تعديل قائمة الوحدة، يُرجى النقر مرتين لوضع علامة على المعيار المدخل في علامة تبويب المجموعة.',
     'LBL_OPTIONAL_HELP' => 'حدد المربعات غير المحددة، تقوم الوحدة الأولية بالتسجيل حتى لو لم توجد سجلات وحدة مرتبطة. عندما لا يتم تحديد مربع، ستظهر سجلات الوحدة الأولية فقط إذا كانت لها وحدة أو أكثر مرتبطة بالسجلات.',
     'LBL_RUNTIME_HELP' => 'حدد هذا المربع للسماح للمستخدمين بتغيير قيمة عامل التصفية قبل تشغيل التقرير.',
-  	'LBL_USER_EMPTY_HELP'=>'لعرض السجلات غير المحددة لأي مستخدم، قم بوضع علامة على مربع الاختيار &#39;الوحدات الاختيارية ذات الصلة&#39; في الخطوة &#39;تفاصيل التقارير&#39; بجانب استخدام خيار &#39;فارغ&#39; لعامل التصفية المحدد لمستخدم. سيعرض ذلك كل السجلات غير المرتبطة بأي مستخدمين.',
+  	'LBL_USER_EMPTY_HELP'=>'لعرض السجلات غير المحددة لأي مستخدم، قم بوضع علامة على مربع الاختيار \'الوحدات الاختيارية ذات الصلة\' في الخطوة \'تفاصيل التقارير\' بجانب استخدام خيار \'فارغ\' لعامل التصفية المحدد لمستخدم. سيعرض ذلك كل السجلات غير المرتبطة بأي مستخدمين.',
 
     // Default Report Titles
-    'DEFAULT_REPORT_TITLE_1' => 'التوقع ربع سنوي الحالي',
-    'DEFAULT_REPORT_TITLE_2' => 'توقع مفصل',
+    'DEFAULT_REPORT_TITLE_1' => 'النشرة ربع السنوية الحالية',
+    'DEFAULT_REPORT_TITLE_2' => 'نشرة مفصلة',
     'DEFAULT_REPORT_TITLE_3' => 'قائمة حساب شريك',
     'DEFAULT_REPORT_TITLE_4' => 'قائمة حساب عميل',
     'DEFAULT_REPORT_TITLE_5' => 'قائمة المكالمات حسب آخر تاريخ اتصال',
@@ -401,8 +399,8 @@ $mod_strings = array (
     'DEFAULT_REPORT_TITLE_10' => 'حالات جديدة حسب الشهر',
 
     // Pipeline
-    'DEFAULT_REPORT_TITLE_11' => 'خط العائدات بالنوع وبالفريق',
-    'DEFAULT_REPORT_TITLE_12' => 'خط العائدات بالفريق وبالمستخدم',
+    'DEFAULT_REPORT_TITLE_11' => 'خط الأنابيب بالنوع وبالفريق',
+    'DEFAULT_REPORT_TITLE_12' => 'خط الأنابيب بالفريق وبالمستخدم',
     'DEFAULT_REPORT_TITLE_17' => 'الفرص المكتسبة حسب مصدر العميل المتوقع',
 
     // Activity
@@ -446,7 +444,7 @@ $mod_strings = array (
   	'DEFAULT_REPORT_TITLE_53' => 'كل الفرص المغلقة',
     'DEFAULT_REPORT_TITLE_56' => 'فرص انهيار المنتج لفترة زمنية ماضية، أو حالية، أو قادمة شهريًا',
     'DEFAULT_REPORT_TITLE_57' => 'فرص مرحلة المبيعات لفترة زمنية ماضية، أو حالية، أو قادمة شهريًا',
-    'DEFAULT_REPORT_TITLE_58' => 'توقع الربع سنوي الماضي/الحالي/القادم',
+    'DEFAULT_REPORT_TITLE_58' => 'النشرة ربع السنوية الماضية/الحالية/القادمة',
     'DEFAULT_REPORT_TITLE_59' => 'الفرص حسب مرحلة المبيعات للمسؤولين عن التقارير في فترة حالية',
 
     //'LBL_CHART_ON_DASHLET' => 'Do not Display Chart on Dashlet',
@@ -517,7 +515,7 @@ $mod_strings = array (
 	'LBL_FILTERS_HELP_DESC'=>"<b>خطوات تعريف عوامل التصفية:</b><br/><br/>1) انقر فوق الوحدة في <b>الوحدات المرتبطة</b> التي ترغب في استخدامها لتحديد عوامل التصفية. يتم تحديد الوحدة الأولية (العقدة العليا في عرض الشجرة) افتراضيًا. <br/><br/>	يمكنك تحديد وحدة مرتبطة (عقدة طفل في عرض الشجرة) بالنقر فوق الوحدة. Eقم بتوسيع العقدة لعرض الوحدات الإضافية المرتبطة بالوحدة المرتبطة. Tالوحدة التي قمت باختيارها تحدد أيًا من حقول التقارير سوف تظهر في شريط <b>الحقول المتاحة</b> .<br/><br/>	2) انقر فوق حقل في <b>شريط الحقول المتاحة</b> لإضافته إلى عوامل التصفية. يمكنكأيضًا البحث عن الحقل بالكتابة في مربع النص في شريط.<br/><br/>	بعد تحديد أي عدد للحقول من الوحدة المختارة في شريط <b>الوحدات المرتبطة</b>، فيمكنك اختيار وحدة مختلفة يمكنك منها تحديد أي عدد للحقول لاستخدامها كعوامل تصفية .<br/><br/>	3) اختر <b>و</b> أو <b>أو</b> لتحديد أي عوامل التصفية أو كل عوامل التصفية على وجه الخصوص سيتم استخدامها للعثور على النتائج الخاصة بالتقرير.<br/><br/>	4) [اختياري] انقر فوق <b>إضافة مجموعة عوامل تصفية </b> لإنشاء مجموعات من عوامل التصفية. يمكنكيمكن أن يكون لديك أي عدد من مجموعات عوامل التصفية وأي عدد من عوامل التصفية في مجموعة لإنشاء عوامل على شكل أكواخ.<br/><br/>	5) [اختياري] اختر خيار \"وقت التشغيل\" لعامل تصفية للسماح للمستخدمين باستخدام عامل التصفية لمزيد من التخصيص لنتائج التقارير أثناء عرض التقرير.",
 	'LBL_GROUP_BY_HELP_DESC'=>"<b>خطوات تعريف المجموعة حسب</b><br/><br/>1) انقر فوق الوحدة في <b>الوحدات المرتبطة</b> التي ترغب في استخدامها لتحديد سجلات المجموعة في تقريرك. يتم تحديد الوحدة الأولية (العقدة العليا في عرض الشجرة) افتراضيًا. <br/><br/>	يمكنك تحديد وحدة مرتبطة (عقدة طفل في عرض الشجرة) بالنقر فوق الوحدة. Eقم بتوسيع العقدة لعرض الوحدات الإضافية المرتبطة بالوحدة المرتبطة. Tالوحدة التي قمت باختيارها تحدد أيًا من حقول التقارير سوف تظهر في شريط <b>الحقول المتاحة</b> .<br/><br/>	2) انقر فوق حقل في <b>شريط الحقول المتاحة</b> لتجميع السجلات في مجموعة حسب الحقل في تقريرك. يمكنكأيضًا البحث عن الحقل بالكتابة في مربع النص في شريط.<br/><br/>	بعد اختيار أي عدد للحقول من الوحدة المحددة في شريط <b>الوحدات المرتبطة</b> يمكنك اختيار وحدة مختلفة ومنها يمكنك تحديد أي عدد من الحقول لتجميع السجلات. ومعذلك، يصبح التقرير أقل قابلية للقراءة عند التجميع حسب أكثر من حقل.<br/><br/>	يمكنك تغيير ترتيب الحقول بسحبها وإسقاطها في المكان المرغوب فيه.  الترتيبيؤثر على طريقة عرض النتائج.<br/><br/>  بالنسبةلتقارير المصفوفة، يمكنك استخدام ثلاثة حقول بحد أقصى لتجميع السجلات.",
 	'LBL_DISPLAY_COLS_HELP_DESC'=>"<b>خطوات اختيار عرض الأعمدة</b><br/><br/>1) انقر فوق الوحدة في <b>الوحدات المرتبطة</b> التي ترغب في استخدامها لعرض البيانات في تقريرك. يتم تحديد الوحدة الأولية افتراضيًا، (العقدة العليا في عرض الشجرة) التي اخترتها أثناء خطوة \"تحديد وحدة\".<br/><br/>	يمكنك تحديد الحقول من وحدة مرتبطة (عقدة طفل في عرض الشجرة) بالنقر فوق الوحدة. يمكن تحديد الوحدات المرتبطة بالوحدة الأولية. الوحدة التي قمت باختيارها تحدد أيًا من حقول التقارير سوف تظهر في شريط <b>الحقول المتاحة</b> .<br/><br/>	2) انقر فوق حقل في <b>شريط الحقول المتاحة</b> لعرض بيانات الحقل في السجلات في تقريرك. يمكنك أيضًا البحث عن الحقل بالكتابة في مربع النص في شريط.<br/><br/>	بعد اختيار أي عدد للحقول من الوحدة المحددة في شريط <b>الوحدات المرتبطة</b>، يمكنك اختيار وحدة مختلفة ومنها يمكنك تحديد حقول إضافية. يمكنك تحديد أي عدد من الحقول، ولكن يتم إنشاء التقرير ببطء أكثر ويصبح أقل قدرة على القراءة عند إضافتك لمزيد من الحقول أكثر من المطلوب في التقرير.<br/><br/>	يمكنك تغيير ترتيب الحقول بسحبها وإسقاطها في الموضع المطلوب. تغيير ترتيب الحقل يؤثر على ترتيب عرض الأعمدة في النتائج." ,
-	'LBL_DISPLAY_SUMMARY_HELP_DESC'=>"<b>Steps to Choose Display Summaries:</b><br/><br/>1) Click on the Module in the <b>Related Modules</b> pane that you would like to use for the summaries in your report. By default, the primary module (top node in the tree view) is selected.<br/><br/>	You can select a related module (child node in the tree view) by clicking on the module. Expand the node to view additional modules related to the related module. The module that you select determines which reportable fields appear in the <b>Available Fields</b> pane.<br/><br/>	2) Click on a Field in the <b>Available Fields</b> pane to select summaries for your report. You can also search for the field by typing in the text box in the pane.<br/><br/>	After selecting any number of fields from the module selected in the <b>Related Modules</b> pane, you can choose a different module from which you can select additional fields for the summaries in your report.<br/><br/>" .	"For Matrix Reports, you can select more than one field to display multiple values within a single cell in your report." ,
+	'LBL_DISPLAY_SUMMARY_HELP_DESC'=>"<b>خطوات اختيار عرض الملخصات</b><br/><br/>1) انقر فوق الوحدة في <b>الوحدات المرتبطة</b> التي ترغب في استخدامها للملخصات في تقريرك. يتم تحديد الوحدة الأولية افتراضيًا، (العقدة العليا في عرض الشجرة) التي اخترتها <br/><br/>	يمكنك تحديد وحدة مرتبطة (عقدة طفل في عرض الشجرة) بالنقر فوق الوحدة. قم بتوسيع العقدة لعرض الوحدات الإضافية المرتبطة بالوحدة المرتبطة. الوحدة التي قمت باختيارها تحدد أيًا من حقول التقارير سوف تظهر في شريط <b>الحقول المتاحة</b> .<br/><br/>	2) انقر فوق حقل في <b>شريط الحقول المتاحة</b> لتحديد الملخصات لتقريرك. يمكنك أيضًا البحث عن الحقل بالكتابة في مربع النص في شريط.<br/><br/>	بعد اختيار أي عدد للحقول من الوحدة المحددة في شريط <b>الوحدات المرتبطة</b>، يمكنك اختيار وحدة مختلفة ومنها يمكنك تحديد حقول إضافية للملخصات في تقريرك.<br/><br/>" .	"بالنسبة لتقرير المصفوفة، يمكنك تحديد أكثر من حقل واحد لعرض قيم متنوعة داخل خلية وحيدة في تقريرك." ,
 
 	'LBL_ALT_SHOW' => 'إظهار',
   	'LBL_REPORT_DATA_COLUMN_ORDERS' => 'يحتوي هذا التقرير على بيانات بترتيب الأعمدة التالي:',

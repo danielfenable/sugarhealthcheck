@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-* $Id: MysqlManager.php 53409 2010-01-04 03:31:15Z roger $
+
 * Description: This file handles the Data base functionality for the application.
 * It acts as the DB abstraction layer for the application. It depends on helper classes
 * which generate the necessary SQL. This sql is then passed to PEAR DB classes.
@@ -32,29 +32,29 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 *
 * name 		This represents name of the field. This is a required field.
 * type 		This represents type of the field. This is a required field and valid values are:
-*           -   int
-*           -   long
-*           -   varchar
-*           -   text
-*           -   date
-*           -   datetime
-*           -   double
-*           -   float
-*           -   uint
-*           -   ulong
-*           -   time
-*           -   short
-*           -   enum
+*           �   int
+*           �   long
+*           �   varchar
+*           �   text
+*           �   date
+*           �   datetime
+*           �   double
+*           �   float
+*           �   uint
+*           �   ulong
+*           �   time
+*           �   short
+*           �   enum
 * length    This is used only when the type is varchar and denotes the length of the string.
 *           The max value is 255.
 * enumvals  This is a list of valid values for an enum separated by "|".
-*           It is used only if the type is -enum-;
+*           It is used only if the type is �enum�;
 * required  This field dictates whether it is a required value.
-*           The default value is -FALSE-.
+*           The default value is �FALSE�.
 * isPrimary This field identifies the primary key of the table.
-*           If none of the fields have this flag set to -TRUE-,
+*           If none of the fields have this flag set to �TRUE�,
 *           the first field definition is assume to be the primary key.
-*           Default value for this field is -FALSE-.
+*           Default value for this field is �FALSE�.
 * default   This field sets the default value for the field definition.
 *
 *
@@ -119,19 +119,6 @@ class MysqlManager extends DBManager
 
 	);
 
-    /**
-     * Integer fields' min and max values
-     * @var array
-     */
-    protected $type_range = array(
-        'int'      => array('min_value'=>-2147483648, 'max_value'=>2147483647),
-        'uint'     => array('min_value'=>0, 'max_value'=>4294967295),
-        'ulong'    => array('min_value'=>0, 'max_value'=>18446744073709551615),
-        'long'     => array('min_value'=>-9223372036854775808, 'max_value'=>9223372036854775807),
-        'short'    => array('min_value'=>-32768, 'max_value'=>32767),
-        'tinyint'  => array('min_value'=>-128, 'max_value'=>127),
-    );
-
 	protected $capabilities = array(
 		"affected_rows" => true,
 		"select_rows" => true,
@@ -142,7 +129,6 @@ class MysqlManager extends DBManager
 	    "create_db" => true,
 	    "disable_keys" => true,
 	    "fix:report_as_condition" => true,
-        "short_group_by" => true, //set to true if not all the select fields are needed in the group by (currently mysql only)
 	);
 
 	/**
@@ -224,7 +210,7 @@ class MysqlManager extends DBManager
 	 */
 	protected function freeDbResult($dbResult)
 	{
-		if(is_resource($dbResult))
+		if(!empty($dbResult))
 			mysql_free_result($dbResult);
 	}
 
@@ -311,12 +297,6 @@ class MysqlManager extends DBManager
 	 */
 	public function get_columns($tablename)
 	{
-        // Sanity check for getting columns
-        if (empty($tablename)) {
-            $this->log->error(__METHOD__ . ' called with an empty tablename argument');
-            return array();
-        }        
-
 		//find all unique indexes and primary keys.
 		$result = $this->query("DESCRIBE $tablename");
 
@@ -404,7 +384,7 @@ class MysqlManager extends DBManager
 		return $this->getOne("SELECT version() version");
 	}
 
-	/**+
+	/**
 	 * @see DBManager::tableExists()
 	 */
 	public function tableExists($tableName)
@@ -534,7 +514,6 @@ class MysqlManager extends DBManager
 		$this->connectOptions = $configOptions;
 
 		$GLOBALS['log']->info("Connect:".$this->database);
-
 		return true;
 	}
 
@@ -543,14 +522,8 @@ class MysqlManager extends DBManager
 	 *
 	 * For MySQL, we can write the ALTER TABLE statement all in one line, which speeds things
 	 * up quite a bit. So here, we'll parse the returned SQL into a single ALTER TABLE command.
-     * @param  string $tablename Table name
-     * @param  array  $fielddefs Field definitions, in vardef format
-     * @param  array  $indices   Index definitions, in vardef format
-     * @param  bool   $execute   optional, true if we want the queries executed instead of returned
-     * @param  string $engine    optional, MySQL engine
-     * @return string
 	 */
-    public function repairTableParams($tablename, $fielddefs, array $indices, $execute = true, $engine = null)
+	public function repairTableParams($tablename, $fielddefs, $indices, $execute = true, $engine = null)
 	{
         foreach ($indices as $key => $ind) {
             if (strtolower($ind['type']) == 'primary') {

@@ -75,7 +75,6 @@ class OneLogin_Saml2_SettingsTest extends PHPUnit_Framework_TestCase
     /**
     * Tests getCertPath method of the OneLogin_Saml2_Settings
     *
-    * @covers OneLogin_Saml2_Settings::getBasePath
     * @covers OneLogin_Saml2_Settings::getCertPath
     */
     public function testGetCertPath()
@@ -393,33 +392,6 @@ class OneLogin_Saml2_SettingsTest extends PHPUnit_Framework_TestCase
         }
     }
 
-
-    /**
-    * Tests the setIdPCert method of the OneLogin_Saml2_Settings
-    *
-    * @covers OneLogin_Saml2_Settings::setIdPCert
-    */
-    public function testSetIdPCert()
-    {
-        $settingsDir = TEST_ROOT .'/settings/';
-        include $settingsDir.'settings1.php';
-
-        $cert = $settingsInfo['idp']['x509cert'];
-        unset($settingsInfo['idp']['x509cert']);
-
-        $settings = new OneLogin_Saml2_Settings($settingsInfo);
-        $idpData = $settings->getIdPData();
-        $this->assertEquals($idpData['x509cert'], '');
-
-        $settings->setIdPCert($cert);
-        $idpData2 = $settings->getIdPData();
-        $this->assertNotEquals($idpData2['x509cert'], '');
-        $this->assertNotEquals($idpData2['x509cert'], $cert);
-
-        $formatedCert = OneLogin_Saml2_Utils::formatCert($cert);
-        $this->assertEquals($idpData2['x509cert'], $formatedCert);
-    }
-
     /**
     * Tests the validateMetadata method of the OneLogin_Saml2_Settings
     * Case valid metadata
@@ -434,24 +406,6 @@ class OneLogin_Saml2_SettingsTest extends PHPUnit_Framework_TestCase
         $settings = new OneLogin_Saml2_Settings($settingsInfo);
 
         $metadata = $settings->getSPMetadata();
-
-        $this->assertEmpty($settings->validateMetadata($metadata));
-    }
-
-    /**
-    * Tests the validateMetadata method of the OneLogin_Saml2_Settings
-    * Case valid signed metadata
-    *
-    * @covers OneLogin_Saml2_Settings::validateMetadata
-    */
-    public function testValidateSignedMetadata()
-    {
-        $settingsDir = TEST_ROOT .'/settings/';
-        include $settingsDir.'settings1.php';
-
-        $settings = new OneLogin_Saml2_Settings($settingsInfo);
-
-        $metadata = file_get_contents(TEST_ROOT . '/data/metadata/signed_metadata_settings1.xml');
 
         $this->assertEmpty($settings->validateMetadata($metadata));
     }
@@ -506,7 +460,7 @@ class OneLogin_Saml2_SettingsTest extends PHPUnit_Framework_TestCase
 
     /**
     * Tests the validateMetadata method of the OneLogin_Saml2_Settings
-    * Case invalid xml metadata: No entity
+    * Case invalid xml metadata
     *
     * @covers OneLogin_Saml2_Settings::validateMetadata
     */
@@ -518,26 +472,6 @@ class OneLogin_Saml2_SettingsTest extends PHPUnit_Framework_TestCase
         $settings = new OneLogin_Saml2_Settings($settingsInfo);
 
         $metadata = file_get_contents(TEST_ROOT . '/data/metadata/noentity_metadata_settings1.xml');
-
-        $errors = $settings->validateMetadata($metadata);
-        $this->assertNotEmpty($errors);
-        $this->assertContains('invalid_xml', $errors);
-    }
-
-    /**
-    * Tests the validateMetadata method of the OneLogin_Saml2_Settings
-    * Case invalid xml metadata: Wrong order
-    *
-    * @covers OneLogin_Saml2_Settings::validateMetadata
-    */
-    public function testValidateMetadataWrongOrder()
-    {
-        $settingsDir = TEST_ROOT .'/settings/';
-        include $settingsDir.'settings1.php';
-
-        $settings = new OneLogin_Saml2_Settings($settingsInfo);
-
-        $metadata = file_get_contents(TEST_ROOT . '/data/metadata/metadata_bad_order_settings1.xml');
 
         $errors = $settings->validateMetadata($metadata);
         $this->assertNotEmpty($errors);
@@ -617,60 +551,7 @@ class OneLogin_Saml2_SettingsTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('signMetadata', $security);
         $this->assertArrayHasKey('wantMessagesSigned', $security);
         $this->assertArrayHasKey('wantAssertionsSigned', $security);
-        $this->assertArrayHasKey('wantAssertionsEncrypted', $security);
         $this->assertArrayHasKey('wantNameIdEncrypted', $security);
-        $this->assertArrayHasKey('requestedAuthnContext', $security);
-        $this->assertArrayHasKey('wantXMLValidation', $security);
-    }
-
-    /**
-    * Tests default values of Security advanced sesettings
-    *
-    * @covers OneLogin_Saml2_Settings::getSecurityData
-    */
-    public function testGetDefaultSecurityValues()
-    {
-        $settingsDir = TEST_ROOT .'/settings/';
-        include $settingsDir.'settings1.php';
-        unset($settingsInfo['security']);
-
-        $settings = new OneLogin_Saml2_Settings($settingsInfo);
-
-        $security = $settings->getSecurityData();
-        $this->assertNotEmpty($security);
-
-        $this->assertArrayHasKey('nameIdEncrypted', $security);
-        $this->assertFalse($security['nameIdEncrypted']);
-
-        $this->assertArrayHasKey('authnRequestsSigned', $security);
-        $this->assertFalse($security['authnRequestsSigned']);
-
-        $this->assertArrayHasKey('logoutRequestSigned', $security);
-        $this->assertFalse($security['logoutRequestSigned']);
-
-        $this->assertArrayHasKey('logoutResponseSigned', $security);
-        $this->assertFalse($security['logoutResponseSigned']);
-
-        $this->assertArrayHasKey('signMetadata', $security);
-        $this->assertFalse($security['signMetadata']);
-
-        $this->assertArrayHasKey('wantMessagesSigned', $security);
-        $this->assertFalse($security['wantMessagesSigned']);
-
-        $this->assertArrayHasKey('wantAssertionsSigned', $security);
-        $this->assertFalse($security['wantAssertionsSigned']);
-
-        $this->assertArrayHasKey('wantAssertionsEncrypted', $security);
-        $this->assertFalse($security['wantAssertionsEncrypted']);
-
-        $this->assertArrayHasKey('wantNameIdEncrypted', $security);
-        $this->assertFalse($security['wantNameIdEncrypted']);
-
-        $this->assertArrayHasKey('requestedAuthnContext', $security);
-        $this->assertTrue($security['requestedAuthnContext']);
-
-        $this->assertArrayHasKey('wantXMLValidation', $security);
-        $this->assertTrue($security['wantXMLValidation']);
     }
 
     /**

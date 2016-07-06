@@ -53,8 +53,8 @@ class SugarUpgradeOpportunityUpdateRollupFields extends UpgradeScript
                                     WHEN rli.sales_stage = 'Closed Won' THEN 1
                                     ELSE 0
                                   end AS won
-                           FROM   revenue_line_items rli
-                           WHERE  rli.deleted = 0) t
+                           FROM   revenue_line_items AS rli
+                           WHERE  rli.deleted = 0) AS t
                    GROUP  BY t.opportunity_id, (won + lost), lost";
 
         $results = $this->db->query($sql);

@@ -371,6 +371,25 @@ $dictionary['Forecast'] = array('table' => 'forecasts'
     'comment' => 'Weighted amount of all opportunities represented by this forecast',
     'reportable' => false,
   ),
+   'currency_id' =>
+   array (
+       'name' => 'currency_id',
+       'vname' => 'LBL_CURRENCY',
+       'type' => 'currency_id',
+       'dbType' => 'id',
+       'default'=>'-99',
+       'required' => true,
+       'function' => 'getCurrencies',
+       'function_bean' => 'Currencies',
+   ),
+   'base_rate' =>
+   array (
+       'name' => 'base_rate',
+       'vname' => 'LBL_BASE_RATE',
+       'type' => 'decimal',
+       'len' => '26,6',
+       'reportable' => false,
+   ),
    'best_case' =>
   array (
     'name' => 'best_case',
@@ -508,12 +527,4 @@ $dictionary['Forecast'] = array('table' => 'forecasts'
        array('name' =>'idx_forecast_user_tp', 'type' =>'index', 'fields'=>array('user_id', 'timeperiod_id', 'date_modified')),
        ),
     'acls' => array('SugarACLStatic' => true),
-);
-
-VardefManager::createVardef(
-    'Forecasts',
-    'Forecast',
-    array(
-        'currency'
-    )
 );

@@ -355,7 +355,6 @@ function displayGroupCount() {
 } // fn
 {/literal}
 var current_user_id = '{$current_user_id}';
-users_array[0]={literal}{text{/literal}:'{$mod_strings.LBL_CURRENT_USER}',value:'Current User'{literal}}{/literal};
 {foreach from=$user_array key=user_id item=user_name}
 {literal}users_array[users_array.length] = {text:{/literal}'{$user_name}',value:'{$user_id}'};
 {/foreach}

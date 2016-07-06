@@ -19,7 +19,6 @@ class SugarFieldText extends SugarFieldBase {
 		$displayParams['url2html'] = true;
 		return parent::getDetailViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex);
     }
-
 	function getWirelessEditViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex) {
 		$displayParams['nl2br'] = true;
 		$displayParams['url2html'] = true;

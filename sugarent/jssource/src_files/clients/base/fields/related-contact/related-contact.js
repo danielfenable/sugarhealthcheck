@@ -16,7 +16,7 @@
  *
  * @class View.Fields.Base.RelatedContactField
  * @alias SUGAR.App.view.fields.BaseRelatedContactField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     events: {

@@ -13,7 +13,6 @@
 $dictionary['Prospect'] = array(
     'table' => 'prospects',
     'unified_search' => true,
-    'full_text_search' => true,
     'fields' => array(
         'tracker_key' => array(
             'name' => 'tracker_key',
@@ -166,18 +165,6 @@ $dictionary['Prospect'] = array(
             'source' => 'non-db',
             'vname' => 'LBL_LEAD',
         ),
-        'assistant' => array(
-            'name' => 'assistant',
-            'type' => 'varchar',
-            'len' => 75,
-            'vname' => 'LBL_ASSISTANT',
-        ),
-        'assistant_phone' => array(
-            'name' => 'assistant_phone',
-            'type' => 'varchar',
-            'len' => 100,
-            'vname' => 'LBL_ASSISTANT_PHONE',
-        ),
     ),
     'indices' => array(
         array(
@@ -309,18 +296,3 @@ VardefManager::createVardef(
         'person'
     )
 );
-
-//boost value for full text search
-$dictionary['Prospect']['fields']['first_name']['full_text_search']['boost'] = 1.37;
-$dictionary['Prospect']['fields']['last_name']['full_text_search']['boost'] = 1.36;
-$dictionary['Prospect']['fields']['email']['full_text_search']['boost'] = 1.35;
-$dictionary['Prospect']['fields']['phone_home']['full_text_search']['boost'] = 0.89;
-$dictionary['Prospect']['fields']['phone_mobile']['full_text_search']['boost'] = 0.88;
-$dictionary['Prospect']['fields']['phone_work']['full_text_search']['boost'] = 0.87;
-$dictionary['Prospect']['fields']['phone_other']['full_text_search']['boost'] = 0.86;
-$dictionary['Prospect']['fields']['phone_fax']['full_text_search']['boost'] = 0.85;
-$dictionary['Prospect']['fields']['description']['full_text_search']['boost'] = 0.43;
-$dictionary['Prospect']['fields']['primary_address_street']['full_text_search']['boost'] = 0.22;
-$dictionary['Prospect']['fields']['alt_address_street']['full_text_search']['boost'] = 0.21;
-
-

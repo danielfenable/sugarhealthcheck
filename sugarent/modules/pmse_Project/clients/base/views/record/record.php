@@ -28,9 +28,6 @@ array (
                   'label' => 'LBL_CANCEL_BUTTON_LABEL',
                   'css_class' => 'btn-invisible btn-link',
                   'showOn' => 'edit',
-                  'events' => array(
-                      'click' => 'button:cancel_button:click',
-                  ),
               ),
               array(
                   'type' => 'rowaction',
@@ -76,6 +73,13 @@ array (
                       ),
                       array(
                           'type' => 'divider',
+                      ),
+                      array(
+                          'type' => 'rowaction',
+                          'event' => 'button:find_duplicates_button:click',
+                          'name' => 'find_duplicates_button',
+                          'label' => 'LBL_DUP_MERGE',
+                          'acl_action' => 'edit',
                       ),
                       array(
                           'type' => 'rowaction',

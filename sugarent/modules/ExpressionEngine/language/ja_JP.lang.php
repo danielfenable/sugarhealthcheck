@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,24 +12,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'LBL_EXPAND' => '拡張',
   'LBL_MODULE_NAME' => 'エクスプレッションエンジン',
   'LBL_MODULE_NAME_SINGULAR' => 'エクスプレッションエンジン',
-  'func_descriptions' => array (
-
-),
-	'LBL_PREVIOUS' => '前へ' /*for 508 compliance fix*/,
-	'LBL_NEXT' => '次へ' /*for 508 compliance fix*/,
-	'LBL_EXPAND' => '拡張' /*for 508 compliance fix*/,
+  'LBL_NEXT' => '次へ',
+  'LBL_PREVIOUS' => '前へ',
 );
 
-
-?>

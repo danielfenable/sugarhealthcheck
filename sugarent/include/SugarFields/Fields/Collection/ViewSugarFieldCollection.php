@@ -343,6 +343,7 @@ FRA;
 
                 } else if($matches[0] == 'Teams') {
                     $sqs_objects[$name1] = $qsd->getQSTeam();
+
                 } else if($matches[0] == 'Users'){
                     $sqs_objects[$name1] = $qsd->getQSUser();
 

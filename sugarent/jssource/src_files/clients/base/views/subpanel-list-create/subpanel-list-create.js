@@ -113,9 +113,10 @@
     checkButtons: function() {
         var delBtns = this.$('.deleteBtn'),
             addBtns = this.$('.addBtn');
-        if (delBtns && delBtns.length === 1 && !delBtns.hasClass('disabled')) {
-            // if we have only one button, disable it, otherwise leave them all open
-            delBtns.addClass('disabled');
+        if (delBtns && !$(delBtns[0]).hasClass('disabled')) {
+            // disable the first delete button so you cant
+            // delete the first row
+            $(delBtns[0]).addClass('disabled');
         }
 
         if (addBtns && addBtns.length > 1) {
@@ -124,7 +125,7 @@
                 if (index < addBtns.length - 1) {
                     $(btn).addClass('disabled');
                 }
-            });
+            })
         }
     },
 
@@ -254,11 +255,11 @@
                     userName = parentModel.get('assigned_user_name');
 
                 if (userId) {
-                    bean.setDefault('assigned_user_id', userId);
+                    bean.set('assigned_user_id', userId);
                 }
 
                 if (userName) {
-                    bean.setDefault('assigned_user_name', userName);
+                    bean.set('assigned_user_name', userName);
                 }
             }
 
@@ -276,7 +277,7 @@
      * before it gets added to the collection
      *
      * @param {Data.Bean} bean The bean to add new properties to
-     * @return {Data.Bean}
+     * @returns {Data.Bean}
      * @private
      */
     _addCustomFieldsToBean: function(bean) {

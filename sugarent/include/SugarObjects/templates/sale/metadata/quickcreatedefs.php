@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
- * $Id$
+
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -37,7 +37,7 @@ $viewdefs[$module_name]['QuickCreate'] = array(
 	
     array(
 		'amount',
-		array('name'=>'team_name','displayParams'=>array('required'=>true)),
+    	array('name'=>'team_name','displayParams'=>array('required'=>true)),
 	),
 	
 	array($_object_name.'_type', 'date_closed'),

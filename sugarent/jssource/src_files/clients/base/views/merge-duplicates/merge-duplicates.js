@@ -136,6 +136,7 @@
     relatesBlacklist: [
         'assigned_user_link', 'modified_user_link', 'created_by_link',
         'teams', 'team_link', 'team_count_link',
+        'campaigns',
         'archived_emails', 'email_addresses', 'email_addresses_primary',
         'forecastworksheets',
         'currencies'
@@ -199,8 +200,7 @@
         { type: 'parent' },
         { type: 'image' },
         { type: 'teamset' },
-        { type: 'email' },
-        { type: 'tag' }
+        { type: 'email' }
     ],
 
     /**
@@ -217,7 +217,7 @@
     generatedValues: null,
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Initialize merge collection as collection of selected records and
      * initialise fields that can be used in merge.
@@ -439,25 +439,11 @@
             }});
         }, function() {
             self.primaryRecord.trigger('mergeduplicates:primary:merged');
-            self.hideMainPreviewPanel();
         });
     },
 
     /**
-     * Hide the preview panel, from the main drawer
-     */
-    hideMainPreviewPanel: function() {
-        //Get main drawer
-        var $main_drawer = app.$contentEl.children().first();
-        if (!_.isUndefined($main_drawer) && $main_drawer.hasClass('drawer inactive')) {
-            var layout = $main_drawer.find('.sidebar-content');
-            layout.find('.side-pane').addClass('active');
-            layout.find('.dashboard-pane').show();
-            layout.find('.preview-pane').removeClass('active');
-        }
-    },
-    /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Override fetching fields names. Use fields that are allowed to merge only.
      *
@@ -785,7 +771,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Add additional fields for specific types like 'parent' and 'relate'.
      * Setup primary model editable.
@@ -876,7 +862,7 @@
 
         if (self.primaryRecord && self.primaryRecord.id !== droppedTo.data('record-id')) {
             var changedAttributes = self.primaryRecord.changedAttributes(
-                self.primaryRecord.getSynced()
+                self.primaryRecord.getSyncedAttributes()
             );
             if (!_.isEmpty(changedAttributes)) {
                 app.alert.show('change_primary_confirmation', {
@@ -1050,6 +1036,7 @@
     triggerCopy: function(evt) {
         var currentTarget = this.$(evt.currentTarget),
             recordId = currentTarget.data('record-id'),
+            recordItemId = currentTarget.data('record-item-id'),
             fieldName = currentTarget.data('field-name'),
             fieldDefs = app.metadata.getModule(this.module).fields,
             model;
@@ -1073,11 +1060,7 @@
             return;
         }
 
-        var data = currentTarget.data();
-        // Unlike data(), attr() doesn't perform type conversions if possible.
-        // This is good because recordItemId can sometimes be numeric but must be type of string always.
-        data.recordItemId = currentTarget.attr('data-record-item-id');
-        data = _.extend({}, data, {
+        var data = _.extend({}, currentTarget.data(), {
             checked: currentTarget.prop('type') === 'checkbox' ?
                 currentTarget.prop('checked') : true
         });
@@ -1121,7 +1104,7 @@
      * @param {String} fieldName Name of field to revert.
      */
     revert: function(fieldName) {
-        var syncedAttributes = this.primaryRecord.getSynced();
+        var syncedAttributes = this.primaryRecord.getSyncedAttributes();
 
         this._setRelatedFields(fieldName, this.primaryRecord, true);
         this.primaryRecord.set(
@@ -1227,7 +1210,7 @@
 
         var fieldDefs = app.metadata.getModule(this.module).fields;
             defs = fieldDefs[fieldName],
-            syncedAttributes = synced ? model.getSynced() : {},
+            syncedAttributes = synced ? model.getSyncedAttributes() : {},
             fields = _.union(defs.populate_list, defs.related_fields);
 
         _.each(this.relatedFieldsMap, function(field) {
@@ -1451,7 +1434,7 @@
             attempt: 0,
 
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              *
              * Sync added set of records and clear collection.
              */
@@ -1479,7 +1462,7 @@
             },
 
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              *
              * Overrides default behaviour to use related API and send related
              * records into chunks.
@@ -1681,7 +1664,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Override 'reset' event for collection to setup first model ar primary.
      */
@@ -1704,7 +1687,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Off all events on primary model.
      */

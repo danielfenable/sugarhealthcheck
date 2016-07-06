@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +13,16 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-    'LBL_FEEDBACK_TEXT_PLACEHOLDER' => 'Beschrijving van feedback',
-    'LBL_FEEDBACK_BTN_SUBMIT' => 'Verstuur',
-    'LBL_FEEDBACK_SENT' => 'Feedback verzonden.',
-    'LBL_FEEDBACK_SEND_ERROR' => 'Feedback niet verzonden, vul beide velden in.',
-    'LBL_FEEDBACK_NOT_SENT' => 'Kon geen verbinding maken met feedbackserver, probeer het later opnieuw.',
-    'LBL_FEEDBACK_CSAT' => 'Hoe zou u uw algemene tevredenheid over dit product beschrijven?',
-    'TPL_FEEDBACK_ASIDE' => 'Op het moment van verzending verzamelen we bepaalde gebruiksgegevens. {{learnMoreLink}}. We verzamelen geen contactgegevens. Neem contact op {{contactSupportLink}} voor bugs of andere problemen die een antwoord vereisen.',
-    'LBL_FEEDBACK_ASIDE_CLICK_MORE' => 'Klik hier voor meer informatie',
-    'LBL_FEEDBACK_ASIDE_CONTACT_SUPPORT' => 'contact opnemen met support',
+
+$mod_strings = array (
+  'LBL_FEEDBACK_ASIDE_CLICK_MORE' => 'Click here to learn more',
+  'LBL_FEEDBACK_ASIDE_CONTACT_SUPPORT' => 'contact Support',
+  'LBL_FEEDBACK_BTN_SUBMIT' => 'Send',
+  'LBL_FEEDBACK_CSAT' => 'How would you describe your overall satisfaction with this product?',
+  'LBL_FEEDBACK_NOT_SENT' => 'Unable to contact feedback server, please try again later.',
+  'LBL_FEEDBACK_SEND_ERROR' => 'Feedback not sent, please fill in both fields.',
+  'LBL_FEEDBACK_SENT' => 'Feedback sent.',
+  'LBL_FEEDBACK_TEXT_PLACEHOLDER' => 'Feedback description',
+  'TPL_FEEDBACK_ASIDE' => 'We collect certain usage data at the time of submission. {{learnMoreLink}}. We do not collect contact information. Please {{contactSupportLink}} for bugs or other issues that require a response.',
 );
+

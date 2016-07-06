@@ -24,11 +24,11 @@
             fieldLayouts = ['base','record','list'],
             fieldMeta = {};
 
-        this.section.title = 'Form Elements';
-        this.section.description = 'Basic fields that support detail, record, and edit modes with error addons.';
-        this.useTable = (fieldTypeReq === 'all' ? true : false);
-        this.parent_link = (fieldTypeReq === 'all' ? 'docs/index-forms' : 'field/all');
-        this.tempfields = [];
+            this.section.title = 'Form Elements';
+            this.section.description = 'Basic fields that support detail, record, and edit modes with error addons.';
+            this.useTable = (fieldTypeReq === 'all' ? true : false);
+            this.parent_link = (fieldTypeReq === 'all' ? 'docs/index-forms' : 'field/all');
+            this.tempfields = [];
 
         _.each(fieldTypes, function(fieldType){
 

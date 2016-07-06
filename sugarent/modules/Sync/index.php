@@ -11,7 +11,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-
 if(!isset( $sugar_config['disc_client']) || !$sugar_config['disc_client']){
 	die('Please convert this instance to a client');
 }

@@ -10,12 +10,18 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+/*********************************************************************************
+ * Description:  Defines the Catalan language pack for the base application. 
+ * $Id: cat_cat.lang.php,v 1.0 2009/08/04 16:13:27 rfeliu Exp $
+ * Source: SugarCRM 5.2.0
+ * Contributor(s): Ramón Feliu (ramon@slay.es).
+ ********************************************************************************/
 
-$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Informes de seguiment',
+$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Informes de Monitorització',
                                           'LBL_DESCRIPTION'      => 'Un dashlet per executar consultes sobre dades de Monitorització',
                                           'LBL_SAVING'           => 'Executant Consulta ...',
                                           'LBL_SAVED'            => 'Consulta Completada',
-                                          'LBL_CLEAR'            => 'Esborra',
+                                          'LBL_CLEAR'            => 'Netejar',
                                           'LBL_CLEAR_TOOLTIP'    => 'Netejar el valor del camp de data',
                                           'LBL_CONFIGURE_TITLE'  => 'Títol',
                                           'LBL_CONFIGURE_HEIGHT' => 'Altura (1 - 300)',
@@ -23,9 +29,9 @@ $dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Informes de
 										  'LBL_FILTER'              => 'Filtre',
 										  'LBL_FILTER_TOOLTIP'      => 'Filtre per el valor del camp de data',
 										  'LBL_SINCE'            => 'Desde: ',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
-										                               '  The date value entered will replace the default date value for the report.' .
-										                               '  For example, in the "My Activity (This Week)" report, the' .
-										                               ' value will be used to display all records after the filter date' .
-										                               ' instead of the default time period of one week.',
+										  'LBL_CHOOSE_DATE_TOOLTIP' => 'Per informes de selecció, pot proporcionar un filtre de dades.' .
+										                               '  El valor de data introduit canviara la data per defecte del informe.' .
+										                               '  Por exemple, en línforme "La Meva Activitat (Aquesta Setmana)", el' .
+										                               ' valor es farà servir per mostrar tots els registres desprès de la data de filtrat' .
+										                               ' en lloc del període per defecte d´una setmana.',
 );

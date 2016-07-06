@@ -29,11 +29,6 @@ class SugarUpgradeCheckComposerConfig extends UpgradeScript
     const COMPOSER_LOCK = 'composer.lock';
 
     /**
-     * @var string files.md5 file name
-     */
-    const FILES_MD5 = 'files.md5';
-
-    /**
      * {@inheritDoc}
      */
     public $order = 200;
@@ -86,10 +81,22 @@ class SugarUpgradeCheckComposerConfig extends UpgradeScript
     protected $lockRepos = array();
 
     /**
-     * Stock hash file
-     * @var string
+     * List of shipped composer hashes
+     * @var array
      */
-    protected $hashFile = '';
+    protected $shipped = array(
+        '7.5.0.0' => '72d3be63d2481cdb3710f86f8a36b851',
+        '7.5.0.1' => '72d3be63d2481cdb3710f86f8a36b851',
+        '7.5.1.0' => '72d3be63d2481cdb3710f86f8a36b851',
+        '7.5.2.0' => '72d3be63d2481cdb3710f86f8a36b851',
+        '7.5.2.1' => '72d3be63d2481cdb3710f86f8a36b851',
+        '7.5.2.2' => '72d3be63d2481cdb3710f86f8a36b851',
+        '7.5.2.3' => '1befafd3a4b8cd4f8d2d31f8988dc6b4',
+        '7.5.2.4' => '1befafd3a4b8cd4f8d2d31f8988dc6b4',
+        '7.6.0.0' => 'fafc925d2c41624ab200143c523659a8',
+        '7.6.1.0' => 'af617767509def89c0e1dea33c176a0c',
+        '7.6.2.0' => 'af617767509def89c0e1dea33c176a0c',
+    );
 
     /**
      * Target upgrade definition
@@ -265,7 +272,6 @@ class SugarUpgradeCheckComposerConfig extends UpgradeScript
         $this->jsonFile = $this->context['source_dir'] . '/' . self::COMPOSER_JSON;
         $this->lockFile = $this->context['source_dir'] . '/' . self::COMPOSER_LOCK;
         $this->newJsonFile = $this->context['new_source_dir'] . '/' . self::COMPOSER_JSON;
-        $this->hashFile = $this->context['source_dir'] . '/' . self::FILES_MD5;
 
         $this->log("Using {$this->jsonFile} as composer.json source");
         $this->log("Using {$this->lockFile} as composer.lock source");
@@ -373,73 +379,26 @@ class SugarUpgradeCheckComposerConfig extends UpgradeScript
             return false;
         }
 
-        $actualHash = $this->getActualHash($this->jsonFile);
-        if (!$actualHash) {
-            $this->log("Cannot calculate hash of {$this->jsonFile}");
-            return false;
-        }
-
         // Compare hash from lock file against composer.json content
-        if ($actualHash !== $this->lockHash) {
+        $md5 = md5_file($this->jsonFile);
+        if ($md5 !== $this->lockHash) {
             $this->log("Composer lock not up to date with json file");
             return false;
         }
 
-        // Fetch checksum of the stock composer.json
-        $stockHash = $this->getStockHash(self::COMPOSER_JSON);
-        if (!$stockHash) {
-            $this->log("Cannot find stock hash of " . self::COMPOSER_JSON);
+        // Check if shipped hash is available
+        if (!isset($this->shipped[$this->from_version])) {
+            $this->log("No release hash available for {$this->from_version}");
             return false;
         }
 
-        if ($actualHash !== $stockHash) {
-            $this->log("Actual hash of " . self::COMPOSER_JSON
-                . " ($actualHash) does not match stock hash ($stockHash)");
+        // Check if hash matches up with our previous release.
+        if ($md5 !== $this->shipped[$this->from_version]) {
+            $this->log("Hash $md5 does not match release hash for {$this->from_version}");
             return false;
         }
 
         return true;
-    }
-
-    /**
-     * Returns hash of the actual file or NULL if the file doesn't exist
-     *
-     * @param string $path File path
-     * @return null|string
-     */
-    protected function getActualHash($path)
-    {
-        if (!file_exists($path)) {
-            $this->log("{$path} file doesn't exist.");
-            return null;
-        }
-
-        return md5_file($path);
-    }
-
-    /**
-     * Returns stock hash of the given file or NULL if hash is not found
-     *
-     * @param string $file
-     * @return string|null
-     */
-    protected function getStockHash($file)
-    {
-        $md5_string = array();
-        if (!file_exists($this->hashFile)) {
-            $this->log("{$this->hashFile} file is missing.");
-            return null;
-        }
-
-        require $this->hashFile;
-
-        $key = './' . $file;
-        if (!isset($md5_string[$key])) {
-            $this->log("Cannot find hash for {$file} in {$this->hashFile}.");
-            return null;
-        }
-
-        return $md5_string[$key];
     }
 
     /**

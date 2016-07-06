@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,67 +12,56 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Consultas personalizadas',
-  'LBL_MODULE_NAME_SINGULAR' => 'Consulta personalizada',
-  'LBL_MODULE_TITLE' => 'Consultas personalizadas',
-  'LBL_SEARCH_FORM_TITLE' => 'Pesquisa de consultas personalizadas',
-  'LBL_LIST_FORM_TITLE' => 'Lista de consultas personalizadas',
-  'LBL_CUSTOMQUERY' => 'Consulta personalizada:',
-  'LBL_QUERY_TYPE' => 'Tipo de consulta:',
-  'LBL_LIST_NAME' => 'Nome da consulta',
-  'LBL_LIST_DESCRIPTION' => 'Descrição',
-  'LBL_NAME' => 'Nome da consulta:',
-  'LBL_DESCRIPTION' => 'Descrição',
-  'LBL_LIST_LIST_ORDER' => 'Ordem',
-  'LBL_LIST_ORDER' => 'Ordem:',
-  'LBL_QUERY_LOCKED' => 'Bloquear consulta:',
-  'LBL_LIST_VALID' => 'Consulta válida?',
-  'LNK_PRODUCT_LIST' => 'Catálogo de Produto',
-  'LNK_REPORT_MAKER' => 'Criador de relatórios',
-  'LNK_NEW_SHIPPER' => 'Transportadores',
-  'LBL_RUN_QUERY' => 'Executar consulta',
-  
-  'LNK_LIST_REPORTMAKER' => 'Lista de relatórios empresariais',
-  'LNK_NEW_REPORTMAKER' => 'Criar relatório',
-  'LNK_LIST_DATASET' => 'Lista de formato de dados',
-  'LNK_NEW_DATASET' => 'Criar formato de dados',
-  'LNK_NEW_CUSTOMQUERY' => 'Nova consulta personalizada',
-  'LNK_CUSTOMQUERIES' => 'Consultas personalizadas',
-  
-  'LNK_NEW_QUERYBUILDER' => 'Criar uma Consulta',
-  'LNK_QUERYBUILDER' => 'Construtor de Consultas',
-  
+  'CHILD_ERROR_MSG' => 'Esta query apenas é acessível via Formato de dados pai',
+  'CHILD_RESULT_MSG' => 'Esta query não pode ser executada independentemente.',
+  'DUPBLANK_ERROR_MSG' => 'Tem um nome de coluna por preencher ou um nome de coluna duplicado',
+  'ERROR_RESULT_MSG' => 'Esta query é inválida.',
+  'ERR_DELETE_RECORD' => 'Para eliminar um tipo de produto deverá ser especificado um número de registro.',
   'LBL_ALL_REPORTS' => 'Todos os Relatórios',
-  
-  'LNK_NEW_PRODUCT_TYPE' => 'Tipos de produtos',
-  'NTC_DELETE_CONFIRMATION' => 'Tem certeza de que deseja excluir este registro?',
-  'ERR_DELETE_RECORD' => 'Um número de registro deve ser especificado para excluir este tipo de produto.',
-  'NTC_LIST_ORDER' => 'Defina a ordem na qual esta categoria aparecerá nas listas suspensas de Categoria de produto',
-  'LNK_IMPORT_PRODUCT_CATEGORIES'=>'Importar Categorias de Produtos',
-  'DUPBLANK_ERROR_MSG' => 'Há um nome de coluna em branco ou duplicado',
-  'QUERY_ERROR_MSG' => 'Esta consulta é inválida.',
-  'LBL_REPAIR_BUTTON_TITLE' => 'Reparar consulta',
-  'LBL_REPAIR_BUTTON_KEY' => 'reparar',
-  'LBL_REPAIR_BUTTON_LABEL' => 'Reparar consulta',
+  'LBL_COLUMN_REMAP' => 'As colunas abaixo precisam ser removidas ou mapeadas para novas colunas:',
+  'LBL_CUSTOMQUERY' => 'Query Personalizada:',
+  'LBL_DESCRIPTION' => 'Descrição',
+  'LBL_EDIT_LAYOUT' => 'Editar Layout',
   'LBL_JSCRIPT_MULTI_MAP_ERROR' => 'Múltiplas colunas foram definidas com o mesmo nome de campo.',
+  'LBL_LIST_DESCRIPTION' => 'Descrição',
+  'LBL_LIST_FORM_TITLE' => 'Lista de Queries Personalizadas',
+  'LBL_LIST_LIST_ORDER' => 'Ordem',
+  'LBL_LIST_NAME' => 'Nome da Query:',
+  'LBL_LIST_ORDER' => 'Ordem:',
+  'LBL_LIST_VALID' => 'Query válida?',
+  'LBL_MODULE_NAME' => 'Queries Personalizadas',
+  'LBL_MODULE_NAME_SINGULAR' => 'Query Personalizada:',
+  'LBL_MODULE_TITLE' => 'Queries Personalizadas',
+  'LBL_NAME' => 'Nome da Query:',
+  'LBL_NEW_COLUMN_NAME' => 'Novo Nome da Coluna:',
+  'LBL_OLD_COLUMN_NAME' => 'Nome da coluna antiga:',
+  'LBL_QUERYRESULT' => 'Resultado da Query',
+  'LBL_QUERY_LOCKED' => 'Trancar Query:',
+  'LBL_QUERY_TYPE' => 'Tipo de Query:',
   'LBL_REMOVE_LAYOUT_DATA' => 'Remover dados de layout',
-  'CHILD_ERROR_MSG' => "Esta consulta é acessível somente em formato de dados primários",
-  'ERROR_RESULT_MSG' => 'Esta consulta é inválida.',
-  'CHILD_RESULT_MSG' => 'Esta consulta não pode ser executada de maneira independente.',
-  'LBL_QUERYRESULT' => 'Resultado da consulta',
-  'LBL_EDIT_LAYOUT' => 'Editar Layout' /*for 508 compliance fix*/,
-  'LBL_OLD_COLUMN_NAME' => 'Nome antigo da coluna:',
-  'LBL_NEW_COLUMN_NAME' => 'Nome novo da coluna:',
-  'LBL_COLUMN_REMAP' => 'As colunas abaixo precisam ser removidas ou relacionadas a novas colunas:',
+  'LBL_REPAIR_BUTTON_KEY' => 'reparar',
+  'LBL_REPAIR_BUTTON_LABEL' => 'Reparar Query',
+  'LBL_REPAIR_BUTTON_TITLE' => 'Reparar Query [Alt+R]',
+  'LBL_RUN_QUERY' => 'Executar Query',
+  'LBL_SEARCH_FORM_TITLE' => 'Pesquisar Queries Personalizadas',
+  'LNK_CUSTOMQUERIES' => 'Ver Queries Personalizadas',
+  'LNK_IMPORT_PRODUCT_CATEGORIES' => 'Importar Categorias de Produto',
+  'LNK_LIST_DATASET' => 'Lista de Formatos de Dados',
+  'LNK_LIST_REPORTMAKER' => 'Lista de Relatórios Enterprise',
+  'LNK_NEW_CUSTOMQUERY' => 'Nova Query Personalizada',
+  'LNK_NEW_DATASET' => 'Criar Formato de Dados',
+  'LNK_NEW_PRODUCT_TYPE' => 'Tipos de Produtos',
+  'LNK_NEW_QUERYBUILDER' => 'Nova Query',
+  'LNK_NEW_REPORTMAKER' => 'Criar Relatório',
+  'LNK_NEW_SHIPPER' => 'Transportadores',
+  'LNK_PRODUCT_LIST' => 'Catálogo de Produto',
+  'LNK_QUERYBUILDER' => 'Construtor de Queries',
+  'LNK_REPORT_MAKER' => 'Criador de Relatórios',
+  'NTC_DELETE_CONFIRMATION' => 'Tem a certeza de que pretende eliminar este registro?',
+  'NTC_LIST_ORDER' => 'Defina a ordem pela qual esta Categoria irá aparecer na lista de valores possíveis das dropdowns',
+  'QUERY_ERROR_MSG' => 'A Query é inválida.',
 );
 
-?>

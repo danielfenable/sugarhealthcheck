@@ -11,37 +11,37 @@
  */
 --}}
 
-<div class="control-group dashlet-options">
-    <div class="controls{{#if isManager}} controls-two btn-group-fit{{/if}}">
-        <div class="row-fluid">
-            {{#if displayTimeperiodPivot}}
-            <div class="{{spanSize}}">
-                {{#each dashletConfig.timeperiod}}
-                    {{field ../this model=../this.settings template="edit"}}
-                {{/each}}
-            </div>
-            {{/if}}
-            <div class="{{spanSize}} groupByOptions">
-                {{#with dashletConfig.group_by}}
-                    {{field ../this model=../this.settings}}
-                {{/with}}
-            </div>
-            {{#if dashletConfig.show_dataset}}
-            <div class="{{spanSize}}">
-                {{#with dashletConfig.dataset}}
-                    {{field ../this model=../this.settings}}
-                {{/with}}
-            </div>
-            {{/if}}
+<div class="dashlet-options">
+    <div class="row-fluid controls btn-group-fit controls-two">
+        {{#if displayTimeperiodPivot}}
+        <div class="{{spanSize}}">
+            {{#each dashletConfig.timeperiod}}
+                {{field ../this model=../this.settings template="edit"}}
+            {{/each}}
         </div>
+        {{/if}}
+        <div class="{{spanSize}} groupByOptions">
+            {{#with dashletConfig.group_by}}
+                {{field ../this model=../this.settings}}
+            {{/with}}
+        </div>
+        {{#if dashletConfig.show_dataset}}
+        <div class="{{spanSize}}">
+            {{#with dashletConfig.dataset}}
+                {{field ../this model=../this.settings}}
+            {{/with}}
+        </div>
+        {{/if}}
         {{#if isManager}}
-        <div id="{{cid}}-mgr-toggle" class="btn-group dashlet-group" data-toggle="buttons-radio">
-            <button track="click:viewMyUserForecastPareTo" class="btn {{#eq settings.attributes.visibility "user"}}active{{/eq}}" rel="tooltip" value="user" data-action="visibility-switcher" title="{{{str "LBL_DASHLET_MY_FORECAST" 'Forecasts'}}}" data-placement="bottom">
-                <i class="fa fa-user"></i>
-            </button>
-            <button track="click:viewMyTeamsForecastPareTo" class="btn {{#eq settings.attributes.visibility "group"}}active{{/eq}}" rel="tooltip" value="group" data-action="visibility-switcher" title="{{{str "LBL_DASHLET_MY_TEAMS_FORECAST" 'Forecasts'}}}" data-placement="bottom">
-                <i class="fa fa-users"></i>
-            </button>
+        <div id="{{cid}}-mgr-toggle" class="pull-right">
+            <div class="btn-group dashlet-group" data-toggle="buttons-radio">
+                <button track="click:viewMyUserForecastPareTo" class="btn {{#eq settings.attributes.visibility "user"}}active{{/eq}}" rel="tooltip" value="user" data-action="visibility-switcher" title="{{{str "LBL_DASHLET_MY_FORECAST" 'Forecasts'}}}" data-placement="bottom">
+                    <i class="fa fa-user"></i>
+                </button>
+                <button track="click:viewMyTeamsForecastPareTo" class="btn {{#eq settings.attributes.visibility "group"}}active{{/eq}}" rel="tooltip" value="group" data-action="visibility-switcher" title="{{{str "LBL_DASHLET_MY_TEAMS_FORECAST" 'Forecasts'}}}" data-placement="bottom">
+                    <i class="fa fa-users"></i>
+                </button>
+            </div>
         </div>
         {{/if}}
     </div>

@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-Verkrijg een API-sleutel vanaf Citrix Online GoToMeeting door een nieuwe applicatie te registreren.<br>
-&nbsp;<br>
-Stappen om uw item te registreren:<br>
-&nbsp;<br>
-<ol>
-<li>Login op uw Citrix Online-ontwikkelaarsaccount: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>Klik op Toepassen voor een ontwikkelaarssleutel</li>
-<li>Selecteer in de Product API &#39;GoToMeeting&#39; en typ uw item-URL in de applicatie-URL</li>
-<li>U vindt de kolom genaamd API-sleutel onder Uw applicaties</li>
-<li>Kopieer die hieronder.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'API sleutel',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />Verkrijg een API Key van Citrix Online GoToMeeting door een nieuwe applicatie te registreren.<br><br />&nbsp;<br><br />Volg de volgende stappen om uw instantie te registreren:<br><br />&nbsp;<br><br /><ol><br /><li>Log in bij uw Citrix Online developer account: https://developer.citrixonline.com/</li><br /><li>Klik op &#39;Apply for Developer Key&#39;</li><br /><li>Kies GoToMeeting bij Product API, en voer de URL van uw instantie in bij &#39;Application URL&#39;</li><br /><li>U zult een kolom zien met de naam &#39;API Key&#39; bij &#39;Your Applications&#39;</li><br /><li>Kopieer de Key hieronder.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'API Key',
 );
+

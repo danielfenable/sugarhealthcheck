@@ -14,48 +14,7 @@
 //You can add your own if you would like
 
 $vardef_meta_array = array(
-    // Things that should be handled for ALL cases
-    'all' => array(
-        'inclusion' => array(),
-        'exclusion' => array(),
-        'inc_override' => array(),
-        'ex_override' => array(
-            'name' => array(
-                // Remove the following fields from all lists
-                'pmse_bpmnactivity_link',
-                'pmse_bpmnartifact_link',
-                'pmse_bpmnbound_link',
-                'pmse_bpmndata_link',
-                'pmse_bpmndiagram_link',
-                'pmse_bpmndocumentation_link',
-                'pmse_bpmnevent_link',
-                'pmse_bpmnextension_link',
-                'pmse_bpmnflow_link',
-                'pmse_bpmngateway_link',
-                'pmse_bpmnlane_link',
-                'pmse_bpmnlaneset_link',
-                'pmse_bpmnparticipant_link',
-                'pmse_bpmnprocess_link',
-                'pmse_bpmflow_link',
-                'pmse_bpmthread_link',
-                'pmse_bpmnotes_link',
-                'pmse_bpmrelateddependency_link',
-                'pmse_bpmcasedata_link',
-                'pmse_bpmactivityuser_link',
-                'pmse_bpmeventdefinition_link',
-                'pmse_bpmgatewaydefinition_link',
-                'pmse_bpmactivitydefinition_link',
-                'pmse_bpmactivitystep_link',
-                'pmse_bpmformaction_link',
-                'pmse_bpmdynaform_link',
-                'pmse_bpmprocessdefinition_link',
-                'pmse_bpmconfig_link',
-                'pmse_bpmgroup_link',
-                'pmse_bpmgroupuser_link',
-                'pmse_bpmaccessmanagement_link',
-            ),
-        ),
-    ),
+
     'standard_display' => array(
         'inclusion' => array(//end inclusion
         ),
@@ -243,7 +202,7 @@ $vardef_meta_array = array(
             //end inclusion
         ),
         'exclusion' => array(
-            'name' => array('direct_reports', 'accept_status', 'archived_emails'),
+            'name' => array('direct_reports', 'accept_status'),
             'workflow' => array(false),
             //end exclusion
         ),
@@ -262,7 +221,7 @@ $vardef_meta_array = array(
                 'tracked_urls',
                 'queueitems',
                 'log_entries',
-                'contract_types',
+                'contract_types'
             ),
             'module' => array(
                 'Users',
@@ -281,7 +240,7 @@ $vardef_meta_array = array(
             //end inclusion
         ),
         'exclusion' => array(
-            'name' => array('direct_reports', 'accept_status', 'archived_emails'),
+            'name' => array('direct_reports', 'accept_status'),
             'workflow' => array(false),
             //end exclusion
         ),
@@ -346,9 +305,6 @@ $vardef_meta_array = array(
                 'email1',
                 'team_name',
                 'shipper_name'
-            ),
-            'type' => array(
-                'relate'
             ),
             //end inc_override
         ),

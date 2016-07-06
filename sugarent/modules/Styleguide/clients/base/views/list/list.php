@@ -26,6 +26,7 @@ $viewdefs['Styleguide']['base']['view']['list'] = array(
                         'last_name',
                     ),
                     'link' => true,
+                    'css_class' => 'full-name',
                     'label' => 'fullname',
                     'enabled' => true,
                     'default' => true,

@@ -137,7 +137,7 @@ Touched:
 - modules/Documents/Save.php
 - modules/Campaigns/Save.php
 - modules/Emails/Save.php
-- modules/KBOLDDocuments/Save.php
+- modules/KBDocuments/Save.php
 - modules/Accounts/AccountFormBase.php
 - modules/Meetings/MeetingFormBase.php
 - modules/DocumentRevisions/Save.php
@@ -438,6 +438,7 @@ function smarty_function_sugar_button($params, $smarty)
 					}
 				}
 				return '';
+
             case "PDFVIEW":
                 $output='{sugar_button module="$module" id="REALPDFVIEW" view="$view" form_id="formDetailView" record=$fields.id.value}';
                 break;
@@ -771,6 +772,7 @@ function smarty_function_sugar_button($params, $smarty)
 ENDB;
               $output = $shareButton;
               break;
+
    	  } //switch
       if(isset($params['appendTo'])) {
           $smarty->append($params['appendTo'], $output);

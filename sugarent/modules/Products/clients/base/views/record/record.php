@@ -11,99 +11,6 @@
  */
 
 $viewdefs['Products']['base']['view']['record'] = array(
-    'buttons' => array(
-        array(
-            'type' => 'rowaction',
-            'event' => 'button:cancel_button:click',
-            'name' => 'cancel_button',
-            'label' => 'LBL_CANCEL_BUTTON_LABEL',
-            'css_class' => 'btn btn-invisible btn-link',
-            'showOn' => 'edit',
-        ),
-        array(
-            'type' => 'rowaction',
-            'event' => 'button:save_button:click',
-            'name' => 'save_button',
-            'label' => 'LBL_SAVE_BUTTON_LABEL',
-            'css_class' => 'btn btn-primary',
-            'showOn' => 'edit',
-            'acl_action' => 'edit',
-        ),
-        array(
-            'type' => 'actiondropdown',
-            'name' => 'main_dropdown',
-            'primary' => true,
-            'showOn' => 'view',
-            'buttons' => array(
-                array(
-                    'type' => 'rowaction',
-                    'event' => 'button:edit_button:click',
-                    'name' => 'edit_button',
-                    'label' => 'LBL_EDIT_BUTTON_LABEL',
-                    'acl_action' => 'edit',
-                ),
-                array(
-                    'type' => 'shareaction',
-                    'name' => 'share',
-                    'label' => 'LBL_RECORD_SHARE_BUTTON',
-                    'acl_action' => 'view',
-                ),
-                array(
-                    'type' => 'pdfaction',
-                    'name' => 'download-pdf',
-                    'label' => 'LBL_PDF_VIEW',
-                    'action' => 'download',
-                    'acl_action' => 'view',
-                ),
-                array(
-                    'type' => 'pdfaction',
-                    'name' => 'email-pdf',
-                    'label' => 'LBL_PDF_EMAIL',
-                    'action' => 'email',
-                    'acl_action' => 'view',
-                ),
-                array(
-                    'type' => 'divider',
-                ),
-                array(
-                    'type' => 'rowaction',
-                    'event' => 'button:find_duplicates_button:click',
-                    'name' => 'find_duplicates_button',
-                    'label' => 'LBL_DUP_MERGE',
-                    'acl_action' => 'edit',
-                ),
-                array(
-                    'type' => 'rowaction',
-                    'event' => 'button:duplicate_button:click',
-                    'name' => 'duplicate_button',
-                    'label' => 'LBL_DUPLICATE_BUTTON_LABEL',
-                    'acl_module' => 'Products',
-                    'acl_action' => 'create',
-                ),
-                array(
-                    'type' => 'rowaction',
-                    'event' => 'button:audit_button:click',
-                    'name' => 'audit_button',
-                    'label' => 'LNK_VIEW_CHANGE_LOG',
-                    'acl_action' => 'view',
-                ),
-                array(
-                    'type' => 'divider',
-                ),
-                array(
-                    'type' => 'rowaction',
-                    'event' => 'button:delete_button:click',
-                    'name' => 'delete_button',
-                    'label' => 'LBL_DELETE_BUTTON_LABEL',
-                    'acl_action' => 'delete',
-                ),
-            ),
-        ),
-        array(
-            'name' => 'sidebar_toggle',
-            'type' => 'sidebartoggle',
-        ),
-    ),
     'panels' => array(
         array(
             'name' => 'panel_header',
@@ -118,7 +25,7 @@ $viewdefs['Products']['base']['view']['record'] = array(
                 ),
                 array(
                     'name' => 'name',
-                    'label' => 'LBL_MODULE_NAME_SINGULAR',
+                    'label' => 'LBL_MODULE_NAME_SINGULAR'
                 ),
                 array(
                     'name' => 'favorite',
@@ -145,7 +52,7 @@ $viewdefs['Products']['base']['view']['record'] = array(
             'fields' => array(
                 array(
                     'name' => 'product_template_name',
-                    'label' => 'LBL_PRODUCT_TEMPLATE',
+                    'label' => 'LBL_PRODUCT_TEMPLATE'
                 ),
                 array(
                     'name' => 'account_name',
@@ -218,10 +125,6 @@ $viewdefs['Products']['base']['view']['record'] = array(
                 ),
                 'discount_select',
                 'contact_name',
-                array(
-                    'name' => 'tag',
-                    'span' => 12,
-                ),
             ),
         ),
         array(
@@ -278,5 +181,5 @@ $viewdefs['Products']['base']['view']['record'] = array(
                 ),
             ),
         ),
-    ),
+    )
 );

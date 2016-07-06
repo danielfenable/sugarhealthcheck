@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +12,19 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$dashletStrings['CalendarDashlet'] = array(
-					'LBL_TITLE'            => 'Ημερολόγιο Μου',
-                         'LBL_DESCRIPTION'      => 'Πίνακας στοιχείων Ημερολογίου',
-                         'LBL_CONFIGURE_TITLE'  => 'Τίτλος',
-                         'LBL_CONFIGURE_VIEW'  => 'Προβολή',
-                         'LBL_SAVE_BUTTON_LABEL' => 'Αποθήκευση',
-                         
-                         'LBL_VIEW_DAY' => 'Ημέρα',
-                         'LBL_VIEW_WEEK' => 'Εβδομάδα',
-                         'LBL_VIEW_MONTH' => 'Μήνα',
-
+$dashletStrings = array (
+  'CalendarDashlet' => 
+  array (
+    'LBL_CONFIGURE_TITLE' => 'Τίτλος',
+    'LBL_CONFIGURE_VIEW' => 'Προβολή',
+    'LBL_DESCRIPTION' => 'Πίνακας στοιχείων Ημερολογίου',
+    'LBL_SAVE_BUTTON_LABEL' => 'Αποθήκευση',
+    'LBL_TITLE' => 'Ημερολόγιο Μου',
+    'LBL_VIEW_DAY' => 'Ημέρα',
+    'LBL_VIEW_MONTH' => 'Μήνα',
+    'LBL_VIEW_WEEK' => 'Εβδομάδα',
+  ),
 );
-?>
+

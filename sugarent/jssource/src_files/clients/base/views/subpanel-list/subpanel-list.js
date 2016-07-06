@@ -18,8 +18,7 @@
 ({
     extendsFrom: 'RecordlistView',
     fallbackFieldTemplate: 'list',
-    plugins: ['ErrorDecoration', 'Editable', 'SugarLogic', 'Pagination',
-        'ResizableColumns', 'MassCollection'],
+    plugins: ['ErrorDecoration', 'Editable', 'SugarLogic', 'Pagination', 'LinkedModel', 'ResizableColumns'],
 
     contextEvents: {
         "list:editall:fire": "toggleEdit",
@@ -37,22 +36,34 @@
 
         this._super("initialize", [options]);
 
-        // Setup max limit on collection's fetch options for this subpanel's context
         var limit = this.context.get('limit') || app.config.maxSubpanelResult;
+        // Setup max limit on collection's fetch options for this subpanel's context
 
         if (limit) {
             this.context.set('limit', limit);
             //supanel-list extends indirectly ListView, and `limit` determines # records displayed
             this.limit = limit;
+            // FIXME SC-3670 needs to remove this `collectionOptions` mess.
+            var collectionOptions = this.context.has('collectionOptions') ? this.context.get('collectionOptions') : {};
+            this.context.set('collectionOptions', _.extend(collectionOptions, {limit: limit}));
         }
 
         //Override the recordlist row template
         this.rowTemplate = app.template.getView('recordlist.row');
 
+        // Listens to parent of subpanel layout (subpanels)
+        this.listenTo(this.layout, 'filter:record:linked', this.renderOnFilterChanged);
+
         //event register for preventing actions
         //when user escapes the page without confirming deletion
-        app.routing.before("route", this.beforeRouteUnlink, this);
+        app.routing.before("route", this.beforeRouteUnlink, this, true);
         $(window).on("beforeunload.unlink" + this.cid, _.bind(this.warnUnlinkOnRefresh, this));
+    },
+    // SP-1383: Subpanel filters hide some panels when related filters are changed
+    // So when 'Related' filter changed, this ensures recordlist gets reloaded
+    renderOnFilterChanged: function() {
+        this.collection.trigger('reset');
+        this.render();
     },
 
     /**

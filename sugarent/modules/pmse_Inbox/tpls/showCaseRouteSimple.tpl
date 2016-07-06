@@ -19,6 +19,6 @@
     <input type="hidden" name="act_adhoc_behavior" id="cas_index" value="{$act_adhoc_behavior}"/>
     <input type="hidden" name="act_adhoc_assignment" id="cas_index" value="{$act_adhoc_assignment}"/>
     {foreach from=$customButtons key='key' item='item'}
-        <input id="{$item.id}" name="{$item.name}" type="{$item.type}" value={$item.value} onclick="{$item.onclick}">
+        <input name="{$item.name}" type="{$item.type}" value={$item.value} onclick="{$item.onclick}">
     {/foreach}    
 <!---------------  END WORKFLOW SHOWCASE ------------>

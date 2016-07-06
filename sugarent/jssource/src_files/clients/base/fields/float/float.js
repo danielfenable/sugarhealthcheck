@@ -11,18 +11,18 @@
 /**
  * @class View.Fields.Base.FloatField
  * @alias SUGAR.App.view.fields.BaseFloatField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * The direction for this field should always be `ltr`.
      */
     direction: 'ltr',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Unformats the float based on userPreferences (grouping/decimal separator).
      * If we weren't able to parse the value, the original value is returned.
@@ -44,7 +44,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Formats the float based on user preferences (grouping separator).
      * If the field definition has `disabled_num_format` as `true` the value
@@ -64,9 +64,9 @@
         var decimal_separator = app.user.getPreference('decimal_separator') || '.';
 
         if (_.isUndefined(this.def.precision) || !this.def.precision) {
-            return app.utils.addNumberSeparators(
-                value.toString(),
-                number_grouping_separator,
+            return app.utils.addNumberSeperators(
+                value.toString(), 
+                number_grouping_separator, 
                 decimal_separator
             );
         }

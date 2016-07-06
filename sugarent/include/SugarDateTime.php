@@ -694,7 +694,7 @@ class SugarDateTime extends DateTime
             // This will turn into (int)-1 or +1, useful for multiplying out the seconds
             $plusMinus = (int)(substr($isoOffset,0,1)."1");
             
-            $calcOffset = $plusMinus*((substr($isoOffset,1,2)*3600)+(substr($isoOffset,3,2)*60));
+            $calcOffset = $plusMinus*(substr($isoOffset,1,2)*3600)+(substr($isoOffset,3,2)*60);
             
         }
         return $this->modify((-$calcOffset)." seconds");

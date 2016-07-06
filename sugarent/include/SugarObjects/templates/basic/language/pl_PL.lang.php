@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,27 +13,26 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-'LBL_ID'=>'ID',
-'LBL_DATE_ENTERED'=>'Data utworzenia',
-'LBL_DATE_MODIFIED'=>'Data modyfikacji', 
-'LBL_MODIFIED'=>'Zmodyfikowane przez',
-'LBL_MODIFIED_ID'=>'ID modyfikującego',
-'LBL_MODIFIED_NAME'=>'Zmodyfikowane przez (nazwa)',
-'LBL_CREATED'=>'Utworzone przez',
-'LBL_CREATED_ID'=>'ID tworzącego',
-'LBL_DOC_OWNER'=>'Właściciel dokumentu',
-'LBL_USER_FAVORITES'=>'Użytkownicy, którzy dodali rekord do ulubionych',
-'LBL_DESCRIPTION'=>'Opis',
-'LBL_DELETED'=>'Usunięto',
-'LBL_NAME'=>'Nazwa',
-'LBL_CREATED_USER'=>'Utworzone przez użytkownika',
-'LBL_MODIFIED_USER'=>'Zmodyfikowane przez użytkownika',
-'LBL_LIST_NAME'=>'Nazwa',
-'LBL_EDIT_BUTTON' => 'Edytuj',
- 'LBL_REMOVE' => 'Usuń',
-    //define label(s) to be used for overriding local values during import/export
-    'LBL_EXPORT_MODIFIED_BY_NAME' => 'Zmodyfikowane przez (nazwa)',
 
-
+$mod_strings = array (
+  'LBL_CREATED' => 'Utworzone przez',
+  'LBL_CREATED_ID' => 'ID tworzącego',
+  'LBL_CREATED_USER' => 'Utworzone przez użytkownika',
+  'LBL_DATE_ENTERED' => 'Data utworzenia',
+  'LBL_DATE_MODIFIED' => 'Data modyfikacji',
+  'LBL_DELETED' => 'Usunięto',
+  'LBL_DESCRIPTION' => 'Opis',
+  'LBL_DOC_OWNER' => 'Właściciel dokumentu',
+  'LBL_EDIT_BUTTON' => 'Edytuj',
+  'LBL_EXPORT_MODIFIED_BY_NAME' => 'Zmodyfikowany przez (nazwa)',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_NAME' => 'Nazwa',
+  'LBL_MODIFIED' => 'Zmodyfikowane przez',
+  'LBL_MODIFIED_ID' => 'ID modyfikującego',
+  'LBL_MODIFIED_NAME' => 'Zmodyfikowano przez',
+  'LBL_MODIFIED_USER' => 'Zmodyfikowane przez użytkownika',
+  'LBL_NAME' => 'Nazwa',
+  'LBL_REMOVE' => 'Usuń',
+  'LBL_USER_FAVORITES' => 'Użytkownicy, którzy dodali rekord do ulubionych',
 );
+

@@ -39,7 +39,7 @@ class SugarUpgradeForecastManagerSetManagerSaved extends UpgradeScript
                             )
                             OR assigned_user_id = modified_user_id
                         )
-                      ) records)
+                      ) records);
                 ";
         $this->db->query($sql);
     }

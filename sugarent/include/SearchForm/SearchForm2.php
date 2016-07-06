@@ -331,19 +331,17 @@ require_once('include/EditView/EditView2.php');
 	function _build_field_defs(){
 		$this->formData = array();
 		$this->fieldDefs = array();
-		if (!empty($this->searchdefs['layout'][$this->displayView])) {
-		    foreach ($this->searchdefs['layout'][$this->displayView] as $data) {
-		        if (is_array($data)) {
-		            //Fields may be listed but disabled so that when they are enabled, they have the correct custom display data.
-		            if (isset($data['enabled']) && $data['enabled'] == false)
-		                continue;
-		            $data['name'] = $data['name'] . '_' . $this->parsedView;
-		            $this->formData[] = array('field' => $data);
-		            $this->fieldDefs[$data['name']] = $data;
-		        } else {
-		            $this->formData[] = array('field' => array('name' => $data . '_' . $this->parsedView));
-		        }
-		    }
+		foreach($this->searchdefs['layout'][$this->displayView] as $data){
+			if(is_array($data)){
+				//Fields may be listed but disabled so that when they are enabled, they have the correct custom display data.
+				if (isset($data['enabled']) && $data['enabled'] == false)
+					continue;
+				$data['name'] = $data['name'].'_'.$this->parsedView;
+				$this->formData[] = array('field' => $data);
+				$this->fieldDefs[$data['name']]= $data;
+			} else {
+				$this->formData[] = array('field' => array('name'=>$data.'_'.$this->parsedView));
+			}
 		}
 
 		if($this->seed){
@@ -973,12 +971,6 @@ require_once('include/EditView/EditView2.php');
                              }
                          }
 
-                         // Records are not searched using field "File name" in Documents -> Basic search
-                         // For file types it makes sense to add wildcard to be used in query.
-                         if ($type === 'file') {
-                             $field_value = $this->seed->db->sqlLikeString($field_value, $like_char);
-                         }
-
                          if ( preg_match("/favorites_only.*/", $field) ) {
                              if ( $field_value == '1' ) {
                                  $field_value = $GLOBALS['current_user']->id;
@@ -1039,7 +1031,7 @@ require_once('include/EditView/EditView2.php');
                                  } else {
                                      //Bug#37087: Re-write our sub-query to it is executed first and contents stored in a derived table to avoid mysql executing the query
                                      //outside in. Additional details: http://bugs.mysql.com/bug.php?id=9021
-                                     $where .= "{$db_field} $in (select * from (".$this->getLikeSubquery($parms['subquery'] , $field_value).") {$field}_derived)";
+                                     $where .= "{$db_field} $in (select $selectCol from (".$this->getLikeSubquery($parms['subquery'] , $field_value).") {$field}_derived)";
                                  }
 
                                  break;

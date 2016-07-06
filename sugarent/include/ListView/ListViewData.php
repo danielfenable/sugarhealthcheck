@@ -10,7 +10,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-// $Id: ListViewData.php 57227 2010-06-30 23:02:27Z kjing $
+
 require_once('include/EditView/SugarVCR.php');
 /**
  * Data set for ListView
@@ -158,7 +158,8 @@ class ListViewData {
 		}else{
 	        $count_query = SugarBean::create_list_count_query($main_query);
 	    }
-		if($row = $this->db->fetchOne($count_query)){
+		$result = $this->db->query($count_query);
+		if($row = $this->db->fetchByAssoc($result)){
 			return $row['c'];
 		}
 		return 0;
@@ -324,10 +325,9 @@ class ListViewData {
         {
    			if($count < $limit)
             {
-                $row = $seed->convertRow($row);
    				$id_list .= ',\''.$row[$id_field].'\'';
    				$idIndex[$row[$id_field]][] = count($rows);
-                $rows[] = $row;
+   				$rows[] = $seed->convertRow($row);
    			}
    			$count++;
    		}
@@ -492,11 +492,8 @@ class ListViewData {
         }
         else if (isset($_REQUEST["searchFormTab"]) && $_REQUEST["searchFormTab"] == "basic_search")
         {
-            if ($seed->module_dir == "Reports") {
-                $searchMetaData = SearchFormReports::retrieveReportsSearchDefs();
-            } else {
-                $searchMetaData = method_exists('SearchForm','retrieveSearchDefs') ? SearchForm::retrieveSearchDefs($seed->module_dir) : array();
-            }
+            if($seed->module_dir == "Reports") $searchMetaData = SearchFormReports::retrieveReportsSearchDefs();
+            else $searchMetaData = SearchForm::retrieveSearchDefs($seed->module_dir);
 
             $basicSearchFields = array();
 

@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'Veure Registre de Canvis',
-    'LBL_FIELD_NAME' => 'Camp',
-    'LBL_OLD_NAME' => 'Valor Anterior',
-    'LBL_NEW_VALUE' => 'Valor Nou',
-    'LBL_CREATED_BY' => 'Canviat per',
-    'LBL_LIST_DATE' => 'Data del canvi',
-    'LBL_AUDITED_FIELDS' => 'Camps auditats en aquest mòdul:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'No hi ha camps auditats en aquest mòdul',
-    'LBL_CHANGE_LOG' => 'Historial de canvis',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'Quan es guarden camps de moneda auditats en una moneda no definida per defecte al sistema, el registre de canvis mostra els valors antics i nous en la monea per defecte convertida i definida pel sistema.'
+	
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Camps auditats en aquest mòdul:',
+  'LBL_AUDIT_TITLE' => 'Veure Registre de Canvis',
+  'LBL_CHANGE_LOG' => 'Registre de canvis',
+  'LBL_CREATED_BY' => 'Canviat Per',
+  'LBL_FIELD_NAME' => 'Camp',
+  'LBL_LIST_DATE' => 'Data de Canvi',
+  'LBL_NEW_VALUE' => 'Valor Nou',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'No hi ha camps auditat en aquest mòdul',
+  'LBL_OLD_NAME' => 'Valor Anterior',
 );
+

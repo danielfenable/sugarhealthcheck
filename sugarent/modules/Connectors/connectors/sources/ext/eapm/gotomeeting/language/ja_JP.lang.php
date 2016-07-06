@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-新しいアプリケーションを登録することにより、Citrix オンライン GoMeeting から API キーを取得します。<br>
-&nbsp;<br>
-あなたのインスタンスを登録する手順は次の通りです。<br>
-&nbsp;<br>
-<ol>
-<li>Citrix オンラインデベロッパーアカウントに、次からログインしてください。 <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>デベロッパーキーに関して「適用」をクリックします</li>
-<li>「製品 API」で「GoToMeeting」をクリックして、「アプリケーション URL」にインスタンス URL を入力します</li>
-<li>あなたのアプリケーションの下に「API キー」と呼ばれる列を確認できるようになります</li>
-<li>次から情報をコピーします。</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'コンシューマキー',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => 'Citrix Online GoToMeetingにて新しいアプリケーションを登録することによりAPIキーを取得してください。<br /> <br />登録方法は下記の通りです:<br /> <br />1: Citrix Onlineのディベロッパーアカウントにログインしてください:　https://developer.citrixonline.com/<br />2: ディベロッパーキーを申請するをクリックしてください<br />3: 製品はGoToMeetingを選択し、アプリケーションURLの中のインスタンスURLを入力してください。<br />4: APIキーの欄が申請の下にあるのを確認します。<br />5: コピーしてください。',
+  'oauth_consumer_key' => 'APIキー',
 );
+

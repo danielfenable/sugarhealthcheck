@@ -40,7 +40,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initialize: function(options) {
         options.meta = options.meta || {};
@@ -113,7 +113,7 @@
 
             // False return tells the drawer that it shouldn't close
             return false;
-        }, this);
+        }, null, this);
     },
 
     /**
@@ -149,7 +149,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * New model related properties are injected into each model:
      *

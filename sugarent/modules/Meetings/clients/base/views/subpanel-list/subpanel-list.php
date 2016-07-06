@@ -35,7 +35,6 @@ $viewdefs['Meetings']['base']['view']['subpanel-list'] = array(
         array(
           'name' => 'date_start',
           'label' => 'LBL_LIST_DATE',
-          'css_class' => 'overflow-visible',
           'enabled' => true,
           'default' => true,
           'readonly' => true,
@@ -43,7 +42,6 @@ $viewdefs['Meetings']['base']['view']['subpanel-list'] = array(
         array(
           'name' => 'date_end',
           'label' => 'LBL_DATE_END',
-          'css_class' => 'overflow-visible',
           'enabled' => true,
           'default' => true,
         ),
@@ -54,6 +52,7 @@ $viewdefs['Meetings']['base']['view']['subpanel-list'] = array(
           'label' => 'LBL_LIST_ASSIGNED_TO_NAME',
           'enabled' => true,
           'default' => true,
+          'sortable' => false,
         ),
       ),
     ),

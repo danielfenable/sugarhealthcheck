@@ -65,7 +65,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Try to find the `massupdate` template
      * falls back to `edit` when it does not exist
@@ -73,7 +73,7 @@
     fallbackFieldTemplate: 'edit',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Retrieves metadata from sugarTemplate and then able to override it from
      * the core metadata. `panels` will only be supported on the core metadata.
      *
@@ -106,7 +106,7 @@
 
         //event register for preventing actions
         // when user escapes the page without confirming deleting
-        app.routing.before("route", this.beforeRouteDelete, this);
+        app.routing.before("route", this.beforeRouteDelete, this, true);
         $(window).on("beforeunload.delete" + this.cid, _.bind(this.warnDeleteOnRefresh, this));
     },
 
@@ -260,44 +260,20 @@
         this.defaultOption = null;
         this.setDefault();
     },
-
-    /**
-     * Removes the field value at the provided index.
-     *
-     * @param {integer} index
-     */
     removeUpdateField: function(index) {
         var fieldValue = this.fieldValues[index];
-
-        if (_.isUndefined(fieldValue)) {
-            return;
+        if(fieldValue) {
+            if(fieldValue.name) {
+                this.model.unset(fieldValue.name);
+                this.fieldValues.splice(index, 1);
+            } else {
+                //last item should be empty
+                var removed = this.fieldValues.splice(index - 1, 1);
+                this.defaultOption = removed[0];
+            }
+            this.setDefault();
         }
-        // If the fieldValue has a name, we need to remove it from the model and
-        // the fieldValues object.
-        if (fieldValue.name) {
-            this.model.unset(fieldValue.name);
-            // For relate fields, we need to clear fieldValue.id_name.
-            // Note that if fieldValue.id_name is undefined, this is still safe.
-            this.model.unset(fieldValue.id_name);
-            this.fieldValues.splice(index, 1);
-        // If the fieldValue does not have a name, reset the default option to
-        // the last item, which should be empty
-        } else {
-            var removed = this.fieldValues.splice(index - 1, 1);
-            this.defaultOption = removed[0];
-        }
-
-        // If there is a populate_list (i.e. this is a relate field)
-        // clear the related data.
-        // Fixme: This should be cleaned up on the relate field. See TY-651
-        if (!_.isUndefined(fieldValue.populate_list)) {
-            _.each(fieldValue.populate_list, function(key) {
-                this.model.unset(key);
-            }, this);
-        }
-        this.setDefault();
     },
-
     replaceUpdateField: function(selectedOption, targetIndex) {
         var fieldValue = this.fieldValues[targetIndex];
 
@@ -471,7 +447,7 @@
                 },
 
                 /**
-                 * @inheritdoc
+                 * {@inheritDoc}
                  * Instead of fetching entire set,
                  * split entire set into small chunks
                  * and repeat fetching until entire set is completed.
@@ -518,16 +494,10 @@
                                     options.complete(xhr, status);
                                 }
                             }
-                    };
-                    var method = options.method || this.defaultMethod;
-                    var data = this.getAttributes(options.attributes, method);
-
-                    if (_.isEmpty(data.massupdate_params.uid)) {
-                        // No records to update, end the mass update.
-                        model.trigger('massupdate:end');
-                        return;
-                    }
-                    var url = app.api.buildURL(baseModule, this.module, data, options.params);
+                        },
+                        method = options.method || this.defaultMethod,
+                        data = this.getAttributes(options.attributes, method),
+                        url = app.api.buildURL(baseModule, this.module, data, options.params);
                     app.api.call(method, url, data, callbacks);
                 },
 
@@ -616,13 +586,6 @@
             collection = self._modelsToDelete;
         var lastSelectedModels = _.clone(collection.models);
         if(collection) {
-            // massupdate:end could be triggered without triggering success event on collection.
-            // For example, when we user has no permissions to perform delete.
-            // That's why we need to clear modelsToDelete when massupdate:end triggered too.
-            collection.once('massupdate:end', function() {
-                self._modelsToDelete = null;
-            }, this);
-
             collection.fetch({
                 //Don't show alerts for this request
                 showAlerts: false,
@@ -631,7 +594,7 @@
                     app.alert.show('error_while_mass_update', {
                         level:'error',
                         title: app.lang.get('ERR_INTERNAL_ERR_MSG'),
-                        messages: ['ERR_HTTP_500_TEXT_LINE1', 'ERR_HTTP_500_TEXT_LINE2']
+                        messages: app.lang.get('ERR_HTTP_500_TEXT')
                     });
                 },
                 success: function(data, response, options) {
@@ -735,7 +698,7 @@
                                 app.alert.show('error_while_mass_update', {
                                     level: 'error',
                                     title: app.lang.get('ERR_INTERNAL_ERR_MSG'),
-                                    messages: ['ERR_HTTP_500_TEXT_LINE1', 'ERR_HTTP_500_TEXT_LINE2']
+                                    messages: app.lang.get('ERR_HTTP_500_TEXT')
                                 });
                             },
                             success: function(data, response, options) {
@@ -827,8 +790,6 @@
                 attributes.push('parent_id', 'parent_type');
             } else if (value.name === 'team_name') {
                 attributes.push('team_name_type');
-            } else if (value.name === 'tag') {
-                attributes.push('tag_type');
             } else if (value.isMultiSelect) {
                 attributes.push(value.name + '_replace');
             }
@@ -836,26 +797,17 @@
         return _.pick(this.model.attributes, attributes);
     },
 
-    /**
-     * Get fields to validate.
-     * @return {Object}
-     * @private
-     */
-    _getFieldsToValidate: function() {
-        var fields = _.initial(this.fieldValues).concat(this.defaultOption);
-        return _.filter(fields, function(f) {
-            return f.name;
-        })
-    },
-
     checkValidationError: function() {
         var self = this,
             emptyValues = [],
             errors = {},
             validator = {},
+            fields = _.initial(this.fieldValues).concat(this.defaultOption),
             i = 0;
 
-        var fieldsToValidate = this._getFieldsToValidate();
+        var fieldsToValidate = _.filter(fields, function(f) {
+            return f.name;
+        });
 
         if (_.size(fieldsToValidate)) {
             _.each(fieldsToValidate, function(field) {
@@ -864,20 +816,11 @@
                 validator[field.name] = field;
                 field.required = (_.isBoolean(field.required) && field.required) || (field.required && field.required == 'true') || false;
                 var value = this.model.get(field.name);
-                // check if value represents emptiness
-                if ((!_.isBoolean(value) && !value) || (_.isArray(value) && value.length === 0)) {
-                    // If value is empty, but it's being appended, don't add it to empty values
-                    // use == because the value may be a string
-                    var appendCheck = this.model.get(field.name + '_type');
-                    if (!appendCheck || appendCheck == 0) {
-                        emptyValues.push(app.lang.get(field.label, this.model.module));
-                        //don't set model if field is a relate collection
-                        if (!field.relate_collection) {
-                            this.model.set(field.name, '', {silent: true});
-                            if (field.id_name) {
-                                this.model.set(field.id_name, '', {silent: true});
-                            }
-                        }
+                if (!_.isBoolean(value) && !value) {
+                    emptyValues.push(app.lang.get(field.label, this.model.module));
+                    this.model.set(field.name, '', {silent: true});
+                    if (field.id_name) {
+                        this.model.set(field.id_name, '', {silent: true});
                     }
                 }
                 this.model._doValidate(validator, errors, function(didItFail, fields, errors, callback) {
@@ -901,20 +844,17 @@
     handleValidationError: function(errors) {
         var self = this;
         _.each(errors, function (fieldErrors, fieldName) {
-            var field = self.getField(fieldName);
-            if (!_.isUndefined(field)) {
-                var fieldEl = field.$el,
-                    errorEl = fieldEl.find('.help-block');
-                fieldEl.addClass('error');
-                if(errorEl.length == 0) {
-                    errorEl = $('<span>').addClass('help-block');
-                    errorEl.appendTo(fieldEl);
-                }
-                errorEl.show().html('');
-                _.each(fieldErrors, function (errorContext, errorName) {
-                    errorEl.append(app.error.getErrorString(errorName, errorContext));
-                });
+            var fieldEl = self.getField(fieldName).$el,
+                errorEl = fieldEl.find(".help-block");
+            fieldEl.addClass("error");
+            if(errorEl.length == 0) {
+                errorEl = $("<span>").addClass("help-block");
+                errorEl.appendTo(fieldEl);
             }
+            errorEl.show().html("");
+            _.each(fieldErrors, function (errorContext, errorName) {
+                errorEl.append(app.error.getErrorString(errorName, errorContext));
+            });
         });
     },
     show: function() {

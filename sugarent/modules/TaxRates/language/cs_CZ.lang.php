@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,50 +12,40 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'ERR_DELETE_RECORD' => 'Musíte vybrat číslo záznamu pro smazání daňové taxy',
+  'LBL_CREATED_ID' => 'Vytvořeno podle ID',
+  'LBL_EDITLAYOUT' => 'Úprava rozvržení',
+  'LBL_EXPORT_CREATED_BY' => 'Vytvořeno podle ID',
+  'LBL_EXPORT_MODIFIED_USER_ID' => 'ID upravovaného uživatele',
+  'LBL_LIST_FORM_TITLE' => 'Výpis daňových sazeb',
+  'LBL_LIST_LIST_ORDER' => 'Nabídka',
+  'LBL_LIST_NAME' => 'Jméno daňové sazby',
+  'LBL_LIST_ORDER' => 'Nabídka:',
+  'LBL_LIST_STATUS' => 'StavStav:',
+  'LBL_LIST_VALUE' => 'Procentní',
+  'LBL_MODIFIED_ID' => 'Upraveno podle ID',
   'LBL_MODULE_NAME' => 'Daňové sazby',
   'LBL_MODULE_NAME_SINGULAR' => 'Daň%',
   'LBL_MODULE_TITLE' => 'Daňové sazby: Hlavní stránka',
-  'LBL_SEARCH_FORM_TITLE' => 'Vyhledání daňových sazeb',
-  'LBL_LIST_FORM_TITLE' => 'Výpis daňových sazeb',
-  'LBL_NEW_FORM_TITLE' => 'Nová daňová sazba',
-  'LBL_TAXRATE' => 'Daňová sazba:',
-  'LBL_LIST_NAME' => 'Jméno daňové sazby',
   'LBL_NAME' => 'Jméno daňové sazby:',
-  'LBL_LIST_LIST_ORDER' => 'Příkaz',
-  'LBL_LIST_ORDER' => 'Nabídka:',
-  'LBL_LIST_STATUS' => 'Stav',
+  'LBL_NEW_FORM_TITLE' => 'Nová daňová sazba',
+  'LBL_SEARCH_FORM_TITLE' => 'Vyhledání daňových sazeb',
   'LBL_STATUS' => 'Stav:',
-  'LBL_LIST_VALUE' => 'Procentní',
+  'LBL_TAXRATE' => 'Daňová sazba:',
   'LBL_VALUE' => 'Procentní(%):',
-  'LNK_NEW_SHIPPER' => 'List dodavatelů',
-  'LNK_NEW_TAXRATE' => 'Výpis daňových sazeb',
   'LNK_IMPORT_TAXRATES' => 'Import Daňových sazeb',
-  'NTC_DELETE_CONFIRMATION' => 'Jste si jist, že chcete smazat tento záznam?',
-  'ERR_DELETE_RECORD' => 'Musíte vybrat číslo záznamu pro smazání daňové taxy',
-  'NTC_STATUS' => 'Nastavte status na NEAKTIVNÍ pro odstranení daňové sazby',
+  'LNK_NEW_SHIPPER' => 'List dodavatelů',
+  'LNK_NEW_TAXRATE' => 'List daňových sazeb',
+  'NTC_DELETE_CONFIRMATION' => 'Jste si jist, že chcete odebrat tento záznam?',
   'NTC_LIST_ORDER' => 'Nastavte, která taxa se bude objevovat ve výběrovém poli.',
+  'NTC_STATUS' => 'Nastavte status na NEAKTIVNÍ pro odstranení daňové sazby',
   'taxrate_status_dom' => 
   array (
     'Active' => 'Aktivní',
     'Inactive' => 'Neaktivní',
   ),
-  'LBL_EDITLAYOUT' => 'Úprava rozvržení' /*for 508 compliance fix*/,
-  'LBL_CREATED_ID'=>'Vytvořeno podle ID',
-  'LBL_MODIFIED_ID'=>'Upraveno podle ID',
-  //For export labels
-  'LBL_EXPORT_MODIFIED_USER_ID'=> 'Upraveno uživatelem ID',
-  'LBL_EXPORT_CREATED_BY'=> 'Vytvořeno od ID:',
-
 );
 
-
-?>

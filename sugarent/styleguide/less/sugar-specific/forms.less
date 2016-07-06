@@ -148,6 +148,9 @@ input[type=radio] {
     }
   }
 }
+.dataTable td[data-type*="datetimecombo"] .edit.error input[type="text"].ui-timepicker-input {
+  margin-left: -38px;
+}
 
 #header .control-group label.hide {
   display: none;
@@ -164,12 +167,12 @@ input[type=radio] {
   input[type="text"].datepicker {
     min-width: 0;
     width: 50%;
-    .calcWidth(~"55% - 4px");
+    .calcWidth(~"55% - 15px");
   }
   input[type="text"].ui-timepicker-input {
     min-width: 0;
     width: 40%;
-    .calcWidth(~"45% - 4px");
+    .calcWidth(~"45% - 15px");
   }
 }
 .datepicker {
@@ -196,10 +199,9 @@ input[type=radio] {
   vertical-align: top;
   width: 100%;
   margin-bottom: 0;
-  font-size: inherit;
   .add-on {
     top: 3px;
-    left: -28px;
+    left: -24px;
     margin-left: 0;
     height: 16px;
     padding: 3px 3px;
@@ -207,8 +209,7 @@ input[type=radio] {
     border: none;
     background: @white;
     line-height: 16px;
-    .border-radius(0);
-    z-index: 2;
+    border-radius: 0;
     i {
       line-height: 16px;
     }
@@ -228,9 +229,16 @@ input[type=radio] {
   &.checkbox .add-on,
   &.radio .add-on{
     padding: 0;
-    top: 0;
+    top: 1px;
     left: 7px;
     display: inline;
+  }
+
+  &.select,
+  &.textarea {
+    .add-on {
+      //position: absolute;
+    }
   }
   &.widget {
     width: 100%;
@@ -258,10 +266,10 @@ input[type=radio] {
   }
 
   .ui-timepicker-input {
-    margin-left: -22px;
+    margin-left: -14px;
   }
   .ui-timepicker-list {
-    margin-left: -22px;
+    margin-left: -24px;
     font-size: @baseFontSize;
     li {
       color: @gray;
@@ -270,7 +278,7 @@ input[type=radio] {
   &.error {
     font-size: @fontSizeLarge;
     .add-on {
-      left: -23px;
+      left: -24px;
       color: @errorText;
       z-index: 1;
       .fa {
@@ -279,7 +287,7 @@ input[type=radio] {
     }
     .ui-timepicker-input,
     .ui-timepicker-list {
-      margin-left: -44px;
+      margin-left: -36px;
     }
     textarea,
     input[type="password"],
@@ -293,9 +301,9 @@ input[type=radio] {
       .add-on {
         left: -28px;
         &.error-tooltip {
-          left: -41px;
+          left: -42px;
           & + .add-on {
-            left: -50px;
+            left: -46px;
           }
         }
       }
@@ -316,11 +324,8 @@ input[type=radio] {
     margin-bottom: 0;
   }
   .btn-toolbar {
-    margin: 0 0 0 8px;
+    margin: 0 0 0 5px !important;
     display: inline;
-    .btn-group {
-      float: left;
-    }
   }
   .wide {
     text-align: left;
@@ -342,7 +347,7 @@ input[type=radio] {
     }
   }
   &.email {
-    padding-right: 127px;
+    padding-right: 142px;
     position: relative;
     &> span,
     &> del {
@@ -350,15 +355,16 @@ input[type=radio] {
     }
     input[type="text"] {
       width: 100%;
-      box-sizing: border-box;
-      height: 28px;
     }
     .btn-toolbar {
       position: absolute;
       right: 0;
       top: 0;
-      width: 119px;
+      width: 120px;
       padding: 0;
+      .btn-group {
+        float: left;
+      }
     }
   }
 }
@@ -376,6 +382,20 @@ input[type=radio] {
     max-width: 100%;
   }
 }
+
+//Generate fixed spanX modal widths
+.spanLabelX (@index) when (@index > 0) {
+  .form-horizontal .control-label.span@{index} { .spanLabel(@index); }
+  .spanLabelX(@index - 1);
+}
+.spanLabelX (0) {}
+
+.spanLabel (@columns) {
+  width: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1));
+  *width: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) - (.5 / @gridRowWidth * 100 * 1%);
+}
+
+.spanLabelX (@gridColumns);
 
 // for use by controls not in form-horizontal
 .controls {
@@ -433,12 +453,74 @@ input[type=radio] {
   }
 }
 
+.form-horizontal {
+  margin-left: 10px;
+
+  .row-fluid.control-group {
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .control-group {
+    margin-bottom: 4px;
+    .controls {
+      margin-bottom: 4px;
+    }
+  }
+
+  .control-group:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .controls {
+    margin-left: @fluidGridGutterWidth;
+    > span {
+      padding: 0;
+    }
+  }
+
+  .card2 .control-group:first-child .control-label-background ,
+  .card2 .control-group .control-label.begin-fieldgroup .control-label-background {
+    .border-radius(@baseBorderRadius @baseBorderRadius 0 0);
+    border-top: @borderWidget;
+  }
+  .card2 .control-group::last-of-type .control-label-background,
+  .card2 .control-group .control-label.end-fieldgroup .control-label-background {
+    padding-bottom: 5px;
+    .border-radius(0 0 @baseBorderRadius @baseBorderRadius);
+    border-bottom: @borderWidget;
+    height: auto;
+  }
+  .card2 .control-group.single .control-label .control-label-background {
+    height: 0;
+    .border-radius(@baseBorderRadius);
+    border-top: @borderWidget;
+    border-bottom: @borderWidget;
+  }
+
+  div.control-label {
+    padding-top: 0;
+    .control-label-background {
+      height: 100%;
+      position: absolute;
+      padding: 4px 0 12px;
+      text-align: right;
+      border-left: @borderWidget;
+      border-right: @borderWidget;
+      background-color: @grayLighter;
+    }
+    label {
+      color: @gray;
+      font-size: @fontSizeSmall;
+      margin-bottom: 0;
+    }
+  }
+}
+
 .help-block {
   font-size: 11px;
-  margin: 3px 0 0 7px;
+  margin: 3px 0 0;
   white-space: normal;
   line-height: 13px;
-  clear: both;
 }
 .form-actions {
   border: none;

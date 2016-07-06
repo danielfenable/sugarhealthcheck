@@ -82,10 +82,9 @@
          */
         loadView: function(params) {
 
-            var oldLayout = this.layout;
+            var oldLayout =  this.layout;
 
-            //FIXME SC-5124 will remove 'app:view:load', to use 'app:view:change' instead.
-            if (!app.triggerBefore('app:view:change') || !app.triggerBefore('app:view:load')) {
+            if (!app.triggerBefore('app:view:change')) {
                 return;
             }
 
@@ -116,9 +115,6 @@
             // additional cost for .empty().
             app.$contentEl.append(this.layout.$el);
 
-            //initialize subcomponents in the layout
-            this.layout.initComponents();
-
             // Fetch the data, the layout will be rendered when fetch completes
             if(!params || (params && !params.skipFetch)) {
                 this.layout.loadData();
@@ -148,28 +144,22 @@
             app.additionalComponents = {};
             _.each(components, function(component, name) {
                 if(component.target) {
-                    var $el = this.$(component.target);
                     if(component.layout) {
-                        if (!$el.get(0)) {
-                            app.logger.error('Unable to place additional component "' + name + '": the target specified does not exist.');
-                            return;
-                        }
                         app.additionalComponents[name] = app.view.createLayout({
                             context: this.context,
                             name: component.layout,
-                            el: $el
+                            el: this.$(component.target)
                         });
-                        app.additionalComponents[name].initComponents();
                     } else {
                         app.additionalComponents[name] = app.view.createView({
                             name: component.view || name,
                             context: this.context,
-                            el: $el
+                            el: this.$(component.target)
                         });
                     }
                     app.additionalComponents[name].render();
                 } else {
-                    app.logger.error('Unable to place additional component "' + name + '": no target specified.');
+                    app.logger.error("Unable to create Additional Component '" + name + "'; No target specified.");
                 }
             });
         }

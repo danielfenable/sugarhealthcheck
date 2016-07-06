@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.SelectionField
  * @alias SUGAR.App.view.fields.BaseSelectionField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     events: {

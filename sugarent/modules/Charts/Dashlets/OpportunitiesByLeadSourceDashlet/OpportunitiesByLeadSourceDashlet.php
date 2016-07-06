@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: MyPipelineBySalesStageDashlet.php 24275 2007-07-13 04:26:44Z awu $
+
 
 
 require_once('include/Dashlets/DashletGenericChart.php');
@@ -90,7 +90,6 @@ class OpportunitiesByLeadSourceDashlet extends DashletGenericChart
     {
 		$query = "SELECT lead_source,sum(amount_usdollar/1000) as total,count(*) as opp_count ".
                     "FROM opportunities ";
-
 		$this->getSeedBean()->add_team_security_where_clause($query);
 		$query .= "WHERE opportunities.deleted=0 ";
 		if ( count($this->pbls_ids) > 0 )

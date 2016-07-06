@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,8 +10,6 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-use Sugarcrm\Sugarcrm\Security\Crypto\CSPRNG;
 
 require_once 'include/MVC/SugarModule.php';
 require_once 'modules/OAuthKeys/OAuthKey.php';
@@ -441,7 +440,7 @@ class SugarSNIP
         $user->status='Reserved';
         $user->receive_notifications = 0;
         $user->is_admin = 0;
-        $random = CSPRNG::getInstance()->generate(32, true);
+        $random = time().mt_rand();
         $user->authenicate_id = md5($random);
         $user->user_hash = User::getPasswordHash($random);
         $user->default_team = '1';
@@ -469,7 +468,6 @@ class SugarSNIP
         }
         $u = BeanFactory::getBean('Users', $id);
         if(!empty($u->id)) {
-            $u->rehashPassword(CSPRNG::getInstance()->generate(32, true));
             $this->user = $u;
         }
         return $u;

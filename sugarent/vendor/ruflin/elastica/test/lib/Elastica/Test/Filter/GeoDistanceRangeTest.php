@@ -53,7 +53,7 @@ class GeoDistanceRangeTest extends BaseTest
         );
 
         $query = new Query(new MatchAll());
-        $query->setPostFilter($geoFilter);
+        $query->setFilter($geoFilter);
         $this->assertEquals(1, $type->search($query)->count());
 
         // Both points should be inside
@@ -64,7 +64,7 @@ class GeoDistanceRangeTest extends BaseTest
             array('gte' => '0km', 'lte' => '40000km')
         );
         $query = new Query(new MatchAll());
-        $query->setPostFilter($geoFilter);
+        $query->setFilter($geoFilter);
         $index->refresh();
 
         $this->assertEquals(2, $type->search($query)->count());
@@ -130,7 +130,7 @@ class GeoDistanceRangeTest extends BaseTest
             ),
             array(
                 false,
-            ),
+            )
         );
     }
 
@@ -149,8 +149,8 @@ class GeoDistanceRangeTest extends BaseTest
                         'from' => '10km',
                         'to' => '20km',
                         'location' => 'u09tvqx',
-                    ),
-                ),
+                    )
+                )
             ),
             array(
                 'location',
@@ -168,8 +168,8 @@ class GeoDistanceRangeTest extends BaseTest
                         'from' => '10km',
                         'include_lower' => true,
                         'location' => 'u09tvqx',
-                    ),
-                ),
+                    )
+                )
             ),
             array(
                 'location',
@@ -189,8 +189,8 @@ class GeoDistanceRangeTest extends BaseTest
                             'lat' => 48.86,
                             'lon' => 2.35,
                         ),
-                    ),
-                ),
+                    )
+                )
             ),
             array(
                 'location',
@@ -210,9 +210,9 @@ class GeoDistanceRangeTest extends BaseTest
                             'lat' => 48.86,
                             'lon' => 2.35,
                         ),
-                    ),
-                ),
-            ),
+                    )
+                )
+            )
         );
     }
 }

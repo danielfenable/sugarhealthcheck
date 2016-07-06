@@ -1,8 +1,11 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("base-observable",function(e,t){function f(){}var n=e.Lang,r="destroy",i="init",s="bubbleTargets",o="_bubbleTargets",u=e.AttributeObservable,a=e.BaseCore;f._ATTR_CFG=u._ATTR_CFG.concat(),f._NON_ATTRS_CFG=["on","after","bubbleTargets"],f.prototype={_initAttribute:function(){a.prototype._initAttribute.apply(this,arguments),u.call(this),this._eventPrefix=this.constructor.EVENT_PREFIX||this.constructor.NAME,this._yuievt.config.prefix=this._eventPrefix},init:function(e){var t=this._getFullType(i),n=this._publish(t);return n.emitFacade=!0,n.fireOnce=!0,n.defaultTargetOnly=!0,n.defaultFn=this._defInitFn,this._preInitEventCfg(e),n._hasPotentialSubscribers()?this.fire(t,{cfg:e}):(this._baseInit(e),n.fired=!0,n.firedWith=[{cfg:e}]),this},_preInitEventCfg:function(e){e&&(e.on&&this.on(e.on),e.after&&this.after(e.after));var t,r,i,u=e&&s in e;if(u||o in this){i=u?e&&e.bubbleTargets:this._bubbleTargets;if(n.isArray(i))for(t=0,r=i.length;t<r;t++)this.addTarget(i[t]);else i&&this.addTarget(i)}},destroy:function(){return this.publish(r,{fireOnce:!0,defaultTargetOnly:!0,defaultFn:this._defDestroyFn}),this.fire(r),this.detachAll(),this},_defInitFn:function(e){this._baseInit(e.cfg)},_defDestroyFn:function(e){this._baseDestroy(e.cfg)}},e.mix(f,u,!1,null,1),e.BaseObservable=f},"3.15.0",{requires:["attribute-observable","base-core"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('base-observable',function(Y,NAME){var L=Y.Lang,DESTROY="destroy",INIT="init",BUBBLETARGETS="bubbleTargets",_BUBBLETARGETS="_bubbleTargets",AttributeObservable=Y.AttributeObservable,BaseCore=Y.BaseCore;function BaseObservable(){}
+BaseObservable._ATTR_CFG=AttributeObservable._ATTR_CFG.concat();BaseObservable._NON_ATTRS_CFG=["on","after","bubbleTargets"];BaseObservable.prototype={_initAttribute:function(){BaseCore.prototype._initAttribute.apply(this,arguments);AttributeObservable.call(this);this._eventPrefix=this.constructor.EVENT_PREFIX||this.constructor.NAME;this._yuievt.config.prefix=this._eventPrefix;},init:function(config){var type=this._getFullType(INIT),e=this._publish(type);e.emitFacade=true;e.fireOnce=true;e.defaultTargetOnly=true;e.defaultFn=this._defInitFn;this._preInitEventCfg(config);if(e._hasPotentialSubscribers()){this.fire(type,{cfg:config});}else{this._baseInit(config);e.fired=true;e.firedWith=[{cfg:config}];}
+return this;},_preInitEventCfg:function(config){if(config){if(config.on){this.on(config.on);}
+if(config.after){this.after(config.after);}}
+var i,l,target,userTargets=(config&&BUBBLETARGETS in config);if(userTargets||_BUBBLETARGETS in this){target=userTargets?(config&&config.bubbleTargets):this._bubbleTargets;if(L.isArray(target)){for(i=0,l=target.length;i<l;i++){this.addTarget(target[i]);}}else if(target){this.addTarget(target);}}},destroy:function(){this.publish(DESTROY,{fireOnce:true,defaultTargetOnly:true,defaultFn:this._defDestroyFn});this.fire(DESTROY);this.detachAll();return this;},_defInitFn:function(e){this._baseInit(e.cfg);},_defDestroyFn:function(e){this._baseDestroy(e.cfg);}};Y.mix(BaseObservable,AttributeObservable,false,null,1);Y.BaseObservable=BaseObservable;},'3.15.0',{"requires":["attribute-observable","base-core"]});

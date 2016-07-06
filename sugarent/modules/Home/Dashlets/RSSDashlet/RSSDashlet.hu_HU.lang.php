@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,20 +12,22 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
+$dashletStrings = array (
+  'RSSDashlet' => 
+  array (
+    'ERR_LOADING_FEED' => 'Hiba az RSS hírforrás betöltésekor',
+    'LBL_AUTO_SCROLL' => 'Automatikus görgetés',
+    'LBL_CONFIGURE_HEIGHT' => 'Magasság (1 - 300)',
+    'LBL_CONFIGURE_RSSURL' => 'RSS URL',
+    'LBL_CONFIGURE_TITLE' => 'Cím',
+    'LBL_DBLCLICK_HELP' => '',
+    'LBL_DESCRIPTION' => 'Hírforrás',
+    'LBL_SAVED' => 'Kész',
+    'LBL_SAVING' => 'Elemzés...',
+    'LBL_SCROLL_SPEED' => 'Görgetés sebessége (%)',
+    'LBL_TITLE' => 'Hírforrás',
+  ),
+);
 
-
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Hírcsatorna',
-                                         'LBL_DESCRIPTION'      => 'Hírcsatorna',
-                                         'LBL_SAVING'           => 'Elemzés...',
-                                         'LBL_SAVED'            => 'Kész',
-                                         'LBL_AUTO_SCROLL'      => 'Automatikus görgetés',
-                                          'LBL_SCROLL_SPEED'      => 'Görgetés sebessége (%)',
-                                         'LBL_CONFIGURE_TITLE'  => 'Beosztás',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Magasság (1 - 300)',
-                                         'LBL_CONFIGURE_RSSURL' => 'RSS URL',
-                                         'LBL_DBLCLICK_HELP'    => '',
-                                         'ERR_LOADING_FEED'     => 'Hiba az RSS hírforrás betöltésekor',
-                                         );
-?>

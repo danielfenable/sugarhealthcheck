@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,59 +12,48 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-		  //Labels for methods in the TrackerReporter.php file that are shown in TrackerDashlet
-		  'ShowActiveUsers'      => 'Mostrar Usuários Ativos',
-		  'ShowLastModifiedRecords' => 'Últimos 10 Registros Modificados',
-		  'ShowTopUser' => 'Usuário Principal',
-		  'ShowMyModuleUsage' => 'Minha Utilização de Módulo',
-		  'ShowMyWeeklyActivities' => 'Minha Atividade Semanal',
-		  'ShowTop3ModulesUsed' => 'Meus 3 Módulos Mais Utilizados',
-		  'ShowLoggedInUserCount' => 'Contagem de Usuários Ativos',
-		  'ShowMyCumulativeLoggedInTime' => 'Meu Tempo de Log-in Cumulativo (esta semana)',
-		  'ShowUsersCumulativeLoggedInTime' => 'Tempo de Log-in Cumulativo dos Usuários (esta semana)',
-		  
-		  //Column header mapping
-		  'action' => 'Ação',
-		  'active_users' => 'Contagem de Usuários Ativos',
-		  'date_modified' => 'Data da Última Ação',
-		  'different_modules_accessed' => 'Número de Módulos Acessados',
-		  'first_name' => 'Primeiro Nome',
-		  'item_id' => 'ID',
-		  'item_summary' => 'Nome',
-		  'last_action' => 'Data/Hora da Última Ação',
-		  'last_name' => 'Último Nome',
-		  'module_name' => 'Nome do Módulo',
-		  'records_modified' => 'Total de Registros Modificados',
-		  'top_module' => 'Módulo Mais Acessado',
-		  'total_count' => 'Visualizações Totais da Página',
-		  'total_login_time' => 'Tempo (hh:mm:ss)',
-		  'user_name' => 'Nome de Usuário',
-		  'users' => 'Usuários',
-		  
-		  //Administration related labels
-		  'LBL_ENABLE' => 'Ativo',
-		  'LBL_MODULE_NAME_TITLE' => 'Rastreadores',
-		  'LBL_MODULE_NAME' => 'Rastreadores',
-		  'LBL_MODULE_NAME_SINGULAR' => 'Rastreador',
-		  'LBL_TRACKER_SETTINGS' => 'Configurações de Rastreador',
-		  'LBL_TRACKER_QUERIES_DESC' => 'Consultas do Rastreador',
-		  'LBL_TRACKER_QUERIES_HELP' => 'Monitorar instruções SQL quando as "consultas lentas de log" estiverem ativas e o tempo de execução de consulta exceda o valor de "limite de tempo de consulta lenta"',
-		  'LBL_TRACKER_PERF_DESC' => 'Desempenho do Rastreador',
-		  'LBL_TRACKER_PERF_HELP' => 'Rastrear circuitos de banco de dados, arquivos acessados e utilização de memória',
-		  'LBL_TRACKER_SESSIONS_DESC' => 'Sessões do Rastreador',
-		  'LBL_TRACKER_SESSIONS_HELP' => 'Rastrear usuários ativos e informação de sessões de usuário&rsquo;',
-		  'LBL_TRACKER_DESC' => 'Ações do Rastreador',
-		  'LBL_TRACKER_HELP' => 'Rastrear visualizações de página de Usuários&rsquo; (módulos e registros acessados) e gravações de registros',
-		  'LBL_TRACKER_PRUNE_INTERVAL' => 'Número de dias dos dados do Rastreador para armazenar quando o Agendador remover as tabelas',
-		  'LBL_TRACKER_PRUNE_RANGE' => 'Número de dias',
+  'LBL_ENABLE' => 'Activo',
+  'LBL_MODULE_NAME' => 'Trackers',
+  'LBL_MODULE_NAME_SINGULAR' => 'Tracker',
+  'LBL_MODULE_NAME_TITLE' => 'Trackers',
+  'LBL_TRACKER_DESC' => 'Acões de Tracker',
+  'LBL_TRACKER_HELP' => 'Monitorar visualizações de páginas Usuários (módulos e Registros acedidos) e gravações de Registros',
+  'LBL_TRACKER_PERF_DESC' => 'Desempenho do Tracker',
+  'LBL_TRACKER_PERF_HELP' => 'Monitorizar circuitos de bases de dados, arquivos acessados e utilização de memória',
+  'LBL_TRACKER_PRUNE_INTERVAL' => 'Número de dias dos dados do Tracker para armazenar quando o agendador depurar as tabelas',
+  'LBL_TRACKER_PRUNE_RANGE' => 'Número de dias',
+  'LBL_TRACKER_QUERIES_DESC' => 'Queries Tracker',
+  'LBL_TRACKER_QUERIES_HELP' => 'Monitorar instruções SQL quando as dump_slow_queries estiverem ativas e o tempo de execução de query é inferior ao valor slow_query_time_msec em config.php',
+  'LBL_TRACKER_SESSIONS_DESC' => 'Sessões de Tracker',
+  'LBL_TRACKER_SESSIONS_HELP' => 'Monitorizar Usuários ativos e informação de sessões',
+  'LBL_TRACKER_SETTINGS' => 'Configurações de Tracker',
+  'ShowActiveUsers' => 'Mostrar Usuários Activos',
+  'ShowLastModifiedRecords' => 'Últimos 10 Registros Modificados',
+  'ShowLoggedInUserCount' => 'Contagem de Usuários Activos',
+  'ShowMyCumulativeLoggedInTime' => 'O Meu Tempo de Login Cumulativo (Esta Semana)',
+  'ShowMyModuleUsage' => 'A Minha Utilização de Módulo',
+  'ShowMyWeeklyActivities' => 'A Minha Atividade Semanal',
+  'ShowTop3ModulesUsed' => 'O Meu Top 3 de Módulos Utilizados',
+  'ShowTopUser' => 'Usuário Top',
+  'ShowUsersCumulativeLoggedInTime' => 'Tempo de Login Cumulativo dos Usuários (Esta Semana)',
+  'action' => 'Ação',
+  'active_users' => 'Contagem de Usuários Ativos',
+  'date_modified' => 'Data da Última Ação',
+  'different_modules_accessed' => 'Número de Módulos Acessados',
+  'first_name' => 'Primeiro Nome',
+  'item_id' => 'ID',
+  'item_summary' => 'Nome',
+  'last_action' => 'Data/Hora da Última Ação',
+  'last_name' => 'Último Nome',
+  'module_name' => 'Nome do Módulo',
+  'records_modified' => 'Total de Registros Modificados',
+  'top_module' => 'Top de Módulos Acessados',
+  'total_count' => 'Total da Visualização de Páginas',
+  'total_login_time' => 'Tempo (hh:mm:ss)',
+  'user_name' => 'Nome de Usuário',
+  'users' => 'Usuários',
 );
-?>
+

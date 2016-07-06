@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,19 +11,27 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
 
 
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'News Feed',
-                                         'LBL_DESCRIPTION'      => 'News Feed',
-                                         'LBL_SAVING'           => 'Analisi in corso...',
-                                         'LBL_SAVED'            => 'Completo',
-                                         'LBL_AUTO_SCROLL'      => 'Scorrimento automatico',
-                                          'LBL_SCROLL_SPEED'      => 'Velocità Scroll (%)',
-                                         'LBL_CONFIGURE_TITLE'  => 'Titolo',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Altezza (1 - 300)',
-                                         'LBL_CONFIGURE_RSSURL' => 'Url RSS',
-                                         'LBL_DBLCLICK_HELP'    => '',
-                                         'ERR_LOADING_FEED'     => 'Caricamento RSS Feed Fallito',
-                                         );
-?>
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
+$dashletStrings = array (
+  'RSSDashlet' => 
+  array (
+    'LBL_TITLE' => 'News Feed',
+    'LBL_DESCRIPTION' => 'News Feed',
+    'LBL_SAVING' => 'Analisi in corso...',
+    'LBL_SAVED' => 'Completo',
+    'LBL_AUTO_SCROLL' => 'Auto Scroll',
+    'LBL_SCROLL_SPEED' => 'Velocità Scroll (%)',
+    'LBL_CONFIGURE_TITLE' => 'Titolo',
+    'LBL_CONFIGURE_HEIGHT' => 'Altezza (1 - 300)',
+    'LBL_CONFIGURE_RSSURL' => 'Url RSS',
+    'LBL_DBLCLICK_HELP' => '',
+    'ERR_LOADING_FEED' => 'Caricamento RSS Feed Fallito',
+  ),
+);
+

@@ -12,15 +12,12 @@
 --}}
 <div class="flex-relate-module">
     <select class="select2 inherit-width" name="parent_type"{{#if def.tabindex}} tabindex="{{def.tabindex}}"{{/if}}>
-        {{#if noAccessModule}}
-            <option value="{{noAccessModule.key}}" selected>{{noAccessModule.value}}</option>
-        {{/if}}
-        {{#each moduleList}}
-            <option value="{{@key}}" {{#eq @key ../def.module}}selected{{/eq}}>{{this}}</option>
-        {{/each}}
+        {{#eachOptions def.options}}
+        <option value="{{{this.key}}}" {{#eq this.key ../def.module}}selected{{/eq}}>{{this.value}}</option>
+        {{/eachOptions}}
     </select>
 </div>
 <div class="flex-relate-record">
-    <input type="hidden" name="{{name}}" class="select2 select2-parent inherit-width" value="{{fieldValue this.model "parent_id"}}" data-rname="{{value}}">
+    <input type="hidden" name="{{name}}" class="select2 select2-parent inherit-width" value="{{value}}" data-id="{{fieldValue this.model "parent_id"}}">
 </div>
 {{#unless hideHelp}}{{#if def.help}}<p class="help-block">{{str def.help module}}</p>{{/if}}{{/unless}}

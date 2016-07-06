@@ -20,7 +20,7 @@ $mod_strings = array (
     'db_email2' => 'LBL_LIST_EMAIL_ADDRESS',
 
     //END DON'T CONVERT
-    'ERR_DELETE_RECORD' => 'يجب أن يتم تحديد رقم السجل لحذف العميل المتوقع.',
+    'ERR_DELETE_RECORD' => 'يجب أن يتم تحديد رقم سجل لحذف العميل المتوقع.',
     'LBL_ACCOUNT_DESCRIPTION'=> 'وصف الحساب',
     'LBL_ACCOUNT_ID'=>'معرّف الحساب',
     'LBL_ACCOUNT_NAME' => 'اسم الحساب:',
@@ -60,14 +60,12 @@ $mod_strings = array (
     'LBL_CONVERT_SWITCH_TO_SEARCH' => 'بحث',
     'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplicateCount}} تم العثور على تكرارات',
     'LBL_CONVERT_CREATE_NEW' => 'جديد {{moduleName}}',
-    'LBL_CONVERT_SELECT_MODULE' => 'حدد {{moduleName}}',
-    'LBL_CONVERT_SELECTED_MODULE' => 'تحديد {{moduleName}}',
-    'LBL_CONVERT_CREATE_MODULE' => 'إنشاء {{moduleName}}',
-    'LBL_CONVERT_CREATED_MODULE' => 'إنشاء {{moduleName}}',
+    'LBL_CONVERT_ASSOCIATE_MODULE' => 'إقران {{moduleName}}',
+    'LBL_CONVERT_ASSOCIATED_MODULE' => 'مقترن {{moduleName}}',
+    'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} مقترن',
+    'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'لقد قمت بإقران {{moduleNameLower}} {{recordName}} إلا أنه لن يتم إنشاؤه إلى أن تنتهي من العمل وتقوم بالحفظ.',
+    'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'لقد قمت بإقران {{moduleNameLower}} {{recordName}} إلا أنه لن يتم ربطه إلى أن تنتهي من العمل وتقوم بالحفظ.',
     'LBL_CONVERT_RESET_PANEL' => 'إعادة تعيين',
-    'LBL_CONVERT_COPY_RELATED_ACTIVITIES' => 'نسخ أنشطة مرتبطة إلى',
-    'LBL_CONVERT_MOVE_RELATED_ACTIVITIES' => 'نقل أنشطة مرتبطة إلى',
-    'LBL_CONVERT_MOVE_ACTIVITIES_TO_CONTACT' => 'نقل الأنشطة ذات الصلة إلى سجل جهة الاتصال',
     'LBL_CONVERTED_ACCOUNT'=>'الحساب المحول:',
     'LBL_CONVERTED_CONTACT' => 'جهة الاتصال المحولة:',
     'LBL_CONVERTED_OPP'=>'الفرصة المحولة:',
@@ -206,7 +204,6 @@ $mod_strings = array (
     'LBL_CAMPAIGN' => 'الحملة:',
   	'LBL_LIST_ASSIGNED_TO_NAME' => 'المستخدم المعين',
     'LBL_PROSPECT_LIST' => 'قائمة العملاء المتوقعين',
-    'LBL_PROSPECT' => 'الهدف',
     'LBL_CAMPAIGN_LEAD' => 'الحملات',
 	'LNK_LEAD_REPORTS' => 'عرض تقارير العملاء المحتملين',
     'LBL_BIRTHDATE' => 'تاريخ الميلاد:',
@@ -234,7 +231,7 @@ $mod_strings = array (
     'LBL_CREATE' => 'إنشاء',
     'LBL_SELECT' => ' <b>أو </b> تحديد',
 	'LBL_WEBSITE' => 'موقع الويب',
-	'LNK_IMPORT_LEADS' => 'استيراد العملاء المتوقعين',
+	'LNK_IMPORT_LEADS' => 'استيراد العملاء المتوقعون',
 	'LBL_NOTICE_OLD_LEAD_CONVERT_OVERRIDE' => 'إشعار: تحتوي شاشة تحويل العميل المتوقع الحالية على حقول مخصصة. عندما تقوم بتحويل شاشة تحويل العميل المتوقع في Studio للمرة الأولى، يجب أن تقوم بإضافة الحقول المخصصة إلى التصميم، حسب الضرورة. ولن تظهر الحقول المخصصة بشكل تلقائي في التصميم، كما كان يحدث في السابق.',
 //Convert lead tooltips
 	'LBL_MODULE_TIP' 	=> 'الوحدة التي يتم إنشاء السجل الجديد بها.',
@@ -300,7 +297,9 @@ $mod_strings = array (
 1. قم بتوفير قيم للحقول حسب الرغبة.
  - يجب أن يتم إكمال الحقول المميزة على أنها "مطلوبة" قبل الحفظ.
  - انقر فوق "إظهار المزيد" لعرض حقول إضافية إذا لزم الأمر.
-2. انقر فوق "حفظ" لإنهاء السجل الجديد والعودة إلى الصفحة السابقة.',
+2. انقر فوق "حفظ" لإنهاء السجل الجديد والعودة إلى الصفحة السابقة.
+ - اختر "حفظ وعرض" لفتح {{module_name}} جديد في عرض السجل.
+ - اختر "حفظ وإنشاء جديد" لإنشاء واحد جديد على الفور {{module_name}}.',
 
     // Convert View Help Text
     'LBL_HELP_CONVERT' => 'يتيح لك Sugar القدرة على تحويل {{plural_module_name}} إلى {{contacts_module}}، و{{accounts_module}}، ووحدات أخرى بمجرد أن يفي {{module_name}} بمعايير التأهيل.

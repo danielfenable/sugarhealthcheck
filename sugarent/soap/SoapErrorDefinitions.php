@@ -37,6 +37,4 @@ $error_defs = array(
 'password_expired'     => array('number'=>1008, 'name'=> 'Password Expired', 'description'=>'Your password has expired. Please provide a new password.'),
 'lockout_reached'     => array('number'=>1009, 'name'=> 'Password Expired', 'description'=>'You have been locked out of the Sugar application and cannot log in using existing password. Please contact your Administrator.'),
 'ldap_error' => array('number'=>1012, 'name'=> 'LDAP Authentication Failed', 'description'=>'LDAP Authentication failed but supplied password was already encrypted.'),
-'user_loop' => array('number'=>1015, 'name'=>'Cannot have a user report to himself', 'description'=>'The system detected a reporting loop. A user cannot report to themselves, nor can any of their managers report to them.'),
-'error_user_create_update' => array('number' =>1016, 'name'=>'Unable to create/update user.', 'description'=>'There was an error while creating/updating user.'),
 );

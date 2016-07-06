@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,27 +13,26 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-'LBL_ID'=>'ID',
-'LBL_DATE_ENTERED'=>'Data de creació',
-'LBL_DATE_MODIFIED'=>'Última Modificació', 
-'LBL_MODIFIED'=>'Modificat per',
-'LBL_MODIFIED_ID'=>'Modificat per ID',
-'LBL_MODIFIED_NAME'=>'Modificat Per Nom',
-'LBL_CREATED'=>'Creat Per',
-'LBL_CREATED_ID'=>'Creat per ID',
-'LBL_DOC_OWNER'=>'Propietari del document',
-'LBL_USER_FAVORITES'=>'Usuaris que son favorits',
-'LBL_DESCRIPTION'=>'Descripció',
-'LBL_DELETED'=>'Suprimit',
-'LBL_NAME'=>'Nom',
-'LBL_CREATED_USER'=>'Creat Per Usuari',
-'LBL_MODIFIED_USER'=>'Modificat Per Usuari',
-'LBL_LIST_NAME'=>'Nom',
-'LBL_EDIT_BUTTON' => 'Edita',
- 'LBL_REMOVE' => 'Suprimir',
-    //define label(s) to be used for overriding local values during import/export
-    'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modificat per nom',
 
-
+$mod_strings = array (
+  'LBL_CREATED' => 'Creat Per',
+  'LBL_CREATED_ID' => 'Creat Per Id',
+  'LBL_CREATED_USER' => 'Creat Per Usuari',
+  'LBL_DATE_ENTERED' => 'Data de Creació',
+  'LBL_DATE_MODIFIED' => 'Última Modificació',
+  'LBL_DELETED' => 'Eliminat',
+  'LBL_DESCRIPTION' => 'Descripció',
+  'LBL_DOC_OWNER' => 'Propietari del document',
+  'LBL_EDIT_BUTTON' => 'Editar',
+  'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modificat per nom',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_NAME' => 'Nom',
+  'LBL_MODIFIED' => 'Modificat Per',
+  'LBL_MODIFIED_ID' => 'Modificat Per Id',
+  'LBL_MODIFIED_NAME' => 'Modificat Per Nom',
+  'LBL_MODIFIED_USER' => 'Modificat Per Usuari',
+  'LBL_NAME' => 'Nom',
+  'LBL_REMOVE' => 'Treure',
+  'LBL_USER_FAVORITES' => 'Usuaris que son favorits',
 );
+

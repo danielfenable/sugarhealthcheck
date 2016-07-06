@@ -56,7 +56,7 @@ nv.models.scroll = function() {
         // don't fire on events other than zoom and drag
         // we need click for handling legend toggle
         if (d3.event) {
-          if (d3.event.type === 'zoom' && d3.event.sourceEvent) {
+          if (d3.event.type === 'zoom') {
             x = d3.event.sourceEvent.deltaX || 0;
             y = d3.event.sourceEvent.deltaY || 0;
             distance = (Math.abs(x) > Math.abs(y) ? x : y) * -1;
@@ -89,68 +89,22 @@ nv.models.scroll = function() {
       };
 
       scroll.assignEvents = function(enable) {
-        if (enable) {
+        var pan = enable ? panHandler : null;
+        var zoom = d3.behavior.zoom()
+              .on('zoom', pan);
+        var drag = d3.behavior.drag()
+              .origin(function(d) { return d; })
+              .on('drag', pan);
 
-          var zoom = d3.behavior.zoom()
-                .on('zoom', panHandler);
-          var drag = d3.behavior.drag()
-                .origin(function(d) { return d; })
-                .on('drag', panHandler);
+        scrollWrap
+          .call(zoom);
+        scrollTarget
+          .call(zoom);
 
-          scrollWrap
-            .call(zoom);
-          scrollTarget
-            .call(zoom);
-
-          scrollWrap
-            .call(drag);
-          scrollTarget
-            .call(drag);
-
-        } else {
-
-          scrollWrap
-              .on("mousedown.zoom", null)
-              .on("mousewheel.zoom", null)
-              .on("mousemove.zoom", null)
-              .on("DOMMouseScroll.zoom", null)
-              .on("dblclick.zoom", null)
-              .on("touchstart.zoom", null)
-              .on("touchmove.zoom", null)
-              .on("touchend.zoom", null)
-              .on("wheel.zoom", null);
-          scrollTarget
-              .on("mousedown.zoom", null)
-              .on("mousewheel.zoom", null)
-              .on("mousemove.zoom", null)
-              .on("DOMMouseScroll.zoom", null)
-              .on("dblclick.zoom", null)
-              .on("touchstart.zoom", null)
-              .on("touchmove.zoom", null)
-              .on("touchend.zoom", null)
-              .on("wheel.zoom", null);
-
-          scrollWrap
-              .on("mousedown.drag", null)
-              .on("mousewheel.drag", null)
-              .on("mousemove.drag", null)
-              .on("DOMMouseScroll.drag", null)
-              .on("dblclick.drag", null)
-              .on("touchstart.drag", null)
-              .on("touchmove.drag", null)
-              .on("touchend.drag", null)
-              .on("wheel.drag", null);
-          scrollTarget
-              .on("mousedown.drag", null)
-              .on("mousewheel.drag", null)
-              .on("mousemove.drag", null)
-              .on("DOMMouseScroll.drag", null)
-              .on("dblclick.drag", null)
-              .on("touchstart.drag", null)
-              .on("touchmove.drag", null)
-              .on("touchend.drag", null)
-              .on("wheel.drag", null);
-        }
+        scrollWrap
+          .call(drag);
+        scrollTarget
+          .call(drag);
       };
 
       scroll.resize = function(enable) {
@@ -168,10 +122,10 @@ nv.models.scroll = function() {
             val = v ? scrollHeight : scrollWidth;
 
         scrollMask
-          .attr('x', v ? 2 : -margin.left)
-          .attr('y', v ? 0 : 2)
-          .attr('width', width + (v ? -2 : margin.left))
-          .attr('height', height + (v ? margin.bottom : -2));
+          .attr('x', v ? 0 : -margin.left)
+          .attr('y', 0)
+          .attr('width', width + (v ? 0 : margin.left))
+          .attr('height', height + (v ? margin.bottom : 0));
 
         scrollTarget
           .attr('x', x)
@@ -186,7 +140,7 @@ nv.models.scroll = function() {
 
         backShadows.select('.nv-back-shadow-more')
           .attr('x', x + (v ? width - 5 : 1))
-          .attr('y', y + (v ? 0 : height - 6))
+          .attr('y', y + (v ? 0 : height - 4))
           .attr(dim, val);
 
         foreShadows.select('.nv-fore-shadow-prev')
@@ -195,7 +149,7 @@ nv.models.scroll = function() {
           .attr(dim, val);
 
         foreShadows.select('.nv-fore-shadow-more')
-          .attr('x', x + (v ? minDimension - 17 : 0))
+          .attr('x', x + (v ? minDimension - 20 : 0))
           .attr('y', y + (v ? 0 : minDimension - 19))
           .attr(dim, val);
       };

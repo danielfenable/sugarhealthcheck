@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,67 +12,56 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'CHILD_ERROR_MSG' => 'Cette requête est uniquement accessible depuis le format de données &#39;parent&#39;',
+  'CHILD_RESULT_MSG' => 'Cette requête ne peut être executée indépendamment',
+  'DUPBLANK_ERROR_MSG' => 'Vous avez un nom de colonne non renseigné ou dupliqué',
+  'ERROR_RESULT_MSG' => 'Cette requête n&#39;est pas valide.',
+  'ERR_DELETE_RECORD' => 'Un numéro d&#39;enregistrement doit être spécifié pour toute suppression.',
+  'LBL_ALL_REPORTS' => 'Tous les Rapports',
+  'LBL_COLUMN_REMAP' => 'Les colonnes ci-dessous doivent être supprimées ou mises en correspondance avec les nouvelles colonnes :',
+  'LBL_CUSTOMQUERY' => 'Requête personnalisée:',
+  'LBL_DESCRIPTION' => 'Description:',
+  'LBL_EDIT_LAYOUT' => 'Editer la mise en page',
+  'LBL_JSCRIPT_MULTI_MAP_ERROR' => 'Des colonnes multiples ont étés définies avec le même nom de champ.',
+  'LBL_LIST_DESCRIPTION' => 'Description',
+  'LBL_LIST_FORM_TITLE' => 'Liste des Requêtes personnalisées',
+  'LBL_LIST_LIST_ORDER' => 'Tri',
+  'LBL_LIST_NAME' => 'Nom Requête',
+  'LBL_LIST_ORDER' => 'Ordre:',
+  'LBL_LIST_VALID' => 'Valider la requête?',
   'LBL_MODULE_NAME' => 'Requêtes personnalisées',
   'LBL_MODULE_NAME_SINGULAR' => 'Requête personnalisée',
   'LBL_MODULE_TITLE' => 'Requêtes personnalisées',
-  'LBL_SEARCH_FORM_TITLE' => 'Recherche Type de Produit',
-  'LBL_LIST_FORM_TITLE' => 'Liste des Requêtes personnalisées',
-  'LBL_CUSTOMQUERY' => 'Requête personnalisée :',
-  'LBL_QUERY_TYPE' => 'Type de requête :',
-  'LBL_LIST_NAME' => 'Nom Requête',
-  'LBL_LIST_DESCRIPTION' => 'Description',
-  'LBL_NAME' => 'Nom Requête :',
-  'LBL_DESCRIPTION' => 'Description :',
-  'LBL_LIST_LIST_ORDER' => 'Tri',
-  'LBL_LIST_ORDER' => 'Ordre :',
-  'LBL_QUERY_LOCKED' => 'Verrouiller requête :',
-  'LBL_LIST_VALID' => 'Valider la requête?',
-  'LNK_PRODUCT_LIST' => 'Catalogue Produits',
-  'LNK_REPORT_MAKER' => 'Générateur de Rapport',
-  'LNK_NEW_SHIPPER' => 'Transporteurs',
-  'LBL_RUN_QUERY' => 'Lancer la requête',
-  
-  'LNK_LIST_REPORTMAKER' => 'Liste des Rapports Entreprise',
-  'LNK_NEW_REPORTMAKER' => 'Créer Rapport',
-  'LNK_LIST_DATASET' => 'Liste des formats de données',
-  'LNK_NEW_DATASET' => 'Créer le format de données',
-  'LNK_NEW_CUSTOMQUERY' => 'Créer requête personnalisée',
-  'LNK_CUSTOMQUERIES' => 'Requêtes personnalisées',
-  
-  'LNK_NEW_QUERYBUILDER' => 'Créer Requête',
-  'LNK_QUERYBUILDER' => 'Générateur de requêtes',
-  
-  'LBL_ALL_REPORTS' => 'Tous les Rapports',
-  
-  'LNK_NEW_PRODUCT_TYPE' => 'Types de Produit',
-  'NTC_DELETE_CONFIRMATION' => 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?',
-  'ERR_DELETE_RECORD' => 'Un ID doit être spécifié pour toute suppression.',
-  'NTC_LIST_ORDER' => 'Determiner l&#39;ordre dans lequel cette catégorie apparaitra dans la liste déroulante des catégories de produits',
-  'LNK_IMPORT_PRODUCT_CATEGORIES'=>'Importer Catégories de Produits',
-  'DUPBLANK_ERROR_MSG' => 'Vous avez un nom de colonne non renseigné ou dupliqué',
-  'QUERY_ERROR_MSG' => 'Cette requête n&#39;est pas valide.',
-  'LBL_REPAIR_BUTTON_TITLE' => 'Réparer la requête [Alt+R]',
+  'LBL_NAME' => 'Nom Requête:',
+  'LBL_NEW_COLUMN_NAME' => 'Nouveau nom de colonne :',
+  'LBL_OLD_COLUMN_NAME' => 'Ancien nom de colonne :',
+  'LBL_QUERYRESULT' => 'Résultat',
+  'LBL_QUERY_LOCKED' => 'Verrouiller requête:',
+  'LBL_QUERY_TYPE' => 'Type de requête:',
+  'LBL_REMOVE_LAYOUT_DATA' => 'Supprimer la disposition des données',
   'LBL_REPAIR_BUTTON_KEY' => 'R',
   'LBL_REPAIR_BUTTON_LABEL' => 'Réparer la requête',
-  'LBL_JSCRIPT_MULTI_MAP_ERROR' => 'Des colonnes multiples ont étés définies avec le même nom de champ.',
-  'LBL_REMOVE_LAYOUT_DATA' => 'Supprimer la disposition des données',
-  'CHILD_ERROR_MSG' => "Cette requête est uniquement accessible depuis le format de données 'parent'",
-  'ERROR_RESULT_MSG' => 'Cette requête n&#39;est pas valide.',
-  'CHILD_RESULT_MSG' => 'Cette requête ne peut être executée indépendamment',
-  'LBL_QUERYRESULT' => 'Résultat',
-  'LBL_EDIT_LAYOUT' => 'Éditer la mise en page' /*for 508 compliance fix*/,
-  'LBL_OLD_COLUMN_NAME' => 'Ancien nom de colonne :',
-  'LBL_NEW_COLUMN_NAME' => 'Nouveau nom de colonne :',
-  'LBL_COLUMN_REMAP' => 'Les colonnes ci-dessous doivent être supprimées ou mises en correspondance avec les nouvelles colonnes :',
+  'LBL_REPAIR_BUTTON_TITLE' => 'Réparer la requête [Alt+R]',
+  'LBL_RUN_QUERY' => 'Lancer la requête',
+  'LBL_SEARCH_FORM_TITLE' => 'Recherche Type de Produit',
+  'LNK_CUSTOMQUERIES' => 'Requêtes personnalisées',
+  'LNK_IMPORT_PRODUCT_CATEGORIES' => 'Importer Catégories de Produits',
+  'LNK_LIST_DATASET' => 'Liste des formats de données',
+  'LNK_LIST_REPORTMAKER' => 'Liste des Rapports Entreprise',
+  'LNK_NEW_CUSTOMQUERY' => 'Créer requête personnalisée',
+  'LNK_NEW_DATASET' => 'Créer le format de données',
+  'LNK_NEW_PRODUCT_TYPE' => 'Types de Produit',
+  'LNK_NEW_QUERYBUILDER' => 'Créer Requête',
+  'LNK_NEW_REPORTMAKER' => 'Créer Rapport',
+  'LNK_NEW_SHIPPER' => 'Transporteurs',
+  'LNK_PRODUCT_LIST' => 'Catalogue Produits',
+  'LNK_QUERYBUILDER' => 'Générateur de requêtes',
+  'LNK_REPORT_MAKER' => 'Générateur de Rapport',
+  'NTC_DELETE_CONFIRMATION' => 'Etes vous sûr de vouloir supprimer cet enregistrement ?',
+  'NTC_LIST_ORDER' => 'Determiner l&#39;ordre dans lequel cette catégorie apparaitra dans la liste déroulante des catégories de produits',
+  'QUERY_ERROR_MSG' => 'Cette requête n&#39;est pas valide.',
 );
 
-?>

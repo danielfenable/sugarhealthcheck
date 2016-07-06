@@ -104,6 +104,7 @@
   .dashlet-options {
     font-size: @baseFontSize;
     line-height: @baseLineHeight;
+    font-weight: 500;
     color: @gray;
     background: @grayLighter;
     border-bottom: @borderWidget;
@@ -117,27 +118,36 @@
     background: @grayLighter;
   }
   h4 {
-    font-weight: 500;
-    font-size: @fontSizeLarge;
     padding: 7px 80px 8px 10px;
     cursor: move;
     .border-radius(@baseBorderRadius 0 0 0);
+    font-size: @fontSizeLarge;
   }
 
   .dashlet-options {
-    padding: 5px 8px;
-    &.control-group {
-      .row-fluid {
-        [class*="span"] {
-          max-width: 280px;
-        }
-      }
-      [class*="span"]:first-of-type:last-of-type {
-        min-width: 108px;
-      }
-      .span6.hide + .span6 {
-        min-width: 108px;
-      }
+    .border-radius(0);
+    padding: 6px 8px;
+    .select2-container,
+    .btn-group {
+      padding: 0;
+      margin: 0;
+    }
+    .btn:first-child {
+      margin: 0;
+    }
+    .btn-slider,
+    .dropdown {
+      font-size: @baseFontSize;
+    }
+    .btn {
+      font-size: @fontSizeSmall;
+    }
+    .dropdown-toggle {
+      margin-left: 0;
+      white-space: nowrap;
+    }
+    .dashlet-group .btn-toolbar .btn.toggle-control {
+      margin-left: 4px;
     }
   }
 
@@ -252,7 +262,7 @@
         line-height: 0;
         margin-left: -44px;
       }
-      p > .pull-left.label-module {
+      .pull-left.label-module {
         margin-left: -44px;
       }
       .pull-left.fa-stack {

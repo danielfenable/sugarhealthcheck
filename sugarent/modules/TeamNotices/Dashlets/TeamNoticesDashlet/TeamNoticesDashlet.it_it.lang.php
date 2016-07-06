@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,10 +12,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: TeamNoticesDashlet.en_us.lang.php 16292 2006-08-22 20:57:23Z awu $
+$dashletStrings = array (
+  'TeamNoticesDashlet' => 
+  array (
+    'LBL_DESCRIPTION' => 'Visualizza gli avvisi del Gruppo in una finestra a scorrimento',
+    'LBL_TITLE' => 'Avvisi del Gruppo',
+  ),
+);
 
-
-$dashletStrings['TeamNoticesDashlet'] = array('LBL_TITLE'            => 'Avvisi del Gruppo',
-                                              'LBL_DESCRIPTION'      => 'Visualizza gli avvisi del Gruppo in una finestra a scorrimento');
-?>

@@ -116,11 +116,6 @@ class ServiceDictionary {
                     continue;
                 }
 
-                $re = new ReflectionClass($fileClass);
-                if ($re->isAbstract()) {
-                    continue;
-                }
-
                 $obj = new $fileClass();
                 foreach ( $apis as $apiType => $api ) {
                     $methodName = 'registerApi'.$apiType;

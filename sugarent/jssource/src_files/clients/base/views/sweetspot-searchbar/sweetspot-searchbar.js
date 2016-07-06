@@ -21,7 +21,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);
@@ -154,7 +154,7 @@
      *
      * Concats {@link #internalLibrary} and {@link #temporaryLibrary}.
      *
-     * @return {Array} The list of items to perform the search.
+     * @returns {Array} The list of items to perform the search.
      */
     getLibrary: function() {
         return this.internalLibrary.concat(this.getTemporaryLibrary());
@@ -226,6 +226,7 @@
      * @param {Array} Hopefully a list of results.
      */
     sendResults: function(results) {
+        this.layout.trigger('sweetspot:has:results', results);
         this.layout.trigger('sweetspot:results', results);
     },
 
@@ -274,7 +275,7 @@
                     }
                     var formattedRecord = {
                         id: record.id,
-                        name: record.name || app.utils.formatNameModel(record._module, record),
+                        name: record.name,
                         module: record._module,
                         label: app.lang.getModuleIconLabel(record._module),
                         route: '#' + app.router.buildRoute(record._module, record.id),

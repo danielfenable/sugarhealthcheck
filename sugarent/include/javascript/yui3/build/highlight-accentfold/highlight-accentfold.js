@@ -1,8 +1,12 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("highlight-accentfold",function(e,t){var n=e.Text.AccentFold,r=e.Escape,i={},s=e.mix(e.Highlight,{allFold:function(t,o,u){var a=s._TEMPLATE,f=[],l=0,c,h,p,d,v;u=e.merge({escapeHTML:!1,replacer:function(e,n,r,i){var s;if(n&&!/\s/.test(r))return e;s=r.length,f.push([t.substring(l,i),t.substr(i,s)]),l=i+s}},u||i),s.all(n.fold(t),n.fold(o),u),l<t.length&&f.push([t.substr(l)]);for(h=0,p=f.length;h<p;++h){c=r.html(f[h][0]);if(d=f[h][1])c+=a.replace(/\{s\}/g,r.html(d));f[h]=c}return f.join("")},startFold:function(e,t){return s.allFold(e,t,{startsWith:!0})},wordsFold:function(e,t){var i=s._TEMPLATE;return s.words(e,n.fold(t),{mapper:function(e,t){return t.hasOwnProperty(n.fold(e))?i.replace(/\{s\}/g,r.html(e)):r.html(e)}})}})},"3.15.0",{requires:["highlight-base","text-accentfold"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('highlight-accentfold',function(Y,NAME){var AccentFold=Y.Text.AccentFold,Escape=Y.Escape,EMPTY_OBJECT={},Highlight=Y.mix(Y.Highlight,{allFold:function(haystack,needles,options){var template=Highlight._TEMPLATE,results=[],startPos=0,chunk,i,len,match,result;options=Y.merge({escapeHTML:false,replacer:function(match,p1,foldedNeedle,pos){var len;if(p1&&!(/\s/).test(foldedNeedle)){return match;}
+len=foldedNeedle.length;results.push([haystack.substring(startPos,pos),haystack.substr(pos,len)]);startPos=pos+len;}},options||EMPTY_OBJECT);Highlight.all(AccentFold.fold(haystack),AccentFold.fold(needles),options);if(startPos<haystack.length){results.push([haystack.substr(startPos)]);}
+for(i=0,len=results.length;i<len;++i){chunk=Escape.html(results[i][0]);if((match=results[i][1])){chunk+=template.replace(/\{s\}/g,Escape.html(match));}
+results[i]=chunk;}
+return results.join('');},startFold:function(haystack,needles){return Highlight.allFold(haystack,needles,{startsWith:true});},wordsFold:function(haystack,needles){var template=Highlight._TEMPLATE;return Highlight.words(haystack,AccentFold.fold(needles),{mapper:function(word,needles){if(needles.hasOwnProperty(AccentFold.fold(word))){return template.replace(/\{s\}/g,Escape.html(word));}
+return Escape.html(word);}});}});},'3.15.0',{"requires":["highlight-base","text-accentfold"]});

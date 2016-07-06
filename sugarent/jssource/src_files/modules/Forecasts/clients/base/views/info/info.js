@@ -20,7 +20,7 @@
     tpModel: undefined,
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      */
     initialize: function(options) {
@@ -37,7 +37,7 @@
     },
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      */
     bindDataChange: function(){

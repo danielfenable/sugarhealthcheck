@@ -15,51 +15,25 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 require_once 'clients/base/api/ModuleApi.php';
 require_once 'data/BeanFactory.php';
 
-$wrapperPath = 'modules/pmse_Project/clients/base/api/wrappers/';
-require_once $wrapperPath . 'PMSEProjectWrapper.php';
-require_once $wrapperPath . 'PMSECrmDataWrapper.php';
-require_once $wrapperPath . 'PMSEActivityDefinitionWrapper.php';
-require_once $wrapperPath . 'PMSEEventDefinitionWrapper.php';
-require_once $wrapperPath . 'PMSEGatewayDefinitionWrapper.php';
-require_once $wrapperPath . 'PMSEDynaForm.php';
-require_once $wrapperPath . 'PMSEObservers/PMSEEventObserver.php';
-require_once $wrapperPath . 'PMSEObservers/PMSEProcessObserver.php';
+require_once 'wrappers/PMSEProjectWrapper.php';
+require_once 'wrappers/PMSECrmDataWrapper.php';
+require_once 'wrappers/PMSEActivityDefinitionWrapper.php';
+require_once 'wrappers/PMSEEventDefinitionWrapper.php';
+require_once 'wrappers/PMSEGatewayDefinitionWrapper.php';
+require_once 'wrappers/PMSEDynaForm.php';
+require_once 'wrappers/PMSEObservers/PMSEEventObserver.php';
+require_once 'wrappers/PMSEObservers/PMSEProcessObserver.php';
 
-$enginePath = 'modules/pmse_Inbox/engine/';
-require_once $enginePath . 'PMSEProjectImporter.php';
-require_once $enginePath . 'PMSEProjectExporter.php';
+require_once 'modules/pmse_Inbox/engine/PMSEProjectImporter.php';
+require_once 'modules/pmse_Inbox/engine/PMSEProjectExporter.php';
 
 class PMSEProjectApi extends ModuleApi
 {
-    /**
-     * PMSEProjectWrapper object
-     * @var PMSEProjectWrapper
-     */
-    protected $projectWrapper;
-
-    /**
-     * PMSECrmDataWrapper object
-     * @var PMSECrmDataWrapper
-     */
-    protected $crmDataWrapper;
-
-    /**
-     * PMSEActivityDefinitionWrapper object
-     * @var PMSEActivityDefinitionWrapper
-     */
-    protected $activityDefinitionWrapper;
-
-    /**
-     * PMSEEventDefinitionWrapper object
-     * @var PMSEEventDefinitionWrapper
-     */
-    protected $eventDefinitionWrapper;
-
-    /**
-     * PMSEGatewayDefinitionWrapper object
-     * @var PMSEGatewayDefinitionWrapper
-     */
-    protected $gatewayDefinitionWrapper;
+    private $projectWrapper;
+    private $crmDataWrapper;
+    private $activityDefinitionWrapper;
+    private $eventDefinitionWrapper;
+    private $gatewayDefinitionWrapper;
 
     public function __construct()
     {
@@ -92,14 +66,6 @@ class PMSEProjectApi extends ModuleApi
                 'method' => 'updateCustomProject',
                 'acl' => 'create',
 //                'shortHelp' => 'Update the process definition schema edited in PA designer',
-            ),
-            'readBRFields' => array(
-                'reqType' => 'GET',
-                'path' => array('ProcessBusinessRules', 'fields', '?'),
-                'pathVars' => array('module', 'data', 'filter'),
-                'method' => 'getBRFields',
-                'acl' => 'view',
-//                'shortHelp' => 'Returns information about Fields to be exposed in the Business Rules designer.',
             ),
             'readCrmData' => array(
                 'reqType' => 'GET',
@@ -268,20 +234,6 @@ class PMSEProjectApi extends ModuleApi
      * @param array $args
      * @return type
      */
-    public function getBRFields($api, $args)
-    {
-        $args['module'] = 'pmse_Project';
-        $args['data'] = 'oneToOneRelated';
-        $args['filter'] = $args['base_module'];
-        return $this->getCrmData($api, $args);
-    }
-
-    /**
-     *
-     * @param ServiceBase $api
-     * @param array $args
-     * @return type
-     */
     public function getCrmData($api, $args)
     {
         $this->checkACL($api, $args);
@@ -355,51 +307,15 @@ class PMSEProjectApi extends ModuleApi
     public function verifyRunningProcess($api, $args)
     {
         $this->checkACL($api, $args);
-        if (empty($args['baseModule'])) {
-            $projectBean = BeanFactory::getBean($args['module'], $args['record'],
-                array('strict_retrieve' => true, 'disable_row_level_security' => true));
-            $processBean = BeanFactory::getBean('pmse_BpmnProcess')->retrieve_by_string_fields(array("prj_id" => $projectBean->id));
-            $casesBean = BeanFactory::getBean('pmse_Inbox');
-            $sql = new SugarQuery();
-            $sql->select('id');
-            $sql->from($casesBean);
-            $sql->where()
-                ->queryAnd()
-                ->equals('pro_id', $processBean->id)
-                ->notEquals('cas_status', 'COMPLETED')
-                ->notEquals('cas_status', 'TERMINATED')
-                ->notEquals('cas_status', 'CANCELLED');
-            if ($sql->execute()) {
-                return true;
-            }
-        } else {
-            switch ($args['baseModule']) {
-                case 'pmse_Business_Rules':
-                    $bean = BeanFactory::getBean('pmse_BpmActivityDefinition');
-                    $where = 'act_fields';
-                    break;
-                case 'pmse_Emails_Templates':
-                    $bean = BeanFactory::getBean('pmse_BpmEventDefinition');
-                    $where = 'evn_criteria';
-                    break;
-                default:
-                    return false;
-            }
-            $id = $args['record'];
-            $sql = new SugarQuery();
-            $sql->select(array('pro_id'));
-            $sql->from($bean);
-            $sql->where()->equals($where, $id);
-            $processes = $sql->execute();
-            if (!empty($processes)) {
-                foreach ($processes as $process) {
-                    $process_definition = BeanFactory::getBean('pmse_BpmProcessDefinition', $process['pro_id']);
-                    if ($process_definition->pro_status == 'ACTIVE') {
-                        return true;
-                    }
-                }
-            }
+        $result = false;
+        $projectBean = BeanFactory::getBean($args['module'], $args['record'],
+            array('strict_retrieve' => true, 'disable_row_level_security' => true));
+        $processBean = BeanFactory::getBean('pmse_BpmnProcess')->retrieve_by_string_fields(array("prj_id" => $projectBean->id));
+        $casesBean = BeanFactory::getBean('pmse_Inbox')->retrieve_by_string_fields(array("pro_id" => $processBean->id));
+        $values = array('COMPLETED', 'TERMINATED', 'CANCELLED');
+        if ($processBean && $casesBean && !in_array($casesBean->cas_status , $values)) {
+            $result = true;
         }
-        return false;
+        return $result;
     }
 }

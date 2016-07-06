@@ -11,8 +11,8 @@
  */
 
 $mod_strings = array(
-    'LBL_MODULE_NAME'                   => 'سير النشاط الكلي',
-    'LBL_MODULE_NAME_SINGULAR'          => 'سير النشاط الكلي',
+    'LBL_MODULE_NAME'                   => 'سير النشاط',
+    'LBL_MODULE_NAME_SINGULAR'          => 'سير النشاط',
     'LBL_MODULE_TITLE'                  => 'سير النشاط: الصفحة الرئيسية',
     'LBL_SEARCH_FORM_TITLE'             => 'البحث في سير النشاط',
     'LBL_LIST_FORM_TITLE'               => 'قائمة سير النشاط',
@@ -47,7 +47,7 @@ $mod_strings = array(
     'LNK_NOTE_LIST'                     => 'عرض الملاحظات',
     'LNK_EMAIL_LIST'                    => 'عرض رسائل البريد الإلكتروني',
     'LBL_DELETE_ACTIVITY'               => 'هل تريد بالتأكيد حذف هذا النشاط؟',
-    'ERR_DELETE_RECORD'                 => 'يجب تحديد رقم السجل لحذف الحساب.',
+    'ERR_DELETE_RECORD'                 => 'يجب تحديد رقم سجل لحذف الحساب.',
     'NTC_REMOVE_INVITEE'                => 'هل تريد بالتأكيد إزالة هذا المدعو من الاجتماع؟',
     'LBL_INVITEE'                       => 'المدعوون',
     'LBL_LIST_DIRECTION'                => 'الاتجاه',
@@ -94,5 +94,6 @@ $mod_strings = array(
     'LBL_ACCEPT_THIS'                   => 'قبول؟',
     'LBL_DEFAULT_SUBPANEL_TITLE'        => 'فتح الأنشطة',
     'LBL_LIST_ASSIGNED_TO_NAME'         => 'المستخدم المعين',
+
     'LBL_ACCEPT'                        => 'قبول' /*for 508 compliance fix*/,
 );

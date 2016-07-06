@@ -69,15 +69,17 @@ class SugarFieldRelateLink extends SugarFieldBase
     /**
      * {@inheritDoc}
      *
-     * Applies the callback only to the given field and does not iterate over "fields" since they mean collection fields
-     * to be retrieved, not nested fields as in base field.
+     * Only populates display params since link field cannot have nested fields
      */
-    public function iterateViewField(
-        ViewIterator $iterator,
+    public function processLayoutField(
+        MetaDataManager $metaDataManager,
         array $field,
-        /* callable */ $callback
+        array $fieldDefs,
+        array &$fields,
+        array &$displayParams
     ) {
-        $callback($field);
+        $displayParams[$field['name']] = $field;
+        unset($displayParams[$field['name']]['name']);
     }
 
     /**

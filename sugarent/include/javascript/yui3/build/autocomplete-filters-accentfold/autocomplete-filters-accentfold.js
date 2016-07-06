@@ -1,8 +1,12 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("autocomplete-filters-accentfold",function(e,t){var n=e.Text.AccentFold,r=e.Text.WordBreak,i=e.Array,s=e.Object;e.mix(e.namespace("AutoCompleteFilters"),{charMatchFold:function(e,t){if(!e)return t;var r=i.unique(n.fold(e).split(""));return i.filter(t,function(e){var t=n.fold(e.text);return i.every(r,function(e){return t.indexOf(e)!==-1})})},phraseMatchFold:function(e,t){return e?(e=n.fold(e),i.filter(t,function(t){return n.fold(t.text).indexOf(e)!==-1})):t},startsWithFold:function(e,t){return e?(e=n.fold(e),i.filter(t,function(t){return n.fold(t.text).indexOf(e)===0})):t},subWordMatchFold:function(e,t){if(!e)return t;var s=r.getUniqueWords(n.fold(e));return i.filter(t,function(e){var t=n.fold(e.text);return i.every(s,function(e){return t.indexOf(e)!==-1})})},wordMatchFold:function(e,t){if(!e)return t;var o=r.getUniqueWords(n.fold(e));return i.filter(t,function(e){var t=i.hash(r.getUniqueWords(n.fold(e.text)));return i.every(o,function(e){return s.owns(t,e)})})}})},"3.15.0",{requires:["array-extras","text-accentfold","text-wordbreak"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('autocomplete-filters-accentfold',function(Y,NAME){var AccentFold=Y.Text.AccentFold,WordBreak=Y.Text.WordBreak,YArray=Y.Array,YObject=Y.Object;Y.mix(Y.namespace('AutoCompleteFilters'),{charMatchFold:function(query,results){if(!query){return results;}
+var queryChars=YArray.unique(AccentFold.fold(query).split(''));return YArray.filter(results,function(result){var text=AccentFold.fold(result.text);return YArray.every(queryChars,function(chr){return text.indexOf(chr)!==-1;});});},phraseMatchFold:function(query,results){if(!query){return results;}
+query=AccentFold.fold(query);return YArray.filter(results,function(result){return AccentFold.fold(result.text).indexOf(query)!==-1;});},startsWithFold:function(query,results){if(!query){return results;}
+query=AccentFold.fold(query);return YArray.filter(results,function(result){return AccentFold.fold(result.text).indexOf(query)===0;});},subWordMatchFold:function(query,results){if(!query){return results;}
+var queryWords=WordBreak.getUniqueWords(AccentFold.fold(query));return YArray.filter(results,function(result){var resultText=AccentFold.fold(result.text);return YArray.every(queryWords,function(queryWord){return resultText.indexOf(queryWord)!==-1;});});},wordMatchFold:function(query,results){if(!query){return results;}
+var queryWords=WordBreak.getUniqueWords(AccentFold.fold(query));return YArray.filter(results,function(result){var resultWords=YArray.hash(WordBreak.getUniqueWords(AccentFold.fold(result.text)));return YArray.every(queryWords,function(word){return YObject.owns(resultWords,word);});});}});},'3.15.0',{"requires":["array-extras","text-accentfold","text-wordbreak"]});

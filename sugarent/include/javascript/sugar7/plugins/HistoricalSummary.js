@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-(function(app){app.events.on('app:init',function(){app.plugins.register('HistoricalSummary',['view'],{onAttach:function(component,plugin){this.on('init',function(){this.context.on('button:historical_summary_button:click',this.historicalSummaryClicked,this);});},historicalSummaryClicked:function(){app.drawer.open({layout:'history-summary',context:{name:'history'}});},onDetach:function(component,plugin){this.context.off('button:historical_summary_button:click',this.auditClicked,this);}});});})(SUGAR.App);
+(function(app){app.events.on('app:init',function(){app.plugins.register('HistoricalSummary',['view'],{onAttach:function(component,plugin){this.on('init',function(){this.context.on('button:historical_summary_button:click',this.historicalSummaryClicked,this);});},historicalSummaryClicked:function(){var context=this.context.getChildContext({module:'History'});app.drawer.open({layout:'history-summary',context:context});},onDetach:function(component,plugin){this.context.off('button:historical_summary_button:click',this.auditClicked,this);}});});})(SUGAR.App);

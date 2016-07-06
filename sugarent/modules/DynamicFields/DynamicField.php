@@ -23,11 +23,6 @@ class DynamicField {
     const TYPE_SIGNED = 'signed';
     const TYPE_UNSIGNED = 'unsigned';
 
-    /**
-     * @var SugarBean
-     */
-    public $bean;
-
     public static $fieldTypeRangeValue = array(
         'int32' => array(
             self::TYPE_SIGNED  => array(
@@ -109,21 +104,9 @@ class DynamicField {
     * @return unknown
     */
     function buildCache($module = false, $saveCache=true) {
-        global $db;
-
-        static $tableFieldsMetaDataExists = false; // for performance purpose, don't need to call tableExists('fields_meta_data') thousands times.
-
-        // this method may be called before database connection established and `fields_meta_data` table created
-
-        if (!$tableFieldsMetaDataExists) {
-            if (!$db || !$db->tableExists('fields_meta_data')) { // this call could be repeated thousands times
-                return false;
-            }
-            else {
-                $tableFieldsMetaDataExists = true;
-            }
-        }
-
+        //We can't build the cache while installing as the required database tables may not exist.
+        if (!empty($GLOBALS['installing']) && $GLOBALS['installing'] == true|| empty($GLOBALS['db']))
+            return false;
         if($module == '../data')return false;
 
         static $results = array ( ) ;
@@ -656,7 +639,7 @@ class DynamicField {
             $to_save[$property] =
                 is_string($field->$property) ? htmlspecialchars_decode($field->$property, ENT_QUOTES) : $field->$property;
         }
-        $bean_name = BeanFactory::getObjectName($this->module);
+        $bean_name = $beanList[$this->module];
 
         $this->writeVardefExtension($bean_name, $field, $to_save);
     }
@@ -1001,9 +984,17 @@ class DynamicField {
         $result = $db->query($query);
         $row = $db->fetchByAssoc($result);
 
-        if ($row) {
-            $this->bean->populateFromRow($row, true);
+        if($row)
+        {
+            foreach($row as $name=>$value)
+            {
+                // originally in pre-r30895 we checked if this field was in avail_fields i.e., in fields_meta_data and not deleted
+                // with the removal of avail_fields post-r30895 we have simplified this - we now retrieve every custom field even if previously deleted
+                // this is considered harmless as the value although set in the bean will not otherwise be used (nothing else works off the list of fields in the bean)
+                $this->bean->$name = $value;
+            }
         }
+
     }
 
    function populateXTPL($xtpl, $view) {

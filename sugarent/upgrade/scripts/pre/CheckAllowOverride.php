@@ -33,17 +33,6 @@ class SugarUpgradeCheckAllowOverride extends UpgradeScript
             return;
         }
 
-        //if running upgrade from cli we need to check server software from URL
-        if (php_sapi_name() == 'cli') {
-            file_put_contents('server_test.php', '<?php print $_SERVER["SERVER_SOFTWARE"];');
-            $serverSoftware = @file_get_contents($this->upgrader->config['site_url'] . '/server_test.php');
-            @unlink('server_test.php');
-
-            if ($serverSoftware && stripos($serverSoftware, 'Microsoft-IIS') !== false) {
-                return;
-            }
-        }
-
         $this->log("Testing .htaccess redirects");
         if(file_exists(".htaccess")) {
             $old_htaccess = file_get_contents(".htaccess");

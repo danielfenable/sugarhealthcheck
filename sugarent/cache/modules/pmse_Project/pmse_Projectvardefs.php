@@ -6,6 +6,52 @@
   'duplicate_merge' => true,
   'fields' => 
   array (
+    'my_favorite' => 
+    array (
+      'massupdate' => false,
+      'name' => 'my_favorite',
+      'vname' => 'LBL_FAVORITE',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Favorite for the user',
+      'studio' => 
+      array (
+        'list' => false,
+        'recordview' => false,
+      ),
+      'link' => 'favorite_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'favorite_link' => 
+    array (
+      'name' => 'favorite_link',
+      'type' => 'link',
+      'relationship' => 'pmse_project_favorite',
+      'source' => 'non-db',
+      'vname' => 'LBL_FAVORITE',
+    ),
+    'following' => 
+    array (
+      'massupdate' => false,
+      'name' => 'following',
+      'vname' => 'LBL_FOLLOWING',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Is user following this record',
+      'studio' => 'false',
+      'link' => 'following_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'following_link' => 
+    array (
+      'name' => 'following_link',
+      'type' => 'link',
+      'relationship' => 'pmse_project_following',
+      'source' => 'non-db',
+      'vname' => 'LBL_FOLLOWING',
+    ),
     'id' => 
     array (
       'name' => 'id',
@@ -22,6 +68,7 @@
       'name' => 'name',
       'vname' => 'LBL_NAME',
       'type' => 'name',
+      'link' => true,
       'dbType' => 'varchar',
       'len' => '255',
       'unified_search' => false,
@@ -60,18 +107,6 @@
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_entered' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'date_modified' => 
     array (
@@ -81,18 +116,6 @@
       'group' => 'modified_by_name',
       'comment' => 'Date record last modified',
       'enable_range_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_modified' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
       'studio' => 
       array (
         'portaleditview' => false,
@@ -118,20 +141,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'modified_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'modified_by_name' => 
     array (
@@ -170,20 +179,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'created_by' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_CREATED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'created_by_name' => 
     array (
@@ -208,18 +203,44 @@
       ),
       'exportable' => true,
     ),
+    'doc_owner' => 
+    array (
+      'name' => 'doc_owner',
+      'vname' => 'LBL_DOC_OWNER',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
+    'user_favorites' => 
+    array (
+      'name' => 'user_favorites',
+      'vname' => 'LBL_USER_FAVORITES',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
     'description' => 
     array (
       'name' => 'description',
       'vname' => 'LBL_DESCRIPTION',
       'type' => 'text',
       'comment' => 'Full text of the note',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.5,
-      ),
       'rows' => 6,
       'cols' => 80,
       'duplicate_on_record_copy' => 'always',
@@ -267,303 +288,6 @@
       'bean_name' => 'Activity',
       'source' => 'non-db',
     ),
-    'prj_uid' => 
-    array (
-      'required' => true,
-      'name' => 'prj_uid',
-      'vname' => 'LBL_PRJ_UID',
-      'type' => 'varchar',
-      'massupdate' => false,
-      'no_default' => false,
-      'comments' => '',
-      'help' => '',
-      'importable' => 'true',
-      'duplicate_merge' => 'disabled',
-      'duplicate_merge_dom_value' => '0',
-      'audited' => false,
-      'reportable' => true,
-      'unified_search' => false,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'len' => '36',
-      'size' => '20',
-    ),
-    'prj_target_namespace' => 
-    array (
-      'required' => false,
-      'name' => 'prj_target_namespace',
-      'vname' => 'LBL_PRJ_TARGET_NAMESPACE',
-      'type' => 'varchar',
-      'massupdate' => false,
-      'no_default' => false,
-      'comments' => '',
-      'help' => '',
-      'importable' => 'true',
-      'duplicate_merge' => 'disabled',
-      'duplicate_merge_dom_value' => '0',
-      'audited' => false,
-      'reportable' => true,
-      'unified_search' => false,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'len' => '255',
-      'size' => '20',
-    ),
-    'prj_expression_language' => 
-    array (
-      'required' => false,
-      'name' => 'prj_expression_language',
-      'vname' => 'LBL_PRJ_EXPRESSION_LANGUAGE',
-      'type' => 'varchar',
-      'massupdate' => false,
-      'no_default' => false,
-      'comments' => '',
-      'help' => '',
-      'importable' => 'true',
-      'duplicate_merge' => 'disabled',
-      'duplicate_merge_dom_value' => '0',
-      'audited' => false,
-      'reportable' => true,
-      'unified_search' => false,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'len' => '255',
-      'size' => '20',
-    ),
-    'prj_type_language' => 
-    array (
-      'required' => false,
-      'name' => 'prj_type_language',
-      'vname' => 'LBL_PRJ_TYPE_LANGUAGE',
-      'type' => 'varchar',
-      'massupdate' => false,
-      'no_default' => false,
-      'comments' => '',
-      'help' => '',
-      'importable' => 'true',
-      'duplicate_merge' => 'disabled',
-      'duplicate_merge_dom_value' => '0',
-      'audited' => false,
-      'reportable' => true,
-      'unified_search' => false,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'len' => '255',
-      'size' => '20',
-    ),
-    'prj_exporter' => 
-    array (
-      'required' => false,
-      'name' => 'prj_exporter',
-      'vname' => 'LBL_PRJ_EXPORTER',
-      'type' => 'varchar',
-      'massupdate' => false,
-      'no_default' => false,
-      'comments' => '',
-      'help' => '',
-      'importable' => 'true',
-      'duplicate_merge' => 'disabled',
-      'duplicate_merge_dom_value' => '0',
-      'audited' => false,
-      'reportable' => true,
-      'unified_search' => false,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'len' => '255',
-      'size' => '20',
-    ),
-    'prj_exporter_version' => 
-    array (
-      'required' => false,
-      'name' => 'prj_exporter_version',
-      'vname' => 'LBL_PRJ_EXPORTER_VERSION',
-      'type' => 'varchar',
-      'massupdate' => false,
-      'no_default' => false,
-      'comments' => '',
-      'help' => '',
-      'importable' => 'true',
-      'duplicate_merge' => 'disabled',
-      'duplicate_merge_dom_value' => '0',
-      'audited' => false,
-      'reportable' => true,
-      'unified_search' => false,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'len' => '255',
-      'size' => '20',
-    ),
-    'prj_author' => 
-    array (
-      'required' => false,
-      'name' => 'prj_author',
-      'vname' => 'LBL_PRJ_AUTHOR',
-      'type' => 'varchar',
-      'massupdate' => false,
-      'no_default' => false,
-      'comments' => '',
-      'help' => '',
-      'importable' => 'true',
-      'duplicate_merge' => 'disabled',
-      'duplicate_merge_dom_value' => '0',
-      'audited' => false,
-      'reportable' => true,
-      'unified_search' => false,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'len' => '255',
-      'size' => '20',
-    ),
-    'prj_author_version' => 
-    array (
-      'required' => false,
-      'name' => 'prj_author_version',
-      'vname' => 'LBL_PRJ_AUTHOR_VERSION',
-      'type' => 'varchar',
-      'massupdate' => false,
-      'no_default' => false,
-      'comments' => '',
-      'help' => '',
-      'importable' => 'true',
-      'duplicate_merge' => 'disabled',
-      'duplicate_merge_dom_value' => '0',
-      'audited' => false,
-      'reportable' => true,
-      'unified_search' => false,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'len' => '255',
-      'size' => '20',
-    ),
-    'prj_original_source' => 
-    array (
-      'required' => false,
-      'name' => 'prj_original_source',
-      'vname' => 'LBL_PRJ_ORIGINAL_SOURCE',
-      'type' => 'varchar',
-      'massupdate' => false,
-      'no_default' => false,
-      'comments' => '',
-      'help' => '',
-      'importable' => 'true',
-      'duplicate_merge' => 'disabled',
-      'duplicate_merge_dom_value' => '0',
-      'audited' => false,
-      'reportable' => true,
-      'unified_search' => false,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'len' => '255',
-      'size' => '20',
-    ),
-    'prj_status' => 
-    array (
-      'name' => 'prj_status',
-      'vname' => 'LBL_PRJ_STATUS',
-      'type' => 'enum',
-      'len' => 10,
-      'options' => 'process_definition_status_dom',
-      'comment' => 'Process Definition status (ex: Enabled, Disabled)',
-      'default' => 'INACTIVE',
-      'duplicate_on_record_copy' => 'no',
-    ),
-    'prj_module' => 
-    array (
-      'required' => true,
-      'name' => 'prj_module',
-      'vname' => 'LBL_PRJ_MODULE',
-      'type' => 'enum',
-      'massupdate' => true,
-      'no_default' => false,
-      'comments' => '',
-      'help' => '',
-      'importable' => 'true',
-      'duplicate_merge' => 'disabled',
-      'duplicate_merge_dom_value' => '0',
-      'audited' => false,
-      'reportable' => true,
-      'unified_search' => false,
-      'merge_filter' => 'disabled',
-      'calculated' => false,
-      'len' => 100,
-      'size' => '20',
-      'options' => '',
-      'studio' => 'visible',
-      'dependency' => false,
-      'function' => 
-      array (
-        'name' => 'getTargetsModules',
-        'include' => 'modules/pmse_Project/pmse_ProjectHelper.php',
-      ),
-    ),
-    'following' => 
-    array (
-      'massupdate' => false,
-      'name' => 'following',
-      'vname' => 'LBL_FOLLOWING',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Is user following this record',
-      'studio' => 'false',
-      'link' => 'following_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'following_link' => 
-    array (
-      'name' => 'following_link',
-      'type' => 'link',
-      'relationship' => 'pmse_project_following',
-      'source' => 'non-db',
-      'vname' => 'LBL_FOLLOWING',
-      'reportable' => false,
-    ),
-    'my_favorite' => 
-    array (
-      'massupdate' => false,
-      'name' => 'my_favorite',
-      'vname' => 'LBL_FAVORITE',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Favorite for the user',
-      'studio' => 
-      array (
-        'list' => false,
-        'recordview' => false,
-        'basic_search' => false,
-        'advanced_search' => false,
-      ),
-      'link' => 'favorite_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'favorite_link' => 
-    array (
-      'name' => 'favorite_link',
-      'type' => 'link',
-      'relationship' => 'pmse_project_favorite',
-      'source' => 'non-db',
-      'vname' => 'LBL_FAVORITE',
-      'reportable' => false,
-      'workflow' => false,
-      'full_text_search' => 
-      array (
-        'type' => 'favorites',
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'favorite_link' => 
-          array (
-            'type' => 'MyItems',
-            'options' => 
-            array (
-              'field' => 'user_favorites',
-            ),
-          ),
-        ),
-      ),
-    ),
     'team_id' => 
     array (
       'name' => 'team_id',
@@ -587,6 +311,10 @@
       'studio' => 'false',
       'dbType' => 'id',
       'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
     ),
     'team_count' => 
     array (
@@ -697,19 +425,6 @@
       'duplicate_merge' => 'disabled',
       'mandatory_fetch' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'assigned_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_ASSIGNED_TO_ME',
-          ),
-        ),
-      ),
     ),
     'assigned_user_name' => 
     array (
@@ -745,9 +460,306 @@
       'id_name' => 'assigned_user_id',
       'table' => 'users',
     ),
+    'prj_uid' => 
+    array (
+      'required' => true,
+      'name' => 'prj_uid',
+      'vname' => 'LBL_PRJ_UID',
+      'type' => 'varchar',
+      'massupdate' => false,
+      'no_default' => false,
+      'comments' => '',
+      'help' => '',
+      'importable' => 'true',
+      'duplicate_merge' => 'disabled',
+      'duplicate_merge_dom_value' => '0',
+      'audited' => false,
+      'reportable' => true,
+      'unified_search' => false,
+      'merge_filter' => 'disabled',
+      'full_text_search' => 
+      array (
+        'boost' => '0',
+      ),
+      'calculated' => false,
+      'len' => '36',
+      'size' => '20',
+    ),
+    'prj_target_namespace' => 
+    array (
+      'required' => false,
+      'name' => 'prj_target_namespace',
+      'vname' => 'LBL_PRJ_TARGET_NAMESPACE',
+      'type' => 'varchar',
+      'massupdate' => false,
+      'no_default' => false,
+      'comments' => '',
+      'help' => '',
+      'importable' => 'true',
+      'duplicate_merge' => 'disabled',
+      'duplicate_merge_dom_value' => '0',
+      'audited' => false,
+      'reportable' => true,
+      'unified_search' => false,
+      'merge_filter' => 'disabled',
+      'full_text_search' => 
+      array (
+        'boost' => '0',
+      ),
+      'calculated' => false,
+      'len' => '255',
+      'size' => '20',
+    ),
+    'prj_expression_language' => 
+    array (
+      'required' => false,
+      'name' => 'prj_expression_language',
+      'vname' => 'LBL_PRJ_EXPRESSION_LANGUAGE',
+      'type' => 'varchar',
+      'massupdate' => false,
+      'no_default' => false,
+      'comments' => '',
+      'help' => '',
+      'importable' => 'true',
+      'duplicate_merge' => 'disabled',
+      'duplicate_merge_dom_value' => '0',
+      'audited' => false,
+      'reportable' => true,
+      'unified_search' => false,
+      'merge_filter' => 'disabled',
+      'full_text_search' => 
+      array (
+        'boost' => '0',
+      ),
+      'calculated' => false,
+      'len' => '255',
+      'size' => '20',
+    ),
+    'prj_type_language' => 
+    array (
+      'required' => false,
+      'name' => 'prj_type_language',
+      'vname' => 'LBL_PRJ_TYPE_LANGUAGE',
+      'type' => 'varchar',
+      'massupdate' => false,
+      'no_default' => false,
+      'comments' => '',
+      'help' => '',
+      'importable' => 'true',
+      'duplicate_merge' => 'disabled',
+      'duplicate_merge_dom_value' => '0',
+      'audited' => false,
+      'reportable' => true,
+      'unified_search' => false,
+      'merge_filter' => 'disabled',
+      'full_text_search' => 
+      array (
+        'boost' => '0',
+      ),
+      'calculated' => false,
+      'len' => '255',
+      'size' => '20',
+    ),
+    'prj_exporter' => 
+    array (
+      'required' => false,
+      'name' => 'prj_exporter',
+      'vname' => 'LBL_PRJ_EXPORTER',
+      'type' => 'varchar',
+      'massupdate' => false,
+      'no_default' => false,
+      'comments' => '',
+      'help' => '',
+      'importable' => 'true',
+      'duplicate_merge' => 'disabled',
+      'duplicate_merge_dom_value' => '0',
+      'audited' => false,
+      'reportable' => true,
+      'unified_search' => false,
+      'merge_filter' => 'disabled',
+      'full_text_search' => 
+      array (
+        'boost' => '0',
+      ),
+      'calculated' => false,
+      'len' => '255',
+      'size' => '20',
+    ),
+    'prj_exporter_version' => 
+    array (
+      'required' => false,
+      'name' => 'prj_exporter_version',
+      'vname' => 'LBL_PRJ_EXPORTER_VERSION',
+      'type' => 'varchar',
+      'massupdate' => false,
+      'no_default' => false,
+      'comments' => '',
+      'help' => '',
+      'importable' => 'true',
+      'duplicate_merge' => 'disabled',
+      'duplicate_merge_dom_value' => '0',
+      'audited' => false,
+      'reportable' => true,
+      'unified_search' => false,
+      'merge_filter' => 'disabled',
+      'full_text_search' => 
+      array (
+        'boost' => '0',
+      ),
+      'calculated' => false,
+      'len' => '255',
+      'size' => '20',
+    ),
+    'prj_author' => 
+    array (
+      'required' => false,
+      'name' => 'prj_author',
+      'vname' => 'LBL_PRJ_AUTHOR',
+      'type' => 'varchar',
+      'massupdate' => false,
+      'no_default' => false,
+      'comments' => '',
+      'help' => '',
+      'importable' => 'true',
+      'duplicate_merge' => 'disabled',
+      'duplicate_merge_dom_value' => '0',
+      'audited' => false,
+      'reportable' => true,
+      'unified_search' => false,
+      'merge_filter' => 'disabled',
+      'full_text_search' => 
+      array (
+        'boost' => '0',
+      ),
+      'calculated' => false,
+      'len' => '255',
+      'size' => '20',
+    ),
+    'prj_author_version' => 
+    array (
+      'required' => false,
+      'name' => 'prj_author_version',
+      'vname' => 'LBL_PRJ_AUTHOR_VERSION',
+      'type' => 'varchar',
+      'massupdate' => false,
+      'no_default' => false,
+      'comments' => '',
+      'help' => '',
+      'importable' => 'true',
+      'duplicate_merge' => 'disabled',
+      'duplicate_merge_dom_value' => '0',
+      'audited' => false,
+      'reportable' => true,
+      'unified_search' => false,
+      'merge_filter' => 'disabled',
+      'full_text_search' => 
+      array (
+        'boost' => '0',
+      ),
+      'calculated' => false,
+      'len' => '255',
+      'size' => '20',
+    ),
+    'prj_original_source' => 
+    array (
+      'required' => false,
+      'name' => 'prj_original_source',
+      'vname' => 'LBL_PRJ_ORIGINAL_SOURCE',
+      'type' => 'varchar',
+      'massupdate' => false,
+      'no_default' => false,
+      'comments' => '',
+      'help' => '',
+      'importable' => 'true',
+      'duplicate_merge' => 'disabled',
+      'duplicate_merge_dom_value' => '0',
+      'audited' => false,
+      'reportable' => true,
+      'unified_search' => false,
+      'merge_filter' => 'disabled',
+      'full_text_search' => 
+      array (
+        'boost' => '0',
+      ),
+      'calculated' => false,
+      'len' => '255',
+      'size' => '20',
+    ),
+    'prj_status' => 
+    array (
+      'name' => 'prj_status',
+      'vname' => 'LBL_PRJ_STATUS',
+      'type' => 'enum',
+      'len' => 10,
+      'options' => 'process_definition_status_dom',
+      'comment' => 'Process Definition status (ex: Enabled, Disabled)',
+      'default' => 'INACTIVE',
+      'duplicate_on_record_copy' => 'no',
+    ),
+    'prj_module' => 
+    array (
+      'required' => true,
+      'name' => 'prj_module',
+      'vname' => 'LBL_PRJ_MODULE',
+      'type' => 'enum',
+      'massupdate' => true,
+      'no_default' => false,
+      'comments' => '',
+      'help' => '',
+      'importable' => 'true',
+      'duplicate_merge' => 'disabled',
+      'duplicate_merge_dom_value' => '0',
+      'audited' => false,
+      'reportable' => true,
+      'unified_search' => false,
+      'merge_filter' => 'disabled',
+      'calculated' => false,
+      'len' => 100,
+      'size' => '20',
+      'options' => '',
+      'studio' => 'visible',
+      'dependency' => false,
+      'function' => 
+      array (
+        'name' => 'getTargetsModules',
+        'include' => 'modules/pmse_Project/pmse_ProjectHelper.php',
+      ),
+    ),
   ),
   'relationships' => 
   array (
+    'pmse_project_favorite' => 
+    array (
+      'lhs_module' => 'pmse_Project',
+      'lhs_table' => 'pmse_project',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'sugarfavorites',
+      'join_key_lhs' => 'record_id',
+      'join_key_rhs' => 'modified_user_id',
+      'relationship_role_column' => 'module',
+      'relationship_role_column_value' => 'pmse_Project',
+      'user_field' => 'created_by',
+    ),
+    'pmse_project_following' => 
+    array (
+      'lhs_module' => 'pmse_Project',
+      'lhs_table' => 'pmse_project',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'subscriptions',
+      'join_key_lhs' => 'parent_id',
+      'join_key_rhs' => 'created_by',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'pmse_Project',
+      'user_field' => 'created_by',
+    ),
     'pmse_project_modified_user' => 
     array (
       'lhs_module' => 'Users',
@@ -783,38 +795,6 @@
       'join_key_rhs' => 'activity_id',
       'relationship_role_column' => 'parent_type',
       'relationship_role_column_value' => 'pmse_Project',
-    ),
-    'pmse_project_following' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'pmse_Project',
-      'rhs_table' => 'pmse_project',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'subscriptions',
-      'join_key_lhs' => 'created_by',
-      'join_key_rhs' => 'parent_id',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'pmse_Project',
-      'user_field' => 'created_by',
-    ),
-    'pmse_project_favorite' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'pmse_Project',
-      'rhs_table' => 'pmse_project',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'sugarfavorites',
-      'join_key_lhs' => 'modified_user_id',
-      'join_key_rhs' => 'record_id',
-      'relationship_role_column' => 'module',
-      'relationship_role_column_value' => 'pmse_Project',
-      'user_field' => 'created_by',
     ),
     'pmse_project_team_count_relationship' => 
     array (
@@ -873,17 +853,13 @@
   ),
   'visibility' => 
   array (
+    'TeamSecurity' => true,
     'TargetModuleDeveloperVisibility' => 
     array (
       'targetModuleField' => 'prj_module',
     ),
-    'TeamSecurity' => true,
   ),
   'hidden_to_role_assignment' => true,
-  'ignore_templates' => 
-  array (
-    0 => 'taggable',
-  ),
   'indices' => 
   array (
     'id' => 
@@ -923,16 +899,6 @@
         0 => 'date_entered',
       ),
     ),
-    'name_del' => 
-    array (
-      'name' => 'idx_pmse_project_name_del',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'name',
-        1 => 'deleted',
-      ),
-    ),
     'team_set_pmse_project' => 
     array (
       'name' => 'idx_pmse_project_tmst_id',
@@ -942,19 +908,17 @@
         0 => 'team_set_id',
       ),
     ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'idx_pmse_project_assigned_del',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'deleted',
-        1 => 'assigned_user_id',
-      ),
-    ),
   ),
   'name_format_map' => 
   array (
+  ),
+  'templates' => 
+  array (
+    'assignable' => 'assignable',
+    'team_security' => 'team_security',
+    'basic' => 'basic',
+    'following' => 'following',
+    'favorite' => 'favorite',
   ),
   'duplicate_check' => 
   array (
@@ -982,16 +946,8 @@
     ),
   ),
   'favorites' => true,
-  'templates' => 
-  array (
-    'basic' => 'basic',
-    'following' => 'following',
-    'favorite' => 'favorite',
-    'team_security' => 'team_security',
-    'assignable' => 'assignable',
-  ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

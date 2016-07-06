@@ -159,68 +159,9 @@ class ForecastsConfigApi extends ConfigModuleApi
             $timePeriod = TimePeriod::getByType($current_forecasts_settings['timeperiod_interval']);
             $timePeriod->rebuildForecastingTimePeriods($prior_forecasts_settings, $current_forecasts_settings);
         }
-
-        //If the Opps/RLI switch was done before forecasts was set up, then things were partially configured. Let's
-        //reset that stuff now.
-        $forecast_by = $current_forecasts_settings['forecast_by'];
-        $this->refreshForecastByMetadata($forecast_by);
-        $this->rebuildExtensions($forecast_by);
-
         return $current_forecasts_settings;
     }
 
-    /**
-     * Refreshes the ForecastBy module's metadata.  Needed for when forecasts is set up after any opps/rli switching.
-     * @param $forecast_by
-     */
-    public function refreshForecastByMetadata($forecast_by)
-    {
-        $convert = $this->getOpportunityConfigObject($forecast_by);
-        $convert->doMetadataConvert();
-    }
-
-    /**
-     * Gets the proper config object to run metadata updates through
-     * @param $forecast_by
-     * @return null|OpportunityWithOutRevenueLineItem|OpportunityWithRevenueLineItem
-     */
-    public function getOpportunityConfigObject($forecast_by)
-    {
-        $convert = null;
-
-        if ($forecast_by === 'RevenueLineItems') {
-            SugarAutoLoader::load('modules/Opportunities/include/OpportunityWithRevenueLineItem.php');
-            $convert = new OpportunityWithRevenueLineItem();
-        } else {
-            SugarAutoLoader::load('modules/Opportunities/include/OpportunityWithOutRevenueLineItem.php');
-            $convert = new OpportunityWithOutRevenueLineItem();
-        }
-
-        return $convert;
-    }
-
-    /**
-     * Rebuilds the metadata for a given module
-     * @param $module
-     */
-    public function rebuildExtensions($module)
-    {
-        $rac = $this->getRepairAndClear();
-        $rac->show_output = false;
-        $rac->module_list = $module;
-        $rac->clearVardefs();
-        $rac->rebuildExtensions(array($module));
-    }
-
-    /**
-     * Utility function to return a RepairandClear Object;
-     * @return RepairAndClear
-     */
-    public function getRepairAndClear()
-    {
-        SugarAutoLoader::load('modules/Administration/QuickRepairAndRebuild.php');
-        return new RepairAndClear();
-    }
     /**
      * Compares two sets of forecasting settings to see if the primary timeperiods settings are the same
      *

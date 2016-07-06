@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,15 +12,17 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-$mod_strings = array(
-    'LBL_AUDIT_TITLE' => 'Ver registro de alterações',
-    'LBL_FIELD_NAME' => 'Campo',
-    'LBL_OLD_NAME' => 'Valor Anterior',
-    'LBL_NEW_VALUE' => 'Novo Valor',
-    'LBL_CREATED_BY' => 'Alterado Por',
-    'LBL_LIST_DATE' => 'Data da Alteração',
-    'LBL_AUDITED_FIELDS' => 'Campos auditados neste módulo:',
-    'LBL_NO_AUDITED_FIELDS_TEXT' => 'Não existem campos auditados neste módulo',
-    'LBL_CHANGE_LOG' => 'Log de alterações',
-    'LBL_CURRENCY_CONVERSION_TEXT' => 'Quando campos de moeda auditada são salvos em uma moeda não padrão do sistema, o log de alterações exibirá os valores novos e antigos na moeda padrão convertida definida pelo sistema.'
+	
+
+$mod_strings = array (
+  'LBL_AUDITED_FIELDS' => 'Campos auditados neste módulo:',
+  'LBL_AUDIT_TITLE' => 'Ver registro de Alterações',
+  'LBL_CHANGE_LOG' => 'Registro de Alterações',
+  'LBL_CREATED_BY' => 'Alterado Por',
+  'LBL_FIELD_NAME' => 'Campo',
+  'LBL_LIST_DATE' => 'Data da Alteração',
+  'LBL_NEW_VALUE' => 'Novo Valor',
+  'LBL_NO_AUDITED_FIELDS_TEXT' => 'Não existem campos auditados neste módulo',
+  'LBL_OLD_NAME' => 'Valor Anterior',
 );
+

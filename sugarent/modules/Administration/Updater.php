@@ -28,7 +28,7 @@ $xtpl=new XTemplate ('modules/Administration/Updater.html');
 $xtpl->assign("MOD", $mod_strings);
 $xtpl->assign("APP", $app_strings);
 
-if (isset($_REQUEST['useraction']) && $_REQUEST['useraction']=='Save' ) {
+if (isset($_REQUEST['useraction']) && ($_REQUEST['useraction']=='Save' || $_REQUEST['useraction']=='CheckNow')) {
 	if(!empty($_REQUEST['type']) && $_REQUEST['type'] == 'automatic') {
 		set_CheckUpdates_config_setting('automatic');
 	}else{

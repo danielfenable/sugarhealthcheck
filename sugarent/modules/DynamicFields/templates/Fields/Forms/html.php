@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: html.php 51719 2009-10-22 17:18:00Z mitani $
+
 function get_body($ss, $vardef)
 {
 	$edit_mod_strings = return_module_language($GLOBALS['current_language'], 'EditCustomFields');

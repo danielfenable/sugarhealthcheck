@@ -96,7 +96,6 @@ class WebLogicHook extends SugarBean implements RunnableSchedulerJob
         $job->status = SchedulersJob::JOB_STATUS_QUEUED;
         $job->target = 'class::' . get_class($this);
         $job->data = serialize($jobData);
-        $job->execute_time = $GLOBALS['timedate']->nowDb();
         $job->save();
     }
 
@@ -193,25 +192,10 @@ class WebLogicHook extends SugarBean implements RunnableSchedulerJob
             }
         }
 
-        $arguments['data'] = $this->decodeHTML($data);
-        $arguments['dataChanges'] = $this->decodeHTML($arguments['dataChanges']);
+        $arguments['data'] = $data;
         $arguments['event'] = $event;
 
         return $arguments;
     }
 
-    private function decodeHTML($data)
-    {
-        $returnData = array();
-
-        $db = DBManagerFactory::getInstance();
-        foreach ($data as $key => $value) {
-            $returnData[$key] = $db->decodeHTML($value);
-            if (is_array($value)) {
-                $returnData[$key] = $this->decodeHTML($value);
-            }
-        }
-
-        return $returnData;
-    }
 }

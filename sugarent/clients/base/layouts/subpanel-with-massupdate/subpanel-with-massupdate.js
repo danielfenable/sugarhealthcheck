@@ -8,4 +8,4 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({extendsFrom:"SubpanelLayout",_stopComponentToggle:function(component){return component.name==="panel-top"||component.name==='massupdate'||(!_.isUndefined(component.$el)&&component.$el.hasClass('subpanel-header'));}})
+({extendsFrom:"SubpanelLayout",_stopComponentToggle:function(component){return component.name==="panel-top"||component.name==='massupdate';}})

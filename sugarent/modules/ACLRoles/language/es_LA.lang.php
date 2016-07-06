@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,31 +12,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
+
 $mod_strings = array (
-'LBL_MODULE_NAME' => 'Roles',
-'LBL_MODULE_NAME_SINGULAR' => 'Rol',
-'LBL_MODULE_TITLE' => 'Roles: Inicio',
-'LBL_ROLE'=>'Rol',
-'LBL_NAME'=>'Nombre',
-'LBL_DESCRIPTION'=>'Descripción',
-'LIST_ROLES'=>'Enumerar Roles',
-'LBL_USERS_SUBPANEL_TITLE'=>'Usuarios',
-'LIST_ROLES_BY_USER'=>'Enumerar Roles por Usuario',
-'LBL_LIST_FORM_TITLE' => 'Roles',
-'LBL_ROLES_SUBPANEL_TITLE'=>'Roles de Usuario',
-'LBL_SEARCH_FORM_TITLE'=>'Búsqueda',
-'LBL_CREATE_ROLE'=>'Nuevo Rol',
-'LBL_EDIT_VIEW_DIRECTIONS'=>'Haga doble clic en una celda para cambiar su valor.',
-'LBL_ACCESS_DEFAULT'=>'No Establecido',
-'LBL_ACTION_ADMIN'=>'Tipo de Acceso',
-'LBL_ALL'=>'Todo',
-'LBL_DUPLICATE_OF'=>'Duplicado De',
-//BEGIN SUGARCRM flav!=com
-'LBL_USER_NAME_FOR_ROLE'=>'Usuarios/Equipos/Roles',
-//END SUGARCRM flav!=com
-'LBL_NO_MODULES_AVAILABLE' => 'No hay Módulos Disponibles',
-'LBL_NO_ROLES' => 'Sin Roles',
-'LBL_DONE' => 'Finalizar',
-'LBL_COULD_NOT_CONNECT' => 'No Se Pudo Conectar',
-)
-?>
+  'LBL_ACCESS_DEFAULT' => 'No Establecido',
+  'LBL_ACTION_ADMIN' => 'Tipo de Acceso',
+  'LBL_ALL' => 'Todo',
+  'LBL_COULD_NOT_CONNECT' => 'No se podía conectar',
+  'LBL_CREATE_ROLE' => 'Nuevo Rol',
+  'LBL_DESCRIPTION' => 'Descripción',
+  'LBL_DONE' => 'Finalizar',
+  'LBL_DUPLICATE_OF' => 'Duplicado De',
+  'LBL_EDIT_VIEW_DIRECTIONS' => 'Haga doble clic en una celda para cambiar su valor.',
+  'LBL_LIST_FORM_TITLE' => 'Roles',
+  'LBL_MODULE_NAME' => 'Roles',
+  'LBL_MODULE_NAME_SINGULAR' => 'Rol',
+  'LBL_MODULE_TITLE' => 'Roles: Inicio',
+  'LBL_NAME' => 'Nombre',
+  'LBL_NO_MODULES_AVAILABLE' => 'No hay Módulos Disponibles',
+  'LBL_NO_ROLES' => 'No hay Roles',
+  'LBL_ROLE' => 'Rol',
+  'LBL_ROLES_SUBPANEL_TITLE' => 'Roles de Usuario',
+  'LBL_SEARCH_FORM_TITLE' => 'Búsqueda',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Usuarios',
+  'LBL_USER_NAME_FOR_ROLE' => 'Usuarios/Equipos/Roles',
+  'LIST_ROLES' => 'Listar Roles',
+  'LIST_ROLES_BY_USER' => 'Listar Roles por Usuario',
+);
+

@@ -116,7 +116,7 @@
                 component.context = contextDef;
             }
 
-            previewLayout.initComponents([
+            previewLayout._addComponentsFromDef([
                 {
                     layout: {
                         type: 'dashlet',

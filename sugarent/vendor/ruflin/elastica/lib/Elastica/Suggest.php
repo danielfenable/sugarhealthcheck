@@ -2,6 +2,7 @@
 
 namespace Elastica;
 
+
 use Elastica\Exception\NotImplementedException;
 use Elastica\Suggest\AbstractSuggest;
 
@@ -15,16 +16,17 @@ class Suggest extends Param
     /**
      * @param AbstractSuggest $suggestion
      */
-    public function __construct(AbstractSuggest $suggestion = null)
+    function __construct(AbstractSuggest $suggestion = NULL)
     {
         if (!is_null($suggestion)) {
             $this->addSuggestion($suggestion);
         }
     }
 
+
     /**
      * Set the global text for this suggester
-     * @param  string            $text
+     * @param string $text
      * @return \Elastica\Suggest
      */
     public function setGlobalText($text)
@@ -34,7 +36,7 @@ class Suggest extends Param
 
     /**
      * Add a suggestion to this suggest clause
-     * @param  AbstractSuggest   $suggestion
+     * @param AbstractSuggest $suggestion
      * @return \Elastica\Suggest
      */
     public function addSuggestion(AbstractSuggest $suggestion)
@@ -43,13 +45,13 @@ class Suggest extends Param
     }
 
     /**
-     * @param  Suggest|AbstractSuggest           $suggestion
+     * @param Suggest|AbstractSuggest $suggestion
      * @return \Elastica\Suggest
      * @throws Exception\NotImplementedException
      */
     public static function create($suggestion)
     {
-        switch (true) {
+        switch(true){
             case $suggestion instanceof Suggest:
                 return $suggestion;
             case $suggestion instanceof AbstractSuggest:

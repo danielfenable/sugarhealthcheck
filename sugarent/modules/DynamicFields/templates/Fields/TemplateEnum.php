@@ -11,6 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+require_once('include/utils/array_utils.php');
 class TemplateEnum extends TemplateText{
     var $max_size = 100;
     var $len = 100;
@@ -204,6 +205,7 @@ class TemplateEnum extends TemplateText{
                 }
             }
         }
+
         parent::delete($df);
     }
 }

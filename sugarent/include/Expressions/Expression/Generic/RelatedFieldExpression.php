@@ -45,7 +45,6 @@ class RelatedFieldExpression extends GenericExpression
                         }
                         if ($ret) {
                             $ret->isDate = true;
-                            $ret->def = $bean->field_defs[$relfield];
                         }
                         return $ret;
                     }
@@ -54,9 +53,6 @@ class RelatedFieldExpression extends GenericExpression
                         $ret = $timedate->fromDb($bean->$relfield);
                         if (!$ret)
                             $ret = $timedate->fromUser($bean->$relfield);
-                        if ($ret) {
-                            $ret->def = $bean->field_defs[$relfield];
-                        }
                         return $ret;
                     }
                     if ($bean->field_defs[$relfield]['type'] == "bool")

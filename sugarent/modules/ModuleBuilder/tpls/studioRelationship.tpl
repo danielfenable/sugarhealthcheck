@@ -72,8 +72,7 @@
 				{sugar_translate label='LBL_MODULE'}:
 				</td>
 				<td>
-					{capture name="module_label"}{sugar_translate label=$module_key}{/capture}
-					<input name='ignore' value="{$smarty.capture.module_label|escape}" disabled>
+					<input name='ignore' value="{sugar_translate label=$module_key}" disabled >
 					<input type='hidden' name='lhs_module' value='{$module_key}'>
 				</td>
 				<td>
@@ -87,7 +86,7 @@
 				{sugar_translate label='LBL_MODULE'}:
 				</td>
 				<td>{if $rel.readonly}
-					<input name="rhs_module" id="rhs_mod_field" value="{$translated_relatable[$rel.rhs_module]|escape}" disabled>
+					<input name="rhs_module" id="rhs_mod_field" value="{$rel.rhs_module}" disabled>
 					{else}
                     {html_options name="rhs_module" id="rhs_mod_field" output=$translated_relatable values=$relatable selected=$rel.rhs_module onchange='ModuleBuilder.moduleLoadRelationship2(document.relform.relationship_name.value, true);'}
 					{/if}
@@ -106,22 +105,21 @@
 			<tr>
                 {if $rel.relationship_type == 'many-to-many' || $rel.relationship_type == 'many-to-one'}
                     <td align="right" scope="row">{sugar_translate label="LBL_REL_LABEL"}:</td>
-                    <td><input name="lhs_label" id="lhs_label" value="{$rel.lhs_label|escape}"  ></td>
+                    <td><input name="lhs_label" id="lhs_label" value="{$rel.lhs_label}"  ></td>
                 {else}
-                    <td></td><td><input type="hidden" name="lhs_label" id="lhs_label" value="{$rel.lhs_label|escape}"  ></td>
+                    <td></td><td><input type="hidden" name="lhs_label" id="lhs_label" value="{$rel.lhs_label}"  ></td>
                 {/if}
                 <td></td>
-                {if $rel.relationship_type != 'many-to-one'}
+                {if $rel.relationship_type != 'many-to-one'} 
                 <td align="right" scope="row">{sugar_translate label="LBL_REL_LABEL"}:</td>
-                <td><input name="rhs_label" id="rhs_label" value="{$rel.rhs_label|escape}"  ></td>
+                <td><input name="rhs_label" id="rhs_label" value="{$rel.rhs_label}"  ></td>
                 {else}
-                    <td></td><td><input type="hidden" name="rhs_label" id="rhs_label" value="{$rel.rhs_label|escape}"  ></td>
+                    <td></td><td><input type="hidden" name="rhs_label" id="rhs_label" value="{$rel.rhs_label}"  ></td>
                 {/if}
             </tr>
             <tr>
                 {if $rel.relationship_type == 'many-to-many' || $rel.relationship_type == 'many-to-one'}
-                {capture name="lhs_module"}{sugar_translate label=$rel.lhs_module}{/capture}
-                <td align="right" scope="row">{$mod_strings.LBL_SUBPANEL_FROM} {$smarty.capture.lhs_module|escape}:</td>
+                <td align="right" scope="row">{$mod_strings.LBL_SUBPANEL_FROM} {sugar_translate label=$rel.lhs_module}:</td>
                 <td> {if $rel.readonly}
                     <input name="lhs_subpanel" id="lhs_subpanel" value="{$rel.lhs_subpanel}" disabled>
                     {else}
@@ -130,9 +128,8 @@
                 </td>
                 {else}<td></td><td></td>{/if}
                 <td></td>
-                {if $rel.relationship_type != 'many-to-one'}
-                {capture name="rhs_module"}{sugar_translate label=$rel.rhs_module}{/capture}
-                <td align="right" scope="row">{$mod_strings.LBL_SUBPANEL_FROM} {$smarty.capture.rhs_module|escape}:</td>
+                {if $rel.relationship_type != 'many-to-one'} 
+                <td align="right" scope="row">{$mod_strings.LBL_SUBPANEL_FROM} {sugar_translate label=$rel.rhs_module}:</td>
                 <td>
                 {if $rel.readonly}
                     <input name="lhs_subpanel" id="lhs_subpanel" value="{$rel.rhs_subpanel}" disabled>

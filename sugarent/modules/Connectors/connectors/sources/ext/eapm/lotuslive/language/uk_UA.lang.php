@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,22 +13,10 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
+
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Отримайте ключ користувача і секретний ключ від IBM SmartCloud, зареєструвавши свій екземпляр Sugar як новий застосунок. Функція реєстрації буде доступна з 8 травня 2011 року.<br>
-&nbsp;<br>
-Кроки для реєстрації екземпляру:<br>
-&nbsp;<br>
-<ol>
-<li>Увійдіть у свій обліковий запис IBM SmartCloud (у вас мають бути права адміністратора)</li>
-<li>Виберіть Administration -> Manage Organization (Адміністрування -> Керування організацією)</li>
-<li>Клацніть "Integrated Third-Party Apps" (Інтегровані застосунки сторонніх постачальників) на боковій панелі і включіть SugarCRM для всіх користувачів.</li>
-<li>На боковій панелі відкрийте "Internal Apps" (Внутрішні застосунки) і клацніть "Register App" (Зареєструвати застосунок)</li>
-<li>Введіть бажане ім’я застосунку (наприклад, "SugarCRM Production") і переконайтеся, що прапорець OAuth 2.x внизу спливаючого вікна НЕ встановлено.</li>
-<li>Після створення застосунку клацніть маленький трикутник праворуч від імені застосунку та виберіть "Show Credentials" (Показати облікові дані) в розкривному меню.</li>
-<li>Скопіюйте облікові дані в поля нижче.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'Ключ користувача OAuth',
-    'oauth_consumer_secret' => 'Секретний ключ OAuth',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Отримайте Ключ програми та Секретний ключ від IBM SmartCloud ©, зареєструвавши Ваш Sugar як новий додаток<br><br /> <br><br />Кроки для реєстрації системи:<br><br /> <br><br /><ol><br /><li>Увійдіть в систему, використовуючи обліковий запис IBM SmartCloud (ви повинні бути адміністратором системи)</li><br /><li>Відкрийте Адміністрування -> Управління організацією</li><br /><li>Виберіть опцію "Інтегровані сторонні додатки" в бічному меню і виберіть опцію SugarCRM для всіх користувачів. </li><br /><li>Відкрийте "Внутрішні додатки" в бічному меню і виберіть "Зареєструвати додаток".</li><br /><li>Введіть бажане ім&#39;я програми (наприклад, "SugarCRM Production"), і зверніть увагу, що Ви НЕ поставили галочку в полі OAuth 2.x внизу діалогового вікна. </li><br /><li>Після створення додатка, кнікніть на маленькому трикутнику праворуч від назва програми і у випадаючому меню виберіть "Показати обліковий запис".</li><br /><li>Скопіюйте дані нижче.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'OAuth-ключ споживача',
+  'oauth_consumer_secret' => 'Секретний OAuth-ключ споживача',
 );
 

@@ -25,20 +25,6 @@
         if (this.view && this.view.layout) {
             this.view.layout.on('headerpane:adjust_fields', this.repositionDropdown, this);
         }
-        /**
-         * An object where its keys map to specific status and color to matching
-         * CSS classes.
-         */
-        this.statusClasses = {
-            'important': 'label-important',
-            'warning': 'label-warning',
-            'pending': 'label-pending',
-            'success': 'label-success',
-            'info': 'label-info',
-            'inverse': 'label-inverse',
-            'unknown': 'label-unknown',
-            'log': 'label-log'
-        };
     },
 
     /**
@@ -69,42 +55,6 @@
 
         this._super('_loadTemplate');
         this.type = 'badge-select';
-    },
-
-    /**
-     * @inheritdoc
-     *
-     * Convert model value to dropdown value based on key.
-     *
-     * @param {Array/Object/string/number/boolean} value The value to format.
-     * @return {string} the formatted value based on view name.
-     */
-    format: function(value) {
-        if (!value || this.action === 'edit') {
-            return value;
-        }
-
-        this.statusClass = this.styleLabel(value);
-
-        return this.items[value] || value;
-    },
-
-    /**
-     * Returns the appropriate CSS class on the label based on the value of the
-     * status.
-     *
-     * It is a noop when the field is in edit mode.
-     *
-     * @param {string} status
-     */
-    styleLabel: function(status) {
-        if (this.action === 'edit') {
-            return;
-        }
-        if (this.action === 'disabled') {
-            return 'label-disabled';
-        }
-        return this.statusClasses[status];
     },
 
     /**

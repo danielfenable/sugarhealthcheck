@@ -279,7 +279,7 @@ class SugarCurrency
      * @param SugarBean $bean
      * @return Currency
      */
-    public static function getCurrency(SugarBean $bean)
+    protected static function getCurrency(SugarBean $bean)
     {
         if (empty($bean->currency_id)) {
             // use user preferences for currency

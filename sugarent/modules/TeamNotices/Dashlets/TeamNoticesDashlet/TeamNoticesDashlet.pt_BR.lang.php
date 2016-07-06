@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,9 +11,27 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: TeamNoticesDashlet.en_us.lang.php 16292 2006-08-22 20:57:23Z awu $
 
 
-$dashletStrings['TeamNoticesDashlet'] = array('LBL_TITLE'            => 'Notícias da Equipe',
-                                              'LBL_DESCRIPTION'      => 'Exibe as notícias da equipe em uma caixa de rolagem');
-?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$dashletStrings = array (
+  'TeamNoticesDashlet' => 
+  array (
+    'LBL_TITLE' => 'Notícias da Equipe',
+    'LBL_DESCRIPTION' => 'Exibe as notícias da equipe num scrolling dashlet',
+  ),
+);
+

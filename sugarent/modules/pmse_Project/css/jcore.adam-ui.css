@@ -146,27 +146,16 @@
 .adam-disabled a {
   color: gray;
 }
+
 .adam-disabled * {
   cursor: default !important;
 }
-
-.adam-selected {
-  cursor: default;
-  background-color: lightgray !important;
-}
-.adam-selected a {
-  color: black !important;
-}
-.adam-selected * {
-  cursor: default !important;
-}
-
 
 .adam-modal {
   background-color: rgba(0, 0, 0, 0.6);
   bottom: 0;
   left: 0;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
     overflow: auto;
@@ -926,7 +915,6 @@ a.adam-tooltip-error-off {
 
 .adam.form-panel-field {
   margin-bottom: 0.5em;
-  vertical-align: top;
 }
 
 .adam.form-panel-button {
@@ -936,41 +924,16 @@ a.adam-tooltip-error-off {
   margin: 0;
 }
 
-.adam.form-panel-field.record-cell .form-panel-field-control {
-  font-size: 12px;
-  padding: 2px 4px;
-  min-height: 24px;
-}
-
-.adam.form-panel-field.record-cell .normal > .edit {
-  margin-bottom: initial;
-}
-
 .adam.form-panel-field-control {
   width: 100%;
   box-sizing: border-box;
   font-size: 12px;
   line-height: 18px;
   height: 24px;
-  min-height: 20px;
   margin-bottom: 0;
 }
 .adam.form-panel-field-control .formpanel-radio {
   margin-right: 5px;
-}
-
-.adam.form-panel-field.adam-formpanelnumber .adam.form-panel-field-control,
-.adam.form-panel-field.adam-formpanelcurrency .adam.form-panel-field-control {
-  text-align: right;
-}
-
-.adam.form-panel-field.adam-formpanelcurrency input[type="text"].adam.form-panel-field-control {
-  width: 50% !important;
-}
-
-.adam-formpanelcurrency .currency-part {
-  width: 50%;
-  float: left;
 }
 
 .adam.form-panel-footer {
@@ -989,11 +952,8 @@ a.adam-tooltip-error-off {
   padding: 3px;
 }
 
-.adam-formpaneldatetime .edit input {
-  width: 55% !important;
-}
-.adam-formpaneldatetime .edit input.ui-timepicker-input {
-  width: 45% !important;
+.adam-formpaneldatetime .edit * {
+  width: 50%;
 }
 
 .adam.email-picker-suggest {
@@ -1191,11 +1151,10 @@ a.adam-tooltip-error-off {
     position: relative;
     white-space: nowrap;
     text-overflow: ellipsis;
-    vertical-align: top;
 }
 
 .adam-itemupdater-controlcontainer {
-  width: 70%;
+  width: 68%;
 }
 
 .adam-itemupdater-labelcontent {
@@ -1228,13 +1187,4 @@ a.adam-tooltip-error-off {
 .adam-itemupdater-required {
     position: absolute;
     right: 5px;
-}
-
-.adam-team-updater-line {
-  margin-bottom: 8px;
-}
-
-input.adam-team-append {
-  display: inline;
-  margin-right: 9px;
 }

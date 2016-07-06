@@ -21,7 +21,6 @@ $searchdefs['Campaigns'] = array(
 				 	'name',
 				 	array('name'=>'current_user_only', 'label'=>'LBL_CURRENT_USER_FILTER', 'type'=>'bool'),
 				 	
-
 		      array ('name' => 'favorites_only','label' => 'LBL_FAVORITES_FILTER','type' => 'bool',),
 				),
 				'advanced_search' => array(
@@ -32,7 +31,6 @@ $searchdefs['Campaigns'] = array(
 					'campaign_type',
 					array('name' => 'assigned_user_id', 'label'=>'LBL_ASSIGNED_TO', 'type' => 'enum', 'function' => array('name' => 'get_user_array', 'params' => array(false))),
 					
-
 		      array ('name' => 'favorites_only','label' => 'LBL_FAVORITES_FILTER','type' => 'bool',),
 				),												
 			),

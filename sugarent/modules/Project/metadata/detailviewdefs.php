@@ -74,7 +74,7 @@ $viewdefs['Project']['DetailView'] = array(
                             'accessKey' => '{$APP.LBL_DELETE_BUTTON_KEY}',
                             'id'    => 'delete_button',
                             'class' => 'button',
-                            'onclick' => 'prep_delete(this.form);' . 
+                            'onclick' =>
                                 '{if $IS_TEMPLATE}'.
                                     'this.form.return_module.value=\'Project\'; this.form.return_action.value=\'ProjectTemplatesListView\'; this.form.action.value=\'Delete\'; if (confirm(\'{$APP.NTC_DELETE_CONFIRMATION}\')) {ldelim} return true; {rdelim} else {ldelim} return false; {rdelim}'.
                                 '{else}'.
@@ -84,7 +84,6 @@ $viewdefs['Project']['DetailView'] = array(
 
                     ),
 				),
-
 
 
 				array( 'customCode' =>
@@ -192,8 +191,7 @@ $viewdefs['Project']['DetailView'] = array(
 		  ),
 		),
 		array (
-
-		 	'team_name',  
+		 	'team_name',
 			array (
 				'name' => 'created_by_name',
 				'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}&nbsp;',

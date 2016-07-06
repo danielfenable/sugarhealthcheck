@@ -1,32 +1,34 @@
 <?php
-// created: 2016-07-04 12:09:36
+// created: 2016-07-06 08:17:08
 $existing_files = array (
   'run_job.php' => 1,
   'mobile' => 
   array (
-    'error.html' => 1,
-    'js' => 
+    'css' => 
     array (
-      'lib.js' => 1,
-      'sidecar.js' => 1,
-      'templates.js' => 1,
-      'nomad.js' => 1,
+      'mobile.css' => 1,
     ),
+    'error.html' => 1,
     'strings' => 
     array (
     ),
+    'lib.js' => 1,
+    'sidecar.js' => 1,
     'index.html' => 1,
+    'templates.js' => 1,
     'img' => 
     array (
       'touch-icon-152.png' => 1,
       'touch-icon-196.png' => 1,
       'touch-icon.png' => 1,
+      'triangles.png' => 1,
       'favicon.ico' => 1,
     ),
     'font' => 
     array (
     ),
     'error-not-supported-platform.html' => 1,
+    'nomad.js' => 1,
   ),
   'upgrade' => 
   array (
@@ -65,20 +67,15 @@ $existing_files = array (
         'Empty.php.tpl' => 1,
         '4_NewModules.php' => 1,
         '3_ImportLang.php' => 1,
-        '1_UpdateFTSSettings.php' => 1,
         '2_RepairDb2Sequences.php' => 1,
-        '9_FixPMSEActionsAssignedTo.php' => 1,
         '4_UpgradeDashlets.php' => 1,
         '3_RebuildDashlets.php' => 1,
         '7_MBMenu.php' => 1,
         '7_MovePDFCustomFonts.php' => 1,
         '7_UpdateMissingrname.php' => 1,
-        '7_FixNameLink.php' => 1,
         '3_RebuildJS.php' => 1,
         '3_SidecarConfig.php' => 1,
         '4_SetLicense.php' => 1,
-        '7_CallsMeetingsCustomEditView.php' => 1,
-        '2_FixPMSECurrencyType.php' => 1,
         '9_FixUpgradeHistory.php' => 1,
         '4_FixClassConstructor.php' => 1,
         '3_RemoveDotGit.php' => 1,
@@ -93,6 +90,7 @@ $existing_files = array (
         '5_UpgradeCustomViews.php' => 1,
         '9_PAUpdateSerializedVariables.php' => 1,
         '1_RunSQL.php' => 1,
+        '5_CreateRelationships.php' => 1,
         '7_UpdateNameForPersonClasses.php' => 1,
         '9_RemoveFiles.php' => 1,
         '1_UpgradeCustomRels.php' => 1,
@@ -114,15 +112,12 @@ $existing_files = array (
         '7_TeamsCE.php' => 1,
         '2_TruncateFTSTable.php' => 1,
         '2_UpdateDBVersion.php' => 1,
-        '7_FixLegacySubpanelsLayout.php' => 1,
         '4_CreateReports.php' => 1,
-        '7_AddDurationMeetingsCustomRecordView.php' => 1,
         '7_FixMissingLink.php' => 1,
         '4_SetSystemID.php' => 1,
         '2_FixEnumFields.php' => 1,
         '3_UpgradeAccess.php' => 1,
         '7_FixReportTeams.php' => 1,
-        '2_FixCustomRelationshipLabels.php' => 1,
         '3_AddUserActions.php' => 1,
         '7_FixRelateFieldsFilterMetadata.php' => 1,
         '9_ReorganizeUserPreferences.php' => 1,
@@ -133,8 +128,6 @@ $existing_files = array (
         '7_FixIconNameChanges.php' => 1,
         '8_EAPM.php' => 1,
         '5_FixDetailView.php' => 1,
-        '7_PrimaryEmailFix.php' => 1,
-        '7_UpdateEmailFieldOnSidecarListViews.php' => 1,
         '7_UpdateNameOnListViewForPersonClasses.php' => 1,
         '4_MigrateDashableLists.php' => 1,
         '3_MoveBlowfish.php' => 1,
@@ -143,24 +136,19 @@ $existing_files = array (
         '3_FixEmailAddress.php' => 1,
         '9_CheckOutput.php' => 1,
         '7_DropPDFHeaderLogo.php' => 1,
-        '4_AddNewModulesToMegamenu.php' => 1,
         '7_FixSingularList.php' => 1,
         '1_ClearVarDefs.php' => 1,
         '5_UserPrefs.php' => 1,
         '4_ConfigUpgradeHistorySubpanel.php' => 1,
         '3_CreateCustomless.php' => 1,
-        '7_FixModuleNameMismatch.php' => 1,
         '8_ComposerConfig.php' => 1,
         '4_ConnectorDefaults.php' => 1,
         '2_Rebuild.php' => 1,
         '7_FixBWCSubpanelEmail.php' => 1,
         '7_DisableViews.php' => 1,
         '7_MergeDropdowns.php' => 1,
-        '9_CleanOldFTSJobs.php' => 1,
-        '4_MigrateCreateActions.php' => 1,
-        '9_AddTagFieldToViews.php' => 1,
+        '4_AddPMSEModules.php' => 1,
         '3_PortalConfig.php' => 1,
-        '2_RepairSugarfavorites.php' => 1,
         '9_ClearHooks.php' => 1,
         '9_RebuildExtensions.php' => 1,
         '7_CreateHelpDashboards.php' => 1,
@@ -179,19 +167,14 @@ $existing_files = array (
         '4_RemoveOldFieldFiles.php' => 1,
         '2_RenameTwitterDbColumn.php' => 1,
         '7_UpgradeBwcLayouts.php' => 1,
-        '9_FixPMSEBodyEmailTemplates.php' => 1,
         '4_AddModulesToCE.php' => 1,
         '4_ConvertPortalTheme.php' => 1,
-        '9_RunFTSIndex.php' => 1,
-        '7_DropTrackerSessionsRoundTrips.php' => 1,
         '7_FixCustomLabelsForCoreModules.php' => 1,
-        '7_RepairImportMaps.php' => 1,
         '4_RemoveGopro.php' => 1,
         '2_FixTextAreaFields.php' => 1,
         '2_RepairDict.php' => 1,
         '4_MoveDropdownFilters.php' => 1,
         '7_RebuildSprites.php' => 1,
-        '7_UpdateFullNameOnListViewForPersonClasses.php' => 1,
         '7_RebuildActivitiesDashboards.php' => 1,
         '4_RemoveOldHandlebars.php' => 1,
         '9_FixPARelatedModules.php' => 1,
@@ -301,7 +284,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -369,7 +351,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -546,10 +527,6 @@ $existing_files = array (
             array (
               'preview.js' => 1,
             ),
-            'create' => 
-            array (
-              'create.js' => 1,
-            ),
             'dupecheck-list' => 
             array (
               'dupecheck-list.php' => 1,
@@ -575,17 +552,13 @@ $existing_files = array (
             array (
               'subpanel-list.php' => 1,
             ),
-            'panel-top-for-cases' => 
-            array (
-              'panel-top-for-cases.php' => 1,
-            ),
             'selection-list' => 
             array (
               'selection-list.php' => 1,
             ),
-            'search-list' => 
+            'create-actions' => 
             array (
-              'search-list.php' => 1,
+              'create-actions.js' => 1,
             ),
             'subpanel-for-accounts' => 
             array (
@@ -681,7 +654,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -696,11 +668,9 @@ $existing_files = array (
         'lv_LV.lang.php' => 1,
         'ro_RO.lang.php' => 1,
         'he_IL.lang.php' => 1,
-        'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
         'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -709,25 +679,18 @@ $existing_files = array (
         'en_UK.lang.php' => 1,
         'el_EL.lang.php' => 1,
         'bg_BG.lang.php' => 1,
-        'uk_UA.lang.php' => 1,
         'fr_FR.lang.php' => 1,
         'sk_SK.lang.php' => 1,
-        'fi_FI.lang.php' => 1,
-        'sq_AL.lang.php' => 1,
         'ca_ES.lang.php' => 1,
         'pl_PL.lang.php' => 1,
         'de_DE.lang.php' => 1,
-        'hu_HU.lang.php' => 1,
         'ar_SA.lang.php' => 1,
         'es_ES.lang.php' => 1,
         'cs_CZ.lang.php' => 1,
         'ja_JP.lang.php' => 1,
         'sr_RS.lang.php' => 1,
-        'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
     ),
@@ -798,13 +761,13 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
     ),
     'Connectors' => 
     array (
+      'Forms.php' => 1,
       'upgrade' => 
       array (
         'scripts' => 
@@ -829,7 +792,6 @@ $existing_files = array (
         'step2.tpl' => 1,
         'mapping_properties.tpl' => 1,
         'source_properties.tpl' => 1,
-        'administration.css' => 1,
         'administration.tpl' => 1,
         'listview.tpl' => 1,
         'modify_display.tpl' => 1,
@@ -925,7 +887,6 @@ $existing_files = array (
                   'nl_NL.lang.php' => 1,
                   'en_us.lang.php' => 1,
                   'lt_LT.lang.php' => 1,
-                  'et_EE.lang.php' => 1,
                   'zh_CN.lang.php' => 1,
                   'it_it.lang.php' => 1,
                   'es_LA.lang.php' => 1,
@@ -936,7 +897,6 @@ $existing_files = array (
                   'bg_BG.lang.php' => 1,
                   'uk_UA.lang.php' => 1,
                   'fr_FR.lang.php' => 1,
-                  'sk_SK.lang.php' => 1,
                   'fi_FI.lang.php' => 1,
                   'sq_AL.lang.php' => 1,
                   'ca_ES.lang.php' => 1,
@@ -951,7 +911,6 @@ $existing_files = array (
                   'ko_KR.lang.php' => 1,
                   'pt_PT.lang.php' => 1,
                   'nb_NO.lang.php' => 1,
-                  'zh_TW.lang.php' => 1,
                   'da_DK.lang.php' => 1,
                   'pt_BR.lang.php' => 1,
                 ),
@@ -997,7 +956,6 @@ $existing_files = array (
                   'ko_KR.lang.php' => 1,
                   'pt_PT.lang.php' => 1,
                   'nb_NO.lang.php' => 1,
-                  'zh_TW.lang.php' => 1,
                   'da_DK.lang.php' => 1,
                   'pt_BR.lang.php' => 1,
                 ),
@@ -1011,42 +969,7 @@ $existing_files = array (
                 'google.php' => 1,
                 'language' => 
                 array (
-                  'lv_LV.lang.php' => 1,
-                  'ro_RO.lang.php' => 1,
-                  'he_IL.lang.php' => 1,
-                  'ru_RU.lang.php' => 1,
-                  'nl_NL.lang.php' => 1,
                   'en_us.lang.php' => 1,
-                  'lt_LT.lang.php' => 1,
-                  'et_EE.lang.php' => 1,
-                  'zh_CN.lang.php' => 1,
-                  'it_it.lang.php' => 1,
-                  'es_LA.lang.php' => 1,
-                  'sv_SE.lang.php' => 1,
-                  'tr_TR.lang.php' => 1,
-                  'en_UK.lang.php' => 1,
-                  'el_EL.lang.php' => 1,
-                  'bg_BG.lang.php' => 1,
-                  'uk_UA.lang.php' => 1,
-                  'fr_FR.lang.php' => 1,
-                  'sk_SK.lang.php' => 1,
-                  'fi_FI.lang.php' => 1,
-                  'sq_AL.lang.php' => 1,
-                  'ca_ES.lang.php' => 1,
-                  'pl_PL.lang.php' => 1,
-                  'de_DE.lang.php' => 1,
-                  'hu_HU.lang.php' => 1,
-                  'ar_SA.lang.php' => 1,
-                  'es_ES.lang.php' => 1,
-                  'cs_CZ.lang.php' => 1,
-                  'ja_JP.lang.php' => 1,
-                  'sr_RS.lang.php' => 1,
-                  'ko_KR.lang.php' => 1,
-                  'pt_PT.lang.php' => 1,
-                  'nb_NO.lang.php' => 1,
-                  'zh_TW.lang.php' => 1,
-                  'da_DK.lang.php' => 1,
-                  'pt_BR.lang.php' => 1,
                 ),
               ),
               'webex' => 
@@ -1088,7 +1011,6 @@ $existing_files = array (
                   'ko_KR.lang.php' => 1,
                   'pt_PT.lang.php' => 1,
                   'nb_NO.lang.php' => 1,
-                  'zh_TW.lang.php' => 1,
                   'da_DK.lang.php' => 1,
                   'pt_BR.lang.php' => 1,
                 ),
@@ -1132,7 +1054,6 @@ $existing_files = array (
                   'ko_KR.lang.php' => 1,
                   'pt_PT.lang.php' => 1,
                   'nb_NO.lang.php' => 1,
-                  'zh_TW.lang.php' => 1,
                   'da_DK.lang.php' => 1,
                   'pt_BR.lang.php' => 1,
                 ),
@@ -1150,7 +1071,6 @@ $existing_files = array (
                   'nl_NL.lang.php' => 1,
                   'en_us.lang.php' => 1,
                   'lt_LT.lang.php' => 1,
-                  'et_EE.lang.php' => 1,
                   'zh_CN.lang.php' => 1,
                   'it_it.lang.php' => 1,
                   'es_LA.lang.php' => 1,
@@ -1161,7 +1081,6 @@ $existing_files = array (
                   'bg_BG.lang.php' => 1,
                   'uk_UA.lang.php' => 1,
                   'fr_FR.lang.php' => 1,
-                  'sk_SK.lang.php' => 1,
                   'fi_FI.lang.php' => 1,
                   'sq_AL.lang.php' => 1,
                   'ca_ES.lang.php' => 1,
@@ -1176,7 +1095,6 @@ $existing_files = array (
                   'ko_KR.lang.php' => 1,
                   'pt_PT.lang.php' => 1,
                   'nb_NO.lang.php' => 1,
-                  'zh_TW.lang.php' => 1,
                   'da_DK.lang.php' => 1,
                   'pt_BR.lang.php' => 1,
                 ),
@@ -1194,7 +1112,6 @@ $existing_files = array (
                   'nl_NL.lang.php' => 1,
                   'en_us.lang.php' => 1,
                   'lt_LT.lang.php' => 1,
-                  'et_EE.lang.php' => 1,
                   'zh_CN.lang.php' => 1,
                   'it_it.lang.php' => 1,
                   'es_LA.lang.php' => 1,
@@ -1220,7 +1137,6 @@ $existing_files = array (
                   'ko_KR.lang.php' => 1,
                   'pt_PT.lang.php' => 1,
                   'nb_NO.lang.php' => 1,
-                  'zh_TW.lang.php' => 1,
                   'da_DK.lang.php' => 1,
                   'pt_BR.lang.php' => 1,
                 ),
@@ -1264,7 +1180,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -1339,10 +1254,6 @@ $existing_files = array (
             'subpanel-list' => 
             array (
               'subpanel-list.php' => 1,
-            ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
             ),
           ),
         ),
@@ -1422,7 +1333,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -1546,7 +1456,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -1584,7 +1493,6 @@ $existing_files = array (
           'SetForecastCommitStage.php' => 1,
           'SyncBestWorstWithLikely.php' => 1,
           'ResaveRLIForAccounts.php' => 1,
-          'SetCommitStageForClosedWon.php' => 1,
         ),
       ),
       'clients' => 
@@ -1690,26 +1598,13 @@ $existing_files = array (
             array (
               'list.php' => 1,
             ),
-            'subpanel-list-with-massupdate' => 
-            array (
-              'subpanel-list-with-massupdate.php' => 1,
-              'subpanel-list-with-massupdate.js' => 1,
-            ),
             'resolve-conflicts-list' => 
             array (
               'resolve-conflicts-list.php' => 1,
             ),
-            'create' => 
-            array (
-              'create.js' => 1,
-            ),
             'dupecheck-list' => 
             array (
               'dupecheck-list.php' => 1,
-            ),
-            'merge-duplicates' => 
-            array (
-              'merge-duplicates.js' => 1,
             ),
             'recordlist' => 
             array (
@@ -1736,6 +1631,10 @@ $existing_files = array (
             array (
               'selection-list.php' => 1,
             ),
+            'create-actions' => 
+            array (
+              'create-actions.js' => 1,
+            ),
             'massupdate' => 
             array (
               'invalid_link.hbs' => 1,
@@ -1745,14 +1644,6 @@ $existing_files = array (
             array (
               'subpanel-for-opportunities-create.js' => 1,
               'subpanel-for-opportunities-create.php' => 1,
-            ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
-            ),
-            'subpanel-for-accounts' => 
-            array (
-              'subpanel-for-accounts.php' => 1,
             ),
           ),
         ),
@@ -1776,8 +1667,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -1803,7 +1692,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -1951,10 +1839,6 @@ $existing_files = array (
             array (
               'selection-list.php' => 1,
             ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
-            ),
           ),
         ),
       ),
@@ -2019,7 +1903,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -2107,17 +1990,29 @@ $existing_files = array (
           ),
           'layouts' => 
           array (
+            'new-sidebar' => 
+            array (
+              'new-sidebar.php' => 1,
+            ),
             'subpanels' => 
             array (
               'subpanels.php' => 1,
             ),
-            'create' => 
-            array (
-              'create.php' => 1,
-            ),
             'record-dashboard' => 
             array (
               'record-dashboard.php' => 1,
+            ),
+            'list-sidebar' => 
+            array (
+              'list-sidebar.php' => 1,
+            ),
+            'create-actions' => 
+            array (
+              'create-actions.php' => 1,
+            ),
+            'sidebar' => 
+            array (
+              'sidebar.php' => 1,
             ),
             'list-dashboard' => 
             array (
@@ -2169,6 +2064,10 @@ $existing_files = array (
             'selection-list' => 
             array (
               'selection-list.php' => 1,
+            ),
+            'create-actions' => 
+            array (
+              'create-actions.js' => 1,
             ),
             'dnb-bal-params' => 
             array (
@@ -2255,7 +2154,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -2280,7 +2178,6 @@ $existing_files = array (
         'LogicHooks' => 
         array (
           'CheckRelatedName.php' => 1,
-          'CommitStageNotification.php' => 1,
           'fixDateModified.php' => 1,
         ),
       ),
@@ -2389,8 +2286,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -2416,7 +2311,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -2432,7 +2326,6 @@ $existing_files = array (
           'api' => 
           array (
             'PreviouslyUsedFiltersApi.php' => 1,
-            'FiltersFilterApi.php' => 1,
           ),
           'datas' => 
           array (
@@ -2471,8 +2364,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -2498,7 +2389,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -2587,7 +2477,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -2601,7 +2490,6 @@ $existing_files = array (
       ),
       'Activities' => 
       array (
-        'ActivitiesApiHelper.php' => 1,
         'vardefs.php' => 1,
         'Activity.php' => 1,
         'ActivityQueueManager.php' => 1,
@@ -2633,8 +2521,6 @@ $existing_files = array (
           'ru_RU.lang.php' => 1,
           'nl_NL.lang.php' => 1,
           'en_us.lang.php' => 1,
-          'lt_LT.lang.php' => 1,
-          'et_EE.lang.php' => 1,
           'zh_CN.lang.php' => 1,
           'it_it.lang.php' => 1,
           'es_LA.lang.php' => 1,
@@ -2660,7 +2546,6 @@ $existing_files = array (
           'ko_KR.lang.php' => 1,
           'pt_PT.lang.php' => 1,
           'nb_NO.lang.php' => 1,
-          'zh_TW.lang.php' => 1,
           'da_DK.lang.php' => 1,
           'pt_BR.lang.php' => 1,
         ),
@@ -2690,478 +2575,11 @@ $existing_files = array (
         ),
       ),
     ),
-    'KBArticles' => 
-    array (
-      'KBArticle.php' => 1,
-      'vardefs.php' => 1,
-      'clients' => 
-      array (
-        'base' => 
-        array (
-          'layouts' => 
-          array (
-            'subpanels' => 
-            array (
-              'subpanels.php' => 1,
-            ),
-          ),
-          'views' => 
-          array (
-            'record' => 
-            array (
-              'record.php' => 1,
-            ),
-          ),
-        ),
-      ),
-      'language' => 
-      array (
-        'lv_LV.lang.php' => 1,
-        'ro_RO.lang.php' => 1,
-        'he_IL.lang.php' => 1,
-        'ru_RU.lang.php' => 1,
-        'nl_NL.lang.php' => 1,
-        'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
-        'zh_CN.lang.php' => 1,
-        'it_it.lang.php' => 1,
-        'es_LA.lang.php' => 1,
-        'sv_SE.lang.php' => 1,
-        'tr_TR.lang.php' => 1,
-        'en_UK.lang.php' => 1,
-        'el_EL.lang.php' => 1,
-        'bg_BG.lang.php' => 1,
-        'uk_UA.lang.php' => 1,
-        'fr_FR.lang.php' => 1,
-        'sk_SK.lang.php' => 1,
-        'fi_FI.lang.php' => 1,
-        'sq_AL.lang.php' => 1,
-        'ca_ES.lang.php' => 1,
-        'pl_PL.lang.php' => 1,
-        'de_DE.lang.php' => 1,
-        'hu_HU.lang.php' => 1,
-        'ar_SA.lang.php' => 1,
-        'es_ES.lang.php' => 1,
-        'cs_CZ.lang.php' => 1,
-        'ja_JP.lang.php' => 1,
-        'sr_RS.lang.php' => 1,
-        'ko_KR.lang.php' => 1,
-        'pt_PT.lang.php' => 1,
-        'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
-        'pt_BR.lang.php' => 1,
-      ),
-    ),
     'KBContents' => 
     array (
-      'RevisionsLink.php' => 1,
       'KBContent.php' => 1,
       'vardefs.php' => 1,
-      'LocalizationsLink.php' => 1,
-      'KBContentsApiHelper.php' => 1,
-      'clients' => 
-      array (
-        'portal' => 
-        array (
-          'menus' => 
-          array (
-            'header' => 
-            array (
-              'header.php' => 1,
-            ),
-          ),
-          'layouts' => 
-          array (
-            'records' => 
-            array (
-              'records.php' => 1,
-            ),
-            'record' => 
-            array (
-              'record.php' => 1,
-            ),
-            'prefiltered' => 
-            array (
-              'prefiltered.php' => 1,
-            ),
-            'list-dashboard' => 
-            array (
-              'list-dashboard.php' => 1,
-            ),
-          ),
-          'fields' => 
-          array (
-            'usefulness' => 
-            array (
-              'usefulness.js' => 1,
-            ),
-            'attachments' => 
-            array (
-              'attachments.js' => 1,
-            ),
-            'enum-config' => 
-            array (
-              'enum-config.js' => 1,
-            ),
-            'nestedset' => 
-            array (
-              'detail.hbs' => 1,
-              'list.hbs' => 1,
-            ),
-          ),
-          'views' => 
-          array (
-            'list' => 
-            array (
-              'list.js' => 1,
-              'list.php' => 1,
-            ),
-            'preview' => 
-            array (
-              'preview.js' => 1,
-            ),
-            'dashlet-nestedset-list' => 
-            array (
-              'dashlet-nestedset-list.js' => 1,
-            ),
-            'record' => 
-            array (
-              'record.php' => 1,
-            ),
-            'list-dashboard-toolbar' => 
-            array (
-              'list-dashboard-toolbar.hbs' => 1,
-            ),
-          ),
-        ),
-        'base' => 
-        array (
-          'filters' => 
-          array (
-            'basic' => 
-            array (
-              'basic.php' => 1,
-            ),
-            'operators' => 
-            array (
-              'operators.php' => 1,
-            ),
-            'default' => 
-            array (
-              'default.php' => 1,
-            ),
-          ),
-          'api' => 
-          array (
-            'KBContentsApi.php' => 1,
-            'help' => 
-            array (
-              'kb_config_put_help.html' => 1,
-            ),
-            'KBContentsConfigApi.php' => 1,
-            'KBSDuplicateCheckApi.php' => 1,
-            'KBContentsUsefulnessApi.php' => 1,
-            'KBContentsFilterApi.php' => 1,
-          ),
-          'menus' => 
-          array (
-            'header' => 
-            array (
-              'header.php' => 1,
-            ),
-          ),
-          'layouts' => 
-          array (
-            'subpanels' => 
-            array (
-              'subpanels.php' => 1,
-              'subpanels.js' => 1,
-            ),
-            'create' => 
-            array (
-              'create.php' => 1,
-            ),
-            'config-drawer-content' => 
-            array (
-              'config-drawer-content.js' => 1,
-              'config-drawer-content.php' => 1,
-            ),
-            'record-dashboard' => 
-            array (
-              'record-dashboard.php' => 1,
-            ),
-            'config-drawer' => 
-            array (
-              'config-drawer.js' => 1,
-              'config-drawer.php' => 1,
-            ),
-            'records-search-tags' => 
-            array (
-              'records-search-tags.js' => 1,
-            ),
-            'prefiltered' => 
-            array (
-              'prefiltered.php' => 1,
-            ),
-            'list-dashboard' => 
-            array (
-              'list-dashboard.php' => 1,
-            ),
-          ),
-          'plugins' => 
-          array (
-            'KBContent.js' => 1,
-          ),
-          'fields' => 
-          array (
-            'usefulness' => 
-            array (
-              'detail.hbs' => 1,
-              'usefulness.js' => 1,
-              'edit.hbs' => 1,
-            ),
-            'attachments' => 
-            array (
-              'detail.hbs' => 1,
-              'attachments.js' => 1,
-              'selection-partial.hbs' => 1,
-              'edit.hbs' => 1,
-            ),
-            'sticky-rowaction' => 
-            array (
-              'sticky-rowaction.js' => 1,
-            ),
-            'status' => 
-            array (
-              'status.js' => 1,
-            ),
-            'enum-config' => 
-            array (
-              'enum-config.js' => 1,
-            ),
-            'nestedset' => 
-            array (
-              'detail.hbs' => 1,
-              'list.hbs' => 1,
-              'nestedset.js' => 1,
-              'edit.hbs' => 1,
-            ),
-            'languages' => 
-            array (
-              'languages.js' => 1,
-              'edit.hbs' => 1,
-            ),
-            'htmleditable_tinymce' => 
-            array (
-              'filter-rows-edit.hbs' => 1,
-              'create-article.hbs' => 1,
-              'detail.hbs' => 1,
-              'list.hbs' => 1,
-              'disabled.hbs' => 1,
-              'edit.hbs' => 1,
-              'default.hbs' => 1,
-              'htmleditable_tinymce.js' => 1,
-            ),
-            'rowaction' => 
-            array (
-              'rowaction.js' => 1,
-            ),
-            'template-button' => 
-            array (
-              'edit.hbs' => 1,
-            ),
-          ),
-          'views' => 
-          array (
-            'config-languages' => 
-            array (
-              'config-languages.js' => 1,
-              'config-languages.hbs' => 1,
-              'config-languages.php' => 1,
-            ),
-            'filter-rows' => 
-            array (
-              'filter-rows.js' => 1,
-            ),
-            'list' => 
-            array (
-              'list.js' => 1,
-              'list.php' => 1,
-            ),
-            'filter-module-dropdown' => 
-            array (
-              'filter-module-dropdown.js' => 1,
-            ),
-            'kbs-dashlet-most-useful' => 
-            array (
-              'kbs-dashlet-most-useful.hbs' => 1,
-              'kbs-dashlet-most-useful.php' => 1,
-              'kbs-dashlet-most-useful.js' => 1,
-            ),
-            'config-header-buttons' => 
-            array (
-              'config-header-buttons.js' => 1,
-            ),
-            'preview' => 
-            array (
-              'preview.js' => 1,
-            ),
-            'subpanel-for-localizations' => 
-            array (
-              'subpanel-for-localizations.js' => 1,
-              'subpanel-for-localizations.php' => 1,
-            ),
-            'create' => 
-            array (
-              'create.php' => 1,
-              'create.js' => 1,
-            ),
-            'kbs-dashlet-usefulness' => 
-            array (
-              'kbs-dashlet-usefulness.js' => 1,
-              'kbs-dashlet-usefulness.hbs' => 1,
-              'kbs-dashlet-usefulness.php' => 1,
-            ),
-            'panel-top-for-localizations' => 
-            array (
-              'panel-top-for-localizations.js' => 1,
-              'panel-top-for-localizations.hbs' => 1,
-              'panel-top-for-localizations.php' => 1,
-            ),
-            'recordlist' => 
-            array (
-              'recordlist.js' => 1,
-              'recordlist.php' => 1,
-            ),
-            'help-create' => 
-            array (
-              'help-create.hbs' => 1,
-              'help-create.js' => 1,
-            ),
-            'dashlet-nestedset-list' => 
-            array (
-              'dashlet-nestedset-list.hbs' => 1,
-              'dashlet-nestedset-list.php' => 1,
-              'dashlet-nestedset-list.js' => 1,
-            ),
-            'prefiltered-headerpane' => 
-            array (
-              'prefiltered-headerpane.php' => 1,
-              'prefiltered-headerpane.js' => 1,
-            ),
-            'subpanel-for-revisions' => 
-            array (
-              'subpanel-for-revisions.php' => 1,
-              'subpanel-for-revisions.js' => 1,
-            ),
-            'kbs-dashlet-localizations' => 
-            array (
-              'kbs-dashlet-localizations.php' => 1,
-              'kbs-dashlet-localizations.hbs' => 1,
-              'kbs-dashlet-localizations.js' => 1,
-            ),
-            'prefilteredlist' => 
-            array (
-              'prefilteredlist.php' => 1,
-              'prefilteredlist.js' => 1,
-            ),
-            'record' => 
-            array (
-              'record.js' => 1,
-              'record.hbs' => 1,
-              'record.php' => 1,
-            ),
-            'subpanel-list' => 
-            array (
-              'subpanel-list.php' => 1,
-              'subpanel-list.js' => 1,
-            ),
-            'panel-top-for-cases' => 
-            array (
-              'panel-top-for-cases.php' => 1,
-              'panel-top-for-cases.js' => 1,
-            ),
-            'selection-list' => 
-            array (
-              'selection-list.php' => 1,
-            ),
-            'related-documents' => 
-            array (
-              'related-documents.js' => 1,
-              'related-documents.php' => 1,
-              'related-documents.hbs' => 1,
-            ),
-            'panel-top-for-revisions' => 
-            array (
-              'panel-top-for-revisions.php' => 1,
-              'panel-top-for-revisions.js' => 1,
-              'panel-top-for-revisions.hbs' => 1,
-            ),
-            'massupdate' => 
-            array (
-              'massupdate.js' => 1,
-            ),
-            'module-menu' => 
-            array (
-              'module-menu.php' => 1,
-              'module-menu.js' => 1,
-            ),
-          ),
-        ),
-      ),
-      'UsefulnessLink.php' => 1,
-      'metadata' => 
-      array (
-        'listviewdefs.php' => 1,
-        'popupdefs.php' => 1,
-        'subpanels' => 
-        array (
-          'default.php' => 1,
-        ),
-        'studio.php' => 1,
-        'SearchFields.php' => 1,
-      ),
-      'language' => 
-      array (
-        'lv_LV.lang.php' => 1,
-        'ro_RO.lang.php' => 1,
-        'he_IL.lang.php' => 1,
-        'ru_RU.lang.php' => 1,
-        'nl_NL.lang.php' => 1,
-        'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
-        'zh_CN.lang.php' => 1,
-        'it_it.lang.php' => 1,
-        'es_LA.lang.php' => 1,
-        'sv_SE.lang.php' => 1,
-        'tr_TR.lang.php' => 1,
-        'en_UK.lang.php' => 1,
-        'el_EL.lang.php' => 1,
-        'bg_BG.lang.php' => 1,
-        'uk_UA.lang.php' => 1,
-        'fr_FR.lang.php' => 1,
-        'sk_SK.lang.php' => 1,
-        'fi_FI.lang.php' => 1,
-        'sq_AL.lang.php' => 1,
-        'ca_ES.lang.php' => 1,
-        'pl_PL.lang.php' => 1,
-        'de_DE.lang.php' => 1,
-        'hu_HU.lang.php' => 1,
-        'ar_SA.lang.php' => 1,
-        'es_ES.lang.php' => 1,
-        'cs_CZ.lang.php' => 1,
-        'ja_JP.lang.php' => 1,
-        'sr_RS.lang.php' => 1,
-        'ko_KR.lang.php' => 1,
-        'pt_PT.lang.php' => 1,
-        'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
-        'pt_BR.lang.php' => 1,
-      ),
+      'field_arrays.php' => 1,
     ),
     'Prospects' => 
     array (
@@ -3324,7 +2742,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -3417,7 +2834,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -3443,7 +2859,6 @@ $existing_files = array (
           'TemplateCurrencyId.php' => 1,
           'TemplateMultiEnum.php' => 1,
           'TemplateRadioEnum.php' => 1,
-          'TemplatePricingFormula.php' => 1,
           'TemplateCurrency.php' => 1,
           'TemplateFloat.php' => 1,
           'TemplateParentType.php' => 1,
@@ -3485,7 +2900,6 @@ $existing_files = array (
             'html.php' => 1,
             'enum.tpl' => 1,
             'text.tpl' => 1,
-            'coreCalculated.tpl' => 1,
             'varchar.tpl' => 1,
             'parent.tpl' => 1,
             'date.php' => 1,
@@ -3548,7 +2962,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -3572,28 +2985,87 @@ $existing_files = array (
     ),
     'KBDocuments' => 
     array (
+      'Forms.php' => 1,
+      'SearchHome.php' => 1,
       'upgrade' => 
       array (
         'scripts' => 
         array (
-          'pre' => 
-          array (
-            'KBPrepare.php' => 1,
-          ),
           'post' => 
           array (
-            '2_RenameACL.php' => 1,
-            '1_RemoveData.php' => 1,
-            '8_MigrateDashableListsWithKBDocuments.php' => 1,
-            '1_RenameCustom.php' => 1,
-            '7_ConvertKBOLDDocuments.php' => 1,
-            '2_RenamePMSE.php' => 1,
+            '8_KBDocumentsRemoveFiles.php' => 1,
           ),
         ),
       ),
+      'DeleteSelectedArticles.php' => 1,
+      'EditView.html' => 1,
+      'BrowseListView.php' => 1,
+      'index.php' => 1,
+      'modal.css' => 1,
+      'KBAdminView.html' => 1,
+      'UpdateKBViewsCount.php' => 1,
+      'KBDocumentsStudioModule.php' => 1,
+      'DetailView.php' => 1,
+      'KBListViewData.php' => 1,
+      'KBAdminView.php' => 1,
       'vardefs.php' => 1,
+      'SearchHome.html' => 1,
+      'Popup_picker.php' => 1,
+      'KBDocumentSoap.php' => 1,
+      'layout_defs.php' => 1,
+      'DetailView.html' => 1,
+      'KBDocumentViewsRatings.php' => 1,
+      'ListView.html' => 1,
+      'Popup_picker.html' => 1,
+      'Delete.php' => 1,
+      'ListView.php' => 1,
+      'Menu.php' => 1,
       'clients' => 
       array (
+        'portal' => 
+        array (
+          'menus' => 
+          array (
+            'header' => 
+            array (
+              'header.php' => 1,
+            ),
+          ),
+          'layouts' => 
+          array (
+            'records' => 
+            array (
+              'records.php' => 1,
+            ),
+          ),
+          'fields' => 
+          array (
+            'file' => 
+            array (
+              'file.js' => 1,
+            ),
+          ),
+          'views' => 
+          array (
+            'list' => 
+            array (
+              'list.php' => 1,
+            ),
+            'list-bottom' => 
+            array (
+              'list-bottom.php' => 1,
+            ),
+            'tutorial' => 
+            array (
+              'tutorial.php' => 1,
+            ),
+            'record' => 
+            array (
+              'record.js' => 1,
+              'record.php' => 1,
+            ),
+          ),
+        ),
         'base' => 
         array (
           'filters' => 
@@ -3607,76 +3079,6 @@ $existing_files = array (
               'default.php' => 1,
             ),
           ),
-          'views' => 
-          array (
-            'list' => 
-            array (
-              'list.php' => 1,
-            ),
-            'record' => 
-            array (
-              'record.php' => 1,
-            ),
-            'subpanel-list' => 
-            array (
-              'subpanel-list.php' => 1,
-            ),
-          ),
-        ),
-      ),
-      'KBDocument.php' => 1,
-      'language' => 
-      array (
-        'lv_LV.lang.php' => 1,
-        'ro_RO.lang.php' => 1,
-        'he_IL.lang.php' => 1,
-        'ru_RU.lang.php' => 1,
-        'nl_NL.lang.php' => 1,
-        'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
-        'zh_CN.lang.php' => 1,
-        'it_it.lang.php' => 1,
-        'es_LA.lang.php' => 1,
-        'sv_SE.lang.php' => 1,
-        'tr_TR.lang.php' => 1,
-        'en_UK.lang.php' => 1,
-        'el_EL.lang.php' => 1,
-        'bg_BG.lang.php' => 1,
-        'uk_UA.lang.php' => 1,
-        'fr_FR.lang.php' => 1,
-        'sk_SK.lang.php' => 1,
-        'fi_FI.lang.php' => 1,
-        'sq_AL.lang.php' => 1,
-        'ca_ES.lang.php' => 1,
-        'pl_PL.lang.php' => 1,
-        'de_DE.lang.php' => 1,
-        'hu_HU.lang.php' => 1,
-        'ar_SA.lang.php' => 1,
-        'es_ES.lang.php' => 1,
-        'cs_CZ.lang.php' => 1,
-        'ja_JP.lang.php' => 1,
-        'sr_RS.lang.php' => 1,
-        'ko_KR.lang.php' => 1,
-        'pt_PT.lang.php' => 1,
-        'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
-        'pt_BR.lang.php' => 1,
-      ),
-    ),
-    'EmbeddedFiles' => 
-    array (
-      'EmbeddedFile.php' => 1,
-      'vardefs.php' => 1,
-      'clients' => 
-      array (
-        'base' => 
-        array (
-          'api' => 
-          array (
-            'EmbeddedFileApi.php' => 1,
-          ),
           'menus' => 
           array (
             'header' => 
@@ -3684,12 +3086,11 @@ $existing_files = array (
               'header.php' => 1,
             ),
           ),
-          'fields' => 
+          'layouts' => 
           array (
-            'file' => 
+            'records' => 
             array (
-              'detail.hbs' => 1,
-              'list.hbs' => 1,
+              'records.php' => 1,
             ),
           ),
           'views' => 
@@ -3698,13 +3099,56 @@ $existing_files = array (
             array (
               'list.php' => 1,
             ),
-            'record' => 
+            'resolve-conflicts-list' => 
             array (
-              'record.php' => 1,
+              'resolve-conflicts-list.php' => 1,
+            ),
+            'dupecheck-list' => 
+            array (
+              'dupecheck-list.php' => 1,
+            ),
+            'subpanel-list' => 
+            array (
+              'subpanel-list.php' => 1,
+            ),
+            'selection-list' => 
+            array (
+              'selection-list.php' => 1,
             ),
           ),
         ),
       ),
+      'field_arrays.php' => 1,
+      'tpls' => 
+      array (
+        'basicTab.tpl' => 1,
+        'ListViewPagination.tpl' => 1,
+        'advancedTab.tpl' => 1,
+        'browseTab.tpl' => 1,
+      ),
+      'AdminSearchListView.tpl' => 1,
+      'KbdocAttachments.php' => 1,
+      'KBDocument.php' => 1,
+      'SearchListView.tpl' => 1,
+      'kbdocuments.js' => 1,
+      'Save.php' => 1,
+      'RemoveSavedAttachmentsAndTags.php' => 1,
+      'metadata' => 
+      array (
+        'KBSearchlistviewdefs.php' => 1,
+        'listviewdefs.php' => 1,
+        'subpanels' => 
+        array (
+          'default.php' => 1,
+        ),
+        'studio.php' => 1,
+        'SearchFields.php' => 1,
+        'additionalDetails.php' => 1,
+      ),
+      'TreeData.php' => 1,
+      'SearchUtils.php' => 1,
+      'EditView.php' => 1,
+      'Popup.php' => 1,
       'language' => 
       array (
         'lv_LV.lang.php' => 1,
@@ -3740,10 +3184,10 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
+      'KBDocumentsApiHelper.php' => 1,
     ),
     'Leads' => 
     array (
@@ -3840,6 +3284,10 @@ $existing_files = array (
           ),
           'layouts' => 
           array (
+            'convert-sidebar' => 
+            array (
+              'convert-sidebar.php' => 1,
+            ),
             'convert-main' => 
             array (
               'convert-main.php' => 1,
@@ -3893,16 +3341,6 @@ $existing_files = array (
             array (
               'resolve-conflicts-list.php' => 1,
             ),
-            'convert-options' => 
-            array (
-              'convert-options.hbs' => 1,
-              'convert-options.php' => 1,
-              'convert-options.js' => 1,
-            ),
-            'create' => 
-            array (
-              'create.js' => 1,
-            ),
             'dupecheck-list' => 
             array (
               'dupecheck-list.php' => 1,
@@ -3936,6 +3374,10 @@ $existing_files = array (
             'selection-list' => 
             array (
               'selection-list.php' => 1,
+            ),
+            'create-actions' => 
+            array (
+              'create-actions.js' => 1,
             ),
             'convert-panel-header' => 
             array (
@@ -4035,7 +3477,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -4150,7 +3591,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -4202,10 +3642,6 @@ $existing_files = array (
             'subpanel-list' => 
             array (
               'subpanel-list.php' => 1,
-            ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
             ),
           ),
         ),
@@ -4277,7 +3713,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -4295,17 +3730,6 @@ $existing_files = array (
       array (
         'base' => 
         array (
-          'filters' => 
-          array (
-            'basic' => 
-            array (
-              'basic.php' => 1,
-            ),
-            'default' => 
-            array (
-              'default.php' => 1,
-            ),
-          ),
           'menus' => 
           array (
             'header' => 
@@ -4318,13 +3742,6 @@ $existing_files = array (
             'records' => 
             array (
               'records.php' => 1,
-            ),
-          ),
-          'views' => 
-          array (
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
             ),
           ),
         ),
@@ -4372,7 +3789,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -4393,7 +3809,6 @@ $existing_files = array (
           'TeamNoticesDashlet.el_EL.lang.php' => 1,
           'TeamNoticesDashlet.meta.php' => 1,
           'TeamNoticesDashlet.nl_NL.lang.php' => 1,
-          'TeamNoticesDashlet.zh_TW.lang.php' => 1,
           'TeamNoticesDashlet.pt_PT.lang.php' => 1,
           'TeamNoticesDashlet.nb_NO.lang.php' => 1,
           'TeamNoticesDashlet.en_UK.lang.php' => 1,
@@ -4492,7 +3907,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -4607,7 +4021,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -4630,7 +4043,6 @@ $existing_files = array (
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
         'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -4656,7 +4068,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -4756,7 +4167,6 @@ $existing_files = array (
         'PMSEExceptions' => 
         array (
           'PMSEElementException.php' => 1,
-          'PMSEExpressionEvaluationException.php' => 1,
         ),
         'PMSEBusinessRuleConversor.php' => 1,
         'PMSEAccessManagement.php' => 1,
@@ -4899,10 +4309,6 @@ $existing_files = array (
             array (
               'logView.php' => 1,
             ),
-            'records' => 
-            array (
-              'records.php' => 1,
-            ),
             'pmse-case' => 
             array (
               'pmse-case.php' => 1,
@@ -4934,14 +4340,6 @@ $existing_files = array (
             array (
               'enum.js' => 1,
             ),
-            'event-status-pmse' => 
-            array (
-              'event-status-pmse.js' => 1,
-            ),
-            'pmse-link' => 
-            array (
-              'pmse-link.js' => 1,
-            ),
             'reassignbutton' => 
             array (
               'reassignbutton.js' => 1,
@@ -4949,6 +4347,10 @@ $existing_files = array (
             'executebutton' => 
             array (
               'executebutton.js' => 1,
+            ),
+            'relate' => 
+            array (
+              'relate.js' => 1,
             ),
             'cancelcasebutton' => 
             array (
@@ -5055,14 +4457,16 @@ $existing_files = array (
               'logView-pane.js' => 1,
               'logView-pane.hbs' => 1,
             ),
+            'pmse-case' => 
+            array (
+              'pmse-case.hbs' => 1,
+              'pmse-case.js' => 1,
+            ),
             'record' => 
             array (
               'record.js' => 1,
-              'headerpane.hbs' => 1,
               'record.hbs' => 1,
-              'businesscard.hbs' => 1,
               'record.php' => 1,
-              'tabspanels.hbs' => 1,
             ),
             'subpanel-list' => 
             array (
@@ -5141,8 +4545,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -5153,7 +4555,6 @@ $existing_files = array (
         'bg_BG.lang.php' => 1,
         'uk_UA.lang.php' => 1,
         'fr_FR.lang.php' => 1,
-        'sk_SK.lang.php' => 1,
         'fi_FI.lang.php' => 1,
         'sq_AL.lang.php' => 1,
         'ca_ES.lang.php' => 1,
@@ -5168,8 +4569,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
     ),
@@ -5291,7 +4690,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -5321,7 +4719,6 @@ $existing_files = array (
           'TrackerDashlet.ca_ES.lang.php' => 1,
           'TrackerDashlet.en_UK.lang.php' => 1,
           'TrackerDashlet.ja_JP.lang.php' => 1,
-          'TrackerDashlet.zh_TW.lang.php' => 1,
           'TrackerDashlet.bg_BG.lang.php' => 1,
           'TrackerDashlet.ko_KR.lang.php' => 1,
           'TrackerDashlet.tr_TR.lang.php' => 1,
@@ -5362,7 +4759,6 @@ $existing_files = array (
         'BlankMonitor.php' => 1,
         'Monitor.php' => 1,
         'tracker_monitor.php' => 1,
-        'tracker_sessions_monitor.php' => 1,
       ),
       'Metric.php' => 1,
       'tracker_tracker_queriesMetaData.php' => 1,
@@ -5413,7 +4809,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -5471,7 +4866,6 @@ $existing_files = array (
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
         'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -5497,7 +4891,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -5578,7 +4971,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -5743,7 +5135,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -5799,7 +5190,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -5855,7 +5245,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -5917,10 +5306,6 @@ $existing_files = array (
             array (
               'list-bottom.php' => 1,
             ),
-            'dupecheck-list' => 
-            array (
-              'dupecheck-list.php' => 1,
-            ),
             'tutorial' => 
             array (
               'tutorial.php' => 1,
@@ -5961,6 +5346,10 @@ $existing_files = array (
           ),
           'layouts' => 
           array (
+            'new-sidebar' => 
+            array (
+              'new-sidebar.php' => 1,
+            ),
             'subpanels' => 
             array (
               'subpanels.php' => 1,
@@ -5972,6 +5361,14 @@ $existing_files = array (
             'record-dashboard' => 
             array (
               'record-dashboard.php' => 1,
+            ),
+            'list-sidebar' => 
+            array (
+              'list-sidebar.php' => 1,
+            ),
+            'sidebar' => 
+            array (
+              'sidebar.php' => 1,
             ),
             'list-dashboard' => 
             array (
@@ -6004,10 +5401,6 @@ $existing_files = array (
             'selection-list' => 
             array (
               'selection-list.php' => 1,
-            ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
             ),
           ),
         ),
@@ -6076,7 +5469,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -6114,7 +5506,6 @@ $existing_files = array (
           'CampaignROIChartDashlet.hu_HU.lang.php' => 1,
           'CampaignROIChartDashlet.meta.php' => 1,
           'CampaignROIChartDashlet.ja_JP.lang.php' => 1,
-          'CampaignROIChartDashlet.zh_TW.lang.php' => 1,
           'CampaignROIChartDashlet.nb_NO.lang.php' => 1,
           'CampaignROIChartDashlet.pl_PL.lang.php' => 1,
           'CampaignROIChartDashlet.el_EL.lang.php' => 1,
@@ -6168,7 +5559,6 @@ $existing_files = array (
           'MyTeamModulesUsedChartDashlet.ru_RU.lang.php' => 1,
           'MyTeamModulesUsedChartDashlet.ja_JP.lang.php' => 1,
           'MyTeamModulesUsedChartDashlet.ko_KR.lang.php' => 1,
-          'MyTeamModulesUsedChartDashlet.zh_TW.lang.php' => 1,
           'MyTeamModulesUsedChartDashlet.ca_ES.lang.php' => 1,
           'MyTeamModulesUsedChartDashlet.sv_SE.lang.php' => 1,
           'MyTeamModulesUsedChartDashlet.bg_BG.lang.php' => 1,
@@ -6198,7 +5588,6 @@ $existing_files = array (
           'OpportunitiesByLeadSourceByOutcomeDashlet.zh_CN.lang.php' => 1,
           'OpportunitiesByLeadSourceByOutcomeDashlet.ru_RU.lang.php' => 1,
           'OpportunitiesByLeadSourceByOutcomeDashlet.meta.php' => 1,
-          'OpportunitiesByLeadSourceByOutcomeDashlet.et_EE.lang.php' => 1,
           'OpportunitiesByLeadSourceByOutcomeDashlet.en_UK.lang.php' => 1,
           'OpportunitiesByLeadSourceByOutcomeDashlet.sr_RS.lang.php' => 1,
           'OpportunitiesByLeadSourceByOutcomeDashlet.ro_RO.lang.php' => 1,
@@ -6221,7 +5610,6 @@ $existing_files = array (
           'OpportunitiesByLeadSourceByOutcomeDashlet.nb_NO.lang.php' => 1,
           'OpportunitiesByLeadSourceByOutcomeDashlet.da_DK.lang.php' => 1,
           'OpportunitiesByLeadSourceByOutcomeDashlet.es_ES.lang.php' => 1,
-          'OpportunitiesByLeadSourceByOutcomeDashlet.zh_TW.lang.php' => 1,
           'OpportunitiesByLeadSourceByOutcomeDashlet.data.php' => 1,
           'OpportunitiesByLeadSourceByOutcomeDashlet.it_it.lang.php' => 1,
           'OpportunitiesByLeadSourceByOutcomeDashlet.bg_BG.lang.php' => 1,
@@ -6268,7 +5656,6 @@ $existing_files = array (
           'MyModulesUsedChartDashlet.uk_UA.lang.php' => 1,
           'MyModulesUsedChartDashlet.ko_KR.lang.php' => 1,
           'MyModulesUsedChartDashlet.nl_NL.lang.php' => 1,
-          'MyModulesUsedChartDashlet.zh_TW.lang.php' => 1,
           'MyModulesUsedChartDashlet.en_UK.lang.php' => 1,
           'MyModulesUsedChartDashlet.sq_AL.lang.php' => 1,
           'MyModulesUsedChartDashlet.ro_RO.lang.php' => 1,
@@ -6279,7 +5666,6 @@ $existing_files = array (
           'MyOpportunitiesGaugeDashlet.lv_LV.lang.php' => 1,
           'MyOpportunitiesGaugeConfigure.tpl' => 1,
           'MyOpportunitiesGaugeDashlet.es_ES.lang.php' => 1,
-          'MyOpportunitiesGaugeDashlet.zh_TW.lang.php' => 1,
           'MyOpportunitiesGaugeDashlet.uk_UA.lang.php' => 1,
           'MyOpportunitiesGaugeDashlet.pt_PT.lang.php' => 1,
           'MyOpportunitiesGaugeDashlet.ko_KR.lang.php' => 1,
@@ -6331,7 +5717,6 @@ $existing_files = array (
           'OutcomeByMonthDashlet.de_DE.lang.php' => 1,
           'OutcomeByMonthDashlet.fi_FI.lang.php' => 1,
           'OutcomeByMonthDashlet.ca_ES.lang.php' => 1,
-          'OutcomeByMonthDashlet.zh_TW.lang.php' => 1,
           'OutcomeByMonthDashlet.fr_FR.lang.php' => 1,
           'OutcomeByMonthDashlet.tr_TR.lang.php' => 1,
           'OutcomeByMonthDashlet.ro_RO.lang.php' => 1,
@@ -6362,7 +5747,6 @@ $existing_files = array (
         'OpportunitiesByLeadSourceDashlet' => 
         array (
           'OpportunitiesByLeadSourceDashlet.ja_JP.lang.php' => 1,
-          'OpportunitiesByLeadSourceDashlet.et_EE.lang.php' => 1,
           'OpportunitiesByLeadSourceDashlet.pt_PT.lang.php' => 1,
           'OpportunitiesByLeadSourceDashlet.tr_TR.lang.php' => 1,
           'OpportunitiesByLeadSourceDashlet.sk_SK.lang.php' => 1,
@@ -6371,7 +5755,6 @@ $existing_files = array (
           'OpportunitiesByLeadSourceDashlet.ro_RO.lang.php' => 1,
           'OpportunitiesByLeadSourceDashlet.pl_PL.lang.php' => 1,
           'OpportunitiesByLeadSourceDashlet.en_UK.lang.php' => 1,
-          'OpportunitiesByLeadSourceDashlet.zh_TW.lang.php' => 1,
           'OpportunitiesByLeadSourceDashlet.pt_BR.lang.php' => 1,
           'OpportunitiesByLeadSourceDashlet.ar_SA.lang.php' => 1,
           'OpportunitiesByLeadSourceDashlet.zh_CN.lang.php' => 1,
@@ -6440,7 +5823,6 @@ $existing_files = array (
           'PipelineBySalesStageDashlet.it_it.lang.php' => 1,
           'PipelineBySalesStageDashlet.sq_AL.lang.php' => 1,
           'PipelineBySalesStageDashlet.meta.php' => 1,
-          'PipelineBySalesStageDashlet.zh_TW.lang.php' => 1,
           'PipelineBySalesStageDashlet.en_us.lang.php' => 1,
           'PipelineBySalesStageDashlet.en_UK.lang.php' => 1,
           'PipelineBySalesStageDashlet.fr_FR.lang.php' => 1,
@@ -6484,7 +5866,6 @@ $existing_files = array (
           'MyPipelineBySalesStageDashlet.sv_SE.lang.php' => 1,
           'MyPipelineBySalesStageDashlet.cs_CZ.lang.php' => 1,
           'MyPipelineBySalesStageDashlet.fr_FR.lang.php' => 1,
-          'MyPipelineBySalesStageDashlet.zh_TW.lang.php' => 1,
           'MyPipelineBySalesStageDashlet.et_EE.lang.php' => 1,
           'MyPipelineBySalesStageDashlet.ca_ES.lang.php' => 1,
           'MyPipelineBySalesStageDashlet.tr_TR.lang.php' => 1,
@@ -6526,7 +5907,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -6611,7 +5991,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -6631,29 +6010,11 @@ $existing_files = array (
       array (
         'base' => 
         array (
-          'filters' => 
-          array (
-            'basic' => 
-            array (
-              'basic.php' => 1,
-            ),
-            'default' => 
-            array (
-              'default.php' => 1,
-            ),
-          ),
           'menus' => 
           array (
             'header' => 
             array (
               'header.php' => 1,
-            ),
-          ),
-          'views' => 
-          array (
-            'selection-list' => 
-            array (
-              'selection-list.php' => 1,
             ),
           ),
         ),
@@ -6696,7 +6057,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -6773,12 +6133,10 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
     ),
-    'CollectionDictionary.php' => 1,
     'OAuthTokens' => 
     array (
       'tpl' => 
@@ -6811,7 +6169,6 @@ $existing_files = array (
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
         'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -6837,7 +6194,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -6889,7 +6245,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -6967,10 +6322,6 @@ $existing_files = array (
       array (
         'base' => 
         array (
-          'api' => 
-          array (
-            'AdministrationApi.php' => 1,
-          ),
           'menus' => 
           array (
             'sweetspot' => 
@@ -6991,7 +6342,6 @@ $existing_files = array (
       'RepairJSFile.php' => 1,
       'templates' => 
       array (
-        'UnifiedSearchSettings.tpl' => 1,
         'QuickRepairAndRebuild.tpl' => 1,
         'OfflineClientSearchForm.tpl' => 1,
         'ViewOfflineClients.html' => 1,
@@ -7034,7 +6384,6 @@ $existing_files = array (
         'view.maproles.php' => 1,
         'view.repair.php' => 1,
         'view.backups.php' => 1,
-        'view.unifiedsearchsettings.php' => 1,
         'view.enablewirelessmodules.php' => 1,
         'view.configureshortcutbar.php' => 1,
         'view.languages.php' => 1,
@@ -7076,7 +6425,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -7115,7 +6463,6 @@ $existing_files = array (
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
         'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -7141,7 +6488,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -7381,10 +6727,6 @@ $existing_files = array (
             array (
               'edit.php' => 1,
             ),
-            'records' => 
-            array (
-              'records.php' => 1,
-            ),
             'project-import' => 
             array (
               'project-import.php' => 1,
@@ -7392,13 +6734,17 @@ $existing_files = array (
           ),
           'fields' => 
           array (
+            'enabled' => 
+            array (
+              'enabled.js' => 1,
+            ),
             'process-status' => 
             array (
               'process-status.js' => 1,
             ),
-            'enabled-disabled' => 
+            'disabled' => 
             array (
-              'enabled-disabled.js' => 1,
+              'disabled.js' => 1,
             ),
           ),
           'views' => 
@@ -7411,11 +6757,6 @@ $existing_files = array (
             array (
               'designer.js' => 1,
               'designer.hbs' => 1,
-            ),
-            'create' => 
-            array (
-              'create.php' => 1,
-              'create.js' => 1,
             ),
             'recordlist' => 
             array (
@@ -7430,6 +6771,11 @@ $existing_files = array (
             'subpanel-list' => 
             array (
               'subpanel-list.php' => 1,
+            ),
+            'create-actions' => 
+            array (
+              'create-actions.js' => 1,
+              'create-actions.php' => 1,
             ),
             'dashlet-processes' => 
             array (
@@ -7581,8 +6927,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -7593,7 +6937,6 @@ $existing_files = array (
         'bg_BG.lang.php' => 1,
         'uk_UA.lang.php' => 1,
         'fr_FR.lang.php' => 1,
-        'sk_SK.lang.php' => 1,
         'fi_FI.lang.php' => 1,
         'sq_AL.lang.php' => 1,
         'ca_ES.lang.php' => 1,
@@ -7608,8 +6951,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
       'pmse_BpmnBound' => 
@@ -7694,7 +7035,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -7750,7 +7090,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -7869,11 +7208,6 @@ $existing_files = array (
             array (
               'dupecheck-list.php' => 1,
             ),
-            'panel-top-for-accounts' => 
-            array (
-              'panel-top-for-accounts.js' => 1,
-              'panel-top-for-accounts.php' => 1,
-            ),
             'subpanel-list' => 
             array (
               'subpanel-list.php' => 1,
@@ -7881,10 +7215,6 @@ $existing_files = array (
             'selection-list' => 
             array (
               'selection-list.php' => 1,
-            ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
             ),
             'subpanel-for-accounts' => 
             array (
@@ -7963,12 +7293,17 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
       'SubPanelViewProjects.html' => 1,
       'EditView.js' => 1,
+    ),
+    'KBDocumentKBTags' => 
+    array (
+      'vardefs.php' => 1,
+      'KBDocumentKBTag.php' => 1,
+      'field_arrays.php' => 1,
     ),
     'ProductCategories' => 
     array (
@@ -8030,10 +7365,6 @@ $existing_files = array (
             array (
               'record.php' => 1,
             ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
-            ),
           ),
         ),
       ),
@@ -8078,7 +7409,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8144,7 +7474,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8284,7 +7613,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8383,7 +7711,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8436,7 +7763,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8498,7 +7824,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8555,7 +7880,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8621,7 +7945,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8834,7 +8157,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8900,7 +8222,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8982,7 +8303,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -8998,6 +8318,35 @@ $existing_files = array (
       'index.html' => 1,
       'field_arrays.php' => 1,
       'CheckVersions.php' => 1,
+      'language' => 
+      array (
+        'lv_LV.lang.php' => 1,
+        'ro_RO.lang.php' => 1,
+        'he_IL.lang.php' => 1,
+        'nl_NL.lang.php' => 1,
+        'en_us.lang.php' => 1,
+        'lt_LT.lang.php' => 1,
+        'zh_CN.lang.php' => 1,
+        'es_LA.lang.php' => 1,
+        'sv_SE.lang.php' => 1,
+        'tr_TR.lang.php' => 1,
+        'en_UK.lang.php' => 1,
+        'bg_BG.lang.php' => 1,
+        'fr_FR.lang.php' => 1,
+        'sk_SK.lang.php' => 1,
+        'sq_AL.lang.php' => 1,
+        'ca_ES.lang.php' => 1,
+        'de_DE.lang.php' => 1,
+        'hu_HU.lang.php' => 1,
+        'ar_SA.lang.php' => 1,
+        'es_ES.lang.php' => 1,
+        'cs_CZ.lang.php' => 1,
+        'ja_JP.lang.php' => 1,
+        'sr_RS.lang.php' => 1,
+        'pt_PT.lang.php' => 1,
+        'nb_NO.lang.php' => 1,
+        'pt_BR.lang.php' => 1,
+      ),
     ),
     'pmse_Emails_Templates' => 
     array (
@@ -9090,14 +8439,6 @@ $existing_files = array (
             array (
               'edit.php' => 1,
             ),
-            'records' => 
-            array (
-              'records.php' => 1,
-            ),
-            'compose-sugarlinks' => 
-            array (
-              'compose-sugarlinks.php' => 1,
-            ),
             'compose-varbook-list' => 
             array (
               'compose-addressbook-list.php' => 1,
@@ -9149,11 +8490,6 @@ $existing_files = array (
             array (
               'list.php' => 1,
             ),
-            'create' => 
-            array (
-              'create.php' => 1,
-              'create.js' => 1,
-            ),
             'recordlist' => 
             array (
               'recordlist.js' => 1,
@@ -9191,20 +8527,15 @@ $existing_files = array (
               'compose-varbook-list.php' => 1,
               'compose-varbook-list.js' => 1,
             ),
-            'compose-sugarlinks-list' => 
+            'create-actions' => 
             array (
-              'compose-sugarlinks-list.js' => 1,
-              'compose-sugarlinks-list.php' => 1,
+              'create-actions.js' => 1,
+              'create-actions.php' => 1,
             ),
             'emailtemplates' => 
             array (
               'emailtemplates.hbs' => 1,
               'emailtemplates.js' => 1,
-            ),
-            'compose-sugarlinks-headerpane' => 
-            array (
-              'compose-sugarlinks-headerpane.php' => 1,
-              'compose-sugarlinks-headerpane.js' => 1,
             ),
             'massupdate' => 
             array (
@@ -9247,8 +8578,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -9259,7 +8588,6 @@ $existing_files = array (
         'bg_BG.lang.php' => 1,
         'uk_UA.lang.php' => 1,
         'fr_FR.lang.php' => 1,
-        'sk_SK.lang.php' => 1,
         'fi_FI.lang.php' => 1,
         'sq_AL.lang.php' => 1,
         'ca_ES.lang.php' => 1,
@@ -9274,8 +8602,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
     ),
@@ -9368,7 +8694,6 @@ $existing_files = array (
         'pl_PL.Portal.html' => 1,
         'nb_NO.lang.php' => 1,
         'he_IL.Portal.html' => 1,
-        'zh_TW.lang.php' => 1,
         'ca_ES.Portal.html' => 1,
         'da_DK.lang.php' => 1,
         'zh_CN.Portal.html' => 1,
@@ -9434,7 +8759,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -9518,7 +8842,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -9660,7 +8983,6 @@ $existing_files = array (
             ),
             'create' => 
             array (
-              'create.php' => 1,
               'create.js' => 1,
             ),
             'dupecheck-list' => 
@@ -9684,13 +9006,10 @@ $existing_files = array (
             array (
               'selection-list.php' => 1,
             ),
-            'create-nodupecheck' => 
+            'create-actions' => 
             array (
-              'create-nodupecheck.js' => 1,
-            ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
+              'create-actions.js' => 1,
+              'create-actions.php' => 1,
             ),
           ),
         ),
@@ -9770,7 +9089,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -9843,9 +9161,7 @@ $existing_files = array (
         array (
           'SetForecastCommitStage.php' => 1,
           'SyncBestWorstWithLikely.php' => 1,
-          'FixWorksheetAccountAssignment.php' => 1,
           'OpportunitySyncWorksheet.php' => 1,
-          'SetCommitStageForClosedWon.php' => 1,
           'DeleteOpportunity.php' => 1,
           'OpportuntiySalesStatus.php' => 1,
         ),
@@ -9914,10 +9230,6 @@ $existing_files = array (
             array (
               'subpanels.php' => 1,
             ),
-            'create' => 
-            array (
-              'create.php' => 1,
-            ),
             'config-drawer-content' => 
             array (
               'config-drawer-content.js' => 1,
@@ -9936,6 +9248,10 @@ $existing_files = array (
               'config-drawer.js' => 1,
               'config-drawer.php' => 1,
             ),
+            'create-actions' => 
+            array (
+              'create-actions.php' => 1,
+            ),
             'list-dashboard' => 
             array (
               'list-dashboard.php' => 1,
@@ -9943,9 +9259,9 @@ $existing_files = array (
           ),
           'fields' => 
           array (
-            'editablelistbutton' => 
+            'quickcreate' => 
             array (
-              'editablelistbutton.js' => 1,
+              'quickcreate.js' => 1,
             ),
             'rowaction' => 
             array (
@@ -9961,10 +9277,6 @@ $existing_files = array (
             'list' => 
             array (
               'list.php' => 1,
-            ),
-            'subpanel-for-contacts' => 
-            array (
-              'subpanel-for-contacts.php' => 1,
             ),
             'resolve-conflicts-list' => 
             array (
@@ -9982,21 +9294,12 @@ $existing_files = array (
               'config-opps-view-by.hbs' => 1,
               'config-opps-view-by.js' => 1,
             ),
-            'create' => 
-            array (
-              'create.js' => 1,
-            ),
             'dupecheck-list' => 
             array (
               'dupecheck-list.php' => 1,
             ),
-            'merge-duplicates' => 
-            array (
-              'merge-duplicates.js' => 1,
-            ),
             'recordlist' => 
             array (
-              'recordlist.js' => 1,
               'recordlist.php' => 1,
             ),
             'panel-top' => 
@@ -10017,13 +9320,13 @@ $existing_files = array (
             array (
               'selection-list.php' => 1,
             ),
+            'create-actions' => 
+            array (
+              'create-actions.js' => 1,
+            ),
             'massupdate' => 
             array (
               'massupdate.js' => 1,
-            ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
             ),
             'subpanel-for-accounts' => 
             array (
@@ -10103,7 +9406,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -10304,7 +9606,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -10376,7 +9677,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -10438,8 +9738,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -10465,7 +9763,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -10528,10 +9825,6 @@ $existing_files = array (
             'selection-list' => 
             array (
               'selection-list.php' => 1,
-            ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
             ),
             'subpanel-for-accounts' => 
             array (
@@ -10601,7 +9894,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -10707,7 +9999,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -10831,7 +10122,6 @@ $existing_files = array (
             ),
             'create' => 
             array (
-              'create.php' => 1,
               'create.js' => 1,
             ),
             'dupecheck-list' => 
@@ -10855,13 +10145,10 @@ $existing_files = array (
             array (
               'selection-list.php' => 1,
             ),
-            'create-nodupecheck' => 
+            'create-actions' => 
             array (
-              'create-nodupecheck.js' => 1,
-            ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
+              'create-actions.js' => 1,
+              'create-actions.php' => 1,
             ),
           ),
         ),
@@ -10936,7 +10223,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -11036,8 +10322,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -11063,7 +10347,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -11072,7 +10355,6 @@ $existing_files = array (
     array (
       'Forms.php' => 1,
       'install_actions.php' => 1,
-      'AclCache.php' => 1,
       'ACLController.php' => 1,
       'vardefs.php' => 1,
       'List.php' => 1,
@@ -11133,7 +10415,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -11381,7 +10662,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -11396,10 +10676,6 @@ $existing_files = array (
       array (
         'base' => 
         array (
-          'api' => 
-          array (
-            'NotificationsFilterApi.php' => 1,
-          ),
           'fields' => 
           array (
             'severity' => 
@@ -11501,7 +10777,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -11589,10 +10864,6 @@ $existing_files = array (
             array (
               'list-bottom.php' => 1,
             ),
-            'dupecheck-list' => 
-            array (
-              'dupecheck-list.php' => 1,
-            ),
             'tutorial' => 
             array (
               'tutorial.php' => 1,
@@ -11633,6 +10904,10 @@ $existing_files = array (
           ),
           'layouts' => 
           array (
+            'new-sidebar' => 
+            array (
+              'new-sidebar.php' => 1,
+            ),
             'subpanels' => 
             array (
               'subpanels.php' => 1,
@@ -11645,9 +10920,24 @@ $existing_files = array (
             array (
               'record-dashboard.php' => 1,
             ),
+            'list-sidebar' => 
+            array (
+              'list-sidebar.php' => 1,
+            ),
+            'sidebar' => 
+            array (
+              'sidebar.php' => 1,
+            ),
             'list-dashboard' => 
             array (
               'list-dashboard.php' => 1,
+            ),
+          ),
+          'fields' => 
+          array (
+            'create-article-action' => 
+            array (
+              'create-article-action.js' => 1,
             ),
           ),
           'views' => 
@@ -11676,10 +10966,6 @@ $existing_files = array (
             'selection-list' => 
             array (
               'selection-list.php' => 1,
-            ),
-            'search-list' => 
-            array (
-              'search-list.php' => 1,
             ),
             'subpanel-for-accounts' => 
             array (
@@ -11752,7 +11038,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -11770,7 +11055,6 @@ $existing_files = array (
         'MetaDataFileInterface.php' => 1,
         'parser.searchfields.php' => 1,
         'constants.php' => 1,
-        'parser.portallupgrade.php' => 1,
         'MetaDataContext' => 
         array (
           'MetaDataContextUser.php' => 1,
@@ -11811,8 +11095,6 @@ $existing_files = array (
           'ListLayoutMetaDataParser.php' => 1,
           'SubpanelMetaDataParser.php' => 1,
           'UndeployedSidecarSubpanelImplementation.php' => 1,
-          'SidecarPortalListLayoutMetaDataParser.php' => 1,
-          'DeployedSearchMetaDataImplementation.php' => 1,
           'MetaDataImplementationInterface.php' => 1,
           'DeployedMetaDataImplementation.php' => 1,
           'AbstractMetaDataParser.php' => 1,
@@ -11863,7 +11145,6 @@ $existing_files = array (
         'studio2RowDD.js' => 1,
         'studio2ListDD.js' => 1,
         'studio2FieldDD.js' => 1,
-        'visibilityEditor.js' => 1,
         'wizardTemplate.js' => 1,
         'SimpleList.js' => 1,
         'studio2.js' => 1,
@@ -11921,7 +11202,6 @@ $existing_files = array (
         'ListEditor.css' => 1,
         'exportcustomizations.tpl' => 1,
         'studioRelationship.tpl' => 1,
-        'visibilityeditor.tpl' => 1,
         'clients' => 
         array (
           'base' => 
@@ -11936,7 +11216,6 @@ $existing_files = array (
           ),
         ),
         'portalstyle.tpl' => 1,
-        'moduleDependencies.tpl' => 1,
         'layoutView.tpl' => 1,
       ),
       'MB' => 
@@ -12028,7 +11307,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -12069,8 +11347,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -12096,7 +11372,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -12152,7 +11427,6 @@ $existing_files = array (
           'InvadersDashlet.hu_HU.lang.php' => 1,
           'InvadersDashlet.pl_PL.lang.php' => 1,
           'InvadersDashlet.pt_PT.lang.php' => 1,
-          'InvadersDashlet.zh_TW.lang.php' => 1,
           'InvadersDashlet.zh_CN.lang.php' => 1,
           'InvadersDashlet.fi_FI.lang.php' => 1,
           'InvadersDashlet.meta.php' => 1,
@@ -12204,7 +11478,6 @@ $existing_files = array (
           'RSSDashlet.fr_FR.lang.php' => 1,
           'RSSDashlet.et_EE.lang.php' => 1,
           'RSSDashlet.ko_KR.lang.php' => 1,
-          'RSSDashlet.zh_TW.lang.php' => 1,
           'RSSDashlet.uk_UA.lang.php' => 1,
           'RSSDashlet.pt_BR.lang.php' => 1,
           'RSSDashlet.cs_CZ.lang.php' => 1,
@@ -12252,7 +11525,6 @@ $existing_files = array (
           'JotPadDashlet.uk_UA.lang.php' => 1,
           'JotPadDashletOptions.tpl' => 1,
           'JotPadDashlet.ar_SA.lang.php' => 1,
-          'JotPadDashlet.zh_TW.lang.php' => 1,
           'JotPadDashlet.it_it.lang.php' => 1,
           'JotPadDashlet.hu_HU.lang.php' => 1,
           'JotPadDashlet.fr_FR.lang.php' => 1,
@@ -12314,7 +11586,6 @@ $existing_files = array (
           'ChartsDashlet.cs_CZ.lang.php' => 1,
           'ChartsDashlet.el_EL.lang.php' => 1,
           'ChartsDashlet.lt_LT.lang.php' => 1,
-          'ChartsDashlet.zh_TW.lang.php' => 1,
           'ChartsDashlet.fr_FR.lang.php' => 1,
           'ChartsDashlet.sr_RS.lang.php' => 1,
           'ChartsDashlet.de_DE.lang.php' => 1,
@@ -12365,10 +11636,6 @@ $existing_files = array (
             array (
               'list.php' => 1,
             ),
-            'search-dashboard' => 
-            array (
-              'search-dashboard.php' => 1,
-            ),
             'record-dashboard' => 
             array (
               'record-dashboard.php' => 1,
@@ -12392,11 +11659,6 @@ $existing_files = array (
             array (
               'layoutbutton.js' => 1,
               'edit.hbs' => 1,
-            ),
-            'sugar-dashlet-label' => 
-            array (
-              'detail.hbs' => 1,
-              'sugar-dashlet-label.js' => 1,
             ),
             'dashboardtitle' => 
             array (
@@ -12423,11 +11685,6 @@ $existing_files = array (
               'dashlet-config.hbs' => 1,
               'webpage.hbs' => 1,
               'webpage.php' => 1,
-            ),
-            'search-help-dashboard-headerpane' => 
-            array (
-              'search-help-dashboard-headerpane.php' => 1,
-              'search-help-dashboard-headerpane.hbs' => 1,
             ),
             'top-activity-user' => 
             array (
@@ -12459,12 +11716,6 @@ $existing_files = array (
               'link.hbs' => 1,
               'about-language-packs.php' => 1,
             ),
-            'search-dashboard-headerpane' => 
-            array (
-              'search-dashboard-headerpane.js' => 1,
-              'search-dashboard-headerpane.php' => 1,
-              'search-dashboard-headerpane.hbs' => 1,
-            ),
             'about-headerpane' => 
             array (
               'about-headerpane.js' => 1,
@@ -12478,11 +11729,6 @@ $existing_files = array (
             'about-copyright' => 
             array (
               'about-copyright.hbs' => 1,
-            ),
-            'search-facet' => 
-            array (
-              'search-facet.js' => 1,
-              'search-facet.hbs' => 1,
             ),
             'about-source-code' => 
             array (
@@ -12555,10 +11801,15 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
+    ),
+    'KBDocumentRevisions' => 
+    array (
+      'vardefs.php' => 1,
+      'KBDocumentRevision.php' => 1,
+      'field_arrays.php' => 1,
     ),
     'OptimisticLock' => 
     array (
@@ -12600,83 +11851,27 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
     ),
-    'Categories' => 
+    'KBTags' => 
     array (
-      'exception' => 
-      array (
-        'CategoriesRuntimeException.php' => 1,
-        'CategoriesLogicException.php' => 1,
-        'CategoriesExceptionInterface.php' => 1,
-      ),
-      'NestedBeanInterface.php' => 1,
-      'Category.php' => 1,
+      'DeleteSelectedTags.php' => 1,
+      'RenameTagsAdmin.php' => 1,
       'vardefs.php' => 1,
-      'clients' => 
-      array (
-        'base' => 
-        array (
-          'api' => 
-          array (
-            'TreeApi.php' => 1,
-            'help' => 
-            array (
-              'tree_put_movelast_help.html' => 1,
-              'tree_post_append_help.html' => 1,
-              'tree_get_next_help.html' => 1,
-              'tree_put_movefirst_help.html' => 1,
-              'tree_put_movebefore_help.html' => 1,
-              'tree_get_prev_help.html' => 1,
-              'tree_post_insertafter_help.html' => 1,
-              'tree_get_children_help.html' => 1,
-              'tree_get_parent_help.html' => 1,
-              'tree_post_insertbefore_help.html' => 1,
-              'tree_get_tree_help.html' => 1,
-              'tree_put_moveafter_help.html' => 1,
-              'tree_post_prepend_help.html' => 1,
-              'tree_get_path_help.html' => 1,
-            ),
-          ),
-          'menus' => 
-          array (
-            'header' => 
-            array (
-              'header.php' => 1,
-            ),
-          ),
-          'layouts' => 
-          array (
-            'nested-set-list' => 
-            array (
-              'nested-set-list.php' => 1,
-              'nested-set-list.js' => 1,
-            ),
-          ),
-          'plugins' => 
-          array (
-            'NestedSetCollection.js' => 1,
-            'JSTree.js' => 1,
-          ),
-          'views' => 
-          array (
-            'nested-set-headerpane' => 
-            array (
-              'nested-set-headerpane.php' => 1,
-              'nested-set-headerpane.js' => 1,
-            ),
-            'tree' => 
-            array (
-              'tree.php' => 1,
-              'tree.js' => 1,
-              'tree.hbs' => 1,
-            ),
-          ),
-        ),
-      ),
+      'KBTree.php' => 1,
+      'Popup_picker.php' => 1,
+      'ApplyTagsToArticlesModal.php' => 1,
+      'SaveTagsModal.php' => 1,
+      'Popup_picker.html' => 1,
+      'MoveArticlesToTagsModal.php' => 1,
+      'field_arrays.php' => 1,
+      'KBTag.php' => 1,
+      'SearchTags.php' => 1,
+      'SelectCreateApplyAndMoveTags.php' => 1,
+      'TreeData.php' => 1,
+      'Popup.php' => 1,
       'language' => 
       array (
         'lv_LV.lang.php' => 1,
@@ -12712,11 +11907,9 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
-      'CategoriesApiHelper.php' => 1,
     ),
     'Users' => 
     array (
@@ -12973,7 +12166,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -12981,86 +12173,6 @@ $existing_files = array (
       'login.css' => 1,
       'reassignUserRecords.php' => 1,
       'GeneratePassword.php' => 1,
-    ),
-    'KBContentTemplates' => 
-    array (
-      'KBContentTemplate.php' => 1,
-      'vardefs.php' => 1,
-      'clients' => 
-      array (
-        'base' => 
-        array (
-          'menus' => 
-          array (
-            'header' => 
-            array (
-              'header.php' => 1,
-            ),
-          ),
-          'fields' => 
-          array (
-            'htmleditable_tinymce' => 
-            array (
-              'detail.hbs' => 1,
-              'htmleditable_tinymce.js' => 1,
-            ),
-          ),
-          'views' => 
-          array (
-            'list' => 
-            array (
-              'list.php' => 1,
-            ),
-            'record' => 
-            array (
-              'record.php' => 1,
-            ),
-            'selection-list' => 
-            array (
-              'selection-list.php' => 1,
-            ),
-          ),
-        ),
-      ),
-      'language' => 
-      array (
-        'lv_LV.lang.php' => 1,
-        'ro_RO.lang.php' => 1,
-        'he_IL.lang.php' => 1,
-        'ru_RU.lang.php' => 1,
-        'nl_NL.lang.php' => 1,
-        'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
-        'zh_CN.lang.php' => 1,
-        'it_it.lang.php' => 1,
-        'es_LA.lang.php' => 1,
-        'sv_SE.lang.php' => 1,
-        'tr_TR.lang.php' => 1,
-        'en_UK.lang.php' => 1,
-        'el_EL.lang.php' => 1,
-        'bg_BG.lang.php' => 1,
-        'uk_UA.lang.php' => 1,
-        'fr_FR.lang.php' => 1,
-        'sk_SK.lang.php' => 1,
-        'fi_FI.lang.php' => 1,
-        'sq_AL.lang.php' => 1,
-        'ca_ES.lang.php' => 1,
-        'pl_PL.lang.php' => 1,
-        'de_DE.lang.php' => 1,
-        'hu_HU.lang.php' => 1,
-        'ar_SA.lang.php' => 1,
-        'es_ES.lang.php' => 1,
-        'cs_CZ.lang.php' => 1,
-        'ja_JP.lang.php' => 1,
-        'sr_RS.lang.php' => 1,
-        'ko_KR.lang.php' => 1,
-        'pt_PT.lang.php' => 1,
-        'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
-        'pt_BR.lang.php' => 1,
-      ),
     ),
     'SchedulersJobs' => 
     array (
@@ -13109,7 +12221,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -13153,7 +12264,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -13283,9 +12393,9 @@ $existing_files = array (
             array (
               'selection-list.php' => 1,
             ),
-            'search-list' => 
+            'create-actions' => 
             array (
-              'search-list.php' => 1,
+              'create-actions.js' => 1,
             ),
             'subpanel-for-accounts' => 
             array (
@@ -13353,7 +12463,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -13418,7 +12527,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -13532,7 +12640,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -13621,7 +12728,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -13664,7 +12770,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -13736,7 +12841,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -13768,25 +12872,19 @@ $existing_files = array (
       ),
       'language' => 
       array (
-        'lv_LV.lang.php' => 1,
         'ro_RO.lang.php' => 1,
         'he_IL.lang.php' => 1,
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
-        'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
         'sv_SE.lang.php' => 1,
         'tr_TR.lang.php' => 1,
-        'en_UK.lang.php' => 1,
         'el_EL.lang.php' => 1,
         'bg_BG.lang.php' => 1,
         'uk_UA.lang.php' => 1,
         'fr_FR.lang.php' => 1,
-        'sk_SK.lang.php' => 1,
         'fi_FI.lang.php' => 1,
         'sq_AL.lang.php' => 1,
         'ca_ES.lang.php' => 1,
@@ -13795,132 +12893,10 @@ $existing_files = array (
         'hu_HU.lang.php' => 1,
         'ar_SA.lang.php' => 1,
         'es_ES.lang.php' => 1,
-        'cs_CZ.lang.php' => 1,
-        'ja_JP.lang.php' => 1,
         'sr_RS.lang.php' => 1,
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
-        'pt_BR.lang.php' => 1,
-      ),
-    ),
-    'Tags' => 
-    array (
-      'Tag.php' => 1,
-      'TagsRelatedModulesUtilities.php' => 1,
-      'vardefs.php' => 1,
-      'clients' => 
-      array (
-        'base' => 
-        array (
-          'filters' => 
-          array (
-            'default' => 
-            array (
-              'default.php' => 1,
-            ),
-          ),
-          'api' => 
-          array (
-            'TagsApi.php' => 1,
-          ),
-          'menus' => 
-          array (
-            'header' => 
-            array (
-              'header.php' => 1,
-            ),
-          ),
-          'layouts' => 
-          array (
-            'subpanels' => 
-            array (
-              'subpanels.php' => 1,
-              'subpanels.js' => 1,
-            ),
-          ),
-          'fields' => 
-          array (
-            'editablelistbutton' => 
-            array (
-              'editablelistbutton.js' => 1,
-            ),
-          ),
-          'views' => 
-          array (
-            'list' => 
-            array (
-              'list.php' => 1,
-            ),
-            'preview' => 
-            array (
-              'preview.js' => 1,
-            ),
-            'create' => 
-            array (
-              'create.php' => 1,
-              'create.js' => 1,
-            ),
-            'merge-duplicates' => 
-            array (
-              'merge-duplicates.js' => 1,
-            ),
-            'recordlist' => 
-            array (
-              'recordlist.php' => 1,
-            ),
-            'record' => 
-            array (
-              'record.js' => 1,
-              'record.php' => 1,
-            ),
-          ),
-        ),
-      ),
-      'metadata' => 
-      array (
-        'listviewdefs.php' => 1,
-        'metafiles.php' => 1,
-      ),
-      'language' => 
-      array (
-        'lv_LV.lang.php' => 1,
-        'ro_RO.lang.php' => 1,
-        'he_IL.lang.php' => 1,
-        'ru_RU.lang.php' => 1,
-        'nl_NL.lang.php' => 1,
-        'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
-        'zh_CN.lang.php' => 1,
-        'it_it.lang.php' => 1,
-        'es_LA.lang.php' => 1,
-        'sv_SE.lang.php' => 1,
-        'tr_TR.lang.php' => 1,
-        'en_UK.lang.php' => 1,
-        'el_EL.lang.php' => 1,
-        'bg_BG.lang.php' => 1,
-        'uk_UA.lang.php' => 1,
-        'fr_FR.lang.php' => 1,
-        'sk_SK.lang.php' => 1,
-        'fi_FI.lang.php' => 1,
-        'sq_AL.lang.php' => 1,
-        'ca_ES.lang.php' => 1,
-        'pl_PL.lang.php' => 1,
-        'de_DE.lang.php' => 1,
-        'hu_HU.lang.php' => 1,
-        'ar_SA.lang.php' => 1,
-        'es_ES.lang.php' => 1,
-        'cs_CZ.lang.php' => 1,
-        'ja_JP.lang.php' => 1,
-        'sr_RS.lang.php' => 1,
-        'ko_KR.lang.php' => 1,
-        'pt_PT.lang.php' => 1,
-        'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
     ),
@@ -13937,8 +12913,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -13964,8 +12938,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
     ),
@@ -14052,10 +13024,6 @@ $existing_files = array (
             array (
               'resolve-conflicts-list.php' => 1,
             ),
-            'create' => 
-            array (
-              'create.php' => 1,
-            ),
             'dupecheck-list' => 
             array (
               'dupecheck-list.php' => 1,
@@ -14076,9 +13044,9 @@ $existing_files = array (
             array (
               'selection-list.php' => 1,
             ),
-            'search-list' => 
+            'create-actions' => 
             array (
-              'search-list.php' => 1,
+              'create-actions.php' => 1,
             ),
           ),
         ),
@@ -14149,7 +13117,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -14228,7 +13195,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -14604,7 +13570,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -14662,7 +13627,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -14743,7 +13707,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -14761,10 +13724,6 @@ $existing_files = array (
       array (
         'base' => 
         array (
-          'api' => 
-          array (
-            'PdfManagerFilterApi.php' => 1,
-          ),
           'menus' => 
           array (
             'header' => 
@@ -14845,7 +13804,6 @@ $existing_files = array (
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
         'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -14871,7 +13829,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -14948,7 +13905,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -15024,7 +13980,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -15109,7 +14064,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -15181,7 +14135,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -15276,7 +14229,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -15344,7 +14296,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -15409,7 +14360,6 @@ $existing_files = array (
             'help' => 
             array (
               'ForecastWorksheetFilter.html' => 1,
-              'ForecastManagerWorksheetGet.html' => 1,
               'ForecastsConfigPut.html' => 1,
               'ForecastWorksheetGet.html' => 1,
               'ForecastWorksheetPut.html' => 1,
@@ -15417,7 +14367,6 @@ $existing_files = array (
               'ForecastsApiInitGet.html' => 1,
               'ForecastProgressManagerApi.html' => 1,
               'ForecastApiTimePeriodGet.html' => 1,
-              'ForecastManagerWorksheetFilter.html' => 1,
               'ForecastChartApi.html' => 1,
               'ForecastApiReporteesGet.html' => 1,
               'ForecastsApiUserGet.html' => 1,
@@ -15637,7 +14586,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -15690,7 +14638,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -15777,7 +14724,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -15862,7 +14808,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -16001,16 +14946,6 @@ $existing_files = array (
               'docs-components-alerts.js' => 1,
               'docs-components-alerts.hbs' => 1,
             ),
-            'docs-components-keybindings' => 
-            array (
-              'docs-components-keybindings.hbs' => 1,
-              'docs-components-keybindings.js' => 1,
-            ),
-            'create' => 
-            array (
-              'create.php' => 1,
-              'create.js' => 1,
-            ),
             'docs-forms-buttons' => 
             array (
               'docs-forms-buttons.hbs' => 1,
@@ -16073,6 +15008,11 @@ $existing_files = array (
               'field.hbs' => 1,
               'date.hbs' => 1,
             ),
+            'docs-forms-fields' => 
+            array (
+              'docs-forms-fields.js' => 1,
+              'docs-forms-fields.hbs' => 1,
+            ),
             'docs-charts-line' => 
             array (
               'docs-charts-line.hbs' => 1,
@@ -16108,6 +15048,11 @@ $existing_files = array (
             array (
               'docs-dashboards-dashlets.hbs' => 1,
               'docs-dashboards-dashlets.js' => 1,
+            ),
+            'create-actions' => 
+            array (
+              'create-actions.js' => 1,
+              'create-actions.php' => 1,
             ),
             'docs-components-popovers' => 
             array (
@@ -16182,8 +15127,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -16209,7 +15152,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -16228,38 +15170,26 @@ $existing_files = array (
         'lv_LV.lang.php' => 1,
         'ro_RO.lang.php' => 1,
         'he_IL.lang.php' => 1,
-        'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
         'sv_SE.lang.php' => 1,
         'tr_TR.lang.php' => 1,
         'en_UK.lang.php' => 1,
-        'el_EL.lang.php' => 1,
         'bg_BG.lang.php' => 1,
-        'uk_UA.lang.php' => 1,
         'fr_FR.lang.php' => 1,
         'sk_SK.lang.php' => 1,
-        'fi_FI.lang.php' => 1,
-        'sq_AL.lang.php' => 1,
         'ca_ES.lang.php' => 1,
-        'pl_PL.lang.php' => 1,
         'de_DE.lang.php' => 1,
-        'hu_HU.lang.php' => 1,
         'ar_SA.lang.php' => 1,
         'es_ES.lang.php' => 1,
         'cs_CZ.lang.php' => 1,
         'ja_JP.lang.php' => 1,
         'sr_RS.lang.php' => 1,
-        'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
     ),
@@ -16280,18 +15210,9 @@ $existing_files = array (
           ),
           'fields' => 
           array (
-            'currency' => 
-            array (
-              'currency.js' => 1,
-            ),
             'fieldtype' => 
             array (
               'fieldtype.js' => 1,
-            ),
-            'htmleditable_tinymce' => 
-            array (
-              'list.hbs' => 1,
-              'htmleditable_tinymce.js' => 1,
             ),
           ),
           'views' => 
@@ -16338,7 +15259,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -16429,10 +15349,6 @@ $existing_files = array (
             array (
               'edit.php' => 1,
             ),
-            'records' => 
-            array (
-              'records.php' => 1,
-            ),
             'businessrules' => 
             array (
               'businessrules.php' => 1,
@@ -16440,13 +15356,6 @@ $existing_files = array (
             'businessrules-import' => 
             array (
               'businessrules-import.php' => 1,
-            ),
-          ),
-          'fields' => 
-          array (
-            'hidden' => 
-            array (
-              'hidden.js' => 1,
             ),
           ),
           'views' => 
@@ -16461,15 +15370,6 @@ $existing_files = array (
               'records.hbs' => 1,
               'toolbar.hbs' => 1,
               'dashlet-businessrules.php' => 1,
-            ),
-            'preview' => 
-            array (
-              'preview.php' => 1,
-            ),
-            'create' => 
-            array (
-              'create.php' => 1,
-              'create.js' => 1,
             ),
             'recordlist' => 
             array (
@@ -16489,6 +15389,11 @@ $existing_files = array (
             'subpanel-list' => 
             array (
               'subpanel-list.php' => 1,
+            ),
+            'create-actions' => 
+            array (
+              'create-actions.js' => 1,
+              'create-actions.php' => 1,
             ),
             'businessrules-import-headerpane' => 
             array (
@@ -16537,8 +15442,6 @@ $existing_files = array (
         'ru_RU.lang.php' => 1,
         'nl_NL.lang.php' => 1,
         'en_us.lang.php' => 1,
-        'lt_LT.lang.php' => 1,
-        'et_EE.lang.php' => 1,
         'zh_CN.lang.php' => 1,
         'it_it.lang.php' => 1,
         'es_LA.lang.php' => 1,
@@ -16549,7 +15452,6 @@ $existing_files = array (
         'bg_BG.lang.php' => 1,
         'uk_UA.lang.php' => 1,
         'fr_FR.lang.php' => 1,
-        'sk_SK.lang.php' => 1,
         'fi_FI.lang.php' => 1,
         'sq_AL.lang.php' => 1,
         'ca_ES.lang.php' => 1,
@@ -16564,8 +15466,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
-        'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
     ),
@@ -16580,7 +15480,6 @@ $existing_files = array (
           'CalendarDashlet.meta.php' => 1,
           'CalendarDashlet.ca_ES.lang.php' => 1,
           'CalendarDashlet.sv_SE.lang.php' => 1,
-          'CalendarDashlet.et_EE.lang.php' => 1,
           'CalendarDashlet.da_DK.lang.php' => 1,
           'CalendarDashlet.sq_AL.lang.php' => 1,
           'CalendarDashlet.ru_RU.lang.php' => 1,
@@ -16615,7 +15514,6 @@ $existing_files = array (
           'CalendarDashlet.ko_KR.lang.php' => 1,
           'CalendarDashlet.fi_FI.lang.php' => 1,
           'CalendarDashlet.tr_TR.lang.php' => 1,
-          'CalendarDashlet.zh_TW.lang.php' => 1,
         ),
       ),
       'action_view_map.php' => 1,
@@ -16711,7 +15609,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -16757,7 +15654,6 @@ $existing_files = array (
           'SugarFavoritesDashlet.fi_FI.lang.php' => 1,
           'SugarFavoritesDashletOptions.tpl' => 1,
           'SugarFavoritesDashlet.nb_NO.lang.php' => 1,
-          'SugarFavoritesDashlet.zh_TW.lang.php' => 1,
           'SugarFavoritesDashlet.sr_RS.lang.php' => 1,
           'SugarFavoritesDashlet.uk_UA.lang.php' => 1,
           'SugarFavoritesDashlet.de_DE.lang.php' => 1,
@@ -16805,7 +15701,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -16869,7 +15764,6 @@ $existing_files = array (
         'ko_KR.lang.php' => 1,
         'pt_PT.lang.php' => 1,
         'nb_NO.lang.php' => 1,
-        'zh_TW.lang.php' => 1,
         'da_DK.lang.php' => 1,
         'pt_BR.lang.php' => 1,
       ),
@@ -16879,6 +15773,10 @@ $existing_files = array (
   array (
     'error.js' => 1,
     'config.js' => 1,
+    'assets' => 
+    array (
+      'loading.css' => 1,
+    ),
     'index.html' => 1,
     'user.js' => 1,
     'portal.js' => 1,
@@ -16925,13 +15823,13 @@ $existing_files = array (
                 array (
                   'preview.js' => 1,
                 ),
-                'create' => 
-                array (
-                  'create.js' => 1,
-                ),
                 'record' => 
                 array (
                   'record.js' => 1,
+                ),
+                'create-actions' => 
+                array (
+                  'create-actions.js' => 1,
                 ),
               ),
             ),
@@ -16975,18 +15873,6 @@ $existing_files = array (
                 array (
                   'filter-rows.js' => 1,
                 ),
-                'subpanel-list-with-massupdate' => 
-                array (
-                  'subpanel-list-with-massupdate.js' => 1,
-                ),
-                'create' => 
-                array (
-                  'create.js' => 1,
-                ),
-                'merge-duplicates' => 
-                array (
-                  'merge-duplicates.js' => 1,
-                ),
                 'recordlist' => 
                 array (
                   'recordlist.js' => 1,
@@ -17002,6 +15888,10 @@ $existing_files = array (
                 'subpanel-list' => 
                 array (
                   'subpanel-list.js' => 1,
+                ),
+                'create-actions' => 
+                array (
+                  'create-actions.js' => 1,
                 ),
                 'massupdate' => 
                 array (
@@ -17031,6 +15921,10 @@ $existing_files = array (
                 'record' => 
                 array (
                   'record.js' => 1,
+                ),
+                'create-actions' => 
+                array (
+                  'create-actions.js' => 1,
                 ),
               ),
             ),
@@ -17099,213 +15993,6 @@ $existing_files = array (
             ),
           ),
         ),
-        'KBContents' => 
-        array (
-          'clients' => 
-          array (
-            'portal' => 
-            array (
-              'fields' => 
-              array (
-                'usefulness' => 
-                array (
-                  'usefulness.js' => 1,
-                ),
-                'attachments' => 
-                array (
-                  'attachments.js' => 1,
-                ),
-                'enum-config' => 
-                array (
-                  'enum-config.js' => 1,
-                ),
-              ),
-              'views' => 
-              array (
-                'list' => 
-                array (
-                  'list.js' => 1,
-                ),
-                'preview' => 
-                array (
-                  'preview.js' => 1,
-                ),
-                'dashlet-nestedset-list' => 
-                array (
-                  'dashlet-nestedset-list.js' => 1,
-                ),
-              ),
-            ),
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.js' => 1,
-                ),
-                'config-drawer-content' => 
-                array (
-                  'config-drawer-content.js' => 1,
-                ),
-                'config-drawer' => 
-                array (
-                  'config-drawer.js' => 1,
-                ),
-                'records-search-tags' => 
-                array (
-                  'records-search-tags.js' => 1,
-                ),
-              ),
-              'plugins' => 
-              array (
-                'KBContent.js' => 1,
-              ),
-              'fields' => 
-              array (
-                'usefulness' => 
-                array (
-                  'usefulness.js' => 1,
-                ),
-                'attachments' => 
-                array (
-                  'attachments.js' => 1,
-                ),
-                'sticky-rowaction' => 
-                array (
-                  'sticky-rowaction.js' => 1,
-                ),
-                'status' => 
-                array (
-                  'status.js' => 1,
-                ),
-                'enum-config' => 
-                array (
-                  'enum-config.js' => 1,
-                ),
-                'nestedset' => 
-                array (
-                  'nestedset.js' => 1,
-                ),
-                'languages' => 
-                array (
-                  'languages.js' => 1,
-                ),
-                'htmleditable_tinymce' => 
-                array (
-                  'htmleditable_tinymce.js' => 1,
-                ),
-                'rowaction' => 
-                array (
-                  'rowaction.js' => 1,
-                ),
-              ),
-              'views' => 
-              array (
-                'config-languages' => 
-                array (
-                  'config-languages.js' => 1,
-                ),
-                'filter-rows' => 
-                array (
-                  'filter-rows.js' => 1,
-                ),
-                'list' => 
-                array (
-                  'list.js' => 1,
-                ),
-                'filter-module-dropdown' => 
-                array (
-                  'filter-module-dropdown.js' => 1,
-                ),
-                'kbs-dashlet-most-useful' => 
-                array (
-                  'kbs-dashlet-most-useful.js' => 1,
-                ),
-                'config-header-buttons' => 
-                array (
-                  'config-header-buttons.js' => 1,
-                ),
-                'preview' => 
-                array (
-                  'preview.js' => 1,
-                ),
-                'subpanel-for-localizations' => 
-                array (
-                  'subpanel-for-localizations.js' => 1,
-                ),
-                'create' => 
-                array (
-                  'create.js' => 1,
-                ),
-                'kbs-dashlet-usefulness' => 
-                array (
-                  'kbs-dashlet-usefulness.js' => 1,
-                ),
-                'panel-top-for-localizations' => 
-                array (
-                  'panel-top-for-localizations.js' => 1,
-                ),
-                'recordlist' => 
-                array (
-                  'recordlist.js' => 1,
-                ),
-                'help-create' => 
-                array (
-                  'help-create.js' => 1,
-                ),
-                'dashlet-nestedset-list' => 
-                array (
-                  'dashlet-nestedset-list.js' => 1,
-                ),
-                'prefiltered-headerpane' => 
-                array (
-                  'prefiltered-headerpane.js' => 1,
-                ),
-                'subpanel-for-revisions' => 
-                array (
-                  'subpanel-for-revisions.js' => 1,
-                ),
-                'kbs-dashlet-localizations' => 
-                array (
-                  'kbs-dashlet-localizations.js' => 1,
-                ),
-                'prefilteredlist' => 
-                array (
-                  'prefilteredlist.js' => 1,
-                ),
-                'record' => 
-                array (
-                  'record.js' => 1,
-                ),
-                'subpanel-list' => 
-                array (
-                  'subpanel-list.js' => 1,
-                ),
-                'panel-top-for-cases' => 
-                array (
-                  'panel-top-for-cases.js' => 1,
-                ),
-                'related-documents' => 
-                array (
-                  'related-documents.js' => 1,
-                ),
-                'panel-top-for-revisions' => 
-                array (
-                  'panel-top-for-revisions.js' => 1,
-                ),
-                'massupdate' => 
-                array (
-                  'massupdate.js' => 1,
-                ),
-                'module-menu' => 
-                array (
-                  'module-menu.js' => 1,
-                ),
-              ),
-            ),
-          ),
-        ),
         'Prospects' => 
         array (
           'clients' => 
@@ -17325,6 +16012,30 @@ $existing_files = array (
               ),
             ),
           ),
+        ),
+        'KBDocuments' => 
+        array (
+          'clients' => 
+          array (
+            'portal' => 
+            array (
+              'fields' => 
+              array (
+                'file' => 
+                array (
+                  'file.js' => 1,
+                ),
+              ),
+              'views' => 
+              array (
+                'record' => 
+                array (
+                  'record.js' => 1,
+                ),
+              ),
+            ),
+          ),
+          'kbdocuments.js' => 1,
         ),
         'Leads' => 
         array (
@@ -17357,14 +16068,6 @@ $existing_files = array (
               ),
               'views' => 
               array (
-                'convert-options' => 
-                array (
-                  'convert-options.js' => 1,
-                ),
-                'create' => 
-                array (
-                  'create.js' => 1,
-                ),
                 'convert-headerpane' => 
                 array (
                   'convert-headerpane.js' => 1,
@@ -17372,6 +16075,10 @@ $existing_files = array (
                 'record' => 
                 array (
                   'record.js' => 1,
+                ),
+                'create-actions' => 
+                array (
+                  'create-actions.js' => 1,
                 ),
                 'convert-panel-header' => 
                 array (
@@ -17435,14 +16142,6 @@ $existing_files = array (
                 array (
                   'enum.js' => 1,
                 ),
-                'event-status-pmse' => 
-                array (
-                  'event-status-pmse.js' => 1,
-                ),
-                'pmse-link' => 
-                array (
-                  'pmse-link.js' => 1,
-                ),
                 'reassignbutton' => 
                 array (
                   'reassignbutton.js' => 1,
@@ -17450,6 +16149,10 @@ $existing_files = array (
                 'executebutton' => 
                 array (
                   'executebutton.js' => 1,
+                ),
+                'relate' => 
+                array (
+                  'relate.js' => 1,
                 ),
                 'cancelcasebutton' => 
                 array (
@@ -17525,6 +16228,10 @@ $existing_files = array (
                 'logView-pane' => 
                 array (
                   'logView-pane.js' => 1,
+                ),
+                'pmse-case' => 
+                array (
+                  'pmse-case.js' => 1,
                 ),
                 'record' => 
                 array (
@@ -17607,13 +16314,17 @@ $existing_files = array (
             array (
               'fields' => 
               array (
+                'enabled' => 
+                array (
+                  'enabled.js' => 1,
+                ),
                 'process-status' => 
                 array (
                   'process-status.js' => 1,
                 ),
-                'enabled-disabled' => 
+                'disabled' => 
                 array (
-                  'enabled-disabled.js' => 1,
+                  'disabled.js' => 1,
                 ),
               ),
               'views' => 
@@ -17622,10 +16333,6 @@ $existing_files = array (
                 array (
                   'designer.js' => 1,
                 ),
-                'create' => 
-                array (
-                  'create.js' => 1,
-                ),
                 'recordlist' => 
                 array (
                   'recordlist.js' => 1,
@@ -17633,6 +16340,10 @@ $existing_files = array (
                 'record' => 
                 array (
                   'record.js' => 1,
+                ),
+                'create-actions' => 
+                array (
+                  'create-actions.js' => 1,
                 ),
                 'dashlet-processes' => 
                 array (
@@ -17653,19 +16364,6 @@ $existing_files = array (
         'Quotes' => 
         array (
           'quotes.js' => 1,
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'views' => 
-              array (
-                'panel-top-for-accounts' => 
-                array (
-                  'panel-top-for-accounts.js' => 1,
-                ),
-              ),
-            ),
-          ),
           'Forms.js' => 1,
           'EditView.js' => 1,
         ),
@@ -17741,10 +16439,6 @@ $existing_files = array (
                 array (
                   'emailtemplates-import-headerpane.js' => 1,
                 ),
-                'create' => 
-                array (
-                  'create.js' => 1,
-                ),
                 'recordlist' => 
                 array (
                   'recordlist.js' => 1,
@@ -17769,17 +16463,13 @@ $existing_files = array (
                 array (
                   'compose-varbook-list.js' => 1,
                 ),
-                'compose-sugarlinks-list' => 
+                'create-actions' => 
                 array (
-                  'compose-sugarlinks-list.js' => 1,
+                  'create-actions.js' => 1,
                 ),
                 'emailtemplates' => 
                 array (
                   'emailtemplates.js' => 1,
-                ),
-                'compose-sugarlinks-headerpane' => 
-                array (
-                  'compose-sugarlinks-headerpane.js' => 1,
                 ),
                 'compose-varbook-list-bottom' => 
                 array (
@@ -17848,9 +16538,9 @@ $existing_files = array (
                 array (
                   'record.js' => 1,
                 ),
-                'create-nodupecheck' => 
+                'create-actions' => 
                 array (
-                  'create-nodupecheck.js' => 1,
+                  'create-actions.js' => 1,
                 ),
               ),
             ),
@@ -17876,9 +16566,9 @@ $existing_files = array (
               ),
               'fields' => 
               array (
-                'editablelistbutton' => 
+                'quickcreate' => 
                 array (
-                  'editablelistbutton.js' => 1,
+                  'quickcreate.js' => 1,
                 ),
                 'rowaction' => 
                 array (
@@ -17895,18 +16585,6 @@ $existing_files = array (
                 array (
                   'config-opps-view-by.js' => 1,
                 ),
-                'create' => 
-                array (
-                  'create.js' => 1,
-                ),
-                'merge-duplicates' => 
-                array (
-                  'merge-duplicates.js' => 1,
-                ),
-                'recordlist' => 
-                array (
-                  'recordlist.js' => 1,
-                ),
                 'panel-top' => 
                 array (
                   'panel-top.js' => 1,
@@ -17914,6 +16592,10 @@ $existing_files = array (
                 'record' => 
                 array (
                   'record.js' => 1,
+                ),
+                'create-actions' => 
+                array (
+                  'create-actions.js' => 1,
                 ),
                 'massupdate' => 
                 array (
@@ -17954,9 +16636,9 @@ $existing_files = array (
                 array (
                   'record.js' => 1,
                 ),
-                'create-nodupecheck' => 
+                'create-actions' => 
                 array (
-                  'create-nodupecheck.js' => 1,
+                  'create-actions.js' => 1,
                 ),
               ),
             ),
@@ -18019,6 +16701,13 @@ $existing_files = array (
           array (
             'base' => 
             array (
+              'fields' => 
+              array (
+                'create-article-action' => 
+                array (
+                  'create-article-action.js' => 1,
+                ),
+              ),
               'views' => 
               array (
                 'record' => 
@@ -18040,10 +16729,6 @@ $existing_files = array (
                 'layoutbutton' => 
                 array (
                   'layoutbutton.js' => 1,
-                ),
-                'sugar-dashlet-label' => 
-                array (
-                  'sugar-dashlet-label.js' => 1,
                 ),
                 'dashboardtitle' => 
                 array (
@@ -18072,10 +16757,6 @@ $existing_files = array (
                 array (
                   'about-language-packs.js' => 1,
                 ),
-                'search-dashboard-headerpane' => 
-                array (
-                  'search-dashboard-headerpane.js' => 1,
-                ),
                 'about-headerpane' => 
                 array (
                   'about-headerpane.js' => 1,
@@ -18083,10 +16764,6 @@ $existing_files = array (
                 'about-resources' => 
                 array (
                   'about-resources.js' => 1,
-                ),
-                'search-facet' => 
-                array (
-                  'search-facet.js' => 1,
                 ),
                 'about-source-code' => 
                 array (
@@ -18100,38 +16777,6 @@ $existing_files = array (
             ),
           ),
         ),
-        'Categories' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'nested-set-list' => 
-                array (
-                  'nested-set-list.js' => 1,
-                ),
-              ),
-              'plugins' => 
-              array (
-                'NestedSetCollection.js' => 1,
-                'JSTree.js' => 1,
-              ),
-              'views' => 
-              array (
-                'nested-set-headerpane' => 
-                array (
-                  'nested-set-headerpane.js' => 1,
-                ),
-                'tree' => 
-                array (
-                  'tree.js' => 1,
-                ),
-              ),
-            ),
-          ),
-        ),
         'Users' => 
         array (
           'DetailView.js' => 1,
@@ -18139,22 +16784,6 @@ $existing_files = array (
           'User.js' => 1,
           'login.js' => 1,
           'UserEditView.js' => 1,
-        ),
-        'KBContentTemplates' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'fields' => 
-              array (
-                'htmleditable_tinymce' => 
-                array (
-                  'htmleditable_tinymce.js' => 1,
-                ),
-              ),
-            ),
-          ),
         ),
         'Products' => 
         array (
@@ -18174,6 +16803,10 @@ $existing_files = array (
                 'record' => 
                 array (
                   'record.js' => 1,
+                ),
+                'create-actions' => 
+                array (
+                  'create-actions.js' => 1,
                 ),
               ),
             ),
@@ -18202,48 +16835,6 @@ $existing_files = array (
                 'feedback' => 
                 array (
                   'feedback.js' => 1,
-                ),
-              ),
-            ),
-          ),
-        ),
-        'Tags' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.js' => 1,
-                ),
-              ),
-              'fields' => 
-              array (
-                'editablelistbutton' => 
-                array (
-                  'editablelistbutton.js' => 1,
-                ),
-              ),
-              'views' => 
-              array (
-                'preview' => 
-                array (
-                  'preview.js' => 1,
-                ),
-                'create' => 
-                array (
-                  'create.js' => 1,
-                ),
-                'merge-duplicates' => 
-                array (
-                  'merge-duplicates.js' => 1,
-                ),
-                'record' => 
-                array (
-                  'record.js' => 1,
                 ),
               ),
             ),
@@ -18475,14 +17066,6 @@ $existing_files = array (
                 array (
                   'docs-components-alerts.js' => 1,
                 ),
-                'docs-components-keybindings' => 
-                array (
-                  'docs-components-keybindings.js' => 1,
-                ),
-                'create' => 
-                array (
-                  'create.js' => 1,
-                ),
                 'docs-forms-buttons' => 
                 array (
                   'docs-forms-buttons.js' => 1,
@@ -18527,6 +17110,10 @@ $existing_files = array (
                 array (
                   'field.js' => 1,
                 ),
+                'docs-forms-fields' => 
+                array (
+                  'docs-forms-fields.js' => 1,
+                ),
                 'docs-charts-line' => 
                 array (
                   'docs-charts-line.js' => 1,
@@ -18550,6 +17137,10 @@ $existing_files = array (
                 'docs-dashboards-dashlets' => 
                 array (
                   'docs-dashboards-dashlets.js' => 1,
+                ),
+                'create-actions' => 
+                array (
+                  'create-actions.js' => 1,
                 ),
                 'docs-components-popovers' => 
                 array (
@@ -18611,17 +17202,9 @@ $existing_files = array (
             array (
               'fields' => 
               array (
-                'currency' => 
-                array (
-                  'currency.js' => 1,
-                ),
                 'fieldtype' => 
                 array (
                   'fieldtype.js' => 1,
-                ),
-                'htmleditable_tinymce' => 
-                array (
-                  'htmleditable_tinymce.js' => 1,
                 ),
               ),
             ),
@@ -18633,22 +17216,11 @@ $existing_files = array (
           array (
             'base' => 
             array (
-              'fields' => 
-              array (
-                'hidden' => 
-                array (
-                  'hidden.js' => 1,
-                ),
-              ),
               'views' => 
               array (
                 'dashlet-businessrules' => 
                 array (
                   'dashlet-businessrules.js' => 1,
-                ),
-                'create' => 
-                array (
-                  'create.js' => 1,
                 ),
                 'recordlist' => 
                 array (
@@ -18661,6 +17233,10 @@ $existing_files = array (
                 'businessrules' => 
                 array (
                   'businessrules.js' => 1,
+                ),
+                'create-actions' => 
+                array (
+                  'create-actions.js' => 1,
                 ),
                 'businessrules-import-headerpane' => 
                 array (
@@ -18807,7 +17383,6 @@ $existing_files = array (
           'dashlets.js' => 1,
           'select2' => 
           array (
-            'language.js' => 1,
             'select2.js' => 1,
           ),
           'quicksearch.js' => 1,
@@ -18844,7 +17419,6 @@ $existing_files = array (
               'ListRemoveLinks.js' => 1,
               'File.js' => 1,
               'Select2.js' => 1,
-              'MassCollection.js' => 1,
               'ListDisableSort.js' => 1,
               'ErrorDecoration.js' => 1,
               'Chart.js' => 1,
@@ -18852,7 +17426,6 @@ $existing_files = array (
               'VirtualCollection.js' => 1,
               'FieldErrorCollection.js' => 1,
               'SearchForMore.js' => 1,
-              'DragdropSelect2.js' => 1,
               'FileDragoff.js' => 1,
               'ShortcutSession.js' => 1,
               'ToggleVisibility.js' => 1,
@@ -18872,7 +17445,6 @@ $existing_files = array (
               'GridBuilder.js' => 1,
               'QuickSearchFilter.js' => 1,
               'Dropdown.js' => 1,
-              'ReminderTimeDefaults.js' => 1,
               'ResizableColumns.js' => 1,
               'EditAllRecurrences.js' => 1,
               'MassQuote.js' => 1,
@@ -18881,8 +17453,6 @@ $existing_files = array (
               'ReorderableColumns.js' => 1,
               'Editable.js' => 1,
               'EmailClientLaunch.js' => 1,
-              'CommittedDeleteWarning.js' => 1,
-              'Tinymce.js' => 1,
               'Pagination.js' => 1,
               'DirtyCollection.js' => 1,
               'ListEditable.js' => 1,
@@ -18892,7 +17462,6 @@ $existing_files = array (
             'alert.js' => 1,
             'import-export-warnings.js' => 1,
             'underscore-mixins.js' => 1,
-            'utils-search.js' => 1,
             'bwc.js' => 1,
             'help.js' => 1,
           ),
@@ -21057,7 +19626,6 @@ $existing_files = array (
             'jquery.timepicker.js' => 1,
             'jquery.sortable.js' => 1,
             'jquery.dataTables.customSort.js' => 1,
-            'jquery-ui.js' => 1,
             'bootstrap' => 
             array (
               'bootstrap-dropdown.js' => 1,
@@ -21075,8 +19643,6 @@ $existing_files = array (
               'bootstrap-popover.js' => 1,
             ),
             'bootstrap.min.js' => 1,
-            'jstree.state.js' => 1,
-            'jquery.rtl-scroll.js' => 1,
             'jquery.jeditable.js' => 1,
             'jquery.jstree.js' => 1,
             'jquery.elementReady.js' => 1,
@@ -21121,7 +19687,6 @@ $existing_files = array (
           'sugarAuthStore.js' => 1,
           'sugar7.js' => 1,
           'popup_parent_helper.js' => 1,
-          'favicon.js' => 1,
           'reportCriteria.js' => 1,
           'button_slider.js' => 1,
         ),
@@ -21144,7 +19709,6 @@ $existing_files = array (
           ),
         ),
       ),
-      'gulpfile.js' => 1,
       'themes' => 
       array (
         'RacerX' => 
@@ -21251,10 +19815,6 @@ $existing_files = array (
             array (
               'record.js' => 1,
             ),
-            'footer-actions' => 
-            array (
-              'footer-actions.js' => 1,
-            ),
             'globalsearch' => 
             array (
               'globalsearch.js' => 1,
@@ -21292,10 +19852,6 @@ $existing_files = array (
             'resolve-conflicts' => 
             array (
               'resolve-conflicts.js' => 1,
-            ),
-            'multi-selection-list' => 
-            array (
-              'multi-selection-list.js' => 1,
             ),
             'fluid' => 
             array (
@@ -21397,10 +19953,6 @@ $existing_files = array (
             array (
               'dashlet-cell.js' => 1,
             ),
-            'quicksearch' => 
-            array (
-              'quicksearch.js' => 1,
-            ),
             'subpanel-create' => 
             array (
               'subpanel-create.js' => 1,
@@ -21445,17 +19997,9 @@ $existing_files = array (
             array (
               'togglepanel.js' => 1,
             ),
-            'search' => 
-            array (
-              'search.js' => 1,
-            ),
             'selection-list' => 
             array (
               'selection-list.js' => 1,
-            ),
-            'multi-selection-list-link' => 
-            array (
-              'multi-selection-list-link.js' => 1,
             ),
             'create-actions' => 
             array (
@@ -21536,10 +20080,6 @@ $existing_files = array (
             array (
               'currency.js' => 1,
             ),
-            'collection-count' => 
-            array (
-              'collection-count.js' => 1,
-            ),
             'selection' => 
             array (
               'selection.js' => 1,
@@ -21567,10 +20107,6 @@ $existing_files = array (
             'textarea' => 
             array (
               'textarea.js' => 1,
-            ),
-            'dnb-bal-import-menu-label' => 
-            array (
-              'dnb-bal-import-menu-label.js' => 1,
             ),
             'email-text' => 
             array (
@@ -21632,10 +20168,6 @@ $existing_files = array (
             array (
               'email.js' => 1,
             ),
-            'label' => 
-            array (
-              'label.js' => 1,
-            ),
             'sticky-rowaction' => 
             array (
               'sticky-rowaction.js' => 1,
@@ -21672,17 +20204,9 @@ $existing_files = array (
             array (
               'badge.js' => 1,
             ),
-            'tag' => 
-            array (
-              'tag.js' => 1,
-            ),
             'rowactions-create' => 
             array (
               'rowactions-create.js' => 1,
-            ),
-            'text' => 
-            array (
-              'text.js' => 1,
             ),
             'base' => 
             array (
@@ -21755,10 +20279,6 @@ $existing_files = array (
             'teamset' => 
             array (
               'teamset.js' => 1,
-            ),
-            'link-button' => 
-            array (
-              'link-button.js' => 1,
             ),
             'htmleditable_tinymce' => 
             array (
@@ -21919,10 +20439,6 @@ $existing_files = array (
             array (
               'vcard-import-headerpane.js' => 1,
             ),
-            'multi-selection-list' => 
-            array (
-              'multi-selection-list.js' => 1,
-            ),
             'alert' => 
             array (
               'alert.js' => 1,
@@ -21967,10 +20483,6 @@ $existing_files = array (
             array (
               'saved-reports-chart.js' => 1,
             ),
-            'search-headerpane' => 
-            array (
-              'search-headerpane.js' => 1,
-            ),
             'sweetspot-config-headerpane' => 
             array (
               'sweetspot-config-headerpane.js' => 1,
@@ -22011,10 +20523,6 @@ $existing_files = array (
             array (
               'list-bottom.js' => 1,
             ),
-            'panel-top-readonly' => 
-            array (
-              'panel-top-readonly.js' => 1,
-            ),
             'dnb-financial-info' => 
             array (
               'dnb-financial-info.js' => 1,
@@ -22047,21 +20555,9 @@ $existing_files = array (
             array (
               'dnb-lite-company-info.js' => 1,
             ),
-            'selection-list-context' => 
-            array (
-              'selection-list-context.js' => 1,
-            ),
             'dnb-family-tree' => 
             array (
               'dnb-family-tree.js' => 1,
-            ),
-            'quicksearch-taglist' => 
-            array (
-              'quicksearch-taglist.js' => 1,
-            ),
-            'dnb-meter' => 
-            array (
-              'dnb-meter.js' => 1,
             ),
             'learning-resources' => 
             array (
@@ -22119,10 +20615,6 @@ $existing_files = array (
             array (
               'history-summary-list-bottom.js' => 1,
             ),
-            'quicksearch-modulelist' => 
-            array (
-              'quicksearch-modulelist.js' => 1,
-            ),
             'link-moduleselect' => 
             array (
               'link-moduleselect.js' => 1,
@@ -22171,6 +20663,10 @@ $existing_files = array (
             array (
               'headerpane.js' => 1,
             ),
+            'interactionschart' => 
+            array (
+              'interactionschart.js' => 1,
+            ),
             'activitystream-omnibar' => 
             array (
               'activitystream-omnibar.js' => 1,
@@ -22187,10 +20683,6 @@ $existing_files = array (
             array (
               'error.js' => 1,
             ),
-            'quicksearch-tags' => 
-            array (
-              'quicksearch-tags.js' => 1,
-            ),
             'themeroller' => 
             array (
               'themeroller.js' => 1,
@@ -22198,10 +20690,6 @@ $existing_files = array (
             'baseeditmodal' => 
             array (
               'baseeditmodal.js' => 1,
-            ),
-            'quicksearch-bar' => 
-            array (
-              'quicksearch-bar.js' => 1,
             ),
             'modal-header' => 
             array (
@@ -22331,10 +20819,6 @@ $existing_files = array (
             array (
               'selection-list.js' => 1,
             ),
-            'multi-selection-list-link' => 
-            array (
-              'multi-selection-list-link.js' => 1,
-            ),
             'sweetspot-config-list-row' => 
             array (
               'sweetspot-config-list-row.js' => 1,
@@ -22358,10 +20842,6 @@ $existing_files = array (
             'dnb-standard-company-info' => 
             array (
               'dnb-standard-company-info.js' => 1,
-            ),
-            'quicksearch-button' => 
-            array (
-              'quicksearch-button.js' => 1,
             ),
             'dashlet-toolbar' => 
             array (
@@ -22423,6 +20903,10 @@ $existing_files = array (
             array (
               'audit-headerpane.js' => 1,
             ),
+            'globalsearch' => 
+            array (
+              'globalsearch.js' => 1,
+            ),
             'rssfeed' => 
             array (
               'rssfeed.js' => 1,
@@ -22430,10 +20914,6 @@ $existing_files = array (
             'bubblechart' => 
             array (
               'bubblechart.js' => 1,
-            ),
-            'quicksearch-results' => 
-            array (
-              'quicksearch-results.js' => 1,
             ),
             'dupecheck-list-multiselect' => 
             array (
@@ -22459,10 +20939,6 @@ $existing_files = array (
             array (
               'module-menu.js' => 1,
             ),
-            'search-list' => 
-            array (
-              'search-list.js' => 1,
-            ),
             'sweetspot-searchbar' => 
             array (
               'sweetspot-searchbar.js' => 1,
@@ -22472,23 +20948,6 @@ $existing_files = array (
       ),
       'vendor' => 
       array (
-        'phpmailer' => 
-        array (
-          'phpmailer' => 
-          array (
-            'examples' => 
-            array (
-              'scripts' => 
-              array (
-                'shCore.js' => 1,
-                'shAutoloader.js' => 1,
-                'shBrushPhp.js' => 1,
-                'shLegacy.js' => 1,
-                'XRegExp.js' => 1,
-              ),
-            ),
-          ),
-        ),
         'ytree' => 
         array (
           'treeutil.js' => 1,
@@ -22518,32 +20977,6 @@ $existing_files = array (
               'Printer' => 
               array (
                 'ConfigForm.js' => 1,
-              ),
-            ),
-          ),
-        ),
-        'guzzle' => 
-        array (
-          'guzzle' => 
-          array (
-            'docs' => 
-            array (
-              '_static' => 
-              array (
-                'prettify.js' => 1,
-              ),
-            ),
-            'tests' => 
-            array (
-              'Guzzle' => 
-              array (
-                'Tests' => 
-                array (
-                  'Http' => 
-                  array (
-                    'server.js' => 1,
-                  ),
-                ),
               ),
             ),
           ),
@@ -22694,7 +21127,6 @@ $existing_files = array (
     ),
     'example' => 
     array (
-      'index.php' => 1,
       'Rest_Proxy.php' => 1,
       'test.html' => 1,
       'example.html' => 1,
@@ -22746,7 +21178,6 @@ $existing_files = array (
       'SugarCacheMemory.php' => 1,
       'SugarCacheMemcached.php' => 1,
       'SugarCachesMash.php' => 1,
-      'SugarCacheDb.php' => 1,
       'SugarCache.php' => 1,
       'SugarCacheAPC.php' => 1,
       'SugarCacheMemcache.php' => 1,
@@ -22790,7 +21221,22 @@ $existing_files = array (
     ),
     'SugarXHprof' => 
     array (
+      'xhprof_lib' => 
+      array (
+        'display' => 
+        array (
+          'xhprof.php' => 1,
+          'typeahead_common.php' => 1,
+        ),
+        'utils' => 
+        array (
+          'xhprof_lib.php' => 1,
+          'xhprof_runs.php' => 1,
+          'callgraph_utils.php' => 1,
+        ),
+      ),
       'SugarXHprof.php' => 1,
+      'SugarXHprofPerformance.php' => 1,
     ),
     'SugarSQLValidate.php' => 1,
     'EmbedLinkService.php' => 1,
@@ -22827,16 +21273,13 @@ $existing_files = array (
         'contact_get_freebusy_help.html' => 1,
         'connectors_get_help.html' => 1,
         'module_enum_get_help.html' => 1,
-        'administration_search_fields_get_help.html' => 1,
         'module_record_file_get_help.html' => 1,
-        'administration_search_status_get_help.html' => 1,
         'module_record_file_field_put_help.html' => 1,
         'me_preferences_put_help.html' => 1,
         'module_export_get_help.html' => 1,
         'history_filter.html' => 1,
         'module_get_help.html' => 1,
         'get_dashboards.html' => 1,
-        'collection_collection_name_get_count_help.html' => 1,
         'me_preference_preference_name_post_help.html' => 1,
         'css_preview_get_help.html' => 1,
         'calendar_events_record_create_help.html' => 1,
@@ -22847,7 +21290,6 @@ $existing_files = array (
         'oauth2_sudo_post_help.html' => 1,
         'module_temp_file_field_temp_id_get_help.html' => 1,
         'module_record_link_link_name_remote_id_post_help.html' => 1,
-        'administration_elasticsearch_routing_get_help.html' => 1,
         'me_put_help.html' => 1,
         'module_record_link_link_name_remote_id_get_help.html' => 1,
         'me_preference_preference_name_get_help.html' => 1,
@@ -22856,19 +21298,16 @@ $existing_files = array (
         'module_export_post_help.html' => 1,
         'module_filter_record_get_help.html' => 1,
         'module_filter_get_help.html' => 1,
-        'administration_elasticsearch_queue_get_help.html' => 1,
         'module_post_help.html' => 1,
         'module_record_favorite_put_help.html' => 1,
         'help_get_exceptions.html' => 1,
         'calendar_events_record_delete_help.html' => 1,
-        'globalsearch_get_help.html' => 1,
         'vcarddownload_get_help.html' => 1,
         'module_record_collection_collection_name_get_help.html' => 1,
         'module_vcarddownload_get_help.html' => 1,
         'me_getfollowed_help.html' => 1,
         'me_preference_preference_name_put_help.html' => 1,
         'module_record_link_post_help.html' => 1,
-        'collection_collection_name_get_help.html' => 1,
         'ping_get_help.html' => 1,
         'module_temp_file_field_post_help.html' => 1,
         'user_get_freebusy_help.html' => 1,
@@ -22878,8 +21317,6 @@ $existing_files = array (
         'module_record_link_link_name_get_help.html' => 1,
         'help_get_help.html' => 1,
         'module_config_post_help.html' => 1,
-        'administration_search_reindex_post_help.html' => 1,
-        'administration_elasticsearch_mapping_get_help.html' => 1,
         'audit_get_help.html' => 1,
         'css_get_help.html' => 1,
         'module_massupdate_delete_help.html' => 1,
@@ -22889,7 +21326,6 @@ $existing_files = array (
           'helpList.php' => 1,
         ),
         'oauth2_token_post_help.html' => 1,
-        'administration_elasticsearch_indices_get_help.html' => 1,
         'dnb_get_help.html' => 1,
         'twitter_get_help.html' => 1,
         'ping_whattimeisit_get_help.html' => 1,
@@ -22902,7 +21338,6 @@ $existing_files = array (
         'me_password_put_help.html' => 1,
         'oauth2_bwc_login_post_help.html' => 1,
         'dnb_bulkimport_help.html' => 1,
-        'module_record_collection_collection_name_count_get_help.html' => 1,
         'bulk_post_help.html' => 1,
         'module_massupdate_put_help.html' => 1,
         'module_record_link_link_name_remote_id_put_help.html' => 1,
@@ -23072,17 +21507,37 @@ $existing_files = array (
     'required_list_items.php' => 1,
     'SugarSearchEngine' => 
     array (
+      'SugarSearchEngineFullIndexer.php' => 1,
       'SugarSearchEngineFactory.php' => 1,
       'SugarSearchEngineHighlighter.php' => 1,
       'SugarSearchEngineAbstractBase.php' => 1,
       'SugarSearchEngineAbstractResult.php' => 1,
+      'SugarSearchEngineQueueManager.php' => 1,
       'SugarSearchEngine.php' => 1,
+      'SugarSearchEngineIndexerBase.php' => 1,
       'SugarSearchEngineMetadataHelper.php' => 1,
       'Interface.php' => 1,
       'Elastic' => 
       array (
         'SugarSearchEngineElastic.php' => 1,
+        'SugarSearchEngineElasticIndexStrategyMulti.php' => 1,
+        'SugarSearchEngineElasticIndexStrategyBase.php' => 1,
+        'SugarSearchEngineElasticMapping.php' => 1,
+        'SugarSearchEngineElasticIndexStrategyInterface.php' => 1,
+        'SugarSearchEngineElasticIndexStrategyFactory.php' => 1,
         'SugarSeachEngineElasticResult.php' => 1,
+        'Facets' => 
+        array (
+          'FacetInterface.php' => 1,
+          'FacetHandler.php' => 1,
+          'FacetRange.php' => 1,
+          'FacetMyitems.php' => 1,
+          'FacetFactory.php' => 1,
+          'FacetTerms.php' => 1,
+          'FacetAbstract.php' => 1,
+          'FacetFilter.php' => 1,
+        ),
+        'SugarSearchEngineElasticIndexStrategySingle.php' => 1,
         'SugarSearchEngineElasticResultSet.php' => 1,
       ),
     ),
@@ -23293,11 +21748,14 @@ $existing_files = array (
     'database' => 
     array (
       'FreeTDSManager.php' => 1,
+      'MysqlHelper.php' => 1,
       'OraclePreparedStatement.php' => 1,
+      'OracleHelper.php' => 1,
       'DBManagerFactory.php' => 1,
       'SqlsrvManager.php' => 1,
       'DBManager.php' => 1,
       'IBMDB2PreparedStatement.php' => 1,
+      'MssqlHelper.php' => 1,
       'FreeTDSHelper.php' => 1,
       'SqlsrvPreparedStatement.php' => 1,
       'PreparedStatement.php' => 1,
@@ -23305,6 +21763,7 @@ $existing_files = array (
       'MysqliPreparedStatement.php' => 1,
       'MysqlManager.php' => 1,
       'MssqlManager.php' => 1,
+      'DBHelper.php' => 1,
       'OracleManager.php' => 1,
       'MysqliManager.php' => 1,
     ),
@@ -23519,10 +21978,6 @@ $existing_files = array (
           'SugarFieldTeamset.php' => 1,
           'TeamsetCollectionMassupdateView.tpl' => 1,
         ),
-        'Name' => 
-        array (
-          'SugarFieldName.php' => 1,
-        ),
         'Assigned_user_name' => 
         array (
           'SugarFieldAssigned_user_name.php' => 1,
@@ -23552,10 +22007,6 @@ $existing_files = array (
           'SugarFieldInt.php' => 1,
           'DetailView.tpl' => 1,
           'EditView.tpl' => 1,
-        ),
-        'Tag' => 
-        array (
-          'SugarFieldTag.php' => 1,
         ),
         'Text' => 
         array (
@@ -23608,7 +22059,6 @@ $existing_files = array (
         'Email' => 
         array (
           'SugarFieldEmail.php' => 1,
-          'EditView.tpl' => 1,
         ),
         'Download' => 
         array (
@@ -23709,10 +22159,6 @@ $existing_files = array (
         array (
           'SugarFieldFullname.php' => 1,
           'DetailView.tpl' => 1,
-        ),
-        'Relatecollection' => 
-        array (
-          'SugarFieldRelatecollection.php' => 1,
         ),
         'Datetimecombo' => 
         array (
@@ -23823,7 +22269,6 @@ $existing_files = array (
         'SugarJobAddActivitySubscriptions.php' => 1,
         'SugarJobCreateRevenueLineItemNotes.php' => 1,
         'SugarJobCreateRevenueLineItems.php' => 1,
-        'SugarJobRemoveReassignedItems.php' => 1,
         'SugarJobUpdateOpportunities.php' => 1,
         'SugarJobRemoveDiagnosticFiles.php' => 1,
         'SugarJobSendScheduledReport.php' => 1,
@@ -23835,7 +22280,6 @@ $existing_files = array (
         'SugarJobUpdateForecastWorksheets.php' => 1,
         'SugarJobCreateNextTimePeriod.php' => 1,
         'SugarJobMassUpdate.php' => 1,
-        'SugarJobKBContentUpdateArticles.php' => 1,
         'SugarJobSQLRunner.php' => 1,
       ),
       'SugarCronJobs.php' => 1,
@@ -24546,7 +22990,6 @@ $existing_files = array (
       'select2' => 
       array (
         'select2x2.png' => 1,
-        'language.js' => 1,
         'select2.css' => 1,
         'select2.png' => 1,
         'select2.js' => 1,
@@ -24587,7 +23030,6 @@ $existing_files = array (
           'ListRemoveLinks.js' => 1,
           'File.js' => 1,
           'Select2.js' => 1,
-          'MassCollection.js' => 1,
           'ListDisableSort.js' => 1,
           'ErrorDecoration.js' => 1,
           'Chart.js' => 1,
@@ -24595,7 +23037,6 @@ $existing_files = array (
           'VirtualCollection.js' => 1,
           'FieldErrorCollection.js' => 1,
           'SearchForMore.js' => 1,
-          'DragdropSelect2.js' => 1,
           'FileDragoff.js' => 1,
           'ShortcutSession.js' => 1,
           'ToggleVisibility.js' => 1,
@@ -24615,7 +23056,6 @@ $existing_files = array (
           'GridBuilder.js' => 1,
           'QuickSearchFilter.js' => 1,
           'Dropdown.js' => 1,
-          'ReminderTimeDefaults.js' => 1,
           'ResizableColumns.js' => 1,
           'EditAllRecurrences.js' => 1,
           'MassQuote.js' => 1,
@@ -24624,8 +23064,6 @@ $existing_files = array (
           'ReorderableColumns.js' => 1,
           'Editable.js' => 1,
           'EmailClientLaunch.js' => 1,
-          'CommittedDeleteWarning.js' => 1,
-          'Tinymce.js' => 1,
           'Pagination.js' => 1,
           'DirtyCollection.js' => 1,
           'ListEditable.js' => 1,
@@ -24635,7 +23073,6 @@ $existing_files = array (
         'alert.js' => 1,
         'import-export-warnings.js' => 1,
         'underscore-mixins.js' => 1,
-        'utils-search.js' => 1,
         'bwc.js' => 1,
         'help.js' => 1,
       ),
@@ -27306,7 +25743,6 @@ $existing_files = array (
         'jquery.timepicker.js' => 1,
         'jquery.sortable.js' => 1,
         'jquery.dataTables.customSort.js' => 1,
-        'jquery-ui.js' => 1,
         'bootstrap' => 
         array (
           'bootstrap-dropdown.js' => 1,
@@ -27360,8 +25796,6 @@ $existing_files = array (
             'jquery.ui.tabs.css' => 1,
           ),
         ),
-        'jstree.state.js' => 1,
-        'jquery.rtl-scroll.js' => 1,
         'jquery.jeditable.js' => 1,
         'jquery.jstree.js' => 1,
         'jquery.elementReady.js' => 1,
@@ -28175,7 +26609,6 @@ $existing_files = array (
           ),
         ),
       ),
-      'favicon.js' => 1,
       'reportCriteria.js' => 1,
       'button_slider.js' => 1,
     ),
@@ -28436,6 +26869,7 @@ $existing_files = array (
       'index.php' => 1,
       'Actions' => 
       array (
+        'AssignToUserAction.php' => 1,
         'ActionFactory.php' => 1,
         'SetOptionsAction.php' => 1,
         'VisibilityAction.php' => 1,
@@ -28443,7 +26877,6 @@ $existing_files = array (
         'StyleAction.php' => 1,
         'ReadOnlyAction.php' => 1,
         'PanelVisibilityAction.php' => 1,
-        'AssignToAction.php' => 1,
         'SetRequiredAction.php' => 1,
         'AbstractAction.php' => 1,
       ),
@@ -28497,7 +26930,6 @@ $existing_files = array (
         ),
         'Enum' => 
         array (
-          'ForecastIncludedCommitStagesExpression.php' => 1,
           'SugarDropDownExpression.php' => 1,
           'ForecastSalesStageExpression.php' => 1,
           'SugarListWhereExpression.php' => 1,
@@ -28507,7 +26939,6 @@ $existing_files = array (
         ),
         'String' => 
         array (
-          'ForecastCommitStageExpression.php' => 1,
           'CharacterAtExpression.php' => 1,
           'SugarTranslateExpression.php' => 1,
           'StrToLowerExpression.php' => 1,
@@ -28607,7 +27038,6 @@ $existing_files = array (
       'MetaDataConverter.php' => 1,
       'MetaDataCache.php' => 1,
       'MetaDataManager.php' => 1,
-      'ViewIterator.php' => 1,
     ),
     'SugarTinyMCE.php' => 1,
     'connectors' => 
@@ -28777,7 +27207,6 @@ $existing_files = array (
       'ru_RU.notify_template.html' => 1,
       'pl_PL.notify_template.html' => 1,
       'ro_RO.notify_template.html' => 1,
-      'zh_TW.lang.php' => 1,
       'da_DK.lang.php' => 1,
       'cs_CZ.notify_template.html' => 1,
       'pt_BR.lang.php' => 1,
@@ -28790,52 +27219,10 @@ $existing_files = array (
         'PersonFormBase.php' => 1,
         'FormBase.php' => 1,
       ),
+      'SugarSession.php' => 1,
       'LanguageManager.php' => 1,
       'implements' => 
       array (
-        'currency' => 
-        array (
-          'vardefs.php' => 1,
-          'language' => 
-          array (
-            'lv_LV.lang.php' => 1,
-            'ro_RO.lang.php' => 1,
-            'he_IL.lang.php' => 1,
-            'ru_RU.lang.php' => 1,
-            'nl_NL.lang.php' => 1,
-            'en_us.lang.php' => 1,
-            'lt_LT.lang.php' => 1,
-            'et_EE.lang.php' => 1,
-            'zh_CN.lang.php' => 1,
-            'it_it.lang.php' => 1,
-            'es_LA.lang.php' => 1,
-            'sv_SE.lang.php' => 1,
-            'tr_TR.lang.php' => 1,
-            'en_UK.lang.php' => 1,
-            'el_EL.lang.php' => 1,
-            'bg_BG.lang.php' => 1,
-            'uk_UA.lang.php' => 1,
-            'fr_FR.lang.php' => 1,
-            'sk_SK.lang.php' => 1,
-            'fi_FI.lang.php' => 1,
-            'sq_AL.lang.php' => 1,
-            'ca_ES.lang.php' => 1,
-            'pl_PL.lang.php' => 1,
-            'de_DE.lang.php' => 1,
-            'hu_HU.lang.php' => 1,
-            'ar_SA.lang.php' => 1,
-            'es_ES.lang.php' => 1,
-            'cs_CZ.lang.php' => 1,
-            'ja_JP.lang.php' => 1,
-            'sr_RS.lang.php' => 1,
-            'ko_KR.lang.php' => 1,
-            'pt_PT.lang.php' => 1,
-            'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
-            'da_DK.lang.php' => 1,
-            'pt_BR.lang.php' => 1,
-          ),
-        ),
         'email_address' => 
         array (
           'vardefs.php' => 1,
@@ -28848,7 +27235,6 @@ $existing_files = array (
             'nl_NL.lang.php' => 1,
             'en_us.lang.php' => 1,
             'lt_LT.lang.php' => 1,
-            'et_EE.lang.php' => 1,
             'zh_CN.lang.php' => 1,
             'it_it.lang.php' => 1,
             'es_LA.lang.php' => 1,
@@ -28859,7 +27245,6 @@ $existing_files = array (
             'bg_BG.lang.php' => 1,
             'uk_UA.lang.php' => 1,
             'fr_FR.lang.php' => 1,
-            'sk_SK.lang.php' => 1,
             'fi_FI.lang.php' => 1,
             'sq_AL.lang.php' => 1,
             'ca_ES.lang.php' => 1,
@@ -28874,7 +27259,6 @@ $existing_files = array (
             'ko_KR.lang.php' => 1,
             'pt_PT.lang.php' => 1,
             'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
             'da_DK.lang.php' => 1,
             'pt_BR.lang.php' => 1,
           ),
@@ -28917,50 +27301,6 @@ $existing_files = array (
             'ko_KR.lang.php' => 1,
             'pt_PT.lang.php' => 1,
             'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
-            'da_DK.lang.php' => 1,
-            'pt_BR.lang.php' => 1,
-          ),
-        ),
-        'taggable' => 
-        array (
-          'vardefs.php' => 1,
-          'language' => 
-          array (
-            'lv_LV.lang.php' => 1,
-            'ro_RO.lang.php' => 1,
-            'he_IL.lang.php' => 1,
-            'ru_RU.lang.php' => 1,
-            'nl_NL.lang.php' => 1,
-            'en_us.lang.php' => 1,
-            'lt_LT.lang.php' => 1,
-            'et_EE.lang.php' => 1,
-            'zh_CN.lang.php' => 1,
-            'it_it.lang.php' => 1,
-            'es_LA.lang.php' => 1,
-            'sv_SE.lang.php' => 1,
-            'tr_TR.lang.php' => 1,
-            'en_UK.lang.php' => 1,
-            'el_EL.lang.php' => 1,
-            'bg_BG.lang.php' => 1,
-            'uk_UA.lang.php' => 1,
-            'fr_FR.lang.php' => 1,
-            'sk_SK.lang.php' => 1,
-            'fi_FI.lang.php' => 1,
-            'sq_AL.lang.php' => 1,
-            'ca_ES.lang.php' => 1,
-            'pl_PL.lang.php' => 1,
-            'de_DE.lang.php' => 1,
-            'hu_HU.lang.php' => 1,
-            'ar_SA.lang.php' => 1,
-            'es_ES.lang.php' => 1,
-            'cs_CZ.lang.php' => 1,
-            'ja_JP.lang.php' => 1,
-            'sr_RS.lang.php' => 1,
-            'ko_KR.lang.php' => 1,
-            'pt_PT.lang.php' => 1,
-            'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
             'da_DK.lang.php' => 1,
             'pt_BR.lang.php' => 1,
           ),
@@ -28970,85 +27310,8 @@ $existing_files = array (
           'vardefs.php' => 1,
           'language' => 
           array (
-            'lv_LV.lang.php' => 1,
-            'ro_RO.lang.php' => 1,
-            'he_IL.lang.php' => 1,
-            'ru_RU.lang.php' => 1,
-            'nl_NL.lang.php' => 1,
             'en_us.lang.php' => 1,
-            'lt_LT.lang.php' => 1,
-            'et_EE.lang.php' => 1,
-            'zh_CN.lang.php' => 1,
-            'it_it.lang.php' => 1,
-            'es_LA.lang.php' => 1,
-            'sv_SE.lang.php' => 1,
-            'tr_TR.lang.php' => 1,
-            'en_UK.lang.php' => 1,
-            'el_EL.lang.php' => 1,
-            'bg_BG.lang.php' => 1,
-            'uk_UA.lang.php' => 1,
-            'fr_FR.lang.php' => 1,
-            'sk_SK.lang.php' => 1,
-            'fi_FI.lang.php' => 1,
-            'sq_AL.lang.php' => 1,
-            'ca_ES.lang.php' => 1,
-            'pl_PL.lang.php' => 1,
-            'de_DE.lang.php' => 1,
-            'hu_HU.lang.php' => 1,
             'ar_SA.lang.php' => 1,
-            'es_ES.lang.php' => 1,
-            'cs_CZ.lang.php' => 1,
-            'ja_JP.lang.php' => 1,
-            'sr_RS.lang.php' => 1,
-            'ko_KR.lang.php' => 1,
-            'pt_PT.lang.php' => 1,
-            'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
-            'da_DK.lang.php' => 1,
-            'pt_BR.lang.php' => 1,
-          ),
-        ),
-        'external_source' => 
-        array (
-          'vardefs.php' => 1,
-          'language' => 
-          array (
-            'lv_LV.lang.php' => 1,
-            'ro_RO.lang.php' => 1,
-            'he_IL.lang.php' => 1,
-            'ru_RU.lang.php' => 1,
-            'nl_NL.lang.php' => 1,
-            'en_us.lang.php' => 1,
-            'lt_LT.lang.php' => 1,
-            'et_EE.lang.php' => 1,
-            'zh_CN.lang.php' => 1,
-            'it_it.lang.php' => 1,
-            'es_LA.lang.php' => 1,
-            'sv_SE.lang.php' => 1,
-            'tr_TR.lang.php' => 1,
-            'en_UK.lang.php' => 1,
-            'el_EL.lang.php' => 1,
-            'bg_BG.lang.php' => 1,
-            'uk_UA.lang.php' => 1,
-            'fr_FR.lang.php' => 1,
-            'sk_SK.lang.php' => 1,
-            'fi_FI.lang.php' => 1,
-            'sq_AL.lang.php' => 1,
-            'ca_ES.lang.php' => 1,
-            'pl_PL.lang.php' => 1,
-            'de_DE.lang.php' => 1,
-            'hu_HU.lang.php' => 1,
-            'ar_SA.lang.php' => 1,
-            'es_ES.lang.php' => 1,
-            'cs_CZ.lang.php' => 1,
-            'ja_JP.lang.php' => 1,
-            'sr_RS.lang.php' => 1,
-            'ko_KR.lang.php' => 1,
-            'pt_PT.lang.php' => 1,
-            'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
-            'da_DK.lang.php' => 1,
-            'pt_BR.lang.php' => 1,
           ),
         ),
         'team_security' => 
@@ -29089,7 +27352,6 @@ $existing_files = array (
             'ko_KR.lang.php' => 1,
             'pt_PT.lang.php' => 1,
             'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
             'da_DK.lang.php' => 1,
             'pt_BR.lang.php' => 1,
           ),
@@ -29099,42 +27361,8 @@ $existing_files = array (
           'vardefs.php' => 1,
           'language' => 
           array (
-            'lv_LV.lang.php' => 1,
-            'ro_RO.lang.php' => 1,
-            'he_IL.lang.php' => 1,
-            'ru_RU.lang.php' => 1,
-            'nl_NL.lang.php' => 1,
             'en_us.lang.php' => 1,
-            'lt_LT.lang.php' => 1,
-            'et_EE.lang.php' => 1,
-            'zh_CN.lang.php' => 1,
-            'it_it.lang.php' => 1,
-            'es_LA.lang.php' => 1,
-            'sv_SE.lang.php' => 1,
-            'tr_TR.lang.php' => 1,
-            'en_UK.lang.php' => 1,
-            'el_EL.lang.php' => 1,
-            'bg_BG.lang.php' => 1,
-            'uk_UA.lang.php' => 1,
-            'fr_FR.lang.php' => 1,
-            'sk_SK.lang.php' => 1,
-            'fi_FI.lang.php' => 1,
-            'sq_AL.lang.php' => 1,
-            'ca_ES.lang.php' => 1,
-            'pl_PL.lang.php' => 1,
-            'de_DE.lang.php' => 1,
-            'hu_HU.lang.php' => 1,
             'ar_SA.lang.php' => 1,
-            'es_ES.lang.php' => 1,
-            'cs_CZ.lang.php' => 1,
-            'ja_JP.lang.php' => 1,
-            'sr_RS.lang.php' => 1,
-            'ko_KR.lang.php' => 1,
-            'pt_PT.lang.php' => 1,
-            'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
-            'da_DK.lang.php' => 1,
-            'pt_BR.lang.php' => 1,
           ),
         ),
       ),
@@ -29218,10 +27446,6 @@ $existing_files = array (
                 array (
                   'subpanel-list.php' => 1,
                 ),
-                'search-list' => 
-                array (
-                  'search-list.php' => 1,
-                ),
               ),
             ),
           ),
@@ -29276,7 +27500,6 @@ $existing_files = array (
             'ko_KR.lang.php' => 1,
             'pt_PT.lang.php' => 1,
             'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
             'da_DK.lang.php' => 1,
             'pt_BR.lang.php' => 1,
           ),
@@ -29334,10 +27557,6 @@ $existing_files = array (
                 'subpanel-list' => 
                 array (
                   'subpanel-list.php' => 1,
-                ),
-                'search-list' => 
-                array (
-                  'search-list.php' => 1,
                 ),
               ),
             ),
@@ -29427,13 +27646,11 @@ $existing_files = array (
               'ko_KR.lang.php' => 1,
               'pt_PT.lang.php' => 1,
               'nb_NO.lang.php' => 1,
-              'zh_TW.lang.php' => 1,
               'da_DK.lang.php' => 1,
               'pt_BR.lang.php' => 1,
             ),
             'pt_PT.lang.php' => 1,
             'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
             'da_DK.lang.php' => 1,
             'pt_BR.lang.php' => 1,
           ),
@@ -29496,10 +27713,6 @@ $existing_files = array (
                 'subpanel-list' => 
                 array (
                   'subpanel-list.php' => 1,
-                ),
-                'search-list' => 
-                array (
-                  'search-list.php' => 1,
                 ),
               ),
             ),
@@ -29588,13 +27801,11 @@ $existing_files = array (
               'ko_KR.lang.php' => 1,
               'pt_PT.lang.php' => 1,
               'nb_NO.lang.php' => 1,
-              'zh_TW.lang.php' => 1,
               'da_DK.lang.php' => 1,
               'pt_BR.lang.php' => 1,
             ),
             'pt_PT.lang.php' => 1,
             'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
             'da_DK.lang.php' => 1,
             'pt_BR.lang.php' => 1,
           ),
@@ -29675,13 +27886,6 @@ $existing_files = array (
                   'default.php' => 1,
                 ),
               ),
-              'menus' => 
-              array (
-                'quickcreate' => 
-                array (
-                  'quickcreate.php' => 1,
-                ),
-              ),
               'views' => 
               array (
                 'list' => 
@@ -29707,10 +27911,6 @@ $existing_files = array (
                 'massupdate' => 
                 array (
                   'massupdate.php' => 1,
-                ),
-                'search-list' => 
-                array (
-                  'search-list.php' => 1,
                 ),
               ),
             ),
@@ -29766,7 +27966,6 @@ $existing_files = array (
             'ko_KR.lang.php' => 1,
             'pt_PT.lang.php' => 1,
             'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
             'da_DK.lang.php' => 1,
             'pt_BR.lang.php' => 1,
           ),
@@ -29829,10 +28028,6 @@ $existing_files = array (
                 'subpanel-list' => 
                 array (
                   'subpanel-list.php' => 1,
-                ),
-                'search-list' => 
-                array (
-                  'search-list.php' => 1,
                 ),
               ),
             ),
@@ -29922,13 +28117,11 @@ $existing_files = array (
               'ko_KR.lang.php' => 1,
               'pt_PT.lang.php' => 1,
               'nb_NO.lang.php' => 1,
-              'zh_TW.lang.php' => 1,
               'da_DK.lang.php' => 1,
               'pt_BR.lang.php' => 1,
             ),
             'pt_PT.lang.php' => 1,
             'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
             'da_DK.lang.php' => 1,
             'pt_BR.lang.php' => 1,
           ),
@@ -29993,10 +28186,6 @@ $existing_files = array (
                 'selection-list' => 
                 array (
                   'selection-list.php' => 1,
-                ),
-                'search-list' => 
-                array (
-                  'search-list.php' => 1,
                 ),
               ),
             ),
@@ -30090,13 +28279,11 @@ $existing_files = array (
               'ko_KR.lang.php' => 1,
               'pt_PT.lang.php' => 1,
               'nb_NO.lang.php' => 1,
-              'zh_TW.lang.php' => 1,
               'da_DK.lang.php' => 1,
               'pt_BR.lang.php' => 1,
             ),
             'pt_PT.lang.php' => 1,
             'nb_NO.lang.php' => 1,
-            'zh_TW.lang.php' => 1,
             'da_DK.lang.php' => 1,
             'pt_BR.lang.php' => 1,
           ),
@@ -30114,9 +28301,7 @@ $existing_files = array (
   ),
   'index.php' => 1,
   'vCard.php' => 1,
-  'cookie.html' => 1,
   'export_dataset.php' => 1,
-  'queueManager.php' => 1,
   'sugar_version.php' => 1,
   'campaign_trackerv2.php' => 1,
   'config.php' => 1,
@@ -30133,98 +28318,6 @@ $existing_files = array (
       ),
       'RefreshQueue.php' => 1,
     ),
-    'JobQueue' => 
-    array (
-      'LockStrategy' => 
-      array (
-        'Stub.php' => 1,
-        'LockStrategyInterface.php' => 1,
-        'CacheFile.php' => 1,
-      ),
-      'Dispatcher' => 
-      array (
-        'DispatcherInterface.php' => 1,
-        'Handler.php' => 1,
-      ),
-      'Handler' => 
-      array (
-        'DeleteBeanDemo.php' => 1,
-        'UpdateBeanDemo.php' => 1,
-        'HandlerRegistry.php' => 1,
-        'ExportToCSVDemo.php' => 1,
-        'RunnableInterface.php' => 1,
-        'SubtaskCapableInterface.php' => 1,
-        'ExportListViewDemo.php' => 1,
-        'MassUpdateDemo.php' => 1,
-      ),
-      'Worker' => 
-      array (
-        'WorkerInterface.php' => 1,
-        'MessageQueue.php' => 1,
-        'Gearman.php' => 1,
-      ),
-      'Exception' => 
-      array (
-        'ExceptionInterface.php' => 1,
-        'UnexpectedResolutionException.php' => 1,
-        'InvalidArgumentException.php' => 1,
-        'RuntimeException.php' => 1,
-        'LogicException.php' => 1,
-      ),
-      'Client' => 
-      array (
-        'Immediate.php' => 1,
-        'ClientInterface.php' => 1,
-        'MessageQueue.php' => 1,
-        'Gearman.php' => 1,
-      ),
-      'Manager' => 
-      array (
-        'Manager.php' => 1,
-      ),
-      'Adapter' => 
-      array (
-        'AdapterRegistry.php' => 1,
-        'MessageQueue' => 
-        array (
-          'AmazonSQS.php' => 1,
-          'AMQP.php' => 1,
-          'Sugar.php' => 1,
-          'AdapterInterface.php' => 1,
-        ),
-      ),
-      'Helper' => 
-      array (
-        'Producer.php' => 1,
-        'Child.php' => 1,
-        'Resolution.php' => 1,
-      ),
-      'Serializer' => 
-      array (
-        'SerializerInterface.php' => 1,
-        'Serializer.php' => 1,
-      ),
-      'Observer' => 
-      array (
-        'Reflection.php' => 1,
-        'ObserverInterface.php' => 1,
-        'State.php' => 1,
-      ),
-      'Runner' => 
-      array (
-        'Parallel.php' => 1,
-        'RunnerInterface.php' => 1,
-        'AbstractRunner.php' => 1,
-        'OD.php' => 1,
-        'Standard.php' => 1,
-      ),
-      'Workload' => 
-      array (
-        'OD.php' => 1,
-        'WorkloadInterface.php' => 1,
-        'Workload.php' => 1,
-      ),
-    ),
     'Util' => 
     array (
       'Arrays' => 
@@ -30233,14 +28326,6 @@ $existing_files = array (
         array (
           'Element.php' => 1,
           'OrderedHash.php' => 1,
-        ),
-        'ArrayFunctions' => 
-        array (
-          'ArrayFunctions.php' => 1,
-        ),
-        'TrackableArray' => 
-        array (
-          'TrackableArray.php' => 1,
         ),
       ),
     ),
@@ -30260,206 +28345,9 @@ $existing_files = array (
       array (
         'Serialized.php' => 1,
       ),
-      'Password' => 
-      array (
-        'Hash.php' => 1,
-        'SaltConsumerInterface.php' => 1,
-        'Exception' => 
-        array (
-          'ExceptionInterface.php' => 1,
-          'RuntimeException.php' => 1,
-        ),
-        'Backend' => 
-        array (
-          'Sha2.php' => 1,
-          'Native.php' => 1,
-        ),
-        'Salt.php' => 1,
-        'BackendInterface.php' => 1,
-      ),
       'Crypto' => 
       array (
         'CSPRNG.php' => 1,
-      ),
-    ),
-    'SearchEngine' => 
-    array (
-      'MetaDataHelper.php' => 1,
-      'HookHandler.php' => 1,
-      'SearchEngine.php' => 1,
-      'Engine' => 
-      array (
-        'Elastic.php' => 1,
-        'EngineInterface.php' => 1,
-      ),
-      'Capability' => 
-      array (
-        'Aggregation' => 
-        array (
-          'AggregationCapable.php' => 1,
-          'ResultSetInterface.php' => 1,
-          'ResultInterface.php' => 1,
-        ),
-        'GlobalSearch' => 
-        array (
-          'ResultSetInterface.php' => 1,
-          'ResultInterface.php' => 1,
-          'GlobalSearchCapable.php' => 1,
-        ),
-      ),
-      'AdminSettings.php' => 1,
-    ),
-    'Session' => 
-    array (
-      'SessionStorageInterface.php' => 1,
-      'SessionStorage.php' => 1,
-    ),
-    'Elasticsearch' => 
-    array (
-      'Analysis' => 
-      array (
-        'AnalysisBuilder.php' => 1,
-      ),
-      'Queue' => 
-      array (
-        'QueueManager.php' => 1,
-        'ConsumerJob.php' => 1,
-        'Scheduler.php' => 1,
-      ),
-      'Exception' => 
-      array (
-        'MappingException.php' => 1,
-        'AnalyzerBuilderException.php' => 1,
-        'ExceptionInterface.php' => 1,
-        'ConnectionException.php' => 1,
-        'IndexPoolStrategyException.php' => 1,
-        'CachePersistException.php' => 1,
-        'ContainerException.php' => 1,
-        'QueryBuilderException.php' => 1,
-        'InvalidMappingException.php' => 1,
-        'ProviderException.php' => 1,
-      ),
-      'Container.php' => 1,
-      'Logger.php' => 1,
-      'ContainerAwareInterface.php' => 1,
-      'Index' => 
-      array (
-        'IndexPool.php' => 1,
-        'IndexManager.php' => 1,
-        'Strategy' => 
-        array (
-          'AbstractStrategy.php' => 1,
-          'StaticStrategy.php' => 1,
-          'StrategyInterface.php' => 1,
-        ),
-        'IndexCollection.php' => 1,
-      ),
-      'Indexer' => 
-      array (
-        'Indexer.php' => 1,
-        'BulkHandler.php' => 1,
-      ),
-      'Provider' => 
-      array (
-        'AbstractProvider.php' => 1,
-        'GlobalSearch' => 
-        array (
-          'Handler' => 
-          array (
-            'AnalysisHandlerInterface.php' => 1,
-            'HandlerCollection.php' => 1,
-            'AggregationHandlerInterface.php' => 1,
-            'HandlerFilterIterator.php' => 1,
-            'SearchFieldsHandlerInterface.php' => 1,
-            'HandlerInterface.php' => 1,
-            'Implement' => 
-            array (
-              'EmailAddressHandler.php' => 1,
-              'OwnerIdHandler.php' => 1,
-              'FavoritesHandler.php' => 1,
-              'AutoIncrementHandler.php' => 1,
-              'TagsHandler.php' => 1,
-              'MultiFieldHandler.php' => 1,
-              'CrossModuleAggHandler.php' => 1,
-              'HtmlHandler.php' => 1,
-            ),
-            'AbstractHandler.php' => 1,
-            'ProcessDocumentHandlerInterface.php' => 1,
-            'MappingHandlerInterface.php' => 1,
-          ),
-          'GlobalSearch.php' => 1,
-          'SearchFields.php' => 1,
-          'Booster.php' => 1,
-          'Highlighter.php' => 1,
-        ),
-        'Visibility' => 
-        array (
-          'Visibility.php' => 1,
-          'Filter' => 
-          array (
-            'KBStatusFilter.php' => 1,
-            'OwnerFilter.php' => 1,
-            'TeamSetFilter.php' => 1,
-            'TypeFilter.php' => 1,
-            'FilterInterface.php' => 1,
-            'KBActiveRevisionFilter.php' => 1,
-          ),
-          'StrategyCollection.php' => 1,
-          'StrategyInterface.php' => 1,
-        ),
-        'ProviderInterface.php' => 1,
-        'ProviderCollection.php' => 1,
-      ),
-      'Adapter' => 
-      array (
-        'Index.php' => 1,
-        'Client.php' => 1,
-        'ResultSet.php' => 1,
-        'Document.php' => 1,
-        'Result.php' => 1,
-      ),
-      'Mapping' => 
-      array (
-        'Mapping.php' => 1,
-        'MappingCollection.php' => 1,
-        'MappingManager.php' => 1,
-        'Property' => 
-        array (
-          'PropertyInterface.php' => 1,
-          'ObjectProperty.php' => 1,
-          'GeoPointProperty.php' => 1,
-          'MultiFieldProperty.php' => 1,
-          'MultiFieldBaseProperty.php' => 1,
-          'RawProperty.php' => 1,
-          'NestedProperty.php' => 1,
-        ),
-      ),
-      'Query' => 
-      array (
-        'Highlighter' => 
-        array (
-          'AbstractHighlighter.php' => 1,
-          'HighlighterInterface.php' => 1,
-        ),
-        'Aggregation' => 
-        array (
-          'RangeAggregation.php' => 1,
-          'DateRangeAggregation.php' => 1,
-          'AggregationStack.php' => 1,
-          'MyItemsAggregation.php' => 1,
-          'AbstractAggregation.php' => 1,
-          'TermsAggregation.php' => 1,
-          'AggregationFactory.php' => 1,
-          'AggregationInterface.php' => 1,
-          'FilterAggregation.php' => 1,
-          'ModuleAggregation.php' => 1,
-        ),
-        'KBFilterQuery.php' => 1,
-        'MultiMatchQuery.php' => 1,
-        'QueryBuilder.php' => 1,
-        'MatchAllQuery.php' => 1,
-        'QueryInterface.php' => 1,
-        'KBQuery.php' => 1,
       ),
     ),
   ),
@@ -30467,45 +28355,12 @@ $existing_files = array (
   array (
     'modules' => 
     array (
-      'Contacts' => 
-      array (
-        'Ext' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
       'Connectors' => 
       array (
         'metadata' => 
         array (
           'display_config.php' => 1,
           'connectors.php' => 1,
-        ),
-      ),
-      'Project' => 
-      array (
-        'Ext' => 
-        array (
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
-          'Layoutdefs' => 
-          array (
-            'layoutdefs.ext.php' => 1,
-          ),
         ),
       ),
       'RevenueLineItems' => 
@@ -30516,73 +28371,6 @@ $existing_files = array (
           array (
             'logichooks.ext.php' => 1,
           ),
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
-        ),
-        'metadata' => 
-        array (
-          'studio.php' => 1,
-        ),
-      ),
-      'Notes' => 
-      array (
-        'Ext' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
-        ),
-      ),
-      'Accounts' => 
-      array (
-        'Ext' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
         ),
       ),
       'ForecastWorksheets' => 
@@ -30592,74 +28380,6 @@ $existing_files = array (
           'LogicHooks' => 
           array (
             'logichooks.ext.php' => 1,
-          ),
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-        ),
-        'clients' => 
-        array (
-          'base' => 
-          array (
-            'views' => 
-            array (
-              'list' => 
-              array (
-                'list.php' => 1,
-              ),
-            ),
-          ),
-        ),
-      ),
-      'ActivityStream' => 
-      array (
-        'Activities' => 
-        array (
-          'Ext' => 
-          array (
-            'Vardefs' => 
-            array (
-              'vardefs.ext.php' => 1,
-            ),
-          ),
-        ),
-      ),
-      'Leads' => 
-      array (
-        'Ext' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-      'Manufacturers' => 
-      array (
-        'Ext' => 
-        array (
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
           ),
         ),
       ),
@@ -30673,45 +28393,6 @@ $existing_files = array (
           ),
         ),
       ),
-      'Quotes' => 
-      array (
-        'Ext' => 
-        array (
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
-        ),
-      ),
-      'Activities' => 
-      array (
-        'Ext' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-      'Campaigns' => 
-      array (
-        'Ext' => 
-        array (
-          'Layoutdefs' => 
-          array (
-            'layoutdefs.ext.php' => 1,
-          ),
-        ),
-      ),
       'Meetings' => 
       array (
         'Ext' => 
@@ -30720,167 +28401,15 @@ $existing_files = array (
           array (
             'logichooks.ext.php' => 1,
           ),
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
         ),
       ),
       'Opportunities' => 
       array (
         'Ext' => 
         array (
-          'Dependencies' => 
-          array (
-            'deps.ext.php' => 1,
-          ),
           'LogicHooks' => 
           array (
             'logichooks.ext.php' => 1,
-          ),
-          'Language' => 
-          array (
-            'en_us.lang.ext.php' => 1,
-          ),
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
-        ),
-        'clients' => 
-        array (
-          'mobile' => 
-          array (
-            'views' => 
-            array (
-              'detail' => 
-              array (
-                'detail.php' => 1,
-              ),
-              'list' => 
-              array (
-                'list.php' => 1,
-              ),
-              'edit' => 
-              array (
-                'edit.php' => 1,
-              ),
-            ),
-          ),
-          'base' => 
-          array (
-            'filters' => 
-            array (
-              'default' => 
-              array (
-                'default.php' => 1,
-              ),
-            ),
-            'views' => 
-            array (
-              'list' => 
-              array (
-                'list.php' => 1,
-              ),
-              'subpanel-for-accounts-opportunities' => 
-              array (
-                'subpanel-for-accounts-opportunities.php' => 1,
-              ),
-              'dupecheck-list' => 
-              array (
-                'dupecheck-list.php' => 1,
-              ),
-              'subpanel-for-forecastworksheets-opportunity' => 
-              array (
-                'subpanel-for-forecastworksheets-opportunity.php' => 1,
-              ),
-              'subpanel-for-contacts-opportunities' => 
-              array (
-                'subpanel-for-contacts-opportunities.php' => 1,
-              ),
-              'subpanel-for-meetings-opportunity' => 
-              array (
-                'subpanel-for-meetings-opportunity.php' => 1,
-              ),
-              'subpanel-for-leads-opportunity' => 
-              array (
-                'subpanel-for-leads-opportunity.php' => 1,
-              ),
-              'subpanel-for-calls-opportunities' => 
-              array (
-                'subpanel-for-calls-opportunities.php' => 1,
-              ),
-              'subpanel-for-tasks-opportunities' => 
-              array (
-                'subpanel-for-tasks-opportunities.php' => 1,
-              ),
-              'subpanel-for-revenuelineitems-opportunities' => 
-              array (
-                'subpanel-for-revenuelineitems-opportunities.php' => 1,
-              ),
-              'subpanel-for-activities-opportunities' => 
-              array (
-                'subpanel-for-activities-opportunities.php' => 1,
-              ),
-              'record' => 
-              array (
-                'record.php' => 1,
-              ),
-              'selection-list' => 
-              array (
-                'selection-list.php' => 1,
-              ),
-              'subpanel-for-products-opportunities' => 
-              array (
-                'subpanel-for-products-opportunities.php' => 1,
-              ),
-              'subpanel-for-tags-opportunities_link' => 
-              array (
-                'subpanel-for-tags-opportunities_link.php' => 1,
-              ),
-              'subpanel-for-notes-opportunities' => 
-              array (
-                'subpanel-for-notes-opportunities.php' => 1,
-              ),
-            ),
-          ),
-        ),
-        'metadata' => 
-        array (
-          'subpanels' => 
-          array (
-            'Project_subpanel_opportunities.php' => 1,
-            'Campaign_subpanel_opportunities.php' => 1,
-            'Document_subpanel_opportunities.php' => 1,
-            'Email_subpanel_opportunities.php' => 1,
-          ),
-          'SearchFields.php' => 1,
-        ),
-      ),
-      'Documents' => 
-      array (
-        'Ext' => 
-        array (
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
-          'Layoutdefs' => 
-          array (
-            'layoutdefs.ext.php' => 1,
           ),
         ),
       ),
@@ -30891,23 +28420,6 @@ $existing_files = array (
           'LogicHooks' => 
           array (
             'logichooks.ext.php' => 1,
-          ),
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
           ),
         ),
       ),
@@ -30921,89 +28433,6 @@ $existing_files = array (
           ),
         ),
       ),
-      'Products' => 
-      array (
-        'Ext' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
-        ),
-      ),
-      'Tags' => 
-      array (
-        'Ext' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
-        ),
-      ),
-      'Tasks' => 
-      array (
-        'Ext' => 
-        array (
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'layouts' => 
-              array (
-                'subpanels' => 
-                array (
-                  'subpanels.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
-        ),
-      ),
-      'Emails' => 
-      array (
-        'Ext' => 
-        array (
-          'Vardefs' => 
-          array (
-            'vardefs.ext.php' => 1,
-          ),
-          'Layoutdefs' => 
-          array (
-            'layoutdefs.ext.php' => 1,
-          ),
-        ),
-      ),
       'unified_search_modules_display.php' => 1,
       'Forecasts' => 
       array (
@@ -31013,85 +28442,23 @@ $existing_files = array (
           array (
             'logichooks.ext.php' => 1,
           ),
-          'clients' => 
-          array (
-            'base' => 
-            array (
-              'views' => 
-              array (
-                'config-worksheet-columns' => 
-                array (
-                  'config-worksheet-columns.ext.php' => 1,
-                ),
-              ),
-            ),
-          ),
         ),
       ),
-    ),
-    'history' => 
-    array (
     ),
     'index.html' => 1,
     'application' => 
     array (
       'Ext' => 
       array (
-        'Include' => 
-        array (
-          'modules.ext.php' => 1,
-        ),
         'LogicHooks' => 
         array (
           'logichooks.ext.php' => 1,
-        ),
-        'Language' => 
-        array (
-          'es_ES.lang.ext.php' => 1,
-          'cs_CZ.lang.ext.php' => 1,
-          'hu_HU.lang.ext.php' => 1,
-          'sk_SK.lang.ext.php' => 1,
-          'ja_JP.lang.ext.php' => 1,
-          'sr_RS.lang.ext.php' => 1,
-          'en_us.lang.ext.php' => 1,
-          'nb_NO.lang.ext.php' => 1,
-          'bg_BG.lang.ext.php' => 1,
-          'el_EL.lang.ext.php' => 1,
-          'ro_RO.lang.ext.php' => 1,
-          'nl_NL.lang.ext.php' => 1,
-          'sq_AL.lang.ext.php' => 1,
-          'pl_PL.lang.ext.php' => 1,
-          'he_IL.lang.ext.php' => 1,
-          'da_DK.lang.ext.php' => 1,
-          'ko_KR.lang.ext.php' => 1,
-          'ar_SA.lang.ext.php' => 1,
-          'lv_LV.lang.ext.php' => 1,
-          'de_DE.lang.ext.php' => 1,
-          'pt_BR.lang.ext.php' => 1,
-          'fr_FR.lang.ext.php' => 1,
-          'uk_UA.lang.ext.php' => 1,
-          'sv_SE.lang.ext.php' => 1,
-          'tr_TR.lang.ext.php' => 1,
-          'fi_FI.lang.ext.php' => 1,
-          'zh_CN.lang.ext.php' => 1,
-          'it_it.lang.ext.php' => 1,
-          'zh_TW.lang.ext.php' => 1,
-          'ca_ES.lang.ext.php' => 1,
-          'pt_PT.lang.ext.php' => 1,
-          'es_LA.lang.ext.php' => 1,
-          'ru_RU.lang.ext.php' => 1,
         ),
         'ScheduledTasks' => 
         array (
           'scheduledtasks.ext.php' => 1,
         ),
       ),
-    ),
-    'Extension' => 
-    array (
-    ),
-    'blowfish' => 
-    array (
     ),
   ),
   'examples' => 
@@ -31171,7 +28538,6 @@ $existing_files = array (
         'plugin-manager.js' => 1,
         'events.js' => 1,
         'metadata-manager.js' => 1,
-        'cookie.js' => 1,
         'user.js' => 1,
         'acl.js' => 1,
       ),
@@ -31183,7 +28549,6 @@ $existing_files = array (
         'math.js' => 1,
         'shortcuts.js' => 1,
         'utils.js' => 1,
-        'underscore-mixins.js' => 1,
         'currency.js' => 1,
       ),
     ),
@@ -31326,12 +28691,12 @@ $existing_files = array (
         array (
           'smoothness' => 
           array (
-            'jquery-ui-1.11.4.custom.min.css' => 1,
             'images' => 
             array (
               'ui-icons_cd0a0a_256x240.png' => 1,
               'ui-bg_glass_65_ffffff_1x400.png' => 1,
               'ui-icons_222222_256x240.png' => 1,
+              'calendar.gif' => 1,
               'ui-bg_glass_75_e6e6e6_1x400.png' => 1,
               'ui-bg_glass_75_dadada_1x400.png' => 1,
               'ui-icons_2e83ff_256x240.png' => 1,
@@ -31343,12 +28708,13 @@ $existing_files = array (
               'ui-bg_flat_0_aaaaaa_40x100.png' => 1,
               'ui-icons_454545_256x240.png' => 1,
             ),
+            'jquery-ui-1.8.18.custom.css' => 1,
           ),
         ),
         'js' => 
         array (
           'jquery-1.7.1.min.js' => 1,
-          'jquery-ui-1.11.4.custom.min.js' => 1,
+          'jquery-ui-1.8.18.custom.min.js' => 1,
         ),
       ),
       'crosstab' => 
@@ -31444,7 +28810,6 @@ $existing_files = array (
     ),
   ),
   'log_file_restricted.html' => 1,
-  'gulpfile.js' => 1,
   'acceptDecline.php' => 1,
   'Ext' => 
   array (
@@ -31593,6 +28958,7 @@ $existing_files = array (
         'icon_LotusMeetings_footer_bar.png' => 1,
         'icon_Tasks_32.png' => 1,
         'icon_DocumentRevisions_32.png' => 1,
+        'KBDocuments_favico.png' => 1,
         'icon_Manufacturers_32.png' => 1,
         'loading.gif' => 1,
         'Cases_favico.png' => 1,
@@ -31616,12 +28982,10 @@ $existing_files = array (
         'dashlet-tab-bg-bottom.png' => 1,
         'icon_Opportunities_32.png' => 1,
         'icon_Bugs_bar_32.png' => 1,
-        'icon_KBOLDDocuments_white_48.png' => 1,
         'icon_Prospects_white_48.png' => 1,
         'help-dashlet.png' => 1,
         'icon_Forecasts_white_48.png' => 1,
         'listview-select-bg.png' => 1,
-        'KBOLDDocuments_favico.png' => 1,
         'icon_Teams_32.png' => 1,
         'edit.gif' => 1,
         'info-layout.png' => 1,
@@ -31648,7 +29012,6 @@ $existing_files = array (
         'icon_Leads_bar_32.png' => 1,
         'icon_Teams_bar_32.png' => 1,
         'ACLRoles.gif' => 1,
-        'icon_KBOLDDocuments_32.png' => 1,
         'icon_file_32.png' => 1,
         'icon_ProspectLists_32.png' => 1,
         'close_inline.png' => 1,
@@ -31659,11 +29022,10 @@ $existing_files = array (
         'icon_Calls_bar_32.png' => 1,
         'Accounts_favico.png' => 1,
         'icon_Products_white_48.png' => 1,
-        'icon_Tags_32.png' => 1,
         'close_dashboard.gif' => 1,
         'icon_Users_bar_32.png' => 1,
         'dashlet-header-refresh.png' => 1,
-        'icon_KBContents_bar_32.png' => 1,
+        'icon_KBDocuments_white_48.png' => 1,
         'icon_Quotas_32.png' => 1,
         'icon_TrackerPerfs_32.png' => 1,
         'icon_Emails_32.png' => 1,
@@ -31685,16 +29047,14 @@ $existing_files = array (
         'icon_basic_32.png' => 1,
         'icon_Releases_white_48.png' => 1,
         'down_arrow.png' => 1,
-        'icon_KBContents_32.png' => 1,
         'icon_Tasks_bar_32.png' => 1,
         'boxnet.png' => 1,
         'icon_Documents_white_48.png' => 1,
         'Opportunities_favico.png' => 1,
         'moreItems.png' => 1,
-        'icon_KBContents_white_48.png' => 1,
         'icon_TimePeriods_32.png' => 1,
         'Teams_favico.png' => 1,
-        'icon_KBOLDDocuments_bar_32.png' => 1,
+        'icon_KBDocuments_bar_32.png' => 1,
         'lessItems.png' => 1,
         'icon_Cases_bar_32.png' => 1,
         'calendar-left-bg.png' => 1,
@@ -31729,6 +29089,7 @@ $existing_files = array (
         'calendar_previous.png' => 1,
         'icon_LotusMeetings_bar_32.png' => 1,
         'info_inline.png' => 1,
+        'icon_KBDocuments_32.png' => 1,
         'icon_Meetings_white_48.png' => 1,
         'icon_SugarFavorites_32.png' => 1,
         'icon_Cases_32.png' => 1,
@@ -31919,6 +29280,7 @@ $existing_files = array (
         'end_off.png' => 1,
         'Prospects_favico.png' => 1,
         'delete.gif' => 1,
+        'KBDocuments_favico.png' => 1,
         'loading.gif' => 1,
         'Cases_favico.png' => 1,
         'clear.gif' => 1,
@@ -31933,7 +29295,6 @@ $existing_files = array (
         'dashlet-tab-bg-bottom.png' => 1,
         'help-dashlet.png' => 1,
         'listview-select-bg.png' => 1,
-        'KBOLDDocuments_favico.png' => 1,
         'edit.gif' => 1,
         'info-layout.png' => 1,
         'sugar-yui-sprites.png' => 1,
@@ -32040,7 +29401,6 @@ $existing_files = array (
         'h3Arrow.gif' => 1,
         'sugar_document.png' => 1,
         'Createpmse_Emails_Templates.gif' => 1,
-        'icon_KBOLDDocuments.gif' => 1,
         'dp-mr.png' => 1,
         'formButtonBg.gif' => 1,
         'FavoriteReports.gif' => 1,
@@ -32284,6 +29644,7 @@ $existing_files = array (
         'icon_new_package.gif' => 1,
         'icon_document.gif' => 1,
         'icon_SugarNews_32.gif' => 1,
+        'icon_KBDocuments.gif' => 1,
         'pmse_Business_Rules.gif' => 1,
         'layout_sprite.png' => 1,
         'icon_Column_1.gif' => 1,
@@ -32474,6 +29835,7 @@ $existing_files = array (
         'icon_email_view2.gif' => 1,
         'icon_opportunity.gif' => 1,
         'icon_Contacts_32.gif' => 1,
+        'KBDocuments.gif' => 1,
         'CreateDocuments.gif' => 1,
         'icon_SearchForm.gif' => 1,
         'icon_email_relate.gif' => 1,
@@ -32525,7 +29887,6 @@ $existing_files = array (
         'CreateLeads.gif' => 1,
         'icon_email_delete.gif' => 1,
         'icon_FilterSearch.gif' => 1,
-        'KBOLDDocuments.gif' => 1,
         'fonts.larger.icon.gif' => 1,
         'shortCutsBg.png' => 1,
         'CampaignsWizard.gif' => 1,
@@ -32558,7 +29919,6 @@ $existing_files = array (
         'xls_image_inline.gif' => 1,
         'PatchUpgrades.gif' => 1,
         'decline_inline.gif' => 1,
-        'icon_KBOLDDocuments_32.gif' => 1,
         'listViewHR.gif' => 1,
         'arrow_up.gif' => 1,
         'getLatestDocument.gif' => 1,
@@ -32700,6 +30060,7 @@ $existing_files = array (
         'form-button-bg2.png' => 1,
         'globalLinksCenter.png' => 1,
         'icon_Charts_Funnel.gif' => 1,
+        'icon_KBDocuments_32.gif' => 1,
         'arrow.gif' => 1,
         'CreateCampaigns.gif' => 1,
         'emptyTabSpace.gif' => 1,
@@ -32833,7 +30194,6 @@ $existing_files = array (
       'SugarACLForecastWorksheets.php' => 1,
       'SugarACLUsers.php' => 1,
       'SugarACLOAuthKeys.php' => 1,
-      'SugarACLKB.php' => 1,
       'SugarACLEmailAddress.php' => 1,
       'SugarACLParentModule.php' => 1,
       'SugarACLDeveloperForAny.php' => 1,
@@ -32853,6 +30213,7 @@ $existing_files = array (
     'SugarVisibility.php' => 1,
     'visibility' => 
     array (
+      'OwnedByMe.php' => 1,
       'SupportPortalVisibility.php' => 1,
       'TeamSecurity.php' => 1,
       'ReportVisibility.php' => 1,
@@ -32861,7 +30222,6 @@ $existing_files = array (
       'ACLVisibility.php' => 1,
       'OwnerVisibility.php' => 1,
       'OwnerOrAdminVisibility.php' => 1,
-      'KBVisibility.php' => 1,
     ),
   ),
   'config_override.php' => 1,
@@ -32969,7 +30329,6 @@ $existing_files = array (
       'ko_KR.lang.php' => 1,
       'pt_PT.lang.php' => 1,
       'nb_NO.lang.php' => 1,
-      'zh_TW.lang.php' => 1,
       'da_DK.lang.php' => 1,
       'pt_BR.lang.php' => 1,
     ),
@@ -33133,7 +30492,6 @@ $existing_files = array (
         'footer-actions' => 
         array (
           'footer-actions.hbs' => 1,
-          'footer-actions.js' => 1,
         ),
         'globalsearch' => 
         array (
@@ -33177,17 +30535,6 @@ $existing_files = array (
         'PipelineChartApi.php' => 1,
         'PingApi.php' => 1,
         'MassUpdateApi.php' => 1,
-        'GlobalSearchApi.php' => 1,
-        'CollectionApi' => 
-        array (
-          'CollectionDefinition' => 
-          array (
-            'RelateCollectionDefinition.php' => 1,
-            'ModuleCollectionDefinition.php' => 1,
-            'AbstractCollectionDefinition.php' => 1,
-            'CollectionDefinitionInterface.php' => 1,
-          ),
-        ),
         'vCardApi.php' => 1,
         'RSSFeedApi.php' => 1,
         'OAuth2Api.php' => 1,
@@ -33198,7 +30545,6 @@ $existing_files = array (
         'DuplicateCheckApi.php' => 1,
         'ConfigModuleApi.php' => 1,
         'ConnectorApi.php' => 1,
-        'RelateCollectionApi.php' => 1,
         'RelateRecordApi.php' => 1,
         'PasswordApi.php' => 1,
         'CollectionApi.php' => 1,
@@ -33209,7 +30555,6 @@ $existing_files = array (
         'DnbApi.php' => 1,
         'TwitterApi.php' => 1,
         'FileApi.php' => 1,
-        'ModuleCollectionApi.php' => 1,
         'UnifiedSearchApi.php' => 1,
         'LocaleApi.php' => 1,
         'ExportApi.php' => 1,
@@ -33254,11 +30599,6 @@ $existing_files = array (
         array (
           'resolve-conflicts.php' => 1,
           'resolve-conflicts.js' => 1,
-        ),
-        'multi-selection-list' => 
-        array (
-          'multi-selection-list.php' => 1,
-          'multi-selection-list.js' => 1,
         ),
         'fluid' => 
         array (
@@ -33329,11 +30669,9 @@ $existing_files = array (
         array (
           'asdashlet-filter.php' => 1,
           'asdashlet-filter.js' => 1,
-          'asdashlet-filter.hbs' => 1,
         ),
         'dashablelist-filter' => 
         array (
-          'dashablelist-filter.hbs' => 1,
           'dashablelist-filter.js' => 1,
           'dashablelist-filter.php' => 1,
         ),
@@ -33405,12 +30743,6 @@ $existing_files = array (
         array (
           'dashlet-cell.js' => 1,
         ),
-        'quicksearch' => 
-        array (
-          'quicksearch.js' => 1,
-          'quicksearch.php' => 1,
-          'quicksearch.hbs' => 1,
-        ),
         'themeroller' => 
         array (
           'themeroller.php' => 1,
@@ -33462,6 +30794,10 @@ $existing_files = array (
         array (
           'access-denied.php' => 1,
         ),
+        'list-sidebar' => 
+        array (
+          'list-sidebar.php' => 1,
+        ),
         'record' => 
         array (
           'record.js' => 1,
@@ -33481,20 +30817,10 @@ $existing_files = array (
           'togglepanel.js' => 1,
           'togglepanel.hbs' => 1,
         ),
-        'search' => 
-        array (
-          'search.js' => 1,
-          'search.php' => 1,
-        ),
         'selection-list' => 
         array (
           'selection-list.php' => 1,
           'selection-list.js' => 1,
-        ),
-        'multi-selection-list-link' => 
-        array (
-          'multi-selection-list-link.php' => 1,
-          'multi-selection-list-link.js' => 1,
         ),
         'create-actions' => 
         array (
@@ -33611,11 +30937,6 @@ $existing_files = array (
           'edit.hbs' => 1,
           'currency.js' => 1,
         ),
-        'collection-count' => 
-        array (
-          'detail.hbs' => 1,
-          'collection-count.js' => 1,
-        ),
         'selection' => 
         array (
           'selection.js' => 1,
@@ -33653,11 +30974,6 @@ $existing_files = array (
           'list.hbs' => 1,
           'disabled.hbs' => 1,
           'edit.hbs' => 1,
-        ),
-        'dnb-bal-import-menu-label' => 
-        array (
-          'detail.hbs' => 1,
-          'dnb-bal-import-menu-label.js' => 1,
         ),
         'email-text' => 
         array (
@@ -33760,7 +31076,6 @@ $existing_files = array (
         'label' => 
         array (
           'detail.hbs' => 1,
-          'label.js' => 1,
         ),
         'sticky-rowaction' => 
         array (
@@ -33813,22 +31128,10 @@ $existing_files = array (
           'badge.js' => 1,
           'detail.hbs' => 1,
         ),
-        'tag' => 
-        array (
-          'tag.js' => 1,
-          'detail.hbs' => 1,
-          'massupdate.hbs' => 1,
-          'list.hbs' => 1,
-          'edit.hbs' => 1,
-        ),
         'rowactions-create' => 
         array (
           'rowactions-create.js' => 1,
           'list.hbs' => 1,
-        ),
-        'text' => 
-        array (
-          'text.js' => 1,
         ),
         'base' => 
         array (
@@ -33925,7 +31228,6 @@ $existing_files = array (
         ),
         'actionmenu' => 
         array (
-          'dropdown.hbs' => 1,
           'list-header.hbs' => 1,
           'actionmenu.js' => 1,
           'list.hbs' => 1,
@@ -33952,10 +31254,6 @@ $existing_files = array (
         array (
           'detail.hbs' => 1,
         ),
-        'link-button' => 
-        array (
-          'link-button.js' => 1,
-        ),
         'htmleditable_tinymce' => 
         array (
           'detail.hbs' => 1,
@@ -33976,7 +31274,6 @@ $existing_files = array (
         array (
           'detail.hbs' => 1,
           'name.js' => 1,
-          'list.hbs' => 1,
           'disabled.hbs' => 1,
           'edit.hbs' => 1,
         ),
@@ -33992,7 +31289,6 @@ $existing_files = array (
         array (
           'options.hbs' => 1,
           'overwrite-confirmation.hbs' => 1,
-          'pill.hbs' => 1,
           'detail.hbs' => 1,
           'relate.js' => 1,
           'noaccess.hbs' => 1,
@@ -34212,10 +31508,6 @@ $existing_files = array (
           'vcard-import-headerpane.js' => 1,
           'vcard-import-headerpane.php' => 1,
         ),
-        'multi-selection-list' => 
-        array (
-          'multi-selection-list.js' => 1,
-        ),
         'alert' => 
         array (
           'process.hbs' => 1,
@@ -34291,12 +31583,6 @@ $existing_files = array (
           'saved-reports-chart.hbs' => 1,
           'saved-reports-chart.php' => 1,
         ),
-        'search-headerpane' => 
-        array (
-          'search-headerpane.php' => 1,
-          'search-headerpane.hbs' => 1,
-          'search-headerpane.js' => 1,
-        ),
         'sweetspot-config-headerpane' => 
         array (
           'sweetspot-config-headerpane.php' => 1,
@@ -34357,12 +31643,6 @@ $existing_files = array (
           'list-bottom.hbs' => 1,
           'dashlet-bottom.hbs' => 1,
         ),
-        'panel-top-readonly' => 
-        array (
-          'panel-top-readonly.php' => 1,
-          'panel-top-readonly.hbs' => 1,
-          'panel-top-readonly.js' => 1,
-        ),
         'dnb-financial-info' => 
         array (
           'dnb-financial-info.hbs' => 1,
@@ -34414,11 +31694,6 @@ $existing_files = array (
           'dashlet-config.hbs' => 1,
           'dnb-desc.hbs' => 1,
         ),
-        'selection-list-context' => 
-        array (
-          'selection-list-context.hbs' => 1,
-          'selection-list-context.js' => 1,
-        ),
         'dnb-family-tree' => 
         array (
           'dnb-family-tree.hbs' => 1,
@@ -34426,19 +31701,6 @@ $existing_files = array (
           'dnb-family-tree.js' => 1,
           'dnb-family-tree.php' => 1,
           'dnb-desc.hbs' => 1,
-        ),
-        'quicksearch-taglist' => 
-        array (
-          'tag.hbs' => 1,
-          'quicksearch-taglist.js' => 1,
-          'quicksearch-taglist.hbs' => 1,
-        ),
-        'dnb-meter' => 
-        array (
-          'dashlet-config.hbs' => 1,
-          'dnb-meter.php' => 1,
-          'dnb-meter.js' => 1,
-          'dnb-meter.hbs' => 1,
         ),
         'learning-resources' => 
         array (
@@ -34526,12 +31788,6 @@ $existing_files = array (
           'history-summary-list-bottom.js' => 1,
           'history-summary-list-bottom.php' => 1,
         ),
-        'quicksearch-modulelist' => 
-        array (
-          'module-avatar.hbs' => 1,
-          'quicksearch-modulelist.js' => 1,
-          'quicksearch-modulelist.hbs' => 1,
-        ),
         'link-moduleselect' => 
         array (
           'link-moduleselect.hbs' => 1,
@@ -34601,6 +31857,12 @@ $existing_files = array (
           'headerpane.php' => 1,
           'headerpane.hbs' => 1,
         ),
+        'interactionschart' => 
+        array (
+          'interactionschart.js' => 1,
+          'interactionschart.php' => 1,
+          'interactionschart.hbs' => 1,
+        ),
         'activitystream-omnibar' => 
         array (
           'activitystream-omnibar.hbs' => 1,
@@ -34624,11 +31886,6 @@ $existing_files = array (
           'error.js' => 1,
           'error.hbs' => 1,
         ),
-        'quicksearch-tags' => 
-        array (
-          'quicksearch-tags.hbs' => 1,
-          'quicksearch-tags.js' => 1,
-        ),
         'themeroller' => 
         array (
           'themeroller.js' => 1,
@@ -34641,11 +31898,6 @@ $existing_files = array (
         'modulelist' => 
         array (
           'dashboards.hbs' => 1,
-        ),
-        'quicksearch-bar' => 
-        array (
-          'quicksearch-bar.hbs' => 1,
-          'quicksearch-bar.js' => 1,
         ),
         'modal-header' => 
         array (
@@ -34693,7 +31945,6 @@ $existing_files = array (
         'list-headerpane' => 
         array (
           'list-headerpane.js' => 1,
-          'list-headerpane.hbs' => 1,
           'list-headerpane.php' => 1,
         ),
         'panel-top' => 
@@ -34725,7 +31976,6 @@ $existing_files = array (
         ),
         'preview-header' => 
         array (
-          'preview-header.php' => 1,
           'preview-header.js' => 1,
           'preview-header.hbs' => 1,
         ),
@@ -34733,9 +31983,6 @@ $existing_files = array (
         array (
           'pmse-case.hbs' => 1,
           'pmse-case.js' => 1,
-          'headerpane.hbs' => 1,
-          'businesscard.hbs' => 1,
-          'tabspanels.hbs' => 1,
         ),
         'planned-activities' => 
         array (
@@ -34764,11 +32011,8 @@ $existing_files = array (
         'record' => 
         array (
           'record.js' => 1,
-          'headerpane.hbs' => 1,
           'record.hbs' => 1,
-          'businesscard.hbs' => 1,
           'record.php' => 1,
-          'tabspanels.hbs' => 1,
         ),
         'dashletselect' => 
         array (
@@ -34846,10 +32090,6 @@ $existing_files = array (
         array (
           'selection-list.js' => 1,
         ),
-        'multi-selection-list-link' => 
-        array (
-          'multi-selection-list-link.js' => 1,
-        ),
         'sweetspot-config-list-row' => 
         array (
           'sweetspot-config-list-row.php' => 1,
@@ -34882,6 +32122,7 @@ $existing_files = array (
         'orgchart' => 
         array (
           'orgchart.php' => 1,
+          'orgchartnode.hbs' => 1,
           'orgchart.hbs' => 1,
           'orgchart.js' => 1,
         ),
@@ -34891,11 +32132,6 @@ $existing_files = array (
           'dashlet-config.hbs' => 1,
           'dnb-standard-company-info.js' => 1,
           'dnb-desc.hbs' => 1,
-        ),
-        'quicksearch-button' => 
-        array (
-          'quicksearch-button.hbs' => 1,
-          'quicksearch-button.js' => 1,
         ),
         'dashlet-toolbar' => 
         array (
@@ -34924,6 +32160,7 @@ $existing_files = array (
         'activitystream-bottom' => 
         array (
           'activitystream-bottom.js' => 1,
+          'activitystream-bottom.hbs' => 1,
         ),
         'audit' => 
         array (
@@ -34985,6 +32222,12 @@ $existing_files = array (
           'audit-headerpane.php' => 1,
           'audit-headerpane.js' => 1,
         ),
+        'globalsearch' => 
+        array (
+          'globalsearch.js' => 1,
+          'globalsearch.hbs' => 1,
+          'result.hbs' => 1,
+        ),
         'rssfeed' => 
         array (
           'rssfeed.js' => 1,
@@ -34997,12 +32240,6 @@ $existing_files = array (
           'bubblechart.php' => 1,
           'bubblechart.hbs' => 1,
           'bubblechart.js' => 1,
-        ),
-        'quicksearch-results' => 
-        array (
-          'quicksearch-results.hbs' => 1,
-          'quicksearch-results.js' => 1,
-          'row.hbs' => 1,
         ),
         'dupecheck-list-multiselect' => 
         array (
@@ -35038,13 +32275,6 @@ $existing_files = array (
           'favorites.hbs' => 1,
           'module-menu.hbs' => 1,
           'module-menu.js' => 1,
-        ),
-        'search-list' => 
-        array (
-          'row.hbs' => 1,
-          'search-list.js' => 1,
-          'search-list.hbs' => 1,
-          'search-list.php' => 1,
         ),
         'sweetspot-searchbar' => 
         array (
@@ -35085,7 +32315,6 @@ $existing_files = array (
         'styleguide.css' => 1,
         'jsduck.css' => 1,
         'bootstrap.css' => 1,
-        'loading.css' => 1,
         'upgrade.css' => 1,
       ),
       'fonts' => 
@@ -35094,7 +32323,6 @@ $existing_files = array (
       'img' => 
       array (
         'throbber.gif' => 1,
-        'd.png' => 1,
         'triangles.png' => 1,
         'texture' => 
         array (
@@ -35103,7 +32331,6 @@ $existing_files = array (
         ),
         'ajax-loader.gif' => 1,
         'sugar-red-logo.png' => 1,
-        'bg.jpg' => 1,
         'saturation.png' => 1,
         'sugar-red.png' => 1,
         'dark_cube.png' => 1,
@@ -35154,10 +32381,7 @@ $existing_files = array (
         'js' => 
         array (
           'less-1.3.3.min.js' => 1,
-          'translate-data.js' => 1,
-          'jquery-ui.min.js' => 1,
           'chart-utils.js' => 1,
-          'jquery.knob.min.js' => 1,
         ),
         'lineChart.html' => 1,
         'treemapChart_colors.html' => 1,
@@ -35177,7 +32401,6 @@ $existing_files = array (
         'paretoChart.html' => 1,
         'less' => 
         array (
-          'jquery-ui.min.css' => 1,
           'styles.less' => 1,
         ),
         'img' => 
@@ -35193,7 +32416,6 @@ $existing_files = array (
         array (
         ),
         'treemapChart_opportunities.html' => 1,
-        'pieChart_half.html' => 1,
         'gaugeChart_colors.html' => 1,
         'bubbleChart_colors.html' => 1,
         'multiBarChart.html' => 1,
@@ -35239,25 +32461,21 @@ $existing_files = array (
             'dnb-dashlets.less' => 1,
             'product-templates.less' => 1,
             'headerpane.less' => 1,
-            'emailcompose.less' => 1,
             'img.less' => 1,
             'themeroller.less' => 1,
             'influencers.less' => 1,
             'opportunity-metrics.less' => 1,
-            'formhorizontal.less' => 1,
             'drawer.less' => 1,
             'list.less' => 1,
             'sweetspot.less' => 1,
             'upgrade-modal.less' => 1,
             'record.less' => 1,
-            'fieldset.less' => 1,
             'honeypot.less' => 1,
             'reorderable-columns.less' => 1,
             'step-circle.less' => 1,
             'learning-resources.less' => 1,
             'treemap.less' => 1,
             'sweetspot-config.less' => 1,
-            'participants.less' => 1,
           ),
           'sugar.less' => 1,
           'bootstrap.less' => 1,
@@ -35268,14 +32486,12 @@ $existing_files = array (
       array (
         'loader.less' => 1,
         'upload-field-custom.less' => 1,
-        'animation.less' => 1,
         'forms.less' => 1,
         'utilities.less' => 1,
         'error.less' => 1,
         'slider.less' => 1,
         'body.less' => 1,
         'merge-interface.less' => 1,
-        'kb.less' => 1,
         'preview.less' => 1,
         'omnibar.less' => 1,
         'side.less' => 1,
@@ -35310,7 +32526,6 @@ $existing_files = array (
         'progress-bars.less' => 1,
         'select2.less' => 1,
         'button-groups.less' => 1,
-        'tree-component.less' => 1,
         'taggable.less' => 1,
         'navs.less' => 1,
         'labels-badges.less' => 1,
@@ -35418,10 +32633,10 @@ $existing_files = array (
     'project_productsMetaData.php' => 1,
     'contracts_opportunitiesMetaData.php' => 1,
     'documents_productsMetaData.php' => 1,
+    'kbdocuments_views_ratingsMetaData.php' => 1,
     'usersMetaData.php' => 1,
     'oauth_nonce.php' => 1,
     'contacts_bugsMetaData.php' => 1,
-    'eventsMetaData.php' => 1,
     'email_cacheMetaData.php' => 1,
     'acl_roles_actionsMetaData.php' => 1,
     'project_casesMetaData.php' => 1,
@@ -35460,8 +32675,6 @@ $existing_files = array (
     'emails_beansMetaData.php' => 1,
     'meetings_contactsMetaData.php' => 1,
     'meetings_leadsMetaData.php' => 1,
-    'tag_bean_relMetaData.php' => 1,
-    'kbusefulnessMetaData.php' => 1,
     'opportunities_contactsMetaData.php' => 1,
     'acl_roles_usersMetaData.php' => 1,
     'inboundEmail_autoreplyMetaData.php' => 1,
@@ -35493,7 +32706,6 @@ $existing_files = array (
     'email_marketing_prospect_listsMetaData.php' => 1,
     'team_sets_usersMetaData.php' => 1,
     'acl_role_sets_acl_rolesMetaData.php' => 1,
-    'key_value_cacheMetaData.php' => 1,
     'teamsMetaData.php' => 1,
     'dataset_layoutsMetaData.php' => 1,
     'product_bundle_noteMetaData.php' => 1,
@@ -35502,411 +32714,6 @@ $existing_files = array (
   'TreeData.php' => 1,
   'vendor' => 
   array (
-    'bin' => 
-    array (
-    ),
-    'phpspec' => 
-    array (
-      'prophecy' => 
-      array (
-        'spec' => 
-        array (
-          'Prophecy' => 
-          array (
-            'Call' => 
-            array (
-              'CallSpec.php' => 1,
-              'CallCenterSpec.php' => 1,
-            ),
-            'Util' => 
-            array (
-              'StringUtilSpec.php' => 1,
-            ),
-            'Doubler' => 
-            array (
-              'Generator' => 
-              array (
-                'ClassCreatorSpec.php' => 1,
-                'ClassCodeGeneratorSpec.php' => 1,
-                'ClassMirrorSpec.php' => 1,
-                'Node' => 
-                array (
-                  'ClassNodeSpec.php' => 1,
-                  'MethodNodeSpec.php' => 1,
-                  'ArgumentNodeSpec.php' => 1,
-                ),
-              ),
-              'NameGeneratorSpec.php' => 1,
-              'LazyDoubleSpec.php' => 1,
-              'DoublerSpec.php' => 1,
-              'ClassPatch' => 
-              array (
-                'ReflectionClassNewInstancePatchSpec.php' => 1,
-                'SplFileInfoPatchSpec.php' => 1,
-                'HhvmExceptionPatchSpec.php' => 1,
-                'MagicCallPatchSpec.php' => 1,
-                'TraversablePatchSpec.php' => 1,
-                'KeywordPatchSpec.php' => 1,
-                'ProphecySubjectPatchSpec.php' => 1,
-                'DisableConstructorPatchSpec.php' => 1,
-              ),
-            ),
-            'Prophecy' => 
-            array (
-              'RevealerSpec.php' => 1,
-              'ObjectProphecySpec.php' => 1,
-              'MethodProphecySpec.php' => 1,
-            ),
-            'Exception' => 
-            array (
-              'Call' => 
-              array (
-                'UnexpectedCallExceptionSpec.php' => 1,
-              ),
-              'Doubler' => 
-              array (
-                'ClassMirrorExceptionSpec.php' => 1,
-                'ClassCreatorExceptionSpec.php' => 1,
-                'ClassNotFoundExceptionSpec.php' => 1,
-                'MethodNotExtendableExceptionSpec.php' => 1,
-                'MethodNotFoundExceptionSpec.php' => 1,
-                'InterfaceNotFoundExceptionSpec.php' => 1,
-                'DoubleExceptionSpec.php' => 1,
-              ),
-              'Prophecy' => 
-              array (
-                'MethodProphecyExceptionSpec.php' => 1,
-                'ObjectProphecyExceptionSpec.php' => 1,
-              ),
-              'Prediction' => 
-              array (
-                'UnexpectedCallsExceptionSpec.php' => 1,
-                'AggregateExceptionSpec.php' => 1,
-                'UnexpectedCallsCountExceptionSpec.php' => 1,
-                'NoCallsExceptionSpec.php' => 1,
-              ),
-            ),
-            'ProphetSpec.php' => 1,
-            'Comparator' => 
-            array (
-              'ClosureComparatorSpec.php' => 1,
-              'FactorySpec.php' => 1,
-              'ProphecyComparatorSpec.php' => 1,
-            ),
-            'ArgumentSpec.php' => 1,
-            'Argument' => 
-            array (
-              'ArgumentsWildcardSpec.php' => 1,
-              'Token' => 
-              array (
-                'CallbackTokenSpec.php' => 1,
-                'ObjectStateTokenSpec.php' => 1,
-                'AnyValueTokenSpec.php' => 1,
-                'ArrayEveryEntryTokenSpec.php' => 1,
-                'LogicalAndTokenSpec.php' => 1,
-                'AnyValuesTokenSpec.php' => 1,
-                'ExactValueTokenSpec.php' => 1,
-                'ArrayEntryTokenSpec.php' => 1,
-                'IdenticalValueTokenSpec.php' => 1,
-                'TypeTokenSpec.php' => 1,
-                'ArrayCountTokenSpec.php' => 1,
-                'ApproximateValueTokenSpec.php' => 1,
-                'StringContainsTokenSpec.php' => 1,
-                'LogicalNotTokenSpec.php' => 1,
-              ),
-            ),
-            'Prediction' => 
-            array (
-              'NoCallsPredictionSpec.php' => 1,
-              'CallTimesPredictionSpec.php' => 1,
-              'CallbackPredictionSpec.php' => 1,
-              'CallPredictionSpec.php' => 1,
-            ),
-            'Promise' => 
-            array (
-              'ReturnArgumentPromiseSpec.php' => 1,
-              'CallbackPromiseSpec.php' => 1,
-              'ThrowPromiseSpec.php' => 1,
-              'ReturnPromiseSpec.php' => 1,
-            ),
-          ),
-        ),
-        'src' => 
-        array (
-          'Prophecy' => 
-          array (
-            'Call' => 
-            array (
-              'Call.php' => 1,
-              'CallCenter.php' => 1,
-            ),
-            'Util' => 
-            array (
-              'StringUtil.php' => 1,
-              'ExportUtil.php' => 1,
-            ),
-            'Doubler' => 
-            array (
-              'NameGenerator.php' => 1,
-              'DoubleInterface.php' => 1,
-              'Generator' => 
-              array (
-                'ClassMirror.php' => 1,
-                'ReflectionInterface.php' => 1,
-                'ClassCodeGenerator.php' => 1,
-                'Node' => 
-                array (
-                  'ClassNode.php' => 1,
-                  'MethodNode.php' => 1,
-                  'ArgumentNode.php' => 1,
-                ),
-                'ClassCreator.php' => 1,
-              ),
-              'LazyDouble.php' => 1,
-              'ClassPatch' => 
-              array (
-                'ClassPatchInterface.php' => 1,
-                'ReflectionClassNewInstancePatch.php' => 1,
-                'TraversablePatch.php' => 1,
-                'MagicCallPatch.php' => 1,
-                'ProphecySubjectPatch.php' => 1,
-                'HhvmExceptionPatch.php' => 1,
-                'KeywordPatch.php' => 1,
-                'DisableConstructorPatch.php' => 1,
-                'SplFileInfoPatch.php' => 1,
-              ),
-              'CachedDoubler.php' => 1,
-              'Doubler.php' => 1,
-            ),
-            'Prophecy' => 
-            array (
-              'ProphecySubjectInterface.php' => 1,
-              'RevealerInterface.php' => 1,
-              'ProphecyInterface.php' => 1,
-              'MethodProphecy.php' => 1,
-              'Revealer.php' => 1,
-              'ObjectProphecy.php' => 1,
-            ),
-            'Exception' => 
-            array (
-              'Call' => 
-              array (
-                'UnexpectedCallException.php' => 1,
-              ),
-              'Doubler' => 
-              array (
-                'MethodNotExtendableException.php' => 1,
-                'MethodNotFoundException.php' => 1,
-                'ClassMirrorException.php' => 1,
-                'ClassCreatorException.php' => 1,
-                'ReturnByReferenceException.php' => 1,
-                'DoubleException.php' => 1,
-                'ClassNotFoundException.php' => 1,
-                'DoublerException.php' => 1,
-                'InterfaceNotFoundException.php' => 1,
-              ),
-              'Prophecy' => 
-              array (
-                'ProphecyException.php' => 1,
-                'ObjectProphecyException.php' => 1,
-                'MethodProphecyException.php' => 1,
-              ),
-              'InvalidArgumentException.php' => 1,
-              'Exception.php' => 1,
-              'Prediction' => 
-              array (
-                'FailedPredictionException.php' => 1,
-                'PredictionException.php' => 1,
-                'UnexpectedCallsCountException.php' => 1,
-                'UnexpectedCallsException.php' => 1,
-                'NoCallsException.php' => 1,
-                'AggregateException.php' => 1,
-              ),
-            ),
-            'Comparator' => 
-            array (
-              'ClosureComparator.php' => 1,
-              'Factory.php' => 1,
-              'ProphecyComparator.php' => 1,
-            ),
-            'PhpDocumentor' => 
-            array (
-              'ClassAndInterfaceTagRetriever.php' => 1,
-              'ClassTagRetriever.php' => 1,
-              'MethodTagRetrieverInterface.php' => 1,
-              'LegacyClassTagRetriever.php' => 1,
-            ),
-            'Argument.php' => 1,
-            'Prophet.php' => 1,
-            'Argument' => 
-            array (
-              'Token' => 
-              array (
-                'StringContainsToken.php' => 1,
-                'IdenticalValueToken.php' => 1,
-                'TypeToken.php' => 1,
-                'ArrayEveryEntryToken.php' => 1,
-                'ArrayCountToken.php' => 1,
-                'ApproximateValueToken.php' => 1,
-                'ObjectStateToken.php' => 1,
-                'AnyValuesToken.php' => 1,
-                'ArrayEntryToken.php' => 1,
-                'ExactValueToken.php' => 1,
-                'TokenInterface.php' => 1,
-                'AnyValueToken.php' => 1,
-                'CallbackToken.php' => 1,
-                'LogicalNotToken.php' => 1,
-                'LogicalAndToken.php' => 1,
-              ),
-              'ArgumentsWildcard.php' => 1,
-            ),
-            'Prediction' => 
-            array (
-              'PredictionInterface.php' => 1,
-              'CallbackPrediction.php' => 1,
-              'CallPrediction.php' => 1,
-              'CallTimesPrediction.php' => 1,
-              'NoCallsPrediction.php' => 1,
-            ),
-            'Promise' => 
-            array (
-              'ThrowPromise.php' => 1,
-              'ReturnArgumentPromise.php' => 1,
-              'ReturnPromise.php' => 1,
-              'CallbackPromise.php' => 1,
-              'PromiseInterface.php' => 1,
-            ),
-          ),
-        ),
-      ),
-    ),
-    'webmozart' => 
-    array (
-      'assert' => 
-      array (
-        'src' => 
-        array (
-          'Assert.php' => 1,
-        ),
-        'tests' => 
-        array (
-          'AssertTest.php' => 1,
-        ),
-      ),
-    ),
-    'phpmailer' => 
-    array (
-      'phpmailer' => 
-      array (
-        'class.phpmailer.php' => 1,
-        'class.smtp.php' => 1,
-        'examples' => 
-        array (
-          'index.html' => 1,
-          'scripts' => 
-          array (
-            'shCore.js' => 1,
-            'shAutoloader.js' => 1,
-            'shBrushPhp.js' => 1,
-            'shLegacy.js' => 1,
-            'XRegExp.js' => 1,
-          ),
-          'images' => 
-          array (
-            'phpmailer.png' => 1,
-            'phpmailer_mini.png' => 1,
-          ),
-          'styles' => 
-          array (
-            'shCoreMDUltra.css' => 1,
-            'shCoreRDark.css' => 1,
-            'wrapping.png' => 1,
-            'shThemeAppleScript.css' => 1,
-            'shThemeMDUltra.css' => 1,
-            'shThemeFadeToGrey.css' => 1,
-            'shCore.css' => 1,
-            'shCoreEclipse.css' => 1,
-            'shThemeVisualStudio.css' => 1,
-            'shThemeDefault.css' => 1,
-            'shThemeMidnight.css' => 1,
-            'shCoreDefault.css' => 1,
-            'shThemeEmacs.css' => 1,
-            'shCoreDjango.css' => 1,
-            'shCoreFadeToGrey.css' => 1,
-            'shThemeRDark.css' => 1,
-            'shThemeDjango.css' => 1,
-            'shCoreEmacs.css' => 1,
-            'shThemeEclipse.css' => 1,
-            'shCoreMidnight.css' => 1,
-          ),
-          'contents.html' => 1,
-        ),
-        'docs' => 
-        array (
-          'faq.html' => 1,
-          'extending.html' => 1,
-        ),
-        'class.pop3.php' => 1,
-        'test' => 
-        array (
-          'phpmailerLangTest.php' => 1,
-          'phpmailerTest.php' => 1,
-          'testbootstrap-dist.php' => 1,
-          'bootstrap.php' => 1,
-          'test_callback.php' => 1,
-        ),
-        'extras' => 
-        array (
-          'class.html2text.php' => 1,
-          'htmlfilter.php' => 1,
-          'EasyPeasyICS.php' => 1,
-          'ntlm_sasl_client.php' => 1,
-        ),
-        'PHPMailerAutoload.php' => 1,
-        'language' => 
-        array (
-          'phpmailer.lang-fr.php' => 1,
-          'phpmailer.lang-ja.php' => 1,
-          'phpmailer.lang-sr.php' => 1,
-          'phpmailer.lang-he.php' => 1,
-          'phpmailer.lang-ro.php' => 1,
-          'phpmailer.lang-pt.php' => 1,
-          'phpmailer.lang-el.php' => 1,
-          'phpmailer.lang-lt.php' => 1,
-          'phpmailer.lang-pl.php' => 1,
-          'phpmailer.lang-fo.php' => 1,
-          'phpmailer.lang-no.php' => 1,
-          'phpmailer.lang-zh.php' => 1,
-          'phpmailer.lang-ru.php' => 1,
-          'phpmailer.lang-ch.php' => 1,
-          'phpmailer.lang-es.php' => 1,
-          'phpmailer.lang-de.php' => 1,
-          'phpmailer.lang-sk.php' => 1,
-          'phpmailer.lang-zh_cn.php' => 1,
-          'phpmailer.lang-vi.php' => 1,
-          'phpmailer.lang-hr.php' => 1,
-          'phpmailer.lang-fa.php' => 1,
-          'phpmailer.lang-nl.php' => 1,
-          'phpmailer.lang-lv.php' => 1,
-          'phpmailer.lang-be.php' => 1,
-          'phpmailer.lang-ka.php' => 1,
-          'phpmailer.lang-tr.php' => 1,
-          'phpmailer.lang-gl.php' => 1,
-          'phpmailer.lang-ca.php' => 1,
-          'phpmailer.lang-se.php' => 1,
-          'phpmailer.lang-uk.php' => 1,
-          'phpmailer.lang-dk.php' => 1,
-          'phpmailer.lang-br.php' => 1,
-          'phpmailer.lang-hu.php' => 1,
-          'phpmailer.lang-et.php' => 1,
-          'phpmailer.lang-it.php' => 1,
-          'phpmailer.lang-fi.php' => 1,
-          'phpmailer.lang-eo.php' => 1,
-          'phpmailer.lang-cz.php' => 1,
-          'phpmailer.lang-ar.php' => 1,
-        ),
-      ),
-    ),
     'google' => 
     array (
       'apiclient' => 
@@ -36150,993 +32957,6 @@ $existing_files = array (
         ),
       ),
     ),
-    'seld' => 
-    array (
-      'jsonlint' => 
-      array (
-        'bin' => 
-        array (
-        ),
-        'src' => 
-        array (
-          'Seld' => 
-          array (
-            'JsonLint' => 
-            array (
-              'Undefined.php' => 1,
-              'ParsingException.php' => 1,
-              'DuplicateKeyException.php' => 1,
-              'Lexer.php' => 1,
-              'JsonParser.php' => 1,
-            ),
-          ),
-        ),
-        'tests' => 
-        array (
-          'bootstrap.php' => 1,
-          'JsonParserTest.php' => 1,
-        ),
-      ),
-    ),
-    'phpunit' => 
-    array (
-      'php-file-iterator' => 
-      array (
-        'src' => 
-        array (
-          'Iterator.php' => 1,
-          'Facade.php' => 1,
-          'Factory.php' => 1,
-        ),
-      ),
-      'php-code-coverage' => 
-      array (
-        'src' => 
-        array (
-          'Driver' => 
-          array (
-            'HHVM.php' => 1,
-            'Xdebug.php' => 1,
-            'PHPDBG.php' => 1,
-            'Driver.php' => 1,
-          ),
-          'Exception' => 
-          array (
-            'MissingCoversAnnotationException.php' => 1,
-            'CoveredCodeNotExecutedException.php' => 1,
-            'InvalidArgumentException.php' => 1,
-            'Exception.php' => 1,
-            'UnintentionallyCoveredCodeException.php' => 1,
-            'RuntimeException.php' => 1,
-          ),
-          'CodeCoverage.php' => 1,
-          'Util.php' => 1,
-          'Report' => 
-          array (
-            'Crap4j.php' => 1,
-            'Text.php' => 1,
-            'Html' => 
-            array (
-              'Renderer' => 
-              array (
-                'Template' => 
-                array (
-                  'css' => 
-                  array (
-                    'style.css' => 1,
-                    'nv.d3.min.css' => 1,
-                    'bootstrap.min.css' => 1,
-                  ),
-                  'js' => 
-                  array (
-                    'nv.d3.min.js' => 1,
-                    'jquery.min.js' => 1,
-                    'holder.min.js' => 1,
-                    'bootstrap.min.js' => 1,
-                    'html5shiv.min.js' => 1,
-                    'd3.min.js' => 1,
-                    'respond.min.js' => 1,
-                  ),
-                  'fonts' => 
-                  array (
-                  ),
-                ),
-                'Dashboard.php' => 1,
-                'Directory.php' => 1,
-                'File.php' => 1,
-              ),
-              'Facade.php' => 1,
-              'Renderer.php' => 1,
-            ),
-            'Xml' => 
-            array (
-              'Tests.php' => 1,
-              'Report.php' => 1,
-              'Unit.php' => 1,
-              'Directory.php' => 1,
-              'Coverage.php' => 1,
-              'Facade.php' => 1,
-              'Node.php' => 1,
-              'Method.php' => 1,
-              'Project.php' => 1,
-              'Totals.php' => 1,
-              'File.php' => 1,
-            ),
-            'Clover.php' => 1,
-            'PHP.php' => 1,
-          ),
-          'Filter.php' => 1,
-          'Node' => 
-          array (
-            'AbstractNode.php' => 1,
-            'Iterator.php' => 1,
-            'Directory.php' => 1,
-            'Builder.php' => 1,
-            'File.php' => 1,
-          ),
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'TestCase.php' => 1,
-          '_files' => 
-          array (
-            'CoverageNothingTest.php' => 1,
-            'CoverageNotProtectedTest.php' => 1,
-            'NamespaceCoverageNotPrivateTest.php' => 1,
-            'CoverageTwoDefaultClassAnnotations.php' => 1,
-            'NamespaceCoverageClassExtendedTest.php' => 1,
-            'NamespaceCoverageNotPublicTest.php' => 1,
-            'CoverageMethodParenthesesWhitespaceTest.php' => 1,
-            'source_with_namespace.php' => 1,
-            'BankAccount.php' => 1,
-            'CoverageProtectedTest.php' => 1,
-            'BankAccount-clover.xml' => 1,
-            'CoverageMethodOneLineAnnotationTest.php' => 1,
-            'NamespaceCoveredClass.php' => 1,
-            'CoveredClass.php' => 1,
-            'CoverageFunctionTest.php' => 1,
-            'CoveragePrivateTest.php' => 1,
-            'CoverageNoneTest.php' => 1,
-            'CoveredFunction.php' => 1,
-            'ignored-lines-crap4j.xml' => 1,
-            'BankAccount-crap4j.xml' => 1,
-            'NamespaceCoveragePrivateTest.php' => 1,
-            'NamespaceCoveragePublicTest.php' => 1,
-            'CoverageNotPublicTest.php' => 1,
-            'CoverageClassTest.php' => 1,
-            'ignored-lines-clover.xml' => 1,
-            'NamespaceCoverageClassTest.php' => 1,
-            'source_with_ignore.php' => 1,
-            'source_without_ignore.php' => 1,
-            'CoverageClassExtendedTest.php' => 1,
-            'CoverageFunctionParenthesesTest.php' => 1,
-            'NamespaceCoverageMethodTest.php' => 1,
-            'NamespaceCoverageProtectedTest.php' => 1,
-            'CoverageMethodParenthesesTest.php' => 1,
-            'NotExistingCoveredElementTest.php' => 1,
-            'NamespaceCoverageCoversClassTest.php' => 1,
-            'BankAccountTest.php' => 1,
-            'class-with-anonymous-function-crap4j.xml' => 1,
-            'Report' => 
-            array (
-              'XML' => 
-              array (
-                'CoverageForClassWithAnonymousFunction' => 
-                array (
-                  'source_with_class_and_anonymous_function.php.xml' => 1,
-                  'index.xml' => 1,
-                ),
-                'CoverageForFileWithIgnoredLines' => 
-                array (
-                  'index.xml' => 1,
-                  'source_with_ignore.php.xml' => 1,
-                ),
-                'CoverageForBankAccount' => 
-                array (
-                  'index.xml' => 1,
-                  'BankAccount.php.xml' => 1,
-                ),
-              ),
-              'HTML' => 
-              array (
-                'CoverageForClassWithAnonymousFunction' => 
-                array (
-                  'dashboard.html' => 1,
-                  'index.html' => 1,
-                  'source_with_class_and_anonymous_function.php.html' => 1,
-                ),
-                'CoverageForFileWithIgnoredLines' => 
-                array (
-                  'dashboard.html' => 1,
-                  'index.html' => 1,
-                  'source_with_ignore.php.html' => 1,
-                ),
-                'CoverageForBankAccount' => 
-                array (
-                  'dashboard.html' => 1,
-                  'BankAccount.php.html' => 1,
-                  'index.html' => 1,
-                ),
-              ),
-            ),
-            'source_with_class_and_anonymous_function.php' => 1,
-            'source_without_namespace.php' => 1,
-            'CoveragePublicTest.php' => 1,
-            'class-with-anonymous-function-clover.xml' => 1,
-            'NamespaceCoverageCoversClassPublicTest.php' => 1,
-            'source_with_oneline_annotations.php' => 1,
-            'CoverageMethodTest.php' => 1,
-            'CoverageNotPrivateTest.php' => 1,
-            'CoverageFunctionParenthesesWhitespaceTest.php' => 1,
-            'NamespaceCoverageNotProtectedTest.php' => 1,
-          ),
-          'bootstrap.php' => 1,
-          'tests' => 
-          array (
-            'CodeCoverageTest.php' => 1,
-            'HTMLTest.php' => 1,
-            'CloverTest.php' => 1,
-            'UtilTest.php' => 1,
-            'Crap4jTest.php' => 1,
-            'XMLTest.php' => 1,
-            'TextTest.php' => 1,
-            'BuilderTest.php' => 1,
-            'FilterTest.php' => 1,
-          ),
-        ),
-        'build' => 
-        array (
-          'phpunit.xml' => 1,
-        ),
-      ),
-      'php-text-template' => 
-      array (
-        'src' => 
-        array (
-          'Template.php' => 1,
-        ),
-      ),
-      'phpunit' => 
-      array (
-        'phpunit.xml' => 1,
-        'src' => 
-        array (
-          'Util' => 
-          array (
-            'Blacklist.php' => 1,
-            'Printer.php' => 1,
-            'Configuration.php' => 1,
-            'GlobalState.php' => 1,
-            'ErrorHandler.php' => 1,
-            'Type.php' => 1,
-            'InvalidArgumentHelper.php' => 1,
-            'Log' => 
-            array (
-              'TeamCity.php' => 1,
-              'JSON.php' => 1,
-              'JUnit.php' => 1,
-              'TAP.php' => 1,
-            ),
-            'Regex.php' => 1,
-            'XML.php' => 1,
-            'TestDox' => 
-            array (
-              'NamePrettifier.php' => 1,
-              'ResultPrinter.php' => 1,
-              'ResultPrinter' => 
-              array (
-                'XML.php' => 1,
-                'Text.php' => 1,
-                'HTML.php' => 1,
-              ),
-            ),
-            'Filesystem.php' => 1,
-            'Fileloader.php' => 1,
-            'Test.php' => 1,
-            'Getopt.php' => 1,
-            'PHP' => 
-            array (
-              'Template' => 
-              array (
-              ),
-              'eval-stdin.php' => 1,
-              'Windows.php' => 1,
-              'Default.php' => 1,
-            ),
-            'PHP.php' => 1,
-            'String.php' => 1,
-            'ConfigurationGenerator.php' => 1,
-            'Filter.php' => 1,
-            'TestSuiteIterator.php' => 1,
-          ),
-          'TextUI' => 
-          array (
-            'Command.php' => 1,
-            'TestRunner.php' => 1,
-            'ResultPrinter.php' => 1,
-          ),
-          'ForwardCompatibility' => 
-          array (
-            'TestCase.php' => 1,
-          ),
-          'Exception.php' => 1,
-          'Extensions' => 
-          array (
-            'GroupTestSuite.php' => 1,
-            'PhptTestCase.php' => 1,
-            'PhptTestSuite.php' => 1,
-            'TestDecorator.php' => 1,
-            'TicketListener.php' => 1,
-            'RepeatedTest.php' => 1,
-          ),
-          'Runner' => 
-          array (
-            'StandardTestSuiteLoader.php' => 1,
-            'Version.php' => 1,
-            'TestSuiteLoader.php' => 1,
-            'Filter' => 
-            array (
-              'Factory.php' => 1,
-              'Group.php' => 1,
-              'Group' => 
-              array (
-                'Include.php' => 1,
-                'Exclude.php' => 1,
-              ),
-              'Test.php' => 1,
-            ),
-            'BaseTestRunner.php' => 1,
-            'Exception.php' => 1,
-          ),
-          'Framework' => 
-          array (
-            'CodeCoverageException.php' => 1,
-            'WarningTestCase.php' => 1,
-            'ExpectationFailedException.php' => 1,
-            'SkippedTestError.php' => 1,
-            'BaseTestListener.php' => 1,
-            'PHPUnit_Framework_MissingCoversAnnotationException.php' => 1,
-            'TestListener.php' => 1,
-            'IncompleteTestError.php' => 1,
-            'Constraint' => 
-            array (
-              'IsNull.php' => 1,
-              'Composite.php' => 1,
-              'PCREMatch.php' => 1,
-              'JsonMatches' => 
-              array (
-                'ErrorMessageProvider.php' => 1,
-              ),
-              'IsType.php' => 1,
-              'IsIdentical.php' => 1,
-              'LessThan.php' => 1,
-              'StringEndsWith.php' => 1,
-              'StringContains.php' => 1,
-              'Not.php' => 1,
-              'ExceptionMessage.php' => 1,
-              'IsEmpty.php' => 1,
-              'IsInfinite.php' => 1,
-              'IsFinite.php' => 1,
-              'IsEqual.php' => 1,
-              'StringStartsWith.php' => 1,
-              'Count.php' => 1,
-              'Exception.php' => 1,
-              'Xor.php' => 1,
-              'ClassHasStaticAttribute.php' => 1,
-              'SameSize.php' => 1,
-              'ArrayHasKey.php' => 1,
-              'IsFalse.php' => 1,
-              'IsAnything.php' => 1,
-              'FileExists.php' => 1,
-              'And.php' => 1,
-              'IsTrue.php' => 1,
-              'Or.php' => 1,
-              'ExceptionCode.php' => 1,
-              'TraversableContainsOnly.php' => 1,
-              'IsJson.php' => 1,
-              'StringMatches.php' => 1,
-              'GreaterThan.php' => 1,
-              'Attribute.php' => 1,
-              'TraversableContains.php' => 1,
-              'ArraySubset.php' => 1,
-              'ObjectHasAttribute.php' => 1,
-              'IsInstanceOf.php' => 1,
-              'ExceptionMessageRegExp.php' => 1,
-              'Callback.php' => 1,
-              'ClassHasAttribute.php' => 1,
-              'JsonMatches.php' => 1,
-              'IsNan.php' => 1,
-            ),
-            'TestCase.php' => 1,
-            'PHPUnit_Framework_CoveredCodeNotExecutedException.php' => 1,
-            'Constraint.php' => 1,
-            'RiskyTest.php' => 1,
-            'TestFailure.php' => 1,
-            'Assert' => 
-            array (
-              'Functions.php' => 1,
-            ),
-            'TestSuite' => 
-            array (
-              'DataProvider.php' => 1,
-            ),
-            'Assert.php' => 1,
-            'SkippedTestSuiteError.php' => 1,
-            'TestSuite.php' => 1,
-            'UnintentionallyCoveredCodeError.php' => 1,
-            'InvalidCoversTargetException.php' => 1,
-            'SkippedTestCase.php' => 1,
-            'OutputError.php' => 1,
-            'Exception.php' => 1,
-            'ExceptionWrapper.php' => 1,
-            'IncompleteTest.php' => 1,
-            'RiskyTestError.php' => 1,
-            'Error' => 
-            array (
-              'Notice.php' => 1,
-              'Warning.php' => 1,
-              'Deprecated.php' => 1,
-            ),
-            'SelfDescribing.php' => 1,
-            'Test.php' => 1,
-            'SkippedTest.php' => 1,
-            'IncompleteTestCase.php' => 1,
-            'SyntheticError.php' => 1,
-            'Warning.php' => 1,
-            'AssertionFailedError.php' => 1,
-            'Error.php' => 1,
-            'TestResult.php' => 1,
-          ),
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'Regression' => 
-          array (
-            'Trac' => 
-            array (
-              783 => 
-              array (
-                'ChildSuite.php' => 1,
-                'OneTest.php' => 1,
-                'TwoTest.php' => 1,
-                'ParentSuite.php' => 1,
-              ),
-              1021 => 
-              array (
-                'Issue1021Test.php' => 1,
-              ),
-              523 => 
-              array (
-                'Issue523Test.php' => 1,
-              ),
-              578 => 
-              array (
-                'Issue578Test.php' => 1,
-              ),
-              684 => 
-              array (
-                'Issue684Test.php' => 1,
-              ),
-            ),
-            'GitHub' => 
-            array (
-              1348 => 
-              array (
-                'Issue1348Test.php' => 1,
-              ),
-              2158 => 
-              array (
-                'Issue2158Test.php' => 1,
-              ),
-              1337 => 
-              array (
-                'Issue1337Test.php' => 1,
-              ),
-              445 => 
-              array (
-                'Issue445Test.php' => 1,
-              ),
-              1335 => 
-              array (
-                'bootstrap1335.php' => 1,
-                'Issue1335Test.php' => 1,
-              ),
-              498 => 
-              array (
-                'Issue498Test.php' => 1,
-              ),
-              1472 => 
-              array (
-                'Issue1472Test.php' => 1,
-              ),
-              1374 => 
-              array (
-                'Issue1374Test.php' => 1,
-              ),
-              1216 => 
-              array (
-                'bootstrap1216.php' => 1,
-                'phpunit1216.xml' => 1,
-                'Issue1216Test.php' => 1,
-              ),
-              1149 => 
-              array (
-                'Issue1149Test.php' => 1,
-              ),
-              1330 => 
-              array (
-                'Issue1330Test.php' => 1,
-                'phpunit1330.xml' => 1,
-              ),
-              581 => 
-              array (
-                'Issue581Test.php' => 1,
-              ),
-              1471 => 
-              array (
-                'Issue1471Test.php' => 1,
-              ),
-              797 => 
-              array (
-                'bootstrap797.php' => 1,
-                'Issue797Test.php' => 1,
-              ),
-              433 => 
-              array (
-                'Issue433Test.php' => 1,
-              ),
-              1351 => 
-              array (
-                'ChildProcessClass1351.php' => 1,
-                'Issue1351Test.php' => 1,
-              ),
-              503 => 
-              array (
-                'Issue503Test.php' => 1,
-              ),
-              765 => 
-              array (
-                'Issue765Test.php' => 1,
-              ),
-              1437 => 
-              array (
-                'Issue1437Test.php' => 1,
-              ),
-              244 => 
-              array (
-                'Issue244Test.php' => 1,
-              ),
-              322 => 
-              array (
-                'phpunit322.xml' => 1,
-                'Issue322Test.php' => 1,
-              ),
-              1468 => 
-              array (
-                'Issue1468Test.php' => 1,
-              ),
-              873 => 
-              array (
-                'Issue873Test.php' => 1,
-              ),
-              1570 => 
-              array (
-                'Issue1570Test.php' => 1,
-              ),
-              1265 => 
-              array (
-                'phpunit1265.xml' => 1,
-                'Issue1265Test.php' => 1,
-              ),
-              74 => 
-              array (
-                'Issue74Test.php' => 1,
-                'NewException.php' => 1,
-              ),
-            ),
-          ),
-          'Util' => 
-          array (
-            'GlobalStateTest.php' => 1,
-            'ConfigurationTest.php' => 1,
-            'RegexTest.php' => 1,
-            'TestDox' => 
-            array (
-              'NamePrettifierTest.php' => 1,
-            ),
-            'XMLTest.php' => 1,
-            'GetoptTest.php' => 1,
-            'TestTest.php' => 1,
-            'PHPTest.php' => 1,
-          ),
-          'TextUI' => 
-          array (
-            '_files' => 
-            array (
-              'phpt_external.php' => 1,
-            ),
-          ),
-          '_files' => 
-          array (
-            'IgnoreCodeCoverageClassTest.php' => 1,
-            'NonStatic.php' => 1,
-            'CustomPrinter.php' => 1,
-            'NotVoidTestCase.php' => 1,
-            'WasRun.php' => 1,
-            'CoverageNothingTest.php' => 1,
-            'InheritedTestCase.php' => 1,
-            'BankAccountTest.test.php' => 1,
-            'NoTestCases.php' => 1,
-            'CoverageNotProtectedTest.php' => 1,
-            'TestTestError.php' => 1,
-            'FailureTest.php' => 1,
-            'NamespaceCoverageNotPrivateTest.php' => 1,
-            'Failure.php' => 1,
-            'Author.php' => 1,
-            'CoverageTwoDefaultClassAnnotations.php' => 1,
-            'NamespaceCoverageClassExtendedTest.php' => 1,
-            'structureWrongNumberOfNodes.xml' => 1,
-            'RequirementsClassBeforeClassHookTest.php' => 1,
-            'configuration_stop_on_warning.xml' => 1,
-            'NamespaceCoverageNotPublicTest.php' => 1,
-            'NamespaceCoveredFunction.php' => 1,
-            'CoverageMethodParenthesesWhitespaceTest.php' => 1,
-            'DataProviderTestDoxTest.php' => 1,
-            'Mockable.php' => 1,
-            'BankAccount.php' => 1,
-            'RequirementsClassDocBlockTest.php' => 1,
-            'CoverageProtectedTest.php' => 1,
-            'foo.xml' => 1,
-            'FatalTest.php' => 1,
-            'ExceptionInTest.php' => 1,
-            'StopsOnWarningTest.php' => 1,
-            'RequirementsTest.php' => 1,
-            'ThrowNoExceptionTestCase.php' => 1,
-            'CoverageMethodOneLineAnnotationTest.php' => 1,
-            'ExceptionInSetUpTest.php' => 1,
-            'SampleArrayAccess.php' => 1,
-            'DependencyFailureTest.php' => 1,
-            'DataProviderIncompleteTest.php' => 1,
-            'DummyException.php' => 1,
-            'NamespaceCoveredClass.php' => 1,
-            'configuration.colors.false.xml' => 1,
-            'ExceptionStackTest.php' => 1,
-            'TestIterator2.php' => 1,
-            'CoveredClass.php' => 1,
-            'CoverageFunctionTest.php' => 1,
-            'configuration.colors.true.xml' => 1,
-            'DoubleTestCase.php' => 1,
-            'CoveragePrivateTest.php' => 1,
-            'TestIncomplete.php' => 1,
-            'BeforeClassWithOnlyDataProviderTest.php' => 1,
-            'CoverageNoneTest.php' => 1,
-            'DataProviderTest.php' => 1,
-            'Book.php' => 1,
-            'CoveredFunction.php' => 1,
-            'DataProviderDebugTest.php' => 1,
-            'ExceptionInAssertPreConditionsTest.php' => 1,
-            'NothingTest.php' => 1,
-            'Calculator.php' => 1,
-            'StackTest.php' => 1,
-            'Inheritance' => 
-            array (
-              'InheritanceB.php' => 1,
-              'InheritanceA.php' => 1,
-            ),
-            'NamespaceCoveragePrivateTest.php' => 1,
-            'structureWrongNumberOfAttributes.xml' => 1,
-            'NamespaceCoveragePublicTest.php' => 1,
-            'CoverageNotPublicTest.php' => 1,
-            'CoverageClassTest.php' => 1,
-            'BankAccountTest2.php' => 1,
-            'BeforeClassAndAfterClassTest.php' => 1,
-            'MockRunner.php' => 1,
-            'Struct.php' => 1,
-            'configuration.colors.empty.xml' => 1,
-            'NamespaceCoverageClassTest.php' => 1,
-            'configuration.xml' => 1,
-            'JsonData' => 
-            array (
-            ),
-            'structureIgnoreTextNodes.xml' => 1,
-            'DataProviderFilterTest.php' => 1,
-            'ClassWithNonPublicAttributes.php' => 1,
-            'MultiDependencyTest.php' => 1,
-            'ConcreteTest.my.php' => 1,
-            'DataProviderSkippedTest.php' => 1,
-            'CoverageClassExtendedTest.php' => 1,
-            'ChangeCurrentWorkingDirectoryTest.php' => 1,
-            'TemplateMethodsTest.php' => 1,
-            'structureExpected.xml' => 1,
-            'CoverageFunctionParenthesesTest.php' => 1,
-            'NamespaceCoverageMethodTest.php' => 1,
-            'TestIterator.php' => 1,
-            'NamespaceCoverageProtectedTest.php' => 1,
-            'IniTest.php' => 1,
-            'ClassWithToString.php' => 1,
-            'ExceptionInAssertPostConditionsTest.php' => 1,
-            'NotPublicTestCase.php' => 1,
-            'CoverageMethodParenthesesTest.php' => 1,
-            'NotExistingCoveredElementTest.php' => 1,
-            'EmptyTestCaseTest.php' => 1,
-            'BeforeAndAfterTest.php' => 1,
-            'configuration_empty.xml' => 1,
-            'CoverageNamespacedFunctionTest.php' => 1,
-            'DependencyTestSuite.php' => 1,
-            'TestWithTest.php' => 1,
-            'IncompleteTest.php' => 1,
-            'NamespaceCoverageCoversClassTest.php' => 1,
-            'OutputTestCase.php' => 1,
-            'BaseTestListenerSample.php' => 1,
-            'BankAccountTest.php' => 1,
-            'TestDoxGroupTest.php' => 1,
-            'ExceptionInTearDownTest.php' => 1,
-            'structureAttributesAreSameButValuesAreNot.xml' => 1,
-            'ExceptionTest.php' => 1,
-            'OverrideTestCase.php' => 1,
-            'AbstractTest.php' => 1,
-            'Singleton.php' => 1,
-            'ClonedDependencyTest.php' => 1,
-            'DependencySuccessTest.php' => 1,
-            'OneTestCase.php' => 1,
-            'SampleClass.php' => 1,
-            'ConcreteTest.php' => 1,
-            'configuration_xinclude.xml' => 1,
-            'StopOnWarningTestSuite.php' => 1,
-            'IsolationTest.php' => 1,
-            'CoveragePublicTest.php' => 1,
-            'ThrowExceptionTestCase.php' => 1,
-            'ExceptionNamespaceTest.php' => 1,
-            'TestSkipped.php' => 1,
-            'NamespaceCoverageCoversClassPublicTest.php' => 1,
-            'bar.xml' => 1,
-            'CoverageMethodTest.php' => 1,
-            'configuration.custom-printer.xml' => 1,
-            'ClassWithScalarTypeDeclarations.php' => 1,
-            'CoverageNotPrivateTest.php' => 1,
-            'CoverageFunctionParenthesesWhitespaceTest.php' => 1,
-            'NoTestCaseClass.php' => 1,
-            'NamespaceCoverageNotProtectedTest.php' => 1,
-            'NoArgTestCaseTest.php' => 1,
-            'Success.php' => 1,
-            'IgnoreCodeCoverageClass.php' => 1,
-            'structureIsSameButDataIsNot.xml' => 1,
-            'configuration.colors.invalid.xml' => 1,
-          ),
-          'bootstrap.php' => 1,
-          'Extensions' => 
-          array (
-            'RepeatedTestTest.php' => 1,
-            'PhptTestCaseTest.php' => 1,
-          ),
-          'Runner' => 
-          array (
-            'BaseTestRunnerTest.php' => 1,
-          ),
-          'Fail' => 
-          array (
-          ),
-          'Framework' => 
-          array (
-            'ConstraintTest.php' => 1,
-            'AssertTest.php' => 1,
-            'Constraint' => 
-            array (
-              'JsonMatches' => 
-              array (
-                'ErrorMessageProviderTest.php' => 1,
-              ),
-              'IsJsonTest.php' => 1,
-              'ExceptionMessageRegExpTest.php' => 1,
-              'CountTest.php' => 1,
-              'ExceptionMessageTest.php' => 1,
-              'JsonMatchesTest.php' => 1,
-            ),
-            'TestCaseTest.php' => 1,
-            'TestImplementorTest.php' => 1,
-            'SuiteTest.php' => 1,
-            'TestListenerTest.php' => 1,
-            'TestFailureTest.php' => 1,
-            'BaseTestListenerTest.php' => 1,
-          ),
-        ),
-      ),
-      'php-token-stream' => 
-      array (
-        'src' => 
-        array (
-          'Token' => 
-          array (
-            'Stream.php' => 1,
-            'Stream' => 
-            array (
-              'CachingFactory.php' => 1,
-            ),
-          ),
-          'Token.php' => 1,
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          '_fixture' => 
-          array (
-            'class_with_method_that_declares_anonymous_class.php' => 1,
-            'source2.php' => 1,
-            'issue19.php' => 1,
-            'issue30.php' => 1,
-            'source5.php' => 1,
-            'multipleNamespacesWithOneClassUsingNonBraceSyntax.php' => 1,
-            'source.php' => 1,
-            'class_with_method_that_declares_anonymous_class2.php' => 1,
-            'source4.php' => 1,
-            'source3.php' => 1,
-            'classInNamespace.php' => 1,
-            'closure.php' => 1,
-            'classInScopedNamespace.php' => 1,
-            'classExtendsNamespacedClass.php' => 1,
-            'multipleNamespacesWithOneClassUsingBraces.php' => 1,
-          ),
-          'Token' => 
-          array (
-            'InterfaceTest.php' => 1,
-            'IncludeTest.php' => 1,
-            'ClassTest.php' => 1,
-            'FunctionTest.php' => 1,
-            'ClosureTest.php' => 1,
-            'NamespaceTest.php' => 1,
-          ),
-          'bootstrap.php' => 1,
-          'TokenTest.php' => 1,
-        ),
-        'build' => 
-        array (
-          'phpunit.xml' => 1,
-        ),
-      ),
-      'php-timer' => 
-      array (
-        'src' => 
-        array (
-          'Timer.php' => 1,
-        ),
-        'tests' => 
-        array (
-          'TimerTest.php' => 1,
-        ),
-      ),
-      'phpunit-mock-objects' => 
-      array (
-        'src' => 
-        array (
-          'Framework' => 
-          array (
-            'MockObject' => 
-            array (
-              'Invokable.php' => 1,
-              'Stub' => 
-              array (
-                'ReturnArgument.php' => 1,
-                'ReturnValueMap.php' => 1,
-                'ReturnReference.php' => 1,
-                'ReturnCallback.php' => 1,
-                'ReturnSelf.php' => 1,
-                'Exception.php' => 1,
-                'Return.php' => 1,
-                'ConsecutiveCalls.php' => 1,
-                'MatcherCollection.php' => 1,
-              ),
-              'MockObject.php' => 1,
-              'Exception' => 
-              array (
-                'BadMethodCallException.php' => 1,
-                'Exception.php' => 1,
-                'RuntimeException.php' => 1,
-              ),
-              'Generator' => 
-              array (
-              ),
-              'Stub.php' => 1,
-              'Invocation.php' => 1,
-              'Verifiable.php' => 1,
-              'Invocation' => 
-              array (
-                'Object.php' => 1,
-                'Static.php' => 1,
-              ),
-              'InvocationMocker.php' => 1,
-              'Matcher.php' => 1,
-              'Matcher' => 
-              array (
-                'Parameters.php' => 1,
-                'InvokedCount.php' => 1,
-                'AnyParameters.php' => 1,
-                'InvokedAtLeastOnce.php' => 1,
-                'AnyInvokedCount.php' => 1,
-                'InvokedAtLeastCount.php' => 1,
-                'InvokedRecorder.php' => 1,
-                'ConsecutiveParameters.php' => 1,
-                'MethodName.php' => 1,
-                'Invocation.php' => 1,
-                'StatelessInvocation.php' => 1,
-                'InvokedAtIndex.php' => 1,
-                'InvokedAtMostCount.php' => 1,
-              ),
-              'Builder' => 
-              array (
-                'Identity.php' => 1,
-                'ParametersMatch.php' => 1,
-                'Stub.php' => 1,
-                'InvocationMocker.php' => 1,
-                'MethodNameMatch.php' => 1,
-                'Match.php' => 1,
-                'Namespace.php' => 1,
-              ),
-              'MockBuilder.php' => 1,
-              'Generator.php' => 1,
-            ),
-          ),
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'MockObject' => 
-          array (
-            'Generator' => 
-            array (
-            ),
-            'Invocation' => 
-            array (
-              'StaticTest.php' => 1,
-              'ObjectTest.php' => 1,
-            ),
-            'Matcher' => 
-            array (
-              'ConsecutiveParametersTest.php' => 1,
-            ),
-            'Builder' => 
-            array (
-              'InvocationMockerTest.php' => 1,
-            ),
-          ),
-          'ProxyObjectTest.php' => 1,
-          '_fixture' => 
-          array (
-            'TraversableMockTestInterface.php' => 1,
-            'StaticMockTestClass.php' => 1,
-            'SomeClass.php' => 1,
-            'InterfaceWithStaticMethod.php' => 1,
-            'Mockable.php' => 1,
-            'AnotherInterface.php' => 1,
-            'InterfaceWithSemiReservedMethodName.php' => 1,
-            'ClassThatImplementsSerializable.php' => 1,
-            'MockTestInterface.php' => 1,
-            'Foo.php' => 1,
-            'AbstractTrait.php' => 1,
-            'ClassWithStaticMethod.php' => 1,
-            'AnInterface.php' => 1,
-            'SingletonClass.php' => 1,
-            'MethodCallback.php' => 1,
-            'PartialMockTestClass.php' => 1,
-            'MethodCallbackByReference.php' => 1,
-            'ClassWithSelfTypeHint.php' => 1,
-            'AbstractMockTestClass.php' => 1,
-            'Bar.php' => 1,
-            'FunctionCallback.php' => 1,
-            'StringableClass.php' => 1,
-          ),
-          'MockBuilderTest.php' => 1,
-          'bootstrap.php' => 1,
-          'MockObjectTest.php' => 1,
-          'GeneratorTest.php' => 1,
-        ),
-        'build' => 
-        array (
-          'travis-ci.xml' => 1,
-        ),
-      ),
-    ),
     'tcpdf' => 
     array (
       'tcpdf.php' => 1,
@@ -37146,12 +32966,8 @@ $existing_files = array (
         'helveticai.php' => 1,
         'timesi.php' => 1,
         'uni2cid_ag15.php' => 1,
-        'dejavu-fonts-ttf-2.34' => 
-        array (
-        ),
         'helvetica.php' => 1,
         'uni2cid_ak12.php' => 1,
-        'dejavusans.php' => 1,
         'timesbi.php' => 1,
         'times.php' => 1,
         'zapfdingbats.php' => 1,
@@ -37186,288 +33002,6 @@ $existing_files = array (
     ),
     'symfony' => 
     array (
-      'yaml' => 
-      array (
-        'Escaper.php' => 1,
-        'Exception' => 
-        array (
-          'ExceptionInterface.php' => 1,
-          'DumpException.php' => 1,
-          'ParseException.php' => 1,
-          'RuntimeException.php' => 1,
-        ),
-        'Dumper.php' => 1,
-        'Parser.php' => 1,
-        'Inline.php' => 1,
-        'Unescaper.php' => 1,
-        'Yaml.php' => 1,
-        'Tests' => 
-        array (
-          'Fixtures' => 
-          array (
-            'arrow.gif' => 1,
-          ),
-          'InlineTest.php' => 1,
-          'DumperTest.php' => 1,
-          'ParseExceptionTest.php' => 1,
-          'YamlTest.php' => 1,
-          'ParserTest.php' => 1,
-        ),
-      ),
-      'console' => 
-      array (
-        'Style' => 
-        array (
-          'StyleInterface.php' => 1,
-          'OutputStyle.php' => 1,
-          'SymfonyStyle.php' => 1,
-        ),
-        'Command' => 
-        array (
-          'Command.php' => 1,
-          'ListCommand.php' => 1,
-          'HelpCommand.php' => 1,
-        ),
-        'Tester' => 
-        array (
-          'CommandTester.php' => 1,
-          'ApplicationTester.php' => 1,
-        ),
-        'Descriptor' => 
-        array (
-          'Descriptor.php' => 1,
-          'JsonDescriptor.php' => 1,
-          'XmlDescriptor.php' => 1,
-          'MarkdownDescriptor.php' => 1,
-          'ApplicationDescription.php' => 1,
-          'TextDescriptor.php' => 1,
-          'DescriptorInterface.php' => 1,
-        ),
-        'Logger' => 
-        array (
-          'ConsoleLogger.php' => 1,
-        ),
-        'Exception' => 
-        array (
-          'ExceptionInterface.php' => 1,
-          'InvalidOptionException.php' => 1,
-          'InvalidArgumentException.php' => 1,
-          'CommandNotFoundException.php' => 1,
-          'RuntimeException.php' => 1,
-          'LogicException.php' => 1,
-        ),
-        'Output' => 
-        array (
-          'OutputInterface.php' => 1,
-          'BufferedOutput.php' => 1,
-          'NullOutput.php' => 1,
-          'ConsoleOutputInterface.php' => 1,
-          'ConsoleOutput.php' => 1,
-          'StreamOutput.php' => 1,
-          'Output.php' => 1,
-        ),
-        'Input' => 
-        array (
-          'InputInterface.php' => 1,
-          'InputDefinition.php' => 1,
-          'ArrayInput.php' => 1,
-          'ArgvInput.php' => 1,
-          'InputAwareInterface.php' => 1,
-          'Input.php' => 1,
-          'InputOption.php' => 1,
-          'InputArgument.php' => 1,
-          'StringInput.php' => 1,
-        ),
-        'Tests' => 
-        array (
-          'Style' => 
-          array (
-            'SymfonyStyleTest.php' => 1,
-          ),
-          'Fixtures' => 
-          array (
-            'command_1.xml' => 1,
-            'Style' => 
-            array (
-              'SymfonyStyle' => 
-              array (
-                'output' => 
-                array (
-                ),
-                'command' => 
-                array (
-                  'command_4.php' => 1,
-                  'command_11.php' => 1,
-                  'command_2.php' => 1,
-                  'command_10.php' => 1,
-                  'command_8.php' => 1,
-                  'command_14.php' => 1,
-                  'command_9.php' => 1,
-                  'command_1.php' => 1,
-                  'command_7.php' => 1,
-                  'command_12.php' => 1,
-                  'command_5.php' => 1,
-                  'command_0.php' => 1,
-                  'command_6.php' => 1,
-                  'command_15.php' => 1,
-                  'command_13.php' => 1,
-                  'command_3.php' => 1,
-                ),
-              ),
-            ),
-            'FoobarCommand.php' => 1,
-            'application_1.xml' => 1,
-            'input_option_1.xml' => 1,
-            'input_option_5.xml' => 1,
-            'input_definition_3.xml' => 1,
-            'DescriptorCommand1.php' => 1,
-            'FooSubnamespaced2Command.php' => 1,
-            'application_2.xml' => 1,
-            'input_option_2.xml' => 1,
-            'Foo6Command.php' => 1,
-            'input_definition_1.xml' => 1,
-            'command_2.xml' => 1,
-            'input_argument_1.xml' => 1,
-            'input_option_6.xml' => 1,
-            'Foo3Command.php' => 1,
-            'BarBucCommand.php' => 1,
-            'input_definition_4.xml' => 1,
-            'Foo4Command.php' => 1,
-            'DescriptorApplication1.php' => 1,
-            'input_option_3.xml' => 1,
-            'input_argument_2.xml' => 1,
-            'FooCommand.php' => 1,
-            'input_argument_3.xml' => 1,
-            'input_definition_2.xml' => 1,
-            'TestCommand.php' => 1,
-            'Foo5Command.php' => 1,
-            'DescriptorCommand2.php' => 1,
-            'input_option_4.xml' => 1,
-            'FooSubnamespaced1Command.php' => 1,
-            'input_argument_4.xml' => 1,
-            'DescriptorApplication2.php' => 1,
-            'Foo2Command.php' => 1,
-            'Foo1Command.php' => 1,
-            'DummyOutput.php' => 1,
-          ),
-          'Command' => 
-          array (
-            'CommandTest.php' => 1,
-            'HelpCommandTest.php' => 1,
-            'ListCommandTest.php' => 1,
-          ),
-          'Tester' => 
-          array (
-            'CommandTesterTest.php' => 1,
-            'ApplicationTesterTest.php' => 1,
-          ),
-          'Descriptor' => 
-          array (
-            'MarkdownDescriptorTest.php' => 1,
-            'ObjectsProvider.php' => 1,
-            'JsonDescriptorTest.php' => 1,
-            'XmlDescriptorTest.php' => 1,
-            'TextDescriptorTest.php' => 1,
-            'AbstractDescriptorTest.php' => 1,
-          ),
-          'Logger' => 
-          array (
-            'ConsoleLoggerTest.php' => 1,
-          ),
-          'Output' => 
-          array (
-            'NullOutputTest.php' => 1,
-            'OutputTest.php' => 1,
-            'ConsoleOutputTest.php' => 1,
-            'StreamOutputTest.php' => 1,
-          ),
-          'ApplicationTest.php' => 1,
-          'Input' => 
-          array (
-            'ArgvInputTest.php' => 1,
-            'InputTest.php' => 1,
-            'InputArgumentTest.php' => 1,
-            'InputOptionTest.php' => 1,
-            'StringInputTest.php' => 1,
-            'ArrayInputTest.php' => 1,
-            'InputDefinitionTest.php' => 1,
-          ),
-          'Helper' => 
-          array (
-            'ProgressIndicatorTest.php' => 1,
-            'HelperSetTest.php' => 1,
-            'HelperTest.php' => 1,
-            'LegacyTableHelperTest.php' => 1,
-            'TableTest.php' => 1,
-            'LegacyDialogHelperTest.php' => 1,
-            'ProgressBarTest.php' => 1,
-            'FormatterHelperTest.php' => 1,
-            'TableStyleTest.php' => 1,
-            'ProcessHelperTest.php' => 1,
-            'SymfonyQuestionHelperTest.php' => 1,
-            'QuestionHelperTest.php' => 1,
-            'LegacyProgressHelperTest.php' => 1,
-          ),
-          'Formatter' => 
-          array (
-            'OutputFormatterStyleStackTest.php' => 1,
-            'OutputFormatterStyleTest.php' => 1,
-            'OutputFormatterTest.php' => 1,
-          ),
-        ),
-        'Event' => 
-        array (
-          'ConsoleTerminateEvent.php' => 1,
-          'ConsoleExceptionEvent.php' => 1,
-          'ConsoleCommandEvent.php' => 1,
-          'ConsoleEvent.php' => 1,
-        ),
-        'Helper' => 
-        array (
-          'TableCell.php' => 1,
-          'ProgressIndicator.php' => 1,
-          'Helper.php' => 1,
-          'TableSeparator.php' => 1,
-          'Table.php' => 1,
-          'InputAwareHelper.php' => 1,
-          'DialogHelper.php' => 1,
-          'TableHelper.php' => 1,
-          'ProcessHelper.php' => 1,
-          'ProgressBar.php' => 1,
-          'DebugFormatterHelper.php' => 1,
-          'HelperSet.php' => 1,
-          'TableStyle.php' => 1,
-          'SymfonyQuestionHelper.php' => 1,
-          'ProgressHelper.php' => 1,
-          'QuestionHelper.php' => 1,
-          'FormatterHelper.php' => 1,
-          'DescriptorHelper.php' => 1,
-          'HelperInterface.php' => 1,
-        ),
-        'Formatter' => 
-        array (
-          'OutputFormatterStyleStack.php' => 1,
-          'OutputFormatterStyleInterface.php' => 1,
-          'OutputFormatterStyle.php' => 1,
-          'OutputFormatterInterface.php' => 1,
-          'OutputFormatter.php' => 1,
-        ),
-        'Application.php' => 1,
-        'Shell.php' => 1,
-        'ConsoleEvents.php' => 1,
-        'Resources' => 
-        array (
-          'bin' => 
-          array (
-          ),
-        ),
-        'Question' => 
-        array (
-          'ChoiceQuestion.php' => 1,
-          'ConfirmationQuestion.php' => 1,
-          'Question.php' => 1,
-        ),
-      ),
       'security-core' => 
       array (
         'Authentication' => 
@@ -37702,231 +33236,6 @@ $existing_files = array (
         'AuthenticationEvents.php' => 1,
         'SecurityContextInterface.php' => 1,
       ),
-      'process' => 
-      array (
-        'PhpExecutableFinder.php' => 1,
-        'Pipes' => 
-        array (
-          'UnixPipes.php' => 1,
-          'WindowsPipes.php' => 1,
-          'PipesInterface.php' => 1,
-          'AbstractPipes.php' => 1,
-        ),
-        'Exception' => 
-        array (
-          'ExceptionInterface.php' => 1,
-          'InvalidArgumentException.php' => 1,
-          'ProcessFailedException.php' => 1,
-          'ProcessTimedOutException.php' => 1,
-          'RuntimeException.php' => 1,
-          'LogicException.php' => 1,
-        ),
-        'Process.php' => 1,
-        'ProcessBuilder.php' => 1,
-        'PhpProcess.php' => 1,
-        'Tests' => 
-        array (
-          'NonStopableProcess.php' => 1,
-          'ProcessFailedExceptionTest.php' => 1,
-          'PhpExecutableFinderTest.php' => 1,
-          'ExecutableFinderTest.php' => 1,
-          'ProcessUtilsTest.php' => 1,
-          'PhpProcessTest.php' => 1,
-          'ProcessBuilderTest.php' => 1,
-          'ProcessTest.php' => 1,
-          'PipeStdinInStdoutStdErrStreamSelect.php' => 1,
-          'SignalListener.php' => 1,
-        ),
-        'ExecutableFinder.php' => 1,
-        'ProcessUtils.php' => 1,
-      ),
-      'finder' => 
-      array (
-        'Shell' => 
-        array (
-          'Command.php' => 1,
-          'Shell.php' => 1,
-        ),
-        'Glob.php' => 1,
-        'Exception' => 
-        array (
-          'ExceptionInterface.php' => 1,
-          'AdapterFailureException.php' => 1,
-          'OperationNotPermitedException.php' => 1,
-          'AccessDeniedException.php' => 1,
-          'ShellCommandFailureException.php' => 1,
-        ),
-        'Comparator' => 
-        array (
-          'DateComparator.php' => 1,
-          'Comparator.php' => 1,
-          'NumberComparator.php' => 1,
-        ),
-        'SplFileInfo.php' => 1,
-        'Iterator' => 
-        array (
-          'ExcludeDirectoryFilterIterator.php' => 1,
-          'DateRangeFilterIterator.php' => 1,
-          'RecursiveDirectoryIterator.php' => 1,
-          'SortableIterator.php' => 1,
-          'FilenameFilterIterator.php' => 1,
-          'FileTypeFilterIterator.php' => 1,
-          'SizeRangeFilterIterator.php' => 1,
-          'PathFilterIterator.php' => 1,
-          'DepthRangeFilterIterator.php' => 1,
-          'CustomFilterIterator.php' => 1,
-          'FilePathsIterator.php' => 1,
-          'FilecontentFilterIterator.php' => 1,
-          'MultiplePcreFilterIterator.php' => 1,
-          'FilterIterator.php' => 1,
-        ),
-        'Tests' => 
-        array (
-          'Fixtures' => 
-          array (
-            'with space' => 
-            array (
-            ),
-            'copy' => 
-            array (
-              'A' => 
-              array (
-                'B' => 
-                array (
-                  'C' => 
-                  array (
-                  ),
-                ),
-              ),
-            ),
-            'one' => 
-            array (
-              'b' => 
-              array (
-              ),
-            ),
-            'r+e.gex[c]a(r)s' => 
-            array (
-              'dir' => 
-              array (
-              ),
-            ),
-            'A' => 
-            array (
-              'B' => 
-              array (
-                'C' => 
-                array (
-                ),
-              ),
-            ),
-          ),
-          'Shell' => 
-          array (
-            'CommandTest.php' => 1,
-          ),
-          'FinderTest.php' => 1,
-          'GnuFinderTest.php' => 1,
-          'Comparator' => 
-          array (
-            'DateComparatorTest.php' => 1,
-            'ComparatorTest.php' => 1,
-            'NumberComparatorTest.php' => 1,
-          ),
-          'Iterator' => 
-          array (
-            'SortableIteratorTest.php' => 1,
-            'SizeRangeFilterIteratorTest.php' => 1,
-            'DepthRangeFilterIteratorTest.php' => 1,
-            'MockSplFileInfo.php' => 1,
-            'Iterator.php' => 1,
-            'RealIteratorTestCase.php' => 1,
-            'FilterIteratorTest.php' => 1,
-            'IteratorTestCase.php' => 1,
-            'FileTypeFilterIteratorTest.php' => 1,
-            'FilePathsIteratorTest.php' => 1,
-            'CustomFilterIteratorTest.php' => 1,
-            'DateRangeFilterIteratorTest.php' => 1,
-            'MultiplePcreFilterIteratorTest.php' => 1,
-            'FilenameFilterIteratorTest.php' => 1,
-            'RecursiveDirectoryIteratorTest.php' => 1,
-            'PathFilterIteratorTest.php' => 1,
-            'ExcludeDirectoryFilterIteratorTest.php' => 1,
-            'FilecontentFilterIteratorTest.php' => 1,
-            'MockFileListIterator.php' => 1,
-          ),
-          'GlobTest.php' => 1,
-          'PhpFinderTest.php' => 1,
-          'BsdFinderTest.php' => 1,
-          'FakeAdapter' => 
-          array (
-            'FailingAdapter.php' => 1,
-            'UnsupportedAdapter.php' => 1,
-            'NamedAdapter.php' => 1,
-            'DummyAdapter.php' => 1,
-          ),
-          'Expression' => 
-          array (
-            'RegexTest.php' => 1,
-            'GlobTest.php' => 1,
-            'ExpressionTest.php' => 1,
-          ),
-        ),
-        'Expression' => 
-        array (
-          'Glob.php' => 1,
-          'ValueInterface.php' => 1,
-          'Regex.php' => 1,
-          'Expression.php' => 1,
-        ),
-        'Adapter' => 
-        array (
-          'AbstractFindAdapter.php' => 1,
-          'BsdFindAdapter.php' => 1,
-          'GnuFindAdapter.php' => 1,
-          'PhpAdapter.php' => 1,
-          'AbstractAdapter.php' => 1,
-          'AdapterInterface.php' => 1,
-        ),
-        'Finder.php' => 1,
-      ),
-      'event-dispatcher' => 
-      array (
-        'EventSubscriberInterface.php' => 1,
-        'EventDispatcher.php' => 1,
-        'ImmutableEventDispatcher.php' => 1,
-        'Event.php' => 1,
-        'DependencyInjection' => 
-        array (
-          'RegisterListenersPass.php' => 1,
-        ),
-        'EventDispatcherInterface.php' => 1,
-        'Tests' => 
-        array (
-          'AbstractEventDispatcherTest.php' => 1,
-          'DependencyInjection' => 
-          array (
-            'RegisterListenersPassTest.php' => 1,
-          ),
-          'ImmutableEventDispatcherTest.php' => 1,
-          'EventDispatcherTest.php' => 1,
-          'GenericEventTest.php' => 1,
-          'EventTest.php' => 1,
-          'ContainerAwareEventDispatcherTest.php' => 1,
-          'Debug' => 
-          array (
-            'TraceableEventDispatcherTest.php' => 1,
-          ),
-        ),
-        'GenericEvent.php' => 1,
-        'ContainerAwareEventDispatcher.php' => 1,
-        'Debug' => 
-        array (
-          'TraceableEventDispatcherInterface.php' => 1,
-          'WrappedListener.php' => 1,
-          'TraceableEventDispatcher.php' => 1,
-        ),
-      ),
       'security-csrf' => 
       array (
         'CsrfTokenManager.php' => 1,
@@ -37958,19 +33267,6 @@ $existing_files = array (
           'TokenGenerator' => 
           array (
             'UriSafeTokenGeneratorTest.php' => 1,
-          ),
-        ),
-      ),
-      'polyfill-mbstring' => 
-      array (
-        'Mbstring.php' => 1,
-        'bootstrap.php' => 1,
-        'Resources' => 
-        array (
-          'unidata' => 
-          array (
-            'upperCase.php' => 1,
-            'lowerCase.php' => 1,
           ),
         ),
       ),
@@ -38637,60 +33933,6 @@ $existing_files = array (
         'Config.php' => 1,
       ),
     ),
-    'justinrainbow' => 
-    array (
-      'json-schema' => 
-      array (
-        'bin' => 
-        array (
-        ),
-        'src' => 
-        array (
-          'JsonSchema' => 
-          array (
-            'Validator.php' => 1,
-            'Exception' => 
-            array (
-              'JsonDecodingException.php' => 1,
-              'UriResolverException.php' => 1,
-              'ResourceNotFoundException.php' => 1,
-              'InvalidArgumentException.php' => 1,
-              'InvalidSchemaMediaTypeException.php' => 1,
-              'InvalidSourceUriException.php' => 1,
-            ),
-            'RefResolver.php' => 1,
-            'Uri' => 
-            array (
-              'UriResolver.php' => 1,
-              'UriRetriever.php' => 1,
-              'Retrievers' => 
-              array (
-                'AbstractRetriever.php' => 1,
-                'FileGetContents.php' => 1,
-                'PredefinedArray.php' => 1,
-                'Curl.php' => 1,
-                'UriRetrieverInterface.php' => 1,
-              ),
-            ),
-            'Constraints' => 
-            array (
-              'FormatConstraint.php' => 1,
-              'EnumConstraint.php' => 1,
-              'ObjectConstraint.php' => 1,
-              'StringConstraint.php' => 1,
-              'NumberConstraint.php' => 1,
-              'SchemaConstraint.php' => 1,
-              'ConstraintInterface.php' => 1,
-              'Constraint.php' => 1,
-              'Factory.php' => 1,
-              'CollectionConstraint.php' => 1,
-              'TypeConstraint.php' => 1,
-              'UndefinedConstraint.php' => 1,
-            ),
-          ),
-        ),
-      ),
-    ),
     'log4php' => 
     array (
     ),
@@ -38702,209 +33944,6 @@ $existing_files = array (
         '_parse_proppatch.php' => 1,
         '_parse_propfind.php' => 1,
         '_parse_lockinfo.php' => 1,
-      ),
-    ),
-    'sebastian' => 
-    array (
-      'object-enumerator' => 
-      array (
-        'phpunit.xml' => 1,
-        'src' => 
-        array (
-          'Enumerator.php' => 1,
-          'InvalidArgumentException.php' => 1,
-          'Exception.php' => 1,
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'EnumeratorTest.php' => 1,
-        ),
-      ),
-      'global-state' => 
-      array (
-        'src' => 
-        array (
-          'Blacklist.php' => 1,
-          'Snapshot.php' => 1,
-          'CodeExporter.php' => 1,
-          'Exception.php' => 1,
-          'Restorer.php' => 1,
-          'RuntimeException.php' => 1,
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'BlacklistTest.php' => 1,
-          '_fixture' => 
-          array (
-            'SnapshotTrait.php' => 1,
-            'SnapshotFunctions.php' => 1,
-            'BlacklistedInterface.php' => 1,
-            'BlacklistedClass.php' => 1,
-            'SnapshotClass.php' => 1,
-            'BlacklistedChildClass.php' => 1,
-            'BlacklistedImplementor.php' => 1,
-            'SnapshotDomDocument.php' => 1,
-          ),
-          'SnapshotTest.php' => 1,
-        ),
-      ),
-      'resource-operations' => 
-      array (
-        'src' => 
-        array (
-          'ResourceOperations.php' => 1,
-        ),
-        'build.xml' => 1,
-        'build' => 
-        array (
-          'generate.php' => 1,
-        ),
-      ),
-      'diff' => 
-      array (
-        'src' => 
-        array (
-          'Chunk.php' => 1,
-          'Parser.php' => 1,
-          'Diff.php' => 1,
-          'Line.php' => 1,
-          'Differ.php' => 1,
-          'LCS' => 
-          array (
-            'TimeEfficientLongestCommonSubsequenceImplementation.php' => 1,
-            'MemoryEfficientLongestCommonSubsequenceImplementation.php' => 1,
-            'LongestCommonSubsequence.php' => 1,
-          ),
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'fixtures' => 
-          array (
-          ),
-          'DifferTest.php' => 1,
-          'LCS' => 
-          array (
-            'TimeEfficientImplementationTest.php' => 1,
-          ),
-          'ParserTest.php' => 1,
-        ),
-      ),
-      'recursion-context' => 
-      array (
-        'src' => 
-        array (
-          'InvalidArgumentException.php' => 1,
-          'Context.php' => 1,
-          'Exception.php' => 1,
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'ContextTest.php' => 1,
-        ),
-      ),
-      'exporter' => 
-      array (
-        'src' => 
-        array (
-          'Exporter.php' => 1,
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'ExporterTest.php' => 1,
-        ),
-      ),
-      'code-unit-reverse-lookup' => 
-      array (
-        'phpunit.xml' => 1,
-        'src' => 
-        array (
-          'Wizard.php' => 1,
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'WizardTest.php' => 1,
-        ),
-      ),
-      'comparator' => 
-      array (
-        'src' => 
-        array (
-          'ObjectComparator.php' => 1,
-          'ComparisonFailure.php' => 1,
-          'TypeComparator.php' => 1,
-          'DoubleComparator.php' => 1,
-          'NumericComparator.php' => 1,
-          'MockObjectComparator.php' => 1,
-          'ResourceComparator.php' => 1,
-          'DOMNodeComparator.php' => 1,
-          'Factory.php' => 1,
-          'Comparator.php' => 1,
-          'ArrayComparator.php' => 1,
-          'ExceptionComparator.php' => 1,
-          'ScalarComparator.php' => 1,
-          'SplObjectStorageComparator.php' => 1,
-          'DateTimeComparator.php' => 1,
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'ExceptionComparatorTest.php' => 1,
-          'TypeComparatorTest.php' => 1,
-          'FactoryTest.php' => 1,
-          'ArrayComparatorTest.php' => 1,
-          'ObjectComparatorTest.php' => 1,
-          '_files' => 
-          array (
-            'Author.php' => 1,
-            'TestClassComparator.php' => 1,
-            'TestClass.php' => 1,
-            'Book.php' => 1,
-            'Struct.php' => 1,
-            'ClassWithToString.php' => 1,
-            'SampleClass.php' => 1,
-          ),
-          'DOMNodeComparatorTest.php' => 1,
-          'DateTimeComparatorTest.php' => 1,
-          'bootstrap.php' => 1,
-          'MockObjectComparatorTest.php' => 1,
-          'autoload.php' => 1,
-          'SplObjectStorageComparatorTest.php' => 1,
-          'ResourceComparatorTest.php' => 1,
-          'DoubleComparatorTest.php' => 1,
-          'NumericComparatorTest.php' => 1,
-          'ScalarComparatorTest.php' => 1,
-        ),
-        'build' => 
-        array (
-          'travis-ci.xml' => 1,
-        ),
-      ),
-      'version' => 
-      array (
-        'src' => 
-        array (
-          'Version.php' => 1,
-        ),
-      ),
-      'environment' => 
-      array (
-        'src' => 
-        array (
-          'Console.php' => 1,
-          'Runtime.php' => 1,
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'RuntimeTest.php' => 1,
-          'ConsoleTest.php' => 1,
-        ),
       ),
     ),
     'oauth2-php' => 
@@ -38939,15 +33978,16 @@ $existing_files = array (
         'phpdoc.dist.xml' => 1,
         'test' => 
         array (
-          'shutdown' => 
+          'bin' => 
           array (
-            'ShutdownTest.php' => 1,
           ),
           'bootstrap.php' => 1,
           'data' => 
           array (
           ),
-          'phpunit-travis.xml' => 1,
+          'nginx' => 
+          array (
+          ),
           'lib' => 
           array (
             'Elastica' => 
@@ -38963,7 +34003,6 @@ $existing_files = array (
                   'IpRangeTest.php' => 1,
                   'NestedTest.php' => 1,
                   'GlobalAggregationTest.php' => 1,
-                  'TopHitsTest.php' => 1,
                   'CardinalityTest.php' => 1,
                   'ValueCountTest.php' => 1,
                   'StatsTest.php' => 1,
@@ -38971,16 +34010,12 @@ $existing_files = array (
                   'AvgTest.php' => 1,
                   'MissingTest.php' => 1,
                   'MinTest.php' => 1,
-                  'FiltersTest.php' => 1,
-                  'ReverseNestedTest.php' => 1,
                   'GeohashGridTest.php' => 1,
                   'HistogramTest.php' => 1,
                   'SumTest.php' => 1,
                   'DateHistogramTest.php' => 1,
-                  'ScriptTest.php' => 1,
                   'TermsTest.php' => 1,
                   'RangeTest.php' => 1,
-                  'ScriptedMetricTest.php' => 1,
                   'MaxTest.php' => 1,
                   'BaseAggregationTest.php' => 1,
                   'GeoDistanceTest.php' => 1,
@@ -38994,33 +34029,8 @@ $existing_files = array (
                 'ResultSetTest.php' => 1,
                 'Exception' => 
                 array (
-                  'BulkExceptionTest.php' => 1,
-                  'JSONParseExceptionTest.php' => 1,
-                  'ConnectionExceptionTest.php' => 1,
-                  'ClientExceptionTest.php' => 1,
-                  'InvalidExceptionTest.php' => 1,
-                  'QueryBuilderExceptionTest.php' => 1,
-                  'ElasticsearchExceptionTest.php' => 1,
+                  'NotImplementedTest.php' => 1,
                   'PartialShardFailureExceptionTest.php' => 1,
-                  'Bulk' => 
-                  array (
-                    'UdpExceptionTest.php' => 1,
-                    'Response' => 
-                    array (
-                      'ActionExceptionTest.php' => 1,
-                    ),
-                    'ResponseExceptionTest.php' => 1,
-                  ),
-                  'RuntimeExceptionTest.php' => 1,
-                  'NotFoundExceptionTest.php' => 1,
-                  'NotImplementedExceptionTest.php' => 1,
-                  'Connection' => 
-                  array (
-                    'MemcacheExceptionTest.php' => 1,
-                    'HttpExceptionTest.php' => 1,
-                    'GuzzleExceptionTest.php' => 1,
-                    'ThriftExceptionTest.php' => 1,
-                  ),
                   'ResponseExceptionTest.php' => 1,
                 ),
                 'UtilTest.php' => 1,
@@ -39039,13 +34049,12 @@ $existing_files = array (
                   'GeoShapePreIndexedTest.php' => 1,
                   'HasParentTest.php' => 1,
                   'BoolNotTest.php' => 1,
+                  'ExistsTests.php' => 1,
                   'TypeTest.php' => 1,
                   'NumericRangeTest.php' => 1,
                   'HasChildTest.php' => 1,
                   'NestedFilterWithSetFilterTest.php' => 1,
-                  'MissingTest.php' => 1,
                   'GeohashCellTest.php' => 1,
-                  'LimitTest.php' => 1,
                   'IdsTest.php' => 1,
                   'BoolAndTest.php' => 1,
                   'IndicesTest.php' => 1,
@@ -39053,11 +34062,9 @@ $existing_files = array (
                   'ScriptTest.php' => 1,
                   'AbstractTest.php' => 1,
                   'TermsTest.php' => 1,
-                  'ExistsTest.php' => 1,
                   'GeoDistanceRangeTest.php' => 1,
                   'RangeTest.php' => 1,
                   'GeoDistanceTest.php' => 1,
-                  'GeoBoundingBoxTest.php' => 1,
                 ),
                 'ConnectionTest.php' => 1,
                 'ResultTest.php' => 1,
@@ -39115,31 +34122,8 @@ $existing_files = array (
                   'HealthTest.php' => 1,
                 ),
                 'RequestTest.php' => 1,
-                'QueryBuilder' => 
-                array (
-                  'VersionTest.php' => 1,
-                  'DSL' => 
-                  array (
-                    'QueryTest.php' => 1,
-                    'AggregationTest.php' => 1,
-                    'SuggestTest.php' => 1,
-                    'FilterTest.php' => 1,
-                  ),
-                ),
                 'SnapshotTest.php' => 1,
                 'StatusTest.php' => 1,
-                'Connection' => 
-                array (
-                  'Strategy' => 
-                  array (
-                    'StrategyFactoryTest.php' => 1,
-                    'CallbackStrategyTest.php' => 1,
-                    'SimpleTest.php' => 1,
-                    'EmptyStrategy.php' => 1,
-                    'RoundRobinTest.php' => 1,
-                  ),
-                  'ConnectionPollTest.php' => 1,
-                ),
                 'Node' => 
                 array (
                   'InfoTest.php' => 1,
@@ -39147,7 +34131,6 @@ $existing_files = array (
                 'Query' => 
                 array (
                   'WildcardTest.php' => 1,
-                  'RegexpTest.php' => 1,
                   'FilteredTest.php' => 1,
                   'QueryStringTest.php' => 1,
                   'NestedTest.php' => 1,
@@ -39162,9 +34145,7 @@ $existing_files = array (
                   'RescoreTest.php' => 1,
                   'BuilderTest.php' => 1,
                   'SimpleTest.php' => 1,
-                  'EscapeStringTest.php' => 1,
                   'SimpleQueryStringTest.php' => 1,
-                  'PostFilterTest.php' => 1,
                   'MoreLikeThisTest.php' => 1,
                   'FuzzyLikeThisTest.php' => 1,
                   'HighlightTest.php' => 1,
@@ -39178,7 +34159,6 @@ $existing_files = array (
                   'ConstantScoreTest.php' => 1,
                   'BoostingTest.php' => 1,
                 ),
-                'QueryBuilderTest.php' => 1,
                 'Transport' => 
                 array (
                   'GuzzleTest.php' => 1,
@@ -39211,8 +34191,6 @@ $existing_files = array (
             array (
               'Avg.php' => 1,
               'Max.php' => 1,
-              'Filters.php' => 1,
-              'ReverseNested.php' => 1,
               'GeoDistance.php' => 1,
               'GlobalAggregation.php' => 1,
               'DateRange.php' => 1,
@@ -39223,8 +34201,6 @@ $existing_files = array (
               'Histogram.php' => 1,
               'Cardinality.php' => 1,
               'AbstractAggregation.php' => 1,
-              'TopHits.php' => 1,
-              'ScriptedMetric.php' => 1,
               'IpRange.php' => 1,
               'GeohashGrid.php' => 1,
               'AbstractSimpleAggregation.php' => 1,
@@ -39254,7 +34230,6 @@ $existing_files = array (
               'ConnectionException.php' => 1,
               'BulkException.php' => 1,
               'InvalidException.php' => 1,
-              'QueryBuilderException.php' => 1,
               'ResponseException.php' => 1,
               'PartialShardFailureException.php' => 1,
               'NotImplementedException.php' => 1,
@@ -39271,14 +34246,12 @@ $existing_files = array (
               'RuntimeException.php' => 1,
               'Connection' => 
               array (
-                'MemcacheException.php' => 1,
                 'ThriftException.php' => 1,
                 'GuzzleException.php' => 1,
                 'HttpException.php' => 1,
               ),
             ),
             'Type.php' => 1,
-            'QueryBuilder.php' => 1,
             'Filter' => 
             array (
               'MatchAll.php' => 1,
@@ -39399,40 +34372,6 @@ $existing_files = array (
             'Percolator.php' => 1,
             'Param.php' => 1,
             'Script.php' => 1,
-            'QueryBuilder' => 
-            array (
-              'Version' => 
-              array (
-                'Version120.php' => 1,
-                'Version140.php' => 1,
-                'Version100.php' => 1,
-                'Version130.php' => 1,
-                'Version110.php' => 1,
-                'Version090.php' => 1,
-              ),
-              'Version.php' => 1,
-              'Facade.php' => 1,
-              'DSL' => 
-              array (
-                'Aggregation.php' => 1,
-                'Query.php' => 1,
-                'Suggest.php' => 1,
-                'Filter.php' => 1,
-              ),
-              'DSL.php' => 1,
-            ),
-            'Connection' => 
-            array (
-              'ConnectionPool.php' => 1,
-              'Strategy' => 
-              array (
-                'Simple.php' => 1,
-                'RoundRobin.php' => 1,
-                'CallbackStrategy.php' => 1,
-                'StrategyInterface.php' => 1,
-                'StrategyFactory.php' => 1,
-              ),
-            ),
             'Connection.php' => 1,
             'Node' => 
             array (
@@ -39446,7 +34385,6 @@ $existing_files = array (
               'Simple.php' => 1,
               'Ids.php' => 1,
               'MultiMatch.php' => 1,
-              'MatchPhrase.php' => 1,
               'Prefix.php' => 1,
               'Boosting.php' => 1,
               'ConstantScore.php' => 1,
@@ -39460,9 +34398,7 @@ $existing_files = array (
               'Builder.php' => 1,
               'Nested.php' => 1,
               'TopChildren.php' => 1,
-              'Regexp.php' => 1,
               'Bool.php' => 1,
-              'MatchPhrasePrefix.php' => 1,
               'HasChild.php' => 1,
               'Terms.php' => 1,
               'QueryString.php' => 1,
@@ -39482,314 +34418,15 @@ $existing_files = array (
               'Null.php' => 1,
               'Memcache.php' => 1,
               'Thrift.php' => 1,
-              'HttpAdapter.php' => 1,
             ),
           ),
         ),
         'build.xml' => 1,
-        'ansible' => 
-        array (
-          'roles' => 
-          array (
-            'elasticsearch' => 
-            array (
-              'templates' => 
-              array (
-              ),
-              'tasks' => 
-              array (
-              ),
-              'handlers' => 
-              array (
-              ),
-            ),
-            'base' => 
-            array (
-              'tasks' => 
-              array (
-              ),
-            ),
-            'php' => 
-            array (
-              'tasks' => 
-              array (
-              ),
-            ),
-            'nginx' => 
-            array (
-              'templates' => 
-              array (
-              ),
-              'tasks' => 
-              array (
-              ),
-              'handlers' => 
-              array (
-              ),
-            ),
-          ),
-        ),
-      ),
-    ),
-    'autoload.php' => 1,
-    'phpdocumentor' => 
-    array (
-      'type-resolver' => 
-      array (
-        'src' => 
-        array (
-          'Types' => 
-          array (
-            'Self_.php' => 1,
-            'String_.php' => 1,
-            'Static_.php' => 1,
-            'Compound.php' => 1,
-            'Boolean.php' => 1,
-            'Null_.php' => 1,
-            'Callable_.php' => 1,
-            'Array_.php' => 1,
-            'Context.php' => 1,
-            'This.php' => 1,
-            'Resource.php' => 1,
-            'Integer.php' => 1,
-            'Float_.php' => 1,
-            'ContextFactory.php' => 1,
-            'Mixed.php' => 1,
-            'Scalar.php' => 1,
-            'Object_.php' => 1,
-            'Void_.php' => 1,
-          ),
-          'TypeResolver.php' => 1,
-          'Type.php' => 1,
-          'FqsenResolver.php' => 1,
-        ),
-        'examples' => 
-        array (
-          '03-resolving-all-elements.php' => 1,
-          '04-discovering-the-context-using-class-reflection.php' => 1,
-          '02-resolving-classes.php' => 1,
-          'Classy.php' => 1,
-          '05-discovering-the-context-using-method-reflection.php' => 1,
-          '01-resolving-simple-types.php' => 1,
-          '06-discovering-the-context-using-file-contents.php' => 1,
-        ),
-        'tests' => 
-        array (
-          'unit' => 
-          array (
-            'TypeResolverTest.php' => 1,
-            'Types' => 
-            array (
-              'ContextTest.php' => 1,
-              'ContextFactoryTest.php' => 1,
-            ),
-          ),
-        ),
-      ),
-      'reflection-common' => 
-      array (
-        'src' => 
-        array (
-          'ProjectFactory.php' => 1,
-          'Fqsen.php' => 1,
-          'Location.php' => 1,
-          'Element.php' => 1,
-          'Project.php' => 1,
-          'File.php' => 1,
-        ),
-        'tests' => 
-        array (
-          'common' => 
-          array (
-            'bootstrap.php' => 1,
-          ),
-          'unit' => 
-          array (
-            'FqsenTest.php' => 1,
-          ),
-        ),
-      ),
-      'reflection-docblock' => 
-      array (
-        'src' => 
-        array (
-          'DocBlockFactoryInterface.php' => 1,
-          'DocBlockFactory.php' => 1,
-          'DocBlock' => 
-          array (
-            'Tag.php' => 1,
-            'StandardTagFactory.php' => 1,
-            'TagFactory.php' => 1,
-            'Serializer.php' => 1,
-            'DescriptionFactory.php' => 1,
-            'Tags' => 
-            array (
-              'Author.php' => 1,
-              'Version.php' => 1,
-              'Example.php' => 1,
-              'PropertyWrite.php' => 1,
-              'Generic.php' => 1,
-              'BaseTag.php' => 1,
-              'Property.php' => 1,
-              'Link.php' => 1,
-              'PropertyRead.php' => 1,
-              'Uses.php' => 1,
-              'Var_.php' => 1,
-              'Source.php' => 1,
-              'Factory' => 
-              array (
-                'Strategy.php' => 1,
-                'StaticMethod.php' => 1,
-              ),
-              'See.php' => 1,
-              'Method.php' => 1,
-              'Return_.php' => 1,
-              'Param.php' => 1,
-              'Formatter.php' => 1,
-              'Formatter' => 
-              array (
-                'PassthroughFormatter.php' => 1,
-              ),
-              'Since.php' => 1,
-              'Covers.php' => 1,
-              'Deprecated.php' => 1,
-              'Throws.php' => 1,
-            ),
-            'Description.php' => 1,
-            'ExampleFinder.php' => 1,
-          ),
-          'DocBlock.php' => 1,
-        ),
-        'examples' => 
-        array (
-          '02-interpreting-tags.php' => 1,
-          'playing-with-descriptions' => 
-          array (
-            '02-escaping.php' => 1,
-          ),
-          '03-reconstituting-a-docblock.php' => 1,
-          '04-adding-your-own-tag.php' => 1,
-          '01-interpreting-a-simple-docblock.php' => 1,
-        ),
-        'tests' => 
-        array (
-          'integration' => 
-          array (
-            'InterpretingDocBlocksTest.php' => 1,
-            'UsingTagsTest.php' => 1,
-            'ReconstitutingADocBlockTest.php' => 1,
-          ),
-          'unit' => 
-          array (
-            'DocBlockTest.php' => 1,
-            'DocBlockFactoryTest.php' => 1,
-            'DocBlock' => 
-            array (
-              'DescriptionFactoryTest.php' => 1,
-              'DescriptionTest.php' => 1,
-              'StandardTagFactoryTest.php' => 1,
-              'SerializerTest.php' => 1,
-              'Tags' => 
-              array (
-                'CoversTest.php' => 1,
-                'ThrowsTest.php' => 1,
-                'UsesTest.php' => 1,
-                'MethodTest.php' => 1,
-                'PropertyTest.php' => 1,
-                'ReturnTest.php' => 1,
-                'PropertyWriteTest.php' => 1,
-                'GenericTest.php' => 1,
-                'VersionTest.php' => 1,
-                'PropertyReadTest.php' => 1,
-                'AuthorTest.php' => 1,
-                'LinkTest.php' => 1,
-                'SinceTest.php' => 1,
-                'SeeTest.php' => 1,
-                'ParamTest.php' => 1,
-                'DeprecatedTest.php' => 1,
-                'SourceTest.php' => 1,
-                'Formatter' => 
-                array (
-                  'PassthroughFormatterTest.php' => 1,
-                ),
-                'VarTest.php' => 1,
-              ),
-            ),
-          ),
-        ),
-      ),
-    ),
-    'myclabs' => 
-    array (
-      'deep-copy' => 
-      array (
-        'src' => 
-        array (
-          'DeepCopy' => 
-          array (
-            'Reflection' => 
-            array (
-              'ReflectionHelper.php' => 1,
-            ),
-            'Exception' => 
-            array (
-              'CloneException.php' => 1,
-            ),
-            'Filter' => 
-            array (
-              'KeepFilter.php' => 1,
-              'SetNullFilter.php' => 1,
-              'ReplaceFilter.php' => 1,
-              'Filter.php' => 1,
-              'Doctrine' => 
-              array (
-                'DoctrineEmptyCollectionFilter.php' => 1,
-                'DoctrineCollectionFilter.php' => 1,
-              ),
-            ),
-            'TypeFilter' => 
-            array (
-              'ShallowCopyFilter.php' => 1,
-              'TypeFilter.php' => 1,
-              'ReplaceFilter.php' => 1,
-            ),
-            'TypeMatcher' => 
-            array (
-              'TypeMatcher.php' => 1,
-            ),
-            'DeepCopy.php' => 1,
-            'Matcher' => 
-            array (
-              'PropertyTypeMatcher.php' => 1,
-              'PropertyNameMatcher.php' => 1,
-              'PropertyMatcher.php' => 1,
-              'Matcher.php' => 1,
-            ),
-          ),
-        ),
-        'doc' => 
-        array (
-          'graph.png' => 1,
-          'deep-copy.png' => 1,
-          'clone.png' => 1,
-          'deep-clone.png' => 1,
-        ),
       ),
     ),
     'XTemplate' => 
     array (
       'xtpl.php' => 1,
-    ),
-    'ircmaxell' => 
-    array (
-      'password-compat' => 
-      array (
-        'version-test.php' => 1,
-        'lib' => 
-        array (
-          'password.php' => 1,
-        ),
-      ),
     ),
     'Smarty' => 
     array (
@@ -39963,1575 +34600,8 @@ $existing_files = array (
         ),
       ),
     ),
-    'aws' => 
-    array (
-      'aws-sdk-php' => 
-      array (
-        'src' => 
-        array (
-          'Aws' => 
-          array (
-            'Common' => 
-            array (
-              'Signature' => 
-              array (
-                'EndpointSignatureInterface.php' => 1,
-                'SignatureListener.php' => 1,
-                'SignatureV3Https.php' => 1,
-                'SignatureInterface.php' => 1,
-                'SignatureV4.php' => 1,
-                'AbstractSignature.php' => 1,
-                'SignatureV2.php' => 1,
-              ),
-              'Command' => 
-              array (
-                'XmlResponseLocationVisitor.php' => 1,
-                'AwsQueryVisitor.php' => 1,
-                'QueryCommand.php' => 1,
-                'JsonCommand.php' => 1,
-              ),
-              'Hash' => 
-              array (
-                'ChunkHash.php' => 1,
-                'TreeHash.php' => 1,
-                'ChunkHashInterface.php' => 1,
-                'HashUtils.php' => 1,
-              ),
-              'Model' => 
-              array (
-                'MultipartUpload' => 
-                array (
-                  'AbstractUploadId.php' => 1,
-                  'UploadPartInterface.php' => 1,
-                  'AbstractTransfer.php' => 1,
-                  'AbstractTransferState.php' => 1,
-                  'AbstractUploadPart.php' => 1,
-                  'AbstractUploadBuilder.php' => 1,
-                  'UploadIdInterface.php' => 1,
-                  'TransferInterface.php' => 1,
-                  'TransferStateInterface.php' => 1,
-                ),
-              ),
-              'HostNameUtils.php' => 1,
-              'InstanceMetadata' => 
-              array (
-                'InstanceMetadataClient.php' => 1,
-                'Waiter' => 
-                array (
-                  'ServiceAvailable.php' => 1,
-                ),
-              ),
-              'Exception' => 
-              array (
-                'Parser' => 
-                array (
-                  'JsonQueryExceptionParser.php' => 1,
-                  'ExceptionParserInterface.php' => 1,
-                  'DefaultXmlExceptionParser.php' => 1,
-                  'JsonRestExceptionParser.php' => 1,
-                  'AbstractJsonExceptionParser.php' => 1,
-                ),
-                'OverflowException.php' => 1,
-                'RequiredExtensionNotLoadedException.php' => 1,
-                'ExceptionListener.php' => 1,
-                'BadMethodCallException.php' => 1,
-                'DomainException.php' => 1,
-                'NamespaceExceptionFactory.php' => 1,
-                'ExceptionFactoryInterface.php' => 1,
-                'InvalidArgumentException.php' => 1,
-                'AwsExceptionInterface.php' => 1,
-                'MultipartUploadException.php' => 1,
-                'OutOfBoundsException.php' => 1,
-                'ServiceResponseException.php' => 1,
-                'InstanceProfileCredentialsException.php' => 1,
-                'UnexpectedValueException.php' => 1,
-                'RuntimeException.php' => 1,
-                'TransferException.php' => 1,
-                'LogicException.php' => 1,
-              ),
-              'Credentials' => 
-              array (
-                'Credentials.php' => 1,
-                'RefreshableInstanceProfileCredentials.php' => 1,
-                'CredentialsInterface.php' => 1,
-                'AbstractRefreshableCredentials.php' => 1,
-                'NullCredentials.php' => 1,
-                'CacheableCredentials.php' => 1,
-                'AbstractCredentialsDecorator.php' => 1,
-              ),
-              'Iterator' => 
-              array (
-                'AwsResourceIterator.php' => 1,
-                'AwsResourceIteratorFactory.php' => 1,
-              ),
-              'Aws.php' => 1,
-              'Client' => 
-              array (
-                'DefaultClient.php' => 1,
-                'UploadBodyListener.php' => 1,
-                'AbstractClient.php' => 1,
-                'AwsClientInterface.php' => 1,
-                'UserAgentListener.php' => 1,
-                'ExpiredCredentialsChecker.php' => 1,
-                'ThrottlingErrorChecker.php' => 1,
-                'ClientBuilder.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'UaString.php' => 1,
-                'Size.php' => 1,
-                'ClientOptions.php' => 1,
-                'Region.php' => 1,
-                'DateFormat.php' => 1,
-                'Time.php' => 1,
-              ),
-              'Enum.php' => 1,
-              'Facade' => 
-              array (
-                'FacadeInterface.php' => 1,
-                'Facade.php' => 1,
-                'facade-classes.php' => 1,
-              ),
-              'RulesEndpointProvider.php' => 1,
-              'Resources' => 
-              array (
-                'sdk1-config.php' => 1,
-                'aws-config.php' => 1,
-                'public-endpoints.php' => 1,
-              ),
-              'Waiter' => 
-              array (
-                'WaiterInterface.php' => 1,
-                'WaiterClassFactory.php' => 1,
-                'CompositeWaiterFactory.php' => 1,
-                'CallableWaiter.php' => 1,
-                'ResourceWaiterInterface.php' => 1,
-                'WaiterFactoryInterface.php' => 1,
-                'AbstractResourceWaiter.php' => 1,
-                'WaiterConfigFactory.php' => 1,
-                'AbstractWaiter.php' => 1,
-                'ConfigResourceWaiter.php' => 1,
-                'WaiterConfig.php' => 1,
-              ),
-            ),
-            'StorageGateway' => 
-            array (
-              'Exception' => 
-              array (
-                'StorageGatewayException.php' => 1,
-                'InvalidGatewayRequestException.php' => 1,
-                'InternalServerErrorException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'GatewayType.php' => 1,
-                'GatewayTimezone.php' => 1,
-                'VolumeType.php' => 1,
-                'ErrorCode.php' => 1,
-                'DiskAllocationType.php' => 1,
-                'VolumeStatus.php' => 1,
-                'GatewayState.php' => 1,
-                'BandwidthType.php' => 1,
-              ),
-              'StorageGatewayClient.php' => 1,
-              'Resources' => 
-              array (
-                'storagegateway-2013-06-30.php' => 1,
-              ),
-            ),
-            'Ec2' => 
-            array (
-              'Exception' => 
-              array (
-                'Ec2Exception.php' => 1,
-              ),
-              'Iterator' => 
-              array (
-                'DescribeInstancesIterator.php' => 1,
-              ),
-              'Ec2Client.php' => 1,
-              'Enum' => 
-              array (
-                'SnapshotAttributeName.php' => 1,
-                'SpotInstanceType.php' => 1,
-                'RuleAction.php' => 1,
-                'ResourceType.php' => 1,
-                'VolumeType.php' => 1,
-                'ImageState.php' => 1,
-                'DomainType.php' => 1,
-                'InstanceAttributeName.php' => 1,
-                'VolumeState.php' => 1,
-                'VpcAttributeName.php' => 1,
-                'DiskImageFormat.php' => 1,
-                'VolumeAttributeName.php' => 1,
-                'PlacementGroupState.php' => 1,
-                'SnapshotState.php' => 1,
-                'PlacementStrategy.php' => 1,
-                'VirtualizationType.php' => 1,
-                'RouteOrigin.php' => 1,
-                'ContainerFormat.php' => 1,
-                'ExportEnvironment.php' => 1,
-                'InstanceType.php' => 1,
-                'VolumeAttachmentState.php' => 1,
-                'InstanceStateName.php' => 1,
-                'HypervisorType.php' => 1,
-              ),
-              'CopySnapshotListener.php' => 1,
-              'Resources' => 
-              array (
-                'ec2-2014-10-01.php' => 1,
-              ),
-            ),
-            'CloudFront' => 
-            array (
-              'CloudFrontClient.php' => 1,
-              'Exception' => 
-              array (
-                'InvalidRequiredProtocolException.php' => 1,
-                'InvalidDefaultRootObjectException.php' => 1,
-                'TooManyDistributionsException.php' => 1,
-                'BatchTooLargeException.php' => 1,
-                'InvalidResponseCodeException.php' => 1,
-                'NoSuchOriginException.php' => 1,
-                'InvalidIfMatchVersionException.php' => 1,
-                'NoSuchDistributionException.php' => 1,
-                'DistributionNotDisabledException.php' => 1,
-                'InvalidErrorCodeException.php' => 1,
-                'IllegalUpdateException.php' => 1,
-                'InvalidOriginException.php' => 1,
-                'StreamingDistributionNotDisabledException.php' => 1,
-                'TooManyOriginsException.php' => 1,
-                'InvalidLocationCodeException.php' => 1,
-                'InvalidViewerCertificateException.php' => 1,
-                'TooManyCloudFrontOriginAccessIdentitiesException.php' => 1,
-                'TooManyCacheBehaviorsException.php' => 1,
-                'InvalidGeoRestrictionParameterException.php' => 1,
-                'CloudFrontOriginAccessIdentityInUseException.php' => 1,
-                'TooManyCookieNamesInWhiteListException.php' => 1,
-                'NoSuchStreamingDistributionException.php' => 1,
-                'InvalidArgumentException.php' => 1,
-                'Exception.php' => 1,
-                'TooManyStreamingDistributionCNAMEsException.php' => 1,
-                'NoSuchCloudFrontOriginAccessIdentityException.php' => 1,
-                'CNAMEAlreadyExistsException.php' => 1,
-                'TooManyInvalidationsInProgressException.php' => 1,
-                'MissingBodyException.php' => 1,
-                'CloudFrontException.php' => 1,
-                'TooManyCertificatesException.php' => 1,
-                'DistributionAlreadyExistsException.php' => 1,
-                'NoSuchInvalidationException.php' => 1,
-                'AccessDeniedException.php' => 1,
-                'TrustedSignerDoesNotExistException.php' => 1,
-                'InvalidRelativePathException.php' => 1,
-                'TooManyDistributionCNAMEsException.php' => 1,
-                'InvalidForwardCookiesException.php' => 1,
-                'InvalidOriginAccessIdentityException.php' => 1,
-                'TooManyTrustedSignersException.php' => 1,
-                'StreamingDistributionAlreadyExistsException.php' => 1,
-                'InconsistentQuantitiesException.php' => 1,
-                'TooManyStreamingDistributionsException.php' => 1,
-                'CloudFrontOriginAccessIdentityAlreadyExistsException.php' => 1,
-                'PreconditionFailedException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'PriceClass.php' => 1,
-                'SSLSupportMethod.php' => 1,
-                'ItemSelection.php' => 1,
-                'OriginProtocolPolicy.php' => 1,
-                'GeoRestrictionType.php' => 1,
-                'Method.php' => 1,
-                'ViewerProtocolPolicy.php' => 1,
-              ),
-              'CloudFrontSignature.php' => 1,
-              'Resources' => 
-              array (
-                'cloudfront-2012-05-05.php' => 1,
-                'cloudfront-2014-10-21.php' => 1,
-              ),
-            ),
-            'Rds' => 
-            array (
-              'Exception' => 
-              array (
-                'DBSubnetGroupNotFoundException.php' => 1,
-                'EventSubscriptionQuotaExceededException.php' => 1,
-                'InsufficientDBInstanceCapacityException.php' => 1,
-                'DBSecurityGroupQuotaExceededException.php' => 1,
-                'InvalidDBSubnetStateException.php' => 1,
-                'SnapshotQuotaExceededException.php' => 1,
-                'InvalidVPCNetworkStateException.php' => 1,
-                'SubscriptionNotFoundException.php' => 1,
-                'DBSecurityGroupNotSupportedException.php' => 1,
-                'InvalidDBInstanceStateException.php' => 1,
-                'InvalidDBSubnetGroupException.php' => 1,
-                'SubscriptionCategoryNotFoundException.php' => 1,
-                'SNSTopicArnNotFoundException.php' => 1,
-                'OptionGroupQuotaExceededException.php' => 1,
-                'DBSubnetGroupAlreadyExistsException.php' => 1,
-                'OptionGroupNotFoundException.php' => 1,
-                'DBParameterGroupAlreadyExistsException.php' => 1,
-                'DBSnapshotNotFoundException.php' => 1,
-                'DBSubnetQuotaExceededException.php' => 1,
-                'InvalidEventSubscriptionStateException.php' => 1,
-                'InstanceQuotaExceededException.php' => 1,
-                'StorageQuotaExceededException.php' => 1,
-                'AuthorizationAlreadyExistsException.php' => 1,
-                'DBInstanceNotFoundException.php' => 1,
-                'DBUpgradeDependencyFailureException.php' => 1,
-                'OptionGroupAlreadyExistsException.php' => 1,
-                'DBParameterGroupNotFoundException.php' => 1,
-                'ReservedDBInstanceAlreadyExistsException.php' => 1,
-                'PointInTimeRestoreNotEnabledException.php' => 1,
-                'DBInstanceAlreadyExistsException.php' => 1,
-                'InvalidDBSecurityGroupStateException.php' => 1,
-                'DBSubnetGroupNotAllowedException.php' => 1,
-                'DBSecurityGroupAlreadyExistsException.php' => 1,
-                'ProvisionedIopsNotAvailableInAZException.php' => 1,
-                'SubscriptionAlreadyExistException.php' => 1,
-                'InvalidSubnetException.php' => 1,
-                'DBSecurityGroupNotFoundException.php' => 1,
-                'InvalidOptionGroupStateException.php' => 1,
-                'InvalidDBSubnetGroupStateException.php' => 1,
-                'DBSnapshotAlreadyExistsException.php' => 1,
-                'DBSubnetGroupQuotaExceededException.php' => 1,
-                'RdsException.php' => 1,
-                'ReservedDBInstanceNotFoundException.php' => 1,
-                'InvalidDBParameterGroupStateException.php' => 1,
-                'InvalidDBSnapshotStateException.php' => 1,
-                'AuthorizationNotFoundException.php' => 1,
-                'DBSubnetGroupDoesNotCoverEnoughAZsException.php' => 1,
-                'AuthorizationQuotaExceededException.php' => 1,
-                'DBParameterGroupQuotaExceededException.php' => 1,
-                'SNSNoAuthorizationException.php' => 1,
-                'SubnetAlreadyInUseException.php' => 1,
-                'SourceNotFoundException.php' => 1,
-                'ReservedDBInstancesOfferingNotFoundException.php' => 1,
-                'ReservedDBInstanceQuotaExceededException.php' => 1,
-                'InvalidRestoreException.php' => 1,
-                'SNSInvalidTopicException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'ApplyMethod.php' => 1,
-                'SourceType.php' => 1,
-              ),
-              'RdsClient.php' => 1,
-              'Resources' => 
-              array (
-                'rds-2014-09-01.php' => 1,
-              ),
-            ),
-            'Route53Domains' => 
-            array (
-              'Exception' => 
-              array (
-                'Route53DomainsException.php' => 1,
-              ),
-              'Route53DomainsClient.php' => 1,
-              'Resources' => 
-              array (
-                'route53domains-2014-05-15.php' => 1,
-              ),
-            ),
-            'OpsWorks' => 
-            array (
-              'OpsWorksClient.php' => 1,
-              'Exception' => 
-              array (
-                'ValidationException.php' => 1,
-                'ResourceNotFoundException.php' => 1,
-                'OpsWorksException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'RootDeviceType.php' => 1,
-                'AutoScalingType.php' => 1,
-                'AppType.php' => 1,
-                'Architecture.php' => 1,
-                'LayerType.php' => 1,
-                'PermissionLevel.php' => 1,
-                'SourceType.php' => 1,
-                'DeploymentCommandName.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'opsworks-2013-02-18.php' => 1,
-              ),
-            ),
-            'ElasticTranscoder' => 
-            array (
-              'Exception' => 
-              array (
-                'ResourceInUseException.php' => 1,
-                'InternalServiceException.php' => 1,
-                'ElasticTranscoderException.php' => 1,
-                'ValidationException.php' => 1,
-                'IncompatibleVersionException.php' => 1,
-                'ResourceNotFoundException.php' => 1,
-                'LimitExceededException.php' => 1,
-                'AccessDeniedException.php' => 1,
-              ),
-              'ElasticTranscoderClient.php' => 1,
-              'Resources' => 
-              array (
-                'elastictranscoder-2012-09-25.php' => 1,
-              ),
-            ),
-            'DynamoDb' => 
-            array (
-              'Model' => 
-              array (
-                'Item.php' => 1,
-                'BatchRequest' => 
-                array (
-                  'UnprocessedRequest.php' => 1,
-                  'WriteRequestInterface.php' => 1,
-                  'DeleteRequest.php' => 1,
-                  'WriteRequestBatch.php' => 1,
-                  'PutRequest.php' => 1,
-                  'AbstractWriteRequest.php' => 1,
-                  'WriteRequestBatchTransfer.php' => 1,
-                ),
-                'Attribute.php' => 1,
-              ),
-              'DynamoDbCommand.php' => 1,
-              'Exception' => 
-              array (
-                'UnrecognizedClientException.php' => 1,
-                'ResourceInUseException.php' => 1,
-                'ProvisionedThroughputExceededException.php' => 1,
-                'ValidationException.php' => 1,
-                'MissingAuthenticationTokenException.php' => 1,
-                'ItemCollectionSizeLimitExceededException.php' => 1,
-                'IncompleteSignatureException.php' => 1,
-                'ConditionalCheckFailedException.php' => 1,
-                'ResourceNotFoundException.php' => 1,
-                'LimitExceededException.php' => 1,
-                'AccessDeniedException.php' => 1,
-                'ThrottlingException.php' => 1,
-                'DynamoDbException.php' => 1,
-                'ServiceUnavailableException.php' => 1,
-                'InternalFailureException.php' => 1,
-                'UnprocessedWriteRequestsException.php' => 1,
-                'InternalServerErrorException.php' => 1,
-              ),
-              'DynamoDbClient.php' => 1,
-              'Iterator' => 
-              array (
-                'ScanIterator.php' => 1,
-                'ItemIterator.php' => 1,
-              ),
-              'Crc32ErrorChecker.php' => 1,
-              'Enum' => 
-              array (
-                'ScalarAttributeType.php' => 1,
-                'ReturnValue.php' => 1,
-                'TableStatus.php' => 1,
-                'Type.php' => 1,
-                'KeyType.php' => 1,
-                'AttributeType.php' => 1,
-                'Select.php' => 1,
-                'ComparisonOperator.php' => 1,
-                'AttributeAction.php' => 1,
-                'ReturnItemCollectionMetrics.php' => 1,
-                'ProjectionType.php' => 1,
-                'IndexStatus.php' => 1,
-                'ReturnConsumedCapacity.php' => 1,
-              ),
-              'Session' => 
-              array (
-                'SessionHandler.php' => 1,
-                'SessionHandlerConfig.php' => 1,
-                'SessionHandlerInterface.php' => 1,
-                'LockingStrategy' => 
-                array (
-                  'LockingStrategyInterface.php' => 1,
-                  'LockingStrategyFactory.php' => 1,
-                  'NullLockingStrategy.php' => 1,
-                  'AbstractLockingStrategy.php' => 1,
-                  'LockingStrategyFactoryInterface.php' => 1,
-                  'PessimisticLockingStrategy.php' => 1,
-                ),
-              ),
-              'Marshaler.php' => 1,
-              'Resources' => 
-              array (
-                'dynamodb-2011-12-05.php' => 1,
-                'dynamodb-2012-08-10.php' => 1,
-              ),
-            ),
-            'Sns' => 
-            array (
-              'SnsClient.php' => 1,
-              'Exception' => 
-              array (
-                'InternalErrorException.php' => 1,
-                'NotFoundException.php' => 1,
-                'InvalidParameterException.php' => 1,
-                'TopicLimitExceededException.php' => 1,
-                'AuthorizationErrorException.php' => 1,
-                'SnsException.php' => 1,
-                'EndpointDisabledException.php' => 1,
-                'SubscriptionLimitExceededException.php' => 1,
-                'PlatformApplicationDisabledException.php' => 1,
-              ),
-              'MessageValidator' => 
-              array (
-                'Exception' => 
-                array (
-                  'CertificateFromUnrecognizedSourceException.php' => 1,
-                  'CannotGetPublicKeyFromCertificateException.php' => 1,
-                  'InvalidMessageSignatureException.php' => 1,
-                  'SnsMessageValidatorException.php' => 1,
-                ),
-                'Message.php' => 1,
-                'MessageValidator.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'sns-2010-03-31.php' => 1,
-              ),
-            ),
-            'AutoScaling' => 
-            array (
-              'AutoScalingClient.php' => 1,
-              'Exception' => 
-              array (
-                'InvalidNextTokenException.php' => 1,
-                'ResourceInUseException.php' => 1,
-                'AutoScalingException.php' => 1,
-                'ScalingActivityInProgressException.php' => 1,
-                'LimitExceededException.php' => 1,
-                'AlreadyExistsException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'ScalingActivityStatusCode.php' => 1,
-                'LifecycleState.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'autoscaling-2011-01-01.php' => 1,
-              ),
-            ),
-            'CodeDeploy' => 
-            array (
-              'Exception' => 
-              array (
-                'CodeDeployException.php' => 1,
-              ),
-              'CodeDeployClient.php' => 1,
-              'Resources' => 
-              array (
-                'codedeploy-2014-10-06.php' => 1,
-              ),
-            ),
-            'Iam' => 
-            array (
-              'Exception' => 
-              array (
-                'NoSuchEntityException.php' => 1,
-                'EntityTemporarilyUnmodifiableException.php' => 1,
-                'IamException.php' => 1,
-                'MalformedPolicyDocumentException.php' => 1,
-                'InvalidInputException.php' => 1,
-                'InvalidUserTypeException.php' => 1,
-                'KeyPairMismatchException.php' => 1,
-                'DuplicateCertificateException.php' => 1,
-                'InvalidAuthenticationCodeException.php' => 1,
-                'DeleteConflictException.php' => 1,
-                'LimitExceededException.php' => 1,
-                'PasswordPolicyViolationException.php' => 1,
-                'MalformedCertificateException.php' => 1,
-                'EntityAlreadyExistsException.php' => 1,
-                'InvalidCertificateException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'AssignmentStatusType.php' => 1,
-                'StatusType.php' => 1,
-              ),
-              'IamClient.php' => 1,
-              'Resources' => 
-              array (
-                'iam-2010-05-08.php' => 1,
-              ),
-            ),
-            'Sts' => 
-            array (
-              'StsClient.php' => 1,
-              'Exception' => 
-              array (
-                'InvalidAuthorizationMessageException.php' => 1,
-                'InvalidParameterCombinationException.php' => 1,
-                'InvalidIdentityTokenException.php' => 1,
-                'MalformedPolicyDocumentException.php' => 1,
-                'InvalidClientTokenIdException.php' => 1,
-                'OptInRequiredException.php' => 1,
-                'IDPRejectedClaimException.php' => 1,
-                'MissingAuthenticationTokenException.php' => 1,
-                'ExpiredTokenException.php' => 1,
-                'IncompleteSignatureException.php' => 1,
-                'StsException.php' => 1,
-                'InvalidActionException.php' => 1,
-                'InvalidParameterValueException.php' => 1,
-                'InvalidQueryParameterException.php' => 1,
-                'PackedPolicyTooLargeException.php' => 1,
-                'MissingActionException.php' => 1,
-                'RequestExpiredException.php' => 1,
-                'MissingParameterException.php' => 1,
-                'IDPCommunicationErrorException.php' => 1,
-                'ThrottlingException.php' => 1,
-                'MalformedQueryStringException.php' => 1,
-                'ServiceUnavailableException.php' => 1,
-                'InternalFailureException.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'sts-2011-06-15.php' => 1,
-              ),
-            ),
-            'Ses' => 
-            array (
-              'SesClient.php' => 1,
-              'Exception' => 
-              array (
-                'SesException.php' => 1,
-                'MessageRejectedException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'VerificationStatus.php' => 1,
-                'IdentityType.php' => 1,
-                'NotificationType.php' => 1,
-                'MailboxSimulator.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'ses-2010-12-01.php' => 1,
-              ),
-            ),
-            'CognitoIdentity' => 
-            array (
-              'CognitoIdentityClient.php' => 1,
-              'Exception' => 
-              array (
-                'CognitoIdentityException.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'cognitoidentity-2014-06-30.php' => 1,
-              ),
-            ),
-            'Route53' => 
-            array (
-              'Exception' => 
-              array (
-                'PriorRequestNotCompleteException.php' => 1,
-                'TooManyHealthChecksException.php' => 1,
-                'InvalidInputException.php' => 1,
-                'HostedZoneNotEmptyException.php' => 1,
-                'InvalidChangeBatchException.php' => 1,
-                'NoSuchChangeException.php' => 1,
-                'IncompatibleVersionException.php' => 1,
-                'DelegationSetNotAvailableException.php' => 1,
-                'HealthCheckAlreadyExistsException.php' => 1,
-                'InvalidDomainNameException.php' => 1,
-                'TooManyHostedZonesException.php' => 1,
-                'Route53Exception.php' => 1,
-                'HealthCheckInUseException.php' => 1,
-                'HostedZoneAlreadyExistsException.php' => 1,
-                'NoSuchHostedZoneException.php' => 1,
-                'NoSuchHealthCheckException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'RecordType.php' => 1,
-                'HealthCheckType.php' => 1,
-                'Status.php' => 1,
-                'Action.php' => 1,
-                'ResourceRecordSetFailover.php' => 1,
-              ),
-              'Route53Client.php' => 1,
-              'Resources' => 
-              array (
-                'route53-2013-04-01.php' => 1,
-              ),
-            ),
-            'SimpleDb' => 
-            array (
-              'Exception' => 
-              array (
-                'InvalidNextTokenException.php' => 1,
-                'NumberDomainBytesExceededException.php' => 1,
-                'InvalidNumberPredicatesException.php' => 1,
-                'DuplicateItemNameException.php' => 1,
-                'TooManyRequestedAttributesException.php' => 1,
-                'NumberDomainsExceededException.php' => 1,
-                'NumberDomainAttributesExceededException.php' => 1,
-                'InvalidParameterValueException.php' => 1,
-                'NumberItemAttributesExceededException.php' => 1,
-                'InvalidQueryExpressionException.php' => 1,
-                'SimpleDbException.php' => 1,
-                'MissingParameterException.php' => 1,
-                'InvalidNumberValueTestsException.php' => 1,
-                'NumberSubmittedItemsExceededException.php' => 1,
-                'NumberSubmittedAttributesExceededException.php' => 1,
-                'NoSuchDomainException.php' => 1,
-                'AttributeDoesNotExistException.php' => 1,
-                'RequestTimeoutException.php' => 1,
-              ),
-              'SimpleDbClient.php' => 1,
-              'Resources' => 
-              array (
-                'simpledb-2009-04-15.php' => 1,
-              ),
-            ),
-            'CloudSearchDomain' => 
-            array (
-              'CloudSearchDomainClient.php' => 1,
-              'Exception' => 
-              array (
-                'CloudSearchDomainException.php' => 1,
-              ),
-              'CloudSearchDomainClientBuilder.php' => 1,
-              'Resources' => 
-              array (
-                'cloudsearchdomain-2013-01-01.php' => 1,
-              ),
-            ),
-            'Emr' => 
-            array (
-              'Exception' => 
-              array (
-                'EmrException.php' => 1,
-                'InternalServerException.php' => 1,
-                'InvalidRequestException.php' => 1,
-                'InternalServerErrorException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'ClusterStateChangeReasonCode.php' => 1,
-                'InstanceGroupStateChangeReasonCode.php' => 1,
-                'ActionOnFailure.php' => 1,
-                'InstanceStateChangeReasonCode.php' => 1,
-                'StepStateChangeReasonCode.php' => 1,
-                'MarketType.php' => 1,
-                'StepState.php' => 1,
-                'InstanceState.php' => 1,
-                'InstanceGroupState.php' => 1,
-                'ClusterState.php' => 1,
-                'InstanceGroupType.php' => 1,
-                'InstanceRoleType.php' => 1,
-                'JobFlowExecutionState.php' => 1,
-                'StepExecutionState.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'emr-2009-03-31.php' => 1,
-              ),
-              'EmrClient.php' => 1,
-            ),
-            'CloudTrail' => 
-            array (
-              'LogFileIterator.php' => 1,
-              'LogRecordIterator.php' => 1,
-              'LogFileReader.php' => 1,
-              'Exception' => 
-              array (
-                'TrailNotProvidedException.php' => 1,
-                'S3BucketDoesNotExistException.php' => 1,
-                'InternalErrorException.php' => 1,
-                'CloudTrailException.php' => 1,
-                'InvalidSnsTopicNameException.php' => 1,
-                'InvalidTrailNameException.php' => 1,
-                'InvalidS3BucketNameException.php' => 1,
-                'InsufficientSnsTopicPolicyException.php' => 1,
-                'TrailAlreadyExistsException.php' => 1,
-                'MaximumNumberOfTrailsExceededException.php' => 1,
-                'TrailNotFoundException.php' => 1,
-                'InvalidS3PrefixException.php' => 1,
-                'InsufficientS3BucketPolicyException.php' => 1,
-              ),
-              'CloudTrailClient.php' => 1,
-              'Resources' => 
-              array (
-                'cloudtrail-2013-11-01.php' => 1,
-              ),
-            ),
-            'Kms' => 
-            array (
-              'Exception' => 
-              array (
-                'KmsException.php' => 1,
-              ),
-              'KmsClient.php' => 1,
-              'Resources' => 
-              array (
-                'kms-2014-11-01.php' => 1,
-              ),
-            ),
-            'S3' => 
-            array (
-              'S3SignatureV4.php' => 1,
-              'Command' => 
-              array (
-                'S3Command.php' => 1,
-              ),
-              'StreamWrapper.php' => 1,
-              'ResumableDownload.php' => 1,
-              'AcpListener.php' => 1,
-              'Model' => 
-              array (
-                'Acp.php' => 1,
-                'PostObject.php' => 1,
-                'Grantee.php' => 1,
-                'AcpBuilder.php' => 1,
-                'DeleteObjectsBatch.php' => 1,
-                'Grant.php' => 1,
-                'MultipartUpload' => 
-                array (
-                  'ParallelTransfer.php' => 1,
-                  'TransferState.php' => 1,
-                  'UploadId.php' => 1,
-                  'AbstractTransfer.php' => 1,
-                  'UploadPart.php' => 1,
-                  'SerialTransfer.php' => 1,
-                  'UploadBuilder.php' => 1,
-                ),
-                'ClearBucket.php' => 1,
-                'DeleteObjectsTransfer.php' => 1,
-              ),
-              'S3Signature.php' => 1,
-              'Exception' => 
-              array (
-                'Parser' => 
-                array (
-                  'S3ExceptionParser.php' => 1,
-                ),
-                'OperationAbortedException.php' => 1,
-                'BadDigestException.php' => 1,
-                'MissingAttachmentException.php' => 1,
-                'InvalidPolicyDocumentException.php' => 1,
-                'MalformedPOSTRequestException.php' => 1,
-                'InvalidAddressingHeaderException.php' => 1,
-                'InternalErrorException.php' => 1,
-                'InvalidLocationConstraintException.php' => 1,
-                'BucketAlreadyExistsException.php' => 1,
-                'MalformedXMLException.php' => 1,
-                'NoSuchBucketException.php' => 1,
-                'TemporaryRedirectException.php' => 1,
-                'TooManyBucketsException.php' => 1,
-                'InvalidURIException.php' => 1,
-                'IncompleteBodyException.php' => 1,
-                'MalformedACLErrorException.php' => 1,
-                'InvalidStorageClassException.php' => 1,
-                'InvalidTagErrorException.php' => 1,
-                'MethodNotAllowedException.php' => 1,
-                'EntityTooSmallException.php' => 1,
-                'InvalidSecurityException.php' => 1,
-                'SignatureDoesNotMatchException.php' => 1,
-                'NoSuchLifecycleConfigurationException.php' => 1,
-                'InvalidTargetBucketForLoggingException.php' => 1,
-                'RedirectException.php' => 1,
-                'InvalidSOAPRequestException.php' => 1,
-                'InvalidAccessKeyIdException.php' => 1,
-                'NoSuchWebsiteConfigurationException.php' => 1,
-                'MissingSecurityElementException.php' => 1,
-                'InvalidBucketNameException.php' => 1,
-                'MetadataTooLargeException.php' => 1,
-                'ExpiredTokenException.php' => 1,
-                'NotSignedUpException.php' => 1,
-                'UserKeyMustBeSpecifiedException.php' => 1,
-                'InvalidPartException.php' => 1,
-                'S3Exception.php' => 1,
-                'SlowDownException.php' => 1,
-                'MissingRequestBodyErrorException.php' => 1,
-                'NoSuchKeyException.php' => 1,
-                'CrossLocationLoggingProhibitedException.php' => 1,
-                'InvalidRangeException.php' => 1,
-                'InlineDataTooLargeException.php' => 1,
-                'MissingSecurityHeaderException.php' => 1,
-                'AmbiguousGrantByEmailAddressException.php' => 1,
-                'EntityTooLargeException.php' => 1,
-                'NoSuchUploadException.php' => 1,
-                'InvalidArgumentException.php' => 1,
-                'RequestIsNotMultiPartContentException.php' => 1,
-                'InvalidTokenException.php' => 1,
-                'UnresolvableGrantByEmailAddressException.php' => 1,
-                'ObjectAlreadyInActiveTierErrorException.php' => 1,
-                'MaxPostPreDataLengthExceededErrorException.php' => 1,
-                'MissingContentLengthException.php' => 1,
-                'ObjectNotInActiveTierErrorException.php' => 1,
-                'BucketNotEmptyException.php' => 1,
-                'MaxMessageLengthExceededException.php' => 1,
-                'TokenRefreshRequiredException.php' => 1,
-                'NoSuchVersionException.php' => 1,
-                'IllegalVersioningConfigurationException.php' => 1,
-                'NoLoggingStatusForKeyException.php' => 1,
-                'UnexpectedContentException.php' => 1,
-                'RequestTorrentOfBucketErrorException.php' => 1,
-                'NotImplementedException.php' => 1,
-                'KeyTooLongException.php' => 1,
-                'PermanentRedirectException.php' => 1,
-                'CredentialsNotSupportedException.php' => 1,
-                'RequestTimeTooSkewedException.php' => 1,
-                'InvalidDigestException.php' => 1,
-                'InvalidBucketStateException.php' => 1,
-                'BucketAlreadyOwnedByYouException.php' => 1,
-                'AccessDeniedException.php' => 1,
-                'DeleteMultipleObjectsException.php' => 1,
-                'InvalidRequestException.php' => 1,
-                'ServiceUnavailableException.php' => 1,
-                'InvalidPayerException.php' => 1,
-                'PreconditionFailedException.php' => 1,
-                'NotSuchBucketPolicyException.php' => 1,
-                'NoSuchTagSetErrorException.php' => 1,
-                'NoSuchBucketPolicyException.php' => 1,
-                'InvalidPartOrderException.php' => 1,
-                'AccountProblemException.php' => 1,
-                'NoSuchCORSConfigurationException.php' => 1,
-                'IncorrectNumberOfFilesInPostRequestException.php' => 1,
-                'RequestTimeoutException.php' => 1,
-              ),
-              'Sync' => 
-              array (
-                'DownloadSync.php' => 1,
-                'FilenameConverterInterface.php' => 1,
-                'ChangedFilesIterator.php' => 1,
-                'UploadSync.php' => 1,
-                'DownloadSyncBuilder.php' => 1,
-                'UploadSyncBuilder.php' => 1,
-                'KeyConverter.php' => 1,
-                'AbstractSync.php' => 1,
-                'AbstractSyncBuilder.php' => 1,
-              ),
-              'Iterator' => 
-              array (
-                'ListMultipartUploadsIterator.php' => 1,
-                'OpendirIterator.php' => 1,
-                'ListObjectsIterator.php' => 1,
-                'ListBucketsIterator.php' => 1,
-                'ListObjectVersionsIterator.php' => 1,
-              ),
-              'S3SignatureInterface.php' => 1,
-              'Enum' => 
-              array (
-                'StorageClass.php' => 1,
-                'MFADelete.php' => 1,
-                'GranteeType.php' => 1,
-                'Event.php' => 1,
-                'Protocol.php' => 1,
-                'Payer.php' => 1,
-                'Status.php' => 1,
-                'CannedAcl.php' => 1,
-                'Group.php' => 1,
-                'Permission.php' => 1,
-                'ServerSideEncryption.php' => 1,
-                'EncodingType.php' => 1,
-                'MetadataDirective.php' => 1,
-                'Storage.php' => 1,
-              ),
-              'SocketTimeoutChecker.php' => 1,
-              'S3Md5Listener.php' => 1,
-              'Resources' => 
-              array (
-                's3-2006-03-01.php' => 1,
-              ),
-              'S3Client.php' => 1,
-              'BucketStyleListener.php' => 1,
-              'SseCpkListener.php' => 1,
-            ),
-            'ElastiCache' => 
-            array (
-              'Exception' => 
-              array (
-                'CacheParameterGroupAlreadyExistsException.php' => 1,
-                'CacheSecurityGroupQuotaExceededException.php' => 1,
-                'InvalidCacheParameterGroupStateException.php' => 1,
-                'InvalidParameterCombinationException.php' => 1,
-                'ReservedCacheNodeAlreadyExistsException.php' => 1,
-                'CacheSecurityGroupNotFoundException.php' => 1,
-                'ReplicationGroupAlreadyExistsException.php' => 1,
-                'CacheSubnetGroupInUseException.php' => 1,
-                'InvalidVPCNetworkStateException.php' => 1,
-                'InvalidReplicationGroupStateException.php' => 1,
-                'ClusterQuotaForCustomerExceededException.php' => 1,
-                'SubnetInUseException.php' => 1,
-                'ReservedCacheNodesOfferingNotFoundException.php' => 1,
-                'ReservedCacheNodeQuotaExceededException.php' => 1,
-                'AuthorizationAlreadyExistsException.php' => 1,
-                'CacheSubnetGroupNotFoundException.php' => 1,
-                'CacheParameterGroupQuotaExceededException.php' => 1,
-                'CacheSecurityGroupAlreadyExistsException.php' => 1,
-                'CacheSubnetGroupQuotaExceededException.php' => 1,
-                'InvalidParameterValueException.php' => 1,
-                'NodeQuotaForClusterExceededException.php' => 1,
-                'CacheClusterAlreadyExistsException.php' => 1,
-                'InvalidSubnetException.php' => 1,
-                'ReservedCacheNodeNotFoundException.php' => 1,
-                'NodeQuotaForCustomerExceededException.php' => 1,
-                'AuthorizationNotFoundException.php' => 1,
-                'InsufficientCacheClusterCapacityException.php' => 1,
-                'InvalidCacheClusterStateException.php' => 1,
-                'CacheClusterNotFoundException.php' => 1,
-                'CacheSubnetQuotaExceededException.php' => 1,
-                'ElastiCacheException.php' => 1,
-                'CacheParameterGroupNotFoundException.php' => 1,
-                'ReplicationGroupNotFoundException.php' => 1,
-                'InvalidCacheSecurityGroupStateException.php' => 1,
-                'CacheSubnetGroupAlreadyExistsException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'SourceType.php' => 1,
-              ),
-              'ElastiCacheClient.php' => 1,
-              'Resources' => 
-              array (
-                'elasticache-2014-09-30.php' => 1,
-              ),
-            ),
-            'ImportExport' => 
-            array (
-              'ImportExportClient.php' => 1,
-              'Exception' => 
-              array (
-                'UnableToCancelJobIdException.php' => 1,
-                'NoSuchBucketException.php' => 1,
-                'InvalidParameterException.php' => 1,
-                'MalformedManifestException.php' => 1,
-                'InvalidAccessKeyIdException.php' => 1,
-                'InvalidFileSystemException.php' => 1,
-                'MissingManifestFieldException.php' => 1,
-                'MultipleRegionsException.php' => 1,
-                'CanceledJobIdException.php' => 1,
-                'InvalidCustomsException.php' => 1,
-                'InvalidManifestFieldException.php' => 1,
-                'MissingParameterException.php' => 1,
-                'InvalidAddressException.php' => 1,
-                'ExpiredJobIdException.php' => 1,
-                'MissingCustomsException.php' => 1,
-                'BucketPermissionException.php' => 1,
-                'InvalidJobIdException.php' => 1,
-                'ImportExportException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'JobType.php' => 1,
-              ),
-              'JobManifestListener.php' => 1,
-              'Resources' => 
-              array (
-                'importexport-2010-06-01.php' => 1,
-              ),
-            ),
-            'Sqs' => 
-            array (
-              'QueueUrlListener.php' => 1,
-              'Exception' => 
-              array (
-                'SqsException.php' => 1,
-              ),
-              'SqsClient.php' => 1,
-              'Enum' => 
-              array (
-                'QueueAttribute.php' => 1,
-                'MessageAttribute.php' => 1,
-              ),
-              'Md5ValidatorListener.php' => 1,
-              'Resources' => 
-              array (
-                'sqs-2012-11-05.php' => 1,
-              ),
-            ),
-            'CognitoSync' => 
-            array (
-              'Exception' => 
-              array (
-                'CognitoSyncException.php' => 1,
-              ),
-              'CognitoSyncClient.php' => 1,
-              'Resources' => 
-              array (
-                'cognitosync-2014-06-30.php' => 1,
-              ),
-            ),
-            'ElasticBeanstalk' => 
-            array (
-              'Exception' => 
-              array (
-                'OperationInProgressException.php' => 1,
-                'InsufficientPrivilegesException.php' => 1,
-                'TooManyConfigurationTemplatesException.php' => 1,
-                'TooManyEnvironmentsException.php' => 1,
-                'TooManyBucketsException.php' => 1,
-                'ElasticBeanstalkException.php' => 1,
-                'TooManyApplicationVersionsException.php' => 1,
-                'S3LocationNotInServiceRegionException.php' => 1,
-                'S3SubscriptionRequiredException.php' => 1,
-                'SourceBundleDeletionException.php' => 1,
-                'TooManyApplicationsException.php' => 1,
-              ),
-              'ElasticBeanstalkClient.php' => 1,
-              'Enum' => 
-              array (
-                'ConfigurationDeploymentStatus.php' => 1,
-                'EventSeverity.php' => 1,
-                'ValidationSeverity.php' => 1,
-                'EnvironmentInfoType.php' => 1,
-                'EnvironmentStatus.php' => 1,
-                'EnvironmentHealth.php' => 1,
-                'ConfigurationOptionValueType.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'elasticbeanstalk-2010-12-01.php' => 1,
-              ),
-            ),
-            'DirectConnect' => 
-            array (
-              'Exception' => 
-              array (
-                'DirectConnectClientException.php' => 1,
-                'DirectConnectException.php' => 1,
-                'DirectConnectServerException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'VirtualInterfaceState.php' => 1,
-                'InterconnectState.php' => 1,
-                'StepState.php' => 1,
-                'ConnectionState.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'directconnect-2012-10-25.php' => 1,
-              ),
-              'DirectConnectClient.php' => 1,
-            ),
-            'Kinesis' => 
-            array (
-              'Exception' => 
-              array (
-                'ResourceInUseException.php' => 1,
-                'ProvisionedThroughputExceededException.php' => 1,
-                'ExpiredIteratorException.php' => 1,
-                'ResourceNotFoundException.php' => 1,
-                'InvalidArgumentException.php' => 1,
-                'LimitExceededException.php' => 1,
-                'KinesisException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'StreamStatus.php' => 1,
-                'ShardIteratorType.php' => 1,
-              ),
-              'KinesisClient.php' => 1,
-              'Resources' => 
-              array (
-                'kinesis-2013-12-02.php' => 1,
-              ),
-            ),
-            'Support' => 
-            array (
-              'Exception' => 
-              array (
-                'CaseIdNotFoundException.php' => 1,
-                'CaseCreationLimitExceededException.php' => 1,
-                'SupportException.php' => 1,
-                'InternalServerErrorException.php' => 1,
-              ),
-              'SupportClient.php' => 1,
-              'Resources' => 
-              array (
-                'support-2013-04-15.php' => 1,
-              ),
-            ),
-            'Swf' => 
-            array (
-              'Exception' => 
-              array (
-                'WorkflowExecutionAlreadyStartedException.php' => 1,
-                'UnknownResourceException.php' => 1,
-                'OperationNotPermittedException.php' => 1,
-                'TypeDeprecatedException.php' => 1,
-                'TypeAlreadyExistsException.php' => 1,
-                'DomainDeprecatedException.php' => 1,
-                'LimitExceededException.php' => 1,
-                'DefaultUndefinedException.php' => 1,
-                'DomainAlreadyExistsException.php' => 1,
-                'SwfException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'DecisionTaskTimeoutType.php' => 1,
-                'ChildPolicy.php' => 1,
-                'DecisionType.php' => 1,
-                'EventType.php' => 1,
-                'RegistrationStatus.php' => 1,
-                'ActivityTaskTimeoutType.php' => 1,
-                'WorkflowExecutionTimeoutType.php' => 1,
-                'CloseStatus.php' => 1,
-                'ExecutionStatus.php' => 1,
-              ),
-              'SwfClient.php' => 1,
-              'Resources' => 
-              array (
-                'swf-2012-01-25.php' => 1,
-              ),
-            ),
-            'DataPipeline' => 
-            array (
-              'Exception' => 
-              array (
-                'InternalServiceErrorException.php' => 1,
-                'DataPipelineException.php' => 1,
-                'TaskNotFoundException.php' => 1,
-                'PipelineNotFoundException.php' => 1,
-                'PipelineDeletedException.php' => 1,
-                'InvalidRequestException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'WorkStatus.php' => 1,
-              ),
-              'DataPipelineClient.php' => 1,
-              'Resources' => 
-              array (
-                'datapipeline-2012-10-29.php' => 1,
-              ),
-            ),
-            'Redshift' => 
-            array (
-              'Exception' => 
-              array (
-                'ClusterSubnetGroupNotFoundException.php' => 1,
-                'EventSubscriptionQuotaExceededException.php' => 1,
-                'ReservedNodeNotFoundException.php' => 1,
-                'ResizeNotFoundException.php' => 1,
-                'SnapshotCopyDisabledException.php' => 1,
-                'InvalidElasticIpException.php' => 1,
-                'InvalidS3BucketNameFaultException.php' => 1,
-                'InvalidClusterSubnetStateException.php' => 1,
-                'InvalidVPCNetworkStateException.php' => 1,
-                'SubscriptionNotFoundException.php' => 1,
-                'SubscriptionCategoryNotFoundException.php' => 1,
-                'IncompatibleOrderableOptionsException.php' => 1,
-                'InvalidClusterSecurityGroupStateException.php' => 1,
-                'SNSTopicArnNotFoundException.php' => 1,
-                'NumberOfNodesPerClusterLimitExceededException.php' => 1,
-                'SubscriptionEventIdNotFoundException.php' => 1,
-                'RedshiftException.php' => 1,
-                'AccessToSnapshotDeniedException.php' => 1,
-                'ClusterSecurityGroupAlreadyExistsException.php' => 1,
-                'HsmConfigurationQuotaExceededException.php' => 1,
-                'ClusterNotFoundException.php' => 1,
-                'SubscriptionSeverityNotFoundException.php' => 1,
-                'AuthorizationAlreadyExistsException.php' => 1,
-                'ClusterParameterGroupAlreadyExistsException.php' => 1,
-                'HsmConfigurationAlreadyExistsException.php' => 1,
-                'ClusterParameterGroupNotFoundException.php' => 1,
-                'UnsupportedOptionException.php' => 1,
-                'ClusterSnapshotQuotaExceededException.php' => 1,
-                'UnauthorizedOperationException.php' => 1,
-                'ClusterSnapshotNotFoundException.php' => 1,
-                'ClusterSubnetGroupQuotaExceededException.php' => 1,
-                'HsmClientCertificateAlreadyExistsException.php' => 1,
-                'HsmClientCertificateNotFoundException.php' => 1,
-                'ReservedNodeOfferingNotFoundException.php' => 1,
-                'ClusterAlreadyExistsException.php' => 1,
-                'InvalidHsmClientCertificateStateException.php' => 1,
-                'InvalidClusterParameterGroupStateException.php' => 1,
-                'SubscriptionAlreadyExistException.php' => 1,
-                'HsmClientCertificateQuotaExceededException.php' => 1,
-                'InvalidSubnetException.php' => 1,
-                'ClusterSecurityGroupNotFoundException.php' => 1,
-                'InvalidS3KeyPrefixFaultException.php' => 1,
-                'InvalidClusterSubnetGroupStateException.php' => 1,
-                'ReservedNodeAlreadyExistsException.php' => 1,
-                'UnknownSnapshotCopyRegionException.php' => 1,
-                'NumberOfNodesQuotaExceededException.php' => 1,
-                'ClusterQuotaExceededException.php' => 1,
-                'ClusterParameterGroupQuotaExceededException.php' => 1,
-                'InvalidClusterStateException.php' => 1,
-                'InvalidClusterSnapshotStateException.php' => 1,
-                'AuthorizationNotFoundException.php' => 1,
-                'ReservedNodeQuotaExceededException.php' => 1,
-                'BucketNotFoundException.php' => 1,
-                'ClusterSnapshotAlreadyExistsException.php' => 1,
-                'AuthorizationQuotaExceededException.php' => 1,
-                'InvalidHsmConfigurationStateException.php' => 1,
-                'InsufficientClusterCapacityException.php' => 1,
-                'InsufficientS3BucketPolicyFaultException.php' => 1,
-                'SnapshotCopyAlreadyDisabledException.php' => 1,
-                'SnapshotCopyAlreadyEnabledException.php' => 1,
-                'ClusterSubnetQuotaExceededException.php' => 1,
-                'SNSNoAuthorizationException.php' => 1,
-                'HsmConfigurationNotFoundException.php' => 1,
-                'ClusterSubnetGroupAlreadyExistsException.php' => 1,
-                'CopyToRegionDisabledException.php' => 1,
-                'SubnetAlreadyInUseException.php' => 1,
-                'SourceNotFoundException.php' => 1,
-                'InvalidRestoreException.php' => 1,
-                'ClusterSecurityGroupQuotaExceededException.php' => 1,
-                'SNSInvalidTopicException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'SourceType.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'redshift-2012-12-01.php' => 1,
-              ),
-              'RedshiftClient.php' => 1,
-            ),
-            'CloudFormation' => 
-            array (
-              'Exception' => 
-              array (
-                'InsufficientCapabilitiesException.php' => 1,
-                'CloudFormationException.php' => 1,
-                'LimitExceededException.php' => 1,
-                'AlreadyExistsException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'ResourceStatus.php' => 1,
-                'OnFailure.php' => 1,
-                'StackStatus.php' => 1,
-                'Capability.php' => 1,
-              ),
-              'Resources' => 
-              array (
-                'cloudformation-2010-05-15.php' => 1,
-              ),
-              'CloudFormationClient.php' => 1,
-            ),
-            'CloudWatchLogs' => 
-            array (
-              'Exception' => 
-              array (
-                'CloudWatchLogsException.php' => 1,
-              ),
-              'CloudWatchLogsClient.php' => 1,
-              'Resources' => 
-              array (
-                'cloudwatchlogs-2014-03-28.php' => 1,
-              ),
-            ),
-            'CloudSearch' => 
-            array (
-              'Exception' => 
-              array (
-                'CloudSearchException.php' => 1,
-                'ResourceNotFoundException.php' => 1,
-                'LimitExceededException.php' => 1,
-                'InvalidTypeException.php' => 1,
-                'InternalException.php' => 1,
-                'BaseException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'IndexFieldType.php' => 1,
-                'OptionState.php' => 1,
-                'SourceDataFunction.php' => 1,
-                'SearchInstanceType.php' => 1,
-              ),
-              'CloudSearchClient.php' => 1,
-              'Resources' => 
-              array (
-                'cloudsearch-2011-02-01.php' => 1,
-                'cloudsearch-2013-01-01.php' => 1,
-              ),
-            ),
-            'ElasticLoadBalancing' => 
-            array (
-              'Exception' => 
-              array (
-                'InvalidEndPointException.php' => 1,
-                'PolicyNotFoundException.php' => 1,
-                'AccessPointNotFoundException.php' => 1,
-                'DuplicateListenerException.php' => 1,
-                'LoadBalancerAttributeNotFoundException.php' => 1,
-                'SubnetNotFoundException.php' => 1,
-                'TooManyPoliciesException.php' => 1,
-                'TooManyAccessPointsException.php' => 1,
-                'InvalidConfigurationRequestException.php' => 1,
-                'DuplicateAccessPointNameException.php' => 1,
-                'InvalidSubnetException.php' => 1,
-                'DuplicatePolicyNameException.php' => 1,
-                'PolicyTypeNotFoundException.php' => 1,
-                'InvalidSchemeException.php' => 1,
-                'CertificateNotFoundException.php' => 1,
-                'ListenerNotFoundException.php' => 1,
-                'ElasticLoadBalancingException.php' => 1,
-                'InvalidSecurityGroupException.php' => 1,
-              ),
-              'ElasticLoadBalancingClient.php' => 1,
-              'Resources' => 
-              array (
-                'elasticloadbalancing-2012-06-01.php' => 1,
-              ),
-            ),
-            'Glacier' => 
-            array (
-              'Model' => 
-              array (
-                'MultipartUpload' => 
-                array (
-                  'ParallelTransfer.php' => 1,
-                  'TransferState.php' => 1,
-                  'UploadId.php' => 1,
-                  'AbstractTransfer.php' => 1,
-                  'UploadPartGenerator.php' => 1,
-                  'UploadPart.php' => 1,
-                  'UploadPartContext.php' => 1,
-                  'SerialTransfer.php' => 1,
-                  'UploadBuilder.php' => 1,
-                ),
-              ),
-              'Exception' => 
-              array (
-                'ResourceNotFoundException.php' => 1,
-                'InvalidParameterValueException.php' => 1,
-                'LimitExceededException.php' => 1,
-                'ServiceUnavailableException.php' => 1,
-                'GlacierException.php' => 1,
-                'MissingParameterValueException.php' => 1,
-                'RequestTimeoutException.php' => 1,
-              ),
-              'GlacierUploadListener.php' => 1,
-              'Enum' => 
-              array (
-                'ActionCode.php' => 1,
-                'StatusCode.php' => 1,
-                'Action.php' => 1,
-              ),
-              'GlacierClient.php' => 1,
-              'Resources' => 
-              array (
-                'glacier-2012-06-01.php' => 1,
-              ),
-            ),
-            'Lambda' => 
-            array (
-              'Exception' => 
-              array (
-                'LambdaException.php' => 1,
-              ),
-              'LambdaClient.php' => 1,
-              'Resources' => 
-              array (
-                'lambda-2014-11-11.php' => 1,
-              ),
-            ),
-            'ConfigService' => 
-            array (
-              'Exception' => 
-              array (
-                'ConfigServiceException.php' => 1,
-              ),
-              'ConfigServiceClient.php' => 1,
-              'Resources' => 
-              array (
-                'configservice-2014-11-12.php' => 1,
-              ),
-            ),
-            'CloudWatch' => 
-            array (
-              'Exception' => 
-              array (
-                'InvalidNextTokenException.php' => 1,
-                'InvalidParameterCombinationException.php' => 1,
-                'InternalServiceException.php' => 1,
-                'CloudWatchException.php' => 1,
-                'ResourceNotFoundException.php' => 1,
-                'MissingRequiredParameterException.php' => 1,
-                'InvalidParameterValueException.php' => 1,
-                'LimitExceededException.php' => 1,
-                'InvalidFormatException.php' => 1,
-              ),
-              'Enum' => 
-              array (
-                'HistoryItemType.php' => 1,
-                'Unit.php' => 1,
-                'Statistic.php' => 1,
-                'ComparisonOperator.php' => 1,
-                'StateValue.php' => 1,
-              ),
-              'CloudWatchClient.php' => 1,
-              'Resources' => 
-              array (
-                'cloudwatch-2010-08-01.php' => 1,
-              ),
-            ),
-          ),
-        ),
-      ),
-    ),
     'pclzip' => 
     array (
-    ),
-    'doctrine' => 
-    array (
-      'instantiator' => 
-      array (
-        'src' => 
-        array (
-          'Doctrine' => 
-          array (
-            'Instantiator' => 
-            array (
-              'Exception' => 
-              array (
-                'ExceptionInterface.php' => 1,
-                'InvalidArgumentException.php' => 1,
-                'UnexpectedValueException.php' => 1,
-              ),
-              'InstantiatorInterface.php' => 1,
-              'Instantiator.php' => 1,
-            ),
-          ),
-        ),
-        'tests' => 
-        array (
-          'DoctrineTest' => 
-          array (
-            'InstantiatorTest' => 
-            array (
-              'Exception' => 
-              array (
-                'UnexpectedValueExceptionTest.php' => 1,
-                'InvalidArgumentExceptionTest.php' => 1,
-              ),
-              'InstantiatorTest.php' => 1,
-            ),
-            'InstantiatorTestAsset' => 
-            array (
-              'UnCloneableAsset.php' => 1,
-              'SimpleSerializableAsset.php' => 1,
-              'AbstractClassAsset.php' => 1,
-              'PharAsset.php' => 1,
-              'UnserializeExceptionArrayObjectAsset.php' => 1,
-              'WakeUpNoticesAsset.php' => 1,
-              'SimpleTraitAsset.php' => 1,
-              'SerializableArrayObjectAsset.php' => 1,
-              'ExceptionAsset.php' => 1,
-              'FinalExceptionAsset.php' => 1,
-              'XMLReaderAsset.php' => 1,
-              'PharExceptionAsset.php' => 1,
-              'ArrayObjectAsset.php' => 1,
-            ),
-            'InstantiatorPerformance' => 
-            array (
-              'InstantiatorPerformanceEvent.php' => 1,
-            ),
-          ),
-        ),
-      ),
     ),
     'reCaptcha' => 
     array (
@@ -41576,777 +34646,6 @@ $existing_files = array (
           'DefaultKey.php' => 1,
         ),
         'Blowfish.php' => 1,
-      ),
-    ),
-    'guzzle' => 
-    array (
-      'guzzle' => 
-      array (
-        'src' => 
-        array (
-          'Guzzle' => 
-          array (
-            'Parser' => 
-            array (
-              'ParserRegistry.php' => 1,
-              'Cookie' => 
-              array (
-                'CookieParserInterface.php' => 1,
-                'CookieParser.php' => 1,
-              ),
-              'UriTemplate' => 
-              array (
-                'PeclUriTemplate.php' => 1,
-                'UriTemplateInterface.php' => 1,
-                'UriTemplate.php' => 1,
-              ),
-              'Url' => 
-              array (
-                'UrlParser.php' => 1,
-                'UrlParserInterface.php' => 1,
-              ),
-              'Message' => 
-              array (
-                'PeclHttpMessageParser.php' => 1,
-                'MessageParser.php' => 1,
-                'AbstractMessageParser.php' => 1,
-                'MessageParserInterface.php' => 1,
-              ),
-            ),
-            'Common' => 
-            array (
-              'ToArrayInterface.php' => 1,
-              'Version.php' => 1,
-              'Event.php' => 1,
-              'Exception' => 
-              array (
-                'ExceptionCollection.php' => 1,
-                'GuzzleException.php' => 1,
-                'BadMethodCallException.php' => 1,
-                'InvalidArgumentException.php' => 1,
-                'UnexpectedValueException.php' => 1,
-                'RuntimeException.php' => 1,
-              ),
-              'AbstractHasDispatcher.php' => 1,
-              'FromConfigInterface.php' => 1,
-              'HasDispatcherInterface.php' => 1,
-              'Collection.php' => 1,
-            ),
-            'Service' => 
-            array (
-              'Command' => 
-              array (
-                'CreateResponseClassEvent.php' => 1,
-                'ResponseParserInterface.php' => 1,
-                'DefaultRequestSerializer.php' => 1,
-                'ClosureCommand.php' => 1,
-                'LocationVisitor' => 
-                array (
-                  'Request' => 
-                  array (
-                    'RequestVisitorInterface.php' => 1,
-                    'PostFileVisitor.php' => 1,
-                    'PostFieldVisitor.php' => 1,
-                    'QueryVisitor.php' => 1,
-                    'BodyVisitor.php' => 1,
-                    'JsonVisitor.php' => 1,
-                    'ResponseBodyVisitor.php' => 1,
-                    'HeaderVisitor.php' => 1,
-                    'XmlVisitor.php' => 1,
-                    'AbstractRequestVisitor.php' => 1,
-                  ),
-                  'Response' => 
-                  array (
-                    'ResponseVisitorInterface.php' => 1,
-                    'ReasonPhraseVisitor.php' => 1,
-                    'StatusCodeVisitor.php' => 1,
-                    'BodyVisitor.php' => 1,
-                    'JsonVisitor.php' => 1,
-                    'HeaderVisitor.php' => 1,
-                    'XmlVisitor.php' => 1,
-                    'AbstractResponseVisitor.php' => 1,
-                  ),
-                  'VisitorFlyweight.php' => 1,
-                ),
-                'CommandInterface.php' => 1,
-                'ResponseClassInterface.php' => 1,
-                'Factory' => 
-                array (
-                  'ConcreteClassFactory.php' => 1,
-                  'CompositeFactory.php' => 1,
-                  'AliasFactory.php' => 1,
-                  'ServiceDescriptionFactory.php' => 1,
-                  'MapFactory.php' => 1,
-                  'FactoryInterface.php' => 1,
-                ),
-                'DefaultResponseParser.php' => 1,
-                'OperationCommand.php' => 1,
-                'OperationResponseParser.php' => 1,
-                'AbstractCommand.php' => 1,
-                'RequestSerializerInterface.php' => 1,
-              ),
-              'ClientInterface.php' => 1,
-              'Description' => 
-              array (
-                'SchemaFormatter.php' => 1,
-                'ServiceDescriptionInterface.php' => 1,
-                'ServiceDescription.php' => 1,
-                'Operation.php' => 1,
-                'OperationInterface.php' => 1,
-                'Parameter.php' => 1,
-                'ServiceDescriptionLoader.php' => 1,
-                'SchemaValidator.php' => 1,
-                'ValidatorInterface.php' => 1,
-              ),
-              'Client.php' => 1,
-              'AbstractConfigLoader.php' => 1,
-              'Exception' => 
-              array (
-                'ServiceBuilderException.php' => 1,
-                'ValidationException.php' => 1,
-                'CommandTransferException.php' => 1,
-                'DescriptionBuilderException.php' => 1,
-                'ServiceNotFoundException.php' => 1,
-                'ResponseClassException.php' => 1,
-                'InconsistentClientTransferException.php' => 1,
-                'CommandException.php' => 1,
-              ),
-              'ConfigLoaderInterface.php' => 1,
-              'Builder' => 
-              array (
-                'ServiceBuilder.php' => 1,
-                'ServiceBuilderLoader.php' => 1,
-                'ServiceBuilderInterface.php' => 1,
-              ),
-              'CachingConfigLoader.php' => 1,
-              'Resource' => 
-              array (
-                'ResourceIteratorInterface.php' => 1,
-                'CompositeResourceIteratorFactory.php' => 1,
-                'MapResourceIteratorFactory.php' => 1,
-                'ResourceIteratorApplyBatched.php' => 1,
-                'Model.php' => 1,
-                'AbstractResourceIteratorFactory.php' => 1,
-                'ResourceIteratorFactoryInterface.php' => 1,
-                'ResourceIterator.php' => 1,
-                'ResourceIteratorClassFactory.php' => 1,
-              ),
-            ),
-            'Log' => 
-            array (
-              'ClosureLogAdapter.php' => 1,
-              'MonologLogAdapter.php' => 1,
-              'Zf2LogAdapter.php' => 1,
-              'LogAdapterInterface.php' => 1,
-              'Zf1LogAdapter.php' => 1,
-              'ArrayLogAdapter.php' => 1,
-              'AbstractLogAdapter.php' => 1,
-              'MessageFormatter.php' => 1,
-              'PsrLogAdapter.php' => 1,
-            ),
-            'Batch' => 
-            array (
-              'FlushingBatch.php' => 1,
-              'BatchClosureDivisor.php' => 1,
-              'BatchTransferInterface.php' => 1,
-              'Exception' => 
-              array (
-                'BatchTransferException.php' => 1,
-              ),
-              'NotifyingBatch.php' => 1,
-              'Batch.php' => 1,
-              'BatchBuilder.php' => 1,
-              'AbstractBatchDecorator.php' => 1,
-              'BatchInterface.php' => 1,
-              'BatchCommandTransfer.php' => 1,
-              'BatchSizeDivisor.php' => 1,
-              'BatchClosureTransfer.php' => 1,
-              'ExceptionBufferingBatch.php' => 1,
-              'BatchDivisorInterface.php' => 1,
-              'HistoryBatch.php' => 1,
-              'BatchRequestTransfer.php' => 1,
-            ),
-            'Iterator' => 
-            array (
-              'AppendIterator.php' => 1,
-              'ChunkedIterator.php' => 1,
-              'MethodProxyIterator.php' => 1,
-              'MapIterator.php' => 1,
-              'FilterIterator.php' => 1,
-            ),
-            'Inflection' => 
-            array (
-              'InflectorInterface.php' => 1,
-              'PreComputedInflector.php' => 1,
-              'Inflector.php' => 1,
-              'MemoizingInflector.php' => 1,
-            ),
-            'Cache' => 
-            array (
-              'ClosureCacheAdapter.php' => 1,
-              'AbstractCacheAdapter.php' => 1,
-              'CacheAdapterInterface.php' => 1,
-              'CacheAdapterFactory.php' => 1,
-              'Zf1CacheAdapter.php' => 1,
-              'NullCacheAdapter.php' => 1,
-              'DoctrineCacheAdapter.php' => 1,
-              'Zf2CacheAdapter.php' => 1,
-            ),
-            'Http' => 
-            array (
-              'ClientInterface.php' => 1,
-              'ReadLimitEntityBody.php' => 1,
-              'Mimetypes.php' => 1,
-              'Client.php' => 1,
-              'EntityBody.php' => 1,
-              'AbstractEntityBodyDecorator.php' => 1,
-              'Exception' => 
-              array (
-                'ClientErrorResponseException.php' => 1,
-                'HttpException.php' => 1,
-                'MultiTransferException.php' => 1,
-                'CurlException.php' => 1,
-                'RequestException.php' => 1,
-                'ServerErrorResponseException.php' => 1,
-                'BadResponseException.php' => 1,
-                'TooManyRedirectsException.php' => 1,
-                'CouldNotRewindStreamException.php' => 1,
-              ),
-              'IoEmittingEntityBody.php' => 1,
-              'CachingEntityBody.php' => 1,
-              'QueryAggregator' => 
-              array (
-                'DuplicateAggregator.php' => 1,
-                'QueryAggregatorInterface.php' => 1,
-                'PhpAggregator.php' => 1,
-                'CommaAggregator.php' => 1,
-              ),
-              'StaticClient.php' => 1,
-              'Curl' => 
-              array (
-                'RequestMediator.php' => 1,
-                'CurlVersion.php' => 1,
-                'CurlHandle.php' => 1,
-                'CurlMultiProxy.php' => 1,
-                'CurlMulti.php' => 1,
-                'CurlMultiInterface.php' => 1,
-              ),
-              'Message' => 
-              array (
-                'Header' => 
-                array (
-                  'HeaderInterface.php' => 1,
-                  'Link.php' => 1,
-                  'HeaderFactory.php' => 1,
-                  'HeaderCollection.php' => 1,
-                  'CacheControl.php' => 1,
-                  'HeaderFactoryInterface.php' => 1,
-                ),
-                'Response.php' => 1,
-                'Request.php' => 1,
-                'EntityEnclosingRequest.php' => 1,
-                'PostFileInterface.php' => 1,
-                'RequestInterface.php' => 1,
-                'AbstractMessage.php' => 1,
-                'MessageInterface.php' => 1,
-                'Header.php' => 1,
-                'RequestFactory.php' => 1,
-                'RequestFactoryInterface.php' => 1,
-                'EntityEnclosingRequestInterface.php' => 1,
-                'PostFile.php' => 1,
-              ),
-              'RedirectPlugin.php' => 1,
-              'Url.php' => 1,
-              'QueryString.php' => 1,
-              'Resources' => 
-              array (
-              ),
-              'EntityBodyInterface.php' => 1,
-            ),
-            'Plugin' => 
-            array (
-              'Async' => 
-              array (
-                'AsyncPlugin.php' => 1,
-              ),
-              'Log' => 
-              array (
-                'LogPlugin.php' => 1,
-              ),
-              'ErrorResponse' => 
-              array (
-                'Exception' => 
-                array (
-                  'ErrorResponseException.php' => 1,
-                ),
-                'ErrorResponseExceptionInterface.php' => 1,
-                'ErrorResponsePlugin.php' => 1,
-              ),
-              'Cookie' => 
-              array (
-                'Cookie.php' => 1,
-                'Exception' => 
-                array (
-                  'InvalidCookieException.php' => 1,
-                ),
-                'CookiePlugin.php' => 1,
-                'CookieJar' => 
-                array (
-                  'CookieJarInterface.php' => 1,
-                  'ArrayCookieJar.php' => 1,
-                  'FileCookieJar.php' => 1,
-                ),
-              ),
-              'Backoff' => 
-              array (
-                'BackoffLogger.php' => 1,
-                'ExponentialBackoffStrategy.php' => 1,
-                'HttpBackoffStrategy.php' => 1,
-                'AbstractBackoffStrategy.php' => 1,
-                'ReasonPhraseBackoffStrategy.php' => 1,
-                'TruncatedBackoffStrategy.php' => 1,
-                'BackoffPlugin.php' => 1,
-                'ConstantBackoffStrategy.php' => 1,
-                'LinearBackoffStrategy.php' => 1,
-                'BackoffStrategyInterface.php' => 1,
-                'CallbackBackoffStrategy.php' => 1,
-                'CurlBackoffStrategy.php' => 1,
-                'AbstractErrorCodeBackoffStrategy.php' => 1,
-              ),
-              'Md5' => 
-              array (
-                'Md5ValidatorPlugin.php' => 1,
-                'CommandContentMd5Plugin.php' => 1,
-              ),
-              'History' => 
-              array (
-                'HistoryPlugin.php' => 1,
-              ),
-              'Mock' => 
-              array (
-                'MockPlugin.php' => 1,
-              ),
-              'Cache' => 
-              array (
-                'CallbackCanCacheStrategy.php' => 1,
-                'DenyRevalidation.php' => 1,
-                'CachePlugin.php' => 1,
-                'DefaultCacheStorage.php' => 1,
-                'DefaultRevalidation.php' => 1,
-                'DefaultCanCacheStrategy.php' => 1,
-                'DefaultCacheKeyProvider.php' => 1,
-                'RevalidationInterface.php' => 1,
-                'CacheKeyProviderInterface.php' => 1,
-                'CacheStorageInterface.php' => 1,
-                'SkipRevalidation.php' => 1,
-                'CanCacheStrategyInterface.php' => 1,
-              ),
-              'CurlAuth' => 
-              array (
-                'CurlAuthPlugin.php' => 1,
-              ),
-              'Oauth' => 
-              array (
-                'OauthPlugin.php' => 1,
-              ),
-            ),
-            'Stream' => 
-            array (
-              'StreamRequestFactoryInterface.php' => 1,
-              'StreamInterface.php' => 1,
-              'PhpStreamRequestFactory.php' => 1,
-              'Stream.php' => 1,
-            ),
-          ),
-        ),
-        'phar-stub.php' => 1,
-        'phing' => 
-        array (
-          'tasks' => 
-          array (
-            'ComposerLintTask.php' => 1,
-            'GuzzlePearPharPackageTask.php' => 1,
-            'GuzzleSubSplitTask.php' => 1,
-          ),
-          'imports' => 
-          array (
-            'deploy.xml' => 1,
-            'dependencies.xml' => 1,
-          ),
-        ),
-        'docs' => 
-        array (
-          '_downloads' => 
-          array (
-          ),
-          'batching' => 
-          array (
-          ),
-          'http-client' => 
-          array (
-          ),
-          '_static' => 
-          array (
-            'prettify.js' => 1,
-            'prettify.css' => 1,
-            'logo.png' => 1,
-            'homepage.css' => 1,
-            'guzzle-icon.png' => 1,
-          ),
-          'plugins' => 
-          array (
-          ),
-          'webservice-client' => 
-          array (
-          ),
-          'iterators' => 
-          array (
-          ),
-          '_templates' => 
-          array (
-            'index.html' => 1,
-            'nav_links.html' => 1,
-            'leftbar.html' => 1,
-          ),
-          'getting-started' => 
-          array (
-          ),
-          'testing' => 
-          array (
-          ),
-        ),
-        'build.xml' => 1,
-        'tests' => 
-        array (
-          'bootstrap.php' => 1,
-          'Guzzle' => 
-          array (
-            'Tests' => 
-            array (
-              'Parser' => 
-              array (
-                'Cookie' => 
-                array (
-                  'CookieParserProvider.php' => 1,
-                  'CookieParserTest.php' => 1,
-                ),
-                'UriTemplate' => 
-                array (
-                  'AbstractUriTemplateTest.php' => 1,
-                  'UriTemplateTest.php' => 1,
-                  'PeclUriTemplateTest.php' => 1,
-                ),
-                'Message' => 
-                array (
-                  'PeclHttpMessageParserTest.php' => 1,
-                  'MessageParserTest.php' => 1,
-                  'MessageParserProvider.php' => 1,
-                ),
-                'ParserRegistryTest.php' => 1,
-              ),
-              'Common' => 
-              array (
-                'Exception' => 
-                array (
-                  'BatchTransferExceptionTest.php' => 1,
-                  'ExceptionCollectionTest.php' => 1,
-                ),
-                'VersionTest.php' => 1,
-                'AbstractHasDispatcherTest.php' => 1,
-                'EventTest.php' => 1,
-                'CollectionTest.php' => 1,
-              ),
-              'Service' => 
-              array (
-                'Command' => 
-                array (
-                  'AbstractCommandTest.php' => 1,
-                  'DefaultResponseParserTest.php' => 1,
-                  'CommandTest.php' => 1,
-                  'ClosureCommandTest.php' => 1,
-                  'DefaultRequestSerializerTest.php' => 1,
-                  'LocationVisitor' => 
-                  array (
-                    'Request' => 
-                    array (
-                      'HeaderVisitorTest.php' => 1,
-                      'JsonVisitorTest.php' => 1,
-                      'BodyVisitorTest.php' => 1,
-                      'XmlVisitorTest.php' => 1,
-                      'PostFieldVisitorTest.php' => 1,
-                      'QueryVisitorTest.php' => 1,
-                      'PostFileVisitorTest.php' => 1,
-                      'AbstractVisitorTestCase.php' => 1,
-                      'ResponseBodyVisitorTest.php' => 1,
-                    ),
-                    'Response' => 
-                    array (
-                      'StatusCodeVisitorTest.php' => 1,
-                      'AbstractResponseVisitorTest.php' => 1,
-                      'HeaderVisitorTest.php' => 1,
-                      'JsonVisitorTest.php' => 1,
-                      'BodyVisitorTest.php' => 1,
-                      'XmlVisitorTest.php' => 1,
-                      'ReasonPhraseVisitorTest.php' => 1,
-                    ),
-                    'VisitorFlyweightTest.php' => 1,
-                  ),
-                  'OperationResponseParserTest.php' => 1,
-                  'Factory' => 
-                  array (
-                    'ConcreteClassFactoryTest.php' => 1,
-                    'CompositeFactoryTest.php' => 1,
-                    'ServiceDescriptionFactoryTest.php' => 1,
-                    'MapFactoryTest.php' => 1,
-                    'AliasFactoryTest.php' => 1,
-                  ),
-                  'OperationCommandTest.php' => 1,
-                ),
-                'Description' => 
-                array (
-                  'SchemaFormatterTest.php' => 1,
-                  'ServiceDescriptionLoaderTest.php' => 1,
-                  'OperationTest.php' => 1,
-                  'ServiceDescriptionTest.php' => 1,
-                  'SchemaValidatorTest.php' => 1,
-                  'ParameterTest.php' => 1,
-                ),
-                'Exception' => 
-                array (
-                  'ValidationExceptionTest.php' => 1,
-                  'InconsistentClientTransferExceptionTest.php' => 1,
-                  'CommandTransferExceptionTest.php' => 1,
-                ),
-                'AbstractConfigLoaderTest.php' => 1,
-                'ClientTest.php' => 1,
-                'Mock' => 
-                array (
-                  'Command' => 
-                  array (
-                    'MockCommand.php' => 1,
-                    'IterableCommand.php' => 1,
-                    'Sub' => 
-                    array (
-                      'Sub.php' => 1,
-                    ),
-                    'OtherCommand.php' => 1,
-                  ),
-                  'Model' => 
-                  array (
-                    'MockCommandIterator.php' => 1,
-                  ),
-                  'MockClient.php' => 1,
-                ),
-                'CachingConfigLoaderTest.php' => 1,
-                'Builder' => 
-                array (
-                  'ServiceBuilderTest.php' => 1,
-                  'ServiceBuilderLoaderTest.php' => 1,
-                ),
-                'Resource' => 
-                array (
-                  'ModelTest.php' => 1,
-                  'ResourceIteratorClassFactoryTest.php' => 1,
-                  'ResourceIteratorTest.php' => 1,
-                  'MapResourceIteratorFactoryTest.php' => 1,
-                  'CompositeResourceIteratorFactoryTest.php' => 1,
-                ),
-              ),
-              'GuzzleTestCase.php' => 1,
-              'Log' => 
-              array (
-                'ClosureLogAdapterTest.php' => 1,
-                'PsrLogAdapterTest.php' => 1,
-                'Zf2LogAdapterTest.php' => 1,
-                'ArrayLogAdapterTest.php' => 1,
-                'MessageFormatterTest.php' => 1,
-              ),
-              'Batch' => 
-              array (
-                'BatchSizeDivisorTest.php' => 1,
-                'FlushingBatchTest.php' => 1,
-                'BatchTest.php' => 1,
-                'NotifyingBatchTest.php' => 1,
-                'BatchCommandTransferTest.php' => 1,
-                'BatchClosureTransferTest.php' => 1,
-                'BatchBuilderTest.php' => 1,
-                'BatchRequestTransferTest.php' => 1,
-                'AbstractBatchDecoratorTest.php' => 1,
-                'HistoryBatchTest.php' => 1,
-                'BatchClosureDivisorTest.php' => 1,
-                'ExceptionBufferingBatchTest.php' => 1,
-              ),
-              'Iterator' => 
-              array (
-                'MapIteratorTest.php' => 1,
-                'ChunkedIteratorTest.php' => 1,
-                'FilterIteratorTest.php' => 1,
-                'AppendIteratorTest.php' => 1,
-                'MethodProxyIteratorTest.php' => 1,
-              ),
-              'Inflection' => 
-              array (
-                'InflectorTest.php' => 1,
-                'PreComputedInflectorTest.php' => 1,
-                'MemoizingInflectorTest.php' => 1,
-              ),
-              'Mock' => 
-              array (
-                'MockMulti.php' => 1,
-                'ExceptionMock.php' => 1,
-                'MockObserver.php' => 1,
-                'ErrorResponseMock.php' => 1,
-                'CustomResponseModel.php' => 1,
-                'MockSubject.php' => 1,
-              ),
-              'Cache' => 
-              array (
-                'CacheAdapterFactoryTest.php' => 1,
-                'NullCacheAdapterTest.php' => 1,
-                'CacheAdapterTest.php' => 1,
-                'Zf2CacheAdapterTest.php' => 1,
-                'ClosureCacheAdapterTest.php' => 1,
-              ),
-              'Http' => 
-              array (
-                'QueryStringTest.php' => 1,
-                'Exception' => 
-                array (
-                  'CurlExceptionTest.php' => 1,
-                  'MultiTransferExceptionTest.php' => 1,
-                  'ExceptionTest.php' => 1,
-                ),
-                'RedirectPluginTest.php' => 1,
-                'MimetypesTest.php' => 1,
-                'Server.php' => 1,
-                'IoEmittingEntityBodyTest.php' => 1,
-                'ReadLimitEntityBodyTest.php' => 1,
-                'UrlTest.php' => 1,
-                'ClientTest.php' => 1,
-                'EntityBodyTest.php' => 1,
-                'QueryAggregator' => 
-                array (
-                  'CommaAggregatorTest.php' => 1,
-                  'DuplicateAggregatorTest.php' => 1,
-                  'PhpAggregatorTest.php' => 1,
-                ),
-                'server.js' => 1,
-                'AbstractEntityBodyDecoratorTest.php' => 1,
-                'Curl' => 
-                array (
-                  'CurlMultiTest.php' => 1,
-                  'RequestMediatorTest.php' => 1,
-                  'CurlMultiProxyTest.php' => 1,
-                  'CurlHandleTest.php' => 1,
-                  'CurlVersionTest.php' => 1,
-                ),
-                'Message' => 
-                array (
-                  'Header' => 
-                  array (
-                    'HeaderFactoryTest.php' => 1,
-                    'LinkTest.php' => 1,
-                  ),
-                  'ResponseTest.php' => 1,
-                  'AbstractMessageTest.php' => 1,
-                  'HeaderComparison.php' => 1,
-                  'RequestFactoryTest.php' => 1,
-                  'RequestTest.php' => 1,
-                  'PostFileTest.php' => 1,
-                  'HeaderComparisonTest.php' => 1,
-                  'HeaderTest.php' => 1,
-                  'EntityEnclosingRequestTest.php' => 1,
-                ),
-                'CachingEntityBodyTest.php' => 1,
-                'StaticClientTest.php' => 1,
-              ),
-              'Plugin' => 
-              array (
-                'Async' => 
-                array (
-                  'AsyncPluginTest.php' => 1,
-                ),
-                'Log' => 
-                array (
-                  'LogPluginTest.php' => 1,
-                ),
-                'ErrorResponse' => 
-                array (
-                  'ErrorResponsePluginTest.php' => 1,
-                ),
-                'Cookie' => 
-                array (
-                  'CookieTest.php' => 1,
-                  'CookieJar' => 
-                  array (
-                    'ArrayCookieJarTest.php' => 1,
-                    'FileCookieJarTest.php' => 1,
-                  ),
-                  'CookiePluginTest.php' => 1,
-                ),
-                'Backoff' => 
-                array (
-                  'ExponentialBackoffStrategyTest.php' => 1,
-                  'CurlBackoffStrategyTest.php' => 1,
-                  'CallbackBackoffStrategyTest.php' => 1,
-                  'BackoffPluginTest.php' => 1,
-                  'LinearBackoffStrategyTest.php' => 1,
-                  'ReasonPhraseBackoffStrategyTest.php' => 1,
-                  'ConstantBackoffStrategyTest.php' => 1,
-                  'AbstractBackoffStrategyTest.php' => 1,
-                  'TruncatedBackoffStrategyTest.php' => 1,
-                  'HttpBackoffStrategyTest.php' => 1,
-                  'BackoffLoggerTest.php' => 1,
-                ),
-                'Md5' => 
-                array (
-                  'Md5ValidatorPluginTest.php' => 1,
-                  'CommandContentMd5PluginTest.php' => 1,
-                ),
-                'History' => 
-                array (
-                  'HistoryPluginTest.php' => 1,
-                ),
-                'Mock' => 
-                array (
-                  'MockPluginTest.php' => 1,
-                ),
-                'Cache' => 
-                array (
-                  'CachePluginTest.php' => 1,
-                  'DefaultCanCacheStrategyTest.php' => 1,
-                  'DefaultRevalidationTest.php' => 1,
-                  'DefaultCacheStorageTest.php' => 1,
-                  'CallbackCanCacheStrategyTest.php' => 1,
-                  'DenyRevalidationTest.php' => 1,
-                  'SkipRevalidationTest.php' => 1,
-                ),
-                'CurlAuth' => 
-                array (
-                  'CurlAuthPluginTest.php' => 1,
-                ),
-                'Oauth' => 
-                array (
-                  'OauthPluginTest.php' => 1,
-                ),
-              ),
-              'Stream' => 
-              array (
-                'PhpStreamRequestFactoryTest.php' => 1,
-                'StreamTest.php' => 1,
-              ),
-              'TestData' => 
-              array (
-                'services' => 
-                array (
-                ),
-                'description' => 
-                array (
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
     ),
     'onelogin' => 
@@ -42851,7 +35150,6 @@ $existing_files = array (
               'unparsed_metadata.xml' => 1,
               'expired_metadata_settings1.xml' => 1,
               'signed_metadata_settings1.xml' => 1,
-              'metadata_bad_order_settings1.xml' => 1,
               'noentity_metadata_settings1.xml' => 1,
             ),
           ),
@@ -42861,690 +35159,14 @@ $existing_files = array (
     ),
     'composer' => 
     array (
-      'autoload_files.php' => 1,
       'autoload_classmap.php' => 1,
       'autoload_psr4.php' => 1,
       'autoload_real.php' => 1,
-      'autoload_static.php' => 1,
       'autoload_namespaces.php' => 1,
       'ClassLoader.php' => 1,
-      'composer' => 
-      array (
-        'bin' => 
-        array (
-        ),
-        'src' => 
-        array (
-          'Composer' => 
-          array (
-            'Composer.php' => 1,
-            'Repository' => 
-            array (
-              'WritableArrayRepository.php' => 1,
-              'ArtifactRepository.php' => 1,
-              'Vcs' => 
-              array (
-                'PerforceDriver.php' => 1,
-                'SvnDriver.php' => 1,
-                'VcsDriver.php' => 1,
-                'GitBitbucketDriver.php' => 1,
-                'HgDriver.php' => 1,
-                'HgBitbucketDriver.php' => 1,
-                'VcsDriverInterface.php' => 1,
-                'GitHubDriver.php' => 1,
-                'GitDriver.php' => 1,
-              ),
-              'ComposerRepository.php' => 1,
-              'WritableRepositoryInterface.php' => 1,
-              'PearRepository.php' => 1,
-              'ArrayRepository.php' => 1,
-              'RepositoryManager.php' => 1,
-              'InstalledFilesystemRepository.php' => 1,
-              'VcsRepository.php' => 1,
-              'CompositeRepository.php' => 1,
-              'RepositoryInterface.php' => 1,
-              'InvalidRepositoryException.php' => 1,
-              'RepositorySecurityException.php' => 1,
-              'InstalledArrayRepository.php' => 1,
-              'InstalledRepositoryInterface.php' => 1,
-              'PackageRepository.php' => 1,
-              'Pear' => 
-              array (
-                'ChannelRest11Reader.php' => 1,
-                'PackageInfo.php' => 1,
-                'ChannelInfo.php' => 1,
-                'BaseChannelReader.php' => 1,
-                'ReleaseInfo.php' => 1,
-                'PackageDependencyParser.php' => 1,
-                'DependencyInfo.php' => 1,
-                'ChannelRest10Reader.php' => 1,
-                'ChannelReader.php' => 1,
-                'DependencyConstraint.php' => 1,
-              ),
-              'FilesystemRepository.php' => 1,
-              'PlatformRepository.php' => 1,
-            ),
-            'Command' => 
-            array (
-              'SearchCommand.php' => 1,
-              'InitCommand.php' => 1,
-              'DiagnoseCommand.php' => 1,
-              'StatusCommand.php' => 1,
-              'ArchiveCommand.php' => 1,
-              'DependsCommand.php' => 1,
-              'DumpAutoloadCommand.php' => 1,
-              'ConfigCommand.php' => 1,
-              'AboutCommand.php' => 1,
-              'UpdateCommand.php' => 1,
-              'Command.php' => 1,
-              'InstallCommand.php' => 1,
-              'GlobalCommand.php' => 1,
-              'RemoveCommand.php' => 1,
-              'SelfUpdateCommand.php' => 1,
-              'LicensesCommand.php' => 1,
-              'ValidateCommand.php' => 1,
-              'ClearCacheCommand.php' => 1,
-              'Helper' => 
-              array (
-                'DialogHelper.php' => 1,
-              ),
-              'HomeCommand.php' => 1,
-              'RunScriptCommand.php' => 1,
-              'CreateProjectCommand.php' => 1,
-              'RequireCommand.php' => 1,
-              'ShowCommand.php' => 1,
-              'ScriptAliasCommand.php' => 1,
-            ),
-            'Installer' => 
-            array (
-              'NoopInstaller.php' => 1,
-              'InstallerInterface.php' => 1,
-              'LibraryInstaller.php' => 1,
-              'InstallationManager.php' => 1,
-              'ProjectInstaller.php' => 1,
-              'PluginInstaller.php' => 1,
-              'InstallerEvents.php' => 1,
-              'PearInstaller.php' => 1,
-              'MetapackageInstaller.php' => 1,
-              'InstallerEvent.php' => 1,
-            ),
-            'Util' => 
-            array (
-              'GitHub.php' => 1,
-              'ConfigValidator.php' => 1,
-              'Svn.php' => 1,
-              'ErrorHandler.php' => 1,
-              'Perforce.php' => 1,
-              'ProcessExecutor.php' => 1,
-              'RemoteFilesystem.php' => 1,
-              'StreamContextFactory.php' => 1,
-              'Filesystem.php' => 1,
-              'Git.php' => 1,
-              'SpdxLicenseIdentifier.php' => 1,
-              'AuthHelper.php' => 1,
-              'ComposerMirror.php' => 1,
-              'NoProxyPattern.php' => 1,
-            ),
-            'DependencyResolver' => 
-            array (
-              'Operation' => 
-              array (
-                'InstallOperation.php' => 1,
-                'UninstallOperation.php' => 1,
-                'SolverOperation.php' => 1,
-                'MarkAliasUninstalledOperation.php' => 1,
-                'OperationInterface.php' => 1,
-                'UpdateOperation.php' => 1,
-                'MarkAliasInstalledOperation.php' => 1,
-              ),
-              'Rule.php' => 1,
-              'DebugSolver.php' => 1,
-              'DefaultPolicy.php' => 1,
-              'RuleWatchGraph.php' => 1,
-              'Request.php' => 1,
-              'RuleSetGenerator.php' => 1,
-              'Transaction.php' => 1,
-              'SolverProblemsException.php' => 1,
-              'RuleSet.php' => 1,
-              'RuleWatchChain.php' => 1,
-              'PolicyInterface.php' => 1,
-              'Pool.php' => 1,
-              'SolverBugException.php' => 1,
-              'Decisions.php' => 1,
-              'RuleWatchNode.php' => 1,
-              'RuleSetIterator.php' => 1,
-              'Solver.php' => 1,
-              'Problem.php' => 1,
-            ),
-            'Script' => 
-            array (
-              'Event.php' => 1,
-              'CommandEvent.php' => 1,
-              'ScriptEvents.php' => 1,
-              'PackageEvent.php' => 1,
-            ),
-            'Console' => 
-            array (
-              'HtmlOutputFormatter.php' => 1,
-              'Application.php' => 1,
-            ),
-            'EventDispatcher' => 
-            array (
-              'EventSubscriberInterface.php' => 1,
-              'EventDispatcher.php' => 1,
-              'Event.php' => 1,
-            ),
-            'Factory.php' => 1,
-            'Json' => 
-            array (
-              'JsonManipulator.php' => 1,
-              'JsonValidationException.php' => 1,
-              'JsonFormatter.php' => 1,
-              'JsonFile.php' => 1,
-            ),
-            'Cache.php' => 1,
-            'IO' => 
-            array (
-              'NullIO.php' => 1,
-              'IOInterface.php' => 1,
-              'BaseIO.php' => 1,
-              'ConsoleIO.php' => 1,
-              'BufferIO.php' => 1,
-            ),
-            'Config' => 
-            array (
-              'ConfigSourceInterface.php' => 1,
-              'JsonConfigSource.php' => 1,
-            ),
-            'Installer.php' => 1,
-            'Package' => 
-            array (
-              'RootAliasPackage.php' => 1,
-              'Version' => 
-              array (
-                'VersionSelector.php' => 1,
-                'VersionParser.php' => 1,
-              ),
-              'Dumper' => 
-              array (
-                'ArrayDumper.php' => 1,
-              ),
-              'AliasPackage.php' => 1,
-              'CompletePackageInterface.php' => 1,
-              'Link.php' => 1,
-              'PackageInterface.php' => 1,
-              'LinkConstraint' => 
-              array (
-                'EmptyConstraint.php' => 1,
-                'SpecificConstraint.php' => 1,
-                'MultiConstraint.php' => 1,
-                'VersionConstraint.php' => 1,
-                'LinkConstraintInterface.php' => 1,
-              ),
-              'RootPackageInterface.php' => 1,
-              'Archiver' => 
-              array (
-                'GitExcludeFilter.php' => 1,
-                'HgExcludeFilter.php' => 1,
-                'BaseExcludeFilter.php' => 1,
-                'ArchiverInterface.php' => 1,
-                'ComposerExcludeFilter.php' => 1,
-                'ArchivableFilesFinder.php' => 1,
-                'ArchiveManager.php' => 1,
-                'PharArchiver.php' => 1,
-              ),
-              'Loader' => 
-              array (
-                'ValidatingArrayLoader.php' => 1,
-                'RootPackageLoader.php' => 1,
-                'LoaderInterface.php' => 1,
-                'ArrayLoader.php' => 1,
-                'InvalidPackageException.php' => 1,
-                'JsonLoader.php' => 1,
-              ),
-              'Locker.php' => 1,
-              'Package.php' => 1,
-              'CompletePackage.php' => 1,
-              'RootPackage.php' => 1,
-              'BasePackage.php' => 1,
-            ),
-            'Downloader' => 
-            array (
-              'HgDownloader.php' => 1,
-              'PearPackageExtractor.php' => 1,
-              'ChangeReportInterface.php' => 1,
-              'DownloaderInterface.php' => 1,
-              'GitDownloader.php' => 1,
-              'ZipDownloader.php' => 1,
-              'FileDownloader.php' => 1,
-              'RarDownloader.php' => 1,
-              'GzipDownloader.php' => 1,
-              'PerforceDownloader.php' => 1,
-              'SvnDownloader.php' => 1,
-              'FilesystemException.php' => 1,
-              'VcsDownloader.php' => 1,
-              'ArchiveDownloader.php' => 1,
-              'TransportException.php' => 1,
-              'TarDownloader.php' => 1,
-              'PharDownloader.php' => 1,
-              'DownloadManager.php' => 1,
-            ),
-            'Config.php' => 1,
-            'Plugin' => 
-            array (
-              'PluginManager.php' => 1,
-              'CommandEvent.php' => 1,
-              'PreFileDownloadEvent.php' => 1,
-              'PluginEvents.php' => 1,
-              'PluginInterface.php' => 1,
-            ),
-            'Autoload' => 
-            array (
-              'ClassMapGenerator.php' => 1,
-              'ClassLoader.php' => 1,
-              'AutoloadGenerator.php' => 1,
-            ),
-            'Compiler.php' => 1,
-          ),
-          'bootstrap.php' => 1,
-        ),
-        'doc' => 
-        array (
-          'faqs' => 
-          array (
-          ),
-          'articles' => 
-          array (
-          ),
-          'fixtures' => 
-          array (
-            'repo-composer-with-providers' => 
-            array (
-              'p' => 
-              array (
-                'gar' => 
-                array (
-                ),
-                'qux' => 
-                array (
-                ),
-                'bar' => 
-                array (
-                ),
-                'foo' => 
-                array (
-                ),
-              ),
-            ),
-            'repo-composer-with-includes' => 
-            array (
-              'include' => 
-              array (
-              ),
-            ),
-            'repo-composer-plain' => 
-            array (
-            ),
-          ),
-          'dev' => 
-          array (
-          ),
-        ),
-        'tests' => 
-        array (
-          'Composer' => 
-          array (
-            'Test' => 
-            array (
-              'Fixtures' => 
-              array (
-                'installer' => 
-                array (
-                  'install-branch-alias-composer-repo' => 
-                  array (
-                  ),
-                ),
-                'functional' => 
-                array (
-                ),
-              ),
-              'Repository' => 
-              array (
-                'Fixtures' => 
-                array (
-                  'artifacts' => 
-                  array (
-                    'subfolder' => 
-                    array (
-                    ),
-                  ),
-                ),
-                'Vcs' => 
-                array (
-                  'GitHubDriverTest.php' => 1,
-                  'PerforceDriverTest.php' => 1,
-                  'SvnDriverTest.php' => 1,
-                ),
-                'PearRepositoryTest.php' => 1,
-                'ComposerRepositoryTest.php' => 1,
-                'ArtifactRepositoryTest.php' => 1,
-                'CompositeRepositoryTest.php' => 1,
-                'FilesystemRepositoryTest.php' => 1,
-                'RepositoryManagerTest.php' => 1,
-                'ArrayRepositoryTest.php' => 1,
-                'VcsRepositoryTest.php' => 1,
-                'Pear' => 
-                array (
-                  'ChannelRest10ReaderTest.php' => 1,
-                  'Fixtures' => 
-                  array (
-                    'channel.1.1.xml' => 1,
-                    'Rest1.1' => 
-                    array (
-                      'categories.xml' => 1,
-                      'packagesinfo.xml' => 1,
-                    ),
-                    'channel.1.0.xml' => 1,
-                    'Rest1.0' => 
-                    array (
-                      'http_client_allreleases.xml' => 1,
-                      'http_request_info.xml' => 1,
-                      'http_client_info.xml' => 1,
-                      'http_request_allreleases.xml' => 1,
-                      'packages.xml' => 1,
-                    ),
-                  ),
-                  'ChannelRest11ReaderTest.php' => 1,
-                  'ChannelReaderTest.php' => 1,
-                  'PackageDependencyParserTest.php' => 1,
-                ),
-              ),
-              'Command' => 
-              array (
-                'InitCommandTest.php' => 1,
-              ),
-              'Installer' => 
-              array (
-                'LibraryInstallerTest.php' => 1,
-                'InstallationManagerTest.php' => 1,
-                'MetapackageInstallerTest.php' => 1,
-                'InstallerEventTest.php' => 1,
-              ),
-              'Util' => 
-              array (
-                'StreamContextFactoryTest.php' => 1,
-                'SpdxLicenseIdentifierTest.php' => 1,
-                'ProcessExecutorTest.php' => 1,
-                'RemoteFilesystemTest.php' => 1,
-                'SvnTest.php' => 1,
-                'FilesystemTest.php' => 1,
-                'ErrorHandlerTest.php' => 1,
-                'PerforceTest.php' => 1,
-              ),
-              'DependencyResolver' => 
-              array (
-                'RuleSetIteratorTest.php' => 1,
-                'RuleSetTest.php' => 1,
-                'SolverTest.php' => 1,
-                'RuleTest.php' => 1,
-                'PoolTest.php' => 1,
-                'DefaultPolicyTest.php' => 1,
-                'RequestTest.php' => 1,
-              ),
-              'CacheTest.php' => 1,
-              'EventDispatcher' => 
-              array (
-                'EventDispatcherTest.php' => 1,
-              ),
-              'ApplicationTest.php' => 1,
-              'AllFunctionalTest.php' => 1,
-              'Json' => 
-              array (
-                'JsonFormatterTest.php' => 1,
-                'JsonManipulatorTest.php' => 1,
-                'JsonFileTest.php' => 1,
-                'JsonValidationExceptionTest.php' => 1,
-              ),
-              'ConfigTest.php' => 1,
-              'ComposerTest.php' => 1,
-              'IO' => 
-              array (
-                'ConsoleIOTest.php' => 1,
-                'NullIOTest.php' => 1,
-              ),
-              'InstallerTest.php' => 1,
-              'Config' => 
-              array (
-                'Fixtures' => 
-                array (
-                  'addLink' => 
-                  array (
-                  ),
-                  'removeLink' => 
-                  array (
-                  ),
-                ),
-                'JsonConfigSourceTest.php' => 1,
-              ),
-              'Mock' => 
-              array (
-                'InstallationManagerMock.php' => 1,
-                'ProcessExecutorMock.php' => 1,
-                'FactoryMock.php' => 1,
-                'InstalledFilesystemRepositoryMock.php' => 1,
-                'RemoteFilesystemMock.php' => 1,
-              ),
-              'Package' => 
-              array (
-                'Version' => 
-                array (
-                  'VersionParserTest.php' => 1,
-                  'VersionSelectorTest.php' => 1,
-                ),
-                'Dumper' => 
-                array (
-                  'ArrayDumperTest.php' => 1,
-                ),
-                'LinkConstraint' => 
-                array (
-                  'VersionConstraintTest.php' => 1,
-                  'MultiConstraintTest.php' => 1,
-                ),
-                'BasePackageTest.php' => 1,
-                'Archiver' => 
-                array (
-                  'ArchiverTest.php' => 1,
-                  'PharArchiverTest.php' => 1,
-                  'ArchivableFilesFinderTest.php' => 1,
-                  'HgExcludeFilterTest.php' => 1,
-                  'GitExcludeFilterTest.php' => 1,
-                  'ArchiveManagerTest.php' => 1,
-                ),
-                'Loader' => 
-                array (
-                  'ValidatingArrayLoaderTest.php' => 1,
-                  'RootPackageLoaderTest.php' => 1,
-                  'ArrayLoaderTest.php' => 1,
-                ),
-                'CompletePackageTest.php' => 1,
-                'LockerTest.php' => 1,
-              ),
-              'Downloader' => 
-              array (
-                'Fixtures' => 
-                array (
-                  'Package_v1.0' => 
-                  array (
-                    'package.xml' => 1,
-                  ),
-                  'Package_v2.1' => 
-                  array (
-                    'package.xml' => 1,
-                  ),
-                  'Package_v2.0' => 
-                  array (
-                    'package.xml' => 1,
-                  ),
-                ),
-                'PerforceDownloaderTest.php' => 1,
-                'DownloadManagerTest.php' => 1,
-                'FileDownloaderTest.php' => 1,
-                'PearPackageExtractorTest.php' => 1,
-                'HgDownloaderTest.php' => 1,
-                'GitDownloaderTest.php' => 1,
-                'ZipDownloaderTest.php' => 1,
-                'ArchiveDownloaderTest.php' => 1,
-              ),
-              'Plugin' => 
-              array (
-                'Fixtures' => 
-                array (
-                  'plugin-v4' => 
-                  array (
-                    'Installer' => 
-                    array (
-                      'Plugin1.php' => 1,
-                      'Plugin2.php' => 1,
-                    ),
-                  ),
-                  'plugin-v3' => 
-                  array (
-                    'Installer' => 
-                    array (
-                      'Plugin2.php' => 1,
-                    ),
-                  ),
-                  'plugin-v2' => 
-                  array (
-                    'Installer' => 
-                    array (
-                      'Plugin2.php' => 1,
-                    ),
-                  ),
-                  'plugin-v1' => 
-                  array (
-                    'Installer' => 
-                    array (
-                      'Plugin.php' => 1,
-                    ),
-                  ),
-                ),
-                'PluginInstallerTest.php' => 1,
-              ),
-              'Autoload' => 
-              array (
-                'Fixtures' => 
-                array (
-                  'autoload_classmap4.php' => 1,
-                  'autoload_real_functions.php' => 1,
-                  'autoload_main3.php' => 1,
-                  'autoload_main.php' => 1,
-                  'autoload_files.php' => 1,
-                  'php5.4' => 
-                  array (
-                    'traits.php' => 1,
-                  ),
-                  'autoload_psr4_3.php' => 1,
-                  'include_paths.php' => 1,
-                  'template' => 
-                  array (
-                    'template_3.php' => 1,
-                    'template_2.php' => 1,
-                    'template_1.php' => 1,
-                  ),
-                  'Pearlike' => 
-                  array (
-                    'Baz.php' => 1,
-                    'Foo.php' => 1,
-                    'Bar.php' => 1,
-                  ),
-                  'autoload_main5.php' => 1,
-                  'autoload_classmap.php' => 1,
-                  'autoload_classmap7.php' => 1,
-                  'Namespaced' => 
-                  array (
-                    'Baz.php' => 1,
-                    'Foo.php' => 1,
-                  ),
-                  'autoload_real_include_path.php' => 1,
-                  'autoload_target_dir.php' => 1,
-                  'autoload_files2.php' => 1,
-                  'autoload_functions_by_dependency.php' => 1,
-                  'autoload_files_target_dir.php' => 1,
-                  'autoload_real_target_dir.php' => 1,
-                  'autoload_functions.php' => 1,
-                  'autoload_files_files_by_dependency.php' => 1,
-                  'autoload_classmap5.php' => 1,
-                  'autoload_psr4.php' => 1,
-                  'autoload_classmap6.php' => 1,
-                  'autoload_classmap2.php' => 1,
-                  'autoload_classmap3.php' => 1,
-                  'autoload_files_functions.php' => 1,
-                  'autoload_psr4_2.php' => 1,
-                  'beta' => 
-                  array (
-                    'PrefixCollision' => 
-                    array (
-                      'A' => 
-                      array (
-                        'B' => 
-                        array (
-                          'Foo.php' => 1,
-                          'Bar.php' => 1,
-                        ),
-                      ),
-                    ),
-                    'NamespaceCollision' => 
-                    array (
-                      'A' => 
-                      array (
-                        'B' => 
-                        array (
-                          'Foo.php' => 1,
-                          'Bar.php' => 1,
-                        ),
-                      ),
-                    ),
-                  ),
-                  'SubNamespace' => 
-                  array (
-                    'Foo.php' => 1,
-                    'Bar.php' => 1,
-                  ),
-                  'autoload_main4.php' => 1,
-                  'autoload_real_files_by_dependency.php' => 1,
-                  'autoload_main2.php' => 1,
-                  'autoload_vendors.php' => 1,
-                  'classmap' => 
-                  array (
-                    'MissingSpace.php' => 1,
-                    'SomeClass.php' => 1,
-                    'BackslashLineEndingString.php' => 1,
-                    'SomeInterface.php' => 1,
-                    'multipleNs.php' => 1,
-                    'sameNsMultipleClasses.php' => 1,
-                    'LargeGap.php' => 1,
-                    'LargeClass.php' => 1,
-                    'StripNoise.php' => 1,
-                    'SomeParent.php' => 1,
-                    'Unicode.php' => 1,
-                    'notAClass.php' => 1,
-                  ),
-                ),
-                'ClassLoaderTest.php' => 1,
-                'ClassMapGeneratorTest.php' => 1,
-                'AutoloadGeneratorTest.php' => 1,
-              ),
-            ),
-            'TestCase.php' => 1,
-          ),
-          'bootstrap.php' => 1,
-          'complete.phpunit.xml' => 1,
-        ),
-        'res' => 
-        array (
-        ),
-      ),
+    ),
+    'PHPMailer' => 
+    array (
     ),
   ),
   'removeme.php' => 1,

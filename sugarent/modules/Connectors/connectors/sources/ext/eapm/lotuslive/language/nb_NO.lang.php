@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,23 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Få en nøkkel og hemmelighet fra IBM SmartCloud ved å registerere din Sugar-forekomst som en ny applikasjon. Registreringen åpnes 8. mai 2011.<br>
-&nbsp;<br>
-Slik registrerer du forekomsten:<br>
-&nbsp;<br>
-<ol>
-<li>Logg på din IBM SmartCloud-konto (du må være administrator)</li>
-<li>Gå til Administration -> Manage Organization</li>
-<li>Gå til «Integrated Third-Party Apps»-lenken på siden og aktiver SugarCRM for alle brukere.</li>
-<li>Gå til «Internal Apps» på siden og deretter til «Register App»</li>
-<li>Kall appen hva du vil (f.eks. «SugarCRM Production»), og sørg for å _IKKE_ markere avkrysningsruten OAuth 2.x nederst på sprettoppvinduet.</li>
-<li>Etter appen er oppretter, klikker du på den lille trekanten til høyre for appnavnet, og velger «Show Credentials» fra rullegardinmenyen.</li>
-<li>Kopier opplysningene nedenfor.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'OAuth-forbrukernøkkel',
-    'oauth_consumer_secret' => 'OAuth-forbrukerhemmelighet',
+  'LBL_LICENSING_INFO' => 'OAuth Consumer Key og Secret er strenger du får fra LotusLive ©.',
+  'oauth_consumer_key' => 'OAuth Consumer Key',
+  'oauth_consumer_secret' => 'OAuth Consumer Secret',
 );
 

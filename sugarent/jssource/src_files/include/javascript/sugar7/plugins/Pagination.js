@@ -152,6 +152,8 @@
                         this._renderRow(this.collection.get(model.id));
                     }, this);
                     this.trigger('render:rows');
+
+                    this.trigger('render');
                 }, this);
 
                 if (this.limit) {

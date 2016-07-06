@@ -11,11 +11,11 @@
 /**
  * @class View.Fields.Base.UrlField
  * @alias SUGAR.App.view.fields.BaseUrlField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * The direction for this field should always be `ltr`.
      */

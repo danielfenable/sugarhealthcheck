@@ -312,6 +312,24 @@ $dictionary['ProductBundle'] = array(
                 'base_rate'
             ),
         ),
+        'currency_id' => array(
+            'name' => 'currency_id',
+            'type' => 'currency_id',
+            'dbType' => 'id',
+            'required' => false,
+            'reportable' => false,
+            'default' => '-99',
+            'comment' => 'Currency used',
+            'function' => 'getCurrencies',
+            'function_bean' => 'Currencies',
+        ),
+        'base_rate' => array(
+            'name' => 'base_rate',
+            'vname' => 'LBL_CURRENCY_RATE',
+            'type' => 'decimal',
+            'len' => '26,6',
+            'studio' => false
+        ),
         'taxrate' => array(
             'name' => 'taxrate',
             'type' => 'link',
@@ -384,7 +402,6 @@ VardefManager::createVardef(
     'ProductBundles',
     'ProductBundle',
     array(
-        'team_security',
-        'currency'
+        'team_security'
     )
 );

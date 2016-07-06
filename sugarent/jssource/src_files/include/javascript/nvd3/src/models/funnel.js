@@ -19,8 +19,6 @@ nv.models.funnel = function() {
       clipEdge = true,
       yDomain,
       delay = 0,
-      wrapLabels = true,
-      minLabelWidth = 75,
       durationMs = 0,
       fmtValueLabel = function(d) { return d.label || d.value || d; },
       color = function(d, i) { return nv.utils.defaultColor()(d, d.series); },
@@ -62,7 +60,7 @@ nv.models.funnel = function() {
             point.value = getY(point);
           }
           // count total of funnel
-          funnelTotal += parseFloat(point.value);
+          funnelTotal += point.value;
           return point;
         });
         return series;
@@ -170,7 +168,7 @@ nv.models.funnel = function() {
         .classed('hover', function(d) { return d.hover; })
         .classed('nv-active', function(d) { return d.active === 'active'; })
         .classed('nv-inactive', function(d) { return d.active === 'inactive'; })
-        .style({'stroke': '#FFFFFF', 'stroke-width': 2});
+        .style({'stroke': '#FFFFFF', 'stroke-width': 3});
 
       groups.transition().duration(durationMs)
           .style('stroke-opacity', 1)
@@ -180,7 +178,7 @@ nv.models.funnel = function() {
         .selectAll('polygon.nv-bar')
         .delay(function(d, i) { return i * delay / data[0].values.length; })
           .attr('points', function(d) {
-            return pointsTrapezoid(d, 0, calculatedWidth);
+            return pointsTrapezoid(d.y, d.y0, 0, calculatedWidth);
           })
           .style('stroke-opacity', 1e-6)
           .style('fill-opacity', 1e-6)
@@ -209,42 +207,65 @@ nv.models.funnel = function() {
         .append('polygon')
           .attr('class', 'nv-bar')
           .attr('points', function(d) {
-            return pointsTrapezoid(d, 0, calculatedWidth);
-          })
-          .on('mouseover', function(d, i) {
-            d3.select(this).classed('hover', true);
-            var eo = buildEventObject(d3.event, d, i);
-            dispatch.elementMouseover(eo);
-          })
-          .on('mousemove', function(d, i) {
-            dispatch.elementMousemove(d3.event);
-          })
-          .on('mouseout', function(d, i) {
-            d3.select(this).classed('hover', false);
-            dispatch.elementMouseout();
-          })
-          .on('click', function(d, i) {
-            d3.event.stopPropagation();
-            var eo = buildEventObject(d3.event, d, i);
-            dispatch.elementClick(eo);
-          })
-          .on('dblclick', function(d, i) {
-            d3.event.stopPropagation();
-            var eo = buildEventObject(d3.event, d, i);
-            dispatch.elementDblClick(eo);
+            return pointsTrapezoid(d.y, d.y0, 0, calculatedWidth);
           });
 
-      function buildEventObject(e, d, i) {
-        return {
+      funs
+        .on('mouseover', function(d, i) {
+          d3.select(this).classed('hover', true);
+          dispatch.elementMouseover({
             value: getV(d, i),
             point: d,
-            id: id,
+            series: data[d.series],
+            pos: [d3.event.pageX, d3.event.pageY],
+            pointIndex: i,
+            seriesIndex: d.series,
+            e: d3.event
+          });
+        })
+        .on('mouseout', function(d, i) {
+          d3.select(this).classed('hover', false);
+          dispatch.elementMouseout({
+            value: getV(d, i),
+            point: d,
             series: data[d.series],
             pointIndex: i,
             seriesIndex: d.series,
-            e: e
-          };
-      }
+            e: d3.event
+          });
+        })
+        .on('mousemove', function(d, i) {
+          dispatch.elementMousemove({
+            point: d,
+            pointIndex: i,
+            pos: [d3.event.pageX, d3.event.pageY],
+            id: id
+          });
+        })
+        .on('click', function(d, i) {
+          dispatch.elementClick({
+            value: getV(d, i),
+            point: d,
+            series: data[d.series],
+            pos: [d3.event.pageX, d3.event.pageY],
+            pointIndex: i,
+            seriesIndex: d.series,
+            e: d3.event
+          });
+          d3.event.stopPropagation();
+        })
+        .on('dblclick', function(d, i) {
+          dispatch.elementDblClick({
+            value: getV(d, i),
+            point: d,
+            series: data[d.series],
+            pos: [d3.event.pageX, d3.event.pageY],
+            pointIndex: i,
+            seriesIndex: d.series,
+            e: d3.event
+          });
+          d3.event.stopPropagation();
+        });
 
       //------------------------------------------------------------
       // Append containers for labels
@@ -273,9 +294,8 @@ nv.models.funnel = function() {
 
         labels.select('.nv-label')
           .call(
-            handleLabel,
-            (wrapLabels ? wrapLabel : ellipsifyLabel),
-            calcFunnelWidthAtSliceMidpoint,
+            wrapLabel,
+            calcFunnelWidth,
             function(txt, dy) {
               fmtLabel(txt, 'nv-label', dy, '11px', 'middle', fmtFill);
             }
@@ -317,9 +337,8 @@ nv.models.funnel = function() {
 
         sideLabels.select('.nv-label')
           .call(
-            handleLabel,
-            (wrapLabels ? wrapLabel : ellipsifyLabel),
-            (wrapLabels ? calcSideWidth : maxSideLabelWidth),
+            wrapLabel,
+            calcSideWidth,
             function(txt, dy) {
               fmtLabel(txt, 'nv-label', dy, '11px', 'start', '#555');
             }
@@ -418,7 +437,7 @@ nv.models.funnel = function() {
       funs
         .attr('points', function(d) {
           var scalar = d.active && d.active === 'active' ? 1.05 : 1;
-          return pointsTrapezoid(d, 1, calculatedWidth * scalar);
+          return pointsTrapezoid(d.y, d.y0, 1, calculatedWidth * scalar);
         });
 
       labels
@@ -451,73 +470,35 @@ nv.models.funnel = function() {
       //       .domain([w / 2, minimum])
       //       .range([0, maxy1*thenscalethistopreventminimumfrompassing]);
 
-      function wrapLabel(d, lbl, fnWidth, fmtLabel) {
-        var text = lbl.text(),
-            dy = parseFloat(lbl.attr('dy')),
-            word,
-            words = text.split(/\s+/).reverse(),
-            line = [],
-            lineNumber = 0,
-            maxWidth = fnWidth(d, 0),
-            parent = d3.select(lbl.node().parentNode);
+      function wrapLabel(lbl, calcAvailableWidth, fmtLabel) {
+        lbl.each(function(d) {
+          var text = d3.select(this),
+              maxWidth = calcAvailableWidth(d.y, d.y0, 0),
+              parent = d3.select(text.node().parentNode),
+              words = text.text().split(/\s+/).reverse(),
+              word,
+              line = [],
+              lineNumber = 0,
+              dy = parseFloat(text.attr('dy'));
+              text.text(null);
 
-        lbl.text(null);
+          while (word = words.pop()) {
+            line.push(word);
+            text.text(line.join(' '));
 
-        while (word = words.pop()) {
-          line.push(word);
-          lbl.text(line.join(' '));
-
-          if (lbl.node().getComputedTextLength() > maxWidth && line.length > 1) {
-            line.pop();
-            lbl.text(line.join(' '));
-            line = [word];
-            lbl = parent.append('text');
-            lbl.text(word)
-              .call(fmtLabel, ++lineNumber * 1.1 + dy);
+            if (text.node().getComputedTextLength() > maxWidth && line.length > 1) {
+              line.pop();
+              text.text(line.join(' '));
+              line = [word];
+              text = parent.append('text');
+              text.text(word)
+                .call(fmtLabel, ++lineNumber * 1.1 + dy);
+            }
           }
-        }
-      }
-
-      function handleLabel(lbls, fnFormat, fnWidth, fmtLabel) {
-        lbls.each(function(d) {
-          var lbl = d3.select(this);
-          fnFormat(d, lbl, fnWidth, fmtLabel);
         });
       }
 
-      function ellipsifyLabel(d, lbl, fnWidth, fmtLabel) {
-        var text = lbl.text(),
-            dy = parseFloat(lbl.attr('dy')),
-            maxWidth = fnWidth(d);
-
-        lbl.text(nv.utils.stringEllipsify(text, container, maxWidth))
-          .call(fmtLabel, dy);
-      }
-
-      function maxSideLabelWidth(d) {
-        // overall width of container minus the width of funnel top
-        // or minLabelWidth, which ever is greater
-        // this is also now as funnelOffset (maybe)
-        var twenty = Math.max(availableWidth - availableHeight / 1.1, minLabelWidth),
-            // bottom of slice
-            sliceBottom = y(d.y0),
-            // x component of slope F at y
-            base = sliceBottom * r,
-            // total width at bottom of slice
-            maxWidth = twenty + base,
-            // height of sloped leader
-            leaderHeight = Math.abs(d.labelBottom - sliceBottom),
-            // width of the angled leader
-            leaderWidth = leaderHeight * r,
-            // total width of leader
-            leaderTotal = labelGap + leaderWidth + labelGap + labelGap,
-            // this is the distance from end of label plus spacing to F
-            iOffset = maxWidth - leaderTotal;
-
-        return Math.max(iOffset, minLabelWidth);
-      }
-
-      function pointsTrapezoid(d, h, w) {
+      function pointsTrapezoid(dy, dy0, h, w) {
         //MATH: don't delete
         // v = 1/2 * h * (b + b + 2*r*h);
         // 2v = h * (b + b + 2*r*h);
@@ -531,8 +512,8 @@ nv.models.funnel = function() {
         // (h + b/r/2)(h + b/r/2) = v/r + b/r/2*b/r/2;
         // h + b/r/2 = Math.sqrt(v/r + b/r/2*b/r/2);
         // h  = Math.abs(Math.sqrt(v/r + b/r/2*b/r/2)) - b/r/2;
-        var y0 = y(d.y0),
-            y1 = y(d.y0 + d.y),
+        var y0 = y(dy0),
+            y1 = y(dy0 + dy),
             w0 = w / 2 - r * y0,
             w1 = w / 2 - r * y1,
             c = calculatedCenter;
@@ -574,15 +555,14 @@ nv.models.funnel = function() {
         return calculatedWidth / 2 + offset;
       }
 
-      function calcFunnelWidthAtSliceMidpoint(d) {
-        var b = calculatedWidth,
-            v = y(d.y0 + d.y1 / 2); // mid point of slice
-        return b - v * r * 2;
+      function calcFunnelWidth(dy, dy0) {
+        var v = y(dy0 + dy / 2);
+        return calculatedWidth - v * r * 2;
       }
 
-      function calcSideWidth(d, offset) {
+      function calcSideWidth(dy, dy0, offset) {
         var b = Math.max((availableWidth - calculatedWidth) / 2, offset),
-            v = y(d.y0 + d.y1); // top of slice
+            v = y(dy0 + dy);
         return b + v * r;
       }
 
@@ -590,22 +570,22 @@ nv.models.funnel = function() {
         return d3.select(lbl).node().getBoundingClientRect();
       }
 
-      function calcFunnelLabelDimensions(lbls) {
-        lbls.each(function(d) {
+      function calcFunnelLabelDimensions(lbl) {
+        lbl.each(function(d) {
           var bbox = calcLabelBBox(this);
 
           d.labelHeight = bbox.height;
           d.labelWidth = bbox.width;
           d.labelTop = y(d.y0 + d.y / 2) - d.labelHeight / 2;
           d.labelBottom = d.labelTop + d.labelHeight + labelSpace;
-          d.y1 = d.y - d.labelHeight;
-          d.tooWide = d.labelWidth > calcFunnelWidthAtSliceMidpoint(d);
-          d.tooTall = d.labelHeight > d.height - 4;
+
+          d.tooWide = d.labelWidth > calcFunnelWidth(d.y - d.labelHeight, d.y0);
+          d.tooTall = d.labelHeight > d.height;
         });
       }
 
-      function calcSideLabelDimensions(lbls) {
-        lbls.each(function(d) {
+      function calcSideLabelDimensions(lbl) {
+        lbl.each(function(d) {
           var bbox = calcLabelBBox(this);
           d.labelHeight = bbox.height;
           d.labelWidth = bbox.width;
@@ -617,7 +597,6 @@ nv.models.funnel = function() {
       function pointsLeader(polylines, i) {
         var c = polylines.length;
         polylines.each(function(d, i, j) {
-          d.y1 = 0;
           var // previous label
               p = j ? d3.select(polylines[j - 1][i]).data()[0] : null,
               // next label
@@ -635,7 +614,7 @@ nv.models.funnel = function() {
               // final width
               w = Math.round(Math.max(wp, wc, wn)) + labelGap,
               // funnel edge
-              f = Math.round(calcSideWidth(d, funnelOffset)) - labelOffset - labelGap,
+              f = Math.round(calcSideWidth(0, d.y0, funnelOffset)) - labelOffset - labelGap,
               // polyline points
               p = 0 + ',' + h + ' ' +
                  w + ',' + h + ' ' +
@@ -646,11 +625,11 @@ nv.models.funnel = function() {
         });
       }
 
-      function calcOffsets(lbls) {
+      function calcOffsets(lbl) {
         var sideWidth = (availableWidth - calculatedWidth) / 2, // natural width of side
             offset = 0;
 
-        lbls.each(function(d) {
+        lbl.each(function(d) {
 
           var // bottom of slice
               sliceBottom = y(d.y0),
@@ -658,26 +637,26 @@ nv.models.funnel = function() {
               scalar = d.labelBottom >= sliceBottom ? 1 : 0,
               // the width of the angled leader
               // from bottom right of label to bottom of slice
-              leaderSlope = Math.abs(d.labelBottom + labelGap - sliceBottom) * r,
-              // this is the x component of slope F at y
+              slope = Math.abs(d.labelBottom + labelGap - sliceBottom) * r,
+              // this is the x component of slope R at y
               base = sliceBottom * r,
-              // this is the distance from end of label plus spacing to F
-              iOffset = d.labelWidth + leaderSlope + labelGap * 3 - base;
+              // this is the distance from end of label plus spacing to R
+              iOffset = d.labelWidth + slope + labelGap * 3 - base;
 
-          // if this label sticks out past F
+          // if this label sticks out past R
           if (iOffset >= offset) {
-            // this is the minimum distance for F
+            // this is the minimum distance for R
             // has to be away from the left edge of labels
             offset = iOffset;
           }
         });
 
-        // how far from chart edge is label left edge
+        // how var from chart edge is label left edge
         offset = Math.round(offset * 10) / 10;
 
         // there are three states:
         if (offset <= 0) {
-        // 1. no label sticks out past F
+        // 1. no label sticks out past R
           labelOffset = sideWidth;
           funnelOffset = sideWidth;
         } else if (offset > 0 && offset < sideWidth) {
@@ -727,8 +706,8 @@ nv.models.funnel = function() {
           .style('fill', fill);
       }
 
-      function positionValue(lbls) {
-        lbls.each(function(d) {
+      function positionValue(lbl) {
+        lbl.each(function(d) {
           var lbl = d3.select(this),
               cnt = lbl.selectAll('.nv-label')[0].length + 1,
               dy = .85 * cnt + 'em';
@@ -846,18 +825,6 @@ nv.models.funnel = function() {
   chart.fmtValueLabel = function(_) {
     if (!arguments.length) return fmtValueLabel;
     fmtValueLabel = d3.functor(_);
-    return chart;
-  };
-
-  chart.wrapLabels = function(_) {
-    if (!arguments.length) return wrapLabels;
-    wrapLabels = _;
-    return chart;
-  };
-
-  chart.minLabelWidth = function(_) {
-    if (!arguments.length) return minLabelWidth;
-    minLabelWidth = _;
     return chart;
   };
 

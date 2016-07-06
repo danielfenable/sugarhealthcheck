@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.EmailField
  * @alias SUGAR.App.view.fields.BaseEmailField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     events: {
@@ -29,7 +29,7 @@
     plugins: ['Tooltip', 'ListEditable', 'EmailClientLaunch'],
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * The direction for this field should always be `ltr`.
      */
@@ -64,17 +64,6 @@
 
         //set model as the related record when composing an email (copy is made by plugin)
         this.addEmailOptions({related: this.model});
-
-        /**
-         * Property to add or not the `ellipsis_inline` class when rendering the
-         * field in the `list` template. `true` to add the class, `false`
-         * otherwise.
-         *
-         * Defaults to `true`.
-         *
-         * @property {boolean}
-         */
-        this.ellipsis = _.isUndefined(this.def.ellipsis) || this.def.ellipsis;
     },
 
     /**
@@ -111,7 +100,7 @@
     /**
      * Get HTML for email input field.
      * @param {Object} email
-     * @return {Object}
+     * @returns {Object}
      * @private
      */
     _buildEmailFieldHtml: function(email) {
@@ -184,7 +173,6 @@
             $input = this.$(evt.currentTarget),
             index = $inputs.index($input),
             newEmail = $input.val(),
-            emails = this.model.get(this.name) || [],
             primaryRemoved;
 
         newEmail = $.trim(newEmail);
@@ -200,7 +188,8 @@
             if (primaryRemoved) {
                 // on list views we need to set the current value on the input
                 if (this.view && this.view.action === 'list') {
-                    var primaryAddress = _.filter(emails, function(address) {
+                    var addresses = this.model.get(this.name) || [];
+                    var primaryAddress = _.filter(addresses, function(address){
                         if (address.primary_address) {
                             return true;
                         }
@@ -218,18 +207,9 @@
                     .first()
                     .addClass('active');
             }
-            return;
+        } else {
+            this._updateExistingAddressInModel(index, newEmail);
         }
-        if (this.tplName === 'list-edit') {
-            // In list-edit mode the index is not always at the index of the current target.
-            _.find(emails, function(email, i) {
-                if (email.primary_address) {
-                    index = i;
-                    return true;
-                }
-            });
-        }
-        this._updateExistingAddressInModel(index, newEmail);
     },
 
     /**
@@ -286,7 +266,7 @@
     /**
      * Add the new email address to the model.
      * @param {String} email
-     * @return {boolean} Returns true when a new email is added.  Returns false if duplicate is found,
+     * @returns {Boolean} Returns true when a new email is added.  Returns false if duplicate is found,
      *          and was not added to the model.
      * @private
      */
@@ -358,7 +338,7 @@
     /**
      * Remove email address from the model.
      * @param {Number} index
-     * @return {boolean} Returns true if the removed address was the primary address.
+     * @returns {Boolean} Returns true if the removed address was the primary address.
      * @private
      */
     _removeExistingAddressInModel: function(index) {
@@ -392,7 +372,7 @@
 
     /**
      * Get the new email address input field.
-     * @return {jQuery}
+     * @returns {jQuery}
      * @private
      */
     _getNewEmailField: function() {
@@ -401,7 +381,7 @@
 
     /**
      * Need to call `decorateError` after all email fields are rendered.
-     * @inheritdoc
+     * @inheritDoc
      *
      * FIXME This is a temporary fix due to time constraints, a proper solution will be implemented in SC-4358
      */
@@ -497,7 +477,7 @@
     /**
      * Build label that gets displayed in tooltips.
      * @param {Object} value
-     * @return {Object}
+     * @returns {Object}
      */
     addFlagLabels: function(value) {
         var flagStr = "", flagArray;

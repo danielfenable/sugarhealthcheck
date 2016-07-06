@@ -222,15 +222,6 @@
         0 => 'file_mime_type',
       ),
     ),
-    2 => 
-    array (
-      'name' => 'documentrevision_document_id',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'document_id',
-      ),
-    ),
   ),
   'acls' => 
   array (
@@ -247,8 +238,8 @@
       'parentLink' => 'documents',
     ),
   ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
   ),
+  'custom_fields' => false,
 );

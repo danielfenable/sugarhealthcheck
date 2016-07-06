@@ -11,13 +11,13 @@
 /**
  * @class View.Fields.Base.ImageField
  * @alias SUGAR.App.view.fields.BaseImageField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     fieldTag: 'input[type=file]',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * This field doesn't support `showNoData`.
      */
@@ -31,7 +31,7 @@
     plugins: ['File', 'FieldDuplicate'],
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * The direction for this field should always be `ltr`.
      */
@@ -115,7 +115,7 @@
     /**
      * @override
      * @param value
-     * @return value
+     * @returns value
      */
     format: function(value) {
         if (value) {
@@ -130,10 +130,8 @@
     bindDataChange: function() {
         //Keep empty for edit because you cannot set a value of an input type `file`
         var viewType = this.view.name || this.options.viewName;
-        var ignoreViewType = ["edit", "create"];
-        if ((_.indexOf(ignoreViewType, viewType) < 0)
-            && (this.view.action !== "edit")
-            && (this.view.name !== 'merge-duplicates')) {
+        var ignoreViewType = ["edit", "create", "create-actions"];
+        if (_.indexOf(ignoreViewType, viewType) < 0 && this.view.action !== "edit") {
             app.view.Field.prototype.bindDataChange.call(this);
         }
     },
@@ -318,7 +316,7 @@
      * Utility function to append px to an integer
      *
      * @param size
-     * @return {string}
+     * @returns {string}
      */
     formatPX: function(size) {
         size = parseInt(size, 10);

@@ -29,7 +29,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * During initialize we listen to model validation and if it is valid we
      * {@link #send} the Feedback.
@@ -43,10 +43,6 @@
         });
         this._super('initialize', [options]);
         this.context.set('skipFetch', true);
-
-        this.model.on('validation:start', function() {
-            app.alert.dismiss('send_feedback');
-        });
 
         this.model.on('error:validation', function() {
             app.alert.show('send_feedback', {
@@ -145,7 +141,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * During dispose destroy the popover.
      */
     _dispose: function() {
@@ -198,43 +194,26 @@
                 'entry.1926759955': this.model.get('feedback_sugar_version'),
                 'entry.398692075': this.model.get('company')
             },
-            dataType: 'xml',
+            dataType: 'script',
             crossDomain: true,
             cache: false,
             context: this,
             timeout: 10000,
-            success: this._handleSuccess,
-            error: function(xhr) {
-                if (xhr.status === 0) {
-                    // the status might be 0 which is still a success from a
-                    // cross domain request using xml as dataType
-                    this._handleSuccess();
-                    return;
-                }
-
+            success: function() {
+                app.alert.show('send_feedback', {
+                    level: 'success',
+                    messages: app.lang.get('LBL_FEEDBACK_SENT', this.module),
+                    autoClose: true
+                });
+                this.model.clear();
+                this.toggle(false);
+            },
+            error: function(){
                 app.alert.show('send_feedback', {
                     level: 'error',
                     messages: app.lang.get('LBL_FEEDBACK_NOT_SENT', this.module)
                 });
             }
         });
-    },
-
-    /**
-     * Handles the success of Feedback submission.
-     *
-     * Show the success message on top (alert), clears the model and hides the
-     * view. This will allow the user to be ready for yet another feedback.
-     *
-     * @private
-     */
-    _handleSuccess: function() {
-        app.alert.show('send_feedback', {
-            level: 'success',
-            messages: app.lang.get('LBL_FEEDBACK_SENT', this.module),
-            autoClose: true
-        });
-        this.model.clear();
-        this.toggle(false);
     }
 })

@@ -31,8 +31,8 @@
          * exact same thing, but that time, since the model was already set, it doesn't see anything in
          * this.model.changed, so it doesn't warn the user.
          */
-        var changedAttributes = this.model.changedAttributes(this.model.getSynced());
-        this.model.set(changedAttributes, { revert: true });
+        var changedAttributes = this.model.changedAttributes(this.model.getSyncedAttributes());
+        this.model.set(changedAttributes);
         this._super('cancelClicked');
     },
 
@@ -41,22 +41,8 @@
      * @param {Object} options
      */
     initialize: function(options) {
-        this.plugins = _.union(this.plugins, ['LinkedModel', 'HistoricalSummary', 'CommittedDeleteWarning']);
-        this.addInitListener();
-
-        this._super('initialize', [options]);
-
-        app.utils.hideForecastCommitStageField(this.meta.panels);
-    },
-    
-    /**
-     * Add the initListener if RLI's are being used and the current user has Edit access to RLI's
-     */
-    addInitListener: function() {
-        // if we are viewing by RevenueLineItems and we have access to edit/create RLI's then we should
-        // display the warning if no rli's exist
-        if (app.metadata.getModule('Opportunities', 'config').opps_view_by == 'RevenueLineItems' &&
-            app.acl.hasAccess('edit', 'RevenueLineItems')) {
+        this.plugins = _.union(this.plugins, ['LinkedModel', 'HistoricalSummary']);
+        if (app.metadata.getModule('Opportunities', 'config').opps_view_by == 'RevenueLineItems') {
             this.once('init', function() {
                 var rlis = this.model.getRelatedCollection('revenuelineitems');
                 rlis.once('reset', function(collection) {
@@ -69,6 +55,8 @@
                 rlis.fetch({relate: true});
             }, this);
         }
+
+        this._super('initialize', [options]);
     },
 
     /**
@@ -76,7 +64,7 @@
      * @returns {Array}
      */
     getCalculatedFields: function() {
-        return _.filter(this.model.fields, function (field) {
+        return _.filter(this.model.fields, function(field) {
             return field.calculated;
         });
     },
@@ -100,7 +88,7 @@
      */
     showRLIWarningMessage: function() {
         // add a callback to close the alert if users navigate from the page
-        app.routing.before('route', this.dismissAlert, this);
+        app.routing.before('route', this.dismissAlert, undefined, this);
 
         var message = app.lang.get('TPL_RLI_CREATE', 'Opportunities') +
             '  <a href="javascript:void(0);" id="createRLI">' +
@@ -140,7 +128,7 @@
         var model = this.createLinkModel(this.createdModel || this.model, 'revenuelineitems');
 
         app.drawer.open({
-            layout: 'create',
+            layout: 'create-actions',
             context: {
                 create: true,
                 module: model.module,

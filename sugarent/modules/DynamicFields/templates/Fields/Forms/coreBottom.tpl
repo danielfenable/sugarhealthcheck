@@ -15,15 +15,12 @@
 <tr>
     <td class='mbLBL'>{sugar_translate module="DynamicFields" label="COLUMN_TITLE_FTS"}:</td>
     <td>
-        {html_options name="full_text_search[enabled]" id="fts_field_config" selected=$fts_field_config_selected options=$fts_field_config onchange="ModuleBuilder.toggleBoost()"}
-        <img border="0" class="inlineHelpTip" alt="Information" src="themes/Sugar/images/helpInline.png" onclick="return SUGAR.util.showHelpTips(this,'{$mod_strings.LBL_POPHELP_FTS_FIELD_CONFIG}','','' );">
-    </td>
-</tr>
-<tr id="ftsFieldBoostRow" {if $fts_field_config_selected < 2}style="display:none"{/if}>
-    <td class='mbLBL'>{sugar_translate module="DynamicFields" label="COLUMN_TITLE_FTS_BOOST"}:</td>
-    <td>
-        <input type="text" name="full_text_search[boost]" id="fts_field_boost" value="{$fts_field_boost_value}" />
-        <img border="0" class="inlineHelpTip" alt="Information" src="themes/Sugar/images/helpInline.png" onclick="return SUGAR.util.showHelpTips(this,'{$mod_strings.LBL_POPHELP_FTS_FIELD_BOOST}','','' );">
+        {if empty($vardef.full_text_search) || empty($vardef.full_text_search.boost)}
+            {html_options name="full_text_search[boost]" id="full_text_search" selected="0" options=$fts_options}
+        {else}
+            {html_options name="full_text_search[boost]" id="full_text_search" selected=$vardef.full_text_search.boost options=$fts_options}
+        {/if}
+        <img border="0" class="inlineHelpTip" alt="Information" src="themes/Sugar/images/helpInline.png" onclick="return SUGAR.util.showHelpTips(this,'{$mod_strings.LBL_POPHELP_SEARCHABLE}','','' );">
     </td>
 </tr>
 {/if}

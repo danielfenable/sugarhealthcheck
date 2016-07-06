@@ -53,8 +53,6 @@ define('MB_PORTALLISTVIEW', 'portallistview');
 define('MB_PORTALSEARCHVIEW', 'portalsearchview');
 define('MB_PORTAL', 'portal');
 define('MB_RECORDVIEW', 'recordview');
-define('MB_FILTERVIEW', 'filter');
-define('MB_BWCFILTERVIEW', 'searchfields');
 
 class MBConstants
 {

@@ -22,23 +22,23 @@ require_once('modules/Teams/TeamSetManager.php');
  * 'link_file' => 'modules/Teams/TeamSetLink.php'
  *
  */
-class TeamSetLink extends Link2 {
+class TeamSetLink extends Link {
 	/*
 	 * a TeamSet Object
 	 */
-	protected  $_teamSet;
+	private  $_teamSet;
 	/*
 	 * maintain an internal array of team_ids we are going to save
 	 */
-    protected $_teamList;
+	private $_teamList;
 	/*
 	 * Whether this data has been committed to the database or not.
 	 */
-    protected $_saved = false;
+	private $_saved = false;
 
-	public function __construct($linkName, $bean, $linkDef = false){
-		parent::__construct($linkName, $bean, $linkDef);
-        $this->_teamSet = BeanFactory::getBean('TeamSets');
+	public function __construct($_rel_name, &$_bean, $fieldDef, $_table_name='', $_key_name=''){
+		parent::Link($_rel_name, $_bean, $fieldDef, $_table_name, $_key_name);
+		$this->_teamSet = BeanFactory::getBean('TeamSets');
 		$this->_teamList = array();
 	}
 
@@ -96,94 +96,79 @@ class TeamSetLink extends Link2 {
 	 * Commit any unsaved changes to the database
 	 *
 	 */
-    public function save($checkForUpdate = true, $usedDefaultTeam = false)
-    {
-        if ($this->_saved == false) {
-            $previousTeamSetId = $this->focus->team_set_id;
-            //disable_team_sanity_check can be set to allow for us to just take the values provided on the bean blindly rather than
-            //doing a check to confirm whether the data is correct.
-            if (empty($GLOBALS['sugar_config']['disable_team_sanity_check'])) {
-                if (!empty($this->focus->team_id)) {
-                    if (empty($this->_teamList)) {
-                        //we have added this logic here to account for side quick create.
-                        // If you use side quick create then we do not set the team_id nor the team_set_id
-                        //from the UI. In that case the team_id will be set in SugarBean.php by the current user's
-                        // default team but the team_set_id will still not be set
-                        //we have to hold off on setting the team_set_id until in here so we can be sure to check that
-                        // it is not waiting to be saved to the db and is being held in
-                        //_teamList.  So we use $usedDefaultTeam to signify that we did in fact not have a team_id until
-                        // we set it in SugarBean.php and that this is not an update so we do not have a team_set_id on the bean.
-                        // In that case we can use the current user's default team set.
-                        if ($usedDefaultTeam && empty($this->focus->team_set_id) 
-                            && isset($GLOBALS['current_user']) && isset($GLOBALS['current_user']->team_set_id)
-                        ) {
-                            $this->focus->team_set_id = $GLOBALS['current_user']->team_set_id;
-                        }
+	public function save($checkForUpdate = true, $usedDefaultTeam = false){
+		if($this->_saved == false){
 
-                        //this is a safety check to ensure we actually do have a set team_set_id
-                        if (!empty($this->focus->team_set_id)) {
-                            $this->_teamList = $this->_teamSet->getTeamIds($this->focus->team_set_id);
-                        }
-                    }
+			//disable_team_sanity_check can be set to allow for us to just take the values provided on the bean blindly rather than
+			//doing a check to confirm whether the data is correct.
+			if(empty($GLOBALS['sugar_config']['disable_team_sanity_check'])){
+				if(!empty($this->_bean->team_id)){
+					if(empty($this->_teamList)){
+						//we have added this logic here to account for side quick create. If you use side quick create then we do not set the team_id nor the team_set_id
+						//from the UI. In that case the team_id will be set in SugarBean.php by the current user's default team but the team_set_id will still not be set
+						//we have to hold off on setting the team_set_id until in here so we can be sure to check that it is not waiting to be saved to the db and is being held in
+						//_teamList.  So we use $usedDefaultTeam to signify that we did in fact not have a team_id until we set it in SugarBean.php and that this is not an
+						//update so we do not have a team_set_id on the bean. In that case we can use the current user's default team set.
+						if($usedDefaultTeam && empty($this->_bean->team_set_id) && isset($GLOBALS['current_user']) && isset($GLOBALS['current_user']->team_set_id)){
+							$this->_bean->team_set_id = $GLOBALS['current_user']->team_set_id;
+						}
 
-                    //this stmt is intended to handle the situation where the code has set the team_id but not the team_set_id as may be the case
-                    //from SOAP.
-                    if (!in_array($this->focus->team_id, $this->_teamList)) {
-                        $this->_teamList[] = $this->focus->team_id;
-                    }
-                }
+						//this is a safety check to ensure we actually do have a set team_set_id
+						if(!empty($this->_bean->team_set_id)){
+							$this->_teamList = $this->_teamSet->getTeamIds($this->_bean->team_set_id);
+						}
+					}
 
-                //we need to check if the assigned_user has access to any of the teams on this record,
-                //if they do not then we need to be sure to add their private team to the list.
-                //If assigned_user_id is not set on the object as is the case with Documents, then use created_by
+					//this stmt is intended to handle the situation where the code has set the team_id but not the team_set_id as may be the case
+					//from SOAP.
+					if(!in_array($this->_bean->team_id, $this->_teamList)){
+						$this->_teamList[] = $this->_bean->team_id;
+					}
+				}
 
-                //we added 'disable_team_access_check' config entry to allow for admins to revert back to the way things were
-                //pre 5.5. So that they could disable this check and if the assigned_user was not a member of one of the
-                //teams on this record we would just leave it alone.
-                //Exclude user's module so additional teams are NOT added to a user record
-                if (($this->focus->module_dir != 'Users') && empty($GLOBALS['sugar_config']['disable_team_access_check']) 
-                    && empty($this->focus->in_workflow)) {
-                    $assigned_user_id = null;
-                    if (isset($this->focus->assigned_user_id)) {
-                        $assigned_user_id = $this->focus->assigned_user_id;
-                    } else {
-                        if (isset($this->focus->created_by)) {
-                            $assigned_user_id = $this->focus->created_by;
-                        }
-                    }
-                    if (!empty($assigned_user_id) && !$this->_teamSet->isUserAMember($assigned_user_id, '', $this->_teamList)) {
-                        $privateTeamId = User::staticGetPrivateTeamID($assigned_user_id);
-                        if (!empty($privateTeamId)) {
-                            $this->_teamList[] = $privateTeamId;
-                        }
-                    }
-                }
-                if (!empty($this->_teamList)) {
-                    $this->focus->team_set_id = $this->_teamSet->addTeams($this->_teamList);
-                }
-            }//fi empty($GLOBALS['sugar_config']['disable_team_sanity_check']))
+				//we need to check if the assigned_user has access to any of the teams on this record,
+				//if they do not then we need to be sure to add their private team to the list.
+				//If assigned_user_id is not set on the object as is the case with Documents, then use created_by
 
-            //if this bean already exists in the database, and is not new with id
-            //and if we are not saving this bean from Import or Mass Update, then perform the query
-            //otherwise the bean should be saved later.
-            $runUpdate = false;
-            if ($checkForUpdate) {
-                $runUpdate = (!empty($this->focus->id) && empty($this->focus->new_with_id) && !empty($this->focus->save_from_post));
-            }
+				//we added 'disable_team_access_check' config entry to allow for admins to revert back to the way things were
+				//pre 5.5. So that they could disable this check and if the assigned_user was not a member of one of the
+				//teams on this record we would just leave it alone.
+				//Exclude user's module so additional teams are NOT added to a user record
+				if(($this->_bean->module_dir != 'Users') && empty($GLOBALS['sugar_config']['disable_team_access_check']) && empty($this->_bean->in_workflow)){
+					$assigned_user_id = null;
+					if(isset($this->_bean->assigned_user_id)){
+						$assigned_user_id = $this->_bean->assigned_user_id;
+					}else if(isset($this->_bean->created_by)){
+						$assigned_user_id = $this->_bean->created_by;
+					}
+					if(!empty($assigned_user_id) && !$this->_teamSet->isUserAMember($assigned_user_id, '', $this->_teamList)){
+						$privateTeamId = User::staticGetPrivateTeamID($assigned_user_id);
+						if(!empty($privateTeamId)){
+							$this->_teamList[] = $privateTeamId;
+						}
+					}
+				}
+				if (!empty($this->_teamList)) {
+				    $this->_bean->team_set_id = $this->_teamSet->addTeams($this->_teamList);
+				}
+			}//fi empty($GLOBALS['sugar_config']['disable_team_sanity_check']))
 
-            if ($runUpdate) {
-                $GLOBALS['db']->query("UPDATE {$this->focus->table_name} SET team_set_id = '{$this->focus->team_set_id}' WHERE id = '{$this->focus->id}'");
-            }
-            //keep track of what we put into the database so we can clean things up later
-            TeamSetManager::saveTeamSetModule($this->focus->team_set_id, $this->focus->table_name);
+	        //if this bean already exists in the database, and is not new with id
+	        //and if we are not saving this bean from Import or Mass Update, then perform the query
+	        //otherwise the bean should be saved later.
+	        $runUpdate = false;
+	        if($checkForUpdate){
+	        	$runUpdate = (!empty($this->_bean->id) && empty($this->_bean->new_with_id) && !empty($this->_bean->save_from_post));
+	        }
 
-            if ($previousTeamSetId != $this->focus->team_set_id) {
-                TeamSetManager::removeTeamSetModule($this->focus, $previousTeamSetId);
-            }
-            
-            $this->_saved = true;
+	        if($runUpdate) {
+	           $GLOBALS['db']->query("UPDATE {$this->_bean->table_name} SET team_set_id = '{$this->_bean->team_set_id}' WHERE id = '{$this->_bean->id}'");
+	        }
+	        //keep track of what we put into the database so we can clean things up later
+	        TeamSetManager::saveTeamSetModule($this->_bean->team_set_id, $this->_bean->table_name);
+	        $this->_saved = true;
 
-        }
+		}
 	}
 
 	/**
@@ -209,13 +194,13 @@ class TeamSetLink extends Link2 {
 	 * @param unknown_type $save
 	 */
 	public function remove($rel_keys, $additional_values=array(), $save = true) {
-		$team_ids = $this->_teamSet->getTeamIds($this->focus->team_set_id);
+		$team_ids = $this->_teamSet->getTeamIds($this->_bean->team_set_id);
 		//Check if an attempt was made to remove the primary team (team_id) of the bean
-		$primary_key = array_search($this->focus->team_id, $rel_keys);
+		$primary_key = array_search($this->_bean->team_id, $rel_keys);
 		if($primary_key !== false) {
 		   //Remove the entry from $rel_keys	
 		   unset($rel_keys[$primary_key]);	
-		   $params = array($this->focus->team_id, $this->focus->object_name,  $this->focus->id);
+		   $params = array($this->_bean->team_id, $this->_bean->object_name,  $this->_bean->id);
 		   $msg = string_format($GLOBALS['app_strings']['LBL_REMOVE_PRIMARY_TEAM_ERROR'], $params);
 		   $GLOBALS['log']->error($msg);
 		}
@@ -250,9 +235,9 @@ class TeamSetLink extends Link2 {
 	 * @param unknown_type $additional_values
 	 * @param unknown_type $save
 	 */
-	protected function appendTeams($rel_keys, $additional_values=array(), $save = true) {
+	private function appendTeams($rel_keys, $additional_values=array(), $save = true) {
 		if(empty($this->_teamList)){
-			$team_ids = $this->_teamSet->getTeamIds($this->focus->team_set_id);
+			$team_ids = $this->_teamSet->getTeamIds($this->_bean->team_set_id);
 			$this->_teamList = array_merge($rel_keys, $team_ids);
 		}else{
 			$this->_teamList = array_merge($this->_teamList, $rel_keys);
@@ -261,12 +246,5 @@ class TeamSetLink extends Link2 {
 			$this->save();
 		}
 	}
-
-    /**
-     * Removes TeamSet module if no records exist
-     */
-    public function removeTeamSetModule()
-    {
-        TeamSetManager::removeTeamSetModule($this->focus, $this->focus->team_set_id);
-    }
 }
+?>

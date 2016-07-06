@@ -1,7 +1,6 @@
 <?php
 
 namespace Elastica;
-
 use Elastica\Aggregation\AbstractAggregation;
 use Elastica\Exception\InvalidException;
 use Elastica\Exception\NotImplementedException;
@@ -10,8 +9,8 @@ use Elastica\Filter\AbstractFilter;
 use Elastica\Query\AbstractQuery;
 use Elastica\Query\MatchAll;
 use Elastica\Query\QueryString;
-use Elastica\Rescore\AbstractRescore;
 use Elastica\Suggest\AbstractSuggest;
+use Elastica\Suggest;
 
 /**
  * Elastica query object
@@ -31,12 +30,12 @@ class Query extends Param
      * @var array Params
      */
     protected $_params = array();
-
+    
     /**
-     * Suggest query or not
-     *
-     * @var int Suggest
-     */
+    * Suggest query or not
+    *
+    * @var int Suggest
+    */
     protected $_suggest = 0;
 
     /**
@@ -60,7 +59,7 @@ class Query extends Param
      *
      * If query is empty,
      *
-     * @param  mixed                                       $query
+     * @param  mixed                                      $query
      * @throws \Elastica\Exception\NotImplementedException
      * @return \Elastica\Query
      */
@@ -73,7 +72,7 @@ class Query extends Param
                 return new self($query);
             case $query instanceof AbstractFilter:
                 $newQuery = new self();
-                $newQuery->setPostFilter($query);
+                $newQuery->setFilter($query);
 
                 return $newQuery;
             case empty($query):
@@ -97,7 +96,7 @@ class Query extends Param
     /**
      * Sets query as raw array. Will overwrite all already set arguments
      *
-     * @param  array           $query Query array
+     * @param  array          $query Query array
      * @return \Elastica\Query Query object
      */
     public function setRawQuery(array $query)
@@ -133,20 +132,16 @@ class Query extends Param
      *
      * @param  \Elastica\Filter\AbstractFilter $filter Filter object
      * @return \Elastica\Query                 Current object
-     * @link    https://github.com/elasticsearch/elasticsearch/issues/7422
-     * @deprecated
      */
     public function setFilter(AbstractFilter $filter)
     {
-        trigger_error('Deprecated: Elastica\Query::setFilter() is deprecated. Use Elastica\Query::setPostFilter() instead.', E_USER_DEPRECATED);
-
-        return $this->setPostFilter($filter);
+        return $this->setParam('filter', $filter->toArray());
     }
 
     /**
      * Sets the start from which the search results should be returned
      *
-     * @param  int             $from
+     * @param  int            $from
      * @return \Elastica\Query Query object
      */
     public function setFrom($from)
@@ -158,7 +153,7 @@ class Query extends Param
      * Sets sort arguments for the query
      * Replaces existing values
      *
-     * @param  array           $sortArgs Sorting arguments
+     * @param  array          $sortArgs Sorting arguments
      * @return \Elastica\Query Query object
      * @link http://www.elasticsearch.org/guide/reference/api/search/sort.html
      */
@@ -170,7 +165,7 @@ class Query extends Param
     /**
      * Adds a sort param to the query
      *
-     * @param  mixed           $sort Sort parameter
+     * @param  mixed          $sort Sort parameter
      * @return \Elastica\Query Query object
      * @link http://www.elasticsearch.org/guide/reference/api/search/sort.html
      */
@@ -182,7 +177,7 @@ class Query extends Param
     /**
      * Sets highlight arguments for the query
      *
-     * @param  array           $highlightArgs Set all highlight arguments
+     * @param  array          $highlightArgs Set all highlight arguments
      * @return \Elastica\Query Query object
      * @link http://www.elasticsearch.org/guide/reference/api/search/highlighting.html
      */
@@ -194,7 +189,7 @@ class Query extends Param
     /**
      * Adds a highlight argument
      *
-     * @param  mixed           $highlight Add highlight argument
+     * @param  mixed          $highlight Add highlight argument
      * @return \Elastica\Query Query object
      * @link http://www.elasticsearch.org/guide/reference/api/search/highlighting.html
      */
@@ -206,19 +201,20 @@ class Query extends Param
     /**
      * Sets maximum number of results for this query
      *
-     * @param  int             $size OPTIONAL Maximal number of results for query (default = 10)
+     * @param  int            $size OPTIONAL Maximal number of results for query (default = 10)
      * @return \Elastica\Query Query object
      */
     public function setSize($size = 10)
     {
         return $this->setParam('size', $size);
+        
     }
 
     /**
      * Alias for setSize
      *
      * @deprecated Use the setSize() method, this method will be removed in future releases
-     * @param  int             $limit OPTIONAL Maximal number of results for query (default = 10)
+     * @param  int            $limit OPTIONAL Maximal number of results for query (default = 10)
      * @return \Elastica\Query Query object
      */
     public function setLimit($limit = 10)
@@ -229,7 +225,7 @@ class Query extends Param
     /**
      * Enables explain on the query
      *
-     * @param  bool            $explain OPTIONAL Enabled or disable explain (default = true)
+     * @param  bool           $explain OPTIONAL Enabled or disable explain (default = true)
      * @return \Elastica\Query Current object
      * @link http://www.elasticsearch.org/guide/reference/api/search/explain.html
      */
@@ -241,7 +237,7 @@ class Query extends Param
     /**
      * Enables version on the query
      *
-     * @param  bool            $version OPTIONAL Enabled or disable version (default = true)
+     * @param  bool           $version OPTIONAL Enabled or disable version (default = true)
      * @return \Elastica\Query Current object
      * @link http://www.elasticsearch.org/guide/reference/api/search/version.html
      */
@@ -252,10 +248,8 @@ class Query extends Param
 
     /**
      * Sets the fields to be returned by the search
-     * NOTICE php will encode modified(or named keys) array into object format in json format request
-     * so the fields array must a sequence(list) type of array
      *
-     * @param  array           $fields Fields to be returned
+     * @param  array          $fields Fields to be returned
      * @return \Elastica\Query Current object
      * @link http://www.elasticsearch.org/guide/reference/api/search/fields.html
      */
@@ -283,7 +277,7 @@ class Query extends Param
     /**
      * Adds a Script to the query
      *
-     * @param  string           $name
+     * @param  string          $name
      * @param  \Elastica\Script $script Script object
      * @return \Elastica\Query  Query object
      */
@@ -297,7 +291,7 @@ class Query extends Param
     /**
      * Sets all facets for this query object. Replaces existing facets
      *
-     * @param  array           $facets List of facet objects
+     * @param  array          $facets List of facet objects
      * @return \Elastica\Query Query object
      * @link http://www.elasticsearch.org/guide/reference/api/search/facets/
      */
@@ -327,8 +321,8 @@ class Query extends Param
     /**
      * Adds an Aggregation to the query
      *
-     * @param  AbstractAggregation $agg
-     * @return \Elastica\Query     Query object
+     * @param AbstractAggregation $agg
+     * @return \Elastica\Query Query object
      */
     public function addAggregation(AbstractAggregation $agg)
     {
@@ -336,7 +330,6 @@ class Query extends Param
             $this->_params['aggs'] = array();
         }
         $this->_params['aggs'][$agg->getName()] = $agg->toArray();
-
         return $this;
     }
 
@@ -355,17 +348,13 @@ class Query extends Param
             unset($this->_params['facets']);
         }
 
-        if (isset($this->_params['post_filter']) && 0 === count($this->_params['post_filter'])) {
-            unset($this->_params['post_filter']);
-        }
-
         return $this->_params;
     }
 
     /**
      * Allows filtering of documents based on a minimum score
      *
-     * @param  int                                  $minScore Minimum score to filter documents by
+     * @param  int                                 $minScore Minimum score to filter documents by
      * @throws \Elastica\Exception\InvalidException
      * @return \Elastica\Query                      Query object
      */
@@ -381,32 +370,28 @@ class Query extends Param
     /**
      * Add a suggest term
      *
-     * @param \Elastica\Suggest $suggest suggestion object
+     * @param  \Elastica\Suggest $suggest suggestion object
      */
     public function setSuggest(Suggest $suggest)
     {
-        $this->setParams(array_merge(
-            $this->getParams(),
-            $suggest->toArray()
-        ));
+        $this->addParam(NULL, $suggest->toArray());
         $this->_suggest = 1;
     }
 
     /**
      * Add a Rescore
      *
-     * @param  \Elastica\Rescore\AbstractRescore $rescore suggestion object
-     * @return \Elastica\Query                   Current object
+     * @param  \Elastica\Rescore\AbstractRescore $suggest suggestion object
      */
     public function setRescore($rescore)
     {
-        return $this->setParam('rescore', $rescore->toArray());
+        $this->setParam('rescore', $rescore->toArray());
     }
 
     /**
      * Sets the _source field to be returned with every hit
      *
-     * @param  array           $fields Fields to be returned
+     * @param  array          $fields Fields to be returned
      * @return \Elastica\Query Current object
      * @link   http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.x/search-request-source-filtering.html
      */
@@ -414,22 +399,7 @@ class Query extends Param
     {
         return $this->setParam('_source', $fields);
     }
-
-    /**
-     * Sets post_filter argument for the query. The filter is applied after the query has executed
-     *
-     * @param  array|\Elastica\Filter\AbstractFilter $filter
-     * @return \Elastica\Query                       Current object
-     * @link    http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-request-post-filter.html
-     */
-    public function setPostFilter($filter)
-    {
-        if ($filter instanceof AbstractFilter) {
-            $filter = $filter->toArray();
-        } else {
-            trigger_error('Deprecated: Elastica\Query::setPostFilter() passing filter as array is deprecated. Pass instance of AbstractFilter instead.', E_USER_DEPRECATED);
-        }
-
-        return $this->setParam("post_filter", $filter);
-    }
 }
+
+
+

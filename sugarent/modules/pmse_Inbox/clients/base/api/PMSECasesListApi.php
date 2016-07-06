@@ -124,24 +124,9 @@ class PMSECasesListApi extends FilterApi
             $args['order_by'] = 'cas_create_date:asc';
         }
         $options = self::parseArguments($api, $args, $inboxBean);
-
-        // Replacement for using .* to get all columns
-        // Fields from inbox that are needed
-        // Removed the pro_title column because it contains old data and is never updated
-        $inboxFields = array(
-            'id', 'name', 'date_entered', 'date_modified',
-            'modified_user_id', 'created_by', 'deleted',
-            'cas_id', 'cas_parent', 'cas_status', 'pro_id',
-            'cas_title', 'cas_custom_status', 'cas_init_user', 'cas_create_date',
-            'cas_update_date', 'cas_finish_date', 'cas_pin cas_pin', 'cas_assigned_status',
-            'cas_module', 'team_id', 'team_set_id', 'assigned_user_id',
+        $fields = array(
+            'a.*'
         );
-
-        // Now put them into a format that SugarQuery likes
-        foreach ($inboxFields as $field) {
-            $fields[] = array("a.$field", $field);
-        }
-
         $q->from($inboxBean, array('alias' => 'a'));
 
         //INNER USER TABLE
@@ -154,42 +139,19 @@ class PMSECasesListApi extends FilterApi
         //INNER PROCESS TABLE
         $q->joinTable('pmse_bpmn_process', array('alias' => 'pr', 'joinType' => 'INNER', 'linkingTable' => true))
             ->on()
-            ->equalsField('pr.id', 'a.pro_id');
+            ->equalsField('pr.id', 'a.pro_id')
+            ->equals('pr.deleted', 0);
         $fields[] = array("pr.prj_id", 'prj_id');
 
         //INNER PROJECT TABLE
         $q->joinTable('pmse_project', array('alias' => 'prj', 'joinType' => 'INNER', 'linkingTable' => true))
             ->on()
-            ->equalsField('prj.id', 'pr.prj_id');
+            ->equalsField('prj.id', 'pr.prj_id')
+            ->equals('prj.deleted', 0);
         $fields[] = array("prj.assigned_user_id", 'prj_created_by');
         $fields[] = array("prj.prj_module", 'prj_module');
 
-        $q->joinTable('pmse_bpmn_process', array('alias' => 'process', 'joinType' => 'INNER', 'linkingTable' => true))
-            ->on()
-            ->equalsField('process.id', 'a.pro_id');
-
-        //INNER BPM FLOW
-        // This relationship is adding several duplicated rows to the query
-        // use of DISTINCT should be added
-        $q->joinTable('pmse_bpm_flow', array('alias' => 'pf', 'joinType' => 'INNER', 'linkingTable' => true))
-            ->on()
-            ->equalsField('pf.cas_id','a.cas_id');
-
-        $fields[] = array("pf.cas_sugar_module", 'cas_sugar_module');
-        $fields[] = array("pf.cas_sugar_object_id", 'cas_sugar_object_id');
-
-        // get pro_title (process name) from pmse_bpmn_process table
-        // because that is updated when process definition is edited
-        $fields[] = array('process.name', 'pro_title');
-
-        // Since we are retrieving deleted project's processes, we need to know
-        // which of them are from deleted projects.
-        $fields[] = array('pr.deleted', 'prj_deleted');
-
         $q->select($fields);
-
-        // Adding DISTINCT inside query to avoid validate duplicated rows on WHERE section
-        $q->distinct(true);
 
         $q->where()
             ->in('prj.prj_module', PMSEEngineUtils::getSupportedModules());
@@ -229,7 +191,6 @@ class PMSECasesListApi extends FilterApi
                     break;
             }
         }
-
         foreach ($options['order_by'] as $orderBy) {
             $q->orderBy($orderBy[0], $orderBy[1]);
         }
@@ -237,9 +198,19 @@ class PMSECasesListApi extends FilterApi
         $q->limit($options['limit']);
         $q->offset($options['offset']);
 
+        $offset = $options['offset'] + $options['limit'];
         $count = 0;
         $list = $q->execute();
         foreach ($list as $key => $value) {
+            if ($value["cas_status"] === 'IN PROGRESS') {
+                $list[$key]["cas_status"] = '<data class="label label-Leads">' . $value["cas_status"] . '</data>';
+            } elseif ($value["cas_status"] === 'COMPLETED' || $value["cas_status"] === 'TERMINATED') {
+                $list[$key]["cas_status"] = '<data class="label label-success">' . $value["cas_status"] . '</data>';
+            } elseif ($value["cas_status"] === 'CANCELLED') {
+                $list[$key]["cas_status"] = '<data class="label label-warning">' . $value["cas_status"] . '</data>';
+            } else {
+                $list[$key]["cas_status"] = '<data class="label label-important">' . $value["cas_status"] . '</data>';
+            }
 
             $list[$key]['cas_create_date'] = PMSEEngineUtils::getDateToFE($value['cas_create_date'],'datetime');
             $list[$key]['date_entered'] = PMSEEngineUtils::getDateToFE($value['date_entered'],'datetime');

@@ -14,14 +14,14 @@
  * @extends View.Layout
  */
 ({
-    className: 'columns',
+    className: 'container-fluid',
 
     // FIXME: Change this to 'UnsavedChanges' when SC-4167 gets merged. It won't
     // work until then, because 'Editable' can only be attached to a view.
     plugins: ['Editable'],
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);

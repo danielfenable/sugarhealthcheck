@@ -137,6 +137,7 @@ function smarty_function_sugar_actions_link($params, &$smarty)
 				}
 				return '';
 
+
    	  } //switch
 
    } else if(is_array($type) && isset($type['customCode'])) {

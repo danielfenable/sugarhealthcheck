@@ -20,8 +20,6 @@ $mod_strings = array (
 	'LBL_CONTRACTS_SUBPANEL_TITLE'=>'Contracts',
     'LBL_RLI_SUBPANEL_TITLE' => 'Revenue Line Items',
 	'LBL_QUOTES_SUBPANEL_TITLE' => 'Quotes',
-    'LBL_QUOTES_BILLTO' => 'Quotes (Bill To)',
-    'LBL_QUOTES_SHIPTO' => 'Quotes (Ship To)',
 	'LNK_ACCOUNT_REPORTS' => 'View Account Reports',
     'LBL_DOCUMENTS_SUBPANEL_TITLE' => 'Documents',
 	// Dashlet Categories
@@ -190,7 +188,9 @@ To create an {{module_name}}:
 1. Provide values for the fields as desired.
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
-2. Click "Save" to finalize the new record and return to the previous page.',
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
 
     'LBL_FILTER_ACCOUNTS_REPORTS' => 'Accounts\' reports',
 );

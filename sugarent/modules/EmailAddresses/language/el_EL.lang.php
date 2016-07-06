@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,21 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-    'LBL_EMAIL_ADDRESS_ID' => 'Ταυτότητα',
-    'LBL_EMAIL_ADDRESS' => 'Διεύθυνση Email',
-    'LBL_EMAIL_ADDRESS_CAPS' => 'Διεύθυνση Email κεφαλαία',
-    'LBL_INVALID_EMAIL' => 'Άκυρο Email',
-    'LBL_OPT_OUT' => 'Αποχωρημένο',
-    'LBL_DATE_CREATE' => 'Ημερομηνία Δημιουργίας',
-    'LBL_DATE_MODIFIED' => 'Ημερομηνία Τροποποίησης',
-    'LBL_DELETED' => 'Διαγραφή',
+  'LBL_DATE_CREATE' => 'Ημερομηνία Δημιουργίας',
+  'LBL_DATE_MODIFIED' => 'Ημερομηνία Τροποποίησης',
+  'LBL_DELETED' => 'Διαγραφή',
+  'LBL_EMAIL_ADDRESS' => 'Διεύθυνση Email',
+  'LBL_EMAIL_ADDRESS_CAPS' => 'Διεύθυνση Email κεφαλαία',
+  'LBL_EMAIL_ADDRESS_ID' => 'Ταυτότητα',
+  'LBL_INVALID_EMAIL' => 'Άκυρο Email',
+  'LBL_OPT_OUT' => 'Αποχωρημένο',
 );
+

@@ -53,7 +53,7 @@ class SetOptionsAction extends AbstractAction{
 
 				var keys = this.evalExpression(this.keyExpr, context),
 					labels = this.evalExpression(this.labelExpr, context),
-					empty,
+					empty = (_.size(keys) === 0 || _.size(keys) === 1) && (keys[0] == undefined || keys[0] === '');
 					selected = '';
 
 				if (context.view)
@@ -63,14 +63,6 @@ class SetOptionsAction extends AbstractAction{
 					if (!field) {
 					    return;
 					}
-
-                    selected = [].concat(field.model.get(this.target));
-                    if (!this.canSetValue(context)) {
-                        keys = keys.concat(selected);
-                    }
-
-                    empty = (_.size(keys) === 0 || _.size(keys) === 1) && (keys[0] == undefined || keys[0] === '');
-
 					if (_.isString(labels))
 						field.items = _.pick(App.lang.getAppListStrings(labels), keys);
 					else
@@ -85,15 +77,15 @@ class SetOptionsAction extends AbstractAction{
 					visAction.exec();
 
 					//Remove from the selected options those options that are no longer available to select
-					selected = _.filter(selected, function(key) {
+					selected = _.filter([].concat(field.model.get(this.target)), function(key) {
 					    return _.contains(keys, key);
 					});
 
-					if ((selected.length == 0 || (selected.length == 1 && selected[0] == '')) && field.model.fields[field.name].type != 'multienum') {
-					    selected = [(empty ? '' : keys[0])];
+					if (selected.length == 0 && field.model.fields[field.name].type != 'multienum') {
+					    selected = selected.concat(empty ? '' : keys[0]);
 					}
 
-                    context.setValue(this.target, selected);
+					context.setValue(this.target, selected);
 				}
 				else {
 					var field = context.getElement(this.target);

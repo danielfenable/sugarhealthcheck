@@ -115,7 +115,7 @@ class PipelineChartApi extends SugarApi
         // data storage
         $data = array();
         // keep track of the total for later user
-        $total = SugarMath::init('0');
+        $total = SugarMath::init('0', 0);
 
         foreach ($rows as $row) {
             // if the sales stage is one we need to ignore, the just continue to the next record
@@ -138,7 +138,7 @@ class PipelineChartApi extends SugarApi
             $base_amount = SugarCurrency::convertWithRate($row[$amount_field], $row['base_rate']);
 
             // add the new value into what was already there
-            $data[$row['sales_stage']]['total'] = SugarMath::init($data[$row['sales_stage']]['total'])->add(
+            $data[$row['sales_stage']]['total'] = SugarMath::init($data[$row['sales_stage']]['total'], 0)->add(
                 $base_amount
             )->result();
             $data[$row['sales_stage']]['count']++;
@@ -154,7 +154,7 @@ class PipelineChartApi extends SugarApi
         // setup for return format
         $return_data = array();
         $series = 0;
-        $previous_value = SugarMath::init('0');
+        $previous_value = SugarMath::init('0', 0);
         foreach ($data as $key => $item) {
             $value = $item['total'];
             // set up each return key
@@ -167,7 +167,7 @@ class PipelineChartApi extends SugarApi
                         'label' => SugarCurrency::formatAmount($value, $currency->id, 0),
                         // sending value by itself as 'y' gets manipulated by scale on the frontend
                         // this way we maintain the actual value's integrity
-                        'value' => floatval($value),
+                        'value' => intval($value),
                         'x' => 0,
                         'y' => intval($value),                  // this needs to be an integer
                         'y0' => intval($previous_value->result())         // this needs to be an integer

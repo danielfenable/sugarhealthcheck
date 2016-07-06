@@ -62,7 +62,7 @@
     opportunitiesWithRevenueLineItems: false,
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     initialize: function(options) {
         this.isManager = app.user.get('is_manager');
@@ -79,12 +79,9 @@
         this.isForecastSetup = this.forecastConfig.is_setup;
         this.forecastsConfigOK = app.utils.checkForecastConfig();
 
-        var oppConfig = app.metadata.getModule('Opportunities', 'config');
-        if (oppConfig && oppConfig['opps_view_by'] === 'RevenueLineItems') {
-            this.opportunitiesWithRevenueLineItems = true;
-        } else {
-            this.opportunitiesWithRevenueLineItems = false;
-        }
+        this.opportunitiesWithRevenueLineItems = (
+            app.metadata.getModule('Opportunities', 'config')['opps_view_by'] === 'RevenueLineItems'
+        );
 
         if (this.isForecastSetup && this.forecastsConfigOK) {
             this.initOptions.meta.template = undefined;
@@ -251,7 +248,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Additional logic on switch visibility event.
      */
@@ -296,7 +293,7 @@
                 if (chartField && dashletToolbar) {
                     chartField.before('chart:pareto:render', function() {
                         this.$('[data-action=loading]').removeClass(this.cssIconDefault).addClass(this.cssIconRefresh);
-                    }, dashletToolbar);
+                    }, {}, dashletToolbar);
                     chartField.on('chart:pareto:rendered', function() {
                         this.$('[data-action=loading]').removeClass(this.cssIconRefresh).addClass(this.cssIconDefault);
                     }, dashletToolbar);
@@ -347,7 +344,7 @@
      * Utility Method to find the proper model to use, if this.model.module is forecasts, go up to the parent context
      * and use the model that's attached to it otherwise return this.model
      *
-     * @return {Backbone.Model|Data.Bean}
+     * @return {*}
      * @private
      */
     _getNonForecastModel: function() {
@@ -548,7 +545,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * Clean up!
      */
     unbindData: function() {

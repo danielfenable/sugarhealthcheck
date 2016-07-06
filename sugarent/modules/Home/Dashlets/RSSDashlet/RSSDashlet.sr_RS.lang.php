@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,20 +12,22 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: RSSDashlet.en_us.lang.php,v 1.1 2006/10/11 00:53:31 clint Exp $
+$dashletStrings = array (
+  'RSSDashlet' => 
+  array (
+    'LBL_TITLE' => 'Vesti',
+    'LBL_DESCRIPTION' => 'Vesti',
+    'LBL_SAVING' => 'Parsiranje ...',
+    'LBL_SAVED' => 'Završeno',
+    'LBL_AUTO_SCROLL' => 'Automatsko listanje',
+    'LBL_SCROLL_SPEED' => 'Brzina listanja (%)',
+    'LBL_CONFIGURE_TITLE' => 'Naslov',
+    'LBL_CONFIGURE_HEIGHT' => 'Visina (1 - 300)',
+    'LBL_CONFIGURE_RSSURL' => 'RSS URL',
+    'LBL_DBLCLICK_HELP' => '',
+    'ERR_LOADING_FEED' => 'Neuspelno učitavanje RSS-a',
+  ),
+);
 
-
-$dashletStrings['RSSDashlet'] = array('LBL_TITLE'            => 'Vesti',
-                                         'LBL_DESCRIPTION'      => 'Vesti',
-                                         'LBL_SAVING'           => 'Parsiranje ...',
-                                         'LBL_SAVED'            => 'Završi',
-                                         'LBL_AUTO_SCROLL'      => 'Automatsko listanje',
-                                          'LBL_SCROLL_SPEED'      => 'Brzina listanja (%)',
-                                         'LBL_CONFIGURE_TITLE'  => 'Titula',
-                                         'LBL_CONFIGURE_HEIGHT' => 'Visina (1 - 300)',
-                                         'LBL_CONFIGURE_RSSURL' => 'RSS URL',
-                                         'LBL_DBLCLICK_HELP'    => '',
-                                         'ERR_LOADING_FEED'     => 'Neuspelno učitavanje RSS-a',
-                                         );
-?>

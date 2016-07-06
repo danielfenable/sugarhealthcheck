@@ -76,14 +76,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
             $ie->email->from_name = $ie->email->from_addr;
             $email = $ie->email->et->handleReplyType($ie->email, $_REQUEST['composeType']);
             $ret = $ie->email->et->displayComposeEmail($email);
-
-            if (empty($email->description_html)) {
-                $ret['description'] = str_replace("\n", "<BR/>", $email->description);
-            } else {
-                $ret['description'] = $ie->getHTMLDisplay(SugarCleaner::cleanHtml($email->description_html));
-                $ret['description'] = str_replace(array("\r\n", "\n"), "", $ret['description']);
-            }
-
+            $ret['description'] = empty($email->description_html) ?  str_replace("\n", "\n<BR/>", $email->description) : $email->description_html;
 			//get the forward header and add to description
             $forward_header = $email->getForwardHeader();
 
@@ -106,14 +99,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
             $ie->email->date_sent = $timedate->to_display_date_time($ie->email->date_sent);
             $email = $ie->email->et->handleReplyType($ie->email, $_REQUEST['composeType']);
             $ret = $ie->email->et->displayComposeEmail($email);
-
-            if (empty($email->description_html)) {
-                $ret['description'] = str_replace("\n", "<BR/>", $email->description);
-            } else {
-                $ret['description'] = $ie->getHTMLDisplay(SugarCleaner::cleanHtml($email->description_html));
-                $ret['description'] = str_replace(array("\r\n", "\n"), "", $ret['description']);
-            }
-
             if ($_REQUEST['composeType'] == 'forward') {
             	$ret = $ie->email->et->createCopyOfInboundAttachment($ie, $ret, $_REQUEST['uid']);
             }
@@ -835,11 +820,6 @@ eoq;
         if(isset($_REQUEST['uid']) && !empty($_REQUEST['uid'])) {
             $exIds = explode(",", $_REQUEST['uid']);
             $out = array();
-
-            if (!empty($_REQUEST['ieId'])) {
-                $ie->retrieve($_REQUEST['ieId']);
-                $ie->mailbox = $_REQUEST['mbox'];
-            }
 
             foreach($exIds as $id) {
                 $e = BeanFactory::getBean('Emails', $id);

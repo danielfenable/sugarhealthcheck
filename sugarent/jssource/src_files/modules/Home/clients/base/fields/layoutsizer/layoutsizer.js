@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.Home.LayoutsizerField
  * @alias SUGAR.App.view.fields.BaseHomeLayoutsizerField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     spanMin: 2,

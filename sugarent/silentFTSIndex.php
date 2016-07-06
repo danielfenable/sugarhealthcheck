@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry'))define('sugarEntry', true);
+ if(!defined('sugarEntry'))define('sugarEntry', true);
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,11 +10,6 @@ if(!defined('sugarEntry'))define('sugarEntry', true);
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-use Sugarcrm\Sugarcrm\SearchEngine\SearchEngine;
-use Sugarcrm\Sugarcrm\SearchEngine\Engine\Elastic;
-
-
 //change directories to where this file is located.
 chdir(dirname(__FILE__));
 define('ENTRY_POINT_TYPE', 'api');
@@ -25,8 +20,8 @@ if (substr($sapi_type, 0, 3) != 'cli') {
     sugar_die("silentFTSIndex.php is CLI only.\n");
 }
 
-if (empty($current_language)) {
-    $current_language = $sugar_config['default_language'];
+if(empty($current_language)) {
+	$current_language = $sugar_config['default_language'];
 }
 
 $app_list_strings = return_app_list_strings_language($current_language);
@@ -37,7 +32,7 @@ $current_user = BeanFactory::getBean('Users');
 $current_user->getSystemUser();
 
 // Pop off the filename
-array_shift($argv);
+array_shift($argv); 
 
 // Don't wipe the index if we're just doing individual modules
 $clearData = empty($argv);
@@ -45,39 +40,16 @@ $clearData = empty($argv);
 // Allows for php -f silentFTSIndex.php Bugs Cases
 $modules = $argv;
 
+require_once('include/SugarSearchEngine/SugarSearchEngineFullIndexer.php');
+require_once('include/SugarSearchEngine/SugarSearchEngineAbstractBase.php');
 try {
-    $searchEngine = SearchEngine::getInstance()->getEngine();
-    if (!$searchEngine instanceof Elastic) {
-        echo "Administration not supported for non-Elasticsearch backend. \n";
+    SugarSearchEngineAbstractBase::markSearchEngineStatus(false); // set search engine to "up"
+    $indexer = new SugarSearchEngineFullIndexer();
+    if(!$indexer->performFullSystemIndex($modules, $clearData)) {
+        echo "FTS index failed. Please check the sugarcrm.log for more details.\n";
         exit(1);
     }
-
-    // if no modules are specified in the command arguments
-    // example:
-    // $php -f silentFTSIndex.php
-    if ($clearData) {
-        $searchEngine->runFullReindex(true);
-        echo "Full Reindex is done! \n";
-    } else {
-        // if modules are specified in the command arguments
-        // example:
-        // $php -f silentFTSIndex.php Accounts Contacts Leads
-        // Since the smart indexing is not implemented yet, index the selected modules
-        // by clearing the data.
-        $clearData = true;
-        if (!$searchEngine->scheduleIndexing($modules, $clearData)) {
-            echo "FTS index failed. Please check the sugarcrm.log for more details.\n";
-            exit(1);
-        } else {
-            // Cron has to be run by the administrator afterwards
-            // To check the completion, Elasticsearch queue consumers for the modules
-            // in the database table 'job_queue' must show status as 'done'.
-            echo "Scheduling indexing for the modules is almost done! \n";
-            echo "Please run 'php -f cron.php' to complete indexing the documents.\n";
-        }
-    }
-
-} catch (Exception $e) {
+} catch(Exception $e) {
     echo "Exception: ".$e->getMessage()."\n";
     exit(1);
 }

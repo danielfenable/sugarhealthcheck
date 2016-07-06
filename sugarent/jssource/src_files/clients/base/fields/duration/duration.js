@@ -22,8 +22,6 @@
 
     plugins: ['EllipsisInline'],
 
-    detailViewNames: ['record', 'create', 'create-nodupecheck', 'preview', 'pmse-case'],
-
     /**
      * Set default start date time if date_start has not been set. Add custom validation
      * to make sure that the date range is valid before saving.
@@ -55,7 +53,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     bindDataChange: function() {
         // Change the end date when start date changes.
@@ -94,7 +92,7 @@
 
     /**
      * Check to see if there are any errors on the field. Returns undefined if it is valid.
-     * @return {Object} Errors
+     * @returns {Object} Errors
      */
     validate: function() {
         var errors,
@@ -115,14 +113,10 @@
     },
 
     /**
-     * @override
-     *
      * Return the display string for the start and date, along with the duration.
-     *
-     * @param {Array/Object/string/number/boolean} value The value to format.
      * @return {string} The duration string
      */
-    format: function(value) {
+    getFormattedValue: function() {
         var displayString = '',
             startDateString = this.model.get('date_start'),
             endDateString = this.model.get('date_end'),
@@ -251,10 +245,8 @@
      */
     _loadTemplate: function() {
         this._super('_loadTemplate');
-        // FIXME: SC-3836 will replace special-casing view names/actions via
-        // action based templates.
-        // Use detail view if the view.name is in list of views defined in detailViewNames
-        if ((_.indexOf(this.detailViewNames, this.view.name) > -1) && (this.action === 'edit')) {
+        if ((this.view.name === 'record' || this.view.name === 'create' || this.view.name === 'create-actions'
+            || this.view.name === 'create-nodupecheck') && (this.action === 'edit')) {
             this.template = app.template.getField('fieldset', 'record-detail', this.model.module);
         }
     },
@@ -266,19 +258,5 @@
     _dispose: function() {
         this.model.removeValidationTask('duration_date_range_' + this.cid);
         this._super('_dispose');
-    },
-
-    /**
-     * Special case for duration fields on preview view
-     *
-     * @inheritdoc
-     */
-    setMode: function(name) {
-        //on preview view, we use the preview action instead of detail
-        if (this.view.name === 'preview' && name === 'detail') {
-            name = 'preview';
-        }
-
-        this._super('setMode', [name]);
     }
 })

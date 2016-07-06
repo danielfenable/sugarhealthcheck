@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id: siteConfig.php 18732 2006-12-15 23:50:49 +0000 (Fri, 15 Dec 2006) majed $
+
 
 if( !isset( $install_script ) || !$install_script ){
     die($mod_strings['ERR_NO_DIRECT_SCRIPT']);
@@ -115,7 +115,6 @@ $out =<<<EOQ
    <tr><th colspan="3" align="left">{$mod_strings['LBL_SITECFG_SITE_SECURITY']}</td></tr>
 
 EOQ;
-
 $out .= '<!--';
 $checked = '';
 if(!empty($_SESSION['setup_site_sugarbeet_anonymous_stats'])) $checked = 'checked="checked"';
@@ -125,7 +124,6 @@ $out .= "
        <td><b>{$mod_strings['LBL_SITECFG_ANONSTATS']}</b><br><i>{$mod_strings['LBL_SITECFG_ANONSTATS_DIRECTIONS']}</i></td></tr>
 
 ";
-
 $out .= '-->';
 $out .= "<tr><td><input type='checkbox' style='display:none' name='setup_site_sugarbeet_anonymous_stats' value='yes' checked='checked' /></td></tr>";
 $checked = '';

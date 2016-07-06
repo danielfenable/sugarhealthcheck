@@ -89,7 +89,6 @@ switch($_REQUEST['adminAction']) {
 				if(!empty($id)) {
 				    $bean = BeanFactory::getBean($target, $id);
 					$bean->new_with_id = false;
-                    $bean->processed = true; // bypassing before_save/after_save hook logic
 					$bean->save(); // cleanBean() is called on save()
 					$count++;
 				}

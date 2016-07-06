@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-Nabavite novi potrošački ključ od Citrix Online GoToMeeting registrovanjem nove aplikacije.<br>
-&nbsp;<br>
-Koraci za registrovanje vaše instance:<br>
-&nbsp;<br>
-<ol>
-<li>Prijavite se na svoj Citrix Online programerski nalog: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>Kliknite na "Prijavite se za programerski ključ"</li>
-<li>Na stranici "Product API" izaberite GoToMeeting i unesite URL adresu svoje instance kao URL aplikacije</li>
-<li>Videćete kolonu pod nazivom "Potrošački ključ" pod stavkom "Vaše aplikacije"</li>
-<li>Kopirajte je u nastavku.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'Potrošački ključ',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />Preuzmite API Ključ sa Citrix Online GoToMeeting registrovanjem nove aplikacije.<br><br />&nbsp;<br><br />Koraci za registrovanje instance:<br><br />&nbsp;<br><br /><ol><br /><li>Ulogujte se na Citrix Online Vašim developerskim nalogom: https://developer.citrixonline.com/</li><br /><li>Kliknite na "Apply for Developer Key"</li><br /><li>U "Product API" odaberite "GoToMeeting", i unesite URL vaše instance u "Application URL"</li><br /><li>Videćete kolonu "API Key" u delu "Your Applications"</li><br /><li>Iskopirajte ispod.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'OAuth Potrošački ključ',
 );
+

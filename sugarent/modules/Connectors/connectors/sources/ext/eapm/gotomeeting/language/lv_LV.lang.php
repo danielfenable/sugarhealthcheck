@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,10 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-Iegūstiet patērētāja atslēgu no Citrix Online GoToMeeting, reģistrējot jaunu programmu.<br>
-&nbsp;<br>
-Instances reģistrēšanai veicamie soļi:<br>
-&nbsp;<br>
-<ol>
-<li>Piesakieties savā Citrix Online izstrādātāja kontā: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>Klikšķiniet uz „Apply for Developer Key”</li>
-<li>Produkta API atlasiet GoToMeeting un Programmas URL ievadiet savu instances URL</li>
-<li>Sadaļā „Your Applications” redzēsiet kolonnu „API Key”</li>
-<li>Nokopējiet to zemāk.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'Patērētāja atslēga',
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />Iegūstiet API atslēgu no Citrix Online GoToMeeting reģistrējot jaunu aplikācju.<br><br />&nbsp;<br><br />Instances reģistrēšanas soļi:<br><br />&nbsp;<br><br /><ol><br /><li>Piesakieties savā Citrix Online developer kontā: https://developer.citrixonline.com/</li><br /><li>Spiediet uz Apply for Developer Key</li><br /><li>Produkta API izvēlieties GoToMeeting, un vievadiet savas instances URL Application URL laukā</li><br /><li>Jūs redzēsiet kolonnu API Key zem jūsu aplikācijas</li><br /><li>Nokopējiet to.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'API atslēga',
 );
+

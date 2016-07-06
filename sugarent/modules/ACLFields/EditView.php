@@ -14,8 +14,12 @@ class ACLFieldsEditView{
 	function getView($module, $role_id){
 		$fields = ACLField::getFields( $module, '', $role_id);
 		$sugar_smarty = new Sugar_Smarty();
-        $sugar_smarty->assign('LBL_MODULE', $module);
-
+		if(substr($module, 0, 2)=='KB'){
+        	$sugar_smarty->assign('LBL_MODULE', 'KBDocuments');
+        }
+        else{
+        	$sugar_smarty->assign('LBL_MODULE', $module);
+        }
         $GLOBALS['mod_strings'] = return_module_language($GLOBALS['current_language'], 'ACLFields');
 		$sugar_smarty->assign('MOD', $GLOBALS['mod_strings']);
 		$sugar_smarty->assign('APP', $GLOBALS['app_strings']);

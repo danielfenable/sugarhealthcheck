@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: PipelineBySalesStageDashlet.data.php 16280 2006-08-22 19:47:48Z awu $
+
 
 $dashletData['PipelineBySalesStageDashlet']['searchFields'] = array(
         'pbss_date_start' => array(
@@ -19,7 +19,6 @@ $dashletData['PipelineBySalesStageDashlet']['searchFields'] = array(
                 'vname' => 'LBL_CLOSE_DATE_START',
                 'type'  => 'datepicker',
             ),
-
         'pbss_chart_type' => array(
                 'name'  => 'pbss_chart_type',
                 'vname' => 'LBL_CHART_TYPE',

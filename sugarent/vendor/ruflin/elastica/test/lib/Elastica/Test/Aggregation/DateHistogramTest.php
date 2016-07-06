@@ -2,6 +2,7 @@
 
 namespace Elastica\Test\Aggregation;
 
+
 use Elastica\Aggregation\DateHistogram;
 use Elastica\Document;
 use Elastica\Query;
@@ -12,10 +13,10 @@ class DateHistogramTest extends BaseAggregationTest
     protected function setUp()
     {
         parent::setUp();
-        $this->_index = $this->_createIndex();
+        $this->_index = $this->_createIndex("date_histogram");
         $mapping = new Mapping();
         $mapping->setProperties(array(
-            "created" => array("type" => "date"),
+            "created" => array("type" => "date")
         ));
         $type = $this->_index->getType("test");
         $type->setMapping($mapping);
@@ -39,3 +40,4 @@ class DateHistogramTest extends BaseAggregationTest
         $this->assertEquals(3, sizeof($results['buckets']));
     }
 }
+ 

@@ -17,7 +17,7 @@ $mod_strings = array (
     'LBL_MODULE_NAME_SINGULAR' => 'גליון  תחזית למנהל',
     'LNK_NEW_OPPORTUNITY' => 'צור הזדמנות',
     'LBL_MODULE_TITLE' => 'גליונות  תחזית למנהל',
-    'LBL_LIST_FORM_TITLE' => 'תחזיות מחויבות',
+    'LBL_LIST_FORM_TITLE' => 'Committed Forecasts',
     'LNK_UPD_FORECAST' => 'Forecast Manager Worksheet',
     'LNK_QUOTA' => 'View Quotas',
     'LNK_FORECAST_LIST' => 'View Forecast History',
@@ -26,7 +26,7 @@ $mod_strings = array (
 
     //var defs
     'LBL_TIMEPERIOD_NAME' => 'Time Period',
-    'LBL_USER_NAME' => 'שם משתמש',
+    'LBL_USER_NAME' => 'User Name',
     'LBL_REPORTS_TO_USER_NAME' => 'Reports To',
 
     //forecast table
@@ -36,29 +36,29 @@ $mod_strings = array (
     'LBL_FORECAST_OPP_COUNT' => 'Total Opportunity Count',
     'LBL_FORECAST_PIPELINE_OPP_COUNT' => 'Pipeline Opportunity Count',
     'LBL_FORECAST_OPP_WEIGH'=> 'Weighted Amount',
-    'LBL_FORECAST_USER' => 'משתמש',
-    'LBL_DATE_COMMITTED'=> 'תאריך התחייבות',
+    'LBL_FORECAST_USER' => 'User',
+    'LBL_DATE_COMMITTED'=> 'Date Committed',
     'LBL_DATE_ENTERED' => 'Date Entered',
     'LBL_DATE_MODIFIED' => 'Date Modified',
     'LBL_CREATED_BY' => 'Created by',
     'LBL_DELETED' => 'Deleted',
-    'LBL_MODIFIED_USER_ID'=>'נערך על ידי',
-    'LBL_WK_VERSION' => 'גרסה',
-    'LBL_WK_REVISION' => 'שכתוב',
+    'LBL_MODIFIED_USER_ID'=>'Modified By',
+    'LBL_WK_VERSION' => 'Version',
+    'LBL_WK_REVISION' => 'Revision',
 
     //Quick Commit labels.
     'LBL_QC_TIME_PERIOD' => 'Time Period:',
     'LBL_QC_OPPORTUNITY_COUNT' => 'Opportunity Count:',
     'LBL_QC_WEIGHT_VALUE' => 'Weighted Amount:',
-    'LBL_QC_COMMIT_VALUE' => 'סכום התחייבות:',
-    'LBL_QC_COMMIT_BUTTON' => 'חייב',
+    'LBL_QC_COMMIT_VALUE' => 'Commit Amount:',
+    'LBL_QC_COMMIT_BUTTON' => 'Commit',
     'LBL_QC_WORKSHEET_BUTTON' => 'Worksheet',
-    'LBL_QC_ROLL_COMMIT_VALUE' => 'סכום התחייבות באוסף:',
+    'LBL_QC_ROLL_COMMIT_VALUE' => 'Rollup Commit Amount:',
     'LBL_QC_DIRECT_FORECAST' => 'My Direct Forecast:',
     'LBL_QC_ROLLUP_FORECAST' => 'My Group Forecast:',
     'LBL_QC_UPCOMING_FORECASTS' => 'My Forecasts',
-    'LBL_QC_LAST_DATE_COMMITTED' => 'תאריך התחייבות אחרונה:',
-    'LBL_QC_LAST_COMMIT_VALUE' => 'סכום התחייבות אחרון:',
+    'LBL_QC_LAST_DATE_COMMITTED' => 'Last Commit Date:',
+    'LBL_QC_LAST_COMMIT_VALUE' => 'Last Commit Amount:',
     'LBL_QC_HEADER_DELIM'=> 'To',
 
     //opportunity worksheet list view labels
@@ -69,15 +69,43 @@ $mod_strings = array (
     'LBL_OW_MODULE_TITLE'=> 'Opportunity Worksheet',
     'LBL_OW_PROBABILITY'=>'Probability',
     'LBL_OW_NEXT_STEP'=>'Next Step',
-    'LBL_OW_DESCRIPTION'=>'תיאור',
+    'LBL_OW_DESCRIPTION'=>'Description',
     'LBL_OW_TYPE'=>'Type',
+
+    //forecast schedule shortcuts
+    'LNK_NEW_TIMEPERIOD' => 'Create Time Period',
+    'LNK_TIMEPERIOD_LIST' => 'View Time Periods',
+
+    //Forecast schedule sub panel list view.
+    'LBL_SVFS_FORECASTDATE' => 'Schedule Start Date',
+    'LBL_SVFS_STATUS' => 'Status',
+    'LBL_SVFS_USER' => 'For',
+    'LBL_SVFS_CASCADE' => 'Cascade to Reports?',
+    'LBL_SVFS_HEADER' => 'Forecast Schedule:',
+
+    //Forecast Schedule detail; view.....
+    'LB_FS_KEY' => 'ID',
+    'LBL_FS_TIMEPERIOD_ID' => 'Time Period ID',
+    'LBL_FS_USER_ID' => 'User ID',
+    'LBL_FS_TIMEPERIOD' => 'Time Period',
+    'LBL_FS_START_DATE' => 'Start Date',
+    'LBL_FS_END_DATE' => 'End Date',
+    'LBL_FS_FORECAST_START_DATE' => "Forecast Start Date",
+    'LBL_FS_STATUS' => 'Status',
+    'LBL_FS_FORECAST_FOR' => 'Schedule For:',
+    'LBL_FS_CASCADE' =>'Cascade?',
+    'LBL_FS_MODULE_NAME' => 'Forecast Schedule',
+    'LBL_FS_CREATED_BY' =>'Created by',
+    'LBL_FS_DATE_ENTERED' => 'Date Entered',
+    'LBL_FS_DATE_MODIFIED' => 'Date Modified',
+    'LBL_FS_DELETED' => 'Deleted',
 
     //forecast worksheet direct reports forecast
     'LBL_FDR_USER_NAME'=>'Direct Report',
     'LBL_FDR_OPPORTUNITIES'=>'Opportunities in Forecast:',
     'LBL_FDR_WEIGH'=>'Weighted Amount of Opportunities:',
-    'LBL_FDR_COMMIT'=>'סכום מחויב',
-    'LBL_FDR_DATE_COMMIT'=>'תאריך התחייבות',
+    'LBL_FDR_COMMIT'=>'Committed Amount',
+    'LBL_FDR_DATE_COMMIT'=>'Commit Date',
 
     //detail view.
     'LBL_DV_HEADER' => 'Forecasts:Worksheet',
@@ -88,27 +116,27 @@ $mod_strings = array (
     'LBL_DV_FORECAST_OPPORTUNITY' => 'Forecast Opportunities',
     'LBL_SEARCH' => 'Select',
     'LBL_SEARCH_LABEL' => 'Select',
-    'LBL_COMMIT_HEADER' => 'התחייבות לתחזית',
-    'LBL_DV_LAST_COMMIT_DATE' =>'תאריך התחייבות אחרונה:',
-    'LBL_DV_LAST_COMMIT_AMOUNT' =>'סכומי התחייבות אחרונים:',
-    'LBL_DV_FORECAST_ROLLUP' => 'אוסף תחזיות',
+    'LBL_COMMIT_HEADER' => 'Forecast Commit',
+    'LBL_DV_LAST_COMMIT_DATE' =>'Last Commit Date:',
+    'LBL_DV_LAST_COMMIT_AMOUNT' =>'Last Commit Amounts:',
+    'LBL_DV_FORECAST_ROLLUP' => 'Forecast Rollup',
     'LBL_DV_TIMEPERIOD' => 'Time Period:',
     'LBL_DV_TIMPERIOD_DATES' => 'Date Range:',
-    'LBL_LOADING_COMMIT_HISTORY' => 'טוען היסטוריית התחייבויות...',
+    'LBL_LOADING_COMMIT_HISTORY' => 'Loading Commit History...',
 
     //list view
     'LBL_LV_TIMPERIOD'=> 'Time Period',
     'LBL_LV_TIMPERIOD_START_DATE'=> 'Start Date',
     'LBL_LV_TIMPERIOD_END_DATE'=> 'End Date',
     'LBL_LV_TYPE'=> 'Forecast Type',
-    'LBL_LV_COMMIT_DATE'=> 'תאריך התחייבות',
+    'LBL_LV_COMMIT_DATE'=> 'Date Committed',
     'LBL_LV_OPPORTUNITIES'=> 'Opportunities',
     'LBL_LV_WEIGH'=> 'Weighted Amount',
-    'LBL_LV_COMMIT'=> 'סכום מחויב',
+    'LBL_LV_COMMIT'=> 'Committed Amount',
 
-    'LBL_COMMIT_NOTE'=> 'הזן את הסכומים שברצונך להתחייב להם עבור תקופת הזמן שנבחרה:',
+    'LBL_COMMIT_NOTE'=> 'Enter amounts that you would like to commit for the selected Time Period:',
 
-    'LBL_COMMIT_MESSAGE'=> 'האם ברצונך לחייב סכומים אלה?',
+    'LBL_COMMIT_MESSAGE'=> 'Do you want to commit these amounts?',
     'ERR_FORECAST_AMOUNT' => 'Commit amount is required and must be a number.',
 
     // js error strings
@@ -138,17 +166,16 @@ $mod_strings = array (
     'LBL_DATE_CLOSED' => 'Expected Close Date',
     'LBL_PRODUCT_ID' => 'Product ID',
     'LBL_QUOTA_ID' => 'Quota ID',
-    'LBL_VERSION' => 'גרסה',
+    'LBL_VERSION' => 'Version',
 
     // Label for Current User Rep Worksheet Line
-    // &#x200E; tells the browser to interpret as left-to-right
     'LBL_MY_MANAGER_LINE' => '{{full_name}} (me)',
 
     'LBL_EDITABLE_INVALID' => 'Invalid Value for {{field_name}}',
     'LBL_EDITABLE_INVALID_RANGE' => 'Value must be between {{min}} and {{max}}',
-    'LBL_HISTORY_LOG' => 'התחייבות אחרונה',
-    'LBL_NO_COMMIT' => 'אין התחייבות קודמת',
+    'LBL_HISTORY_LOG' => 'Last Commit',
+    'LBL_NO_COMMIT' => 'No Previous Commit',
 
-    'LBL_MANGER_SAVED' => 'מנהל נשמר'
+    'LBL_MANGER_SAVED' => 'Manager Saved'
 
 );

@@ -29,7 +29,6 @@ var ERR_REENTER_PASSWORDS = '{$MOD.ERR_REENTER_PASSWORDS}';
 <script type='text/javascript' src='{sugar_getjspath file='modules/Users/UserEditView.js'}'></script>
 <script type='text/javascript' src='{sugar_getjspath file='modules/Users/PasswordRequirementBox.js'}'></script>
 {$ERROR_STRING}
-<span id="ajax_error_string" class="error"></span>
 <!-- This is here for the external API forms -->
 <form name="DetailView" id="DetailView" method="POST" action="index.php">
 {sugar_csrf_form_token}

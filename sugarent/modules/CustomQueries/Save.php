@@ -105,8 +105,7 @@ if(!empty($is_edit) && $is_edit==true){
 	//check to see if any new columns exist in the CSQL query
 	
 		$temp_select = $focus->repair_column_binding(true);
-        $temp_unselect = array();
-
+	
 		foreach($old_column_array as $key => $value){
 	
 			//eliminate direct matches
@@ -114,9 +113,6 @@ if(!empty($is_edit) && $is_edit==true){
 				unset($temp_select[$value]);
 			//end eliminate direct matches
 			}
-            else {
-                $temp_unselect[$value] = $value;
-            }
 
 		//end foreach
 		}
@@ -127,9 +123,7 @@ if(!empty($is_edit) && $is_edit==true){
 
 		}
 
-        foreach($temp_unselect as $key => $value){
-            $focus->remove_layout($value);
-        }
+		
 		
 	//end if else	
 	}	

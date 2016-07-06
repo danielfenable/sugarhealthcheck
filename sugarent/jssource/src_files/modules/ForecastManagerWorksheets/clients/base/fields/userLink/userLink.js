@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.ForecastsManagerWorksheets.UserLinkField
  * @alias SUGAR.App.view.fields.BaseForecastsManagerWorksheetsUserLinkField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**

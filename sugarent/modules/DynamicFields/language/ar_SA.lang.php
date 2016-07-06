@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 56676 2010-05-25 21:33:32Z dwheeler $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -51,8 +51,7 @@ $mod_strings = array (
 	'COLUMN_TITLE_HTML_CONTENT' =>'HTML',
 	'COLUMN_TITLE_URL'=>'عنوان URL الافتراضي',
 	'COLUMN_TITLE_AUDIT' =>'التدقيق',
-    'COLUMN_TITLE_FTS' =>'نص كامل قابل للبحث فيه',
-    'COLUMN_TITLE_FTS_BOOST' => 'تعزيز القيمة',
+        'COLUMN_TITLE_FTS' =>'نص كامل قابل للبحث فيه',
 	'COLUMN_TITLE_REPORTABLE' => 'يمكن إرسال تقرير عنه',
 	'COLUMN_TITLE_MIN_VALUE' => 'أدنى قيمة',
 	'COLUMN_TITLE_MAX_VALUE' => 'أقصى قيمة',
@@ -73,7 +72,7 @@ $mod_strings = array (
 	'LNK_REPAIR_CUSTOM_FIELD' => 'إصلاح حقول مخصصة',
 	'LBL_MODULE' => 'الوحدة',
 	'COLUMN_TITLE_MASS_UPDATE'=>'تحديث شامل',
-    'COLUMN_TITLE_IMPORTABLE'=>'السماح بعمليات استيراد',
+    'COLUMN_TITLE_IMPORTABLE'=>'قابل للاستيراد',
     'COLUMN_TITLE_DUPLICATE_MERGE'=>'دمج التكرار',
     'LBL_LABEL'=>'التسمية',
     'LBL_DATA_TYPE'=>'نوع البيانات',

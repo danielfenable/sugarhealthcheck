@@ -1,8 +1,70 @@
 /*
-YUI 3.15.0 (build 834026e)
-Copyright 2014 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-
-YUI.add("series-stacked",function(e,t){function r(){}var n=e.Lang;r.prototype={_stacked:!0,_stackCoordinates:function(){this.get("direction")==="vertical"?this._stackXCoords():this._stackYCoords()},_stackXCoords:function(){var e=this.get("order"),t=this.get("seriesTypeCollection"),r=0,i=this.get("xcoords"),s=this.get("ycoords"),o,u,a,f,l=i.concat(),c,h,p=[],d;e>0?(c=t[e-1].get("stackedXCoords"),h=t[e-1].get("stackedYCoords"),o=c.length):o=i.length;for(;r<o;r+=1)if(n.isNumber(i[r])){if(e>0){a=c[r];if(!n.isNumber(a)){f=e;while(f>-1&&!n.isNumber(a))f-=1,f>-1?a=t[f].get("stackedXCoords")[r]:a=this._leftOrigin}i[r]=i[r]+a}l[r]=i[r]}else p.push(r);this._cleanXNaN(l,s),o=p.length;if(o>0)for(r=0;r<o;r+=1)d=p[r],u=e>0?c[d]:this._leftOrigin,l[d]=Math.max(l[d],u);this.set("stackedXCoords",l),this.set("stackedYCoords",s)},_stackYCoords:function(){var e=this.get("order"),t=this.get("graphic"),r=t.get("height"),i=this.get("seriesTypeCollection"),s=0,o=this.get("xcoords"),u=this.get("ycoords"),a,f,l,c,h=u.concat(),p,d,v=[],m;e>0?(p=i[e-1].get("stackedXCoords"),d=i[e-1].get("stackedYCoords"),a=d.length):a=u.length;for(;s<a;s+=1)if(n.isNumber(u[s])){if(e>0){l=d[s];if(!n.isNumber(l)){c=e;while(c>-1&&!n.isNumber(l))c-=1,c>-1?l=i[c].get("stackedYCoords")[s]:l=this._bottomOrigin}u[s]=l-(r-u[s])}h[s]=u[s]}else v.push(s);this._cleanYNaN(o,h),a=v.length;if(a>0)for(s=0;s<a;s+=1)m=v[s],f=e>0?d[m]:r,h[m]=Math.min(h[m],f);this.set("stackedXCoords",o),this.set("stackedYCoords",h)},_cleanXNaN:function(e,t){var r,i,s,o,u,a,f,l,c=n.isNumber,h,p=0,d=t.length;for(;p<d;++p)u=e[p],a=t[p],!c(u)&&p>0&&p<d-1&&(o=t[p-1],s=this._getPreviousValidCoordValue(e,p),l=t[p+1],f=this._getNextValidCoordValue(e,p),c(s)&&c(f)&&(h=(l-o)/(f-s),e[p]=(a+h*s-o)/h),r=NaN,i=NaN)},_getPreviousValidCoordValue:function(e,t){var r,i=n.isNumber,s=-1;while(!i(r)&&t>s)t-=1,r=e[t];return r},_getNextValidCoordValue:function(e,t){var r,i=n.isNumber,s=e.length;while(!i(r)&&t<s)t+=1,r=e[t];return r},_cleanYNaN:function(e,t){var r,i,s,o,u,a,f,l,c=n.isNumber,h,p=0,d=e.length;for(;p<d;++p)u=e[p],a=t[p],!c(a)&&p>0&&p<d-1&&(s=e[p-1],o=this._getPreviousValidCoordValue(t,p),f=e[p+1],l=this._getNextValidCoordValue(t,p),c(o)&&c(l)&&(h=(l-o)/(f-s),t[p]=o+(h*u-h*s)),r=NaN,i=NaN)}},e.StackingUtil=r},"3.15.0",{requires:["axis-stacked"]});
+     YUI 3.15.0 (build 834026e)
+     Copyright 2014 Yahoo! Inc. All rights reserved.
+     Licensed under the BSD License.
+     http://yuilibrary.com/license/
+     */
+YUI.add('series-stacked',function(Y,NAME){var Y_Lang=Y.Lang;function StackingUtil(){}
+StackingUtil.prototype={_stacked:true,_stackCoordinates:function()
+{if(this.get("direction")==="vertical")
+{this._stackXCoords();}
+else
+{this._stackYCoords();}},_stackXCoords:function()
+{var order=this.get("order"),seriesCollection=this.get("seriesTypeCollection"),i=0,xcoords=this.get("xcoords"),ycoords=this.get("ycoords"),len,coord,prevCoord,prevOrder,stackedXCoords=xcoords.concat(),prevXCoords,prevYCoords,nullIndices=[],nullIndex;if(order>0)
+{prevXCoords=seriesCollection[order-1].get("stackedXCoords");prevYCoords=seriesCollection[order-1].get("stackedYCoords");len=prevXCoords.length;}
+else
+{len=xcoords.length;}
+for(;i<len;i=i+1)
+{if(Y_Lang.isNumber(xcoords[i]))
+{if(order>0)
+{prevCoord=prevXCoords[i];if(!Y_Lang.isNumber(prevCoord))
+{prevOrder=order;while(prevOrder>-1&&!Y_Lang.isNumber(prevCoord))
+{prevOrder=prevOrder-1;if(prevOrder>-1)
+{prevCoord=seriesCollection[prevOrder].get("stackedXCoords")[i];}
+else
+{prevCoord=this._leftOrigin;}}}
+xcoords[i]=xcoords[i]+prevCoord;}
+stackedXCoords[i]=xcoords[i];}
+else
+{nullIndices.push(i);}}
+this._cleanXNaN(stackedXCoords,ycoords);len=nullIndices.length;if(len>0)
+{for(i=0;i<len;i=i+1)
+{nullIndex=nullIndices[i];coord=order>0?prevXCoords[nullIndex]:this._leftOrigin;stackedXCoords[nullIndex]=Math.max(stackedXCoords[nullIndex],coord);}}
+this.set("stackedXCoords",stackedXCoords);this.set("stackedYCoords",ycoords);},_stackYCoords:function()
+{var order=this.get("order"),graphic=this.get("graphic"),h=graphic.get("height"),seriesCollection=this.get("seriesTypeCollection"),i=0,xcoords=this.get("xcoords"),ycoords=this.get("ycoords"),len,coord,prevCoord,prevOrder,stackedYCoords=ycoords.concat(),prevXCoords,prevYCoords,nullIndices=[],nullIndex;if(order>0)
+{prevXCoords=seriesCollection[order-1].get("stackedXCoords");prevYCoords=seriesCollection[order-1].get("stackedYCoords");len=prevYCoords.length;}
+else
+{len=ycoords.length;}
+for(;i<len;i=i+1)
+{if(Y_Lang.isNumber(ycoords[i]))
+{if(order>0)
+{prevCoord=prevYCoords[i];if(!Y_Lang.isNumber(prevCoord))
+{prevOrder=order;while(prevOrder>-1&&!Y_Lang.isNumber(prevCoord))
+{prevOrder=prevOrder-1;if(prevOrder>-1)
+{prevCoord=seriesCollection[prevOrder].get("stackedYCoords")[i];}
+else
+{prevCoord=this._bottomOrigin;}}}
+ycoords[i]=prevCoord-(h-ycoords[i]);}
+stackedYCoords[i]=ycoords[i];}
+else
+{nullIndices.push(i);}}
+this._cleanYNaN(xcoords,stackedYCoords);len=nullIndices.length;if(len>0)
+{for(i=0;i<len;i=i+1)
+{nullIndex=nullIndices[i];coord=order>0?prevYCoords[nullIndex]:h;stackedYCoords[nullIndex]=Math.min(stackedYCoords[nullIndex],coord);}}
+this.set("stackedXCoords",xcoords);this.set("stackedYCoords",stackedYCoords);},_cleanXNaN:function(xcoords,ycoords)
+{var previousValidIndex,nextValidIndex,previousValidX,previousValidY,x,y,nextValidX,nextValidY,isNumber=Y_Lang.isNumber,m,i=0,len=ycoords.length;for(;i<len;++i)
+{x=xcoords[i];y=ycoords[i];if(!isNumber(x)&&i>0&&i<len-1)
+{previousValidY=ycoords[i-1];previousValidX=this._getPreviousValidCoordValue(xcoords,i);nextValidY=ycoords[i+1];nextValidX=this._getNextValidCoordValue(xcoords,i);if(isNumber(previousValidX)&&isNumber(nextValidX))
+{m=(nextValidY-previousValidY)/(nextValidX-previousValidX);xcoords[i]=(y+(m*previousValidX)-previousValidY)/m;}
+previousValidIndex=NaN;nextValidIndex=NaN;}}},_getPreviousValidCoordValue:function(coords,index)
+{var coord,isNumber=Y_Lang.isNumber,limit=-1;while(!isNumber(coord)&&index>limit)
+{index=index-1;coord=coords[index];}
+return coord;},_getNextValidCoordValue:function(coords,index)
+{var coord,isNumber=Y_Lang.isNumber,limit=coords.length;while(!isNumber(coord)&&index<limit)
+{index=index+1;coord=coords[index];}
+return coord;},_cleanYNaN:function(xcoords,ycoords)
+{var previousValidIndex,nextValidIndex,previousValidX,previousValidY,x,y,nextValidX,nextValidY,isNumber=Y_Lang.isNumber,m,i=0,len=xcoords.length;for(;i<len;++i)
+{x=xcoords[i];y=ycoords[i];if(!isNumber(y)&&i>0&&i<len-1)
+{previousValidX=xcoords[i-1];previousValidY=this._getPreviousValidCoordValue(ycoords,i);nextValidX=xcoords[i+1];nextValidY=this._getNextValidCoordValue(ycoords,i);if(isNumber(previousValidY)&&isNumber(nextValidY))
+{m=(nextValidY-previousValidY)/(nextValidX-previousValidX);ycoords[i]=previousValidY+((m*x)-(m*previousValidX));}
+previousValidIndex=NaN;nextValidIndex=NaN;}}}};Y.StackingUtil=StackingUtil;},'3.15.0',{"requires":["axis-stacked"]});

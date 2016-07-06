@@ -9,7 +9,7 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /**
- * @inheritdoc
+ * {@inheritdoc}
  *
  * Planned Activities dashlet takes advantage of the tabbed dashlet abstraction
  * by using its metadata driven capabilities to configure its tabs in order to
@@ -32,7 +32,7 @@
     extendsFrom: 'HistoryView',
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @property {Object} _defaultSettings
      * @property {String} _defaultSettings.date Date against which retrieved
@@ -51,7 +51,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     initialize: function(options) {
         this.plugins = _.union(this.plugins, [
@@ -61,7 +61,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * Store current date state in settings.
      */
@@ -73,22 +73,16 @@
                 defaults: {}
             };
         }
-        if (this.meta.config) {
-            this.layout.before('dashletconfig:save', function() {
-                this._saveSetting('date', this.settings.get('date'));
-            }, this);
-        } else {
-            this.settings.on('change:date', function(model, value) {
-                this._saveSetting('date', value);
-            }, this);
-        }
-
+        this.settings.on('change:date', function(model, value) {
+            var specificDateKey = app.user.lastState.key('date', this);
+            app.user.lastState.set(specificDateKey, value);
+        }, this);
         this.settings.set('date', this.getDate());
         this.tbodyTag = 'ul[data-action="pagination-body"]';
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * Once new records are received, prevent rendering new rows until we fetch
      * the invitation collection by calling {@link #updateInvitation}.
@@ -100,12 +94,11 @@
 
         this._super('_initEvents');
         this.on('planned-activities:close-record:fire', this.heldActivity, this);
-        this.on('linked-model:create', this.loadData, this);
 
         this.before('render:rows', function(data) {
             this.updateInvitation(this.collection, data);
             return false;
-        }, this);
+        }, null, this);
 
         return this;
     },
@@ -174,7 +167,7 @@
             this.createRelatedRecord(params.module, params.link);
         } else {
             app.drawer.open({
-                layout: 'create',
+                layout: 'create-actions',
                 context: {
                     create: true,
                     module: params.module
@@ -222,7 +215,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @protected
      */
     _initTabs: function() {
@@ -257,7 +250,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     _getRecordsTemplate: function(module) {
         this._recordsTpl = this._recordsTpl || {};
@@ -276,7 +269,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     _getFilters: function(index) {
 
@@ -297,7 +290,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     tabSwitcher: function(event) {
         var tab = this.tabs[this.settings.get('activeTab')];
@@ -324,18 +317,6 @@
     },
 
     /**
-     * Saves a setting to local storage.
-     *
-     * @param {string} setting The setting name.
-     * @param {string} value The value to save.
-     * @private
-     */
-    _saveSetting: function(setting, value) {
-        var key = app.user.lastState.key(setting, this);
-        app.user.lastState.set(key, value);
-    },
-
-    /**
      * Get current date state.
      * Returns default value if can't find in last state or settings.
      *
@@ -350,7 +331,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * On load of new data, make sure we reload invitations related data, if
      * it is defined for the current tab.
@@ -408,7 +389,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * New model related properties are injected into each model:
      *

@@ -1,7 +1,6 @@
 <?php
 
 namespace Elastica\Query;
-
 use Elastica\Query as BaseQuery;
 
 /**
@@ -16,8 +15,8 @@ class HasParent extends AbstractQuery
     /**
      * Construct HasChild Query
      *
-     * @param string|\Elastica\Query|\Elastica\Query\AbstractQuery $query
-     * @param string                                               $type  Parent document type
+     * @param string|\Elastica\Query|\Elastica\Query\AbstractQuery $query 
+     * @param string                $type  Parent document type
      */
     public function __construct($query, $type)
     {
@@ -42,7 +41,7 @@ class HasParent extends AbstractQuery
     /**
      * Set type of the parent document
      *
-     * @param  string                     $type Parent document type
+     * @param  string                          $type Parent document type
      * @return \Elastica\Filter\HasParent Current object
      */
     public function setType($type)
@@ -53,7 +52,7 @@ class HasParent extends AbstractQuery
     /**
      * Sets the scope
      *
-     * @param  string                     $scope Scope
+     * @param  string                          $scope Scope
      * @return \Elastica\Filter\HasParent Current object
      */
     public function setScope($scope)

@@ -32,7 +32,7 @@
 		<a class="listViewTdToolsS1" href="{URL_PREFIX}index.php?action=EditView&module=Teams&record={TEAM.ID}{RETURN_URL}">{EDIT_INLINE_PNG}</a> <a class="listViewTdToolsS1" href="{URL_PREFIX}index.php?action=EditView&module=Teams&record={TEAM.ID}{RETURN_URL}">{APP.LNK_EDIT}</a>&nbsp; 
 		<!-- END: admin_edit -->
     	<!-- BEGIN: admin_rem -->
-		<a class="listViewTdToolsS1" onClick="if (confirm('{MOD.NTC_REMOVE_TEAM_MEMBER_CONFIRMATION}')) relationship_remove('Teams', 'RemoveUserFromTeam', {team_record: '{TEAM.ID}', return_url: '{RETURN_URL}'});return false;" href="">{DELETE_INLINE_PNG}</a> <a class="listViewTdToolsS1" onClick="if (confirm('{MOD.NTC_REMOVE_TEAM_MEMBER_CONFIRMATION}')) relationship_remove('Teams', 'RemoveUserFromTeam', {team_record: '{TEAM.ID}', return_url: '{RETURN_URL}'});return false;" href="">{APP.LNK_REMOVE}</a>
+		<a class="listViewTdToolsS1" onClick="return confirm('{MOD.NTC_REMOVE_TEAM_MEMBER_CONFIRMATION}')" href="{URL_PREFIX}index.php?action=RemoveUserFromTeam&module=Teams&record={RECORD_ID}&team_record={TEAM.ID}{RETURN_URL}">{DELETE_INLINE_PNG}</a> <a class="listViewTdToolsS1" onClick="return confirm('{MOD.NTC_REMOVE_TEAM_MEMBER_CONFIRMATION}')" href="{URL_PREFIX}index.php?action=RemoveUserFromTeam&module=Teams&record={RECORD_ID}&team_record={TEAM.ID}{RETURN_URL}">{APP.LNK_REMOVE}</a>
 		<!-- END: admin_rem -->
 		<!-- BEGIN: user_edit -->
 		&nbsp;

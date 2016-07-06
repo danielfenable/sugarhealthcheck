@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,27 +13,26 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-'LBL_ID'=>'KİMLİK',
-'LBL_DATE_ENTERED'=>'Oluşturulma Tarihi',
-'LBL_DATE_MODIFIED'=>'Değiştirilme Tarihi', 
-'LBL_MODIFIED'=>'Değiştiren',
-'LBL_MODIFIED_ID'=>'Değiştiren ID',
-'LBL_MODIFIED_NAME'=>'Değiştiren Kişinin İsmi',
-'LBL_CREATED'=>'Oluşturan',
-'LBL_CREATED_ID'=>'Oluşturan ID',
-'LBL_DOC_OWNER'=>'Doküman Sahibi',
-'LBL_USER_FAVORITES'=>'Favori Olan Kullanıcılar',
-'LBL_DESCRIPTION'=>'Tanım',
-'LBL_DELETED'=>'Silindi',
-'LBL_NAME'=>'İsim',
-'LBL_CREATED_USER'=>'Oluşturan Kullanıcı',
-'LBL_MODIFIED_USER'=>'Değiştiren Kullanıcı',
-'LBL_LIST_NAME'=>'İsim',
-'LBL_EDIT_BUTTON' => 'Değiştir',
- 'LBL_REMOVE' => 'Sil',
-    //define label(s) to be used for overriding local values during import/export
-    'LBL_EXPORT_MODIFIED_BY_NAME' => 'Değiştiren Kişinin İsmi',
 
-
+$mod_strings = array (
+  'LBL_CREATED' => 'Oluşturan',
+  'LBL_CREATED_ID' => 'Oluşturan ID',
+  'LBL_CREATED_USER' => 'Oluşturan Kullanıcı',
+  'LBL_DATE_ENTERED' => 'Oluşturulma Tarihi',
+  'LBL_DATE_MODIFIED' => 'Değiştirilme Tarihi',
+  'LBL_DELETED' => 'Silindi',
+  'LBL_DESCRIPTION' => 'Tanım',
+  'LBL_DOC_OWNER' => 'Döküman Sahibi',
+  'LBL_EDIT_BUTTON' => 'Değiştir',
+  'LBL_EXPORT_MODIFIED_BY_NAME' => 'Değiştiren Kişinin İsmi',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_NAME' => 'İsim',
+  'LBL_MODIFIED' => 'Değiştiren',
+  'LBL_MODIFIED_ID' => 'Değiştiren ID',
+  'LBL_MODIFIED_NAME' => 'Değiştiren Kişinin İsmi',
+  'LBL_MODIFIED_USER' => 'Değiştiren Kullanıcı',
+  'LBL_NAME' => 'İsim',
+  'LBL_REMOVE' => 'Sil',
+  'LBL_USER_FAVORITES' => 'Favorileri Gösteren Kullanıcılar',
 );
+

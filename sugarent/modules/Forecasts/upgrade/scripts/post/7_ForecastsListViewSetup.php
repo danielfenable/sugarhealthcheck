@@ -58,7 +58,7 @@ class SugarUpgradeForecastsListViewSetup extends UpgradeScript
         $columns = $this->setupForecastListViewMetaData($config);
 
         // save the updated worksheet_columns to the forecast config
-        $admin->saveSetting('Forecasts', 'worksheet_columns', $columns, 'base');
+        $admin->saveSetting('Forecasts', 'worksheet_columns', json_encode($columns), 'base');
     }
 
     /**

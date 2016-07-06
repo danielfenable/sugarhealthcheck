@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +12,19 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
-$dashletStrings['CalendarDashlet'] = array(
-					'LBL_TITLE'            => 'Моят календар',
-                         'LBL_DESCRIPTION'      => 'Календар',
-                         'LBL_CONFIGURE_TITLE'  => 'Длъжност',
-                         'LBL_CONFIGURE_VIEW'  => 'Изглед',
-                         'LBL_SAVE_BUTTON_LABEL' => 'Съхрани',
-                         
-                         'LBL_VIEW_DAY' => 'Ден',
-                         'LBL_VIEW_WEEK' => 'Седмица',
-                         'LBL_VIEW_MONTH' => 'Месец',
-
+$dashletStrings = array (
+  'CalendarDashlet' => 
+  array (
+    'LBL_CONFIGURE_TITLE' => 'Заглавие',
+    'LBL_CONFIGURE_VIEW' => 'Разгледай',
+    'LBL_DESCRIPTION' => 'Календар',
+    'LBL_SAVE_BUTTON_LABEL' => 'Съхрани',
+    'LBL_TITLE' => 'Моят календар',
+    'LBL_VIEW_DAY' => 'Ден',
+    'LBL_VIEW_MONTH' => 'Месец',
+    'LBL_VIEW_WEEK' => 'Седмица',
+  ),
 );
-?>
+

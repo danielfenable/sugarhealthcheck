@@ -1045,6 +1045,69 @@ SUGAR.forms.DefaultExpressionParser = new SUGAR.expressions.ExpressionParser();
 SUGAR.forms.evalVariableExpression = function(expression, varmap, view)
 {
 	return SUGAR.forms.DefaultExpressionParser.evaluate(expression, new SUGAR.forms.FormExpressionContext(view));
+
+	if (!view) view = AH.lastView;
+	var SE = SUGAR.expressions;
+	// perform range replaces
+	expression = SUGAR.forms._performRangeReplace(expression);
+
+	var handler = AH;
+
+	// resort to the master variable map if not defined
+	if ( typeof(varmap) == 'undefined' )
+	{
+		varmap = new Array();
+		for ( v in AH.VARIABLE_MAP[view]) {
+			if (v != "") {
+				varmap[varmap.length] = v;
+			}
+		}
+	}
+
+	if ( expression == SE.Expression.TRUE || expression == SE.Expression.FALSE )
+
+
+	var vars = SUGAR.forms.getFieldsFromExpression(expression);
+	for (var i in vars)
+	{
+		var v = vars[i];
+		var value = AH.getValue(v);
+		if (value == null) {
+			continue;
+			//throw "Unable to find field: " + v;
+		}
+
+		var regex = new RegExp("\\$" + v, "g");
+
+		if (value === null)
+        {
+            value = "";
+        }
+        if (typeof(value) == "string")
+		{
+			value = value.replace(/\n/g, "");
+			if ((/^(\s*)$/).exec(value) != null || value === "")
+            {
+			expression = expression.replace(regex, '""');		}
+            // test if value is a number or boolean
+            else if ( SE.isNumeric(value) ) {
+                expression = expression.replace(regex, SE.unFormatNumber(value));
+		    }
+			// assume string
+			else {
+				expression = expression.replace(regex, '"' + value + '"');
+			}
+		} else if (typeof(value) == "object" && value.getTime) {
+			//This is probably a date object that we must convert to a string first.
+			value = "date(" + value.getTime() + ")";
+			expression = expression.replace(regex, value);
+		}
+
+
+
+	}
+
+	return SUGAR.forms.DefaultExpressionParser.evaluate(expression);
 }
 
 /**
@@ -1241,15 +1304,6 @@ SUGAR.forms.Dependency.prototype.getRelatedFields = function () {
     SUGAR.forms.AbstractAction.prototype.evalExpression = function (exp, context) {
         return SUGAR.forms.DefaultExpressionParser.evaluate(exp, context).evaluate();
     }
-
-    /**
-     * Determines if actions is allowed to set new value on the record in the given context
-     * @param {ExpressionContext} context
-     * @returns {boolean}
-     */
-    SUGAR.forms.AbstractAction.prototype.canSetValue = function (context) {
-        return true;
-    };
 
     /**
      * This object resembles a trigger where a change in any of the specified

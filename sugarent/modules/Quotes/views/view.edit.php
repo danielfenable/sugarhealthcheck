@@ -236,7 +236,7 @@ class QuotesViewEdit extends ViewEdit
 											. ", '".$convert_format($line_item->cost_price, $line_item->currency_id, $line_item->base_rate) . "'"
 											. ", '".$convert_format($line_item->list_price, $line_item->currency_id, $line_item->base_rate) ."'"
 											. ", '".$convert_format($line_item->discount_price, $line_item->currency_id, $line_item->base_rate) . "'"
-											. ", '$line_item->pricing_formula', '', '$line_item->pricing_factor', '$line_item->tax_class', '$tax_class_name', '$line_item->mft_part_num', '$product_bundle->id', '$product_bundle->bundle_stage', '$product_bundle->name', '"
+											. ", '', '', '$line_item->pricing_factor', '$line_item->tax_class', '$tax_class_name', '$line_item->mft_part_num', '$product_bundle->id', '$product_bundle->bundle_stage', '$product_bundle->name', '"
 											. format_number($product_bundle->shipping)."', '".js_escape(br2nl($line_item->description))."', '". $line_item->type_id."'"
 											. ", '".format_number($line_item->discount_amount, $significantDigits, $significantDigits)."'"
 		                                    . ", ".($line_item->discount_select?1:0)

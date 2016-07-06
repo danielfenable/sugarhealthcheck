@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,17 +12,19 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: JotPadDashlet.en_us.lang.php 51719 2009-10-22 17:18:00Z mitani $
-
-$defaultText = "";
-$dashletStrings['JotPadDashlet'] = array('LBL_TITLE'            => 'JotPad',
-                                         'LBL_DESCRIPTION'      => '귀하의 노트 유지를 위한 현황판',
-                                         'LBL_SAVING'           => '저장중 입니다.',
-                                         'LBL_SAVED'            => '저장되었습니다.',
-                                         'LBL_CONFIGURE_TITLE'  => '제목',
-                                         'LBL_CONFIGURE_HEIGHT' => '높이 (1 - 300)',
-                                         'LBL_DBLCLICK_HELP'    => '편집하려면 더블클릭하십시오',
-                                         'LBL_DEFAULT_TEXT'     => $defaultText,
+$dashletStrings = array (
+  'JotPadDashlet' => 
+  array (
+    'LBL_CONFIGURE_HEIGHT' => '높이 (1 - 300)',
+    'LBL_CONFIGURE_TITLE' => '제목',
+    'LBL_DBLCLICK_HELP' => '편집하려면 더블클릭하십시오',
+    'LBL_DEFAULT_TEXT' => ':',
+    'LBL_DESCRIPTION' => '귀하의 노트 유지를 위한 현황판',
+    'LBL_SAVED' => '저장되었습니다.',
+    'LBL_SAVING' => '저장중 입니다.',
+    'LBL_TITLE' => 'JotPad',
+  ),
 );
-?>
+

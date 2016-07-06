@@ -31,8 +31,6 @@ require_once 'modules/ModuleBuilder/parsers/ParserFactory.php';
 require_once 'modules/UpgradeWizard/SidecarUpdate/SidecarMetaDataUpgrader.php';
 require_once 'modules/MySettings/TabController.php';
 
-use Sugarcrm\Sugarcrm\SearchEngine\SearchEngine;
-
 define('DISABLED_PATH', 'Disabled');
 
 class ModuleInstaller{
@@ -100,8 +98,6 @@ class ModuleInstaller{
             }
         }
 
-        MetaDataManager::disableCache();
-
         // workaround for bug 45812 - refresh vardefs cache before unpacking to avoid partial vardefs in cache
         global $beanList;
         foreach ($this->modules as $module_name) {
@@ -131,7 +127,6 @@ class ModuleInstaller{
             'post_execute',
             'reset_opcodes',
             'reset_file_cache',
-            'setup_elastic_mapping',
         );
 
         $total_steps += count($tasks);
@@ -151,7 +146,7 @@ class ModuleInstaller{
                 if(!empty($upgrade_manifest)){
                     if(!empty($upgrade_manifest['upgrade_paths'])){
                         if(!empty($upgrade_manifest['upgrade_paths'][$previous_version])){
-                            $installdefs = $upgrade_manifest['upgrade_paths'][$previous_version];
+                            $installdefs = 	$upgrade_manifest['upgrade_paths'][$previous_version];
                         }else{
                             $errors[] = 'No Upgrade Path Found in manifest.';
                             $this->abort($errors);
@@ -216,6 +211,7 @@ class ModuleInstaller{
             require_once('modules/Administration/QuickRepairAndRebuild.php');
             $rac = new RepairAndClear();
             $rac->repairAndClearAll($selectedActions, $this->installed_modules,true, false);
+            $this->rebuild_relationships();
             $this->updateSystemTabs('Add',$this->tab_modules);
             //Clear out all the langauge cache files.
             clearAllJsAndJsLangFilesWithoutOutput();
@@ -239,13 +235,8 @@ class ModuleInstaller{
             // Destroy all metadata caches and rebuild the base metadata. This
             // will cause a small amount of lag on subsequent requests for other
             // clients.
-            MetaDataManager::enableCache();
             MetaDataManager::clearAPICache(true, true);
-            LanguageManager::invalidateJsLanguageCache();
-
-            //TODO: we need to setup the metadata for the platforms via a job queue.
-            //Doing this inline is prohibitively expensive
-            //MetaDataManager::setupMetadata();
+            MetaDataManager::setupMetadata();
 
             require_once 'include/api/ServiceDictionaryRest.php';
             $dict = new ServiceDictionaryRest();
@@ -1103,18 +1094,19 @@ class ModuleInstaller{
         $languages = array();
         if(isset($this->installdefs['language']))
         {
-            $modules = array();
             $this->log(translate('LBL_MI_IN_LANG') );
             foreach($this->installdefs['language'] as $packs)
             {
+                // Prevent multiple modules from being sent to rebuild_languages
+                $modules[$packs['to_module']] = $packs['to_module'];
                 $languages[$packs['language']] = $packs['language'];
                 $packs['from'] = str_replace('<basepath>', $this->base_dir, $packs['from']);
                 $GLOBALS['log']->debug("Installing Language Pack ..." . $packs['from']  .  " for " .$packs['to_module']);
+                $path = 'custom/Extension/modules/' . $packs['to_module']. '/Ext/Language';
                 if($packs['to_module'] == 'application'){
+                    // Unset the 'application' module
+                    unset($modules[$packs['to_module']]);
                     $path ='custom/Extension/' . $packs['to_module']. '/Ext/Language';
-                } else {
-                    $modules[$packs['to_module']] = true;
-                    $path = 'custom/Extension/modules/' . $packs['to_module'] . '/Ext/Language';
                 }
 
                 if(!file_exists($path)){
@@ -1122,7 +1114,8 @@ class ModuleInstaller{
                 }
                 copy_recursive($packs['from'] , $path.'/'.$packs['language'].'.'. $this->id_name . '.php');
             }
-            $this->rebuild_languages($languages, array_keys($modules));
+            $this->rebuild_languages($languages, $modules);
+
         }
     }
 
@@ -1130,17 +1123,15 @@ class ModuleInstaller{
     function uninstall_languages(){
         $languages = array();
         if(isset($this->installdefs['language'])){
-            $modules = array();
             $this->log(translate('LBL_MI_UN_LANG') );
             foreach($this->installdefs['language'] as $packs){
+                $modules[]=$packs['to_module'];
                 $languages[$packs['language']] = $packs['language'];
                 $packs['from'] = str_replace('<basepath>', $this->base_dir, $packs['from']);
                 $GLOBALS['log']->debug("Uninstalling Language Pack ..." . $packs['from']  .  " for " .$packs['to_module']);
+                $path = 'custom/Extension/modules/' . $packs['to_module']. '/Ext/Language';
                 if($packs['to_module'] == 'application'){
                     $path ='custom/Extension/' . $packs['to_module']. '/Ext/Language';
-                } else {
-                    $modules[$packs['to_module']] = true;
-                    $path = 'custom/Extension/modules/' . $packs['to_module'] . '/Ext/Language';
                 }
                 if (sugar_is_file($path.'/'.$packs['language'].'.'. $this->id_name . '.php', 'w')) {
                     rmdir_recursive( $path.'/'.$packs['language'].'.'. $this->id_name . '.php');
@@ -1148,7 +1139,8 @@ class ModuleInstaller{
                     rmdir_recursive($path.'/'.DISABLED_PATH.'/'.$packs['language'].'.'. $this->id_name . '.php', 'w');
                 }
             }
-            $this->rebuild_languages($languages, array_keys($modules));
+            $this->rebuild_languages($languages, $modules);
+
         }
     }
 
@@ -1407,6 +1399,10 @@ class ModuleInstaller{
                 fclose ( $out ) ;
             }
 
+
+
+
+            Relationship::delete_cache();
             $this->rebuild_vardefs () ;
             $this->rebuild_layoutdefs () ;
             if ($save_table_dictionary)
@@ -1425,9 +1421,9 @@ class ModuleInstaller{
     function install_relationship($file)
     {
         $_REQUEST['moduleInstaller'] = true;
-        if (!file_exists($file)) {
-            $GLOBALS['log']->debug('File does not exists : ' . $file);
-
+        if(!file_exists($file))
+        {
+            $GLOBALS['log']->debug( 'File does not exists : '.$file);
             return;
         }
         include($file);
@@ -1435,25 +1431,27 @@ class ModuleInstaller{
 
         array_walk($rel_dictionary, array("ModuleInstaller", "cleanUpRelationship"));
 
-        foreach ($rel_dictionary as $rel_name => $rel_data) {
+        foreach ($rel_dictionary as $rel_name => $rel_data)
+        {
+            $table = ''; // table is actually optional
             // check if we have a table definition - not all relationships require a join table
-            if (isset($rel_data['table'])) {
-                $table = $rel_data['table'];
+            if ( isset( $rel_data[ 'table' ] ) )
+            {
+                $table = $rel_data[ 'table' ];
 
-                if (!$this->db->tableExists($table)) {
-                    $this->db->createTableParams($table, $rel_data['fields'], $rel_data['indices']);
+                if(!$this->db->tableExists($table))
+                {
+                    $this->db->createTableParams($table, $rel_data[ 'fields' ], $rel_data[ 'indices' ]);
                 }
             }
 
-            if (!$this->silent) {
-                $GLOBALS['log']->debug("Processing relationship meta for " . $rel_name . "...");
-            }
-            if (!$this->silent) {
-                $GLOBALS['log']->debug('done<br>');
-            }
+            if(!$this->silent)
+                $GLOBALS['log']->debug("Processing relationship meta for ". $rel_name."...");
+            SugarBean::createRelationshipMeta($rel_name, $this->db,$table,$rel_dictionary,'');
+            Relationship::delete_cache();
+            if(!$this->silent)
+                $GLOBALS['log']->debug( 'done<br>');
         }
-
-        SugarRelationshipFactory::deleteCache();
     }
 
 
@@ -1637,8 +1635,6 @@ class ModuleInstaller{
                 if (file_exists("custom/metadata/{$rel_name}MetaData.php"))
                     unlink( "custom/metadata/{$rel_name}MetaData.php" );
             }
-
-            unset($GLOBALS['dictionary'][$rel_name]);
         }
     }
 
@@ -1807,9 +1803,6 @@ class ModuleInstaller{
             $this->rebuild_all(true);
             $this->silent = $silentBak;
 
-            //TY-188, clearing session
-            $ACLAllowedModules = getACLAllowedModules(true);
-
             //#27877, If the request from MB redeploy a custom module , we will not remove the ACL actions for this package.
             if( !isset($_REQUEST['action']) || $_REQUEST['action']!='DeployPackage' ){
                 $this->remove_acl_actions();
@@ -1874,7 +1867,7 @@ class ModuleInstaller{
     {
         $this->rebuildExt("Vardefs", 'vardefs.ext.php', null, null, $modules);
         if (!empty($modules)) {
-            foreach($modules as $module) {
+            foreach ($modules as $module) {
                 VardefManager::clearVardef($module);
             }
         } else {
@@ -1894,9 +1887,12 @@ class ModuleInstaller{
         $this->rebuildExt("TableDictionary", 'tabledictionary.ext.php');
     }
 
-    function rebuild_relationships($changedModules = array())
-    {
-        SugarRelationshipFactory::rebuildCache($changedModules);
+    function rebuild_relationships($changedModules = array()) {
+        if(!$this->silent) echo translate('LBL_MI_REBUILDING') . ' Relationships';
+        $_REQUEST['silent'] = true;
+        global $beanFiles;
+        include('include/modules.php');
+        include("modules/Administration/RebuildRelationship.php");
     }
 
     function remove_acl_actions() {
@@ -2390,7 +2386,7 @@ class ModuleInstaller{
         // these modules either lack editviews/detailviews or use custom mechanisms for the editview/detailview.
         // In either case, we don't want to attempt to add a relate field to them
         // would be better if GridLayoutMetaDataParser could handle this gracefully, so we don't have to maintain this list here
-        $invalidModules = array ( 'emails' ) ;
+        $invalidModules = array ( 'emails' , 'kbdocuments' ) ;
 
         foreach ( $layoutAdditions as $deployedModuleName => $fieldName )
         {
@@ -2418,7 +2414,7 @@ class ModuleInstaller{
         // these modules either lack editviews/detailviews or use custom mechanisms for the editview/detailview.
         // In either case, we don't want to attempt to add a relate field to them
         // would be better if GridLayoutMetaDataParser could handle this gracefully, so we don't have to maintain this list here
-        $invalidModules = array ( 'emails' ) ;
+        $invalidModules = array ( 'emails' , 'kbdocuments' ) ;
 
         foreach ( $layoutAdditions as $deployedModuleName => $fieldName )
         {
@@ -2476,7 +2472,7 @@ class ModuleInstaller{
                 if(!empty($upgrade_manifest)){
                     if(!empty($upgrade_manifest['upgrade_paths'])){
                         if(!empty($upgrade_manifest['upgrade_paths'][$previous_version])){
-                            $installdefs = $upgrade_manifest['upgrade_paths'][$previous_version];
+                            $installdefs = 	$upgrade_manifest['upgrade_paths'][$previous_version];
                         }else{
                             $errors[] = 'No Upgrade Path Found in manifest.';
                             $this->abort($errors);
@@ -2590,7 +2586,7 @@ class ModuleInstaller{
             $str = "<?php \n //WARNING: The contents of this file are auto-generated\n";
             $save_table_dictionary = false;
             foreach($this->installdefs['relationships'] as $relationship){
-                $filename = basename($relationship['meta_data']);
+                $filename	=basename($relationship['meta_data']);
 
                 $save_table_dictionary  = true;
                 $str .= "include_once('metadata/$filename');\n";
@@ -2834,10 +2830,6 @@ class ModuleInstaller{
             'maxSearchQueryResult'=>'5',
             'analytics' => $config->get('analytics_portal', array('enabled' => false)),
         );
-
-        $jsConfig = $config->get('additional_js_config', array());
-        $portalConfig = array_merge($portalConfig, $jsConfig);
-
         return $portalConfig;
     }
     /**
@@ -2881,12 +2873,11 @@ class ModuleInstaller{
             'alertAutoCloseDelay' => 2500,
             'serverUrl' => 'rest/v10',
             'siteUrl' => '',
-            'unsecureRoutes' => array('login', 'logout', 'error', 'forgotpassword'),
+            'unsecureRoutes' => array('login', 'error', 'forgotpassword'),
             'loadCss' => false,
             'themeName' => 'default',
             'clientID' => 'sugar',
             'collapseSubpanels' => $config->get('collapse_subpanels', false),
-            'previewEdit' => $config->get('preview_edit', false),
             'serverTimeout' => self::getBaseTimeoutValue(),
             'metadataTypes' => array(
                 "currencies",
@@ -3108,6 +3099,8 @@ class ModuleInstaller{
      */
     protected function updateSystemTabs($action, $installed_modules)
     {
+        global $moduleList;
+
         $controller = new TabController();
         $isSystemTabsInDB = $controller->is_system_tabs_in_db();
         if ($isSystemTabsInDB && !empty($installed_modules)) {
@@ -3130,6 +3123,10 @@ class ModuleInstaller{
                     }
                     $controller->set_system_tabs($currentTabs);
                     break;
+            }
+
+            if (isset($_SESSION['get_workflow_admin_modules_for_user'])) {
+                return $_SESSION['get_workflow_admin_modules_for_user'];
             }
         }
     }
@@ -3376,19 +3373,5 @@ class ModuleInstaller{
         }
 
         return $path;
-    }
-
-    /**
-     * Add Elasticsearch mapping so records sync with elastic
-     */
-    public function setup_elastic_mapping()
-    {
-        foreach ($this->installdefs['beans'] as $beanDefs) {
-            $modules[] = $beanDefs['module'];
-        }
-        $engine = SearchEngine::getInstance()->getEngine();
-        if (isset($engine) && isset($modules)) {
-            $engine->addMappings($modules);
-        }
     }
 }

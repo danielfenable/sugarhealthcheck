@@ -40,7 +40,6 @@
 					        'width' => '10%',
 					      ),
 					      
-
 		      array ('name' => 'favorites_only','label' => 'LBL_FAVORITES_FILTER','type' => 'bool',),
 					    ),
 					    'advanced_search' => 
@@ -143,7 +142,6 @@
 					        'width' => '10%',
 					      ),
 					      
-
 		      array ('name' => 'favorites_only','label' => 'LBL_FAVORITES_FILTER','type' => 'bool',),
 					    ),
 					  ),

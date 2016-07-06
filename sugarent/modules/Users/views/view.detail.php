@@ -40,16 +40,15 @@ class UsersViewDetail extends ViewDetail {
 
         $errors = "";
         $msgGood = false;
-        if (isset($_SESSION['new_pwd']) && $_SESSION['new_pwd']!= 0){
-            if ($_SESSION['new_pwd']=='4'){
+        if (isset($_REQUEST['pwd_set']) && $_REQUEST['pwd_set']!= 0){
+            if ($_REQUEST['pwd_set']=='4'){
                 require_once('modules/Users/password_utils.php');
                 $errors.=canSendPassword();
             }
             else {
-                $errors .= translate('LBL_NEW_USER_PASSWORD_' . $_SESSION['new_pwd'], 'Users');
+                $errors.=translate('LBL_NEW_USER_PASSWORD_'.$_REQUEST['pwd_set'],'Users');
                 $msgGood = true;
             }
-            unset($_SESSION['new_pwd']);
         }else{
             //IF BEAN USER IS LOCKOUT
             if($this->bean->getPreference('lockout')=='1') {

@@ -41,7 +41,7 @@ $viewdefs['Calls']['base']['view']['preview'] = array(
                     'type' => 'duration',
                     'label' => 'LBL_START_AND_END_DATE_DETAIL_VIEW',
                     'dismiss_label' => true,
-                    'inline' => false,
+                    'inline' => true,
                     'show_child_labels' => true,
                     'fields' => array(
                         array(
@@ -97,10 +97,6 @@ $viewdefs['Calls']['base']['view']['preview'] = array(
                 ),
                 'assigned_user_name',
                 'team_name',
-                array(
-                    'name' => 'tag',
-                    'span' => 12,
-                ),
             ),
         ),
         array(

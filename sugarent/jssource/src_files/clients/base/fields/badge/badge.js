@@ -11,18 +11,18 @@
 /**
  * @class View.Fields.Base.BadgeField
  * @alias SUGAR.App.view.fields.BaseBadgeField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * This field doesn't support `showNoData`.
      */
     showNoData: false,
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * The badge is always a readonly field.
      */

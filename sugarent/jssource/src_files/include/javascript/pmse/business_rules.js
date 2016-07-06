@@ -14,24 +14,6 @@ var decision_table,
 
 function addDecisionTable(data) {
     var module = 'pmse_Business_Rules';
-    var pmseCurrencies = [];
-    var currencies = SUGAR.App.metadata.getCurrencies();
-
-    for (currID in currencies) {
-        if (currencies.hasOwnProperty(currID)) {
-            if (currencies[currID].status === 'Active') {
-                pmseCurrencies.push({
-                    id: currID,
-                    iso: currencies[currID].iso4217,
-                    name: currencies[currID].name,
-                    rate: parseFloat(currencies[currID].conversion_rate),
-                    preferred: currID === SUGAR.App.user.getCurrency().currency_id,
-                    symbol: currencies[currID].symbol
-                });
-            }
-        }
-    }
-
     $.extend(true, data, {
         language: {
             SINGLE_HIT: translate('LBL_PMSE_BUSINESSRULES_LABEL_SINGLEHIT', module),
@@ -58,8 +40,7 @@ function addDecisionTable(data) {
             MIN_CONCLUSIONS_COLS: translate('LBL_PMSE_MESSAGE_LABEL_MIN_CONCLUSIONS_COLS', module)
         },
         dateFormat: App.date.getUserDateFormat(),
-        timeFormat: App.user.getPreference("timepref"),
-        currencies: pmseCurrencies
+        timeFormat: App.user.getPreference("timepref")
     });
 
     decision_table = new DecisionTable(data);
@@ -96,7 +77,7 @@ function addDecisionTable(data) {
     $('#businessruledesigner').prepend(decision_table.getHTML());
 }
 
-function saveBR(route, id) {
+function saveBR(route) {
     var json,
         base64encoded,
         validation = decision_table.isValid();
@@ -104,24 +85,25 @@ function saveBR(route, id) {
     if (decision_table && validation.valid) {
         json = decision_table.getJSON();
         base64encoded = JSON.stringify(json);
-        url = App.api.buildURL('pmse_Business_Rules', null, {id: id});
+        url = App.api.buildURL('pmse_Business_Rules', null, {id: decision_table.id});
         attributes = {rst_source_definition: base64encoded};
 
         App.alert.show('upload', {level: 'process', title: 'LBL_SAVING', autoclose: false});
 
         App.api.call('update', url, attributes, {
             success: function (data) {
-                App.alert.dismiss('upload');
-                App.alert.show('save-success', {
-                    level: 'success',
-                    messages: App.lang.get('LBL_SAVED'),
-                    autoClose: true
-                });
                 if (route) {
+                    App.alert.dismiss('upload');
                     decision_table.setIsDirty(false, true);
                     App.router.navigate(route, {trigger: true});
                 } else {
                     decision_table.setIsDirty(false);
+                    App.alert.dismiss('upload');
+                    App.alert.show('br-saving-success', {
+                        level: 'success',
+                        messages: Handlebars.Utils.escapeExpression(brName) + ' was saved correctly',
+                        autoClose: true
+                    });
                 }
             },
             error: function (err) {
@@ -161,7 +143,7 @@ function init(params) {
     var data;
 
     brName = params.data.name;
-    brModule = App.lang.getModuleName(params.data.rst_module, {plural: true});
+    brModule = params.data.rst_module;
 
     //errorLog = $('#error-log');
 

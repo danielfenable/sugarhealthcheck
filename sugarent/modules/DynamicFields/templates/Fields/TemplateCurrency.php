@@ -25,14 +25,6 @@ class TemplateCurrency extends TemplateRange
     public function delete($df)
     {
         parent::delete($df);
-
-        $field_defs = $df->bean->field_defs;
-        foreach($field_defs as $id => $field) {
-            if ($field['type'] == 'currency' && $id != $this->name) {
-                return;
-            }
-        }
-
         //currency id
         $currency_id = new TemplateCurrencyId();
         $currency_id->name = 'currency_id';
@@ -73,9 +65,6 @@ class TemplateCurrency extends TemplateRange
     public function get_field_def()
     {
         $def = parent::get_field_def();
-        if (isset($this->convertToBase) && $this->convertToBase === true) {
-            $def['convertToBase'] = true;
-        }
         $def['precision'] = (!empty($this->precision)) ? $this->precision : 6;
         $def['related_fields'] = array('currency_id', 'base_rate');
         return $def;

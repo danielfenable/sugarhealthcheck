@@ -29,7 +29,7 @@
             if (!hasSubpanels) {
                 this.before('render', function() {
                     return false;
-                }, this);
+                }, [], this);
 
                 this.template = app.template.empty;
                 this.$el.html(this.template());

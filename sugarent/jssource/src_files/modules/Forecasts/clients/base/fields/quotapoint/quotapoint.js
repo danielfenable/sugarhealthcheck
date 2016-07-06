@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.Forecasts.QuotapointField
  * @alias SUGAR.App.view.fields.BaseForecastsQuotapointField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
 

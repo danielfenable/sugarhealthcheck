@@ -10,5 +10,5 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 $mod_strings = array (
-    'LBL_BUNDLE_NOTE_POSITION' => 'Poziţie grup de produse'
+    'LBL_BUNDLE_NOTE_POSITION' => 'Pozitie pachet produse'
 );

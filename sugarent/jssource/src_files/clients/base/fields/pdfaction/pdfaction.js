@@ -36,7 +36,7 @@
     fetchCalled: false,
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Create PDF Template collection in order to get available template list.
      */
     initialize: function(options) {
@@ -46,7 +46,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Prevents the "Email PDF" button from rendering if the user
      * doesn't have a valid email configuration or the user chooses to use an
@@ -180,7 +180,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Bind listener for template collection.
      */
     bindDataChange: function() {
@@ -189,7 +189,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Dispose safe for templateCollection listeners.
      */
     unbindData: function() {
@@ -199,7 +199,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      * Check additional access for PdfManager Module.
      */
     hasAccess: function() {

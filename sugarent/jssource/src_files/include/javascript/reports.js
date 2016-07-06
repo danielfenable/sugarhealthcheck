@@ -1,4 +1,5 @@
 
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -2078,7 +2079,7 @@ SUGAR.reports = function() {
 			module = current_module;
 			var panelHtml="<table id='groupByTable' width='100%'><tr><td width='4%' class='dataLabel'>&nbsp;&nbsp;&nbsp;&nbsp;</td><td width='30%' class='dataLabel'><b>"+SUGAR.language.get('Reports','LBL_COLUMN_NAME')+
 				"</td><td class='dataLabel'>&nbsp;</td></tr>" +
-				"<tr id='group_by_help_row'><td>&nbsp;&nbsp;&nbsp;</td><td colspan=2><table width='70%' valign='center'><tr><td>"+SUGAR.language.get('Reports','LBL_GROUP_BY_HELP_DESC')+"</td></tr></table></td></tr></table>";
+				"<tr id='group_by_help_row'><td>&nbsp;&nbsp;&nbsp;</td><td colspan=2><table width='70%' valign='center' class='button'><tr><td>"+SUGAR.language.get('Reports','LBL_GROUP_BY_HELP_DESC')+"</td></tr></table></td></tr></table>";
 
 			var title = "<h3 class='spantitle'>" + SUGAR.language.get('Reports','LBL_SELECT_GROUP_BY') + "<span id='group_by_help'><img src='index.php?entryPoint=getImage&themeName=" + SUGAR.themes.theme_name + "&imageName=helpInline.png'  alt='"+SUGAR.language.get("Reports", "LBL_ALT_INFORMATION")+"'  class='inlineHelpTip' onclick='SUGAR.util.showHelpTips(this,\"" + SUGAR.language.get('Reports','LBL_GROUP_BY_HELP_DESC') +"\");'></span></h3>";
 
@@ -2099,7 +2100,7 @@ SUGAR.reports = function() {
 			if (report_type == 'summation') 
 				panelHtml += SUGAR.language.get('Reports','LBL_ORDER_BY')+"</b></td></tr>";
 			panelHtml +=	
-				"<tr id='display_summary_help_row'><td>&nbsp;&nbsp;&nbsp;</td><td colspan=2><table width='70%' valign='center'><tr><td>"+SUGAR.language.get('Reports','LBL_DISPLAY_SUMMARY_HELP_DESC')+"</td></tr></table></td></tr></table>";
+				"<tr id='display_summary_help_row'><td>&nbsp;&nbsp;&nbsp;</td><td colspan=2><table width='70%' valign='center' class='button'><tr><td>"+SUGAR.language.get('Reports','LBL_DISPLAY_SUMMARY_HELP_DESC')+"</td></tr></table></td></tr></table>";
 
 			var title = "<h3 class='spantitle'>" + SUGAR.language.get('Reports','LBL_DISPLAY_SUMMARIES')  + "<span id='display_summary_help'><img src='index.php?entryPoint=getImage&themeName=" + SUGAR.themes.theme_name + "&imageName=helpInline.png'  alt='"+SUGAR.language.get("Reports", "LBL_ALT_INFORMATION")+"' class='inlineHelpTip' onclick='SUGAR.util.showHelpTips(this,\"" + SUGAR.language.get('Reports','LBL_DISPLAY_SUMMARY_HELP_DESC') +"\");'></span></h3>";
 
@@ -2118,7 +2119,7 @@ SUGAR.reports = function() {
 			var panelHtml="<table id='displayColsTable' width='100%'><tr><th width='4%'>&nbsp;&nbsp;&nbsp;&nbsp;</th><th width='30%' scope='col'><b>"+SUGAR.language.get('Reports','LBL_COLUMN_NAME')+
 				"</th><th width='30%' scope='col'><b>"+SUGAR.language.get('Reports','LBL_LABEL')+"</th>" +
 				"<th width='30%' scope='col'><b>"+SUGAR.language.get('Reports','LBL_ORDER_BY')+"</th><th></th></tr>" +
-				"<tr id='display_cols_help_row'><td>&nbsp;&nbsp;&nbsp;</td><td colspan=3><table width='70%' valign='center'><tr><td>"+SUGAR.language.get('Reports','LBL_DISPLAY_COLS_HELP_DESC')+"</td></tr></table></td></tr></table>";
+				"<tr id='display_cols_help_row'><td>&nbsp;&nbsp;&nbsp;</td><td colspan=3><table width='70%' valign='center' class='button'><tr><td>"+SUGAR.language.get('Reports','LBL_DISPLAY_COLS_HELP_DESC')+"</td></tr></table></td></tr></table>";
 
 			var title = "<h3 class='spantitle'>" + SUGAR.language.get('Reports','LBL_CHOOSE_DISPLAY_COLS')  + "<span id='display_cols_help'><img id=\"toolipImageId\" src='index.php?entryPoint=getImage&themeName=" + SUGAR.themes.theme_name + "&imageName=helpInline.png'  alt='"+SUGAR.language.get("Reports", "LBL_ALT_INFORMATION")+"'></span></h3>";
 
@@ -2301,15 +2302,10 @@ SUGAR.reports = function() {
 			select_html_info['select'] = select_info;
 		
 			field_type = field.type;
-
+		
 			if ( typeof(field.custom_type) != 'undefined' && typeof(filter_defs[field.custom_type]) != 'undefined') {
-                            field_type = field.custom_type;
-                        } else if (typeof(filter_defs[module + ':' + field_type]) != 'undefined') {
-                            // if we want to customize the dropdown for a specific module and field
-                            // then use 'module:field' format. For example 'Tags:name' to customize
-                            // the dropdown for tag names only.
-                            field_type = module + ':' + field_type;
-                        }
+				field_type = field.custom_type;
+			}
 		
 			var qualifiers = filter_defs[field_type];
 			var selected = false;

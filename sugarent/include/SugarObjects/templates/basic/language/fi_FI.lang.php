@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,27 +13,26 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array(
-'LBL_ID'=>'ID',
-'LBL_DATE_ENTERED'=>'Luontipäivä',
-'LBL_DATE_MODIFIED'=>'Muokkattu viimeksi', 
-'LBL_MODIFIED'=>'Muokannut',
-'LBL_MODIFIED_ID'=>'Muokkaajan ID',
-'LBL_MODIFIED_NAME'=>'Muokkaajan nimi',
-'LBL_CREATED'=>'Luonut',
-'LBL_CREATED_ID'=>'Luojan ID',
-'LBL_DOC_OWNER'=>'Tiedoston omistaja',
-'LBL_USER_FAVORITES'=>'Käyttäjät, jotka ottivat suosikikseen',
-'LBL_DESCRIPTION'=>'Kuvaus',
-'LBL_DELETED'=>'Poistettu',
-'LBL_NAME'=>'Nimi',
-'LBL_CREATED_USER'=>'Luoja',
-'LBL_MODIFIED_USER'=>'Muokkaaja',
-'LBL_LIST_NAME'=>'Nimi',
-'LBL_EDIT_BUTTON' => 'Muokkaa',
- 'LBL_REMOVE' => 'Poista',
-    //define label(s) to be used for overriding local values during import/export
-    'LBL_EXPORT_MODIFIED_BY_NAME' => 'Muokkaajan nimi',
 
-
+$mod_strings = array (
+  'LBL_CREATED' => 'Luonut',
+  'LBL_CREATED_ID' => 'Luojan ID',
+  'LBL_CREATED_USER' => 'Luoja',
+  'LBL_DATE_ENTERED' => 'Luontipäivä',
+  'LBL_DATE_MODIFIED' => 'Muokkattu viimeksi',
+  'LBL_DELETED' => 'Poistettu',
+  'LBL_DESCRIPTION' => 'Kuvaus',
+  'LBL_DOC_OWNER' => 'Tiedoston omistaja',
+  'LBL_EDIT_BUTTON' => 'Muokkaa',
+  'LBL_EXPORT_MODIFIED_BY_NAME' => 'Muokkaajan nimi',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_NAME' => 'Nimi',
+  'LBL_MODIFIED' => 'Muokannut',
+  'LBL_MODIFIED_ID' => 'Muokkaajan ID',
+  'LBL_MODIFIED_NAME' => 'Muokkaajan nimi',
+  'LBL_MODIFIED_USER' => 'Muokkaaja',
+  'LBL_NAME' => 'Nimi',
+  'LBL_REMOVE' => 'Poista',
+  'LBL_USER_FAVORITES' => 'Käyttäjät, jotka ottivat suosikikseen',
 );
+

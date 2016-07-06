@@ -106,7 +106,6 @@ class UndeployedSidecarFilterImplementation extends AbstractMetaDataImplementati
             }
             $results[$field] = $this->module->field_defs[$field['name']];
         }
-        unset($results['my_favorite']);
         return $results;
     }
 

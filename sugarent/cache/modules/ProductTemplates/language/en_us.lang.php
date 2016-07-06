@@ -1,16 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:25
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_CURRENCY' => 'Currency:',
-  'LBL_CURRENCIES' => 'Currencies',
-  'LBL_CURRENCY_NAME' => 'Currency Name',
-  'LBL_CURRENCY_SYMBOL' => 'Currency Symbol',
-  'LBL_CURRENCY_RATE' => 'Base Rate',
-  'LBL_CURRENCY_ID' => 'Currency ID',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned To ID:',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -30,6 +20,8 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned To ID:',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
   'ERR_DELETE_RECORD' => 'A record number must be specified to delete the product.',
   'LBL_ACCOUNT_NAME' => 'Account Name:',
   'LBL_ASSIGNED_TO' => 'Assigned To:',
@@ -38,6 +30,7 @@ $mod_strings = array (
   'LBL_CONTACT_NAME' => 'Contact Name:',
   'LBL_COST_PRICE' => 'Cost:',
   'LBL_COST_USDOLLAR' => 'Cost USD:',
+  'LBL_CURRENCY' => 'Currency:',
   'LBL_CURRENCY_SYMBOL_NAME' => 'Currency Symbol:',
   'LBL_DATE_AVAILABLE' => 'Date Available:',
   'LBL_DATE_COST_PRICE' => 'Date-Cost-Price:',

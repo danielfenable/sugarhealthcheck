@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id: demoData.en_us.php 36879 2008-06-19 20:12:26Z Collin Lee $
+
 
 //users demodata
 //VP
@@ -2207,22 +2207,6 @@ $sugar_demodata['company_name_array'] = array(
 	"XY&Z Funding Inc",
 );
 
-$sugar_demodata['company_name_suffix_array'] = array(
-	'Consolidated',
-	'Enterprises',
-	'Incorporated',
-	'Limited',
-	'Ventures',
-	'Systems',
-	'Corporation',
-	'Group',
-	'Products',
-	'Manufacturing',
-	'Holdings',
-	'Consulting',
-	'Solutions',
-);
-
 $sugar_demodata['street_address_array'] = array(
 	 "123 Anywhere Street",
 	 "345 Sugar Blvd.",
@@ -2470,92 +2454,71 @@ $sugar_demodata['producttemplate_seed_data'][] = array(
 	'qty_in_stock' => '65',
 ); 
 
-
 // KBDocuments
-$sugar_demodata['kbcategories_array'] = array(
-    'Documentation' => array(
-        'Calendar',
-        'Calls',
-        'Email',
-        'Database'
-    ),
-    'Tutorials' => array(),
-    'Video' => array(),
-    'Help' => array()
-);
+$sugar_demodata['kbdocument_seed_data_kbtags'] = array(
+    'OS and Interface',
+    'Hardware',
+    'WiFi, Bluetooth, and Networking',
+    'Tools',
+    'Basic Usage',
+    );
 
-$sugar_demodata['kbdocuments_statuses'] = array(
-    'draft',
-    'in-review',
-    'approved',
-    'published',
-);
-
-$sugar_demodata['kbdocuments_languages'] = array(
-    array(
-        'en' => 'English',
-        'primary' => true
-    ),
-    array(
-        'de' => 'Deutsch',
-        'primary' => false
-    ),
-);
-
-$sugar_demodata['kbdocuments_seed_data'][] = array(
+$sugar_demodata['kbdocument_seed_data'][] = array(
     'name' => 'Connecting to the Internet',
+    'start_date' => '2010-01-01',
+    'exp_date' => '2015-12-31',
     'body' => '<p>To connect your device to the Internet, use any application that accesses the Internet. You can connect using either Wi-Fi or Bluetooth.</p>',
-    'tag' => '^WiFi^,^Bluetooth^,^Networking^',
-    'localizations' => array(
-        array(
-            'language' => 'de',
-            'name' => 'Verbinden mit dem Internet',
-            'body' => '<p>Um das Gerät mit dem Internet verbinden, verwenden Sie alle Anwendungen, die auf das Internet zugreift. Sie können eine Verbindung sowohl mit der Wi-Fi oder Bluetooth.</p>'
-        )
-    )
-);
-$sugar_demodata['kbdocuments_seed_data'][] = array(
-    'name' => 'Charging the battery',
-    'body' => '<p>To charge the battery, try the following:</p>
-    <ul><li>Connect device to a power outlet using the included cable and the USB power adapter.</li>
-    <li>Connect to a high-power USB 2.0 port using the included cable.</li></ul>',
-    'tag' => '^Basic Usage^,^Hardware^',
-    'revisions' => array(
-        array(
-            'name' => 'Charging the battery - revision 2'
+    'tags' => array(
+        'WiFi, Bluetooth, and Networking',
         ),
-        array(
-            'name' => 'Charging the battery - revision 3'
-        )
-    )
-);
-$sugar_demodata['kbdocuments_seed_data'][] = array(
+    );
+
+$sugar_demodata['kbdocument_seed_data'][] = array(
+    'name' => 'Charging the battery',
+    'start_date' => '2010-01-01',
+    'exp_date' => '2015-12-31',
+    'body' => '<p>To charge the battery, try the following:</p>
+   <ul><li>Connect device to a power outlet using the included cable and the USB power adapter.</li>
+    <li>Connect to a high-power USB 2.0 port using the included cable.</li></ul>',
+    'tags' => array(
+        'Basic Usage',
+        'Hardware',
+        ),
+    );
+
+$sugar_demodata['kbdocument_seed_data'][] = array(
     'name' => 'How to print',
-    'active_date' => '2015-01-01',
+    'start_date' => '2010-01-01',
     'exp_date' => '2015-12-31',
-    'useful' => 10,
-    'notuseful' => 5,
     'body' => '<p>In order to print, you first need to send your file to your computer. Access and print the file from your computer.</p>',
-    'tag' => '^Basic Usage^,^Tools^',
-);
+    'tags' => array(
+        'Basic Usage',
+        'Tools',
+        ),
+    );
 
-$sugar_demodata['kbdocuments_seed_data'][] = array(
+$sugar_demodata['kbdocument_seed_data'][] = array(
     'name' => 'How to change the language',
-    'active_date' => '2015-01-01',
+    'start_date' => '2010-01-01',
     'exp_date' => '2015-12-31',
-    'useful' => 8,
-    'notuseful' => 12,
     'body' => '<p>If your device is not set to your preferred language, please make sure you have completed the setup. In the Settings screen, select Languages. Select the language you prefer.</p>',
-    'tag' => '^Basic Usage^,^OS and Interface^',
-);
+    'tags' => array(
+        'Basic Usage',
+        'OS and Interface',
+        ),
+    );
 
-$sugar_demodata['kbdocuments_seed_data'][] = array(
+$sugar_demodata['kbdocument_seed_data'][] = array(
     'name' => 'Resetting the device',
-    'active_date' => '2014-01-01',
-    'exp_date' => '2014-12-31',
+    'start_date' => '2010-01-01',
+    'exp_date' => '2010-12-31',
     'body' => '<p>When things are not working as expected, try resetting the device. Hold the Start button until the dialog box displays.  Select the Reset option.</p>',
-    'tag' => '^Basic Usage^,^Hardware^',
-);
+    'tags' => array(
+        'Basic Usage',
+        'Hardware',
+        ),
+); 
+
 $sugar_demodata['contract_seed_data'][] = array(
 	'name' => 'IT Tech Support for UK Datacenter',
 	'reference_code' => 'EMP-9802',
@@ -2649,4 +2612,4 @@ $sugar_demodata['opportunities_seed_data']['opportunities'][1] = array(
 	),
 );
 //END Opportunities demo data
-
+?>

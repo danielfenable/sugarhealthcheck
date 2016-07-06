@@ -1,4 +1,4 @@
-nv.models.bubbleChart = function() {
+nv.models.bubbleChart = function () {
 
   //============================================================
   // Public Variables with Default Settings
@@ -11,24 +11,24 @@ nv.models.bubbleChart = function() {
       showControls = false,
       showLegend = true,
       direction = 'ltr',
-      getX = function(d) { return d.x; },
-      getY = function(d) { return d.y; },
+      getX = function (d) { return d.x; },
+      getY = function (d) { return d.y; },
       forceY = [0], // 0 is forced by default.. this makes sense for the majority of bar graphs... user can always do chart.forceY([]) to remove
       xDomain,
       yDomain,
       delay = 200,
-      groupBy = function(d) { return d.y; },
-      filterBy = function(d) { return d.y; },
+      groupBy = function (d) { return d.y; },
+      filterBy = function (d) { return d.y; },
       clipEdge = false, // if true, masks lines within x and y scale
       seriesLength = 0,
       reduceYTicks = false, // if false a tick will show for every data point
-      bubbleClick = function(e) { return; },
-      format = d3.time.format('%Y-%m-%d'),
+      bubbleClick = function (e) { return; },
+      format = d3.time.format("%Y-%m-%d"),
       tooltip = null,
       tooltips = true,
-      tooltipContent = function(key, x, y, e, graph) {
+      tooltipContent = function (key, x, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' + y + ' on ' + x + '</p>';
+               '<p>' +  y + ' on ' + x + '</p>';
       },
       x,
       y,
@@ -46,9 +46,9 @@ nv.models.bubbleChart = function() {
 
   var scatter = nv.models.scatter()
         .padData(true)
-        .padDataOuter(-1)
-        .size(function(d) { return d.y; })
-        .sizeRange([256, 1024])
+        .padDataOuter(0)
+        .size(function (d){ return d.y; })
+        .sizeRange([256,1024])
         .singlePoint(true),
       xAxis = nv.models.axis()
         .orient('bottom')
@@ -57,7 +57,7 @@ nv.models.bubbleChart = function() {
         .highlightZero(false)
         .showMaxMin(false)
         .ticks(d3.time.months, 1)
-        .tickFormat(function(d) {
+        .tickFormat(function (d) {
           return d3.time.format('%b')(new Date(d));
         }),
       yAxis = nv.models.axis()
@@ -66,110 +66,64 @@ nv.models.bubbleChart = function() {
         .highlightZero(false)
         .showMaxMin(false),
       legend = nv.models.legend()
-        .align('center')
-        .key(function(d) { return d.key + '%'; });
+        .align('center');
 
-  var showTooltip = function(eo, offsetElement, properties) {
-    var key = eo.series.key,
-        x = eo.point.x,
-        y = eo.point.y,
-        content = tooltipContent(key, x, y, eo, chart),
-        gravity = eo.value < 0 ? 'n' : 's';
+  var showTooltip = function (e, offsetElement, properties) {
+    var left = e.pos[0],
+        top = e.pos[1],
+        x = e.point.x,
+        y = e.point.y,
+        content = tooltipContent(e.series.key, x, y, e, chart);
 
-    tooltip = nv.tooltip.show(eo.e, content, gravity, null, offsetElement);
+    tooltip = nv.tooltip.show([left, top], content, e.value < 0 ? 'n' : 's', null, offsetElement);
   };
 
   //============================================================
 
   function chart(selection) {
 
-    selection.each(function(chartData) {
+    selection.each(function (chartData) {
 
-      var that = this,
-          container = d3.select(this);
+      var properties = chartData.properties,
+          data = chartData.data,
+          container = d3.select(this),
+          that = this;
 
-      var properties = chartData ? chartData.properties : {},
-          data = chartData ? chartData.data : null;
-
-      var filteredData,
-          timeExtent,
-          xD,
-          yD,
-          yValues;
-
-      chart.container = this;
-
-      chart.update = function() {
+      chart.update = function () {
         container.transition().call(chart);
       };
 
-      //------------------------------------------------------------
-      // Private method for displaying no data message.
+      chart.container = this;
 
-      function displayNoData(d) {
-        if (d && d.length) {
-          container.selectAll('.nv-noData').remove();
-          return false;
-        }
-
-        container.select('.nvd3.nv-wrap').remove();
-
-        var w = width || parseInt(container.style('width'), 10) || 960,
-            h = height || parseInt(container.style('height'), 10) || 400,
-            noDataText = container.selectAll('.nv-noData').data([chart.strings().noData]);
-
-        noDataText.enter().append('text')
-          .attr('class', 'nvd3 nv-noData')
-          .attr('dy', '-.7em')
-          .style('text-anchor', 'middle');
-
-        noDataText
-          .attr('x', margin.left + w / 2)
-          .attr('y', margin.top + h / 2)
-          .text(function(d) {
-            return d;
-          });
-
-        return true;
-      }
-
-      // Check to see if there's nothing to show.
-      if (displayNoData(data)) {
+      if (!data || !data.length) {
         return chart;
       }
 
       //------------------------------------------------------------
       // Process data
 
-      // set title display option
-      showTitle = showTitle && properties.title;
-
-      function getTimeDomain(data) {
+      // Calculate the x-axis ticks
+      function getTimeTicks(data) {
+        function daysInMonth(date) {
+          return 32 - new Date(date.getFullYear(), date.getMonth(), 32).getDate();
+        }
         var timeExtent =
               d3.extent(
                 d3.merge(
-                  data.map(function(d) {
-                    return d.values.map(function(d, i) {
-                      return d3.time.format('%Y-%m-%d').parse(getX(d));
+                  data.map(function (d) {
+                    return d.values.map(function (d, i) {
+                      return d3.time.format("%Y-%m-%d").parse(getX(d));
                     });
                   })
                 )
               );
-        var timeRange = [
-          d3.time.month.floor(timeExtent[0]),
-          d3.time.day.offset(d3.time.month.ceil(timeExtent[1]), -1)
-        ];
-        return timeRange;
-      }
-
-      // Calculate the x-axis ticks
-      function getTimeTicks(timeDomain) {
-        function daysInMonth(date) {
-          return 32 - new Date(date.getFullYear(), date.getMonth(), 32).getDate();
-        }
-        var timeRange = d3.time.month.range(timeDomain[0], timeDomain[1]);
+        var timeRange =
+              d3.time.month.range(
+                d3.time.month.floor(timeExtent[0]),
+                d3.time.month.ceil(timeExtent[1])
+              );
         var timeTicks =
-              timeRange.map(function(d) {
+              timeRange.map(function (d) {
                 return d3.time.day.offset(d3.time.month.floor(d), daysInMonth(d) / 2 - 1);
               });
         return timeTicks;
@@ -186,8 +140,8 @@ nv.models.bubbleChart = function() {
         // Calculate y scale parameters
         var gHeight = 1000 / groupedData.length,
             gOffset = gHeight * 0.25,
-            gDomain = [0, 1],
-            gRange = [0, 1],
+            gDomain = [0,1],
+            gRange = [0,1],
             gScale = d3.scale.linear().domain(gDomain).range(gRange),
             yValues = [],
             total = 0;
@@ -195,13 +149,13 @@ nv.models.bubbleChart = function() {
         // Calculate total for each data group and
         // point y value
         groupedData
-          .map(function(s, i) {
+          .map(function (s, i) {
             s.total = 0;
 
-            s.values = s.values.sort(function(a, b) {
+            s.values = s.values.sort(function (a, b) {
                 return b.y < a.y ? -1 : b.y > a.y ? 1 : 0;
               })
-              .map(function(p) {
+              .map(function (p) {
                 s.total += p.y;
                 return p;
               });
@@ -209,25 +163,25 @@ nv.models.bubbleChart = function() {
             s.group = i;
             return s;
           })
-          .sort(function(a, b) {
+          .sort(function (a, b) {
             return a.total < b.total ? -1 : a.total > b.total ? 1 : 0;
           })
-          .map(function(s, i) {
+          .map(function (s, i) {
             total += s.total;
 
-            gDomain = d3.extent(s.values.map(function(p) { return p.y; }));
+            gDomain = d3.extent(s.values.map(function (p){ return p.y; }));
             gRange = [gHeight * i + gOffset, gHeight * (i + 1) - gOffset];
             gScale.domain(gDomain).range(gRange);
 
             s.values = s.values
-              .map(function(p) {
+              .map(function (p) {
                 p.group = s.group;
                 p.opportunity = p.y;
                 p.y = gScale(p.opportunity);
                 return p;
               });
 
-            yValues.push({y: d3.min(s.values.map(function(p) { return p.y; })), key: s.key});
+            yValues.push({y: d3.min(s.values.map(function (p){ return p.y; })), key: s.key});
 
             return s;
           });
@@ -235,77 +189,99 @@ nv.models.bubbleChart = function() {
         return yValues;
       }
 
-      // set state.disabled
-      state.disabled = data.map(function(d) { return !!d.disabled; });
+      //set state.disabled
+      state.disabled = data.map(function (d) { return !!d.disabled; });
 
       // Now that group calculations are done,
       // group the data by filter so that legend filters
-      filteredData = d3.nest()
-        .key(filterBy)
-        .entries(data);
+      var filteredData = d3.nest()
+            .key(filterBy)
+            .entries(data);
 
       //add series index to each data point for reference
       filteredData = filteredData
-        .sort(function(a, b) {
+        .sort(function (a, b){
           //sort legend by key
           return parseInt(a.key, 10) < parseInt(b.key, 10) ? -1 : parseInt(a.key, 10) > parseInt(b.key, 10) ? 1 : 0;
         })
-        .map(function(d, i) {
+        .map(function (d, i) {
           d.series = i;
           d.classes = d.values[0].classes;
           d.color = d.values[0].color;
           return d;
         });
 
-      xD = getTimeDomain(filteredData);
-
-      yValues = getGroupTicks(data);
-
-      yD = d3.extent(
+      var timeExtent = d3.extent(
             d3.merge(
-              filteredData.map(function(d) {
-                return d.values.map(function(d, i) {
-                  return getY(d, i);
+              filteredData.map(function (d) {
+                return d.values.map(function (d, i) {
+                  return d3.time.format("%Y-%m-%d").parse(d.x);
+                });
+              })
+            )
+          );
+
+      var xD = [
+        d3.time.month.floor(timeExtent[0]),
+        d3.time.day.offset(d3.time.month.ceil(timeExtent[1]), -1)
+      ];
+
+      var yValues = getGroupTicks(data);
+
+      var yD = d3.extent(
+            d3.merge(
+              filteredData.map(function (d) {
+                return d.values.map(function (d, i) {
+                  return getY(d,i);
                 });
               })
             ).concat(forceY)
           );
 
       //------------------------------------------------------------
-      // Setup Scales and Axes
+      // Setup Scales
 
       x = scatter.xScale();
       y = scatter.yScale();
 
       xAxis
-        .scale(x)
-        .tickValues(getTimeTicks(xD));
+        .scale(x);
       yAxis
-        .scale(y)
-        .ticks(yValues.length)
-        .tickValues(yValues.map(function(d, i) {
-          return yValues[i].y;
-        }));
+        .scale(y);
 
-      //------------------------------------------------------------
-      // Main chart draw
+      chart.render = function () {
 
-      chart.render = function() {
-
-        // Chart layout variables
-        var renderWidth = width || parseInt(container.style('width'), 10) || 960,
-            renderHeight = height || parseInt(container.style('height'), 10) || 400,
-            availableWidth = renderWidth - margin.left - margin.right,
-            availableHeight = renderHeight - margin.top - margin.bottom,
+        var width = width  || parseInt(container.style('width'), 10 || 960),
+            height = height || parseInt(container.style('height'), 10 || 400),
+            availableWidth = width - margin.left - margin.right,
+            availableHeight = height - margin.top - margin.bottom,
             innerWidth = availableWidth,
             innerHeight = availableHeight,
-            innerMargin = {top: 0, right: 0, bottom: 0, left: 0};
+            innerMargin = {top: 0, right: 0, bottom: 0, left: 0},
+            maxBubbleSize = Math.sqrt(scatter.sizeRange()[1] / Math.PI);
 
-        // Header variables
-        var maxBubbleSize = Math.sqrt(scatter.sizeRange()[1] / Math.PI),
-            headerHeight = 0,
-            titleBBox = {width: 0, height: 0},
-            trans = '';
+        //------------------------------------------------------------
+        // Display No Data message if there's nothing to show.
+
+        if (!data || !data.length) {
+          var noDataText = container.selectAll('.nv-noData').data([chart.strings().noData]);
+
+          noDataText.enter().append('text')
+            .attr('class', 'nvd3 nv-noData')
+            .attr('dy', '-.7em')
+            .style('text-anchor', 'middle');
+
+          noDataText
+            .attr('x', margin.left + availableWidth / 2)
+            .attr('y', margin.top + availableHeight / 2)
+            .text(function (d) {
+              return d;
+            });
+
+          return chart;
+        } else {
+          container.selectAll('.nv-noData').remove();
+        }
 
         //------------------------------------------------------------
         // Setup containers and skeleton of chart
@@ -317,11 +293,9 @@ nv.models.bubbleChart = function() {
         gEnter.append('rect').attr('class', 'nv-background')
           .attr('x', -margin.left)
           .attr('y', -margin.top)
-          .attr('fill', '#FFF');
-
-        g.select('.nv-background')
           .attr('width', availableWidth + margin.left + margin.right)
-          .attr('height', availableHeight + margin.top + margin.bottom);
+          .attr('height', availableHeight + margin.top + margin.bottom)
+          .attr('fill', '#FFF');
 
         gEnter.append('g').attr('class', 'nv-titleWrap');
         var titleWrap = g.select('.nv-titleWrap');
@@ -339,9 +313,9 @@ nv.models.bubbleChart = function() {
         //------------------------------------------------------------
         // Title & Legend
 
-        titleWrap.select('.nv-title').remove();
+        if (showTitle && properties.title) {
+          titleWrap.select('.nv-title').remove();
 
-        if (showTitle) {
           titleWrap
             .append('text')
               .attr('class', 'nv-title')
@@ -353,211 +327,164 @@ nv.models.bubbleChart = function() {
               .attr('stroke', 'none')
               .attr('fill', 'black');
 
-          titleBBox = nv.utils.getTextBBox(g.select('.nv-title'));
-          headerHeight += titleBBox.height;
+          innerMargin.top += parseInt(g.select('.nv-title').node().getBoundingClientRect().height / 1.15, 10) +
+            parseInt(g.select('.nv-title').style('margin-top'), 10) +
+            parseInt(g.select('.nv-title').style('margin-bottom'), 10);
         }
 
         if (showLegend) {
           legend
             .id('legend_' + chart.id())
             .strings(chart.strings().legend)
+            .margin({top: 10, right: 10, bottom: 10, left: 10})
             .align('center')
-            .height(availableHeight - headerHeight);
+            .height(availableHeight - innerMargin.top)
+            .key(function (d){ return d.key + '%'; });
           legendWrap
             .datum(filteredData)
             .call(legend);
 
           legend
             .arrange(availableWidth);
-
-          var legendLinkBBox = nv.utils.getTextBBox(legendWrap.select('.nv-legend-link')),
-              legendSpace = availableWidth - titleBBox.width - 6,
-              legendTop = showTitle && legend.collapsed() && legendSpace > legendLinkBBox.width ? true : false,
-              xpos = direction === 'rtl' || !legend.collapsed() ? 0 : availableWidth - legend.width(),
-              ypos = titleBBox.height;
-          if (legendTop) {
-            ypos = titleBBox.height - legend.height() / 2 - legendLinkBBox.height / 2;
-          } else if (!showTitle) {
-            ypos = - legend.margin().top;
-          }
           legendWrap
-            .attr('transform', 'translate(' + xpos + ',' + ypos + ')');
-
-          headerHeight += legendTop ? 12 : legend.height();
+            .attr('transform', 'translate(0,' + innerMargin.top + ')');
         }
 
-        // Recalc inner margins based on legend and control height
-        innerHeight = availableHeight - headerHeight - innerMargin.top - innerMargin.bottom;
-
-        //------------------------------------------------------------
-        // Main Chart Components
-
-        scatter
-          .width(innerWidth)
-          .height(innerHeight)
-          .id(chart.id())
-          .xDomain(xD)
-          .yDomain(yD);
-
-        bubblesWrap
-          .datum(filteredData.filter(function(d) {
-            return !d.disabled;
-          }))
-          .transition().duration(chart.delay())
-            .call(scatter);
-
-        innerMargin.top += maxBubbleSize;
+        // Recalc inner margins
+        innerMargin.top += legend.height();
+        innerHeight = availableHeight - innerMargin.top - innerMargin.bottom;
 
         //------------------------------------------------------------
         // Setup Axes
 
-        var yAxisMargin = {top: 0, right: 0, bottom: 0, left: 0},
-            xAxisMargin = {top: 0, right: 0, bottom: 0, left: 0};
-
-        function setInnerMargins() {
-          innerMargin.left = Math.max(xAxisMargin.left, yAxisMargin.left);
-          innerMargin.right = Math.max(xAxisMargin.right, yAxisMargin.right);
-          innerMargin.top = Math.max(xAxisMargin.top, yAxisMargin.top);
-          innerMargin.bottom = Math.max(xAxisMargin.bottom, yAxisMargin.bottom);
-        }
-
-        function setInnerDimensions() {
-          innerWidth = availableWidth - innerMargin.left - innerMargin.right;
-          innerHeight = availableHeight - headerHeight - innerMargin.top - innerMargin.bottom;
-          // Recalc chart dimensions and scales based on new inner dimensions
-          scatter.resetDimensions(innerWidth, innerHeight);
-        }
-
-        // Y-Axis
-        yAxis
-          .tickSize(-innerWidth, 0)
-          .margin(innerMargin)
-          .tickFormat(function(d, i) {
-            return nv.utils.stringEllipsify(yValues[i].key, container, Math.max(availableWidth * 0.2, 75));
-          });
-        yAxisWrap
-          .call(yAxis);
-        // reset inner dimensions
-        yAxisMargin = yAxis.margin();
-        setInnerMargins();
-        setInnerDimensions();
-
+        //------------------------------------------------------------
         // X-Axis
+
         xAxis
-          .tickSize(0)
-          .margin(innerMargin);
+          .tickValues(getTimeTicks(filteredData));
+
         xAxisWrap
           .call(xAxis);
-        // reset inner dimensions
-        xAxisMargin = xAxis.margin();
-        setInnerMargins();
-        setInnerDimensions();
-        // resize ticks based on new dimensions
-        xAxis
-          .tickSize(0);
-        xAxis
-          .resizeTickLines();
 
-        // recall y-axis to set final size based on new dimensions
+        innerMargin[xAxis.orient()] += xAxis.height();
+        innerMargin.top += maxBubbleSize;
+        innerHeight = availableHeight - innerMargin.top - innerMargin.bottom;
+
+        //------------------------------------------------------------
+        // Y-Axis
         yAxis
-          .tickSize(-innerWidth, 0)
-          .margin(innerMargin);
+          .ticks(yValues.length)
+          .tickValues(yValues.map(function (d, i) {
+            return yValues[i].y;
+          }))
+          .tickFormat(function (d, i) {
+            return yValues[i].key;
+          });
+
         yAxisWrap
           .call(yAxis);
 
-        // final call to lines based on new dimensions
+        innerMargin[yAxis.orient()] += yAxis.width();
+        innerWidth = availableWidth - innerMargin.left - innerMargin.right;
+
+        //------------------------------------------------------------
+        // Main Chart Components
+        // Recall to set final size
+
+        scatter
+          .xDomain(xD)
+          .yDomain(yD)
+          .width(innerWidth)
+          .height(innerHeight)
+          .id(chart.id());
+
         bubblesWrap
+          .datum(filteredData.filter(function (d) {
+            return !d.disabled;
+          }))
+          .attr('transform', 'translate(' + innerMargin.left + ',' + innerMargin.top + ')')
           .transition().duration(chart.delay())
             .call(scatter);
 
-        //------------------------------------------------------------
-        // Final repositioning
-
-        innerMargin.top += headerHeight;
-
-        trans = innerMargin.left + ',';
-        trans += innerMargin.top + (xAxis.orient() === 'bottom' ? innerHeight : 0);
         xAxisWrap
-          .attr('transform', 'translate(' + trans + ')');
+          .attr('transform', 'translate(' + innerMargin.left + ',' + (xAxis.orient() === 'bottom' ? innerHeight + innerMargin.top : innerMargin.top) + ')')
+          .transition()
+            .call(xAxis);
 
-        trans = innerMargin.left + (yAxis.orient() === 'left' ? 0 : innerWidth) + ',';
-        trans += innerMargin.top;
+        yAxis
+          .tickSize(-innerWidth, 0);
+
         yAxisWrap
-          .attr('transform', 'translate(' + trans + ')');
-
-        bubblesWrap
-          .attr('transform', 'translate(' + innerMargin.left + ',' + innerMargin.top + ')');
+          .attr('transform', 'translate(' + (yAxis.orient() === 'left' ? innerMargin.left : innerMargin.left + innerWidth) + ',' + innerMargin.top + ')')
+          .transition()
+            .call(yAxis);
 
       };
-
-      //============================================================
-
-      chart.render();
 
       //============================================================
       // Event Handling/Dispatching (in chart's scope)
       //------------------------------------------------------------
 
-      legend.dispatch.on('legendClick', function(d, i) {
+      legend.dispatch.on('legendClick', function (d, i) {
         d.disabled = !d.disabled;
 
-        if (!filteredData.filter(function(d) { return !d.disabled; }).length) {
-          filteredData.map(function(d) {
+        if (!data.filter(function (d) {
+          return !d.disabled;
+        }).length) {
+          data.map(function (d) {
             d.disabled = false;
-            container.selectAll('.nv-series').classed('disabled', false);
+            g.selectAll('.nv-series').classed('disabled', false);
             return d;
           });
         }
 
-        state.disabled = filteredData.map(function(d) { return !!d.disabled; });
-
+        state.disabled = data.map(function (d) {
+          return !!d.disabled;
+        });
         dispatch.stateChange(state);
 
         container.transition().call(chart.render);
       });
 
-      dispatch.on('tooltipShow', function(eo) {
+      dispatch.on('tooltipShow', function (e) {
         if (tooltips) {
-          showTooltip(eo, that.parentNode);
+          showTooltip(e, that.parentNode);
         }
       });
 
-      dispatch.on('tooltipMove', function(e) {
-        if (tooltip) {
-          nv.tooltip.position(that.parentNode, tooltip, e, 's');
-        }
-      });
-
-      dispatch.on('tooltipHide', function() {
+      dispatch.on('tooltipHide', function () {
         if (tooltips) {
           nv.tooltip.cleanup();
         }
       });
 
+      dispatch.on('tooltipMove', function (e) {
+        if (tooltip) {
+          nv.tooltip.position(tooltip, e.pos);
+        }
+      });
+
       // Update chart from a state object passed to event handler
-      dispatch.on('changeState', function(eo) {
-        if (typeof eo.disabled !== 'undefined') {
-          data.forEach(function(series, i) {
-            series.disabled = eo.disabled[i];
+      dispatch.on('changeState', function (e) {
+        if (typeof e.disabled !== 'undefined') {
+          data.forEach(function (series,i) {
+            series.disabled = e.disabled[i];
           });
-          state.disabled = eo.disabled;
+          state.disabled = e.disabled;
         }
 
         container.transition().call(chart);
       });
 
-      dispatch.on('chartClick', function() {
-        dispatch.tooltipHide();
+      dispatch.on('chartClick', function (e) {
         if (legend.enabled()) {
-          legend.dispatch.closeMenu();
+          legend.dispatch.closeMenu(e);
         }
       });
 
-      scatter.dispatch.on('elementClick', function(eo) {
-        dispatch.chartClick();
-        bubbleClick(eo);
-      });
+      //============================================================
 
+      chart.render();
     });
 
     return chart;
@@ -567,16 +494,21 @@ nv.models.bubbleChart = function() {
   // Event Handling/Dispatching (out of chart's scope)
   //------------------------------------------------------------
 
-  scatter.dispatch.on('elementMouseover.tooltip', function(eo) {
-    dispatch.tooltipShow(eo);
+  scatter.dispatch.on('elementMouseover.tooltip', function (e) {
+    dispatch.tooltipShow(e);
   });
 
-  scatter.dispatch.on('elementMousemove.tooltip', function(e) {
+  scatter.dispatch.on('elementMouseout.tooltip', function (e) {
+    dispatch.tooltipHide(e);
+  });
+
+  scatter.dispatch.on('elementMousemove.tooltip', function (e) {
     dispatch.tooltipMove(e);
   });
 
-  scatter.dispatch.on('elementMouseout.tooltip', function() {
-    dispatch.tooltipHide();
+  scatter.dispatch.on('elementClick', function (e) {
+    bubbleClick(e);
+    nv.tooltip.cleanup();
   });
 
   //============================================================
@@ -644,7 +576,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.margin = function(_) {
+  chart.margin = function (_) {
     if (!arguments.length) {
       return margin;
     }
@@ -656,7 +588,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.width = function(_) {
+  chart.width = function (_) {
     if (!arguments.length) {
       return width;
     }
@@ -664,7 +596,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.height = function(_) {
+  chart.height = function (_) {
     if (!arguments.length) {
       return height;
     }
@@ -672,7 +604,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.showTitle = function(_) {
+  chart.showTitle = function (_) {
     if (!arguments.length) {
       return showTitle;
     }
@@ -680,7 +612,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.showLegend = function(_) {
+  chart.showLegend = function (_) {
     if (!arguments.length) {
       return showLegend;
     }
@@ -688,7 +620,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.tooltip = function(_) {
+  chart.tooltip = function (_) {
     if (!arguments.length) {
       return tooltip;
     }
@@ -696,7 +628,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.tooltips = function(_) {
+  chart.tooltips = function (_) {
     if (!arguments.length) {
       return tooltips;
     }
@@ -704,7 +636,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.tooltipContent = function(_) {
+  chart.tooltipContent = function (_) {
     if (!arguments.length) {
       return tooltipContent;
     }
@@ -712,7 +644,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.state = function(_) {
+  chart.state = function (_) {
     if (!arguments.length) {
       return state;
     }
@@ -728,7 +660,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.bubbleClick = function(_) {
+  chart.bubbleClick = function (_) {
     if (!arguments.length) {
       return bubbleClick;
     }
@@ -736,7 +668,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.groupBy = function(_) {
+  chart.groupBy = function (_) {
     if (!arguments.length) {
       return groupBy;
     }
@@ -744,7 +676,7 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.filterBy = function(_) {
+  chart.filterBy = function (_) {
     if (!arguments.length) {
       return filterBy;
     }
@@ -752,11 +684,11 @@ nv.models.bubbleChart = function() {
     return chart;
   };
 
-  chart.colorFill = function(_) {
+  chart.colorFill = function (_) {
     return chart;
   };
 
-  chart.strings = function(_) {
+  chart.strings = function (_) {
     if (!arguments.length) {
       return strings;
     }

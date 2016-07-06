@@ -11,10 +11,6 @@
  */
 --}}
 {{#if this.model.id}}
-    {{#eq value "0"}}
-        <span class="label label-pending" data-action="convert">{{str "LBL_UNCONVERTED" this.module}}</span>
-    {{/eq}}
-    {{#eq value "1"}}
-        <span class="label label-success">{{str "LBL_CONVERTED" this.module}}</span>
-    {{/eq}}
+{{#eq this.model.attributes.converted "0"}}<span class="label">{{str "LBL_UNCONVERTED" this.module}}</span>{{/eq}}
+{{#eq this.model.attributes.converted "1"}}<span class="label label-success">{{str "LBL_CONVERTED" this.module}}</span>{{/eq}}
 {{/if}}

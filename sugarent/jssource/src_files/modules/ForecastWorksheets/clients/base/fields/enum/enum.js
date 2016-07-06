@@ -30,30 +30,6 @@
     /**
      * @inheritdoc
      */
-    bindDataChange: function() {
-        if(this.name === 'sales_stage') {
-            this.model.on('change:sales_stage', function(model, newValue) {
-                var salesStageWon = app.metadata.getModule('Forecasts', 'config').sales_stage_won;
-                if(_.contains(salesStageWon, newValue)) {
-                    this.context.trigger('forecasts:cteRemove:' + model.id)
-                }
-            }, this);
-        }
-
-        if(this.name === 'commit_stage') {
-            this.context.on('forecasts:cteRemove:' + this.model.id, function() {
-                this.$el.removeClass('isEditable');
-                var $divEl = this.$('div.clickToEdit');
-                if($divEl.length) {
-                    $divEl.removeClass('clickToEdit');
-                }
-            }, this);
-        }
-    },
-
-    /**
-     * @inheritdoc
-     */
     _render: function() {
         this._super('_render');
 

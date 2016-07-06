@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,40 +12,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-
-  'LBL_NAME' =>'Név',
-  'LBL_NUMBER' => 'Szám:',
-  'LBL_STATUS' => 'Állapot:',
-  'LBL_PRIORITY' => 'Prioritás:',
-  'LBL_DESCRIPTION' => 'Leírás:',
-  'LBL_RESOLUTION' => 'Felbontás',
-  'LBL_LAST_MODIFIED' => 'Utolsó módosítás',
-  'LBL_ASSIGNED_TO_ID'=>'Felelős:',
-  'LBL_ASSIGNED_TO_NAME' => 'Felhasználó:',  	  
-  'LBL_WORK_LOG' => 'Munkanapló:',
+  'LBL_ASSIGNED_TO_ID' => 'Felelős:',
+  'LBL_ASSIGNED_TO_NAME' => 'Felhasználó:',
+  'LBL_ASSIGNED_USER' => 'Felelős felhasználó:',
+  'LBL_ASSIGNED_USER_NAME' => 'Hozzárendelt felhasználó',
   'LBL_CREATED_BY' => 'Létrehozta:',
   'LBL_DATE_CREATED' => 'Létrehozás dátuma:',
   'LBL_DATE_ENTERED' => 'Létrehozás dátuma:',
-  'LBL_DATE_MODIFIED'=>'Módosítás dátuma:',
+  'LBL_DATE_MODIFIED' => 'Módosítás dátuma:',
+  'LBL_DESCRIPTION' => 'Leírás:',
+  'LBL_EDIT_BUTTON' => 'Szerkesztés',
+  'LBL_LAST_MODIFIED' => 'Utolsó módosítás',
   'LBL_MODIFIED_BY' => 'Utolsóként módosította:',
-  'LBL_ASSIGNED_USER' => 'Felelős felhasználó:',
-  'LBL_ASSIGNED_USER_NAME' => 'Hozzárendelt felhasználó',
-  'LBL_SYSTEM_ID' =>'Rendszer azonosító:',
-  'LBL_TEAM_NAME' =>'Csoport neve:',
-  'LBL_TYPE'=>'Típus:',
+  'LBL_NAME' => 'Név',
+  'LBL_NUMBER' => 'Szám:',
+  'LBL_PRIORITY' => 'Prioritás:',
+  'LBL_REMOVE' => 'Eltávolítás',
+  'LBL_RESOLUTION' => 'Felbontás',
+  'LBL_STATUS' => 'Állapot:',
   'LBL_SUBJECT' => 'Tárgy:',
+  'LBL_SYSTEM_ID' => 'Rendszer azonosító:',
+  'LBL_TEAM_NAME' => 'Csoport neve:',
+  'LBL_TYPE' => 'Típus:',
+  'LBL_WORK_LOG' => 'Munkanapló:',
+);
 
-    'LBL_EDIT_BUTTON' => 'Szerkesztés',
-    'LBL_REMOVE' => 'Eltávolítás',
-
-  
-  );

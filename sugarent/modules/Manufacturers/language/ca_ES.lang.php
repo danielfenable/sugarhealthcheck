@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,53 +12,45 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-  'LBL_CREATED_ID'=>'Creat per ID',
-  'LBL_MODIFIED_ID'=>'Modificat per ID',
-  'LBL_MODULE_NAME' => 'Proveïdors',
-  'LBL_MODULE_NAME_SINGULAR' => 'Fabricant',
-  'LBL_MODULE_TITLE' => 'Proveïdors: inici',
-  'LBL_SEARCH_FORM_TITLE' => 'Cerca de proveïdors',
-  'LBL_LIST_FORM_TITLE' => 'Llista de proveïdors',
-  'LBL_NEW_FORM_TITLE' => 'Nou proveïdor',
-  'LBL_MANUFACTURER' => 'Proveïdor:',
-  'LBL_LIST_NAME' => 'Proveïdor',
-  'LBL_NAME' => 'Proveïdor:',
-  'LBL_ID' => 'ID',
-  'LBL_MODIFIED_BY' => 'Modificat per',
+  'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre per eliminar el Proveïdor.',
   'LBL_CREATED_BY' => 'Creat per',
+  'LBL_CREATED_ID' => 'Creat per Id',
+  'LBL_EDITLAYOUT' => 'Editar disseny',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_FORM_TITLE' => 'Llista de Proveïdors',
   'LBL_LIST_LIST_ORDER' => 'Ordre',
+  'LBL_LIST_NAME' => 'Proveïdor',
   'LBL_LIST_ORDER' => 'Ordre:',
   'LBL_LIST_STATUS' => 'Estat',
+  'LBL_MANUFACTURER' => 'Proveïdor:',
+  'LBL_MODIFIED_BY' => 'Modificat per',
+  'LBL_MODIFIED_ID' => 'Modificat per Id',
+  'LBL_MODULE_NAME' => 'Proveïdors',
+  'LBL_MODULE_NAME_SINGULAR' => 'Fabricant',
+  'LBL_MODULE_TITLE' => 'Proveïdors: Inici',
+  'LBL_NAME' => 'Proveïdor:',
+  'LBL_NEW_FORM_TITLE' => 'Nou Proveïdor',
+  'LBL_REVENUELINEITEMS' => 'Elements de línies d&#39;ingressos',
+  'LBL_SEARCH_FORM_TITLE' => 'Recerca de Proveïdors',
   'LBL_STATUS' => 'Estat:',
-  'LNK_PRODUCT_LIST' => 'Catàleg de Productes',
-  'LNK_NEW_PRODUCT' => 'Crear producte per al catàleg',
+  'LNK_IMPORT_MANUFACTURERS' => 'Importar Proveïdors',
+  'LNK_IMPORT_PRODUCT_CATEGORIES' => 'Importar Categories de Producte',
   'LNK_NEW_MANUFACTURER' => 'Proveïdors',
-  'LNK_NEW_SHIPPER' => 'Proveïdors de Transport',
+  'LNK_NEW_PRODUCT' => 'Crear Element en Catàleg de Productes',
   'LNK_NEW_PRODUCT_CATEGORY' => 'Categories de Productes',
-  'LNK_IMPORT_PRODUCT_CATEGORIES' => 'Importar categories de producte',
   'LNK_NEW_PRODUCT_TYPE' => 'Tipus de Producte',
-  'NTC_DELETE_CONFIRMATION' => 'Esteu segur que voleu suprimir aquest registre?',
-  'ERR_DELETE_RECORD' => 'Per suprimir el proveïdor, heu d&#39;especificar un número de registre.',
-  'NTC_STATUS' => 'Estableixi l´estat a Inactiu per treure aquest Proveïdor de les llistes desplegables de Proveïdors',
+  'LNK_NEW_SHIPPER' => 'Proveïdors de Transport',
+  'LNK_PRODUCT_LIST' => 'Catàleg de Productes',
+  'NTC_DELETE_CONFIRMATION' => 'Està segur que desitja eliminar aquest registre?',
   'NTC_LIST_ORDER' => 'Estableixi l´ordre en el qual aquest Proveïdor apareixerà en les llistes desplegables de Proveïdors',
+  'NTC_STATUS' => 'Estableixi l´estat a Inactiu per treure aquest Proveïdor de les llistes desplegables de Proveïdors',
   'manufacturer_status_dom' => 
   array (
     'Active' => 'Actiu',
     'Inactive' => 'Inactiu',
-),
-  'LNK_IMPORT_MANUFACTURERS'=>'Importar Proveïdors',
-	'LBL_EDITLAYOUT' => 'Editar disseny' /*for 508 compliance fix*/,
-  'LBL_REVENUELINEITEMS' => 'Elements de línies d&#39;ingressos',
+  ),
 );
 
-
-?>

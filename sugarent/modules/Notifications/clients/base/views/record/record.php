@@ -14,21 +14,6 @@
 $viewdefs['Notifications']['base']['view']['record'] = array(
     'buttons' => array(
         array(
-            'type' => 'actiondropdown',
-            'name' => 'main_dropdown',
-            'primary' => true,
-            'showOn' => 'view',
-            'buttons' => array(
-                array(
-                    'type' => 'rowaction',
-                    'event' => 'button:audit_button:click',
-                    'name' => 'audit_button',
-                    'label' => 'LNK_VIEW_CHANGE_LOG',
-                    'acl_action' => 'view',
-                ),
-            ),
-        ),
-        array(
             'name' => 'sidebar_toggle',
             'type' => 'sidebartoggle',
         ),

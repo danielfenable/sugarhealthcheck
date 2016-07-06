@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id: Project.php 17092 2006-10-16 20:48:09 +0000 (Mon, 16 Oct 2006) awu $
+
 
 
 
@@ -32,14 +32,12 @@ class ProjectResource extends SugarBean {
 	var $assigned_user_id;
 	var $modified_user_id;
 	var $created_by;
-
 	var $team_id;
 	var $deleted;
 
 	// related information
 	var $modified_by_name;
 	var $created_by_name;
-
 	var $team_name;
 
 	var $project_id;

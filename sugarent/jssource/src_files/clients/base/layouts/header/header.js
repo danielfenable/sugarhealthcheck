@@ -20,16 +20,17 @@
      */
     initialize: function(options) {
         app.view.Layout.prototype.initialize.call(this, options);
-        this.on('header:update:route', this.resize, this);
-        app.events.on('app:view:change', this.resize, this);
+        this.on("header:update:route", this.resize, this);
+        app.events.on("app:sync:complete", this.resize, this);
+        app.events.on("app:view:change", this.resize, this);
         // Event listeners for showing and hiding the megamenu on auth expiration
-        app.events.on('app:login', this.hide, this);
-        app.events.on('app:login:success', this.show, this);
+        app.events.on("router:reauth:load", this.hideMenu, this);
+        app.events.on("router:reauth:success", this.showMenu, this);
 
         var resize = _.bind(this.resize, this);
         $(window)
-            .off('resize.header')
-            .on('resize.header', resize);
+            .off("resize", resize)
+            .on("resize", resize);
     },
 
     /**
@@ -46,85 +47,53 @@
      * that tells the module list to resize
      */
     resize: function() {
-        var resizeWidth = this.getModuleListWidth();
-        this.trigger('view:resize', resizeWidth);
-    },
-
-    /**
-     * Returns the calculated module list width.
-     * @return {number}
-     */
-    getModuleListWidth: function() {
-        var maxMenuWidth = $(window).width();
-        var totalWidth = 0;
+        var totalWidth = 0,
+            modulelist, maxMenuWidth, componentElement,
+            container = this.$('.navbar-inner');
 
         _.each(this._components, function(component) {
+            componentElement = component.$el.children().first();
             if (component.name !== 'module-list') {
                 // only calculate width for visible components
-                if (component.$el.is(':visible')) {
+                if (componentElement.is(':visible')) {
                     totalWidth += component.$el.outerWidth(true);
                 }
+            } else {
+                modulelist = component.$el;
             }
         });
-        return maxMenuWidth - totalWidth;
+
+        maxMenuWidth = container.parent('.navbar-fixed-top').width();
+
+        this.trigger('view:resize', maxMenuWidth - totalWidth);
     },
 
     /**
-     * Returns the minimum module list width.
-     * @return {number}
-     */
-    getModuleListMinWidth: function() {
-        var moduleListView = this.getComponent('module-list');
-        if (moduleListView) {
-            return moduleListView.computeMinWidth();
-        }
-    },
-
-    /**
-     * Sets whether or not the module-list should listen to the window resize.
-     * @param {boolean} resize
-     */
-    setModuleListResize: function(resize) {
-        this.getComponent('module-list').toggleResize(resize);
-    },
-
-    /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _render: function() {
         this._super('_render');
 
         // If we are authenticated show the megamenu
         if (app.api.isAuthenticated()) {
-            this.show();
+            this.showMenu();
         } else {
-            this.hide();
+            this.hideMenu();
         }
     },
 
     /**
-     * @inheritdoc
+     * Shows the megamenu
      */
-    show: function() {
-        this._super('show');
+    showMenu: function() {
+        this.$el.show();
         this.resize();
     },
 
     /**
-     * Shows the megamenu
-     * @deprecated since 7.7 and will be removed in 7.8, use {@link #show}.
-     */
-    showMenu: function () {
-        app.logger.warn('showMenu is deprecated, please use show instead.');
-        this.show();
-    },
-
-    /**
      * Hides the megamenu
-     * @deprecated since 7.7 and will be removed in 7.8, use {@link #hide}.
      */
-    hideMenu: function () {
-        app.logger.warn('hideMenu is deprecated, please use hide instead.');
-        this.hide();
+    hideMenu: function() {
+        this.$el.hide();
     }
 })

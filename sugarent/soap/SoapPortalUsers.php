@@ -140,14 +140,7 @@ function portal_login_contact($portal_auth, $contact_portal_auth, $application_n
         //C.L - Set the admin modules granted for portal user.  This change is necessary since the new Link2.php class does a bean retrieval
         //against the modules to which to associate relationships.  It could be possible that the Contact's teams are not accessible by the
         //portal user's team security restrictions.
-        $_SESSION[$current_user->user_name.'_get_admin_modules_for_user'] = array(
-            'Cases',
-            'Notes',
-            'Accounts',
-            'Contacts',
-            'Bugs',
-            'Campaigns',
-        );
+        $_SESSION[$current_user->user_name.'_get_admin_modules_for_user'] = array('Cases', 'Notes', 'Accounts', 'Contacts', 'Bugs', 'KBDocuments', 'Campaigns');
 
         $sessionManager->session_type = 'contact';
         $sessionManager->last_request_time = TimeDate::getInstance()->nowDb();
@@ -287,6 +280,8 @@ function portal_get_entry_list_filter($session, $module_name, $order_by, $select
         $sugar = BeanFactory::getBean('Accounts');
     } else if($module_name == 'Bugs'){
         $sugar = BeanFactory::getBean('Bugs');
+    } else if($module_name == 'KBDocuments' || $module_name == 'FAQ') {
+        $sugar = BeanFactory::getBean('KBDocuments');
     } else {
         $error->set_error('no_module_support');
         return array('result_count'=>-1, 'entry_list'=>array(), 'error'=>$error->get_soap_array());
@@ -368,6 +363,11 @@ function portal_get_entry($session, $module_name, $id,$select_fields ){
     if(empty($_SESSION['viewable'][$module_name][$id])){
         $error->set_error('no_access');
         return array('result_count'=>-1, 'entry_list'=>array(), 'error'=>$error->get_soap_array());
+    }
+
+    if($module_name == 'KBDocuments') {
+       $body = $seed->get_kbdoc_body($id);
+       $seed->description = $body;
     }
 
     $output_list = Array();
@@ -832,5 +832,59 @@ function portal_set_newsletters($session, $subscribe_ids, $unsubscribe_ids){
     }
 
     return $error->get_soap_array();
+}
+
+
+$server->register(
+    'portal_get_child_tags',
+    array('session'=>'xsd:string', 'tag'=>'xsd:string'),
+    array('return'=>'tns:kbtag_list'),
+    $NAMESPACE);
+
+function portal_get_child_tags($session, $tag) {
+    return portal_get_child_tags_query($session, $tag);
+}
+
+$server->register(
+    'portal_get_tag_docs',
+    array('session'=>'xsd:string', 'tag'=>'xsd:string'),
+    array('return'=>'tns:kbtag_docs_list'),
+    $NAMESPACE);
+
+function portal_get_tag_docs($session, $tag) {
+    return portal_get_tag_docs_query($session, $tag);
+}
+
+$server->register(
+    'portal_get_kbdocument_attachment',
+    array('session'=>'xsd:string', 'id'=>'xsd:string'),
+    array('return'=>'tns:return_note_attachment'),
+    $NAMESPACE);
+
+function portal_get_kbdocument_attachment($session, $id)
+{
+    $error = new SoapError();
+    if(!portal_validate_authenticated($session)){
+       $error->set_error('invalid_session');
+       return array('result_count'=>-1, 'entry_list'=>array(), 'error'=>$error->get_soap_array());
+    }
+    require_once('modules/KBDocuments/KBDocumentSoap.php');
+    $ns = new KBDocumentSoap($id);
+    $file= $ns->retrieveFile($id);
+    if($file == -1){
+       $error->set_error('no_file');
+       $file = '';
+    }
+    return array('note_attachment'=>array('id'=>$id, 'filename'=>$ns->retrieveFileName($id), 'file'=>$file), 'error'=>$error->get_soap_array());
+}
+
+$server->register(
+    'portal_get_kbdocument_body',
+    array('session'=>'xsd:string', 'id'=>'xsd:string'),
+    array('return'=>'xsd:string'),
+    $NAMESPACE);
+
+function portal_get_kbdocument_body($session, $id) {
+    return portal_get_kbdocument_body_query($session, $id);
 }
 ?>

@@ -167,9 +167,9 @@ function checkMaxSupported(c, s) {
 
 SUGAR.isSupportedBrowser = function(){
     var supportedBrowsers = {
-        msie : {min:11}, // IE 11
-        safari : {min:600}, // Safari 8.0.8, 9.0.1
-        mozilla : {min:41}, // Firefox 41, 42
+        msie : {min:9, max:11}, // IE 9, 10, 11
+        safari : {min:537}, // Safari 7.1
+        mozilla : {min:41}, // Firefox 41,42
         chrome : {min:537.36} // Chrome 47
     };
     var current = String($.browser.version);
@@ -608,13 +608,6 @@ function addToValidateVerified(formname, name, type, required, msg, arr, operato
 	validate[formname][validate[formname].length - 1][jstypeIndex] = 'verified';
 }
 
-function addToValidateMaxLength(formname, name, type, required, max, msg)
-{
-    addToValidate(formname, name, type, required, msg);
-    validate[formname][validate[formname].length - 1][jstypeIndex] = 'maxlen';
-    validate[formname][validate[formname].length - 1][maxIndex] = max;
-}
-
 function addToValidateLessThan(formname, name, type, required, msg, max, max_field_msg) {
 	addToValidate(formname, name, type, required, msg);
 	validate[formname][validate[formname].length - 1][jstypeIndex] = 'less';
@@ -628,11 +621,6 @@ function addToValidateMoreThan(formname, name, type, required, msg, min) {
     validate[formname][validate[formname].length - 1][minIndex] = min;
 }
 
-
-function addToValidateUrl(formname, name, type, required, msg) {
-    addToValidate(formname, name, type, required, msg);
-    validate[formname][validate[formname].length - 1][jstypeIndex] = 'url';
-}
 
 function removeFromValidate(formname, name) {
 	for(i = 0; i < validate[formname].length; i++)
@@ -881,14 +869,8 @@ function isValidEmail(emailStr) {
 	for (var i = 0; i < emailArr.length; i++) {
 		var emailAddress = emailArr[i];
 		if (trim(emailAddress) != '') {
-            // extract the email address from between <> if applicable
-            var matches = /^.*<(.*)>\s*$/.exec(emailAddress);
-
-            if (matches !== null) {
-                emailAddress = matches[1];
-            }
-
-			if (!/^\s*[\w.%+\-&'#!\$\*=\?\^_`\{\}~\/]+@[^@]+\s*$/i.test(emailAddress)) {
+			if(!/^\s*[\w.%+\-&'#!\$\*=\?\^_`\{\}~\/]+@([A-Z0-9-]+\.)*[A-Z0-9-]+\.[\w-]{2,}\s*$/i.test(emailAddress) &&
+			   !/^.*<[A-Z0-9._%+\-&'#!\$\*=\?\^_`\{\}~]+?@([A-Z0-9-]+\.)*[A-Z0-9-]+\.[\w-]{2,}>\s*$/i.test(emailAddress)) {
 
 			   return false;
 			} // if
@@ -974,41 +956,8 @@ function check_form(formname) {
 	return validate_form(formname, '');
 }
 
-function disable_submit(formname) {
-    //disable the submit buttons to prevent double submits
-    var form = document.forms[formname];
-    var inputs = form.getElementsByTagName('input');
-    for (var i = 0; i < inputs.length; i ++) {
-        if (inputs[i].type === 'submit') {
-            inputs[i].disabled = 'disabled';
-        }
-    }
-}
-
-var REQUIRED_VALIDATION_MESSAGE_CLASS = 'required validation-message';
-
-function remove_error_style(formName, input) {
-    try
-    {
-        inputHandle = typeof input === "object" ? input : document.forms[formname][input];
-
-        //  Find and remove all child error elements.
-        var errorElements = $(inputHandle).parent().children().filter(function() {
-            var $el = $(this);
-            if ($el.hasClass(REQUIRED_VALIDATION_MESSAGE_CLASS)) {
-                return $el;
-            }
-        });
-        errorElements.each(function() {
-            $(this).remove();
-        });
-    } catch(e)
-    {
-        // Catch errors here just as add_error_style doesn't leak any exceptions.
-    }
-}
-
 function add_error_style(formname, input, txt, flash) {
+    var raiseFlag = false;
 	if (typeof flash == "undefined")
 		flash = true;
 	try {
@@ -1016,28 +965,37 @@ function add_error_style(formname, input, txt, flash) {
 	style = get_current_bgcolor(inputHandle);
 
 	// strip off the colon at the end of the warning strings
-    if (txt.substring(txt.length - 1) === ':') {
-        txt = txt.substring(0, txt.length - 1)
-    }
+	if ( txt.substring(txt.length-1) == ':' )
+	    txt = txt.substring(0,txt.length-1)
 
-    //  Remove all the error message elements to avoid both duplication of error messages
-    //  and having more than one error message on a single element.
-    remove_error_style(formname, input);
+	// Bug 28249 - To help avoid duplicate messages for an element, strip off extra messages and
+	// match on the field name itself
+	requiredTxt = SUGAR.language.get('app_strings', 'ERR_MISSING_REQUIRED_FIELDS');
+    invalidTxt = SUGAR.language.get('app_strings', 'ERR_INVALID_VALUE');
+    nomatchTxt = SUGAR.language.get('app_strings', 'ERR_SQS_NO_MATCH_FIELD');
+    matchTxt = txt.replace(requiredTxt,'').replace(invalidTxt,'').replace(nomatchTxt,'');
 
-    errorTextNode = document.createElement('div');
-    errorTextNode.className = REQUIRED_VALIDATION_MESSAGE_CLASS;
-    errorTextNode.innerHTML = txt;
-    if ( inputHandle.parentNode.className.indexOf('x-form-field-wrap') != -1 ) {
-        inputHandle.parentNode.parentNode.appendChild(errorTextNode);
-    }
-    else {
-        inputHandle.parentNode.appendChild(errorTextNode);
-    }
-    if (flash) {
-    	inputHandle.style.backgroundColor = "#FF0000";
-    }
-    inputsWithErrors.push(inputHandle);
+        $(inputHandle).parent().children().each(function() {
+            var $el = $(this);
+            if($el.hasClass('required validation-message') && $el.text().indexOf(matchTxt) > 0) {
+                raiseFlag = true;
+            }
+        });
 
+    if(!raiseFlag) {
+        errorTextNode = document.createElement('div');
+        errorTextNode.className = 'required validation-message';
+        errorTextNode.innerHTML = txt;
+        if ( inputHandle.parentNode.className.indexOf('x-form-field-wrap') != -1 ) {
+            inputHandle.parentNode.parentNode.appendChild(errorTextNode);
+        }
+        else {
+            inputHandle.parentNode.appendChild(errorTextNode);
+        }
+        if (flash)
+        	inputHandle.style.backgroundColor = "#FF0000";
+        inputsWithErrors.push(inputHandle);
+	}
     if (flash)
     {
 		// We only need to setup the flashy-flashy on the first entry, it loops through all fields automatically
@@ -1176,18 +1134,6 @@ function isFieldHidden(field, type)
 
     return Dom.hasClass(td, 'vis_action_hidden');
 }
-function isUrl(str) {
-    if (str.length === 0) {
-        return true;
-    }
-
-    if (!/^(https?|ftp):\/\/[^\s\/$.?#]+\.[^\s]+$/.test(str)) {
-        console.log('false');
-        return false;
-    }
-
-    return true;
-}
 function validate_form(formname, startsWith){
     requiredTxt = SUGAR.language.get('app_strings', 'ERR_MISSING_REQUIRED_FIELDS');
     invalidTxt = SUGAR.language.get('app_strings', 'ERR_INVALID_VALUE');
@@ -1244,145 +1190,145 @@ function validate_form(formname, startsWith){
 					}
 					if(!bail){
 						switch(validate[formname][i][typeIndex]){
-                            case 'email':
-                                if(!isValidEmail(trim(form[validate[formname][i][nameIndex]].value))){
-                                    isError = true;
-                                    add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
-                                }
-                                 break;
-                            case 'time':
-                                if( !isTime(trim(form[validate[formname][i][nameIndex]].value))){
-                                    isError = true;
-                                    add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
-                                } break;
-                            case 'date': if(!isDate(trim(form[validate[formname][i][nameIndex]].value))){
-                                    isError = true;
-                                    add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
-                                }  break;
-                            case 'alpha':
-                                break;
-                            case 'DBName':
-                                if(!isDBName(trim(form[validate[formname][i][nameIndex]].value))){
-                                    isError = true;
-                                    add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
-                                }
-                                break;
-                            // Bug #49614 : Check value without trimming before
-                            case 'DBNameRaw':
-                                if(!isDBName(form[validate[formname][i][nameIndex]].value)){
-                                    isError = true;
-                                    add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
-                                }
-                                break;
-                            case 'alphanumeric':
-                                break;
-                            case 'file':
-                                var file_input = form[validate[formname][i][nameIndex] + '_file'];
-                                if( file_input && validate[formname][i][requiredIndex] && trim(file_input.value) == "" && !file_input.disabled ) {
-                                      isError = true;
-                                      add_error_style(formname, validate[formname][i][nameIndex], requiredTxt + " " +	validate[formname][i][msgIndex]);
-                                  }
-                              break;
-                            case 'int':
-                                if(!isInteger(trim(form[validate[formname][i][nameIndex]].value))){
-                                    isError = true;
-                                    add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
-                                }
-                                break;
-                            case 'decimal':
-                                if(!isDecimal(trim(form[validate[formname][i][nameIndex]].value))){
-                                    isError = true;
-                                    add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
-                                }
-                                break;
-                            case 'currency':
-                            case 'float':
-                                if(!isFloat(trim(form[validate[formname][i][nameIndex]].value))){
-                                    isError = true;
-                                    add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
-                                }
-                                break;
-                            case 'teamset_mass':
-                                var div_element_id = formname + '_' + form[validate[formname][i][nameIndex]].name + '_operation_div';
-                                var input_elements = YAHOO.util.Selector.query('input', document.getElementById(div_element_id));
-                                var primary_field_id = '';
-                                var validation_passed = false;
-                                var replace_selected = false;
+						case 'email':
+							if(!isValidEmail(trim(form[validate[formname][i][nameIndex]].value))){
+								isError = true;
+								add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
+							}
+							 break;
+						case 'time':
+							if( !isTime(trim(form[validate[formname][i][nameIndex]].value))){
+								isError = true;
+								add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
+							} break;
+						case 'date': if(!isDate(trim(form[validate[formname][i][nameIndex]].value))){
+								isError = true;
+								add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
+							}  break;
+						case 'alpha':
+							break;
+						case 'DBName':
+							if(!isDBName(trim(form[validate[formname][i][nameIndex]].value))){
+								isError = true;
+								add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
+							}
+							break;
+                        // Bug #49614 : Check value without trimming before
+						case 'DBNameRaw':
+							if(!isDBName(form[validate[formname][i][nameIndex]].value)){
+								isError = true;
+								add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
+							}
+							break;
+						case 'alphanumeric':
+							break;
+						case 'file':
+						    var file_input = form[validate[formname][i][nameIndex] + '_file'];
+                            if( file_input && validate[formname][i][requiredIndex] && trim(file_input.value) == "" && !file_input.disabled ) {
+						          isError = true;
+						          add_error_style(formname, validate[formname][i][nameIndex], requiredTxt + " " +	validate[formname][i][msgIndex]);
+						      }
+						  break;
+						case 'int':
+							if(!isInteger(trim(form[validate[formname][i][nameIndex]].value))){
+								isError = true;
+								add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
+							}
+							break;
+						case 'decimal':
+							if(!isDecimal(trim(form[validate[formname][i][nameIndex]].value))){
+								isError = true;
+								add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
+							}
+							break;
+						case 'currency':
+						case 'float':
+							if(!isFloat(trim(form[validate[formname][i][nameIndex]].value))){
+								isError = true;
+								add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
+							}
+							break;
+						case 'teamset_mass':
+							var div_element_id = formname + '_' + form[validate[formname][i][nameIndex]].name + '_operation_div';
+							var input_elements = YAHOO.util.Selector.query('input', document.getElementById(div_element_id));
+							var primary_field_id = '';
+							var validation_passed = false;
+							var replace_selected = false;
 
-                                //Loop through the option elements (replace or add currently)
-                                for(t in input_elements) {
-                                    if(input_elements[t].type && input_elements[t].type == 'radio' && input_elements[t].checked == true && input_elements[t].value == 'replace') {
+							//Loop through the option elements (replace or add currently)
+							for(t in input_elements) {
+								if(input_elements[t].type && input_elements[t].type == 'radio' && input_elements[t].checked == true && input_elements[t].value == 'replace') {
 
-                                       //Now find where the primary radio button is and if a value has been set
-                                       var radio_elements = YAHOO.util.Selector.query('input[type=radio]', document.getElementById(formname + '_team_name_table'));
+						           //Now find where the primary radio button is and if a value has been set
+						           var radio_elements = YAHOO.util.Selector.query('input[type=radio]', document.getElementById(formname + '_team_name_table'));
 
-                                       for(var x = 0; x < radio_elements.length; x++) {
-                                           if(radio_elements[x].name != 'team_name_type') {
-                                              primary_field_id = 'team_name_collection_' + radio_elements[x].value;
-                                              if(radio_elements[x].checked) {
-                                                  replace_selected = true;
-                                                  if(trim(document.forms[formname].elements[primary_field_id].value) != '') {
-                                                     validation_passed = true;
-                                                     break;
-                                                  }
-                                              } else if(trim(document.forms[formname].elements[primary_field_id].value) != '') {
-                                                  replace_selected = true;
-                                              }
-                                           }
-                                       }
-                                    }
-                                }
+						           for(var x = 0; x < radio_elements.length; x++) {
+						        	   if(radio_elements[x].name != 'team_name_type') {
+						        		  primary_field_id = 'team_name_collection_' + radio_elements[x].value;
+						        		  if(radio_elements[x].checked) {
+						        			  replace_selected = true;
+						        			  if(trim(document.forms[formname].elements[primary_field_id].value) != '') {
+		                                         validation_passed = true;
+		                                         break;
+										      }
+						        		  } else if(trim(document.forms[formname].elements[primary_field_id].value) != '') {
+						        			  replace_selected = true;
+						        		  }
+						        	   }
+								   }
+						        }
+							}
 
-                                if(replace_selected && !validation_passed) {
-                                   add_error_style(formname, primary_field_id, SUGAR.language.get('app_strings', 'ERR_NO_PRIMARY_TEAM_SPECIFIED'));
-                                   isError = true;
-                                }
-                                break;
-                            case 'teamset':
-                                   var table_element_id = formname + '_' + form[validate[formname][i][nameIndex]].name + '_table';
-                                   if(document.getElementById(table_element_id)) {
-                                       var input_elements = YAHOO.util.Selector.query('input[type=radio]', document.getElementById(table_element_id));
-                                       var has_primary = false;
-                                       var primary_field_id = form[validate[formname][i][nameIndex]].name + '_collection_0';
+							if(replace_selected && !validation_passed) {
+						       add_error_style(formname, primary_field_id, SUGAR.language.get('app_strings', 'ERR_NO_PRIMARY_TEAM_SPECIFIED'));
+						       isError = true;
+							}
+							break;
+						case 'teamset':
+							   var table_element_id = formname + '_' + form[validate[formname][i][nameIndex]].name + '_table';
+							   if(document.getElementById(table_element_id)) {
+								   var input_elements = YAHOO.util.Selector.query('input[type=radio]', document.getElementById(table_element_id));
+								   var has_primary = false;
+								   var primary_field_id = form[validate[formname][i][nameIndex]].name + '_collection_0';
 
-                                       for(t in input_elements) {
-                                            primary_field_id = form[validate[formname][i][nameIndex]].name + '_collection_' + input_elements[t].value;
-                                            if(input_elements[t].type && input_elements[t].type == 'radio' && input_elements[t].checked == true) {
-                                               if(document.forms[formname].elements[primary_field_id].value != '') {
-                                                  has_primary = true;
-                                               }
-                                               break;
-                                            }
-                                       }
+								   for(t in input_elements) {
+									    primary_field_id = form[validate[formname][i][nameIndex]].name + '_collection_' + input_elements[t].value;
+								        if(input_elements[t].type && input_elements[t].type == 'radio' && input_elements[t].checked == true) {
+								           if(document.forms[formname].elements[primary_field_id].value != '') {
+								        	  has_primary = true;
+								           }
+								           break;
+								        }
+								   }
 
-                                       if(!has_primary) {
-                                          isError = true;
-                                          var field_id = form[validate[formname][i][nameIndex]].name + '_collection_' + input_elements[0].value;
-                                          add_error_style(formname, field_id, SUGAR.language.get('app_strings', 'ERR_NO_PRIMARY_TEAM_SPECIFIED'));
-                                       }
-                                   }
-                                   break;
-                            case 'checkboxset':
-                                var validation_passed = false;
-                                var input_elements = YAHOO.util.Selector.query('input[name="'+validate[formname][i][nameIndex]+'"]', document.getElementById(formname));
+								   if(!has_primary) {
+									  isError = true;
+									  var field_id = form[validate[formname][i][nameIndex]].name + '_collection_' + input_elements[0].value;
+									  add_error_style(formname, field_id, SUGAR.language.get('app_strings', 'ERR_NO_PRIMARY_TEAM_SPECIFIED'));
+								   }
+							   }
+						       break;
+						case 'checkboxset':
+							var validation_passed = false;
+							var input_elements = YAHOO.util.Selector.query('input[name="'+validate[formname][i][nameIndex]+'"]', document.getElementById(formname));
+    
+							for (t in input_elements) {
+							    if (input_elements[t].type && input_elements[t].type == 'checkbox' && input_elements[t].checked == true) {
+							        validation_passed = true;
+							        break;
+							    }
+							}
 
-                                for (t in input_elements) {
-                                    if (input_elements[t].type && input_elements[t].type == 'checkbox' && input_elements[t].checked == true) {
-                                        validation_passed = true;
-                                        break;
-                                    }
-                                }
-
-                                if (!validation_passed) {
-                                    isError = true;
-                                    var elements = $(input_elements).closest('.checkboxset').find('input');
-                                    add_error_style(formname, elements[0], requiredTxt + " " + validate[formname][i][msgIndex]);
-                                }
-                                break;
-                            case 'error':
-                                isError = true;
-                                add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex]);
-                                break;
+							if (!validation_passed) {
+							    isError = true;
+							    var elements = $(input_elements).closest('.checkboxset').find('input');
+							    add_error_style(formname, elements[0], requiredTxt + " " + validate[formname][i][msgIndex]);
+							}
+							break;
+					    case 'error':
+							isError = true;
+                            add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex]);
+							break;
 						}
 
 						if(typeof validate[formname][i][jstypeIndex]  != 'undefined'/* && !isError*/){
@@ -1399,124 +1345,108 @@ function validate_form(formname, startsWith){
                                             add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex]);
                                         }
                                     }
-                                break;
-                                case 'url':
-                                    if (!isUrl(trim(form[validate[formname][i][nameIndex]].value))) {
-                                        isError = true;
-                                        add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] + " " + SUGAR.language.get('app_strings', 'LBL_VALIDATE_URL'));
-                                    }
-                                break;
-                                case 'range':
-                                    if(!inRange(trim(form[validate[formname][i][nameIndex]].value), validate[formname][i][minIndex], validate[formname][i][maxIndex])){
-                                        isError = true;
-                                        var lbl_validate_range = SUGAR.language.get('app_strings', 'LBL_VALIDATE_RANGE');
-                                        if (typeof validate[formname][i][minIndex] == 'number' && typeof validate[formname][i][maxIndex] == 'number')
-                                        {
-                                            add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] + " value " + form[validate[formname][i][nameIndex]].value + " " + lbl_validate_range + " (" +validate[formname][i][minIndex] + " - " + validate[formname][i][maxIndex] +  ")");
-                                        }
-                                        else if (typeof validate[formname][i][minIndex] == 'number')
-                                        {
-                                            add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] + " " + SUGAR.language.get('app_strings', 'MSG_SHOULD_BE') + ' ' + validate[formname][i][minIndex] + ' ' + SUGAR.language.get('app_strings', 'MSG_OR_GREATER'));
-                                        }
-                                        else if (typeof validate[formname][i][maxIndex] == 'number')
-                                        {
-                                            add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] + " " + SUGAR.language.get('app_strings', 'MSG_IS_MORE_THAN') + ' ' + validate[formname][i][maxIndex]);
-                                        }
-                                    }
-                                break;
-                                case 'isbefore':
-                                    compareTo = form[validate[formname][i][compareToIndex]];
-                                    if(	typeof compareTo != 'undefined'){
-                                        if(trim(compareTo.value) != '' || (validate[formname][i][allowblank] != 'true') ) {
-                                            date2 = trim(compareTo.value);
-                                            date1 = trim(form[validate[formname][i][nameIndex]].value);
-
-                                            if(trim(date1).length != 0 && !isBefore(date1,date2)){
-
-                                                isError = true;
-                                                //jc:#12287 - adding translation for the is not before message
-                                                add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] + "(" + date1 + ") " + SUGAR.language.get('app_strings', 'MSG_IS_NOT_BEFORE') + ' ' +date2);
-                                            }
-                                        }
-                                    }
-                                break;
-                                case 'maxlen':
-                                    value = trim(form[validate[formname][i][nameIndex]].value);
-                                    maximum = parseFloat(validate[formname][i][maxIndex]);
-                                    if (typeof maximum != 'undefined') {
-                                        if (value.length > maximum) {
-                                            isError = true;
-                                            add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] + " " + SUGAR.language.get('app_strings', 'MSG_EXCEEDS_MAXLEN'));
-                                        }
-                                    }
                                     break;
-                                case 'less':
-                                    value=unformatNumber(trim(form[validate[formname][i][nameIndex]].value), num_grp_sep, dec_sep);
-                                    maximum = parseFloat(validate[formname][i][maxIndex]);
-                                    if(	typeof maximum != 'undefined'){
-                                        if(value>maximum) {
-                                            isError = true;
-                                            add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] +" " +SUGAR.language.get('app_strings', 'MSG_IS_MORE_THAN')+ ' ' + validate[formname][i][altMsgIndex]);
-                                        }
+							case 'range':
+								if(!inRange(trim(form[validate[formname][i][nameIndex]].value), validate[formname][i][minIndex], validate[formname][i][maxIndex])){
+									isError = true;
+                                    var lbl_validate_range = SUGAR.language.get('app_strings', 'LBL_VALIDATE_RANGE');
+                                    if (typeof validate[formname][i][minIndex] == 'number' && typeof validate[formname][i][maxIndex] == 'number')
+                                    {
+                                        add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] + " value " + form[validate[formname][i][nameIndex]].value + " " + lbl_validate_range + " (" +validate[formname][i][minIndex] + " - " + validate[formname][i][maxIndex] +  ")");
                                     }
-                                break;
-                                case 'more':
-                                    value=unformatNumber(trim(form[validate[formname][i][nameIndex]].value), num_grp_sep, dec_sep);
-                                    minimum = parseFloat(validate[formname][i][minIndex]);
-                                    if(	typeof minimum != 'undefined'){
-                                        if(value<minimum) {
-                                            isError = true;
-                                            add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] +" " +SUGAR.language.get('app_strings', 'MSG_SHOULD_BE')+ ' ' + minimum + ' ' + SUGAR.language.get('app_strings', 'MSG_OR_GREATER'));
-                                        }
+                                    else if (typeof validate[formname][i][minIndex] == 'number')
+                                    {
+                                        add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] + " " + SUGAR.language.get('app_strings', 'MSG_SHOULD_BE') + ' ' + validate[formname][i][minIndex] + ' ' + SUGAR.language.get('app_strings', 'MSG_OR_GREATER'));
                                     }
-                                break;
-                                case 'binarydep':
-                                    compareTo = form[validate[formname][i][compareToIndex]];
-                                    if( typeof compareTo != 'undefined') {
-                                        item1 = trim(form[validate[formname][i][nameIndex]].value);
-                                        item2 = trim(compareTo.value);
-                                        if(!bothExist(item1, item2)) {
-                                            isError = true;
-                                            add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex]);
-                                        }
+                                    else if (typeof validate[formname][i][maxIndex] == 'number')
+                                    {
+                                        add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] + " " + SUGAR.language.get('app_strings', 'MSG_IS_MORE_THAN') + ' ' + validate[formname][i][maxIndex]);
                                     }
-                                break;
-                                case 'comparison':
-                                    compareTo = form[validate[formname][i][compareToIndex]];
-                                    if( typeof compareTo != 'undefined') {
-                                        item1 = trim(form[validate[formname][i][nameIndex]].value);
-                                        item2 = trim(compareTo.value);
-                                        if(!bothExist(item1, item2) || item1 != item2) {
-                                            isError = true;
-                                            add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex]);
-                                        }
+								}
+							break;
+							case 'isbefore':
+								compareTo = form[validate[formname][i][compareToIndex]];
+								if(	typeof compareTo != 'undefined'){
+									if(trim(compareTo.value) != '' || (validate[formname][i][allowblank] != 'true') ) {
+										date2 = trim(compareTo.value);
+										date1 = trim(form[validate[formname][i][nameIndex]].value);
+
+										if(trim(date1).length != 0 && !isBefore(date1,date2)){
+
+											isError = true;
+											//jc:#12287 - adding translation for the is not before message
+											add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] + "(" + date1 + ") " + SUGAR.language.get('app_strings', 'MSG_IS_NOT_BEFORE') + ' ' +date2);
+										}
+									}
+								}
+							break;
+                            case 'less':
+                                value=unformatNumber(trim(form[validate[formname][i][nameIndex]].value), num_grp_sep, dec_sep);
+								maximum = parseFloat(validate[formname][i][maxIndex]);
+								if(	typeof maximum != 'undefined'){
+									if(value>maximum) {
+                                        isError = true;
+                                        add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] +" " +SUGAR.language.get('app_strings', 'MSG_IS_MORE_THAN')+ ' ' + validate[formname][i][altMsgIndex]);
                                     }
-                                break;
-                                case 'in_array':
-                                    arr = eval(validate[formname][i][arrIndex]);
-                                    operator = validate[formname][i][operatorIndex];
-                                    item1 = trim(form[validate[formname][i][nameIndex]].value);
-                                    if (operator.charAt(0) == 'u') {
-                                        item1 = item1.toUpperCase();
-                                        operator = operator.substring(1);
-                                    } else if (operator.charAt(0) == 'l') {
-                                        item1 = item1.toLowerCase();
-                                        operator = operator.substring(1);
+								}
+							break;
+							case 'more':
+                                value=unformatNumber(trim(form[validate[formname][i][nameIndex]].value), num_grp_sep, dec_sep);
+								minimum = parseFloat(validate[formname][i][minIndex]);
+								if(	typeof minimum != 'undefined'){
+									if(value<minimum) {
+                                        isError = true;
+                                        add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex] +" " +SUGAR.language.get('app_strings', 'MSG_SHOULD_BE')+ ' ' + minimum + ' ' + SUGAR.language.get('app_strings', 'MSG_OR_GREATER'));
                                     }
-                                    for(j = 0; j < arr.length; j++){
-                                        val = arr[j];
-                                        if((operator == "==" && val == item1) || (operator == "!=" && val != item1)){
-                                            isError = true;
-                                            add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
-                                        }
-                                    }
-                                break;
-                                case 'verified':
-                                    if(trim(form[validate[formname][i][nameIndex]].value) == 'false'){
-                                       //Fake an error so form does not submit
-                                       isError = true;
-                                    }
-                                break;
+								}
+							break;
+                            case 'binarydep':
+								compareTo = form[validate[formname][i][compareToIndex]];
+								if( typeof compareTo != 'undefined') {
+									item1 = trim(form[validate[formname][i][nameIndex]].value);
+									item2 = trim(compareTo.value);
+									if(!bothExist(item1, item2)) {
+										isError = true;
+										add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex]);
+									}
+								}
+							break;
+							case 'comparison':
+								compareTo = form[validate[formname][i][compareToIndex]];
+								if( typeof compareTo != 'undefined') {
+									item1 = trim(form[validate[formname][i][nameIndex]].value);
+									item2 = trim(compareTo.value);
+									if(!bothExist(item1, item2) || item1 != item2) {
+										isError = true;
+										add_error_style(formname, validate[formname][i][nameIndex], validate[formname][i][msgIndex]);
+									}
+								}
+							break;
+							case 'in_array':
+								arr = eval(validate[formname][i][arrIndex]);
+								operator = validate[formname][i][operatorIndex];
+								item1 = trim(form[validate[formname][i][nameIndex]].value);
+								if (operator.charAt(0) == 'u') {
+									item1 = item1.toUpperCase();
+									operator = operator.substring(1);
+								} else if (operator.charAt(0) == 'l') {
+									item1 = item1.toLowerCase();
+									operator = operator.substring(1);
+								}
+								for(j = 0; j < arr.length; j++){
+									val = arr[j];
+									if((operator == "==" && val == item1) || (operator == "!=" && val != item1)){
+										isError = true;
+										add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " +	validate[formname][i][msgIndex]);
+									}
+								}
+							break;
+							case 'verified':
+							if(trim(form[validate[formname][i][nameIndex]].value) == 'false'){
+							   //Fake an error so form does not submit
+							   isError = true;
+							}
+							break;
 							}
 						}
 					}
@@ -3268,52 +3198,137 @@ SUGAR.util = function () {
             }
         },
 	    evalScript:function(text){
-            var elements = $.parseHTML(text, document, true);
-            YUI({comboBase: 'index.php?entryPoint=getYUIComboFile&'}).use("io-base", "get", function(Y) {
-                _.each(elements, function(el) {
-                    if (el.tagName && el.tagName.toUpperCase() == "SCRIPT") {
-                        try {
-                            if (el.src) {
-                                // Check is ulr cross domain or not
-                                var r1 = /:\/\//igm;
-                                if (r1.test(el.src) && el.src.indexOf(window.location.hostname) == -1) {
-                                    // if script is cross domain it cannot be loaded via ajax request
-                                    // try load script asynchronous by creating script element in the body
-                                    // YUI 3.3 doesn't allow load scripts synchronously
-                                    // YUI 3.5 do it
-                                    Y.Get.script(el.src, {
-                                        autopurge: false,
-                                        onSuccess: function(o) {},
-                                        onFailure: function(o) {},
-                                        onTimeout: function(o) {}
-                                    });
-                                }
-                                else {
-                                    // Bug #49205 : Subpanels fail to load when selecting subpanel tab
-                                    // Create a YUI instance using the io-base module.
-                                    Y.io(el.src, {
-                                        method: 'GET',
-                                        sync: true,
-                                        on: {
-                                            success: function(transactionid, response, arguments) {
-                                                SUGAR.util.globalEval(response.responseText);
-                                            }
-                                        }
-                                    });
-                                }
-                            } else {
-                                SUGAR.util.globalEval(el.innerHTML || el.innerText);
+			if (isSafari) {
+				var waitUntilLoaded = function(){
+					SUGAR.evalScript_waitCount--;
+					if (SUGAR.evalScript_waitCount == 0) {
+                      var headElem = document.getElementsByTagName('head')[0];
+                      for ( var i = 0; i < SUGAR.evalScript_evalElem.length; i++) {
+                        var tmpElem = document.createElement('script');
+                        tmpElem.type = 'text/javascript';
+                        tmpElem.text = SUGAR.evalScript_evalElem[i];
+                        headElem.appendChild(tmpElem);
+                      }
+					}
+				};
+
+				var tmpElem = document.createElement('div');
+				tmpElem.innerHTML = text;
+				var results = tmpElem.getElementsByTagName('script');
+				if (results == null) {
+					// No scripts found, bail out
+					return;
+				}
+
+				var headElem = document.getElementsByTagName('head')[0];
+				var tmpElem = null;
+				SUGAR.evalScript_waitCount = 0;
+				SUGAR.evalScript_evalElem = new Array();
+				for (var i = 0; i < results.length; i++) {
+					if (typeof(results[i]) != 'object') {
+						continue;
+					};
+					tmpElem = document.createElement('script');
+					tmpElem.type = 'text/javascript';
+					if (results[i].src != null && results[i].src != '') {
+						tmpElem.src = results[i].src;
+					} else {
+                        // Need to defer execution of these scripts until the
+                        // required javascript files are fully loaded
+                        SUGAR.evalScript_evalElem[SUGAR.evalScript_evalElem.length] = results[i].text;
+                        continue;
+					}
+					tmpElem.addEventListener('load', waitUntilLoaded);
+					SUGAR.evalScript_waitCount++;
+					headElem.appendChild(tmpElem);
+				}
+                // Add some code to handle pages without any external scripts
+				SUGAR.evalScript_waitCount++;
+                waitUntilLoaded();
+
+				// Don't try and process things the IE way
+				return;
+			}
+
+	        var objRegex = /<\s*script([^>]*)>((.|\s|\v|\0)*?)<\s*\/script\s*>/igm;
+
+            YUI({comboBase:'index.php?entryPoint=getYUIComboFile&'}).use("io-base", "get", function(Y) {
+                var lastIndex = -1;
+                var result =  objRegex.exec(text);
+                while(result && result.index > lastIndex){
+                    lastIndex = result.index
+                    try{
+                        // Bug #49205 : Subpanels fail to load when selecting subpanel tab
+                        // Change approach to handle javascripts included to body of ajax response.
+                        // To load & run javascripts and inline javascript in correct order load them as synchronous requests
+                        // JQuery library uses this approach to eval scripts
+                        if(result[1].indexOf("src=") > -1){
+                            var srcRegex = /.*src=['"]([a-zA-Z0-9_\-\&\/\.\?=:-]*)['"].*/igm;
+                            var srcResult =  result[1].replace(srcRegex, '$1');
+
+                            // Check is ulr cross domain or not
+                            var r1 = /:\/\//igm;
+                            if ( r1.test(srcResult) && srcResult.indexOf(window.location.hostname) == -1 )
+                            {
+                                // if script is cross domain it cannot be loaded via ajax request
+                                // try load script asynchronous by creating script element in the body
+                                // YUI 3.3 doesn't allow load scrips synchronously
+                                // YUI 3.5 do it
+                                Y.Get.script(srcResult, {
+                                    autopurge: false,
+                                    onSuccess : function(o) {  },
+                                    onFailure: function(o) { },
+                                    onTimeout: function(o) { }
+                                });
+                                // TODO: for YUI 3.5 - load scripts as script object synchronous
+                                /*
+                                YUI().use('get', function (Y) {
+                                    var url = srcResult;
+                                    Y.Get.js([{url: url, async: false}], function (err) {});
+                                });
+                                */
                             }
-                        } catch (e) {
-                            if (typeof(console) != "undefined" && typeof(console.log) == "function") {
-                                console.log("error adding script");
-                                console.log(e);
-                                console.log(el.src || el.innerHTML || el.innerText);
+                            else
+                            {
+                                // Bug #49205 : Subpanels fail to load when selecting subpanel tab
+                                // Create a YUI instance using the io-base module.
+                                Y.io(srcResult, {
+                                    method:'GET',
+                                    sync:true,
+                                    on:{
+                                        success:function(transactionid,response,arguments)
+                                        {
+                                            SUGAR.util.globalEval(response.responseText);
+                                        }
+                                    }
+                                });
+                            }
+                        }else{
+                            // Bug #49205 : Subpanels fail to load when selecting subpanel tab
+                            // execute script in global context
+                            // Bug #57288 : don't eval with html comment-out script; that causes syntax error in IE
+                            var srcRegex = /<!--([\s\S]*?)-->/;
+                            var srcResult = srcRegex.exec(result[2]);
+                            if (srcResult && srcResult.index > -1)
+                            {
+                                SUGAR.util.globalEval(srcResult[1]);
+                            }
+                            else
+                            {
+                                SUGAR.util.globalEval(result[2]);
                             }
                         }
-                    }
-                });
-            });
+                      }
+                      catch(e) {
+                          if(typeof(console) != "undefined" && typeof(console.log) == "function")
+                          {
+                              console.log("error adding script");
+                              console.log(e);
+                              console.log(result);
+                          }
+                      }
+                      result =  objRegex.exec(text);
+                }});
 	    },
 		/**
 		 * Gets the sidebar object
@@ -3558,6 +3573,7 @@ SUGAR.util = function () {
 					.html(body)
 					.dialog({
 						autoOpen: false,
+						title: caption,
 						width: 300,
 						position: {
 						    my: 'right top',
@@ -3565,13 +3581,10 @@ SUGAR.util = function () {
 						    of: $(el)
 					  }
 					});
-
-                    $(".ui-dialog").find(".ui-dialog-title").html(caption);
-
-                    if(show_buttons) {
-                        $(".ui-dialog").find('.ui-dialog-titlebar-close').css("display","none");
-                        $(".ui-dialog").find('.ui-dialog-title').css("width","100%");
-                    }
+				if(show_buttons) {
+					$(".ui-dialog").find('.ui-dialog-titlebar-close').css("display","none");
+					$(".ui-dialog").find('.ui-dialog-title').css("width","100%");
+				}
 
 					var width = $dialog.dialog( "option", "width" );
 					var pos = $(el).offset();

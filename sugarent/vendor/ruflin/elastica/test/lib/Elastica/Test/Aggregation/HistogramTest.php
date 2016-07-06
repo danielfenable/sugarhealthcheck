@@ -2,8 +2,9 @@
 
 namespace Elastica\Test\Aggregation;
 
-use Elastica\Aggregation\Histogram;
+
 use Elastica\Document;
+use Elastica\Aggregation\Histogram;
 use Elastica\Query;
 
 class HistogramTest extends BaseAggregationTest
@@ -11,7 +12,7 @@ class HistogramTest extends BaseAggregationTest
     protected function setUp()
     {
         parent::setUp();
-        $this->_index = $this->_createIndex();
+        $this->_index = $this->_createIndex("histogram");
         $docs = array(
             new Document("1", array("price" => 5, "color" => "blue")),
             new Document("2", array("price" => 8, "color" => "blue")),
@@ -41,3 +42,4 @@ class HistogramTest extends BaseAggregationTest
         $this->assertEquals(2, $buckets[3]['doc_count']);
     }
 }
+ 

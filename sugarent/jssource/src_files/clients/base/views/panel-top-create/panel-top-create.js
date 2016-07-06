@@ -20,14 +20,6 @@
 
     /**
      * @inheritdoc
-     */
-    initialize: function(options) {
-        this._super('initialize', [options]);
-        this.context.set('collapsed', false);
-    },
-
-    /**
-     * @inheritdoc
      *
      * Overrides the default related-record create to add the new item inline
      *

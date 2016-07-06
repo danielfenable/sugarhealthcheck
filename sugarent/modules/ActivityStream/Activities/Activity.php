@@ -292,7 +292,7 @@ class Activity extends Basic
      */
     public function processRecord(SugarBean $bean)
     {
-        if (ActivityQueueManager::isEnabledForModule($bean->module_name) && $bean->load_relationship('activities')) {
+        if ($bean->load_relationship('activities')) {
             $bean->activities->add($this);
         }
     }

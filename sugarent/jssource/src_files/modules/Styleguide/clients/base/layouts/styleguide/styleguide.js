@@ -24,8 +24,6 @@
                 })
                 .appendTo('head');
         }
-
-        document.title = $('<span/>').html('Styleguide &#187; SugarCRM').text();
     },
 
     _placeComponent: function(component) {

@@ -70,17 +70,18 @@
                 }
             },
             {
-                name: 'activities',
-                route: 'activities',
-                callback: function() {
+                name: "activities",
+                route: "activities",
+                callback: function(){
                     //when visiting activity stream, save last state of activities
                     //so future Home routes go back to activities
                     var lastHomeKey = getLastHomeKey();
                     app.user.lastState.set(lastHomeKey, homeOptions.activities);
 
                     app.controller.loadView({
-                        layout: 'activities',
-                        module: 'Activities'
+                        layout: "activities",
+                        module: "Activities",
+                        skipFetch: true
                     });
                 }
             },
@@ -173,92 +174,17 @@
                 }
             },
             {
-                name: 'search',
-                route: 'search(/)(:searchTermAndParams)',
-                callback: function(searchTermAndParams) {
-                    var searchTerm = '';
-                    var params = {modules: [], tags: []};
-                    if (searchTermAndParams) {
-                        // For search, we may have query params for the module list
-                        var uriSplit = searchTermAndParams.split('?');
-                        searchTerm = decodeURIComponent(uriSplit[0]);
-
-                        // We have parameters. Parse them.
-                        if (uriSplit.length > 1) {
-                            var paramsArray = uriSplit[1].split('&');
-                            _.each(paramsArray, function(paramPair) {
-                                var keyValueArray = paramPair.split('=');
-                                if (keyValueArray.length > 1) {
-                                    params[keyValueArray[0]] = keyValueArray[1].split(',');
-                                }
-                            });
-                        }
-                    }
-
-                    var appContext = app.controller.context;
-
-                    // Set the new search term and module list in the context, if necessary.
-                    var termHasChanged = appContext.get('searchTerm') !== searchTerm;
-                    var modulesHaveChanged = !_.isEqual(appContext.get('module_list'), params.modules);
-
-                    params.tags = _.map(params.tags, function(tag){
-                        return decodeURIComponent(tag);
-                    });
-                    var tagsHaveChanged = !_.isEqual(appContext.get('tagParams'), params.tags);
-
-                    if (termHasChanged) {
-                        appContext.set('searchTerm', searchTerm);
-                    }
-                    if (modulesHaveChanged) {
-                        appContext.set('module_list', params.modules);
-                    }
-                    if (tagsHaveChanged) {
-                        appContext.set('tagParams', params.tags);
-                    }
-
-                    if (tagsHaveChanged) {
-                        appContext.trigger('tagsearch:fire:new')
-                    } else if (termHasChanged || modulesHaveChanged) {
-                        appContext.trigger('search:fire:new');
-                    }
-
-                    // Trigger an event on the quicksearch in the header. The
-                    // header cannot rely on the context, since it is
-                    // initialized once for the whole app.
-                    var header = app.additionalComponents.header;
-                    var quicksearch = header && header.getComponent('quicksearch');
-                    if (quicksearch) {
-                        quicksearch.trigger('route:search');
-                    }
-
-                    // If we are on the search page, we prevent the routing. The
-                    // listener on `change:searchTerm` in the layout will trigger
-                    // the new search.
-                    if (appContext && appContext.get('search')) {
-                        return;
-                    }
-
-                    app.controller.loadView({
-                        layout: 'search',
-                        searchTerm: searchTerm,
-                        module_list: params.modules,
-                        tagParams: params.tags,
-                        mixed: true
-                    });
-                }
-            },
-            {
                 name: "list",
                 route: ":module"
             },
             {
-                name: 'create',
-                route: ':module/create',
+                name: "create",
+                route: ":module/create",
                 callback: function(module) {
-                    if (module === 'Home') {
+                    if (module === "Home") {
                         app.controller.loadView({
                             module: module,
-                            layout: 'record'
+                            layout: "record"
                         });
 
                         return;
@@ -270,25 +196,26 @@
                         return;
                     }
 
-                    var prevLayout = app.controller.context.get('layout');
-                    // FIXME we shouldn't rely on the layout type: SC-5319
-                    if (prevLayout && prevLayout !== 'login') {
-                        app.drawer.open({
-                            layout: 'create',
-                            context: {
-                                module: module,
-                                create: true,
-                                fromRouter: true
-                            }
-                        }, function(context, model) {
-                            if (model && model.module === app.controller.context.get('module')) {
-                                app.controller.context.reloadData();
-                            }
+                    var previousModule = app.controller.context.get("module"),
+                        previousLayout = app.controller.context.get("layout");
+                    if (!(previousModule === module && previousLayout === "records")) {
+                        app.controller.loadView({
+                            module: module,
+                            layout: "records"
                         });
-                        return;
                     }
 
-                    app.router.record(module, 'create');
+                    app.drawer.open({
+                        layout: 'create-actions',
+                        context: {
+                            create: true
+                        }
+                    }, _.bind(function(context, model) {
+                        var module = context.get("module") || model.module,
+                            route = app.router.buildRoute(module);
+
+                        app.router.navigate(route, {trigger: (model instanceof Backbone.Model)});
+                    }, this));
                 }
             },
             {
@@ -345,25 +272,28 @@
                     if (!app.router._moduleExists(module)) {
                         return;
                     }
-
-                    var prevLayout = app.controller.context.get('layout');
-                    // FIXME we shouldn't rely on the layout type: SC-5319
-                    if (prevLayout && prevLayout !== 'login') {
-                        app.drawer.open({
-                            layout: 'config-drawer',
-                            context: {
-                                module: module,
-                                fromRouter: true
-                            }
+                    // figure out where we need to go back to on cancel
+                    var previousModule = app.controller.context.get("module"),
+                        previousLayout = app.controller.context.get("layout");
+                    if (!(previousModule === module && previousLayout === "records")) {
+                        app.controller.loadView({
+                            module: module,
+                            layout: 'records'
                         });
-
-                        return;
                     }
 
-                    app.controller.loadView({
+                    app.drawer.open({
                         layout: 'config-drawer',
-                        module: module
-                    });
+                        context: {
+                            module: module,
+                            create: true
+                        }
+                    }, _.bind(function(context, model) {
+                        var module = context.get("module") || model.module,
+                            route = app.router.buildRoute(module);
+
+                        app.router.navigate(route, {trigger: (model instanceof Backbone.Model)});
+                    }, this));
                 }
             },
             {
@@ -441,8 +371,7 @@
     var titles = {
             'records': 'TPL_BROWSER_SUGAR7_RECORDS_TITLE',
             'record': 'TPL_BROWSER_SUGAR7_RECORD_TITLE',
-            'about': 'TPL_BROWSER_SUGAR7_ABOUT_TITLE',
-            'activities': 'TPL_BROWSER_SUGAR7_RECORD_TITLE'
+            'about': 'TPL_BROWSER_SUGAR7_ABOUT_TITLE'
         };
     // FIXME: This should have unit test coverage, e.g. on `app:view:change`
     // ensure `document.title` is updated. Will be addressed in SC-2761.
@@ -506,10 +435,6 @@
     var refreshExternalLogin = function() {
         var config = app.metadata.getConfig();
         app.api.setExternalLogin(config && config['externalLogin']);
-
-        if (config && (_.isNull(config['externalLoginSameWindow']) || config['externalLoginSameWindow'] === false)) {
-            app.api.setExternalLoginUICallback(window.open);
-        }
     };
 
     app.events.on("app:sync:complete", refreshExternalLogin, this);
@@ -527,8 +452,7 @@
          * present).
          *
          * @param {Object} options Object containing routing information.
-         * @return {boolean} Returns `false` if it will redirect to bwc, `true`
-         *   otherwise.
+         * @return {Boolean} Returns `false` if redirected, `true` otherwise.
          */
         bwcRedirect: function(options) {
             if (options && _.isArray(options.args) && options.args[0]) {
@@ -550,10 +474,7 @@
                         redirect += '&record=' + id;
                     }
 
-                    // let the entire before flow to finish before triggering a new navigate
-                    _.defer(function() {
-                        app.router.navigate(redirect, {trigger: true, replace: true});
-                    });
+                    app.router.navigate(redirect, {trigger: true, replace: true});
                     return false;
                 }
             }
@@ -582,8 +503,8 @@
                 accessCheck = checkAccessRoutes[route];
 
             if (accessCheck && !app.acl.hasAccess(accessCheck, module)) {
-                _.defer(function() {
-                    app.controller.loadView({layout: 'access-denied'});
+                app.controller.loadView({
+                    layout: 'access-denied'
                 });
                 return false;
             }
@@ -633,26 +554,27 @@
                 // FIXME: Should be event-driven, see:
                 // https://github.com/sugarcrm/Mango/pull/18722#discussion_r11782561
                 // Will be addressed in SC-2761.
-                app.additionalComponents.header.hide();
+                $('#header').hide();
                 return false;
             }
 
+            var passwordExpired = false;
             //If the password has expired (and we're not logging out which is ignored)
-            if (route && route !== 'logout' && app.user && app.user.get('is_password_expired')) {
-                app.controller.loadView({
-                    layout: 'password-expired',
-                    module: 'Users',
-                    callbacks: {
-                        complete: function() {
-                            // Reload when password reset
-                            window.location.reload();
-                        }
-                    },
-                    modelId: app.user.get('id')
-                });
-                app.additionalComponents.header.hide();
-
-                return false;
+            if (route && route !== 'logout' && app.user && app.user.has('is_password_expired')) {
+                passwordExpired = app.user.get('is_password_expired');
+                if (passwordExpired) {
+                    app.controller.loadView({
+                        layout: 'password-expired',
+                        module: 'Users',
+                        callbacks: {
+                            complete: function() {
+                                window.location.reload();//Reload when password reset
+                            }
+                        },
+                        modelId: app.user.get('id')
+                    });
+                    return false;
+                }
             }
         }
     });

@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +12,15 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
-/*********************************************************************************
-* Description:
-* Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
-* Reserved. Contributor(s): contact@synolia.com - www.synolia.com
-* *******************************************************************************/
-
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obtenha uma Chave API Key e um segredo do Twitter, registando a sua instância Sugar como nova aplicação.<br/><br>Passos para registar a sua instância:<br/><br/><ol><li>Aceda ao site Twitter Developers: <a href=&#39;http://dev.twitter.com/apps/new&#39; target=&#39;_blank&#39;>http://dev.twitter.com/apps/new</a>.</li><li>Inicie sessão utilizando a conta Twitter onde gostaria de registar a aplicação.</li><li>No formulário de registo, introduza um nome para a aplicação. Este é o nome que os utilizadores irão ver quando autenticarem as suas contas Twitter no Sugar.</li><li>Introduza uma Descrição.</li><li>Introduza um URL de Website da Aplicação.</li><li>Introduza um Callback URL (pode ser qualquer coisa, dado que o Sugar contorna esta autenticação. Exemplo: Introduza o URL do seu site Sugar).</li><li>Aceite os Termos de Serviço do Twitter API.</li><li>Clique em "Criar a sua aplicação de Twitter".</li><li>Na página da aplicação, encontre a Chave API e o Segredo API no seprador "Chaves API". Introduza a Chave e o Segredo API abaixo.</li></ol></td></tr></table>',
-    'LBL_NAME' => 'Nome de Utilizador Twitter',
-    'LBL_ID' => 'Nome de Utilizador Twitter',
-	'company_url' => 'URL',
-    'oauth_consumer_key' => 'Chave da API',
-    'oauth_consumer_secret' => 'Segredo da API',
+  'oauth_consumer_key' => 'Chave do Consumidor',
+  'oauth_consumer_secret' => 'Segredo do Consumidor',
+  'company_url' => 'URL',
+  'LBL_NAME' => 'Nome de Utilizador Twitter',
+  'LBL_ID' => 'Nome de Utilizador Twitter',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obter uma Chave e um Segredo do Consumidor através do Twitter&#169; registando a instância do seu Sugar como nova aplicação.<br/><br>Passos para registar a sua instância:<br/><br/><ol><li>Ir ao site Twitter&#169; Developers: <a href=\'http://dev.twitter.com/apps/new.\' target=\'_blank\'>http://dev.twitter.com/apps/new.</a>.</li><li>Autentique-se usando a conta do Twitter com a qual deseja registar a aplicação.</li><li>Dentro do formulário de registo, insira um nome para a aplicação. Este é o nome que os utilizadores irão ver quando estes autenticarem as suas contas do Twitter dentro do Sugar.</li><li>Insira uma Descrição.</li><li>Insira o URL do Website da Aplicação (poderá ser qualquer coisa).</li><li>Escolha "Browser" para Tipo de Aplicação.</li><li>Depois de escolher "Browser" como Tipo de Aplicação, inserir o URL de Callback (poderá ser qualquer coisa, já que o Sugar ignora isto na autenticação. Exemplo: Inserir o URL da raiz do seu Sugar).</li><li>Inserir as palavras de segurança.</li><li>Carregar em "Registar aplicação".</li><li>Aceite os Termos de Serviço da API do Twitter.</li><li>Na página da aplicação, procure a Chave do Consumidor e o Segredo do Consumidor. Inserir a Chave e o Segredo em baixo.</li></ol></td></tr></table>'
 );
 
-?>
+

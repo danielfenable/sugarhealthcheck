@@ -84,7 +84,7 @@ array (
     'width' => '2', 
     'label' => 'LBL_LIST_TEAM',
     'default' => false
-  ),
+  ),        
   'DATE_ENTERED' => 
   array (
     'type' => 'datetime',

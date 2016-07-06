@@ -10,7 +10,7 @@
  */
 (function(app) {
     // Key prefix used to identify metadata in the local storage.
-    var _keyPrefix = 'meta:';
+    var _keyPrefix = "meta:";
 
     // Metadata memory cache
     var _metadata = {};
@@ -23,16 +23,16 @@
     var _syncing = false;
 
     function _setHash(data, isPublic) {
-        var pKey = isPublic ? 'public:' : '';
-        app.cache.set(_keyPrefix + pKey + 'hash', data._hash);
+        var pKey = isPublic ? "public:" : "";
+        app.cache.set(_keyPrefix + pKey + "hash", data._hash);
     }
 
     function _cacheMeta(data) {
-        app.cache.set(_keyPrefix + 'data', data);
+        app.cache.set(_keyPrefix + "data", data);
     }
 
     function _getCachedMeta() {
-        return app.cache.get(_keyPrefix + 'data');
+        return app.cache.get(_keyPrefix + "data");
     }
 
     // Adds the language strings to the server metadata object.
@@ -77,9 +77,9 @@
         }
         app.lang.setCurrentLanguage(currentLanguage);
 
-        langStringsUrl = app.utils.buildUrl(labels[currentLanguage]);
+        langStringsUrl  = app.utils.buildUrl(labels[currentLanguage]);
 
-        app.api.call('read', langStringsUrl, null, {
+        app.api.call("read", langStringsUrl, null, {
             success: function(labelsData) {
                 // In case server is not set up to serve mime-type correctly on .json files,
                 // e.g. honey-b seems to be misconfigured (probably a "popular misconfiguration")
@@ -87,10 +87,10 @@
                     labelsData = _.isString(labelsData) ? JSON.parse(labelsData) : labelsData;
                 }
                 catch (ex) {
-                    app.logger.fatal('Failed to parse labels data: ' + ex);
+                    app.logger.fatal("Failed to parse labels data: " + ex);
                     options.error({
-                        code: 'sync_failed',
-                        label: 'ERR_SYNC_FAILED'
+                        code: "sync_failed",
+                        label: "ERR_SYNC_FAILED"
                     });
                     return;
                 }
@@ -99,8 +99,8 @@
             },
             error: function(err) {
                 //Force a sync fail to prevent possible infinite loops
-                err.code = 'sync_failed';
-                err.label = 'ERR_SYNC_FAILED';
+                err.code = "sync_failed";
+                err.label = "ERR_SYNC_FAILED";
                 options.error(err);
             }
         });
@@ -111,34 +111,34 @@
         var self = this,
             platforms = (app.config.platform !== 'base') ? ['base', app.config.platform] : ['base'];
 
-        _.each({'layout': 'layout', 'view': 'view', 'fieldTemplate': 'field', 'data': 'data'}, function(type, key) {
+        _.each({"layout": "layout", "view": "view", "fieldTemplate": "field", "data": "data"}, function(type, key) {
 
             // Order and initialize controllers. If this metadata is separated by platform, we need to
             // sort each extended type, but, also take in to consideration the "platform weighting" of
             // said type (hence, 'base' is always first platform!). Controllers are now only sent via jssource.
             if (self._metaTypeIsSeparatedByPlatform(module, key, platforms)) {
                 _.each(platforms, function(platform) {
-                    var components = module[key + 's'][platform];
+                    var components = module[key+'s'][platform];
                     self._sortAndDeclareComponents(components, type, moduleName, platform);
                 });
             }
 
             // Next pull any templates
             _.each(module[key + 's'], function(def, name) {
-                if (type === 'view' && def.templates) {
+                if (type === "view" && def.templates) {
                     _.each(def.templates, function(tplSource, tplName) {
                         var force = (name === tplName);
-                        tplName = force ? tplName : name + '.' + tplName;
+                        tplName =  force ? tplName : name + "." + tplName;
                         app.template.setView(tplName, moduleName, tplSource, true);
                     });
                 }
-                if (type === 'layout' && def.templates) {
+                if (type === "layout" && def.templates) {
                     _.each(def.templates, function(tplSource, key) {
-                        key = (name === key) ? key : name + '.' + key;
+                        key = (name === key) ? key : name + "." + key;
                         app.template.setLayout(key, moduleName, tplSource, true);
                     });
                 }
-                if (type === 'field' && def.templates) {
+                if (type === "field" && def.templates) {
                     _.each(def.templates, function(template, view) {
                         app.template.setField(name, view, moduleName, template, true);
                     });
@@ -155,7 +155,7 @@
      * @alias SUGAR.App.metadata
      * @singleton
      */
-    app.augment('metadata', {
+    app.augment("metadata", {
 
         /**
          * Map of fields types.
@@ -163,11 +163,11 @@
          * Specifies correspondence between field types and field widget types.
          */
         fieldTypeMap: {
-            varchar: 'text',
+            varchar: "text",
             datetime: 'datetimecombo',
-            multienum: 'enum',
-            text: 'textarea',
-            decimal: 'float'
+            multienum: "enum",
+            text: "textarea",
+            decimal: "float"
         },
 
         /**
@@ -230,13 +230,14 @@
                 }
                 else {
                     // patch filler string fields to empty base fields of detail view
-                    if (field === '') {
+                    if (field === "") {
                         field = {
                             view: 'detail'
                         };
                         fields[fieldIndex] = field;
                     }
                     // Ignore view fields that don't have module field definition
+                    //app.logger.warn("Field #" + fieldIndex + " '" + name + "' in " + viewName + " view of module " + moduleName + " has no vardef");
                 }
 
             }, this);
@@ -251,15 +252,10 @@
          * @param  {String} module Module name
          * @return {Array} Sorted components
          */
-        _sortControllers: function(type, components, module) {
+        _sortControllers : function(type, components, module) {
             var updated = {}, nameMap = {}, entries = {},
                 updateWeights = function(entry) {
                     var controller = entry.controller;
-
-                    // `base` will always be first
-                    if (entry.type === 'base') {
-                        entries['Base' + app.utils.capitalize(type)].weight = -99999;
-                    }
 
                     // Here we decrement the weight of any extended components. Note, that if sorting platform
                     // specific components (e.g. portal), and one "extends from" a base component, that parent
@@ -273,12 +269,11 @@
                     }
                 };
 
-            // Start by creating a mapping from short name to final class name
-            // and precompiling all the controllers that are strings
+            // Start by creating a mapping from short name to final class name and precompiling all the controllers that are strings
             _.each(components, function(entry, name) {
                 if (entry.controller) {
                     var controller = entry.controller,
-                        className = (module || '') + app.utils.capitalizeHyphenated(name) + app.utils.capitalize(type);
+                        className  = (module || "") + app.utils.capitalizeHyphenated(name) + app.utils.capitalize(type);
 
                     nameMap[className] = name;
 
@@ -286,12 +281,12 @@
                         try {
                             controller = eval("[" + controller + "][0]");
                         } catch (e) {
-                            app.logger.error('Failed to eval view controller for ' + className + ': ' + e + ':\n' + entry.controller);
+                            app.logger.error("Failed to eval view controller for " + className + ": " + e + ":\n" + entry.controller);
                         }
                     }
                     entries[className] = {
-                        type: name,
-                        controller: controller,
+                        type : name,
+                        controller : controller,
                         weight: 0
                     };
                 }
@@ -302,7 +297,7 @@
                 var controller = entry.controller,
                     customExtendsFrom;
                 if (_.isObject(controller) && _.isString(controller.extendsFrom)) {
-                    customExtendsFrom = 'Custom' + controller.extendsFrom;
+                    customExtendsFrom = "Custom" + controller.extendsFrom;
                     if (customExtendsFrom in entries && className != customExtendsFrom) {
                         controller.extendsFrom = customExtendsFrom;
                     }
@@ -315,7 +310,7 @@
                 updateWeights(entry);
             });
 
-            return _.sortBy(entries, 'weight');
+            return _.sortBy(entries, "weight");
         },
 
         /**
@@ -330,12 +325,12 @@
 
             if (!_.isUndefined(components) && components) {
                 entries = self._sortControllers(type, components, moduleName);
-                if (type === 'data') {
+                if(type === 'data') {
                     var model, collection;
-                    _.each(entries, function(entry) {
-                        if (entry.type === 'model') {
+                    _.each(entries, function(entry){
+                        if (entry.type === "model") {
                             model = entry.controller;
-                        } else if (entry.type === 'collection') {
+                        } else if (entry.type === "collection") {
                             collection = entry.controller;
                         }
 
@@ -344,28 +339,27 @@
                     app.data.declareCollectionClass(moduleName, platform, collection);
                 }
                 else {
-                    _.each(entries, function(entry) {
+                    _.each(entries, function(entry){
                         app.view.declareComponent(type, entry.type, moduleName, entry.controller, true, platform);
                     });
                 }
             }
         },
         /**
-         * Helper to determine if the metadata type is separated by platforms
-         * e.g. <DATAOBJ>.views.portal.record.controller
+         * Helper to determine if the metadata type is separated by platforms e.g. <DATAOBJ>.views.portal.record.controller
          * @param  {Object} data The object to check.
          * @param  {String} type 'view', 'field', 'layout', etc.; will be pluralized internally
          * @param  {Array} platforms List of currently loaded platforms e.g. ['base','portal']
          * @return {Boolean} Indicating whether or not this meta type is separated by platform type
          */
         _metaTypeIsSeparatedByPlatform: function(data, type, platforms) {
-            if (!_.isUndefined(data[type + 's'])) {
+            if (!_.isUndefined(data[type+'s'])) {
                 // Iterate all possible platforms searching if meta type has a platform key
-                for (var i = 0; i < platforms.length; i++) {
-                    if (!_.isUndefined(data[type + 's'][platforms[i]])) {
+                for (var i=0; i<platforms.length; i++) {
+                    if (!_.isUndefined(data[type+'s'][platforms[i]])) {
                         // Edge case: we have a field.base and might eventually have view.base etc.
                         // (the field is actually named 'base'!) we're instead looking for: fields.base.x.controller
-                        if (_.isUndefined(data[type + 's'][platforms[i]].controller)) {
+                        if (_.isUndefined(data[type+'s'][platforms[i]].controller)) {
                             return true;
                         }
                     }
@@ -378,7 +372,7 @@
          * @param data
          * @private
          */
-        _declareClasses: function(data) {
+        _declareClasses : function(data){
             // Base components are always loaded first (so ordering of the following array matters!).
             var self = this,
                 platforms = (app.config.platform !== 'base') ? ['base', app.config.platform] : ['base'];
@@ -386,7 +380,7 @@
             // Our root level metadata views/fields/layouts do not have separate platforms (whereas our
             // generated jssource controllers are separated by platform). Today, only jssource has controllers.
             // Declare field, view, layout classes that have custom controllers
-            _.each(['field', 'view', 'layout', 'data'], function(type) {
+            _.each(["field", "view", "layout", "data"], function(type){
                 var components;
 
                 // Our root level metadata views/fields/layouts are not separated by platforms (whereas the
@@ -394,8 +388,8 @@
                 if (self._metaTypeIsSeparatedByPlatform(data, type, platforms)) {
                     // Components of each platform are sorted amongst themselves. Base MUST be first (as defined in
                     // our platforms list above). This way, all base components are guaranteed to be initialized first.
-                    _.each(platforms, function(platform) {
-                        components = data[type + 's'][platform];
+                    _.each(platforms, function(platform){
+                        components = data[type+'s'][platform];
                         self._sortAndDeclareComponents(components, type, null, platform);
                     }, this);
                 }
@@ -419,7 +413,7 @@
          * Gets list of module names that need to be hidden in subpanels
          * @return {Object} Collection of module names that are hidden in subpanels
          */
-        getHiddenSubpanels: function() {
+        getHiddenSubpanels: function(){
             return _metadata.hidden_subpanels;
         },
 
@@ -460,13 +454,11 @@
          * Gets view metadata.
          * @param {String} module Module name.
          * @param {String} view (optional) View name.
-         * @return {Object} View metadata if view name is specified.
-         *   Otherwise, metadata for all views of the given module.
-         *   If the optional view parameter is provided we instead return null
-         *   if view for module not found.
+         * @return {Object} View metadata if view name is specified. Otherwise, metadata for all views of the given module.
+         * If the optional view parameter is provided we instead return null if view for module not found.
          */
         getView: function(module, view) {
-            var metadata = module ? this.getModule(module, 'views') : _metadata.views;
+            var metadata = module ? this.getModule(module, "views") : _metadata['views'];
             if (view) {
                 if (metadata && metadata[view] && !_.isUndefined(metadata[view].meta)) {
                     metadata = metadata[view].meta;
@@ -487,7 +479,7 @@
          * If the optional layout parameter is provided we instead return null if layout for module not found.
          */
         getLayout: function(module, layout) {
-            var metadata = this.getModule(module, 'layouts');
+            var metadata = this.getModule(module, "layouts");
 
             // Check to see if there is a module layout
             if (layout) {
@@ -511,11 +503,10 @@
          * contained into a single `options` object. The old signature is still
          * supported for backward compatibility but is deprecated.
          *
-         * @param {Object} [options] Additional options.
-         * @param {string} [options.filter] Returns only modules
-         *   that have this property enabled.
-         * @param {string} [options.access] Returns only modules
-         *   the user has permission to perform this action on.
+         * @param {String} [options.filter] Returns only modules that have this
+         *   property enabled.
+         * @param {String} [options.access] Returns only modules the user has
+         *   permission to perform this action on.
          *
          * @return {Array} List of module names sorted by user settings.
          */
@@ -678,7 +669,7 @@
 
         /**
          * Gets company logo url
-         * @return {string} logo url
+         * @returns {string} logo url
          */
         getLogoUrl: function() {
             return _metadata.logo_url;
@@ -712,34 +703,15 @@
         },
 
         /**
-         * Gets the list of filter operators.
-         *
-         * If any filter operators of a certain field type are defined at module
-         * level, these will take precedence over the ones available on core,
-         * thus completely overriding the latter.
-         *
-         * @param {string} [module] The module to get the filters for.
-         * @return {Object} The list of filter operators.
+         * Gets the list of filter operators
+         * @param  {String} module The module to get the filters for
+         * @return {String}
          */
         getFilterOperators: function(module) {
-            var filters = _metadata.filters && _metadata.filters.operators && _metadata.filters.operators.meta || {};
-            var moduleData = module && this.getModule(module, 'filters');
-            var moduleFilters = moduleData && moduleData.operators && moduleData.operators.meta;
-
-            if (moduleFilters) {
-                return _.extend({}, filters, moduleFilters);
-            }
-
-            return filters;
-        },
-
-        /**
-         * Gets metadata object
-         *
-         * @return {Object}
-         */
-        get: function() {
-            return _metadata;
+        	var filters = _metadata.filters && _metadata.filters.operators && _metadata.filters.operators.meta,
+        		moduleData = module && this.getModule(module, 'filters'),
+        		moduleFilters = moduleData && moduleData.operators && moduleData.operators.meta;
+        	return moduleFilters || filters || {};
         },
 
         /**
@@ -763,7 +735,7 @@
          * @param {Object} meta Metadata object to be copied.
          * @param {Object} options(optional) Options that describe the type of metadata to copy.
          * The default implementation does not use them as it always performs deep copy regardless of metadata type.
-         * @return {Object} Deep copy of metadata.
+         * @returns {Object} Deep copy of metadata.
          */
         copy: function(meta, options) {
             return app.utils.deepCopy(meta);
@@ -815,9 +787,7 @@
                 _cacheMeta(_metadata);
             }
 
-            if (app.config.env != 'prod') {
-                this._dev_data = _metadata;
-            }
+            if (app.config.env != "prod") this._dev_data = _metadata;
         },
 
         /**
@@ -826,8 +796,8 @@
          * @return {String} Metadata hash tag.
          */
         getHash: function(isPublic) {
-            var key = isPublic ? (_keyPrefix + 'public:hash') : (_keyPrefix + 'hash');
-            return app.cache.get(key) || _metadata._hash || '';
+            var key = isPublic ? (_keyPrefix + "public:hash") : (_keyPrefix + "hash");
+            return app.cache.get(key) || _metadata._hash || "";
         },
 
         /**
@@ -843,67 +813,66 @@
             var self = this,
                 metadataTypes = options.metadataTypes || (options.getPublic ? app.config.publicMetadataTypes : app.config.metadataTypes) || [],
                 errorCallback = function(error) {
-                    app.logger.debug('Failed fetching metadata');
-                    if (!options.getPublic) {
-                        app.error.handleHttpError(error);
-                    }
+                    app.logger.debug("Failed fetching metadata");
+                    app.error.handleHttpError(error);
                     callback.call(self, error);
                 },
                 cb = callback;
 
-            // Force _syncing to be false no matter how we exit this function
-            callback = function(p) {
+            //Force _syncing to be false no matter how we exit this function
+            callback = function(p){
                 _syncing = false;
                 if (_.isFunction(cb)) cb(p);
             };
 
             app.api.getMetadata(self.getHash(options.getPublic), metadataTypes, [], {
                 success: function(metadata) {
-                    var compatible;
+                    var  compatible;
                     options = options || {};
 
                     if (!_.isEmpty(metadata)) {
-                        app.logger.debug('Updating metadata');
-                        if (_mdLoaded[options.getPublic ? 'public:md' : 'md'] &&
-                            self.getHash(options.getPublic) == metadata._hash && !options.forceRefresh
-                        ) {
-                            app.logger.debug('Skipping update as metadata hash matches');
+                        app.logger.debug("Updating metadata");
+                        if (_mdLoaded[options.getPublic ? "public:md" : "md"] && self.getHash(options.getPublic) == metadata._hash && !options.forceRefresh){
+                            app.logger.debug("Skipping update as metadata hash matches");
                             return callback.call(self);
+                            return true;
                         }
 
                         //If the response contains server_info, we need to run a compatibility check
                         if (_.isEmpty(metadataTypes) || _.include(metadataTypes, 'server_info') && !options.getPublic) {
                             compatible = app.isServerCompatible(metadata.server_info);
                             //If compatible wasn't true, it will be set to an error string and we need to bomb out
-                            if (compatible !== true) {
+                            if (compatible !== true){
                                 return callback(compatible);
                             }
                         }
 
-                        _mdLoaded[options.getPublic ? 'public:md' : 'md'] = true;
+                        _mdLoaded[options.getPublic ? "public:md" : "md"] = true;
 
                         if (metadata.jssource) {
                            self._loadJSSource(metadata, options, callback, errorCallback, self);
-                        } else {
+                        }
+                        else {
                             // Some clients may not want jssource (e.g. Nomad)
                             if (metadata.labels || metadata.ordered_labels) {
                                 _fetchLabels(metadata, {
-                                    language: options.language,
-                                    success: function(labelsData) {
+                                    language:options.language,
+                                    success:function (labelsData) {
                                         _injectLabels(metadata, labelsData);
                                         self.set(metadata, options.getPublic);
                                         callback.call(self);
                                     },
-                                    error: errorCallback
+                                    error:errorCallback
                                 });
                             } else {
                                 callback.call(self);
                             }
                         }
-                    } else {
+                    }
+                    else {
                         callback.call(self, {
-                            code: 'sync_failed',
-                            label: 'ERR_SYNC_FAILED'
+                            code: "sync_failed",
+                            label: "ERR_SYNC_FAILED"
                         });
                     }
                 },
@@ -915,16 +884,16 @@
          * Used to check if a metadata sync is currently in progress.
          * @return {Boolean} true if a sync is in progress.
          */
-        isSyncing: function() {
+        isSyncing : function(){
             return _syncing;
         },
 
-        _loadJSSource: function(metadata, options, callback, errorCallback, self) {
+        _loadJSSource : function(metadata, options, callback, errorCallback, self){
             var scriptEl,
                loadJS = this._checkJSSourceUpdated(metadata, !!options.getPublic);
 
             //In the event of a hard reload, we can just stop the metadata sync
-            if (loadJS === 'reload') {
+            if (loadJS === "reload") {
                 return app.utils.hardRefresh();
             }
             else if (loadJS) {
@@ -936,9 +905,9 @@
             }
 
             async.parallel([
-                function(cb) {
+                function(cb){
                     if (loadJS) {
-                        app.utils.doWhen('SUGAR.jssource', function() {
+                        app.utils.doWhen("SUGAR.jssource", function() {
                             self._declareClasses(SUGAR.jssource);
                             cb();
                         });
@@ -946,7 +915,7 @@
                         cb();
                     }
                 },
-                function(cb) {
+                function(cb){
                     _fetchLabels(metadata, {
                         language: options.language,
                         success: function(labelsData) {
@@ -956,7 +925,7 @@
                             self.set(metadata, options.getPublic);
                             cb();
                         },
-                        error: function() {
+                        error: function(){
                             errorCallback.apply(self, arguments);
                             cb();
                         }
@@ -984,7 +953,7 @@
                 //or we don't need to load the js file because it hasn't changed
                 if (this._publicJSSourceFile) {
                     if (this._publicJSSourceFile != metadata.jssource) {
-                        return 'reload';
+                        return "reload";
                     }
                     return false;
                 } else {
@@ -993,16 +962,14 @@
                 }
             }
             //In private reload, if public changed, we still need a refresh
-            if (metadata.jssource_public && this._publicJSSourceFile &&
-                metadata.jssource_public != this._publicJSSourceFile
-            ) {
+            if (metadata.jssource_public && this._publicJSSourceFile && metadata.jssource_public != this._publicJSSourceFile) {
                 app.utils.hardRefresh();
-                return 'reload';
+                return "reload";
             }
             //Finally verify the private jssource file
             if (this._jsSourceFile) {
                 if (this._jsSourceFile != metadata.jssource) {
-                    return 'reload';
+                    return "reload";
                 }
                 return false;
             }
@@ -1010,52 +977,53 @@
         },
 
         init: function() {
-            _.bindAll(this, 'storageHandler');
-
-            // For more information about the `storage` event, see
-            // https://developer.mozilla.org/en-US/docs/Web/Events/storage
-            window.addEventListener('storage', this.storageHandler);
-
+            var self = this,
+                _intervalFunc = function(){
+                    if(!_syncing && ((self.getHash() != _metadata._hash && _mdLoaded["md"]) ||
+                        (app.api.getUserprefHash() && app.user.get("_hash")
+                            && app.api.getUserprefHash() != app.user.get("_hash")
+                        )
+                    )) {
+                        _syncing = true;
+                        window.clearInterval(self._validateMDInterval);
+                        this._validateMDInterval = null;
+                        //Wait an extra 500 to allow the window that did the refresh to more fully load before bogging down the client with a possible large number of background tab resyncs.
+                        window.setTimeout(function(){
+                            _mdLoaded["md"] = false;
+                            app.sync({
+                                getPublic: !app.api.isAuthenticated(),
+                                callback:function(){
+                                self._validateMDInterval = window.setInterval(_intervalFunc, 100);
+                            }});
+                        }, 500);
+                    }
+                };
             // Load metadata from local storage upon app initialization
             if (app.config.cacheMeta) {
                 var data = _getCachedMeta();
                 if (data) this.set(data, false);
             }
-            app.events.on('cache:clean', function(cb) {
+            //Setup an interval to recheck if the metadata in memory is out of date.
+            //(Cross tab communication via local storage)
+            //If it is, resync this tab
+            this._validateMDInterval = window.setInterval(_intervalFunc, 100);
+
+            app.events.on("cache:clean", function(cb){
                 cb([
-                    _keyPrefix + 'public:hash',
-                    _keyPrefix + 'hash',
-                    _keyPrefix + 'data'
+                    _keyPrefix + "public:hash",
+                    _keyPrefix + "hash",
+                    _keyPrefix + "data"
                 ]);
             });
-        },
-
-        /**
-         * Checks to see if the metadata needs to sync with the server.
-         */
-        storageHandler: function() {
-
-            if (!_syncing && ((this.getHash() != _metadata._hash && _mdLoaded['md']) ||
-                (
-                    app.api.getUserprefHash() && app.user.get('_hash') &&
-                    app.api.getUserprefHash() != app.user.get('_hash')
-                )
-            )) {
-                _syncing = true;
-                _mdLoaded['md'] = false;
-                app.sync({
-                    getPublic: !app.api.isAuthenticated()
-                });
-            }
         },
 
         /**
          * Purges metadata from the persistent cache.
          */
         clearCache: function() {
-            app.cache.cut(_keyPrefix + 'public:hash');
-            app.cache.cut(_keyPrefix + 'hash');
-            app.cache.cut(_keyPrefix + 'data');
+            app.cache.cut(_keyPrefix + "public:hash");
+            app.cache.cut(_keyPrefix + "hash");
+            app.cache.cut(_keyPrefix + "data");
         },
 
         /**

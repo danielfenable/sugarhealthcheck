@@ -4,12 +4,12 @@ namespace Elastica\Test;
 
 use Elastica\Client;
 use Elastica\Document;
-use Elastica\Exception\ResponseException;
 use Elastica\Index;
-use Elastica\Query;
-use Elastica\Query\FunctionScore;
+use Elastica\Query\Builder;
 use Elastica\Query\MatchAll;
 use Elastica\Query\QueryString;
+use Elastica\Query\FunctionScore;
+use Elastica\Query;
 use Elastica\Script;
 use Elastica\Search;
 use Elastica\Test\Base as BaseTest;
@@ -31,8 +31,8 @@ class SearchTest extends BaseTest
         $client = $this->_getClient();
         $search = new Search($client);
 
-        $index1 = $this->_createIndex();
-        $index2 = $this->_createIndex();
+        $index1 = $this->_createIndex('test1');
+        $index2 = $this->_createIndex('test2');
 
         $search->addIndex($index1);
         $indices = $search->getIndices();
@@ -140,24 +140,14 @@ class SearchTest extends BaseTest
         $search->addIndex(new \stdClass());
     }
 
-    public function testAddNumericIndex()
-    {
-        $client = $this->_getClient();
-        $search = new Search($client);
-
-        $search->addIndex(1);
-
-        $this->assertContains('1', $search->getIndices(), 'Make sure it has been added and converted to string');
-    }
-
     public function testGetPath()
     {
         $client = $this->_getClient();
         $search1 = new Search($client);
         $search2 = new Search($client);
 
-        $index1 = $this->_createIndex();
-        $index2 = $this->_createIndex();
+        $index1 = $this->_createIndex('test1');
+        $index2 = $this->_createIndex('test2');
 
         $type1 = $index1->getType('type1');
         $type2 = $index1->getType('type2');
@@ -167,23 +157,23 @@ class SearchTest extends BaseTest
 
         // Only index
         $search1->addIndex($index1);
-        $this->assertEquals($index1->getName().'/_search', $search1->getPath());
+        $this->assertEquals($index1->getName() . '/_search', $search1->getPath());
 
         // MUltiple index, no types
         $search1->addIndex($index2);
-        $this->assertEquals($index1->getName().','.$index2->getName().'/_search', $search1->getPath());
+        $this->assertEquals($index1->getName() . ',' . $index2->getName() . '/_search', $search1->getPath());
 
         // Single type, no index
         $search2->addType($type1);
-        $this->assertEquals('_all/'.$type1->getName().'/_search', $search2->getPath());
+        $this->assertEquals('_all/' . $type1->getName() . '/_search', $search2->getPath());
 
         // Multiple types
         $search2->addType($type2);
-        $this->assertEquals('_all/'.$type1->getName().','.$type2->getName().'/_search', $search2->getPath());
+        $this->assertEquals('_all/' . $type1->getName() . ',' . $type2->getName() . '/_search', $search2->getPath());
 
         // Combine index and types
         $search2->addIndex($index1);
-        $this->assertEquals($index1->getName().'/'.$type1->getName().','.$type2->getName().'/_search', $search2->getPath());
+        $this->assertEquals($index1->getName() . '/' . $type1->getName() . ',' . $type2->getName() . '/_search', $search2->getPath());
     }
 
     public function testSearchRequest()
@@ -191,8 +181,8 @@ class SearchTest extends BaseTest
         $client = $this->_getClient();
         $search1 = new Search($client);
 
-        $index1 = $this->_createIndex();
-        $index2 = $this->_createIndex();
+        $index1 = $this->_createIndex('test1');
+        $index2 = $this->_createIndex('test2');
 
         $type1 = $index1->getType('hello1');
 
@@ -219,7 +209,7 @@ class SearchTest extends BaseTest
     {
         $client = $this->_getClient();
 
-        $index = $this->_createIndex();
+        $index = $this->_createIndex('test');
         $type = $index->getType('scrolltest');
 
         $docs = array();
@@ -367,13 +357,6 @@ class SearchTest extends BaseTest
         $this->assertTrue(($resultSet->count() === 0) && $resultSet->getTotalHits() === 11);
 
         //Timeout - this one is a bit more tricky to test
-        $mockResponse = new \Elastica\Response(json_encode(array('timed_out' => true)));
-        $client = $this->getMockBuilder('Elastica\\Client')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $client->method('request')
-            ->will($this->returnValue($mockResponse));
-        $search = new Search($client);
         $script = new Script('Thread.sleep(100); return _score;');
         $query = new FunctionScore();
         $query->addScriptScoreFunction($script);
@@ -386,7 +369,7 @@ class SearchTest extends BaseTest
 
     public function testSearchWithVersionOption()
     {
-        $index = $this->_createIndex();
+        $index = $this->_createIndex('test1');
         $doc = new Document(1, array('id' => 1, 'email' => 'test@test.com', 'username' => 'ruflin'));
         $index->getType('test')->addDocument($doc);
         $index->refresh();
@@ -487,53 +470,31 @@ class SearchTest extends BaseTest
         $source = $resultSet->current()->getSource();
         $this->assertEquals('bunny', $source['username']);
     }
-
-    public function testCount()
-    {
-        $index = $this->_createIndex();
+	
+	public function testCount() {
+        $index = $this->_createIndex('eeee');
         $search = new Search($index->getClient());
-        $type = $index->getType('test');
-
+		$type = $index->getType('test');
+		
         $doc = new Document(1, array('id' => 1, 'username' => 'ruflin'));
+		
+		$type->addDocument($doc);
+		$index->refresh();
+		
+		$search->addIndex($index);
+		$search->addType($type);
+		
+		$result1 = $search->count(new \Elastica\Query\MatchAll());
+		$this->assertEquals(1, $result1);
+		
+		
+		$result2 = $search->count(new \Elastica\Query\MatchAll(), true);
+		$this->assertInstanceOf('\Elastica\ResultSet', $result2);
+		$this->assertEquals(1, $result2->getTotalHits());
+	}
 
-        $type->addDocument($doc);
-        $index->refresh();
-
-        $search->addIndex($index);
-        $search->addType($type);
-
-        $result1 = $search->count(new \Elastica\Query\MatchAll());
-        $this->assertEquals(1, $result1);
-
-        $result2 = $search->count(new \Elastica\Query\MatchAll(), true);
-        $this->assertInstanceOf('\Elastica\ResultSet', $result2);
-        $this->assertEquals(1, $result2->getTotalHits());
-    }
-
-    public function testScanAndScroll()
-    {
+    public function testScanAndScroll() {
         $search = new Search($this->_getClient());
         $this->assertInstanceOf('Elastica\ScanAndScroll', $search->scanAndScroll());
-    }
-
-    public function testIgnoreUnavailableOption()
-    {
-        $client = $this->_getClient();
-        $index = $client->getIndex('elastica_7086b4c2ee585bbb6740ece5ed7ece01');
-        $query = new MatchAll();
-
-        $search = new Search($client);
-        $search->addIndex($index);
-
-        $exception = null;
-        try {
-            $search->search($query);
-        } catch (ResponseException $e) {
-            $exception = $e;
-        }
-        $this->assertEquals('IndexMissingException', $exception->getElasticsearchException()->getExceptionName());
-
-        $results = $search->search($query, array(Search::OPTION_SEARCH_IGNORE_UNAVAILABLE => true));
-        $this->assertInstanceOf('\Elastica\ResultSet', $results);
     }
 }

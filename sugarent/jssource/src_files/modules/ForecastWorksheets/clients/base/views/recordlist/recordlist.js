@@ -43,16 +43,6 @@
  *  by: forecasts:worksheet:saved event
  *  when: only when the commit button is pressed
  *
- * forecasts:sync:start
- *  on: this.context.parent
- *  by: data:sync:start handler
- *  when: this.collection starts syncing
- *
- * forecasts:sync:complete
- *  on: this.context.parent
- *  by: data:sync:complete handler
- *  when: this.collection completes syncing
- *
  */
 ({
     /**
@@ -172,7 +162,7 @@
     initialize: function(options) {
         // we need to make a clone of the plugins and then push to the new object. this prevents double plugin
         // registration across ExtendedComponents
-        this.plugins = _.without(this.plugins, 'ReorderableColumns', 'MassCollection');
+        this.plugins = _.without(this.plugins, 'ReorderableColumns');
         this.plugins.push('CteTabbing', 'DirtyCollection');
         this._super('initialize', [options]);
         // we need to get the flex-list template from the ForecastWorksheets module so it can use the filteredCollection
@@ -325,14 +315,10 @@
 
                 this.collection.on('data:sync:start', function() {
                     this.isCollectionSyncing = true;
-                    // Begin sync start for buttons
-                    this.context.parent.trigger('forecasts:sync:start');
                 }, this);
 
                 this.collection.on('data:sync:complete', function() {
                     this.isCollectionSyncing = false;
-                    // End sync start for buttons
-                    this.context.parent.trigger('forecasts:sync:complete');
                 }, this);
 
                 this.collection.on('reset', function() {
@@ -351,11 +337,9 @@
                         && _.indexOf(this.filters, model.get('commit_stage')) === -1 // and the commit_stage is not shown
                         ) {
                         this.filterCollection();
-                        _.defer(_.bind(function() {
-                            if (!this.disposed) {
-                                this.render();
-                            }
-                        }, this));
+                        if (!this.disposed) {
+                            this.render();
+                        }
                     } else {
                         var commitStage = model.get('commit_stage'),
                             includedCommitStages = app.metadata.getModule('Forecasts', 'config').commit_stages_included,
@@ -410,7 +394,7 @@
                     }
                 }, this);
 
-                app.routing.before('route', this.beforeRouteHandler, this);
+                app.routing.before('route', this.beforeRouteHandler, {}, this);
 
                 $(window).bind('beforeunload.' + this.worksheetType, _.bind(function() {
                     var ret = this.showNavigationMessage('window');
@@ -434,7 +418,7 @@
                 return false;
             }
             return true;
-        }, this);
+        }, undefined, this);
 
         this.collection.on('reset change', function() {
             this.calculateTotals();
@@ -470,7 +454,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     unbindData: function() {
         app.events.off(null, null, this);
@@ -859,11 +843,11 @@
      * Set the loading message and have a way to hide it
      */
     displayLoadingMessage: function() {
-        app.alert.show('worksheet_loading',
+        app.alert.show('workshet_loading',
             {level: 'process', title: app.lang.get('LBL_LOADING')}
         );
         this.collection.once('reset', function() {
-            app.alert.dismiss('worksheet_loading');
+            app.alert.dismiss('workshet_loading');
         }, this);
     },
 

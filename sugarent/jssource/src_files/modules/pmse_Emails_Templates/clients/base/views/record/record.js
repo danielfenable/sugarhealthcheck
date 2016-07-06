@@ -15,8 +15,6 @@
         app.view.invokeParent(this, {type: 'view', name: 'record', method: 'initialize', args:[options]});
         this.context.on('button:design_emailtemplates:click', this.designEmailTemplates, this);
         this.context.on('button:export_emailtemplates:click', this.warnExportEmailTemplates, this);
-        this.context.on('button:delete_emailstemplates:click', this.warnDeleteEmailsTemplates, this);
-        this.context.on('button:edit_emailstemplates:click', this.warnEditEmailTemplates, this);
     },
 
     _render: function() {
@@ -26,91 +24,7 @@
     },
 
     designEmailTemplates: function(model) {
-        var verifyURL = app.api.buildURL(
-                'pmse_Project',
-                'verify',
-                {id: model.get('id')},
-                {baseModule: this.module}),
-            self = this;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    app.navigate(this.context, model, 'layout/emailtemplates');
-                } else {
-                    app.alert.show('email-templates-edit-confirmation',  {
-                        level: 'confirmation',
-                        messages: App.lang.get('LBL_PMSE_PROCESS_EMAIL_TEMPLATES_EDIT', model.module),
-                        onConfirm: function () {
-                            app.navigate(this.context, model, 'layout/emailtemplates');
-                        },
-                        onCancel: $.noop
-                    });
-                }
-            }
-        });
-    },
-
-    warnEditEmailTemplates: function(model){
-        var verifyURL = app.api.buildURL(
-                'pmse_Project',
-                'verify',
-                {id: model.get('id')},
-                {baseModule: this.module}),
-            self = this;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    self.editClicked();
-                } else {
-                    app.alert.show('email-templates-edit-confirmation',  {
-                        level: 'confirmation',
-                        messages: App.lang.get('LBL_PMSE_PROCESS_EMAIL_TEMPLATES_EDIT', model.module),
-                        onConfirm: function () {
-                            self.editClicked();
-                        },
-                        onCancel: $.noop
-                    });
-                }
-            }
-        });
-    },
-
-    handleEdit: function(e, cell) {
-        this.warnEditEmailTemplates(this.model);
-    },
-
-    warnDeleteEmailsTemplates: function (model) {
-        var verifyURL = app.api.buildURL(
-                'pmse_Project',
-                'verify',
-                {id: model.get('id')},
-                {baseModule: this.module}),
-            self = this;
-        this._modelToDelete = model;
-        app.api.call('read', verifyURL, null, {
-            success: function(data) {
-                if (!data) {
-                    app.alert.show('delete_confirmation', {
-                        level: 'confirmation',
-                        messages: self.getDeleteMessages(model).confirmation,
-                        onConfirm: function () {
-                            self.deleteModel();
-                        },
-                        onCancel: function () {
-                            self._modelToDelete = null;
-                        }
-                    });
-                } else {
-                    app.alert.show('message-id', {
-                        level: 'warning',
-                        title: app.lang.get('LBL_WARNING'),
-                        messages: app.lang.get('LBL_PMSE_PROCESS_EMAIL_TEMPLATES_DELETE', model.module),
-                        autoClose: false
-                    });
-                    self._modelToDelete = null;
-                }
-            }
-        });
+        app.navigate(this.context, model, 'layout/emailtemplates');
     },
 
     warnExportEmailTemplates: function (model) {

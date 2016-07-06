@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,11 +12,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
- // $Id: JotPadDashlet.en_us.lang.php 16620 2006-09-05 22:52:15Z wayne $
+$dashletStrings = array (
+  'ChartsDashlet' => 
+  array (
+    'LBL_CONFIGURE_TITLE' => 'Virsraksts',
+    'LBL_DESCRIPTION' => 'Dašlets diagrammu attēlošanai',
+    'LBL_TITLE' => 'Diagrammas',
+  ),
+);
 
-
-$dashletStrings['ChartsDashlet'] = array('LBL_TITLE'            => 'Diagrammas',
-                                         'LBL_DESCRIPTION'      => 'Dašlets diagrammu attēlošanai',
-                                         'LBL_CONFIGURE_TITLE'  => 'Amats', );
-?>

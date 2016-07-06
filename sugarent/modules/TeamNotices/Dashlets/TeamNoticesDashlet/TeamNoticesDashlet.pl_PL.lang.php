@@ -10,10 +10,17 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+ 
+/*********************************************************************************
+ * pl_pl.lang.php for SugarCRM 6.5.0
+ * Translator: eVolpe
+ * All Rights Reserved.
+ * Any bugs report welcome: support@evolpe.pl
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
 
- // $Id: TeamNoticesDashlet.en_us.lang.php 16292 2006-08-22 20:57:23Z awu $
 
 
-$dashletStrings['TeamNoticesDashlet'] = array('LBL_TITLE'            => 'Komunikaty zespołów',
-                                              'LBL_DESCRIPTION'      => 'Wyświetla powiadomienia zespołów w postaci przewijanego panelu');
-?>
+$dashletStrings['TeamNoticesDashlet'] = array('LBL_TITLE'            => 'Powiadomienia zespołów',
+                                              'LBL_DESCRIPTION'      => 'Wyświetla powiadomienia zespołów w postaci panelu');
+ 

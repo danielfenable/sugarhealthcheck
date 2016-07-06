@@ -21,7 +21,7 @@
     extendsFrom: 'ChangePasswordField',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     fieldTag: 'input',
 
@@ -63,20 +63,12 @@
              * @param {Object} fields Hash of field definitions to validate.
              * @param {Object} errors Error validation errors
              * @param {Function} callback Async.js waterfall callback
-             * @private
              */
             this.model._doValidateCurrentPassword = function(fields, errors, callback) {
                 // Find the change my password field
                 var field = _.find(fields, function(field) {
                     return field.type === 'change-my-password';
                 });
-
-                // change-my-password field was not changed, so
-                // don't attempt to validate password
-                if (!field) {
-                    callback(null, fields, errors);
-                    return;
-                }
 
                 //Get the current password
                 var current = this.get(field.name + '_current_password');
@@ -140,7 +132,7 @@
     /**
      * @override
      * @param {Boolean} value
-     * @return {string} value
+     * @returns {String} value
      */
     format: function(value) {
         if (this.action === 'edit') {
@@ -189,21 +181,6 @@
         this.$el.removeClass(ftag);
         this.$el.removeClass("error");
         this.$el.closest('.record-cell').removeClass("error");
-    },
-
-    /**
-     * @override
-     */
-    bindDomChange: function() {
-        this.$('input[name=current_password], input[name=new_password], input[name=confirm_password]').on('change.' + this.cid, _.bind(this._setPasswordAttribute, this));
-    },
-
-    /**
-     * @inheritdoc
-     */
-    unbindDom: function() {
-        this.$('input[name=current_password]').off('change.' + this.cid);
-        this._super('unbindDom');
     },
 
     /**

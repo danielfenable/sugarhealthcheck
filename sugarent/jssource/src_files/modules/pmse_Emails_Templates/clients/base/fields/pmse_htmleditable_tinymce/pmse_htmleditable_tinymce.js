@@ -59,8 +59,8 @@
      */
     setViewContent: function(value){
         var editable = this._getHtmlEditableField();
-        if(editable && !_.isUndefined(editable.get(0))){
-            if (!_.isEmpty(editable.get(0).contentDocument) && editable.contents().find('body').length > 0) {
+        if(editable && !_.isEmpty(editable.get(0).contentDocument)){
+            if(editable.contents().find('body').length > 0){
                 editable.contents().find('body').html(value);
             }
         }
@@ -182,16 +182,13 @@
                 });
                 editor.addButton('mybutton', {
                     title : 'Fields Selector',
-                    class: 'mce_selectfield',
+                    image : 'modules/pmse_Project/img/icon_processmaker_32.gif',
+//                    class: 'adam-menu-icon-cog',
+//                    class: 'icon-cog',
+//                    icon : false,
                     onclick : function() {
+//                        alert('My button custom button');
                         self._showVariablesBook();
-                    }
-                });
-                editor.addButton('sugarlinkbutton', {
-                    title: app.lang.get('LBL_SUGAR_LINK_SELECTOR', 'pmse_Emails_Templates'),
-                    class: 'mce_selectrecordlink',
-                    onclick: function() {
-                        self._showLinksDrawer();
                     }
                 });
             };
@@ -258,7 +255,7 @@
      * @return {String} content from the editor
      */
     getEditorContent: function() {
-        return this._htmleditor.getContent({format: 'raw'});
+        return this._htmleditor.getContent();
     },
 
     /**
@@ -304,7 +301,7 @@
     buildVariablesString: function(recipients) {
         var result = '' , newExpression = '', currentValue, i, aux, aux2;
         _.each(recipients.models, function(model) {
-            newExpression += '{::'+ App.lang.getModuleName(model.attributes.rhs_module, {plural: true}) +'::'+model.attributes.id+'::}'
+            newExpression += '{::'+ model.attributes.rhs_module+'::'+model.attributes.id+'::}'
         });
         //new
         var bm = this._htmleditor.selection.getBookmark();
@@ -321,45 +318,6 @@
 //            result = newExpression;
 //        }
         return currentValue = this._htmleditor.getContent();
-    },
-
-    /**
-     * Open a drawer with a list of related fields that we want to link to in an email
-     * Create a variable like {::href_link::Accounts::contacts::name::} which is understood
-     * by the backend to replace the variable with the correct Sugar link
-     * 
-     * @private
-     */
-    _showLinksDrawer: function() {
-        var self = this;
-        var baseModule = this.model.get('base_module');
-        app.drawer.open({
-                layout:  "compose-sugarlinks",
-                context: {
-                    module: "pmse_Emails_Templates",
-                    mixed:  true,
-                    skipFetch: true,
-                    baseModule: baseModule
-                }
-            },
-            function(field) {
-                if (_.isUndefined(field)) {
-                    return;
-                }
-                var link = '{::href_link::' + App.lang.getModuleName(baseModule, {plural: true});
-
-                //Target module doesn't need second part of variable
-                //The second part is for related modules
-                //Example {::href_link::Accounts::name::}} is for the target module Account's record
-                //{{::href_link::Accounts::contacts::name::}} is for the related contacts's record
-                if (baseModule !== field.get('value')) {
-                    link += '::' + field.get('value');
-                }
-                link += '::name::}';
-                self._htmleditor.selection.setContent(link);
-                self.model.set(self.name, self._htmleditor.getContent())
-            }
-        );
     }
 
 })

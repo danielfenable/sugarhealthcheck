@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,8 +10,8 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-require_once 'modules/Mailer/PHPMailerProxy.php';
-require_once 'include/OutboundEmail/OutboundEmail.php';
+require_once('modules/Mailer/PHPMailerProxy.php');
+require_once('include/OutboundEmail/OutboundEmail.php');
 
 /**
  * Sugar mailer
@@ -49,14 +50,14 @@ class SugarPHPMailer extends PHPMailerProxy
         $this->oe = new OutboundEmail();
         $this->oe->getUserMailerSettings($current_user);
 
-        $this->setLanguage('en', 'vendor/phpmailer/phpmailer/language/');
-        $this->PluginDir	= 'vendor/phpmailer/phpmailer/';
+        $this->SetLanguage('en', 'vendor/PHPMailer/language/');
+        $this->PluginDir	= 'vendor/PHPMailer/';
         $this->Mailer	 	= 'smtp';
 
         // cn: i18n
         $this->CharSet		= $locale->getPrecedentPreference('default_email_charset');
         $this->Encoding		= 'quoted-printable';
-        $this->isHTML(false);  // default to plain-text email
+        $this->IsHTML(false);  // default to plain-text email
         $this->Hostname = $sugar_config['host_name'];
         $this->WordWrap		= 996;
         // cn: gmail fix
@@ -245,7 +246,7 @@ eoq;
             } else {
                 $mime_type = "image/".strtolower(pathinfo($filename, PATHINFO_EXTENSION));
             }
-            $this->addEmbeddedImage($file_location, $cid, $filename, 'base64', $mime_type);
+            $this->AddEmbeddedImage($file_location, $cid, $filename, 'base64', $mime_type);
             $i++;
         }
         //replace references to cache with cid tag
@@ -261,7 +262,7 @@ eoq;
         global $sugar_config;
 
 		// cn: bug 4864 - reusing same SugarPHPMailer class, need to clear attachments
-		$this->clearAttachments();
+		$this->ClearAttachments();
 
         if (empty($notes)) {
             return;
@@ -298,7 +299,7 @@ eoq;
 
             $filename = substr($filename, 36, strlen($filename)); // strip GUID	for PHPMailer class to name outbound file
             if (!$note->embed_flag) {
-                $this->addAttachment($file_location, $filename, 'base64', $mime_type);
+                $this->AddAttachment($file_location, $filename, 'base64', $mime_type);
             } // else
         }
     }
@@ -310,14 +311,14 @@ eoq;
      * @param array $options
      * @return bool
      */
-    public function smtpConnect($options = array()) {
-		$connection = parent::smtpConnect($options);
+    public function SmtpConnect($options = array()) {
+		$connection = parent::SmtpConnect($options);
 		if (!$connection) {
 			global $app_strings;
 			if(isset($this->oe) && $this->oe->type == "system") {
-				$this->setError($app_strings['LBL_EMAIL_INVALID_SYSTEM_OUTBOUND']);
+				$this->SetError($app_strings['LBL_EMAIL_INVALID_SYSTEM_OUTBOUND']);
 			} else {
-				$this->setError($app_strings['LBL_EMAIL_INVALID_PERSONAL_OUTBOUND']);
+				$this->SetError($app_strings['LBL_EMAIL_INVALID_PERSONAL_OUTBOUND']);
 			} // else
 		}
 		return $connection;

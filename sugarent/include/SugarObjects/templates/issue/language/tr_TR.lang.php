@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,40 +12,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
-
-  'LBL_NAME' =>'İsim',
-  'LBL_NUMBER' => 'Numara:',
-  'LBL_STATUS' => 'Durum:',
-  'LBL_PRIORITY' => 'Öncelik:',
-  'LBL_DESCRIPTION' => 'Tanım:',
-  'LBL_RESOLUTION' => 'Çözünürlük',
-  'LBL_LAST_MODIFIED' => 'Değiştirilme Tarihi',
-  'LBL_ASSIGNED_TO_ID'=>'Atanan Kişi:',
-  'LBL_ASSIGNED_TO_NAME' => 'Atanan Kişi:',  	  
-  'LBL_WORK_LOG' => 'İş Tarihçesi:',
+  'LBL_ASSIGNED_TO_ID' => 'Atanan Kişi:',
+  'LBL_ASSIGNED_TO_NAME' => 'Atanan Kişi:',
+  'LBL_ASSIGNED_USER' => 'Atanan Kullanıcı ID:',
+  'LBL_ASSIGNED_USER_NAME' => 'Atanan Kişi',
   'LBL_CREATED_BY' => 'Oluşturan:',
   'LBL_DATE_CREATED' => 'Oluşturulma Tarihi:',
   'LBL_DATE_ENTERED' => 'Oluşturulma Tarihi:',
-  'LBL_DATE_MODIFIED'=>'Değiştirilme Tarihi:',
+  'LBL_DATE_MODIFIED' => 'Değiştirilme Tarihi:',
+  'LBL_DESCRIPTION' => 'Tanım:',
+  'LBL_EDIT_BUTTON' => 'Değiştir',
+  'LBL_LAST_MODIFIED' => 'Değiştirilme Tarihi',
   'LBL_MODIFIED_BY' => 'Son Değiştiren:',
-  'LBL_ASSIGNED_USER' => 'Atanan Kullanıcı ID:',
-  'LBL_ASSIGNED_USER_NAME' => 'Atanan Kişi',
-  'LBL_SYSTEM_ID' =>'Sistem Id:',
-  'LBL_TEAM_NAME' =>'Takım İsmi:',
-  'LBL_TYPE'=>'Tipi:',
+  'LBL_NAME' => 'İsim',
+  'LBL_NUMBER' => 'Numara:',
+  'LBL_PRIORITY' => 'Öncelik:',
+  'LBL_REMOVE' => 'Sil',
+  'LBL_RESOLUTION' => 'Çözüm',
+  'LBL_STATUS' => 'Durum:',
   'LBL_SUBJECT' => 'Konusu:',
+  'LBL_SYSTEM_ID' => 'Sistem Id:',
+  'LBL_TEAM_NAME' => 'Takım İsmi:',
+  'LBL_TYPE' => 'Tipi:',
+  'LBL_WORK_LOG' => 'İş Tarihçesi:',
+);
 
-    'LBL_EDIT_BUTTON' => 'Değiştir',
-    'LBL_REMOVE' => 'Sil',
-
-  
-  );

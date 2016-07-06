@@ -11,5 +11,5 @@
  */
 --}}
 {{#each collection.models}}
-    <li><a class="ellipsis_inline" tabindex="-1" href="#{{buildRoute model=this}}" data-route="#{{buildRoute model=this}}" title="{{fieldValue this 'name'}}"><i class="fa fa-favorite active"></i>{{fieldValue this 'name'}}</a></li>
+    <li><a class="ellipsis_inline" tabindex="-1" href="#{{buildRoute model=this}}" data-route="#{{buildRoute model=this}}"><i class="fa fa-favorite active"></i>{{fieldValue this 'name'}}</a></li>
 {{/each}}

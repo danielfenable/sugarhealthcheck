@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.BoolField
  * @alias SUGAR.App.view.fields.BaseBoolField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
@@ -22,7 +22,7 @@
     select2fieldTag: 'select',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Renders both checkbox and dropdown
      */
@@ -32,7 +32,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _getFallbackTemplate: function(viewName) {
         if (viewName === 'massupdate') {
@@ -42,7 +42,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     bindDomChange: function() {
         var $el = this.$(this.select2fieldTag);
@@ -56,7 +56,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Bypass `render` when action is `massupdate` or `edit`.
      */
@@ -77,7 +77,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     unbindDom: function() {
         this.$(this.select2fieldTag).off();
@@ -85,7 +85,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * @param {String/Boolean} value The value to unformat.
      * @return {Boolean} Unformatted value.
@@ -98,7 +98,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * @param {String/Boolean} value The value to format.
      * @return {Boolean} formatted value.

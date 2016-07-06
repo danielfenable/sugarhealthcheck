@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,41 +12,33 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'ERR_DELETE_RECORD' => '運送会社を削除するにはレコード番号を指定する必要があります。',
+  'LBL_EDITLAYOUT' => 'レイアウト編集',
+  'LBL_LIST_FORM_TITLE' => '運送会社一覧',
+  'LBL_LIST_LIST_ORDER' => '順番',
+  'LBL_LIST_NAME' => '運送会社',
+  'LBL_LIST_ORDER' => '順番:',
+  'LBL_LIST_STATUS' => 'ステータス',
   'LBL_MODULE_NAME' => '運送会社',
   'LBL_MODULE_NAME_SINGULAR' => '発送元',
   'LBL_MODULE_TITLE' => '運送会社: ホーム',
-  'LBL_SEARCH_FORM_TITLE' => '運送会社検索',
-  'LBL_LIST_FORM_TITLE' => '運送会社一覧',
-  'LBL_NEW_FORM_TITLE' => '運送会社作成',
-  'LBL_SHIPPER' => '運送会社:',
-  'LBL_LIST_NAME' => '運送会社',
   'LBL_NAME' => '運送会社:',
-  'LBL_LIST_LIST_ORDER' => '順番',
-  'LBL_LIST_ORDER' => '順番:',
-  'LBL_LIST_STATUS' => 'ステータス',
+  'LBL_NEW_FORM_TITLE' => '運送会社作成',
+  'LBL_SEARCH_FORM_TITLE' => '運送会社検索',
+  'LBL_SHIPPER' => '運送会社:',
   'LBL_STATUS' => 'ステータス:',
   'LNK_NEW_SHIPPER' => '運送会社一覧',
   'LNK_NEW_TAXRATE' => '税率一覧',
   'NTC_DELETE_CONFIRMATION' => '本当にこのレコードを削除してよいですか？',
-  'ERR_DELETE_RECORD' => '運送会社を削除するにはレコード番号を指定する必要があります。',
-  'NTC_STATUS' => '運送会社ドロップダウンリストからこの運送会社を削除するにはステータスを非アクティブにしてください。',
   'NTC_LIST_ORDER' => '運送会社ドロップダウンに表示される運送会社の順番を指定してください。',
+  'NTC_STATUS' => '運送会社ドロップダウンリストからこの運送会社を削除するにはステータスを非アクティブにしてください。',
   'shipper_status_dom' => 
   array (
     'Active' => 'アクティブ',
     'Inactive' => '非アクティブ',
-),
-	'LBL_EDITLAYOUT' => 'レイアウト編集' /*for 508 compliance fix*/,
+  ),
 );
 
-
-?>

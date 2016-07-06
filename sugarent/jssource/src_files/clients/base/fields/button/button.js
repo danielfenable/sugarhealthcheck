@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.ButtonField
  * @alias SUGAR.App.view.fields.BaseButtonField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     tagName: "span",
@@ -53,15 +53,19 @@
     },
     setDisabled: function(disable) {
         disable = _.isUndefined(disable) ? true : disable;
-        this.def.css_class = this.def.css_class || '';
+        //Preserve the original css definition to restore later
+        var orig_css = this.def.css_class || '';
+        this.def.css_class = orig_css;
         var css_class = this.def.css_class.split(' ');
-        if (disable) {
+        if(disable) {
             css_class.push('disabled');
         } else {
             css_class = _.without(css_class, 'disabled');
         }
         this.def.css_class = _.unique(_.compact(css_class)).join(' ');
         app.view.Field.prototype.setDisabled.call(this, disable);
+        //Restore original css
+        this.def.css_class = orig_css;
     },
 
     /**
@@ -122,20 +126,20 @@
      * It should check the visivility by isHidden instead of DOM visibility testing
      * since actiondropdown renders its dropdown lazy
      *
-     * @return {boolean}
+     * @returns {boolean}
      */
     isVisible: function() {
         return !this.isHidden;
     },
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * No data changes to bind.
      */
     bindDomChange: function () {
     },
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * No need to bind DOM changes to a model.
      */

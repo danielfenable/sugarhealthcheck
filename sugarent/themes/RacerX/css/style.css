@@ -1587,11 +1587,6 @@ background-image:url(../../../../index.php?entryPoint=getImage&imageName=form-bu
 {
     margin-bottom: 0;
 }
-.schedulers-editview-panel .collapseLink,
-.schedulers-editview-panel .expandLink
-{
-    display: none;
-}
 
 /* calendar module styles */
 .monthFooter td
@@ -2416,7 +2411,7 @@ left: -2px;
     margin-top: 0;
 }
 
-/* override some of the detail view styles for show more detail option (KBOLDDocument detail view)*/
+/* override some of the detail view styles for show more detail option (KBDocument detail view)*/
 .detail td.subdetail{
    padding:0px;
    border-bottom:medium none;
@@ -7219,7 +7214,6 @@ p.submsg a{
 .ui-dialog {
     padding: 0px;
     box-shadow: 0 5px 10px #999999;
-    z-index: 1;
 }
 
 .ui-dialog .ui-dialog-titlebar {
@@ -7256,12 +7250,15 @@ p.submsg a{
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
-    background: url(../../../../index.php?entryPoint=getImage&imageName=close.png) no-repeat center !important;
     margin-top: -10px;
+    width: 18px;
     padding: 0px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span {
+    background: url(../../../../index.php?entryPoint=getImage&imageName=close.png) no-repeat center !important;
     height: 18px;
     width: 18px;
-    border: none;
 }
 
 .ui-dialog .ui-dialog-titlebar-close.ui-state-hover {

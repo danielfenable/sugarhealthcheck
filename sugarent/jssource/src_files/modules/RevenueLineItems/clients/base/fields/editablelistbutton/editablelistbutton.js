@@ -36,10 +36,9 @@
                     });
                 }
 
-                // trigger a save event across the parent context so listening components
-                // know the changes made in this row has been saved
                 if(this.context.parent) {
-                    this.context.parent.trigger('editablelist:save', this.model);
+                    // reload opportunities subpanel
+                    this.context.parent.trigger('subpanel:reload', {links: ['opportunities']});
                 }
             }, this)
         };

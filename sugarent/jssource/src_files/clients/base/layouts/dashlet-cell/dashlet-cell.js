@@ -19,7 +19,7 @@
     className: 'dashlet-cell rows row-fluid',
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     _placeComponent: function(comp, def) {
         var span = 'dashlet-container span' + (def.width || 12),
@@ -33,7 +33,7 @@
     /**
      * Updates and sets metadata based on the meta param
      * @param {Object} meta
-     * @return {Object} meta
+     * @returns {Object} meta
      */
     setMetadata: function(meta) {
         meta.components = meta.components || [];

@@ -26,7 +26,6 @@ class ProjectTaskViewList extends ViewList
  	    $metadataFile = SugarAutoLoader::loadWithMetafiles($module, 'listviewdefs');
         require_once($metadataFile);
 
-
 		$this->bean->ACLFilterFieldList($listViewDefs[$module], array("owner_override" => true));
 		$seed = $this->bean;
         if(!empty($this->bean->object_name) && isset($_REQUEST[$module.'2_'.strtoupper($this->bean->object_name).'_offset'])) {//if you click the pagination button, it will populate the search criteria here

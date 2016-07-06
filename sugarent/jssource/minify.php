@@ -1,10 +1,6 @@
 <?php
 if(!defined('sugarEntry'))define('sugarEntry', true);
 
-if (!defined('SUGAR_BASE_DIR')) {
-    define('SUGAR_BASE_DIR', str_replace('\\', '/', dirname(__DIR__)));
-}
-
 $minifyUtils = null;
 
 //assumes jsmin.php is in same directory
@@ -17,6 +13,7 @@ if (isset($_REQUEST['root_directory'])) {
 //if we are coming from browser
 
 if(isset($_REQUEST['root_directory'])){
+	if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
     require_once('include/utils/sugar_file_utils.php');
 

@@ -43,3 +43,11 @@
         _oldMetadataSet.apply(this, arguments);
     };
 })(SUGAR.App);
+
+// Hack to workaround latest select2 chrome "Oh Snap" crashes
+// Tracked here: SP-805
+// https://codereview.chromium.org/14060024
+// https://github.com/ivaynberg/select2/issues/1099
+// TODO: We need to remove this when fix is pushed to stable chrome released
+WebKitMutationObserver = function() {};
+WebKitMutationObserver.prototype.observe = function() {};

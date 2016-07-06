@@ -103,7 +103,7 @@ SUGAR.importWizard = function() {
 			  effect:[{effect:YAHOO.widget.ContainerEffect.SLIDE, duration:0.5},
 			  		  {effect:YAHOO.widget.ContainerEffect.FADE, duration:.5}]
 			});
-			SUGAR.importWizard.loading.setBody('<div id="loadingPage" align="center" style="vertical-align:middle;"><img src="' + SUGAR.themes.image_server + 'index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=img_loading.gif&v='+SUGAR.VERSION_MARK+'" align="absmiddle" /> <b>' + SUGAR.language.get('app_strings', 'LBL_LOADING_PAGE') +'</b></div>');
+			SUGAR.importWizard.loading.setBody('<div id="loadingPage" align="center" style="vertical-align:middle;"><img src="' + SUGAR.themes.image_server + 'index.php?entryPoint=getImage&themeName='+SUGAR.themes.theme_name+'&imageName=img_loading.gif" align="absmiddle" /> <b>' + SUGAR.language.get('app_strings', 'LBL_LOADING_PAGE') +'</b></div>');
 			SUGAR.importWizard.loading.render(document.body);		
 			if (document.getElementById('loading_c'))
                 document.getElementById('loading_c').style.display = 'none';

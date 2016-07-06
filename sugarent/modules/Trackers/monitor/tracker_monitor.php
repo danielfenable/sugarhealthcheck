@@ -15,17 +15,13 @@ require_once('modules/Trackers/monitor/Monitor.php');
 
 class tracker_monitor extends Monitor {
 
-    public function __construct($name = '', $monitorId = '', $metadata = '', $store = '') {
+    /**
+     * Monitor constructor
+     */
+    function tracker_monitor($name='', $monitorId='', $metadata='', $store='') {
         parent::Monitor($name, $monitorId, $metadata, $store);
     }
-
-    /**
-     * @deprecated
-     */
-    public function tracker_monitor($name = '', $monitorId = '', $metadata = '', $store = '') {
-        $GLOBALS['log']->deprecated('Please use parent::__construct() instead of parent::ClassName()');
-        self::__construct($name, $monitorId, $metadata, $store);
-    }
+    
     
     /**
      * save

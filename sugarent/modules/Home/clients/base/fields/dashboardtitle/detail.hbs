@@ -11,7 +11,7 @@
  */
 --}}
 <div class="dropdown">
-<a class="dropdown-toggle btn btn-invisible btn-link" data-toggle="dropdown" href="javascript:void(0);">{{value}}<i class="fa fa-caret-down"></i></a>
+<a class="dropdown-toggle btn btn-invisible btn-link" data-toggle="dropdown" href="javascript:void(0);">{{value}} <i class="fa fa-caret-down"></i></a>
 <ul class="dropdown-menu">
     {{#if dashboards}}
         {{#each this.dashboards.models}}
@@ -20,7 +20,10 @@
     {{else}}
         <li>
             <div class="alert-process">
-                <strong>{{loading 'LBL_ALERT_TITLE_LOADING'}}</strong>
+                <strong>{{str "LBL_LOADING"}}</strong>
+                <div class="loading">
+                    <span class="l1"></span><span class="l2"></span><span class="l3"></span>
+                </div>
             </div>
         </li>
     {{/if}}

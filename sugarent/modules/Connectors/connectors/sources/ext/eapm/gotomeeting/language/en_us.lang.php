@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -20,7 +19,7 @@ Obtain API Key from Citrix Online GoToMeeting by registering a new application.<
 Steps to register your instance:<br>
 &nbsp;<br>
 <ol>
-<li>Log in to your Citrix Online developer account: <a href=\'https://developer.citrixonline.com/\' target=\'_blank\'>https://developer.citrixonline.com/</a></li>
+<li>Log in to your Citrix Online developer account: https://developer.citrixonline.com/</li>
 <li>Click on Apply for Developer Key</li>
 <li>In Product API select GoToMeeting, and enter your instance URL in Application URL</li>
 <li>You will see a column called API Key under Your Applications</li>

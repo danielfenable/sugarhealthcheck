@@ -17,7 +17,6 @@ $dictionary['RevenueLineItem'] = array(
     'unified_search' => false,
     'full_text_search' => true,
     'unified_search_default_enabled' => true,
-    'dynamic_subpanel_name' => 'subpanel-with-massupdate',
     'comment' => 'The user (not Admin)) view of a RevenueLineItem definition; an instance of a product used in the worksheets and opportunities',
     'fields' => array(
         'product_template_id' => array(
@@ -58,6 +57,8 @@ $dictionary['RevenueLineItem'] = array(
                 'base_rate' => 'base_rate',
                 'tax_class' => 'tax_class',
                 'weight' => 'weight',
+                'currency_id' => 'currency_id',
+                'base_rate' => 'base_rate',
                 'manufacturer_id' => 'manufacturer_id',
                 'manufacturer_name' => 'manufacturer_name',
             ),
@@ -70,7 +71,7 @@ $dictionary['RevenueLineItem'] = array(
             'reportable' => false,
             'audited' => true,
             'comment' => 'Account this product is associated with',
-            'formula' => 'ifElse(related($opportunities, "account_id"), related($opportunities, "account_id"), $account_id)',
+            'formula' => 'related($opportunities, "account_id")',
             'enforced' => true,
             'calculated' => true,
         ),
@@ -150,7 +151,7 @@ $dictionary['RevenueLineItem'] = array(
         ),
         'category_id' => array(
             'name' => 'category_id',
-            'vname' => 'LBL_CATEGORY_ID',
+            'vname' => 'LBL_CATEGORY',
             'type' => 'id',
             'group' => 'category_name',
             'required' => false,
@@ -181,11 +182,7 @@ $dictionary['RevenueLineItem'] = array(
             'type' => 'name',
             'len' => '50',
             'unified_search' => true,
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 1.57,
-            ),
+            'full_text_search' => array('enabled' => true, 'boost' => 2),
             'comment' => 'Name of the product',
             'reportable' => true,
             'importable' => 'required',
@@ -230,20 +227,7 @@ $dictionary['RevenueLineItem'] = array(
             'related_fields' => array(
                 'currency_id',
                 'base_rate'
-            ),
-            'formula' => '
-            ifElse(
-                and(
-                    equal($product_template_id, ""),
-                    not(isNumeric($discount_price))
-                ),
-                divide($likely_case,
-                    ifElse(greaterThan($quantity, 0), $quantity, 1)
-                ),
-                $discount_price
-            )',
-            'enforced' => false,
-            'calculated' => true,
+            )
         ),
         'discount_amount' => array(
             'name' => 'discount_amount',
@@ -413,6 +397,25 @@ $dictionary['RevenueLineItem'] = array(
             'calculated' => true,
             'enforced' => true,
         ),
+        'currency_id' => array(
+            'name' => 'currency_id',
+            'dbType' => 'id',
+            'vname' => 'LBL_CURRENCY_ID',
+            'type' => 'currency_id',
+            'function' => 'getCurrencies',
+            'function_bean' => 'Currencies',
+            'required' => false,
+            'reportable' => false,
+            'default' => '-99',
+            'comment' => 'Currency of the product'
+        ),
+        'base_rate' => array(
+            'name' => 'base_rate',
+            'vname' => 'LBL_CURRENCY_RATE',
+            'type' => 'decimal',
+            'len' => '26,6',
+            'studio' => false
+        ),
         'status' => array(
             'name' => 'status',
             'vname' => 'LBL_STATUS',
@@ -576,7 +579,7 @@ $dictionary['RevenueLineItem'] = array(
             'source' => 'non-db',
         ),
         'best_case' => array(
-            'formula' => 'ifElse(equal($best_case, ""), string($total_amount), $best_case)',
+            'formula' => 'string($total_amount)',
             'calculated' => true,
             'name' => 'best_case',
             'vname' => 'LBL_BEST',
@@ -594,7 +597,7 @@ $dictionary['RevenueLineItem'] = array(
             ),
         ),
         'likely_case' => array(
-            'formula' => 'ifElse(equal($likely_case,""),string($total_amount),$likely_case)',
+            'formula' => 'string($total_amount)',
             'calculated' => true,
             'name' => 'likely_case',
             'vname' => 'LBL_LIKELY',
@@ -613,7 +616,7 @@ $dictionary['RevenueLineItem'] = array(
             ),
         ),
         'worst_case' => array(
-            'formula' => 'ifElse(equal($worst_case, ""), string($total_amount), $worst_case)',
+            'formula' => 'string($total_amount)',
             'calculated' => true,
             'name' => 'worst_case',
             'vname' => 'LBL_WORST',
@@ -642,11 +645,7 @@ $dictionary['RevenueLineItem'] = array(
             'options' => 'date_range_search_dom',
             'related_fields' => array(
                 'date_closed_timestamp'
-            ),
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => false,
-            ),
+            )
         ),
         'date_closed_timestamp' => array(
             'name' => 'date_closed_timestamp',
@@ -665,11 +664,6 @@ $dictionary['RevenueLineItem'] = array(
             'vname' => 'LBL_NEXT_STEP',
             'type' => 'varchar',
             'len' => '100',
-            'full_text_search' => array(
-                'enabled' => true,
-                'searchable' => true,
-                'boost' => 0.49,
-            ),
             'comment' => 'The next step in the sales process',
             'merge_filter' => 'enabled',
         ),
@@ -681,13 +675,7 @@ $dictionary['RevenueLineItem'] = array(
             'comment' => 'Forecast commit category: Include, Likely, Omit etc.',
             'function' => 'getCommitStageDropdown',
             'function_bean' => 'Forecasts',
-            'default' => 'exclude',
-            'formula' => 'forecastCommitStage($probability)',
-            'calculated' => true,
-            'duplicate_merge' => 'enabled',
-            'related_fields' => array(
-                'probability'
-            )
+            'default' => 'exclude'
         ),
         'sales_stage' => array(
             'name' => 'sales_stage',
@@ -792,6 +780,41 @@ $dictionary['RevenueLineItem'] = array(
             'source' => 'non-db',
             'vname' => 'LBL_DOCUMENTS_SUBPANEL_TITLE',
         ),
+        // Added for Meta-Data framework
+        'currency_name' => array(
+            'name' => 'currency_name',
+            'rname' => 'name',
+            'id_name' => 'currency_id',
+            'vname' => 'LBL_CURRENCY_NAME',
+            'type' => 'relate',
+            'link' => 'currencies',
+            'isnull' => true,
+            'table' => 'currencies',
+            'module' => 'Currencies',
+            'source' => 'non-db',
+            'function' => 'getCurrencies',
+            'function_bean' => 'Currencies',
+            'studio' => false,
+            'duplicate_merge' => 'disabled',
+            'massupdate' => false
+        ),
+        'currency_symbol' => array(
+            'name' => 'currency_symbol',
+            'rname' => 'symbol',
+            'id_name' => 'currency_id',
+            'vname' => 'LBL_CURRENCY_SYMBOL',
+            'type' => 'relate',
+            'link' => 'currencies',
+            'isnull' => true,
+            'table' => 'currencies',
+            'module' => 'Currencies',
+            'source' => 'non-db',
+            'function' => 'getCurrencySymbols',
+            'function_bean' => 'Currencies',
+            'studio' => false,
+            'duplicate_merge' => 'disabled',
+            'massupdate' => false
+        ),
         'quote_name' => array(
             'name' => 'quote_name',
             'rname' => 'name',
@@ -885,6 +908,13 @@ $dictionary['RevenueLineItem'] = array(
             'dbType' => 'varchar',
             'len' => '255',
             'source' => 'non-db',
+        ),
+        'currencies' => array(
+            'name' => 'currencies',
+            'type' => 'link',
+            'relationship' => 'revenuelineitem_currencies',
+            'source' => 'non-db',
+            'vname' => 'LBL_CURRENCIES',
         ),
         'account_link' => array(
             'name' => 'account_link',
@@ -993,6 +1023,7 @@ $dictionary['RevenueLineItem'] = array(
         ),
     ),
     'indices' => array(
+        array('name' => 'idx_revenuelineitem', 'type' => 'index', 'fields' => array('name', 'deleted')),
         array(
             'name' => 'idx_rli_user_dc_timestamp',
             'type' => 'index',
@@ -1005,6 +1036,15 @@ $dictionary['RevenueLineItem'] = array(
         array('name' => 'idx_revenuelineitem_oppid', 'type' => 'index', 'fields' => array('opportunity_id')),
     ),
     'relationships' => array(
+        'revenuelineitem_currencies' => array(
+            'lhs_module' => 'RevenueLineItems',
+            'lhs_table' => 'revenue_line_items',
+            'lhs_key' => 'currency_id',
+            'rhs_module' => 'Currencies',
+            'rhs_table' => 'currencies',
+            'rhs_key' => 'id',
+            'relationship_type' => 'one-to-many'
+        ),
         'revenuelineitem_tasks' => array(
             'lhs_module' => 'RevenueLineItems',
             'lhs_table' => 'revenue_line_items',
@@ -1130,11 +1170,5 @@ VardefManager::createVardef(
         'default',
         'assignable',
         'team_security',
-        'currency'
     )
 );
-
-$dictionary['RevenueLineItem']['fields']['base_rate']['readonly'] = true;
-
-//boost value for full text search
-$dictionary['RevenueLineItem']['fields']['description']['full_text_search']['boost'] = 0.47;

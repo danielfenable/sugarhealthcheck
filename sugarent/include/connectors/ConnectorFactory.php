@@ -18,14 +18,8 @@ class ConnectorFactory{
 
 	static $source_map = array();
 
-	/**
-	 * Gets an instance of a connector as an object on a component
-	 * @param string $source_name The connector id
-	 * @param boolean $fresh Indicates whether the cache should be bypassed
-	 * @return component
-	 */
-	public static function getInstance($source_name, $fresh = false) {
-		if (empty(self::$source_map[$source_name]) || $fresh) {
+	public static function getInstance($source_name){
+		if(empty(self::$source_map[$source_name])) {
 			require_once('include/connectors/sources/SourceFactory.php');
 			require_once('include/connectors/component.php');
 			$source = SourceFactory::getSource($source_name);

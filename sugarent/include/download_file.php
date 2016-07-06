@@ -17,8 +17,6 @@ if (!in_array('upload', stream_get_wrappers())) {
     UploadStream::register();
 }
 
-require_once 'include/utils/file_utils.php';
-
 /**
  * Class to handle downloading of files. Should eventually replace download.php
  */
@@ -67,7 +65,7 @@ class DownloadFile {
      */
     public function outputFile($forceDownload, array $info) {
         header("Pragma: public");
-        header("Cache-Control: max-age=1, post-check=0, pre-check=0");
+        header("Cache-Control: maxage=1, post-check=0, pre-check=0");
 
         if (!$forceDownload) {
             header("Content-Type: {$info['content-type']}");
@@ -105,7 +103,7 @@ class DownloadFile {
      */
     public function getImageInfo($bean, $field) {
         if ($this->validateBeanAndField($bean, $field, 'image')) {
-            $filename = method_exists($bean, 'getUploadId') ? $bean->getUploadId() : $bean->{$field};
+            $filename = $bean->{$field};
             $filepath = $this->getFilePathFromId($filename);
 
             // Quick existence check to make sure we are actually working
@@ -135,8 +133,7 @@ class DownloadFile {
      * @return bool
      * @throws Exception
      */
-    protected function validateBeanAndField($bean, $field, $type)
-    {
+    private function validateBeanAndField($bean, $field, $type) {
         if (!$bean instanceof SugarBean || empty($bean->id) || empty($bean->{$field})) {
             // @TODO Localize this exception message
             throw new Exception('Invalid SugarBean');
@@ -166,7 +163,7 @@ class DownloadFile {
                     $fileid  = $bean->id;
                     $fileurl = '';
 
-                    // Handle special cases, like Documents
+                    // Handle special cases, like Documents and KBDocumentRevisions
                     if (isset($bean->object_name)) {
                         if ($bean->object_name == 'Document') {
                             // Documents store their file information in DocumentRevisions
@@ -190,9 +187,37 @@ class DownloadFile {
                                     return false;
                                 }
                             }
-                        }
-                        else if ($bean->object_name == 'Note') {
-                            $fileid = $bean->getUploadId();
+                        } elseif ($bean->object_name == 'KBDocument') {
+                            // Sorta the same thing with KBDocuments
+                            $revision = BeanFactory::getBean('KBDocumentRevisions', $bean->id);
+
+                            if (!empty($revision)) {
+                                $revision = BeanFactory::getBean('DocumentRevisions', $revision->document_revision_id);
+                                // Last change to fail, if nothing found, return false
+                                if (empty($revision)) {
+                                    return false;
+                                }
+
+                                $fileid = $revision->id;
+                                $name   = $revision->filename;
+                                $fileurl = empty($revision->doc_url) ? '' : $revision->doc_url;
+                            } else {
+                                // Try the kbdoc revision
+                                $revision = BeanFactory::getBean('KBDocumentRevisions', $bean->kbdocument_revision_id);
+                                if (!empty($revision)) {
+                                    $revision = BeanFactory::getBean('DocumentRevisions', $revision->document_revision_id);
+                                    // Last change to fail, if nothing found, return false
+                                    if (empty($revision)) {
+                                        return false;
+                                    }
+
+                                    $fileid = $revision->id;
+                                    $name   = $revision->filename;
+                                    $fileurl = empty($revision->doc_url) ? '' : $revision->doc_url;
+                                } else {
+                                    return false;
+                                }
+                            }
                         }
                     } else {
                         $fileid = $bean->id;
@@ -227,95 +252,6 @@ class DownloadFile {
         } else {
             return null;
         }
-    }
-
-    /**
-     * Gets an archive of files and returns an HTTP response with the contents
-     * of the request file for download archive.
-     *
-     * @param array $beans The list of SugarBean(s) to get the archive for
-     * @param string $field The field name to get the file for
-     * @param string $outputName Output archive name.
-     *
-     * @throws Exception
-     */
-    public function getArchive(array $beans, $field, $outputName = '')
-    {
-        $archive = tempnam(sys_get_temp_dir(), 'sug');
-
-        $files = $this->getFileNamesForArchive($beans, $field);
-
-        if (count($files) == 0) {
-            throw new Exception('Files could not be retrieved for this record');
-        }
-
-        $zip = new ZipArchive();
-        $zip->open($archive, ZIPARCHIVE::OVERWRITE);
-        foreach ($files as $file => $path) {
-            $zip->addFromString($file, file_get_contents($path));
-        }
-        $zip->close();
-
-        $outputName = trim($outputName);
-        if (empty($outputName)) {
-            $outputName = 'archive.zip';
-        } else if (get_file_extension($outputName) != 'zip') {
-            $outputName .= '.zip';
-        }
-
-        $this->outputFile(
-            true,
-            array(
-                'content-type' => $this->getMimeType($archive),
-                'content-length' => filesize($archive),
-                'name' => $outputName,
-                'path' => $archive,
-            )
-        );
-    }
-
-    /**
-     * Return files name with postfix, if need, and path to it.
-     * @param array $beans
-     * @param string $field
-     * @return array File name and path.
-     */
-    public function getFileNamesForArchive($beans, $field)
-    {
-        $aliases = array();
-        $result = array();
-
-        foreach ($beans as $bean) {
-            if ($this->validateBeanAndField($bean, $field, 'file')
-                || $this->validateBeanAndField($bean, $field, 'image')) {
-
-                $info = $this->getFileInfo($bean, $field);
-                if ($info) {
-                    if (empty($aliases[$info['name']])) {
-                        $aliases[$info['name']] = array();
-                    }
-                    array_push($aliases[$info['name']], $info['path']);
-                }
-            }
-        }
-
-        foreach ($aliases as $fname => $paths) {
-            if (count($paths) == 1) {
-                $result[$fname] = reset($paths);
-            } else {
-                $count = 0;
-                $fparts = explode('.', $fname);
-                $ind = count($fparts) > 1 ? count($fparts) - 2 : 0;
-                $tmp = $fparts[$ind];
-                foreach ($paths as $path) {
-                    $fparts[$ind] .= "_{$count}";
-                    $count ++;
-                    $result[implode('.', $fparts)] = $path;
-                    $fparts[$ind] = $tmp;
-                }
-            }
-        }
-        return $result;
     }
 
     /**
@@ -393,11 +329,7 @@ class DownloadFileApi extends DownloadFile
             }
         } else {
             $this->api->setHeader("Content-Type", "application/force-download");
-            if (!empty($info['content-type'])) {
-                $this->api->setHeader('Content-Type', $info['content-type']);
-            } else {
-                $this->api->setHeader('Content-Type', 'application/octet-stream');
-            }
+            $this->api->setHeader("Content-type", "application/octet-stream");
             if(empty($info['name'])) {
                 $info['name'] = pathinfo($info['path'], PATHINFO_BASENAME);
             }

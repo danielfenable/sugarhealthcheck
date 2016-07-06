@@ -26,7 +26,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Override getting relevant context logic in order to filter on current
      * context.
@@ -36,7 +36,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Override getting last filter in order to retrieve found duplicates for
      * initial set.

@@ -1,5 +1,6 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,37 +11,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * $Id$
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
- 
-$app_list_strings = array (
-strtolower($object_name).'_category_dom' =>
-    array (
+
+$app_list_strings =
+array (
+  strtolower($object_name).'_category_dom' =>
+  array (
     '' => '',
     'Marketing' => 'Markkinointi',
-    'Knowledege Base' => 'Tietämyskanta',
-    'Sales' => 'Myynti',
+    'Knowledege Base' => 'Tietovarasto',
+    'Sales' => 'Uusi liidi',
   ),
-
-    strtolower($object_name).'_subcategory_dom' =>
-    array (
+  strtolower($object_name).'_subcategory_dom' =>
+  array (
     '' => '',
     'Marketing Collateral' => 'Markkinointimateriaali',
     'Product Brochures' => 'Tuote-esitteet',
-    'FAQ' => 'UKK',
+    'FAQ' => 'Kysymykset',
   ),
-
-    strtolower($object_name).'_status_dom' =>
-    array (
+  strtolower($object_name).'_status_dom' =>
+  array (
     'Active' => 'Aktiivinen',
     'Draft' => 'Luonnos',
-    'FAQ' => 'UKK',
+    'FAQ' => 'Kysymykset',
     'Expired' => 'Vanhentunut',
     'Under Review' => 'Arvioidaan',
     'Pending' => 'Odottaa',
   ),
-  );
+);
+

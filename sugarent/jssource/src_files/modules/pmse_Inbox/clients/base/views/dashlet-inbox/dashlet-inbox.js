@@ -9,10 +9,11 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 ({
+//    extendsFrom: 'TabbedDashletView',
     extendsFrom: 'HistoryView',
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * @property {Number} _defaultSettings.limit Maximum number of records to
      *   load per request, defaults to '10'.
@@ -26,20 +27,22 @@
         visibility: 'user'
     },
 
-    thresholdRelativeTime: 2, //Show relative time for 2 days and then date time after
-
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     initialize: function(options) {
         options.meta = options.meta || {};
         options.meta.template = 'tabbed-dashlet';
 
+        this.plugins = _.union(this.plugins, [
+            'LinkedModel'
+        ]);
+
         this._super('initialize', [options]);
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _initEvents: function() {
         this.events = _.extend(this.events, {
@@ -84,7 +87,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * On load of new data, make sure we reload invitations related data, if
      * it is defined for the current tab.
@@ -101,7 +104,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * FIXME: This should be removed when metadata supports date operators to
      * allow one to define relative dates for date filters.
@@ -119,7 +122,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     _getFilters: function(index) {
           var  tab = this.tabs[index],
@@ -171,18 +174,7 @@
     },
 
     /**
-     * Sets property useRelativeTime to show date created as a relative time or as date time.
-     *
-     * @private
-     */
-    _setRelativeTimeAvailable: function(date) {
-        var diffInDays = Math.abs(app.date().diff(date, 'days', true));
-        var useRelativeTime = (diffInDays <= this.thresholdRelativeTime);
-        return useRelativeTime;
-    },
-
-    /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * New model related properties are injected into each model:
      *
@@ -217,19 +209,17 @@
             }
             model.set('picture_url', pictureUrl);
             model.set('is_assigned', this.isAssigned(model));
-            if (model.attributes.cas_due_date) {
-                var useRelativeTime = this._setRelativeTimeAvailable(model.attributes.cas_due_date);
-                if (useRelativeTime) {
-                    model.useRelativeTime = true;
-                } else {
-                    model.useAbsoluteTime = true;
-                }
-            }
         }, this);
         this._super('_renderHtml');
     },
 
     isAssigned: function(model) {
-        return model.get('cas_assignment_method') != 'selfservice';
+        if (model.get('cas_status') == 'static'
+            || model.get('cas_status') == 'balanced'
+            || model.get('cas_user_id') == app.user.id) {
+            return true;
+        } else {
+            return (model.get('cas_started') > 0);
+        }
     }
 })

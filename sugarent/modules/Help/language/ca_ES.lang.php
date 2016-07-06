@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,32 +12,24 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
+  'ERR_DELETE_RECORD' => 'Ha d´especificar un número de registre a eliminar.',
+  'LBL_LIST_FORM_TITLE' => 'Llista de Comptes',
   'LBL_MODULE_NAME' => 'Comptes',
   'LBL_MODULE_NAME_SINGULAR' => 'Compte',
-  'LBL_MODULE_TITLE' => 'Comptes: inici',
-  'LBL_SEARCH_FORM_TITLE' => 'Cerca de comptes',
-  'LBL_LIST_FORM_TITLE' => 'Llista de comptes',
-  'LBL_NEW_FORM_TITLE' => 'Nou compte',
-  'LNK_NEW_CONTACT' => 'Nou contacte',
-  'LNK_NEW_ACCOUNT' => 'Nou compte',
-  'LNK_NEW_OPPORTUNITY' => 'Crear oportunitat',
-  'LNK_NEW_CASE' => 'Nou Cas',
-  'LNK_NEW_NOTE' => 'Crear nota o fitxer adjunt',
+  'LBL_MODULE_TITLE' => 'Comptes: Inici',
+  'LBL_NEW_FORM_TITLE' => 'Nou Compte',
+  'LBL_SEARCH_FORM_TITLE' => 'Recerca de Comptes',
+  'LNK_NEW_ACCOUNT' => 'Nou Compte',
   'LNK_NEW_CALL' => 'Programar Trucada',
-  'LNK_NEW_EMAIL' => 'Arxivar correu',
-  'LNK_NEW_MEETING' => 'Programa una reunió',
-  'LNK_NEW_TASK' => 'Crea una tasca',
-  'ERR_DELETE_RECORD' => 'Per suprimir el compte, heu d&#39;especificar un número de registre.',
+  'LNK_NEW_CASE' => 'Nou Cas',
+  'LNK_NEW_CONTACT' => 'Nou Contacte',
+  'LNK_NEW_EMAIL' => 'Arxivar Correu',
+  'LNK_NEW_MEETING' => 'Programar Reunió',
+  'LNK_NEW_NOTE' => 'Nova Nota o Arxiu Adjunt',
+  'LNK_NEW_OPPORTUNITY' => 'Nova Oportunitat',
+  'LNK_NEW_TASK' => 'Nova Tasca',
 );
 
-
-?>

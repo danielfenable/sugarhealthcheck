@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+
 $mod_strings = array (
-'LBL_DEFAULT'=>'לא נקבע',
-'LBL_READ_WRITE'=>'כתיבה/קריאה',
-'LBL_READ_OWNER_WRITE'=>'קריאה/בעלים כתיבה',
-'LBL_READ_ONLY'=>'קריאה בלבד',
-'LBL_OWNER_READ_WRITE'=>'בעלים קריאה/בעלים כתיבה',
-'LBL_ALLOW_NONE'=>'אין',
-'LBL_FIELDS'=>'שדה הרשאות',
-'LBL_NOT_DEFINED' => 'לא מוגדר',
-)
-?>
+  'LBL_ALLOW_NONE' => 'כלום',
+  'LBL_DEFAULT' => 'לא נקבע',
+  'LBL_FIELDS' => 'שדה הרשאות',
+  'LBL_NOT_DEFINED' => 'לא מוגדר',
+  'LBL_OWNER_READ_WRITE' => 'בעלים קריאה/בעלים כתיבה',
+  'LBL_READ_ONLY' => 'קריאה בלבד',
+  'LBL_READ_OWNER_WRITE' => 'קריאה/בעלים כתיבה',
+  'LBL_READ_WRITE' => 'כתיבה/קריאה',
+);
+

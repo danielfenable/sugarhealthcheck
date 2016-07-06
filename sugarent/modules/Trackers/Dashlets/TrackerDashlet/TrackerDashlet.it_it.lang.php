@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,21 +11,29 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$dashletStrings['TrackerDashlet'] = array('LBL_TITLE'            => 'Report Tracker',
-                                          'LBL_DESCRIPTION'      => 'Una dashlet per eseguire query sui dati Tracker',
-                                          'LBL_SAVING'           => 'Esecuzione Query in corso ...',
-                                          'LBL_SAVED'            => 'Query Completata',
-                                          'LBL_CLEAR'            => 'Cancella',
-                                          'LBL_CLEAR_TOOLTIP'    => 'Azzera il valore del campo data',
-                                          'LBL_CONFIGURE_TITLE'  => 'Titolo',
-                                          'LBL_CONFIGURE_HEIGHT' => 'Altezza (1 - 300)',
-										  'LBL_SELECT_QUERY'     => 'Seleziona Query...',
-										  'LBL_FILTER'              => 'Filtro',
-										  'LBL_FILTER_TOOLTIP'      => 'Filtra per valore nel campo data',
-										  'LBL_SINCE'            => 'Da:',
-										  'LBL_CHOOSE_DATE_TOOLTIP' => 'For select reports, you can provide a date filter.' .
-										                               '  The date value entered will replace the default date value for the report.' .
-										                               '  For example, in the "My Activity (This Week)" report, the' .
-										                               ' value will be used to display all records after the filter date' .
-										                               ' instead of the default time period of one week.',
+
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
+$dashletStrings = array (
+  'TrackerDashlet' => 
+  array (
+    'LBL_TITLE' => 'Report Tracker',
+    'LBL_DESCRIPTION' => 'Una dashlet per eseguire query sui dati Tracker',
+    'LBL_SAVING' => 'Esecuzione Query in corso ...',
+    'LBL_SAVED' => 'Query Completata',
+    'LBL_CLEAR' => 'Azzera',
+    'LBL_CLEAR_TOOLTIP' => 'Azzera il valore del campo data',
+    'LBL_CONFIGURE_TITLE' => 'Titolo',
+    'LBL_CONFIGURE_HEIGHT' => 'Altezza (1 - 300)',
+    'LBL_SELECT_QUERY' => 'Seleziona Query...',
+    'LBL_FILTER' => 'Filtro',
+    'LBL_FILTER_TOOLTIP' => 'Filtra per valore nel campo data',
+    'LBL_SINCE' => 'Da:',
+    'LBL_CHOOSE_DATE_TOOLTIP' => 'Per selezionare reports, puoi fornire un filtro data. Il valore della data inserito sostituirà il valore della data predefinito per il report. Per esempio, nel report "Le mie attività (di questa settimana)", il valore verrà utilizzato per visualizzare tutti i records programmati dopo il filtro data anzichè il periodo di tempo predefinito di una settimana.',
+  ),
 );
+

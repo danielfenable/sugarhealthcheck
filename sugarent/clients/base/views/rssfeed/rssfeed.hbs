@@ -31,7 +31,10 @@
         {{#if errorThrown}}
         {{str "LBL_NO_DATA_AVAILABLE"}}
         {{else}}
-        {{loading 'LBL_ALERT_TITLE_LOADING'}}
+        <div class="loading">
+            {{str "LBL_ALERT_TITLE_LOADING"}}
+            <i class="l1 fa fa-circle"></i><i class="l2 fa fa-circle"></i><i class="l3 fa fa-circle"></i>
+        </div>
         {{/if}}
     </div>
 {{/if}}

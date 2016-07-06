@@ -99,13 +99,6 @@ if (isset($_REQUEST['total'])) {
 } else {
     $total_keys = array();
 }
-
-//unset relate fields for product bundles
-$tmpRelate_id = $_REQUEST['relate_id'];
-$tmpRelate_to = $_REQUEST['relate_to'];
-unset($_REQUEST['relate_id']);
-unset($_REQUEST['relate_to']);
-
 $product_bundels = array();
 for ($k = 0; $k < sizeof($total_keys); $k++) {
     $pb = BeanFactory::getBean('ProductBundles');
@@ -142,7 +135,7 @@ $pb = BeanFactory::getBean('ProductBundles');
 $deletedGroups = array();
 if (isset($_POST['delete_table'])) {
     foreach ($_POST['delete_table'] as $todelete) {
-        if ($todelete !== '1') {
+        if ($todelete != 1) {
             $pb->mark_deleted($todelete);
             $deletedGroups[$todelete] = $todelete;
         }
@@ -262,10 +255,6 @@ foreach ($product_bundels as $bundle_key) {
     }
     $pb->save();
 }
-
-//reset relate fields
-$_REQUEST['relate_id'] = $tmpRelate_id;
-$_REQUEST['relate_to'] = $tmpRelate_to;
 
 $focus->save($check_notify);
 

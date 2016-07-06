@@ -15,13 +15,13 @@ $viewdefs['portal']['layout']['footer'] = array(
     'type' => 'footer',
     'components' => array(
         array(
-            'view' => 'language-actions',
+            'view' => 'language-actions'
         ),
         array(
-            'view' => 'tour-action',
+            'view' => 'tour-action'
         ),
         array(
-            'view' => 'footer-actions',
-        ),
+            'view' => 'footer-actions'
+        )
     ),
 );

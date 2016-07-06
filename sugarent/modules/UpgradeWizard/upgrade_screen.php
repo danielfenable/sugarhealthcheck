@@ -460,9 +460,9 @@ $(window).bind("load", function () {
             </div>
         </div>
         <div class="modal-footer">
-          <span class="version">Upgrader version <?php echo $upgraderVesion?></span>
+          <span class="btn btn-invisible pull-left">Upgrader version <?php echo $upgraderVesion?></span>
           <span sfuuid="25" class="detail">
-            <a class="btn btn-invisible btn-link" href="index.php#bwc/index.php?module=Administration&action=index">Cancel</a>
+            <a class="btn btn-invisible btn-link" href="index.php">Cancel</a>
             <a class="btn btn-primary" href="javascript:void(0);" name="next_button">Upload</a>
           </span>
         </div>
@@ -492,7 +492,7 @@ $(window).bind("load", function () {
             </div>
         </div>
         <div class="modal-footer">
-          <span class="version">Upgrader version <?php echo $upgraderVesion?></span>
+          <span class="btn btn-invisible pull-left">Upgrader version <?php echo $upgraderVesion?></span>
           <span sfuuid="25" class="detail">
             <a class="btn btn-invisible btn-link send-logs" href="javascript:void(0);" name="send_to_sugar">Send Log to Sugar</a>
             <a class="btn btn-invisible btn-link" href="javascript:void(0);" name="export_button">Export Log</a>
@@ -582,7 +582,7 @@ $(window).bind("load", function () {
                 <input type="hidden" name="action" value="exportlog">
                 <input type="hidden" name="token" value="<?php echo $token ?>">
           </form>
-          <span class="version">Upgrader version <?php echo $upgraderVesion?></span>
+          <span class="btn btn-invisible pull-left">Upgrader version <?php echo $upgraderVesion?></span>
           <span sfuuid="25" class="detail">
             <a class="btn btn-invisible" href="javascript:void(0);" name="export_button">Export Log</a>
             <a class="btn btn-primary disabled" href="index.php" data-action="gohome">Go to Home Page</a>

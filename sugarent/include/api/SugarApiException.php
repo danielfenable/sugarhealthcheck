@@ -16,7 +16,7 @@ class SugarApiException extends SugarException
 {
     /**
      * The HTTP response code to send to the consumer in case of an exception
-     *
+     * 
      * @var integer
      */
     public $httpCode = 400;
@@ -24,7 +24,7 @@ class SugarApiException extends SugarException
     /**
      * The label for the description of this exception. Used in help documentation.
      * Maps to the $messageLabel value with '_DESC' appended to it.
-     *
+     * 
      * @var string
      */
     public $descriptionLabel;
@@ -222,32 +222,4 @@ class SugarApiExceptionMaintenance extends SugarApiException
     public $httpCode = 503;
     public $errorLabel = 'maintenance';
     public $messageLabel = 'EXCEPTION_MAINTENANCE';
-}
-
-/**
- * The server is busy or overloaded. Generally should be temporary.
- */
-class SugarApiExceptionServiceUnavailable extends SugarApiException
-{
-    public $httpCode = 503;
-    public $errorLabel = 'service_unavailable';
-    public $messageLabel = 'EXCEPTION_SERVICE_UNAVAILABLE';
-}
-
-/**
- * SearchEngine is unavailable
- */
-class SugarApiExceptionSearchUnavailable extends SugarApiExceptionServiceUnavailable
-{
-    public $errorLabel = 'search_unavailable';
-    public $messageLabel = 'EXCEPTION_SEARCH_UNAVAILABLE';
-}
-
-/**
- * SearchEngine runtime error
- */
-class SugarApiExceptionSearchRuntime extends SugarApiExceptionError
-{
-    public $errorLabel = 'search_runtime';
-    public $messageLabel = 'EXCEPTION_SEARCH_RUNTIME';
 }

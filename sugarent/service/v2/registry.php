@@ -165,6 +165,7 @@ class registry {
     		'get_report_entries',
     		array('session'=>'xsd:string', 'ids'=>'tns:select_fields', 'select_fields'=>'tns:select_fields'),
     		array('return'=>'tns:get_entry_result_for_reports'));
+
     		
 	    $GLOBALS['log']->info('END: registry->registerFunction');
 	        
@@ -663,6 +664,7 @@ class registry {
 				'entry_list' => array('name' =>'entry_list', 'type'=>'tns:report_entry_list'),
 			)
 		);
+			
 		
 		$GLOBALS['log']->info('End: registry->registerTypes');
 

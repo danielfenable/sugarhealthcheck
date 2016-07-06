@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,10 +11,19 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: MyPipelineBySalesStageDashlet.en_us.lang.php 16286 2006-08-22 20:14:45Z wayne $
 
 
-$dashletStrings['CampaignROIChartDashlet'] = array('LBL_TITLE'       => 'キャンペーンROI',
-                                                     'LBL_DESCRIPTION' => '投資利益率グラフ',
-                                                     'LBL_REFRESH'     => 'チャートを更新');
-?>
+
+
+
+
+
+
+$dashletStrings = array (
+  'CampaignROIChartDashlet' => 
+  array (
+    'LBL_TITLE' => 'キャンペーン投資利益率',
+    'LBL_DESCRIPTION' => '投資利益率グラフ',
+    'LBL_REFRESH' => 'グラフを更新',
+  ),
+);

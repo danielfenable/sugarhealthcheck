@@ -168,6 +168,7 @@ $admin_option_defs['Products']['product_types']= array('Product_Types','LBL_PROD
 $admin_option_defs['Quotes']['tax_rates']= array('TaxRates','LBL_TAXRATES_TITLE','LBL_TAXRATES','./index.php?module=TaxRates&action=index');
 
 $admin_group_header[]= array('LBL_PRICE_LIST_TITLE','',false,$admin_option_defs, 'LBL_PRICE_LIST_DESC');
+
 //bug tracker.
 $admin_option_defs=array();
 $admin_option_defs['Bugs']['bug_tracker']= array('Releases','LBL_MANAGE_RELEASES','LBL_RELEASE','./index.php?module=Releases&action=index');
@@ -175,12 +176,12 @@ $admin_group_header[]= array('LBL_BUG_TITLE','',false,$admin_option_defs, 'LBL_B
 
 //Forecasting
 $admin_option_defs=array();
-$admin_option_defs['Forecasts']['forecast_setup'] = array('ForecastReports','LBL_MANAGE_FORECASTS_TITLE', 'LBL_MANAGE_FORECASTS', 'javascript:void(parent.SUGAR.App.router.navigate("Forecasts/config", {trigger: true}));');
+$admin_option_defs['Forecasts']['forecast_setup'] = array('ForecastReports','LBL_MANAGE_FORECASTS_TITLE', 'LBL_MANAGE_FORECASTS', 'javascript:parent.SUGAR.App.router.navigate("Forecasts/config", {trigger: true});');
 $admin_group_header[]= array('LBL_FORECAST_TITLE', '', false, $admin_option_defs, 'LBL_FORECAST_DESC');
 
 //Opportunities
 $admin_option_defs=array();
-$admin_option_defs['Opportunities']['opportunities_setup'] = array('Opportunities','LBL_MANAGE_OPPORTUNITIES_TITLE', 'LBL_MANAGE_OPPORTUNITIES_DESC', 'javascript:void(parent.SUGAR.App.router.navigate("Opportunities/config", {trigger: true}));');
+$admin_option_defs['Opportunities']['opportunities_setup'] = array('Opportunities','LBL_MANAGE_OPPORTUNITIES_TITLE', 'LBL_MANAGE_OPPORTUNITIES_DESC', 'javascript:parent.SUGAR.App.router.navigate("Opportunities/config", {trigger: true});');
 $admin_group_header[]= array('LBL_MANAGE_OPPORTUNITIES_TITLE', '', false, $admin_option_defs, 'LBL_OPPORTUNITIES_DESC');
 
 //Contracts

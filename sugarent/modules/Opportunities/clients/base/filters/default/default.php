@@ -1,4 +1,5 @@
 <?php
+ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -22,11 +23,10 @@ $viewdefs['Opportunities']['base']['filter']['default'] = array(
         'probability' => array(),
         'lead_source' => array(),
         'opportunity_type' => array(),
-        'sales_stage' => array(),
+        'sales_status' => array(),
         'date_entered' => array(),
         'date_modified' => array(),
         'date_closed' => array(),
-        'tag' => array(),
         'assigned_user_name' => array(),
         '$owner' => array(
             'predefined_filter' => true,

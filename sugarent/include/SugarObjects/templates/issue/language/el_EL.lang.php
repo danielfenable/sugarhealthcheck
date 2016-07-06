@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,40 +12,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-
-  'LBL_NAME' =>'Όνομα',
-  'LBL_NUMBER' => 'Αριθμός:',
-  'LBL_STATUS' => 'Κατάσταση:',
-  'LBL_PRIORITY' => 'Προτεραιότητα:',
-  'LBL_DESCRIPTION' => 'Περιγραφή:',
-  'LBL_RESOLUTION' => 'Επίλυση',
-  'LBL_LAST_MODIFIED' => 'Τελευταία Τροποποίηση',
-  'LBL_ASSIGNED_TO_ID'=>'Ανατέθηκε Σε:',
-  'LBL_ASSIGNED_TO_NAME' => 'Χειριστής:',  	  
-  'LBL_WORK_LOG' => 'Εργασία:',
+  'LBL_ASSIGNED_TO_ID' => 'Ανατέθηκε Σε:',
+  'LBL_ASSIGNED_TO_NAME' => 'Χειριστής:',
+  'LBL_ASSIGNED_USER' => 'Ανατεθειμένος Χειριστής:',
+  'LBL_ASSIGNED_USER_NAME' => 'Ανατέθηκε σε',
   'LBL_CREATED_BY' => 'Δημιουργήθηκε Από:',
   'LBL_DATE_CREATED' => 'Ημερομηνία Δημιουργίας:',
   'LBL_DATE_ENTERED' => 'Ημερομηνία Δημιουργίας:',
-  'LBL_DATE_MODIFIED'=>'Ημερομηνία Τροποποίησης:',
+  'LBL_DATE_MODIFIED' => 'Ημερομηνία Τροποποίησης:',
+  'LBL_DESCRIPTION' => 'Περιγραφή:',
+  'LBL_EDIT_BUTTON' => 'Επεξεργασία',
+  'LBL_LAST_MODIFIED' => 'Τελευταία Τροποποίηση',
   'LBL_MODIFIED_BY' => 'Τροποποιήθηκε από:',
-  'LBL_ASSIGNED_USER' => 'Ανατεθειμένος Χειριστής:',
-  'LBL_ASSIGNED_USER_NAME' => 'Ανατέθηκε σε',
-  'LBL_SYSTEM_ID' =>'Ταυτότητα Συστήματος:',
-  'LBL_TEAM_NAME' =>'Όνομα Ομάδας:',
-  'LBL_TYPE'=>'Τύπος:',
+  'LBL_NAME' => 'Όνομα',
+  'LBL_NUMBER' => 'Αριθμός:',
+  'LBL_PRIORITY' => 'Προτεραιότητα:',
+  'LBL_REMOVE' => 'Αφαίρεση',
+  'LBL_RESOLUTION' => 'Επίλυση',
+  'LBL_STATUS' => 'Κατάσταση:',
   'LBL_SUBJECT' => 'Θέμα:',
+  'LBL_SYSTEM_ID' => 'Ταυτότητα Συστήματος:',
+  'LBL_TEAM_NAME' => 'Όνομα Ομάδας:',
+  'LBL_TYPE' => 'Τύπος:',
+  'LBL_WORK_LOG' => 'Εργασία:',
+);
 
-    'LBL_EDIT_BUTTON' => 'Επεξεργασία',
-    'LBL_REMOVE' => 'Αφαίρεση',
-
-  
-  );

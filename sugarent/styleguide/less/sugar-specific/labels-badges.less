@@ -6,12 +6,11 @@
   text-shadow: none;
   display: inline-block;
   cursor: default;
-  padding: 2px 4px;
+  padding: 1px 4px 2px;
   background: @gray;
   border: 1px solid @gray;
   color: @white;
   font-weight: 600;
-  text-align: center;
   .border-radius(@borderRadiusSmall);
   .box-sizing(border-box);
 }
@@ -26,19 +25,13 @@ a > .label,
   cursor: pointer;
 }
 
-.full-width {
-  > .label {
-    display: block;
-  }
-}
-
 .disabled .label-Users,
 .inactive [class*="label-"],
 [data-type="follow"] .label,
 [data-type="follow"] .label:hover {
   background-color: transparent;
   border: 1px solid @gray;
-  color: @grayDark;
+  color: @gray;
   font-weight: 500;
 }
 [data-type="follow"] {
@@ -48,6 +41,7 @@ a > .label,
     color: @white;
     font-weight: 600;
     width: 100%;
+    text-align: center;
   }
 }
 [data-type="follow"],
@@ -58,14 +52,8 @@ a > .label,
     color: @grayDark;
     font-weight: 500;
     width: 100%;
+    text-align: center;
   }
-}
-
-[data-type="badge"] [data-action="convert"]:hover {
-  cursor: pointer;
-  background-color: @gray;
-  color: @white;
-  font-weight: 600;
 }
 
 .label-module {
@@ -136,8 +124,8 @@ a > .label,
 
 .label {
   &-important {background-color: @errorBackground; border: 1px solid @errorBackground;}
-  &-warning {background-color: @warningBackground; color: @warningText; border: 1px solid @warningBorder;}
-  &-pending {background-color: transparent; color: @grayDark; border: 1px solid @gray;}
+  &-warning {background-color: @warningBackground; color: @warningText; border: 1px solid @warningBackground;}
+  &-pending {background-color: transparent; color: @gray; border: 1px solid @gray;}
   &-success {background-color: @successBackground; border: 1px solid @successBackground;}
   &-info {background-color: @infoBackground; border: 1px solid @infoBackground;}
   &-inverse, &-unknown {background-color: @gray;}
@@ -159,7 +147,6 @@ a > .label,
   &-Products {background-color: @night;}
 
   &-Forecasts {background-color: @mint;}
-  &-Quotas {background-color: @mint;}
   &-Quotes {background-color: darken(@mint, 15%);}
 
   &-Accounts {background-color: @green;}
@@ -169,6 +156,7 @@ a > .label,
   &-Reports {background-color: @orange;}
   &-Files {background-color: darken(@orange, 20%);}
   &-Documents {background-color: darken(@orange, 20%);}
+  &-KBDocuments {background-color: darken(@orange, 20%);}
 
   &-Calendar {background-color: @teal;}
   &-Meetings {background-color: darken(@teal, 10%);}
@@ -181,12 +169,6 @@ a > .label,
   &-Workflow {background-color: @ocean;}
 
   &-Users {background-color: @grayDarker;}
-
-  &-KBDocuments {background-color: darken(@orange,20%);}
-  &-KBArticles {background-color: darken(@orange,20%);}
-  &-KBContents {background-color: darken(@orange,20%);}
-  &-KBLocalizations {background-color: darken(@blue,20%);}
-  &-KBRevisions {background-color: darken(@purple,20%);}
 }
 
 /* Disabled: no box-shadow*/

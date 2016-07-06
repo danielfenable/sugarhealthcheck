@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 56597 2010-05-20 20:55:56Z asandberg $
  * Description:  TODO: To be written.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -130,8 +130,8 @@ $mod_strings = array(
 	'LBL_PORT'				=> 'منفذ خادم البريد',
 	'LBL_QUEUE'				=> 'قائمة انتظار حساب البريد',
 	'LBL_REPLY_NAME_ADDR'	=> 'اسم / عنوان البريد الإلكتروني للرد',
-	'LBL_REPLY_TO_NAME'		=> 'اسم "الرد على"',
-	'LBL_REPLY_TO_ADDR'		=> 'عنوان "الرد على"',
+	'LBL_REPLY_TO_NAME'		=> 'اسم "الرد"',
+	'LBL_REPLY_TO_ADDR'		=> 'عنوان "الرد"',
 	'LBL_SAME_AS_ABOVE'		=> 'استخدام اسم / عنوان "من"',
 	'LBL_SAVE_RAW'			=> 'حفظ مصدر الصف',
 	'LBL_SAVE_RAW_DESC_1'	=> 'حدد "نعم" إذا كنت ترغب في الاحتفاظ بمصدر الصف لكل رسالة بريد إلكتروني يتم استيرادها.',

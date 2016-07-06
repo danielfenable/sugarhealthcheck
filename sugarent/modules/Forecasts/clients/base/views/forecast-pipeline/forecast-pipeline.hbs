@@ -10,27 +10,27 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 --}}
-<div class="control-group dashlet-options">
-    <div class="controls{{#if isManager}} controls-two btn-group-fit{{/if}}">
-        <div class="row-fluid">
-            <div class="span6">{{#each dashletConfig.timeperiod}}
-                {{field ../this model=../this.settings template="edit"}}
-            {{/each}}</div>
-        </div>
+<div class="dashlet-options">
+    <div class="row-fluid">
+        <div class="span4">{{#each dashletConfig.timeperiod}}
+            {{field ../this model=../this.settings template="edit"}}
+        {{/each}}</div>
         {{#if isManager}}
-        <div class="btn-group dashlet-group" data-toggle="buttons-radio">
-            <button class="btn{{#eq settings.attributes.visibility "user"}} active{{/eq}}"
-                    data-action="visibility-switcher" rel="tooltip" data-placement="bottom" value="user"
-                    title="{{{str "LBL_DASHLET_MY_PIPELINE" 'Forecasts' this.context}}}"
-                    track="click:viewMyUserPipeline">
-                <i class="fa fa-user"></i>
-            </button>
-            <button class="btn{{#eq settings.attributes.visibility "group"}} active{{/eq}}"
-                    data-action="visibility-switcher" rel="tooltip" data-placement="bottom"
-                    value="group" title="{{{str "LBL_DASHLET_MY_TEAMS_PIPELINE" 'Forecasts' this.context}}}"
-                    track="click:viewMyTeamsPipeline">
-                <i class="fa fa-users"></i>
-            </button>
+        <div class="span8">
+            <div class="btn-group pull-right dashlet-group" data-toggle="buttons-radio">
+                <button class="btn{{#eq settings.attributes.visibility "user"}} active{{/eq}}"
+                        data-action="visibility-switcher" rel="tooltip" data-placement="bottom" value="user"
+                        title="{{{str "LBL_DASHLET_MY_PIPELINE" 'Forecasts' this.context}}}"
+                        track="click:viewMyUserPipeline">
+                    <i class="fa fa-user"></i>
+                </button>
+                <button class="btn{{#eq settings.attributes.visibility "group"}} active{{/eq}}"
+                        data-action="visibility-switcher" rel="tooltip" data-placement="bottom"
+                        value="group" title="{{{str "LBL_DASHLET_MY_TEAMS_PIPELINE" 'Forecasts' this.context}}}"
+                        track="click:viewMyTeamsPipeline">
+                    <i class="fa fa-users"></i>
+                </button>
+            </div>
         </div>
         {{/if}}
     </div>

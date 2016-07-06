@@ -32,10 +32,4 @@ $viewdefs['RevenueLineItems']['base']['view']['panel-top'] = array(
             ),
         ),
     ),
-    'fields' => array(
-        array(
-            'name' => 'collection-count',
-            'type' => 'collection-count',
-        ),
-    ),
 );

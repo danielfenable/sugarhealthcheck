@@ -14,7 +14,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 $mod_strings = array (
     'LBL_ANY_EMAIL' => 'Email:',
     'LBL_EMAIL' => 'Email Address:',
-    'LBL_PRIMARY_EMAIL' => 'Primary Email',
     'LBL_LIST_EMAIL_ADDRESS' => 'Email Address',
     'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
     'LBL_EMAIL_ADDRESS' => 'Email Address',

@@ -31,20 +31,7 @@
         this.toggleComponents = [];
         this.componentsList = {};
         this.processToggles();
-        this._super('initialize', [opts]);
-    },
-
-    /**
-     * @inheritdoc
-     */
-    initComponents: function(components, context, module) {
-        this._super('initComponents', [components, context, module]);
-
-        _.each(this.componentsList, function(comp) {
-            if (_.isFunction(comp.initComponents)) {
-                comp.initComponents();
-            }
-        });
+        app.view.Layout.prototype.initialize.call(this, opts);
     },
 
     /**

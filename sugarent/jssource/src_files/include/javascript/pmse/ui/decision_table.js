@@ -14,6 +14,7 @@
         this.base_module = null;
         this.hitType = null;
         this.dom = null;
+        this.name = null;
         this.proxy = null;
         this.conditions = null;
         this.conclusions = null;
@@ -28,22 +29,16 @@
         this.onDirty = null;
         this.showDirtyIndicator = null;
         this.isDirty = null;
-        this.conditionFields = [];
-        this.conditionCombos = {};
-        this.conditionFieldsReady = false;
-        this.conclusionFields = [];
-        this.conclusionCombos = {};
-        this.conclusionFieldsReady = false;
+        this.fields = [];
+        this.combos = {};
         this.language = {};
         this.correctlyBuilt = false;
         this.globalCBControl = null;
         this.globalDDSelector = null;
         this.moduleFieldSeparator = "|||";
-        this._currencies = [];
         this._dateFormat = null;
         this._timeFormat = null;
         this._isApplyingColumnScrolling = null;
-        this.invalidFieldAlertKey = 'DecisionTableInvalidField';
         DecisionTable.prototype.initObject.call(this, options || {});
     };
 
@@ -53,6 +48,7 @@
 
     DecisionTable.prototype.initObject = function(options) {
         var defaults = {
+            name: "",
             proxy: new SugarProxy(),
             restClient: null,
             base_module: "",
@@ -69,7 +65,6 @@
             onRemoveColumn: null,
             onChange: null,
             showDirtyIndicator: true,
-            currencies: [],
             dateFormat: "YYYY-MM-DD",
             timeFormat: "H:i",
             language: {
@@ -115,7 +110,7 @@
         this.rows = parseInt(defaults.rows, 10);
         this.language = defaults.language;
 
-        this.setCurrencies(defaults.currencies)
+        this.setName(defaults.name)
             .setDateFormat(defaults.dateFormat)
             .setTimeFormat(defaults.timeFormat)
             .setProxy(defaults.proxy/*, defaults.restClient*/)
@@ -144,8 +139,7 @@
             itemContainerHeight: 70,
             dateFormat: this._dateFormat,
             timeFormat: this._timeFormat,
-            appendTo: jQuery("#businessrulecontainer").get(0),
-            currencies: this._currencies
+            appendTo: jQuery("#businessrulecontainer").get(0)
         });
 
         this.globalDDSelector = new DropdownSelector({
@@ -153,14 +147,6 @@
         });
 
         this.getFields();
-    };
-
-    DecisionTable.prototype.setCurrencies = function (currencies) {
-        this._currencies = currencies;
-        if (this.globalCBControl) {
-            this.globalCBControl.setCurrencies(this._currencies);
-        }
-        return this;
     };
 
     DecisionTable.prototype.setDateFormat = function (dateFormat) {
@@ -255,7 +241,7 @@
 
     DecisionTable.prototype.removeAllConclusions = function() {
         while(this.conclusions.length) {
-            this.conclusions[0].remove(true);
+            this.conclusions[0].remove();
         }
 
         return this;
@@ -263,7 +249,7 @@
 
     DecisionTable.prototype.removeAllConditions = function() {
         while(this.conditions.length) {
-            this.conditions[0].remove(true);
+            this.conditions[0].remove();
         }
         return this;
     };
@@ -286,58 +272,12 @@
         return this;
     };
 
-    /**
-     * Scan through the fields list in the current rule set for any invalid fields
-     * Toggle save button states and error alert
-     * @param {boolean} whether to show error alert
-     */
-    DecisionTable.prototype.validateFields = function(showAlert) {
-        var scanArray = function(input) {
-            var i;
-            for(i = 0; i < input.length; i++) {
-                if(!input[i].fieldValid && (input[i].field != '' || input[i].module != '')) {
-                    return false;
-                }
-            }
-            return true;
-        };
-        var valid = scanArray(this.conditions);
-        if (valid) {
-            valid = scanArray(this.conclusions);
-        }
-        if (valid) {
-            $(".btn-primary[name='project_save_button']").removeClass("disabled");
-            $(".btn-primary[name='project_finish_button']").removeClass("disabled");
-            App.alert.dismiss(this.invalidFieldAlertKey);
-        } else {
-            $(".btn-primary[name='project_save_button']").addClass("disabled");
-            $(".btn-primary[name='project_finish_button']").addClass("disabled");
-            if (showAlert) {
-                App.alert.show(this.invalidFieldAlertKey, {
-                    level: "error",
-                    messages: this.language.ERROR_NOT_EXISTING_FIELDS
-                });
-            }
-        }
-    };
-
-    /**
-     * Utility function to construct a module field concatenation to be used
-     * mostly as an identifier
-     * @param {string} module name
-     * @param {string} field name
-     * @return {string} concatenation
-     */
-    DecisionTable.prototype.getModuleFieldConcat = function(module, field) {
-        return module + this.moduleFieldSeparator + field;
-    };
-
     DecisionTable.prototype.setRuleset = function(ruleset) {
         var i, j,
             condition_column_helper = {},
             conclusion_column_helper = {},
             aux,
-            conditions, conclusions, auxKey;
+            conditions, conclusions, errorHTML = "", auxHTML = {}, auxKey;
 
         //fill the column helper for conditions
         for(i = 0; i < this.conditions.length; i+=1) {
@@ -357,29 +297,62 @@
             conditions = ruleset[i].conditions;
             aux = {};
             for(j = 0; j < conditions.length; j+=1) {
-                auxKey = this.getModuleFieldConcat(conditions[j].variable_module, conditions[j].variable_name);
+                auxKey = conditions[j].variable_module + this.moduleFieldSeparator + conditions[j].variable_name;
                 if(typeof aux[auxKey] === 'undefined') {
                     aux[auxKey] = -1;
                 }
                 aux[auxKey] +=1;
                 if(typeof condition_column_helper[auxKey] !== 'undefined') {
                     this.conditions[condition_column_helper[auxKey][aux[auxKey]]].addValue(conditions[j].value, conditions[j].condition);
+                } else {
+                    if (!auxHTML[conditions[j].variable_module]) {
+                        auxHTML[conditions[j].variable_module] = {};
+                    }
+                    auxHTML[conditions[j].variable_module][conditions[j].variable_name] = 0;
                 }
             }
 
             conclusions = ruleset[i].conclusions;
             for(j = 0; j < conclusions.length; j+=1) {
-                auxKey = (conclusions[j].conclusion_type === "return" ? "result" : this.getModuleFieldConcat(this.base_module, conclusions[j].conclusion_value));
+                auxKey = (conclusions[j].conclusion_type === "return" ? "result" : this.base_module
+                    + this.moduleFieldSeparator + conclusions[j].conclusion_value);
                 if(typeof conclusion_column_helper[auxKey] !== 'undefined') {
                     this.conclusions[conclusion_column_helper[auxKey]].addValue(conclusions[j].value);
+                } else {
+                    if (!auxHTML[this.base_module]) {
+                        auxHTML[this.base_module] = {};
+                    }
+                    auxHTML[this.base_module][auxKey] = 0;
                 }
             }
 
             this.addDecisionRow();
         }
 
-        this.validateFields(true);
-        this.correctlyBuilt = true;
+        for (i in auxHTML) {
+            if (auxHTML.hasOwnProperty(i)) {
+                for (j in auxHTML[i]) {
+                    errorHTML += ", " + i + "::" + j;
+                }
+            }
+        }
+        errorHTML = errorHTML.slice(2);
+        if(errorHTML) {
+            aux = this.html.parentElement;
+            $(this.html).remove();
+            auxHTML = this.createHTMLElement('p');
+            auxHTML.textContent = this.language.ERROR_NOT_EXISTING_FIELDS.replace(/\%s/, errorHTML);
+            this.html = this.createHTMLElement('div');
+            this.html.appendChild(auxHTML);
+            aux.appendChild(this.html);
+            App.alert.show(null, {
+                level: "error",
+                messages: this.html.textContent
+            });
+        } else {
+            this.correctlyBuilt = true;
+        }
+
         this.updateDimensions();
         return this;
     };
@@ -605,102 +578,75 @@
         }
     };
 
-    DecisionTable.prototype.parseFieldsData = function(data, self) {
-        var i, j, fields, combos, module, result = {success : false};
-        if (data && data.success) {
-            fields = [];
-            combos = {};
-            for (i = 0; i < data.result.length; i += 1) {
-                module = data.result[i];
-                for (j = 0; j < module.fields.length; j += 1) {
-                    fields.push({
-                        label: module.fields[j].text,
-                        value: module.fields[j].value,
-                        type: module.fields[j].type,
-                        moduleText: module.text,
-                        moduleValue: module.value
-                    });
-                    //Maybe backend shouldn't send the optionItem field if doesn't apply to the field.
-                    if (module.fields[j].optionItem !== "none") {
-                        combos[module.value + self.moduleFieldSeparator + module.fields[j].value] = module.fields[j].optionItem;
-                    } else if (module.fields[j].type === 'Checkbox') {
-                        combos[module.value + self.moduleFieldSeparator + module.fields[j].value] = {
-                            checked: translate('LBL_PMSE_DROP_DOWN_CHECKED', 'pmse_Business_Rules'),
-                            unchecked: translate('LBL_PMSE_DROP_DOWN_UNCHECKED', 'pmse_Business_Rules')
-                        };
-                    }
-                }
-            }
-            result.fields = fields;
-            result.combos = combos;
-            result.success = true;
-        }
-        return result;
-    };
-
-    DecisionTable.prototype.finishGetFields = function(defaultValue, self) {
-        self.setConditions(self.auxConditions);
-        self.setConclusions(self.auxConclutions);
-        self.setRuleset(self.rules);
-        if(!self.conditions.length) {
-            self.addCondition(defaultValue);
-        }
-        if(!self.conclusions.length) {
-            self.addConclusion(true);
-        }
-        if(!self.decisionRows) {
-            self.addDecisionRow();
-        }
-        App.alert.dismiss('upload');
-        self.setIsDirty(false);
-    };
-
-    DecisionTable.prototype.getConditionFields = function(defaultValue) {
+    DecisionTable.prototype.getFields = function(defaultValue) {
         var self = this;
-        this.proxy.setUrl('ProcessBusinessRules/fields/conditions');
-        this.proxy.getData({base_module: this.base_module, call_type: 'BRR'}, {
-            success: function(data) {
-                var result = self.parseFieldsData(data, self);
-                if (result.success) {
-                    self.conditionFields = result.fields;
-                    self.conditionCombos = result.combos;
-                    self.conditionFieldsReady = true;
-                    if (self.conclusionFieldsReady) {
-                        self.finishGetFields(defaultValue, self);
-                    }
-                }
-            }
-        });
-    };
-
-    DecisionTable.prototype.getConclusionFields = function(defaultValue) {
-        var self = this;
-        this.proxy.setUrl('ProcessBusinessRules/fields/conclusions');
+        if(this.fields.length) {
+            return this.fields;
+        }
+        App.alert.show('upload', {level: 'process', title: 'LBL_LOADING', autoclose: false});
+        this.proxy.setUrl('pmse_Project/CrmData/oneToOneRelated/' + this.base_module);
+        //this.proxy.setUrl('pmse_Project/CrmData/allRelated/' + this.base_module);
+        //this.proxy.setUrl('pmse_Project/CrmData/fields/' + this.base_module);
         this.proxy.getData({base_module: this.base_module, call_type: 'BR'}, {
             success: function(data) {
-                var result = self.parseFieldsData(data, self);
-                if (result.success) {
-                    self.conclusionFields = result.fields;
-                    self.conclusionCombos = result.combos;
-                    self.conclusionFieldsReady = true;
-                    if (self.conditionFieldsReady) {
-                        self.finishGetFields(defaultValue, self);
+                var i, j, fields, combos, module;
+                if(data && data.success) {
+                    fields = [];
+                    combos = {};
+                    for(i = 0; i < data.result.length; i += 1) {
+                        module = data.result[i];
+                        for (j = 0; j < module.fields.length; j += 1) {
+                            fields.push({
+                                label: module.fields[j].text,
+                                value: module.fields[j].value,
+                                type: module.fields[j].type,
+                                moduleText: module.text,
+                                moduleValue: module.value
+                            });
+                            //Maybe backend shouldn't send the optionItem field if doesn't apply to the field.
+                            if (module.fields[j].optionItem !== "none") {
+                                combos[module.value + self.moduleFieldSeparator + module.fields[j].value] = module.fields[j].optionItem;
+                            } else if (module.fields[j].type === 'Checkbox') {
+                                combos[module.value + self.moduleFieldSeparator + module.fields[j].value] = {
+                                    checked: translate('LBL_PMSE_DROP_DOWN_CHECKED', 'pmse_Business_Rules'),
+                                    unchecked: translate('LBL_PMSE_DROP_DOWN_UNCHECKED', 'pmse_Business_Rules')
+                                };
+                            }
+                        }
                     }
+
+                    self.fields = fields;
+                    self.combos = combos;
+
+
+                    self.setConditions(self.auxConditions);
+                    self.setConclusions(self.auxConclutions);
+                    self.setRuleset(self.rules);
+
+                    if(!self.conditions.length) {
+                        self.addCondition(defaultValue);
+                    }
+
+                    if(!self.conclusions.length) {
+                        self.addConclusion(true);
+                    }
+
+                    if(!self.decisionRows) {
+                        self.addDecisionRow();
+                    }
+                    App.alert.dismiss('upload');
+                    self.setIsDirty(false);
                 }
+
             }
         });
+
+        return this;
     };
 
-    DecisionTable.prototype.getFields = function(defaultValue) {
-        if (!this.conditionFieldsReady || !this.conclusionFieldsReady) {
-            App.alert.show('upload', {level: 'process', title: 'LBL_LOADING', autoclose: false});
-            if (!this.conditionFieldsReady) {
-                this.getConditionFields(defaultValue);
-            }
-            if (!this.conclusionFieldsReady) {
-                this.getConclusionFields(defaultValue);
-            }
-        }
+    DecisionTable.prototype.setName = function(name) {
+        this.name = name;
+        return this;
     };
 
     DecisionTable.prototype.setProxy = function(proxy/*, restClient*/) {
@@ -774,9 +720,8 @@
         var condition = new DecisionTableVariable({
             parent: this,
             field: defaultValue || null,
-            fields: this.conditionFields,
-            combos: this.conditionCombos,
-            inputFields: this.conditionFields,
+            fields: this.fields,
+            combos: this.combos,
             language: this.language
         }), i, html;
 
@@ -811,9 +756,8 @@
         var conclusion = new DecisionTableVariable({
             isReturnType: returnType,
             variableMode: "conclusion",
-            fields: this.conclusionFields,
-            combos: this.conclusionCombos,
-            inputFields: this.conditionFields,
+            fields: this.fields,
+            combos: this.combos,
             field: defaultValue,
             parent: this,
             language: this.language
@@ -1367,8 +1311,10 @@
 
     DecisionTable.prototype.getJSON = function() {
         var json = {
+            id: this.id,
             base_module: this.base_module,
             type: this.hitType,
+            name: this.name,
             columns: {
                 conditions: [],
                 conclusions: []
@@ -1463,12 +1409,10 @@
         this.field = null;
         this.fieldType = null;
         this.module = null;
-        this.fieldValid = true;
 
         this.values = [];
         this.fields = null;
         this.combos = {};
-        this.inputFields = null;
 
         this.variableMode = null;
         this.isReturnType = null;
@@ -1482,6 +1426,9 @@
         this.onChangeValue = null;
 
         this.language = {};
+
+        // Dirty? Yes. Necessary? Yes. DON'T DELETE THIS COMMENT WOMBAT.
+        this.base_module = options.parent.base_module || decision_table.base_module || "";
         DecisionTableVariable.prototype.initObject.call(this, options);
     };
 
@@ -1495,7 +1442,6 @@
 
             fields: [],
             combos: {},
-            inputFields: [],
 
             variableMode: "condition",
             isReturnType: false,
@@ -1517,7 +1463,6 @@
 
         this.setFields(defaults.fields)
             .setCombos(defaults.combos)
-            .setInputFields(defaults.inputFields)
             .setField(defaults.field);
 
         if (defaults.values) {
@@ -1530,82 +1475,49 @@
         this.onChangeValue = defaults.onChangeValue;
     };
 
-    /**
-     * Utility function to retrieve the option tag with a certain value
-     * @param {string} the value for the option
-     * @return {jQuery elements} matched elements
-     */
-    DecisionTableVariable.prototype.getOption = function (value) {
-        return $(this.select).children("option[value='" + value + "']");
-    }
-
     DecisionTableVariable.prototype.setField = function (newField) {
         var i,
-            label,
-            option,
             currentField,
             field,
             module,
             moduleFieldConcat;
-        if (!this.isReturnType) {
-            if (!this.fieldValid) {
-                moduleFieldConcat = this.parent.getModuleFieldConcat(this.module, this.field);
-                option = this.getOption(moduleFieldConcat);
-                if (option.length) {
-                    this.select.removeChild(option[0]);
-                }
-            }
-            if (newField) {
-                if (typeof newField === 'string') {
-                    moduleFieldConcat = newField;
-                    field = newField.split(this.parent.moduleFieldSeparator);
-                    module = field[0];
-                    field = field[1];
-                } else {
-                    module = newField.module;
-                    field = newField.field;
-                    moduleFieldConcat = this.parent.getModuleFieldConcat(module, field);
-                }
-                label = module + ':' + field;
+
+        if (this.isReturnType) {
+            return this;
+        }
+
+        if (newField) {
+            if (typeof newField === 'string') {
+                moduleFieldConcat = newField;
+                field = newField.split(this.parent.moduleFieldSeparator);
+                module = field[0];
+                field = field[1];
             } else {
-                module = '';
-                field = '';
-                moduleFieldConcat = this.parent.getModuleFieldConcat(module, field);
-                label = '';
+                module = newField.module;
+                field = newField.field;
+                moduleFieldConcat = module + this.parent.moduleFieldSeparator + field;
             }
-            this.field = field;
-            this.fieldName = null;
-            this.fieldType = null;
-            this.module = module;
-            this.fieldValid = false;
             for (i = 0; i < this.fields.length; i += 1) {
                 currentField = this.fields[i];
                 if (currentField.value === field && currentField.moduleValue === module) {
+                    this.field = field;
                     this.fieldName = currentField.label;
                     this.fieldType = currentField.type;
-                    this.fieldValid = true;
-                    break;
+                    this.module = module;
+                    this.select.value = moduleFieldConcat;
+                    return this;
                 }
             }
-            if (this.fieldValid) {
-                $(this.select).removeClass('field-invalid');
-            } else {
-                if (this.field == '' && this.module == '') {
-                    $(this.select).removeClass('field-invalid');
-                } else {
-                    $(this.select).addClass('field-invalid');
-                }
-                option = this.getOption(moduleFieldConcat);
-                if (!option.length) {
-                    option = this.createHTMLElement('option');
-                    option.label = label;
-                    option.value = moduleFieldConcat;
-                    this.select.insertBefore(option, this.select.firstChild);
-                }
-            }
-            this.select.value = moduleFieldConcat;
-            this.parent.validateFields(false);
+        } else {
+            this.field = null;
+            this.fieldName = null;
+            this.fieldType = null;
+            this.module = null;
         }
+        if (this.select) {
+            this.select.selectedIndex = -1;
+        }
+
         return this;
     };
 
@@ -1624,13 +1536,6 @@
         return this;
     };
 
-    DecisionTableVariable.prototype.setInputFields = function(fields) {
-        if(fields.push && fields.pop) {
-            this.inputFields = fields;
-        }
-        return this;
-    };
-
     DecisionTableVariable.prototype.populateSelectElement = function() {
         var i,
             currentGroup,
@@ -1646,7 +1551,13 @@
         select = this.createHTMLElement('select');
 
         if (this.fields.length) {
+
+            //Create first option
+            option = this.createHTMLElement('option');
+            select.appendChild(option);
+
             currentGroup = {};
+
             for(i = 0; i < this.fields.length; i += 1) {
                 if (this.variableMode === 'conclusion' && !this.isReturnType && this.fields[i].value === 'email1') {
                     continue;
@@ -1661,9 +1572,6 @@
                 }
                 option = this.createHTMLElement('option');
                 label = SUGAR.App.lang.get(this.fields[i].label, this.base_module);
-                if (typeof label === 'object'){
-                    label = this.fields[i].label;
-                }
                 option.label = label;
                 option.value = this.fields[i].moduleValue + this.parent.moduleFieldSeparator + this.fields[i].value;
                 option.appendChild(document.createTextNode(label));
@@ -1692,7 +1600,7 @@
                     this.values.push(new DecisionTableSingleValue({
                         value: values[i],
                         parent: this,
-                        fields: this.inputFields
+                        fields: this.fields
                     }));
                 }
             }
@@ -1702,7 +1610,7 @@
                     value: values[i].value,
                     operator: values[i].operator,
                     parent: this,
-                    fields: this.inputFields,
+                    fields: this.fields,
                     language: this.language
                 }));
             }
@@ -1750,7 +1658,8 @@
             closeButton = this.createHTMLElement("button");
             closeButton.appendChild(document.createTextNode(" "));
             closeButton.className = 'decision-table-close-button';
-            closeButton.title = translate('LBL_PMSE_TOOLTIP_REMOVE_COLUMN','pmse_Business_Rules');
+            //TODO Create this label with the text 'Remove Column'
+            closeButton.title = this.language.LBL_TITLE_CLOSE_BUTTON;
             this.closeButton = closeButton;
             html.appendChild(this.closeButton);
         }
@@ -1774,19 +1683,16 @@
     };
 
 
-    DecisionTableVariable.prototype.remove = function(force) {
+    DecisionTableVariable.prototype.remove = function() {
         var self = this;
-        if (force) {
-            this.removeWithoutConfirmation();
-            return this;
-        }
         if(!this.parent.canBeRemoved(this)) {
-            return this;
+            return;
         }
         if(this.getFilledValuesNum()) {
             App.alert.show('variable-check', {
                 level: 'confirmation',
-                messages: translate('LBL_PMSE_MESSAGE_LABEL_REMOVE_VARIABLE','pmse_Business_Rules'),
+                //TODO Create a label to handle this message
+                messages: "Do you really want to remove this variable?",
                 onCancel: function() {
                     return;
                 },
@@ -1797,7 +1703,6 @@
         } else {
             this.removeWithoutConfirmation();
         }
-        return this;
     };
 
     DecisionTableVariable.prototype.attachListeners = function() {
@@ -1816,7 +1721,7 @@
             if (self.hasValues(true)) {
                 App.alert.show('select-change-confirm', {
                     level: 'confirmation',
-                    messages: translate('LBL_PMSE_MESSAGE_LABEL_CHANGE_COLUMN_TYPE','pmse_Business_Rules'),
+                    messages: 'Values associated to this variable will be removed. Do you want to continue?',
                     autoClose: false,
                     onConfirm: function () {
                         self.setField(newField || null);
@@ -1918,9 +1823,9 @@
     DecisionTableVariable.prototype.addValue = function(value, operator) {
         var value;
         if(this.variableMode === 'conclusion') {
-            value = new DecisionTableSingleValue({value: value, parent: this, fields: this.inputFields, language: this.language});
+            value = new DecisionTableSingleValue({value: value, parent: this, fields: this.fields, language: this.language});
         } else {
-            value = new DecisionTableValueEvaluation({value: value, operator: operator, parent: this, fields: this.inputFields, language: this.language});
+            value = new DecisionTableValueEvaluation({value: value, operator: operator, parent: this, fields: this.fields, language: this.language});
         }
         value.onBeforeOpenPanel = this.onBeforeValueOpenPanelHandler();
         value.onRemove = this.onRemoveValueHandler();
@@ -2105,24 +2010,17 @@
         var that = this;
         return function() {
             var span = document.createElement('span'),
-                cell = this.parentElement, oldValue = that[member], changed = false,
-                text;
+                cell = this.parentElement, oldValue = that[member], changed = false;
             span.tabIndex = 0;
             changed = oldValue !== this.value;
             that[member] = this.value;
             if(that[member]) {
-                text = $(this).find("option:selected").text();
-                span.appendChild(document.createTextNode(text));
+                span.appendChild(document.createTextNode(that[member]));
             } else {
                 span.innerHTML = '&nbsp;';
             }
             try {
                 $(cell).empty().append(span);
-                if (text && $(span).innerWidth() < span.scrollWidth) {
-                    span.setAttribute("title", text);
-                } else {
-                    span.removeAttribute("title");
-                }
             } catch(e){}
             that.isValid();
             if(changed && typeof that.onChange === 'function') {
@@ -2293,9 +2191,8 @@
 
         for(i = 0; i < enabledOperators.length; i+=1) {
             option = this.createHTMLElement("option");
-
             option.label = option.value = enabledOperators[i];
-            option.appendChild(document.createTextNode(option.label));
+            option.appendChild(document.createTextNode(enabledOperators[i]));
             option.selected = enabledOperators[i] === this.operator;
             select.appendChild(option);
         }

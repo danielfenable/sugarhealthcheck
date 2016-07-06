@@ -29,7 +29,7 @@
             level: 'confirmation',
             messages: app.lang.get('LBL_PMSE_WARNING_CLEAR', this.module),
             onConfirm: function () {
-                app.alert.show('data:sync:process', {
+                app.alert.show('getLog', {
                     level: 'process',
                     title: app.lang.get('LBL_LOADING'),
                     autoClose: false
@@ -53,7 +53,7 @@
     },
 
     getLogPmse: function() {
-        app.alert.show('data:sync:process', {
+        app.alert.show('getLog', {
             level: 'process',
             title: app.lang.get('LBL_LOADING'),
             autoClose: false});
@@ -68,7 +68,7 @@
     },
 
     getLogCron : function() {
-        app.alert.show('data:sync:process', {level: 'process', title: 'Loading', autoclose: false});
+        app.alert.show('getLog', {level: 'process', title: 'Loading', autoclose: false});
         var self = this;
         var pmseInboxUrl = app.api.buildURL(this.module + '/getLog/cron');
         app.api.call('READ', pmseInboxUrl, {},{
@@ -96,6 +96,6 @@
     },*/
     getLog: function(data) {
         $("textarea").val(data);
-        app.alert.dismiss('data:sync:process');
+        app.alert.dismiss('getLog');
     }
 })

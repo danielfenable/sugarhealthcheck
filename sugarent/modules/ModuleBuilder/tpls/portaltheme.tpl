@@ -23,11 +23,10 @@
 <div id="portal_themeroller" style="">
     <div id="alerts" class="alert-top">
         <div class="alert alert-process">
-            <strong>
-                <div class="loading">
-                    {$LBL_LOADING}<i class="l1">&#46;</i><i class="l2">&#46;</i><i class="l3">&#46;</i>
-                </div>
-            </strong>
+            <strong>{$LBL_LOADING}</strong>
+            <div class="loading">
+                <span class="l1"></span><span class="l2"></span><span class="l3"></span>
+            </div>
         </div>
     </div>
     <div class="content">

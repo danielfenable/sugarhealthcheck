@@ -2,6 +2,7 @@
 
 namespace Elastica\Test\Aggregation;
 
+
 use Elastica\Aggregation\GeohashGrid;
 use Elastica\Document;
 use Elastica\Query;
@@ -12,10 +13,10 @@ class GeohashGridTest extends BaseAggregationTest
     protected function setUp()
     {
         parent::setUp();
-        $this->_index = $this->_createIndex();
+        $this->_index = $this->_createIndex("geohash_grid");
         $mapping = new Mapping();
         $mapping->setProperties(array(
-            "location" => array("type" => "geo_point"),
+            "location" => array("type" => "geo_point")
         ));
         $type = $this->_index->getType("test");
         $type->setMapping($mapping);
@@ -41,3 +42,4 @@ class GeohashGridTest extends BaseAggregationTest
         $this->assertEquals(1, $results['buckets'][1]['doc_count']);
     }
 }
+ 

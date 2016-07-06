@@ -87,6 +87,39 @@ $viewdefs[$module_name]['base']['layout']['reassignCases'] = array(
                         'layout' => array(
                             'components' => array(
                                 array(
+                                    'layout' => 'list-sidebar',
+                                ),
+                            ),
+                            'type' => 'simple',
+                            'name' => 'side-pane',
+                            'span' => 4,
+                        ),
+                    ),
+//                    array(
+//                        'layout' => array(
+//                            'components' => array(
+//                                array(
+//                                    'layout' => array(
+//                                        'type' => 'dashboard',
+//                                        'last_state' => array(
+//                                            'id' => 'last-visit',
+//                                        )
+//                                    ),
+//                                    'context' => array(
+//                                        'forceNew' => true,
+//                                        'module' => 'Home',
+//                                    ),
+//                                ),
+//                            ),
+//                            'type' => 'simple',
+//                            'name' => 'dashboard-pane',
+//                            'span' => 4,
+//                        ),
+//                    ),
+                    array(
+                        'layout' => array(
+                            'components' => array(
+                                array(
                                     'layout' => 'preview',
                                 ),
                             ),

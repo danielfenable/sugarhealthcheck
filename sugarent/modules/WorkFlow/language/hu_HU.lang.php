@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,90 +12,80 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-  'LBL_MODULE_NAME' => 'Munkafolyamat meghatározások',
-  'LBL_MODULE_NAME_SINGULAR' => 'Munkafolyamat meghatározása',
-  'LBL_MODULE_ID' => 'Munkafolyamat',  
-  'LBL_MODULE_TITLE' => 'Munkafolyamatok: Főoldal',
-  'LBL_SEARCH_FORM_TITLE' => 'Munkafolyamat keresés',
-  'LBL_LIST_FORM_TITLE' => 'Munkafolyamat lista',
-  'LBL_NEW_FORM_TITLE' => 'Munkafolyamat szabály létrehozása',
-  'LBL_LIST_NAME' => 'Név',
-  'LBL_LIST_TYPE' => 'Végrehajtási előfordulás:',
-  'LBL_LIST_BASE_MODULE' => 'Cél modul:',
-  'LBL_LIST_STATUS' => 'Állapot',
-  'LBL_NAME' => 'Név:',
-  'LBL_DESCRIPTION' => 'Leírás:',
-  'LBL_TYPE' => 'Végrehajtás itt:',
-  'LBL_STATUS' => 'Állapot:',
-  'LBL_BASE_MODULE' => 'Cél modul:',
-  'LBL_LIST_ORDER' => 'Végrehajtás sorrendje:',
-  'LBL_FROM_NAME' => 'Feladó neve:',
-  'LBL_FROM_ADDRESS' => 'Feladó címe:',  
-  'LNK_NEW_WORKFLOW' => 'Munkafolyamat szabály létrehozása',
-  'LNK_WORKFLOW' => 'Munkafolyamat szabályok listája', 
-  
-  
+  'LBL_ACTION_ERROR' => 'Ez a művelet nem hajtható végre. Javítsa úgy, hogy a mezők és értékeik egyaránt érvényesek legyenek!',
+  'LBL_ACTION_ERRORS' => 'Figyelem: egy vagy több alább listázott folyamat hibát tartalmaz.',
+  'LBL_ALERT_ERROR' => 'Ezt a figyelmeztetést nem lehet végrehajtani. Javítsa úgy, hogy az összes beállítás megfelelő legyen!',
+  'LBL_ALERT_ERRORS' => 'Figyelem: egy vagy több alább listázott folyamat hibát tartalmaz.',
+  'LBL_ALERT_SUBJECT' => 'Munkafolyamat riasztás',
   'LBL_ALERT_TEMPLATES' => 'Riasztási sablonok',
+  'LBL_ANY_FIELD' => 'bármelyik mező',
+  'LBL_AS' => 'mint',
+  'LBL_BASE_MODULE' => 'Cél modul:',
+  'LBL_BODY' => 'Szövegtörzs:',
   'LBL_CREATE_ALERT_TEMPLATE' => 'Figyelmeztető sablon létrehozása:',
-  'LBL_SUBJECT' => 'Tárgy:',
-  
-  'LBL_RECORD_TYPE' => 'Alkalmazható:',
- 'LBL_RELATED_MODULE'=> 'Kapcsolódó modulok:',
-  
-  
-  'LBL_PROCESS_LIST' => 'Munkafolyamat végrehajtási sorrendje',
-	'LNK_ALERT_TEMPLATES' => 'Figyelmeztető email sablonok',
-	'LNK_PROCESS_VIEW' => 'Munkafolyamat végrehajtási sorrendje',
-  'LBL_PROCESS_SELECT' => 'Kérjem, válasszon egy modult:',
-  'LBL_LACK_OF_TRIGGER_ALERT'=> 'Figyelem: létre kell hozni egy indítót a munkafolyamat futtatásához',
-  'LBL_LACK_OF_NOTIFICATIONS_ON'=> 'Figyelem: a figyelmeztetések küldéséhez az admin felületen meg kell adni az SMTP szerver adatait, így: Admin  > Email beállítások.',
+  'LBL_DESCRIPTION' => 'Leírás:',
+  'LBL_DOWN' => 'Le',
+  'LBL_EDITLAYOUT' => 'Elrendezés szerkesztése',
+  'LBL_EDIT_ALT_TEXT' => 'Leíró szöveg',
+  'LBL_EMAILTEMPLATES_TYPE' => 'Típus',
+  'LBL_EMAILTEMPLATES_TYPE_LIST_WORKFLOW' => 
+  array (
+    'workflow' => 'Munkafolyamat',
+  ),
   'LBL_FIRE_ORDER' => 'Végrehajtási sorrend:',
-  'LBL_RECIPIENTS' => 'Címzettek',
+  'LBL_FROM_ADDRESS' => 'Feladó címe:',
+  'LBL_FROM_NAME' => 'Feladó neve:',
+  'LBL_HIDE' => 'Elrejt',
+  'LBL_INSERT' => 'Beszúrás',
   'LBL_INVITEES' => 'Meghívottak',
   'LBL_INVITEE_NOTICE' => 'Figyelem, a létrehozáshoz ki kell választania legalább egy meghívottat.',
-  'NTC_REMOVE_ALERT' => 'Biztosan el akarja távolítani ezt a munkafolyamatot?',
-  'LBL_EDIT_ALT_TEXT' => 'Leíró szöveg',
-  'LBL_INSERT' => 'Beszúrás',
+  'LBL_INVITE_LINK' => 'Találkozó / hívás meghívó link',
+  'LBL_LACK_OF_NOTIFICATIONS_ON' => 'Figyelem: a figyelmeztetések küldéséhez az admin felületen meg kell adni az SMTP szerver adatait, így: Admin  > Email beállítások.',
+  'LBL_LACK_OF_TRIGGER_ALERT' => 'Figyelem: létre kell hozni egy indítót a munkafolyamat futtatásához',
+  'LBL_LINK_RECORD' => 'Kapcsolás a rekordhoz',
+  'LBL_LIST_BASE_MODULE' => 'Cél modul:',
+  'LBL_LIST_DN' => 'le',
+  'LBL_LIST_FORM_TITLE' => 'Munkafolyamat lista',
+  'LBL_LIST_NAME' => 'Név',
+  'LBL_LIST_ORDER' => 'Végrehajtás sorrendje:',
+  'LBL_LIST_STATUS' => 'Állapot',
+  'LBL_LIST_TYPE' => 'Végrehajtási előfordulás:',
+  'LBL_LIST_UP' => 'fel',
+  'LBL_MODULE_ID' => 'Munkafolyamat',
+  'LBL_MODULE_NAME' => 'Munkafolyamat meghatározások',
+  'LBL_MODULE_NAME_SINGULAR' => 'Munkafolyamat meghatározása',
+  'LBL_MODULE_TITLE' => 'Munkafolyamatok: Főoldal',
+  'LBL_NAME' => 'Név:',
+  'LBL_NEW_FORM_TITLE' => 'Munkafolyamat szabály létrehozása',
+  'LBL_PLEASE_SELECT' => 'Kérem, válasszon',
+  'LBL_PROCESS_LIST' => 'Munkafolyamat végrehajtási sorrendje',
+  'LBL_PROCESS_SELECT' => 'Kérjem, válasszon egy modult:',
+  'LBL_RECIPIENTS' => 'Címzettek',
+  'LBL_RECORD_TYPE' => 'Alkalmazható:',
+  'LBL_RELATED_MODULE' => 'Kapcsolódó modulok:',
+  'LBL_SEARCH_FORM_TITLE' => 'Munkafolyamat keresés',
+  'LBL_SELECT_FILTER' => 'Ki kell választania egy mezőt a kapcsolódó modul szűréséhez.',
+  'LBL_SELECT_MODULE' => 'Kérem, válasszon egy kapcsolódó modult!',
   'LBL_SELECT_OPTION' => 'Kérem, válasszon ki egy lehetőséget!',
   'LBL_SELECT_VALUE' => 'Ki kell választania egy értéket!',
-  'LBL_SELECT_MODULE' => 'Kérem, válasszon egy kapcsolódó modult!',
-  'LBL_SELECT_FILTER' => 'Ki kell választania egy mezőt a kapcsolódó modul szűréséhez.',
-  'LBL_LIST_UP' => 'fel',
-  'LBL_LIST_DN' => 'le',
   'LBL_SET' => 'Beállítás',
-  'LBL_AS' => 'mint',
   'LBL_SHOW' => 'Mutat',
-  'LBL_HIDE' => 'Elrejt',
   'LBL_SPECIFIC_FIELD' => 'meghatározott mező',
-  'LBL_ANY_FIELD' => 'bármelyik mező',
-  'LBL_LINK_RECORD'=>'Kapcsolás a rekordhoz',
-  'LBL_INVITE_LINK'=>'Találkozó / hívás meghívó link',
-  'LBL_PLEASE_SELECT'=>'Kérem, válasszon',
-  'LBL_BODY'=>'Szövegtörzs:',
-  'LBL__S'=>' ',
-  'LBL_ALERT_SUBJECT'=>'Munkafolyamat riasztás',
-  'LBL_ACTION_ERROR'=>'Ez a művelet nem hajtható végre. Javítsa úgy, hogy a mezők és értékeik egyaránt érvényesek legyenek!',
-  'LBL_ACTION_ERRORS'=>'Figyelem: egy vagy több alább listázott folyamat hibát tartalmaz.',
-  'LBL_ALERT_ERROR'=>'Ezt a figyelmeztetést nem lehet végrehajtani. Javítsa úgy, hogy az összes beállítás megfelelő legyen!',
-  'LBL_ALERT_ERRORS'=>'Figyelem: egy vagy több alább listázott folyamat hibát tartalmaz.',
-  'LBL_TRIGGER_ERROR'=>'Figyelem: az indító érvénytelen értékeket tartalmaz, így nem futtatható.',
-  'LBL_TRIGGER_ERRORS'=>'Figyelem: egy vagy több alább listázott indító hibát tartalmaz.',
-  'LBL_UP' => 'Fel' /*for 508 compliance fix*/,
-  'LBL_DOWN' => 'Le' /*for 508 compliance fix*/,
-  'LBL_EDITLAYOUT' => 'Elrendezés szerkesztése' /*for 508 compliance fix*/,
-  'LBL_EMAILTEMPLATES_TYPE_LIST_WORKFLOW' => array('workflow' => 'Munkafolyamat'),
-  'LBL_EMAILTEMPLATES_TYPE' => 'Típus',
-
-  // Workflow sunsetting message, added in 7.6.1
-  'LBL_WORKFLOW_SUNSET_NOTICE' => '<strong>Megjegyzés:</strong> Ez a szolgáltatás törlésre kerül majd a Sugar legújabb kiadásában, mely jelenleg 2017-re van tervezve. A Sugár vállalati kiadását használó ügyfelek számára ajánlott, hogy elkezdjék használni a Folyamat Szerző által kínált fejlesztett munkafolyamat képességeket. Kattintson <a href="http://www.sugarcrm.com/wf-eol/" target="_blank">ide</a> további információkért.',
+  'LBL_STATUS' => 'Állapot:',
+  'LBL_SUBJECT' => 'Tárgy:',
+  'LBL_TRIGGER_ERROR' => 'Figyelem: az indító érvénytelen értékeket tartalmaz, így nem futtatható.',
+  'LBL_TRIGGER_ERRORS' => 'Figyelem: egy vagy több alább listázott indító hibát tartalmaz.',
+  'LBL_TYPE' => 'Végrehajtás itt:',
+  'LBL_UP' => 'Fel',
+  'LBL__S' => ' ',
+  'LNK_ALERT_TEMPLATES' => 'Figyelmeztető email sablonok',
+  'LNK_NEW_WORKFLOW' => 'Munkafolyamat szabály létrehozása',
+  'LNK_PROCESS_VIEW' => 'Munkafolyamat végrehajtási sorrendje',
+  'LNK_WORKFLOW' => 'Munkafolyamat szabályok listája',
+  'NTC_REMOVE_ALERT' => 'Biztosan el akarja távolítani ezt a munkafolyamatot?',
+  'WARN_WORKFLOW_DEPRECATED_ERROR' => 'Figyelmeztetés: A Munkafolyamat modul hamarosan elavult lesz és el lesz távolítva. Kérjük irányítsa át a munkafolyamatokat a Folymat-Szerzőnek. Tudjon meg többet a Folymat-Szerzőről.',
 );
 

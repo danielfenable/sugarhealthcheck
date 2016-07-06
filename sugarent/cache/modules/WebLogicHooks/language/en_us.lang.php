@@ -1,8 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:31
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',

@@ -61,7 +61,7 @@ class SugarUpgradeOpportunitySyncToForecastWorksheet extends UpgradeScript
             'campaign_name'
         );
 
-        $sqlSet = "%s=(SELECT %s from opportunities o WHERE o.id = forecast_worksheets.parent_id and forecast_worksheets.parent_type = 'Opportunities')";
+        $sqlSet = "%s=(SELECT %s from opportunities o WHERE o.id = fw.parent_id and fw.parent_type = 'Opportunities')";
 
         $sqlSetArray = array();
 
@@ -77,7 +77,7 @@ class SugarUpgradeOpportunitySyncToForecastWorksheet extends UpgradeScript
                     $sqlSetArray[] = sprintf(
                         "%s = (SELECT DISTINCT a.name FROM accounts a INNER JOIN accounts_opportunities ac on
                         ac.account_id = a.id and ac.deleted = 0 WHERE
-                        ac.opportunity_id = forecast_worksheets.parent_id and forecast_worksheets.parent_type = 'Opportunities')",
+                        ac.opportunity_id = fw.parent_id and fw.parent_type = 'Opportunities')",
                         $field
                     );
                     break;
@@ -85,21 +85,21 @@ class SugarUpgradeOpportunitySyncToForecastWorksheet extends UpgradeScript
                     $sqlSetArray[] = sprintf(
                         "%s = (SELECT DISTINCT a.id FROM accounts a INNER JOIN accounts_opportunities ac on
                         ac.account_id = a.id and ac.deleted = 0 WHERE
-                        ac.opportunity_id = forecast_worksheets.parent_id and forecast_worksheets.parent_type = 'Opportunities')",
+                        ac.opportunity_id = fw.parent_id and fw.parent_type = 'Opportunities')",
                         $field
                     );
                     break;
                 case 'campaign_name':
                     $sqlSetArray[] = sprintf(
                         "%s = (SELECT DISTINCT c.name FROM campaigns c INNER JOIN opportunities o on
-                            o.campaign_id = c.id WHERE o.id = forecast_worksheets.parent_id and forecast_worksheets.parent_type = 'Opportunities')",
+                            o.campaign_id = c.id WHERE o.id = fw.parent_id and fw.parent_type = 'Opportunities')",
                         $field
                     );
                     break;
                 case 'campaign_id':
                     $sqlSetArray[] = sprintf(
                         "%s = (SELECT DISTINCT c.id FROM campaigns c INNER JOIN opportunities o on
-                            o.campaign_id = c.id WHERE o.id = forecast_worksheets.parent_id and forecast_worksheets.parent_type = 'Opportunities')",
+                            o.campaign_id = c.id WHERE o.id = fw.parent_id and fw.parent_type = 'Opportunities')",
                         $field
                     );
                     break;
@@ -109,8 +109,8 @@ class SugarUpgradeOpportunitySyncToForecastWorksheet extends UpgradeScript
             }
         }
 
-        $sql = "update forecast_worksheets SET " . join(",", $sqlSetArray) . "
-          where exists (SELECT * from opportunities o WHERE o.id = forecast_worksheets.parent_id and forecast_worksheets.parent_type = 'Opportunities')";
+        $sql = "update forecast_worksheets as fw SET " . join(",", $sqlSetArray) . "
+          where exists (SELECT * from opportunities o WHERE o.id = fw.parent_id and fw.parent_type = 'Opportunities')";
 
         $r = $this->db->query($sql);
 

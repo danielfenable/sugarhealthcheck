@@ -98,7 +98,7 @@
 
     /**
      * Get the list for filter module dropdown.
-     * @return {Object}
+     * @returns {Object}
      */
     getFilterList: function() {
         var filterList;
@@ -114,7 +114,7 @@
 
     /**
      * Should the filter be disabled?
-     * @return {boolean}
+     * @returns {boolean}
      */
     shouldDisableFilter: function() {
         return (this.layout.layoutType !== "record" || this.layout.showingActivities);
@@ -127,10 +127,16 @@
      * @param {Boolean} silent
      */
     handleChange: function(linkModuleName, linkName, silent) {
+        //this.layout is the filter layout which filter-module-dropdown view
+        //is a child of; we use it here as it has a last_state key in its meta
+        var cacheKey = app.user.lastState.key('subpanels-last', this.layout);
         if (linkName === "all_modules") {
             this.layout.trigger("subpanel:change");
+            // Fixes SP-836; esentially, we need to clear subpanel-last-<module> anytime 'All' selected
+            app.user.lastState.remove(cacheKey);
         } else if (linkName) {
             this.layout.trigger("subpanel:change", linkName);
+            app.user.lastState.set(cacheKey, linkName);
         }
 
         // It is important to reset the `currentFilterId` in order to retrieve
@@ -186,7 +192,7 @@
 
     /**
      * Pull the list of related modules from the subpanel metadata
-     * @return {Object}
+     * @returns {Object}
      */
     pullSubpanelRelationships: function() {
         // Subpanels are retrieved from the global module and not the
@@ -254,7 +260,7 @@
      * Update the text for the selected module and returns template
      *
      * @param {Object} item
-     * @return {string}
+     * @returns {string}
      */
     formatSelection: function(item) {
         var safeString;
@@ -270,7 +276,7 @@
     /**
      * Returns template
      * @param {Object} option
-     * @return {string}
+     * @returns {string}
      */
     formatResult: function(option) {
         // TODO: Determine whether active filters should be highlighted in bold in this menu.

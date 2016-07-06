@@ -25,7 +25,7 @@
     tabClass: '',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);
@@ -41,9 +41,6 @@
                 .donut(true)
                 .donutLabelsOutside(true)
                 .donutRatio(0.447)
-                .rotateDegrees(0)
-                .arcDegrees(360)
-                .maxRadius(110)
                 .hole(this.total)
                 .showTitle(false)
                 .tooltips(true)
@@ -70,7 +67,8 @@
 
         // Set value of label inside donut chart
         this.chart.hole(this.total);
-        d3.select(this.el).select('svg#' + this.cid)
+
+        d3.select('svg#' + this.cid)
             .datum(this.chartCollection)
             .transition().duration(500)
             .call(this.chart);
@@ -168,7 +166,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     loadData: function(options) {
         var self = this,

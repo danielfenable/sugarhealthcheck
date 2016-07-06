@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,34 +11,32 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id: en_us.lang.php 13782 2006-06-06 17:58:55 +0000 (Tue, 06 Jun 2006) majed $
 
+
+
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
+	
 $mod_strings = array (
-	'LBL_MODULE_NAME' => 'Puhkused',
-	'LBL_MODULE_NAME_SINGULAR' => 'Puhkus',
-	'LBL_MODULE_TITLE' => 'Puhkused: Avaleht',
-	'LBL_HOLIDAY' => 'Puhkus:',
-	'LBL_HOLIDAY_DATE' => 'Puhkuse kuupäev:',
-	'LBL_NAME' => 'Puhkuse kuupäev:',
-	'LBL_DESCRIPTION' => 'Kirjeldus:',
-	'LBL_RESOURCE_NAME' => 'Allika nimi',
-	
-	'LBL_SEARCH_FORM_TITLE' => 'Puhkuse otsing',
-	'LBL_LIST_FORM_TITLE' => 'Puhkuste loend',		
-
-	'LNK_NEW_HOLIDAY' => 'Lisa puhkus',
-	'LNK_HOLIDAYS' => 'Puhkused',
-	
-	'LBL_USERS_SUBPANEL_TITLE' => 'Kasutajad',
-	'LBL_USER_HOLIDAY_SUBPANEL_TITLE'	=> 'Kasutaja puhkused',
-	
-	'LBL_RESOURCE' => 'Allikas:',
-	'LBL_PERSON_TYPE' => 'Isiku tüüp:',
-	'LBL_RELATED_MODULE'=> 'Seotud moodul:',
-	
-	// For HolidaysQuickCreate.php
-	'LBL_SELECT_RESOURCE_TYPE' => 'Vali ressursi tüüp...',
-	'LBL_USER' => 'Kasutaja',
-	'LBL_CONTACT' => 'Kontakt',
+  'LBL_MODULE_NAME' => 'Puhkused',
+  'LBL_MODULE_TITLE' => 'Puhkused: Avaleht',
+  'LBL_HOLIDAY' => 'Puhkus:',
+  'LBL_HOLIDAY_DATE' => 'Puhkuse kuupäev:',
+  'LBL_NAME' => 'Puhkuse kuupäev:',
+  'LBL_DESCRIPTION' => 'Kirjeldus:',
+  'LBL_RESOURCE_NAME' => 'Allika nimi',
+  'LBL_SEARCH_FORM_TITLE' => 'Puhkuse otsing',
+  'LBL_LIST_FORM_TITLE' => 'Puhkuste loend',
+  'LNK_NEW_HOLIDAY' => 'Lisa puhkus',
+  'LNK_HOLIDAYS' => 'Puhkused',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Kasutajad',
+  'LBL_USER_HOLIDAY_SUBPANEL_TITLE' => 'Kasutaja puhkused',
+  'LBL_RESOURCE' => 'Allikas:',
+  'LBL_PERSON_TYPE' => 'Isiku tüüp:',
+  'LBL_RELATED_MODULE' => 'Seotud moodul:',
+  'LBL_SELECT_RESOURCE_TYPE' => 'Vali ressursi tüüp...',
+  'LBL_USER' => 'Kasutaja',
+  'LBL_CONTACT' => 'Kontakt',
 );
-?>
+

@@ -15,12 +15,12 @@
  */
 ({
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     className: 'filtered tabbable tabs-left',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     attributes: function() {
         return {
@@ -36,7 +36,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);
@@ -64,17 +64,10 @@
     },
 
     /**
-     * @inheritdoc
-     *
-     * Decorate the subpanel based on if the collection is empty or not.
-     *
-     * When context is reloaded, we open the panel only if `skipFetch` is
-     * `false`.
-     *
-     * When the context's collapse attribute changes, we confirm that the
-     * panel's status is in sync with the flag (expanded/collapsed).
+     * @inheritDoc
      */
     bindDataChange: function() {
+        // Decorate the subpanel based on if the collection is empty or not
         this.listenTo(this.collection, 'reset add remove', function() {
             this.$('.subpanel').toggleClass('empty', this.collection.length === 0);
         }, this);
@@ -83,22 +76,12 @@
             this.$('.subpanel').toggleClass('empty', !properties.length);
         }, this);
 
+        // FIXME this needs to be reviewed on 7.7.
         this.listenTo(this.context.parent, 'panel-top:refresh', function(link) {
-            app.logger.warn('`panel-top:refresh` is deprecated. Use `context.reloadData()` to reload and expand.');
             if (this.context.get('link') === link) {
                 this.context.resetLoadFlag();
                 this.toggle(true);
             }
-        });
-
-        this.listenTo(this.context, 'reload', function() {
-            if (!this.context.get('skipFetch')) {
-                this.toggle(true);
-            }
-        });
-
-        this.listenTo(this.context, 'change:collapsed', function(context, collapsed) {
-            this.toggle(!collapsed);
         });
     },
 
@@ -138,21 +121,8 @@
     },
 
     /**
-     * Saves the collapsed/expanded state of the subpanel in localStorage.
-     *
-     * @private
-     * @param {boolean} [show] `true` to expand, `false` to collapse. Collapses
-     *   by default.
-     */
-    _setCollapsedState: function(show) {
-        var state = show ? this.HIDE_SHOW.SHOW : this.HIDE_SHOW.HIDE;
-        app.user.lastState.set(this.hideShowLastStateKey, state);
-    },
-
-    /**
      * Toggles the panel.
      *
-     * @private
      * @param {boolean} [show] `true` to show, `false` to hide, `undefined` to
      *   toggle.
      */
@@ -172,7 +142,7 @@
         this.context.set('skipFetch', false);
         this.context.loadData();
 
-        this._setCollapsedState(show);
+        app.user.lastState.set(this.hideShowLastStateKey, show ? this.HIDE_SHOW.SHOW : this.HIDE_SHOW.HIDE);
     },
 
     /**
@@ -206,7 +176,7 @@
      * If this returns false: _toggleComponent will continue through render/show/hide checks
      *
      * @param component
-     * @return {boolean}
+     * @returns {boolean}
      * @private
      */
     _stopComponentToggle: function(component) {

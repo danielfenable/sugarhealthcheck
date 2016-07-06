@@ -270,16 +270,8 @@ class SugarBeanApiHelper
 
             $type = !empty($properties['custom_type']) ? $properties['custom_type'] : $properties['type'];
             $field = $sfh->getSugarField($type);
-            $field->setOptions($options);
 
             if ($field != null) {
-                // validate submitted data
-                if (!$field->apiValidate($bean, $submittedData, $fieldName, $properties)) {
-                    throw new SugarApiExceptionInvalidParameter(
-                        'Invalid field value: ' . $fieldName . ' in module: ' . $bean->module_name
-                    );
-                }
-
                 if (!empty($options['massUpdate'])) {
                     $field->apiMassUpdate($bean, $submittedData, $fieldName, $properties);
                 } else {

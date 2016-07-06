@@ -81,7 +81,7 @@
                     if (lastActionColumn) {
                         lastActionColumn.isColumnDropdown = true;
                     }
-                }, this);
+                }, null, this);
             }
         });
     });

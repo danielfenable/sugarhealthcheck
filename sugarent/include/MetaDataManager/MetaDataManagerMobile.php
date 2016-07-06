@@ -38,7 +38,7 @@ class MetaDataManagerMobile extends MetaDataManager
      */
     protected function getModules() {
         // Get the current user module list
-        $modules = array_intersect(parent::getModules(), $this->getTabList());
+        $modules = $this->getTabList();
         $defaultEnabledModules = $this->getDefaultEnabledModuleList();
 
         // Add default enabled modules to the list
@@ -80,11 +80,11 @@ class MetaDataManagerMobile extends MetaDataManager
      *
      * @return array An array with all the modules and their properties
      */
-    public function getModulesInfo($data = array(), MetaDataContextInterface $context = null)
+    public function getModulesInfo()
     {
         // Need to override the base one because it grabs the visibility settings from
         // the $moduleList global and we don't like messing with globals
-        $modulesInfo = parent::getModulesInfo($data, $context);
+        $modulesInfo = parent::getModulesInfo();
         if (isset($modulesInfo['Employees'])) {
             $modulesInfo['Employees']['visible'] = $modulesInfo['Employees']['display_tab'];
         }
@@ -210,18 +210,5 @@ class MetaDataManagerMobile extends MetaDataManager
         }
 
         return $data;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getLanguageCacheAttributes()
-    {
-        $modules = $this->getModules();
-        sort($modules);
-        return array_merge(parent::getLanguageCacheAttributes(), array(
-            // refresh client side language cache after the list of mobile enabled modules is changed
-            'modules' => $modules,
-        ));
     }
 }

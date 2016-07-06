@@ -36,6 +36,10 @@ $dictionary['pmse_BpmnBound'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '36',
     'size' => '36',
@@ -58,6 +62,10 @@ $dictionary['pmse_BpmnBound'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '36',
     'size' => '36',
@@ -80,6 +88,10 @@ $dictionary['pmse_BpmnBound'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '36',
     'size' => '36',
@@ -102,6 +114,10 @@ $dictionary['pmse_BpmnBound'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '36',
     'size' => '36',
@@ -124,6 +140,10 @@ $dictionary['pmse_BpmnBound'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '36',
     'size' => '36',
@@ -146,6 +166,10 @@ $dictionary['pmse_BpmnBound'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '32',
     'size' => '32',
@@ -168,6 +192,10 @@ $dictionary['pmse_BpmnBound'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
       'calculated' => false,
       'len' => '4',
       'size' => '20',
@@ -194,6 +222,10 @@ $dictionary['pmse_BpmnBound'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
       'calculated' => false,
       'len' => '4',
       'size' => '20',
@@ -220,6 +252,10 @@ $dictionary['pmse_BpmnBound'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
       'calculated' => false,
       'len' => '4',
       'size' => '20',
@@ -246,6 +282,10 @@ $dictionary['pmse_BpmnBound'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
       'calculated' => false,
       'len' => '4',
       'size' => '20',
@@ -272,6 +312,10 @@ $dictionary['pmse_BpmnBound'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
       'calculated' => false,
       'len' => '4',
       'size' => '20',
@@ -298,6 +342,10 @@ $dictionary['pmse_BpmnBound'] = array(
       'reportable' => true,
       'unified_search' => false,
       'merge_filter' => 'disabled',
+      'full_text_search' =>
+          array (
+              'boost' => '0',
+          ),
       'calculated' => false,
       'len' => '4',
       'size' => '20',
@@ -324,6 +372,10 @@ $dictionary['pmse_BpmnBound'] = array(
     'reportable' => true,
     'unified_search' => false,
     'merge_filter' => 'disabled',
+    'full_text_search' =>
+    array (
+      'boost' => '0',
+    ),
     'calculated' => false,
     'len' => '30',
     'size' => '30',

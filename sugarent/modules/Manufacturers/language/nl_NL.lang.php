@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,53 +12,45 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-  'LBL_CREATED_ID'=>'Gemaakt Door ID',
-  'LBL_MODIFIED_ID'=>'Gewijzigd Door ID',
+  'ERR_DELETE_RECORD' => 'U dient een recordnummer op te geven om deze fabrikant te verwijderen.',
+  'LBL_CREATED_BY' => 'Gemaakt Door',
+  'LBL_CREATED_ID' => 'Gemaakt Door ID',
+  'LBL_EDITLAYOUT' => 'Wijzig Lay-out',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_FORM_TITLE' => 'Fabrikantenlijst',
+  'LBL_LIST_LIST_ORDER' => 'Volgorde',
+  'LBL_LIST_NAME' => 'Fabrikant',
+  'LBL_LIST_ORDER' => 'Volgorde:',
+  'LBL_LIST_STATUS' => 'Status',
+  'LBL_MANUFACTURER' => 'Fabrikant:',
+  'LBL_MODIFIED_BY' => 'Gewijzigd Door',
+  'LBL_MODIFIED_ID' => 'Gewijzigd Door ID',
   'LBL_MODULE_NAME' => 'Fabrikanten',
   'LBL_MODULE_NAME_SINGULAR' => 'Fabrikant',
   'LBL_MODULE_TITLE' => 'Fabrikanten: Start',
-  'LBL_SEARCH_FORM_TITLE' => 'Fabrikant Zoeken',
-  'LBL_LIST_FORM_TITLE' => 'Fabrikantenlijst',
-  'LBL_NEW_FORM_TITLE' => 'Nieuwe Fabrikant',
-  'LBL_MANUFACTURER' => 'Fabrikant:',
-  'LBL_LIST_NAME' => 'Fabrikant',
   'LBL_NAME' => 'Fabrikant:',
-  'LBL_ID' => 'ID',
-  'LBL_MODIFIED_BY' => 'Gewijzigd Door',
-  'LBL_CREATED_BY' => 'Gemaakt Door',
-  'LBL_LIST_LIST_ORDER' => 'Volgorde',
-  'LBL_LIST_ORDER' => 'Volgorde:',
-  'LBL_LIST_STATUS' => 'Status',
+  'LBL_NEW_FORM_TITLE' => 'Nieuwe Fabrikant',
+  'LBL_REVENUELINEITEMS' => 'Opportunityregels',
+  'LBL_SEARCH_FORM_TITLE' => 'Fabrikant Zoeken',
   'LBL_STATUS' => 'Status:',
-  'LNK_PRODUCT_LIST' => 'Productencatalogus',
-  'LNK_NEW_PRODUCT' => 'Voeg item toe aan Productencatalogus',
-  'LNK_NEW_MANUFACTURER' => 'Fabrikanten',
-  'LNK_NEW_SHIPPER' => 'Vervoerders',
-  'LNK_NEW_PRODUCT_CATEGORY' => 'Productcategorieën',
+  'LNK_IMPORT_MANUFACTURERS' => 'Importeer Fabrikanten',
   'LNK_IMPORT_PRODUCT_CATEGORIES' => 'Importeer Productcategorieën',
+  'LNK_NEW_MANUFACTURER' => 'Fabrikanten',
+  'LNK_NEW_PRODUCT' => 'Voeg item toe aan Productencatalogus',
+  'LNK_NEW_PRODUCT_CATEGORY' => 'Productcategorieën',
   'LNK_NEW_PRODUCT_TYPE' => 'Producttypen',
+  'LNK_NEW_SHIPPER' => 'Vervoerders',
+  'LNK_PRODUCT_LIST' => 'Productencatalogus',
   'NTC_DELETE_CONFIRMATION' => 'Weet u het zeker dat u dit record wilt verwijderen?',
-  'ERR_DELETE_RECORD' => 'U dient een recordnummer op te geven om deze fabrikant te verwijderen.',
-  'NTC_STATUS' => 'Zet de status op Inactief om deze fabrikant uit de dropdownlijst te verwijderen',
   'NTC_LIST_ORDER' => 'Geef de volgorde aan hoe deze Fabrikant in de Fabrikant dropdownlijst wordt getoond',
+  'NTC_STATUS' => 'Zet de status op Inactief om deze fabrikant uit de dropdownlijst te verwijderen',
   'manufacturer_status_dom' => 
   array (
     'Active' => 'Actief',
     'Inactive' => 'Inactief',
-),
-  'LNK_IMPORT_MANUFACTURERS'=>'Importeer Fabrikanten',
-	'LBL_EDITLAYOUT' => 'Wijzig Lay-out' /*for 508 compliance fix*/,
-  'LBL_REVENUELINEITEMS' => 'Opportunityregels',
+  ),
 );
 
-
-?>

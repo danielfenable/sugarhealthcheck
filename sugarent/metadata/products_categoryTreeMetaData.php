@@ -10,7 +10,6 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
 $dictionary['products_category_tree'] =
         array('table' => 'category_tree',
                 'fields' => array(

@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.Forecasts.CommitlogField
  * @alias SUGAR.App.view.fields.BaseForecastsCommitlogField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
@@ -72,12 +72,10 @@
         this.previousDateEntered = app.date.format(dateEntered, app.user.getPreference('datepref') + ' ' + app.user.getPreference('timepref'));
 
         //loop through from oldest to newest to build the log correctly
-        var loopPreviousModel = '',
-            models = _.clone(this.collection.models).reverse(),
-            selectedUser = this.view.context.get('selectedUser'),
-            forecastType = app.utils.getForecastType(selectedUser.is_manager, selectedUser.showOpps);
+        var loopPreviousModel = '';
+        var models = _.clone(this.collection.models).reverse();
         _.each(models, function(model) {
-            this.commitLog.push(app.utils.createHistoryLog(loopPreviousModel, model, forecastType === 'Direct'));
+            this.commitLog.push(app.utils.createHistoryLog(loopPreviousModel, model));
             loopPreviousModel = model;
         }, this);
 

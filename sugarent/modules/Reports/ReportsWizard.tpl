@@ -27,6 +27,14 @@ document.getElementById('progress_div').innerHTML = '{sugar_getimage name="bar_l
 <script type="text/javascript" src="{sugar_getjspath file='cache/include/javascript/sugar_grp_yui_widgets.js'}"></script>
 <script type="text/javascript" src="{sugar_getjspath file='include/javascript/FiltersWidget.js'}"></script>
 <script type="text/javascript" src="{sugar_getjspath file='include/SugarFields/Fields/Teamset/Teamset.js'}"></script>
+<!--
+<style>
+.x-tree-node-collapsed .x-tree-node-icon{literal}{{/literal}
+	background-image:url({$IMG}blank.gif);{literal}}{/literal}
+.x-tree-node-expanded .x-tree-node-icon{literal}{{/literal}
+	background-image:url({$IMG}blank.gif);{literal}}{/literal}
+</style>
+-->
 <form name="ReportsWizardForm" id="ReportsWizardForm" method="post" action="index.php">
 {sugar_csrf_form_token}
 	<input type="hidden" name="module" value="Reports">
@@ -320,7 +328,6 @@ document.getElementById('progress_div').innerHTML = '{sugar_getimage name="bar_l
 				<td scope='row'><label for='assigned_user_name'>{$MOD.LBL_OWNER}:</label> <span class='required'>*</span></td>
 				<td>{$USER_HTML}</td>
 			</tr>	
-
 			<tr>
 				<td scope='row'>{$MOD.LBL_TEAM}: <span class='required'>*</span></td>
 				<td>{$TEAM_HTML}</td>

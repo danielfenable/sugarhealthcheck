@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.InvitationActionsField
  * @alias SUGAR.App.view.fields.BaseInvitationActionsField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
 

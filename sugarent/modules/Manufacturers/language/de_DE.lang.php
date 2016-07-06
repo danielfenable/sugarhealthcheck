@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,53 +12,45 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-  'LBL_CREATED_ID'=>'Ersteller',
-  'LBL_MODIFIED_ID'=>'Geändert von ID',
+  'ERR_DELETE_RECORD' => 'Es muss die Datensatznummer angegeben werden, um den Hersteller zu löschen.',
+  'LBL_CREATED_BY' => 'Erstellt von:',
+  'LBL_CREATED_ID' => 'Erstellt von ID',
+  'LBL_EDITLAYOUT' => 'Layout bearbeiten',
+  'LBL_ID' => 'ID',
+  'LBL_LIST_FORM_TITLE' => 'Liste der Hersteller',
+  'LBL_LIST_LIST_ORDER' => 'Position',
+  'LBL_LIST_NAME' => 'Hersteller',
+  'LBL_LIST_ORDER' => 'Position:',
+  'LBL_LIST_STATUS' => 'Status',
+  'LBL_MANUFACTURER' => 'Hersteller:',
+  'LBL_MODIFIED_BY' => 'Geändert von',
+  'LBL_MODIFIED_ID' => 'Geändert von ID',
   'LBL_MODULE_NAME' => 'Hersteller',
   'LBL_MODULE_NAME_SINGULAR' => 'Hersteller',
-  'LBL_MODULE_TITLE' => 'Hersteller: Startseite',
-  'LBL_SEARCH_FORM_TITLE' => 'Hersteller-Suche',
-  'LBL_LIST_FORM_TITLE' => 'Liste der Hersteller',
-  'LBL_NEW_FORM_TITLE' => 'Neuer Hersteller',
-  'LBL_MANUFACTURER' => 'Hersteller:',
-  'LBL_LIST_NAME' => 'Hersteller',
+  'LBL_MODULE_TITLE' => 'Hersteller: Home',
   'LBL_NAME' => 'Hersteller:',
-  'LBL_ID' => 'ID',
-  'LBL_MODIFIED_BY' => 'Geändert von',
-  'LBL_CREATED_BY' => 'Erstellt von:',
-  'LBL_LIST_LIST_ORDER' => 'Position',
-  'LBL_LIST_ORDER' => 'Reihenfolge:',
-  'LBL_LIST_STATUS' => 'Status',
+  'LBL_NEW_FORM_TITLE' => 'Neuer Hersteller',
+  'LBL_REVENUELINEITEMS' => 'Umsatzposten',
+  'LBL_SEARCH_FORM_TITLE' => 'Hersteller Suche',
   'LBL_STATUS' => 'Status:',
-  'LNK_PRODUCT_LIST' => 'Produktkatalog anzeigen',
-  'LNK_NEW_PRODUCT' => 'Artikel in Produktkatalog erstellen',
-  'LNK_NEW_MANUFACTURER' => 'Hersteller anzeigen',
-  'LNK_NEW_SHIPPER' => 'Versender',
-  'LNK_NEW_PRODUCT_CATEGORY' => 'Produktkategorien anzeigen',
+  'LNK_IMPORT_MANUFACTURERS' => 'Hersteller importieren',
   'LNK_IMPORT_PRODUCT_CATEGORIES' => 'Produktkategorien importieren',
+  'LNK_NEW_MANUFACTURER' => 'Hersteller',
+  'LNK_NEW_PRODUCT' => 'Artikel in Produktkatalog erstellen',
+  'LNK_NEW_PRODUCT_CATEGORY' => 'Produktkategorien',
   'LNK_NEW_PRODUCT_TYPE' => 'Produktarten',
-  'NTC_DELETE_CONFIRMATION' => 'Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?',
-  'ERR_DELETE_RECORD' => 'Es muss die Datensatznummer angegeben werden, um den Hersteller zu löschen.',
-  'NTC_STATUS' => 'Zum Entfernen dieses Herstellers aus der Hersteller-Auswahlliste setzen Sie den Status auf "inaktiv"',
-  'NTC_LIST_ORDER' => 'Konfigurieren Sie die Reihenfolge, in der dieser Hersteller in der Auswahlliste erscheinen soll',
+  'LNK_NEW_SHIPPER' => 'Versender',
+  'LNK_PRODUCT_LIST' => 'Produktkatalog',
+  'NTC_DELETE_CONFIRMATION' => 'Sind Sie sicher, dass Sie diesen Eintrag löschen wollen?',
+  'NTC_LIST_ORDER' => 'Setzen Sie die Reihenfolge, in der dieser Hersteller in der Hersteller Auswahlliste erscheinen soll.',
+  'NTC_STATUS' => 'Zum Entfernen dieses Herstellers von der Hersteller Auswahlliste, setzen Sie den Status auf inaktiv',
   'manufacturer_status_dom' => 
   array (
     'Active' => 'Aktiv',
     'Inactive' => 'Inaktiv',
-),
-  'LNK_IMPORT_MANUFACTURERS'=>'Hersteller importieren',
-	'LBL_EDITLAYOUT' => 'Layout bearbeiten' /*for 508 compliance fix*/,
-  'LBL_REVENUELINEITEMS' => 'Umsatzposten',
+  ),
 );
 
-
-?>

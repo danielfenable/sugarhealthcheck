@@ -15,9 +15,10 @@ class ClusterTest extends BaseTest
 
         $cluster = new Cluster($client);
 
-        foreach ($cluster->getNodeNames() as $name) {
-            $this->assertContains($name, array('Silver Fox', 'Skywalker', 'Wolverine'));
-        }
+        $names = $cluster->getNodeNames();
+
+        $this->assertInternalType('array', $names);
+        $this->assertGreaterThan(0, count($names));
     }
 
     public function testGetNodes()
@@ -42,12 +43,29 @@ class ClusterTest extends BaseTest
         $this->assertInternalType('array', $state);
     }
 
+    /**
+     * @expectedException \Elastica\Exception\ConnectionException
+     */
+    public function testShutdown()
+    {
+        $this->markTestSkipped('This test shuts down the cluster which means the following tests would not work');
+        $client = $this->_getClient();
+        $cluster = $client->getCluster();
+
+        $cluster->shutdown('2s');
+
+        sleep(5);
+
+        $client->getStatus();
+    }
+
     public function testGetIndexNames()
     {
         $client = $this->_getClient();
         $cluster = $client->getCluster();
 
-        $index = $this->_createIndex();
+        $indexName = 'elastica_test999';
+        $index = $this->_createIndex($indexName);
         $index->delete();
         $cluster->refresh();
 
@@ -55,7 +73,7 @@ class ClusterTest extends BaseTest
         $indexNames = $cluster->getIndexNames();
         $this->assertNotContains($index->getName(), $indexNames);
 
-        $index = $this->_createIndex();
+        $index = $this->_createIndex($indexName);
         $cluster->refresh();
 
         // Now index should exist

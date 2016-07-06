@@ -11,5 +11,9 @@
  */
 --}}
 {{#if value}}
-    <span class="label ellipsis_inline{{#if statusClass}} {{statusClass}}{{/if}}"{{#if dir}} dir="{{dir}}"{{/if}} rel="tooltip" data-placement="bottom" title="{{value}}">{{value}}</span>
+    {{#eachOptions items}}
+        {{#eq this.key ../value}}
+            <span class="label">{{value}}</span>
+        {{/eq}}
+    {{/eachOptions}}
 {{/if}}

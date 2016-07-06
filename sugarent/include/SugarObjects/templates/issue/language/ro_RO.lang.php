@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,40 +12,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
 $mod_strings = array (
-
-  'LBL_NAME' =>'Nume',
-  'LBL_NUMBER' => 'Numar',
-  'LBL_STATUS' => 'Status:',
-  'LBL_PRIORITY' => 'Prioritate',
-  'LBL_DESCRIPTION' => 'Descriere',
-  'LBL_RESOLUTION' => 'Rezoluţie',
-  'LBL_LAST_MODIFIED' => 'Ultima modificare',
-  'LBL_ASSIGNED_TO_ID'=>'Atribuit ID Utilizator',
-  'LBL_ASSIGNED_TO_NAME' => 'Utilizator:',  	  
-  'LBL_WORK_LOG' => 'Jurnal de munca',
-  'LBL_CREATED_BY' => 'Creat de:',
-  'LBL_DATE_CREATED' => 'Data creării:',
-  'LBL_DATE_ENTERED' => 'Data creării:',
-  'LBL_DATE_MODIFIED'=>'Data Modificarii',
-  'LBL_MODIFIED_BY' => 'Ultima modificare efectuată de:',
+  'LBL_ASSIGNED_TO_ID' => 'Atribuit ID Utilizator',
+  'LBL_ASSIGNED_TO_NAME' => 'Atribuit lui',
   'LBL_ASSIGNED_USER' => 'Atribuit utilizatorului',
-  'LBL_ASSIGNED_USER_NAME' => 'Atribuit lui',
-  'LBL_SYSTEM_ID' =>'sistem id',
-  'LBL_TEAM_NAME' =>'Nume Echipa',
-  'LBL_TYPE'=>'Tip',
+  'LBL_ASSIGNED_USER_NAME' => 'Alocat la',
+  'LBL_CREATED_BY' => 'Creeat de:',
+  'LBL_DATE_CREATED' => 'Data creearii:',
+  'LBL_DATE_ENTERED' => 'Data Intrare',
+  'LBL_DATE_MODIFIED' => 'Data Modificarii',
+  'LBL_DESCRIPTION' => 'Descriere',
+  'LBL_EDIT_BUTTON' => 'Editeaza',
+  'LBL_LAST_MODIFIED' => 'Ultima modificare',
+  'LBL_MODIFIED_BY' => 'Modificat de:',
+  'LBL_NAME' => 'Nume',
+  'LBL_NUMBER' => 'Numar',
+  'LBL_PRIORITY' => 'Prioritate',
+  'LBL_REMOVE' => 'Sterge',
+  'LBL_RESOLUTION' => 'Rezolutie',
+  'LBL_STATUS' => 'Stare',
   'LBL_SUBJECT' => 'subiect',
+  'LBL_SYSTEM_ID' => 'sistem id',
+  'LBL_TEAM_NAME' => 'Nume Echipa',
+  'LBL_TYPE' => 'Tip',
+  'LBL_WORK_LOG' => 'Jurnal de munca',
+);
 
-    'LBL_EDIT_BUTTON' => 'Editeaza',
-    'LBL_REMOVE' => 'Eliminare',
-
-  
-  );

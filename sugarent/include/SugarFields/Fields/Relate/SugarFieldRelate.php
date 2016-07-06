@@ -240,7 +240,7 @@ class SugarFieldRelate extends SugarFieldBase {
         /*
          * If we have a related field, use its formatter to format it
          */
-        $rbean = null;
+        $rbean = false;
         if(!empty($properties['link']) && !empty($bean->related_beans[$properties['link']])) {
             $rbean = $bean->related_beans[$properties['link']];
         } else if (!empty($bean->related_beans[$fieldName])) {
@@ -249,7 +249,6 @@ class SugarFieldRelate extends SugarFieldBase {
         if (!empty($rbean)) {
             if(empty($rbean->field_defs[$properties['rname']])) {
                 $data[$fieldName] = '';
-                $this->formatRelateField($bean, $data, $fieldName, $properties, $service);
                 return;
             }
             $rdefs = $rbean->field_defs[$properties['rname']];
@@ -260,7 +259,6 @@ class SugarFieldRelate extends SugarFieldBase {
                 $field->apiFormatField($rdata, $rbean, $args, $properties['rname'], $rdefs, $fieldList, $service);
                 $data[$fieldName] = $rdata[$properties['rname']];
                 if(!empty($data[$fieldName])) {
-                    $this->formatRelateField($bean, $data, $fieldName, $properties, $service);
                     return;
                 }
             }
@@ -269,48 +267,6 @@ class SugarFieldRelate extends SugarFieldBase {
             $data[$fieldName] = '';
         } else {
             $data[$fieldName] = $this->formatField($bean->$fieldName, $properties);
-        }
-
-        $this->formatRelateField($bean, $data, $fieldName, $properties, $service);
-    }
-
-    /**
-     * Formats the field representing related record record
-     *
-     * @param SugarBean $bean Primary bean
-     * @param array $data Resulting representation
-     * @param string $fieldName Relate field name
-     * @param array $properties Relate field definition
-     * @param ServiceBase $service The calling API service
-     */
-    protected function formatRelateField(SugarBean $bean, array &$data, $fieldName, $properties, ServiceBase $service)
-    {
-        if (!empty($properties['link'])) {
-            $link = $properties['link'];
-            $rName = $properties['rname'];
-
-            // replicate the relate field value in the new format
-            $data[$link][$rName] = $data[$fieldName];
-
-            if (isset($properties['id_name'])) {
-                $idName = $properties['id_name'];
-                $data[$link]['id'] = $bean->$idName;
-            }
-
-            // check if the ACL metadata has been already populated by another relate field
-            if (isset($properties['module'])) {
-                // trying to reconstruct relate bean from the fetched data
-                $relate = BeanFactory::getBean($properties['module']);
-                $relate->id = $bean->{$properties['id_name']};
-                $ownerField = $relate->getOwnerField();
-                $ownerAlias = $fieldName . '_owner';
-                if ($ownerField && isset($bean->$ownerAlias)) {
-                    $relate->$ownerField = $bean->$ownerAlias;
-                }
-
-                $mm = MetaDataManager::getManager($service->platform);
-                $data[$link]['_acl'] = $mm->getAclForModule($relate->module_dir, $service->user, $relate);
-            }
         }
     }
 
@@ -378,40 +334,41 @@ class SugarFieldRelate extends SugarFieldBase {
                             WHERE {$fieldname} = '" . $focus->db->quote($value) . "'
                                 AND deleted != 1";
 
-                $relaterow = $focus->db->fetchOneOffset($query, 0, true, "Want only a single row");
-                if ($relaterow)
-                    $focus->$idField = $relaterow['id'];
-                elseif ( !$settings->addRelatedBean
-                        || ( $newbean->bean_implements('ACL') && !$newbean->ACLAccess('save') )
-                        || ( in_array($newbean->module_dir,array('Teams','Users')) )
-                        )
-                    return false;
-                else {
-                    // add this as a new record in that bean, then relate
-                    if ( isset($relatedFieldDef['db_concat_fields'])
-                            && is_array($relatedFieldDef['db_concat_fields']) ) {
-                        assignConcatenatedValue($newbean, $relatedFieldDef, $value);
+                $result = $focus->db->limitQuery($query,0,1,true, "Want only a single row");
+                if(!empty($result)){
+                    if ( $relaterow = $focus->db->fetchByAssoc($result) )
+                        $focus->$idField = $relaterow['id'];
+                    elseif ( !$settings->addRelatedBean
+                            || ( $newbean->bean_implements('ACL') && !$newbean->ACLAccess('save') )
+                            || ( in_array($newbean->module_dir,array('Teams','Users')) )
+                            )
+                        return false;
+                    else {
+                        // add this as a new record in that bean, then relate
+                        if ( isset($relatedFieldDef['db_concat_fields'])
+                                && is_array($relatedFieldDef['db_concat_fields']) ) {
+                            assignConcatenatedValue($newbean, $relatedFieldDef, $value);
+                        }
+                        else
+                            $newbean->$vardef['rname'] = $value;
+                        if ( !isset($focus->assigned_user_id) || $focus->assigned_user_id == '' )
+                            $newbean->assigned_user_id = $GLOBALS['current_user']->id;
+                        else
+                            $newbean->assigned_user_id = $focus->assigned_user_id;
+                        if ( !isset($focus->modified_user_id) || $focus->modified_user_id == '' )
+                            $newbean->modified_user_id = $GLOBALS['current_user']->id;
+                        else
+                            $newbean->modified_user_id = $focus->modified_user_id;
+
+                        // populate fields from the parent bean to the child bean
+                        $focus->populateRelatedBean($newbean);
+
+                        $newbean->save(false);
+                        $focus->$idField = $newbean->id;
+                        $settings->createdBeans[] = ImportFile::writeRowToLastImport(
+                                $focus->module_dir,$newbean->object_name,$newbean->id);
                     }
-                    else
-                        $newbean->$vardef['rname'] = $value;
-                    if ( !isset($focus->assigned_user_id) || $focus->assigned_user_id == '' )
-                        $newbean->assigned_user_id = $GLOBALS['current_user']->id;
-                    else
-                        $newbean->assigned_user_id = $focus->assigned_user_id;
-                    if ( !isset($focus->modified_user_id) || $focus->modified_user_id == '' )
-                        $newbean->modified_user_id = $GLOBALS['current_user']->id;
-                    else
-                        $newbean->modified_user_id = $focus->modified_user_id;
-
-                    // populate fields from the parent bean to the child bean
-                    $focus->populateRelatedBean($newbean);
-
-                    $newbean->save(false);
-                    $focus->$idField = $newbean->id;
-                    $settings->createdBeans[] = ImportFile::writeRowToLastImport(
-                            $focus->module_dir,$newbean->object_name,$newbean->id);
                 }
-
             }
         }
 

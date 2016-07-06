@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
+
 $mod_strings = array (
-'LBL_DEFAULT'=>'Не встановлено',
-'LBL_READ_WRITE'=>'Перегляд/Редагування',
-'LBL_READ_OWNER_WRITE'=>'Перегляд/Редагування (автор)',
-'LBL_READ_ONLY'=>'Тільки перегляд',
-'LBL_OWNER_READ_WRITE'=>'Перегляд (автор)/Редагування (автор)',
-'LBL_ALLOW_NONE'=>'Не визначено',
-'LBL_FIELDS'=>'Права доступу до полей',
-'LBL_NOT_DEFINED' => 'Не визначено',
-)
-?>
+  'LBL_ALLOW_NONE' => 'Не визначено',
+  'LBL_DEFAULT' => 'Не встановлено',
+  'LBL_FIELDS' => 'Права доступу до полей',
+  'LBL_NOT_DEFINED' => 'Не визначено',
+  'LBL_OWNER_READ_WRITE' => 'Перегляд (автор)/Редагування (автор)',
+  'LBL_READ_ONLY' => 'Тільки перегляд',
+  'LBL_READ_OWNER_WRITE' => 'Перегляд/Редагування (автор)',
+  'LBL_READ_WRITE' => 'Перегляд/Редагування',
+);
+

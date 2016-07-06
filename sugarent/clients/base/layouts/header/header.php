@@ -18,7 +18,7 @@ $viewdefs['base']['layout']['header'] = array(
             'layout' => 'module-list',
         ),
         array(
-            'layout' => 'quicksearch',
+            'view' => 'globalsearch',
         ),
         array(
             'view' => 'notifications',

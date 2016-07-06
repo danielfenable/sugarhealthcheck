@@ -4,7 +4,7 @@
     "keywords": ["search","client"],
     "homepage": "http://elastica.io/",
     "type": "library",
-    "license": "MIT",
+    "license": "Apache 2.0",
     "authors": [
         {
             "name": "Nicolas Ruflin",
@@ -12,29 +12,24 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "psr/log": "~1.0"
+        "php": ">=5.3.3"
     },
     "require-dev": {
+        "psr/log": "~1.0",
         "munkie/elasticsearch-thrift-php": "1.4.*",
         "phpunit/phpunit": "4.1.*",
-        "fabpot/php-cs-fixer": "~1.4"
+        "satooshi/php-coveralls": "dev-master"
     },
     "suggest": {
         "munkie/elasticsearch-thrift-php": "Allow using thrift transport",
-        "guzzlehttp/guzzle": "Allow using guzzle 4.x as the http transport (Requires php 5.4)",
-        "egeloen/http-adapter": "Allow using httpadapter transport",
+        "guzzlehttp/guzzle": "Allow using guzzle 4.x as the http transport (requires php 5.4)",
+        "psr/log": "for logging",
         "monolog/monolog": "Logging request"
     },
     "autoload": {
-        "psr-4": {
-            "Elastica\\": "lib/Elastica/",
-            "Elastica\\Test\\": "test/lib/Elastica/Test/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.4.x-dev"
+        "psr-0": {
+            "Elastica": "lib/",
+            "Elastica\\Test": "test/lib/"
         }
     }
 }

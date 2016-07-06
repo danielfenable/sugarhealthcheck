@@ -10,14 +10,12 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 --}}
-<div class="control-group dashlet-options">
-    <div class="controls{{#if isManager}} controls-two btn-group-fit{{/if}}">
-        <div class="row-fluid">
-            <div class="span6">
-                {{#each this.dashletConfig.buttons}}
-                    {{field ../this model=../this.settings template="edit"}}
-                {{/each}}
-            </div>
+<div class="dashlet-options">
+    <div class="row-fluid">
+        <div class="span6">
+            {{#each this.dashletConfig.buttons}}
+                {{field ../this model=../this.settings template="edit"}}
+            {{/each}}
         </div>
     </div>
 </div>

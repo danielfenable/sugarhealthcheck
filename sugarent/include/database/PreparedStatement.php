@@ -73,13 +73,6 @@ abstract class PreparedStatement
     protected $bound_vars = array();
 
     /**
-     * Data that is currently bound to the prepared statement
-     *
-     * @var array|null
-     */
-    protected $bound_data = null;
-
-    /**
      * Time when query was started
      * @var int
      */
@@ -229,7 +222,6 @@ abstract class PreparedStatement
         }
         $this->DBM->countQuery($this->parsedSQL);
         $GLOBALS['log']->info("Executing Query: {$this->parsedSQL} with ".var_export($data, true));
-        $this->bound_data = $data;
 
         $this->DBM->query_time = microtime(true);
 
@@ -270,7 +262,7 @@ abstract class PreparedStatement
             $this->DBM->registerError($msg, "Query Failed");
             $this->stmt = false; // Making sure we don't use the statement resource for error reporting
         } else {
-            $this->DBM->dump_slow_queries($this->parsedSQL, $this->bound_data);
+            $this->DBM->dump_slow_queries($this->parsedSQL);
         }
 
         return $this;

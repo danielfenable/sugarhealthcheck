@@ -60,7 +60,9 @@
 
         if (this.meta.config) {
             this.listenTo(this.layout, 'init', this._addFilterComponent);
-            this.layout.before('dashletconfig:save', this.saveDashletFilter, this);
+            this.layout.before('dashletconfig:save', function() {
+                this.saveDashletFilter();
+            }, null, this);
         }
     },
 
@@ -110,7 +112,7 @@
             return;
         }
 
-        this.layout.initComponents([{
+        this.layout._addComponentsFromDef([{
             layout: 'asdashlet-filter'
         }]);
     },
@@ -163,7 +165,7 @@
                     url = app.api.buildURL(real_module, action, {}, options.params);
                     break;
                 case 'record':
-                    url = app.api.buildURL(real_module, null, {id: modelId, link: 'activities'}, options.params);
+                    url = app.api.buildURL(real_module, 'activities', {id: modelId, link: true}, options.params);
                     break;
             }
 
@@ -275,7 +277,7 @@
      * Render each ActivityStream model
      *
      * @param model
-     * @return {Mixed}
+     * @returns {*}
      */
     renderPost: function(model) {
         var view;

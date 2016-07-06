@@ -11,7 +11,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /*********************************************************************************
-
+ * $Id: en_us.lang.php 56851 2010-06-07 22:17:02Z jenny $
  * Description:  Defines the English language pack for the base application.
  * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
  * All Rights Reserved.
@@ -77,7 +77,7 @@ $mod_strings = array (
     'LBL_INVITEE' => 'جهات الاتصال',
     'LBL_INVOICE'=>'الفاتورة',
     'LBL_LEAD_SOURCE'=>'مصدر العميل المتوقع:',
-    'LBL_LINE_ITEM_INFORMATION' => 'البنود',
+    'LBL_LINE_ITEM_INFORMATION' => 'عناصر السطر',
     'LBL_LIST_ACCOUNT_NAME' => 'اسم الحساب',
     'LBL_LIST_AMOUNT' => 'مبلغ المعاملة',
     'LBL_LIST_AMOUNT_USDOLLAR' => 'المبلغ المحول',
@@ -108,7 +108,7 @@ $mod_strings = array (
     'LBL_NEXT_STEP'=>'الخطوة التالية:',
     'LBL_OPPORTUNITY_NAME' => 'اسم الفرصة:',
     'LBL_ORDER_STAGE'=>'مرحلة الطلب',
-    'LBL_ORIGINAL_PO_DATE' =>  'تاريخ طلب الشراء الأصلي:',
+    'LBL_ORIGINAL_PO_DATE' =>  'طلب الشراء الأصلي التاريخ:',
     'LBL_PAYMENT_TERMS' =>  'شروط الدفع:',
     'LBL_PDF_BILLING_ADDRESS' => 'إصدار الفوترة إلى',
     'LBL_PDF_CURRENCY' => 'العملة:',
@@ -148,7 +148,7 @@ $mod_strings = array (
     'LBL_TAXABLE' => 'مستحق الضريبة',
     'LBL_NON_TAXABLE' => 'غير مستحق الضريبة',
     'LBL_QUOTE' => 'عرض السعر:',
-    'LBL_QUOTE_LAYOUT_DOES_NOT_EXIST_ERROR' => 'ملف مخطط عرض السعر غير موجود: $layout',
+    'LBL_QUOTE_LAYOUT_DOES_NOT_EXIST_ERROR' => 'ملف مخطط عرض السعر غير موجود: $المخطط',
     'LBL_QUOTE_LAYOUT_REGISTERED_ERROR' => 'مخطط عرض السعر غير مسجل في modules/Quotes/Layouts.php',
     'LBL_REMOVE_COMMENT' => 'إزالة تعليق',
     'LBL_REMOVE_ROW' => 'إزالة صف',
@@ -174,7 +174,6 @@ $mod_strings = array (
     'LBL_SHIPPING' => 'الشحن:',
     'LBL_DISCOUNT_TOTAL' => 'الخصم:',
     'LBL_NEW_SUB' => 'الإجمالي الفرعي المخصوم:',
-    'LBL_NEW_SUB_USDOLLAR' => 'Discounted Subtotal (US Dollar):',
     'LBL_SHOW_LINE_NUMS' => 'عرض أرقام الخطوط:',
     'LBL_STATE' => 'الولاية:',
     'LBL_SUBTOTAL_USDOLLAR'=>'الإجمالي الفرعي (بالدولار الأمريكي)',

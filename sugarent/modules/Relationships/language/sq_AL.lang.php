@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,13 +12,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
- /*********************************************************************************
-
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
+	
 
 $mod_strings = array (
   'LBL_ID' => 'Id e lidhjes',
@@ -33,8 +29,7 @@ $mod_strings = array (
   'LBL_RELATIONSHIP_TYPE' => 'Lloji i lidhjes',
   'LBL_RELATIONSHIP_ROLE_COLUMN' => 'Emri i kolonës së rolit të lidhjes',
   'LBL_RELATIONSHIP_ROLE_COLUMN_VALUE' => 'vlera e kolonës së rolit të lidhjes',
-  'LBL_REVERSE' => 'e kundërta' ,
+  'LBL_REVERSE' => 'e kundërta',
   'LBL_DELETED' => 'E fshirë',
 );
-  
-?>
+

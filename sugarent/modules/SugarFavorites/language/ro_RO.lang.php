@@ -1,4 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -9,37 +12,39 @@
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
+
 $mod_strings = array (
+  'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activitati',
   'LBL_ASSIGNED_TO_ID' => 'Atribuit ID Utilizator',
-  'LBL_ASSIGNED_TO_NAME' => 'Atribuit lui',
-  'LBL_ID' => 'ID',
-  'LBL_DATE_ENTERED' => 'Data favorită',
+  'LBL_ASSIGNED_TO_NAME' => 'Atrbuit lui',
+  'LBL_CREATED' => 'Creeata de',
+  'LBL_CREATED_ID' => 'Creeata de ID',
+  'LBL_CREATED_USER' => 'Creeata de Utilizator',
+  'LBL_DATE_ENTERED' => 'Data Favorita',
   'LBL_DATE_MODIFIED' => 'Data Modificata',
-  'LBL_MODIFIED' => 'Modificat de',
-  'LBL_MODIFIED_ID' => 'Modificat după Id',
-  'LBL_MODIFIED_NAME' => 'Modificat după Nume',
-  'LBL_CREATED' => 'Creat de',
-  'LBL_CREATED_ID' => 'Creat de Id',
+  'LBL_DELETED' => 'Stearsa',
   'LBL_DESCRIPTION' => 'Descriere',
-  'LBL_DELETED' => 'Şters',
-  'LBL_NAME' => 'Nume',
-  'LBL_CREATED_USER' => 'Creat de Utilizator',
-  'LBL_MODIFIED_USER' => 'Modificat după Utilizator',
-  'LBL_TAG'=>'Eticheta',
+  'LBL_HISTORY_SUBPANEL_TITLE' => 'Vizualizare Istoric',
+  'LBL_HOMEPAGE_TITLE' => 'Inregistrarile mele favorite',
+  'LBL_ID' => 'ID',
   'LBL_LIST_FORM_TITLE' => 'Lista favorita',
+  'LBL_LIST_MODULE' => 'Nume Modul',
+  'LBL_MODIFIED' => 'Modificata de',
+  'LBL_MODIFIED_ID' => 'Modificata de ID',
+  'LBL_MODIFIED_NAME' => 'Modificata de Nume',
+  'LBL_MODIFIED_USER' => 'Modificata de Utilizator',
+  'LBL_MODULE' => 'modul',
   'LBL_MODULE_NAME' => 'Favorite',
   'LBL_MODULE_NAME_SINGULAR' => 'Favorit',
   'LBL_MODULE_TITLE' => 'Favorite',
-  'LBL_HOMEPAGE_TITLE' => 'Inregistrarile mele favorite',
-  'LNK_NEW_RECORD' => 'Creeare Favorite',
-  'LNK_LIST' => 'Favorite',
-  'LBL_SEARCH_FORM_TITLE' => 'Cauta Favorite',
-  'LBL_HISTORY_SUBPANEL_TITLE' => 'Vizualizare Istoric',
-  'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activitati',
-  'LBL_SUGAR_FAVORITES_SUBPANEL_TITLE' => 'Favorite',
+  'LBL_NAME' => 'Nume',
   'LBL_NEW_FORM_TITLE' => 'Favorite Noi',
-  'LBL_MODULE' => 'modul',
   'LBL_RECORD_ID' => 'inregistrare id',
-  'LBL_LIST_MODULE' => 'Nume Modul',
+  'LBL_SEARCH_FORM_TITLE' => 'Cauta Favorite',
+  'LBL_SUGAR_FAVORITES_SUBPANEL_TITLE' => 'Favorite',
+  'LBL_TAG' => 'Eticheta',
+  'LNK_LIST' => 'Favorite',
+  'LNK_NEW_RECORD' => 'Creeare Favorite',
 );
-?>
+

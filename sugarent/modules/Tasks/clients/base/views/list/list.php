@@ -52,7 +52,6 @@ $viewdefs['Tasks']['base']['view']['list'] = array(
                     'name' => 'date_due',
                     'label' => 'LBL_LIST_DUE_DATE',
                     'type' => 'datetimecombo-colorcoded',
-                    'css_class' => 'overflow-visible',
                     'completed_status_value' => 'Completed',
                     'link' => false,
                     'enabled' => true,
@@ -74,7 +73,6 @@ $viewdefs['Tasks']['base']['view']['list'] = array(
                 array(
                     'name' => 'date_start',
                     'label' => 'LBL_LIST_START_DATE',
-                    'css_class' => 'overflow-visible',
                     'link' => false,
                     'enabled' => true,
                     'default' => false,

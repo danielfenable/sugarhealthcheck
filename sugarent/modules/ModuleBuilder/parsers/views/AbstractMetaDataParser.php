@@ -69,10 +69,6 @@ abstract class AbstractMetaDataParser
         return $this->_paneldefs;
     }
 
-    public function getModuleName() {
-        return $this->_moduleName;
-    }
-
     function removeField ($fieldName)
     {
     	return false;

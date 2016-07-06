@@ -42,6 +42,8 @@ if ($focus->is_authenticated()) {
     // store the user's theme in the session
     if (isset($_REQUEST['login_theme'])) {
         $authenticated_user_theme = $_REQUEST['login_theme'];
+    } elseif (isset($_REQUEST['ck_login_theme_20'])) {
+        $authenticated_user_theme = $_REQUEST['ck_login_theme_20'];
     } else {
         $authenticated_user_theme = $sugar_config['default_theme'];
     }
@@ -49,6 +51,8 @@ if ($focus->is_authenticated()) {
     // store the user's language in the session
     if (isset($_REQUEST['login_language'])) {
         $authenticated_user_language = $_REQUEST['login_language'];
+    } elseif (isset($_REQUEST['ck_login_language_20'])) {
+        $authenticated_user_language = $_REQUEST['ck_login_language_20'];
     } else {
         $authenticated_user_language = $sugar_config['default_language'];
     }

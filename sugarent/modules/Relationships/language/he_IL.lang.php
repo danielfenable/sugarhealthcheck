@@ -10,6 +10,7 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+
  /*********************************************************************************
 
  * Description:  Defines the English language pack for the base application.
@@ -17,6 +18,12 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
+ /*********************************************************************************
+ * Hebrew vertion by:
+ * Menahem Lurie Consultancy and IT Management,SugarCRM partner - Israel
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * *******************************************************************************/
 
 $mod_strings = array (
   'LBL_ID' => 'קשרים Id',
@@ -37,4 +44,6 @@ $mod_strings = array (
   'LBL_DELETED' => 'נמחק',
 );
   
-?>
+
+
+

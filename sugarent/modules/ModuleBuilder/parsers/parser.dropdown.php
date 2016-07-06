@@ -179,7 +179,6 @@ class ParserDropDown extends ModuleBuilderParser
         clearAllJsAndJsLangFilesWithoutOutput();
 
         // Clear out the api metadata languages cache for selected language
-        LanguageManager::invalidateJsLanguageCache();
         MetaDataManager::refreshLanguagesCache($lang);
     }
 
@@ -316,8 +315,8 @@ class ParserDropDown extends ModuleBuilderParser
             // We need to copy the NULLs if they are not set in the new dropdown
             // because return_app_list_strings_language() removes them from the array
             $files = SugarAutoLoader::existing(
-                "custom/include/language/$selectedLang.lang.php",
-                "custom/application/Ext/Language/$selectedLang.lang.ext.php"
+                "custom/application/Ext/Language/$selectedLang.lang.ext.php",
+                "custom/include/language/$selectedLang.lang.php"
             );
 
             foreach ($files as $customLanguage) {

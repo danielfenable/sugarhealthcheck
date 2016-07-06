@@ -44,18 +44,11 @@ $old_reports_to_id = $focus->reports_to_id;
 
 populateFromRow($focus,$_POST);
 
-if (empty($focus->id)) {
-    $new = true;
+if (empty($focus->status)) {
+    $focus->status = "Active";
 }
 
 $focus->save();
-
-// Set default team for Employee as 'Global'
-if ($new === true) {
-    $team = BeanFactory::getBean('Teams');
-    $team->new_user_created($focus);
-}
-
 $return_id = $focus->id;
 
 // If reports to has changed, call update team memberships to correct the membership tree

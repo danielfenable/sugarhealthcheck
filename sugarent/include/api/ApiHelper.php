@@ -34,13 +34,11 @@ class ApiHelper
      */
     public static function getHelper(ServiceBase $api, SugarBean $bean)
     {
-        $modulePath = $bean->module_dir;
-        $moduleName = $bean->module_name;
-
-        if (!isset(self::$moduleHelpers[$moduleName])) {
+        $module = $bean->module_dir;
+        if (!isset(self::$moduleHelpers[$module])) {
             require_once('data/SugarBeanApiHelper.php');
-            if (SugarAutoLoader::requireWithCustom('modules/' . $modulePath . '/' . $moduleName . 'ApiHelper.php')) {
-                $moduleHelperClass = SugarAutoLoader::customClass($moduleName . 'ApiHelper');
+            if (SugarAutoLoader::requireWithCustom('modules/' . $module . '/' . $module . 'ApiHelper.php')) {
+                $moduleHelperClass = SugarAutoLoader::customClass($module . 'ApiHelper');
             } elseif (SugarAutoLoader::fileExists('custom/data/SugarBeanApiHelper.php')) {
                 require_once('custom/data/SugarBeanApiHelper.php');
                 $moduleHelperClass = 'CustomSugarBeanApiHelper';
@@ -48,10 +46,10 @@ class ApiHelper
                 $moduleHelperClass = 'SugarBeanApiHelper';
             }
 
-            self::$moduleHelpers[$moduleName] = new $moduleHelperClass($api);
+            self::$moduleHelpers[$module] = new $moduleHelperClass($api);
         }
 
-        $moduleHelperClass = self::$moduleHelpers[$moduleName];
+        $moduleHelperClass = self::$moduleHelpers[$module];
         return $moduleHelperClass;
     }
 

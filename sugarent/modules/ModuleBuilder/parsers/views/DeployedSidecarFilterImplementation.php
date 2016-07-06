@@ -83,8 +83,7 @@ class DeployedSidecarFilterImplementation extends AbstractMetaDataImplementation
         }
         if ($originalMeta && !empty($originalMeta[$this->_moduleName]['base']['filter']['default']['fields']) && is_array($originalMeta[$this->_moduleName]['base']['filter']['default']['fields'])) {
             foreach ($originalMeta[$this->_moduleName]['base']['filter']['default']['fields'] as $key => $val) {
-                // FIXME This is a temporary fix, will have a more generic solution in TY-228
-                if ((!isset($this->_fielddefs[$key]) && isset($val['dbFields'])) || $key === '$favorite') {
+                if (!isset($this->_fielddefs[$key]) && isset($val['dbFields'])) {
                     // if this field is not already in _fielddefs, add it
                     $this->_comboFieldDefs[$key] = $val;
                 }
@@ -140,7 +139,6 @@ class DeployedSidecarFilterImplementation extends AbstractMetaDataImplementation
      */
     public function getFieldDefs()
     {
-        unset($this->_fielddefs['my_favorite']);
         return $this->_fielddefs;
     }
 
@@ -187,7 +185,7 @@ class DeployedSidecarFilterImplementation extends AbstractMetaDataImplementation
         $this->_viewdefs = $defs;
 
         // Now save the actual data
-        $ret = write_array_to_file(
+        write_array_to_file(
             "viewdefs['{$this->_moduleName}']['{$this->_viewClient}']['filter']['default']",
             $this->_viewdefs,
             $savefile
@@ -202,7 +200,6 @@ class DeployedSidecarFilterImplementation extends AbstractMetaDataImplementation
 
         // clear the cache for this module
         MetaDataManager::refreshModulesCache(array($this->_moduleName));
-        return $ret;
     }
 
     /*

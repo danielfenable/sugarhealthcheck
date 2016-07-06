@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,10 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obteniu una clau i el secret d&#39;IBM SmartCloud registrant la instància de Sugar com una nova sol·licitud.<br>&nbsp;<br>Passos per registrar la instància:<br>&nbsp;<br><ol><li>Accediu al compte IBM SmartCloud (heu de ser un administrador)</li><li>Aneu a Administració -> Gestionar Organització</li><li>Aneu a l&#39;enllaç "Integrated Thid-Party Apps" que apareix a la barra lateral i habiliteu SugarCRM per a tots els usuaris.</li><li>Aneu a "Internal Apps" a la barra lateral i "Register App"</li><li>Anomeneu l&#39;aplicació el que vulgueu (per exemple "SugarCRM Production") i assegureu-vos de _NO_ marcar la casella de selecció OAuth 2.x a la part inferior de la finestra emergent.</li><li>Després que l&#39;aplicació ha estat creada, feu clic al triangle que està a la dreta del nom de l&#39;aplicació i seleccioneu "Show Credentials" al menú desplegable.</li><li>Copieu les credencials següents.</li></ol></td></tr></table>',
-    'oauth_consumer_key' => 'Clau del consumidor OAuth',
-    'oauth_consumer_secret' => 'Secret del consumidor OAuth',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obtenir una clau i el secret de LotusLive&copy; mitjançant el registre de la instància de Sugar com una nova sol·licitud. La capacitat de registre serà possible a partir de 8 maig 2011.<br><br />&nbsp;<br><br />Passos per a registrar la instància:<br><br />&nbsp;<br><br /><ol><br /><li>Accedeix al teu compte de LotusLive (vostè ha de ser un administrador de LotusLive): <a href="https://www.lotuslive.com/" target="_new">https://www.lotuslive.com/</a></li><br /><li>Feu clic en Administració a la barra del navegador a la part superior.</li><br /><li>Feu clic a Administrar aplicacions de la Companyia.</li><br /><li>Feu clic a Registre de l&#39;aplicació.</li><br /><li>Introduïu un nom i una descripció per a l&#39;aplicació quan se li sol·liciti. El nom i la descripció de la seva aplicació es pot canviar en qualsevol moment fent clic al següent menú de l&#39;aplicació i seleccionant Edita les propietats.</li><br /><li>Durant el registre, la seva sol·licitud se li assignarà una clau d&#39;OAuth i un parell de secrets. Aplicacions registrades es mostren en l&#39;Administrador d&#39;aplicacions personalitzades. Per veure la clau assignada i secret, feu clic al menú de l&#39;aplicació apropiada i seleccioneu Obtenir Credencials.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'Clau del consumidor OAuth',
+  'oauth_consumer_secret' => 'Secret del consumidor OAuth',
 );
 

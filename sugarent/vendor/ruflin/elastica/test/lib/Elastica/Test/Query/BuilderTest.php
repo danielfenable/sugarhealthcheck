@@ -20,7 +20,6 @@ class BuilderTest extends BaseTest
     public function tearDown()
     {
         $this->builder = null;
-        parent::tearDown();
     }
 
     /**
@@ -172,7 +171,7 @@ class BuilderTest extends BaseTest
     {
         $this->assertSame($this->builder, $this->builder->$method()); // open
         $this->assertSame($this->builder, $this->builder->{$method."Close"}()); // close
-        $this->assertSame('{"'.$queryType.'":{}}', (string) $this->builder);
+        $this->assertSame('{"' . $queryType . '":{}}', (string) $this->builder);
     }
 
     /**
@@ -246,7 +245,6 @@ class BuilderTest extends BaseTest
 
     /**
      * @expectedException \Elastica\Exception\InvalidException
-     * @expectedExceptionMessage The produced query is not a valid json string : "{{}"
      * @covers \Elastica\Query\Builder::toArray
      */
     public function testToArrayWithInvalidData()
@@ -264,9 +262,9 @@ class BuilderTest extends BaseTest
         $this->assertEquals(array(
             'query' => array(
                 'term' => array(
-                    'category.id' => array(1, 2, 3),
-                ),
-            ),
+                    'category.id' => array(1, 2, 3)
+                )
+            )
         ), $this->builder->toArray());
     }
 }

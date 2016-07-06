@@ -573,6 +573,7 @@ Studio2 = {
 				var newRow = Studio2.newRow(false);
 				panel.appendChild(newRow);
 				Studio2.activateElement(newRow);
+//				debugger;
 			}
 		}
 	},

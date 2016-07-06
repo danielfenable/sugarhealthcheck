@@ -19,23 +19,23 @@
     extendsFrom: 'RowactionField',
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    initialize: function(options) {
+    initialize: function (options) {
         this._super('initialize', [options]);
         this.type = 'rowaction';
         this.isHost = (this.def.host === true);
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Hide this button if:
      * - Status is not Planned
      * - Type is Sugar (not an external meeting type)
      * - Host button and user does not have permission to start the meeting
      */
-    _render: function() {
+    _render: function () {
         if (this.model.get('status') !== 'Planned' ||
             this.model.get('type') === 'Sugar' ||
             (this.isHost && !this._hasPermissionToStartMeeting())
@@ -52,7 +52,7 @@
      * Check if the user has permission to host the external meeting
      * True if assigned user or an admin for Meetings
      *
-     * @return {boolean}
+     * @returns {boolean}
      * @private
      */
     _hasPermissionToStartMeeting: function() {
@@ -75,8 +75,8 @@
     /**
      * Build the appropriate label based on the meeting type
      *
-     * @param {string} labelName Meetings module label
-     * @return {string}
+     * @param {String} labelName Meetings module label
+     * @returns {String}
      * @private
      */
     _getLabel: function(labelName) {
@@ -120,15 +120,8 @@
 
         if (this.isHost && externalInfo.is_host_option_allowed) {
             launchUrl = externalInfo.host_url;
-        } else if (!this.isHost && externalInfo.is_join_option_allowed) {
+        } else if (!this.isHost && externalInfo.is_join_option_allowed){
             launchUrl = externalInfo.join_url;
-        } else {
-            // user is not allowed to launch the external meeting
-            app.alert.show('launch_meeting_error', {
-                level: 'error',
-                messages: app.lang.get(this.isHost ? 'LBL_EXTNOSTART_MAIN' : 'LBL_EXTNOT_MAIN', this.module)
-            });
-            return;
         }
 
         if (!_.isEmpty(launchUrl)) {
@@ -136,7 +129,7 @@
         } else {
             app.alert.show('launch_meeting_error', {
                 level: 'error',
-                messages: this._getLabel('LBL_EXTERNAL_MEETING_NO_URL')
+                messages: app.lang.get(this.isHost ? 'LBL_EXTNOSTART_MAIN' : 'LBL_EXTNOT_MAIN', this.module)
             });
         }
     },
@@ -144,7 +137,7 @@
     /**
      * Re-render the join button when the model changes
      */
-    bindDataChange: function() {
+    bindDataChange: function () {
         if (this.model) {
             this.model.on('change', this.render, this);
         }

@@ -17,6 +17,11 @@ $listViewDefs['DataSets'] = array(
 		'label' => 'LBL_LIST_NAME', 
 		'link' => true,
         'default' => true), 
+	'QUERY_TYPE' => array(
+		'width' => '25', 
+		'label' => 'LBL_TYPE',
+        'default' => true 
+		),
 	'QUERY_NAME' => array(
 		'width' => '35', 
 		'label' => 'LBL_QUERY_NAME',

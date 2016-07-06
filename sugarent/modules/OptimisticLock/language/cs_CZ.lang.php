@@ -1,5 +1,5 @@
 <?php
-if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,23 +10,29 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
 
- * Description:  Defines the English language pack for the base application.
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
- * All Rights Reserved.
- * Contributor(s): ______________________________________..
- ********************************************************************************/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 $mod_strings = array (
-   'LBL_YOURS' => 'Váš',
-   'LBL_IN_DATABASE' => 'V databázi',
-   'LBL_CONFLICT_EXISTS' => 'Konflikt existuje - ',
-   'LBL_ACCEPT_DATABASE' => 'Přijmout databázi',
-   'LBL_ACCEPT_YOURS' => 'Přijmout váš',
-   'LBL_RECORDS_MATCH' => 'Záznamy odpovídající',
-   'LBL_NO_LOCKED_OBJECTS' => 'Žádné uzamčené objekty',
-   
+  'LBL_RECORDS_MATCH' => 'Záznamy odpovídající',
+  'LBL_YOURS' => 'Váš',
+  'LBL_IN_DATABASE' => 'V databázi',
+  'LBL_CONFLICT_EXISTS' => 'Konflikt existuje - ',
+  'LBL_ACCEPT_DATABASE' => 'Přijmout databázi',
+  'LBL_ACCEPT_YOURS' => 'Přijmout váš',
+  'LBL_NO_LOCKED_OBJECTS' => 'Žádné uzamčené objekty',
 );
 
-?>

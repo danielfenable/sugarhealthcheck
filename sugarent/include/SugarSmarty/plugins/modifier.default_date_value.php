@@ -52,8 +52,8 @@ Touched:
 - modules/DCEClients/client_utils.php
 - modules/DCEClients/instanceImport.php
 - modules/DCEClients/processAction.php
-- modules/KBOLDDocuments/Save.php
-- modules/KBOLDDocuments/SearchUtils.php
+- modules/KBDocuments/Save.php
+- modules/KBDocuments/SearchUtils.php
 - modules/EmailMan/EmailMan.php
 - modules/EmailMan/EmailManDelivery.php
 - modules/Charts/Dashlets/MyForecastingChartDashlet/MyForecastingChartDashlet.php
@@ -130,6 +130,7 @@ Touched:
 - include/SugarSmarty/modifier.default_date_value.php
 - include/SugarEmailAddress/SugarEmailAddress.php
 - include/database/DBManager.php
+- include/database/DBHelper.php
 - include/javascript/jsAlerts.php
 - include/CurrencyService/CurrencyService.php
 - include/MVC/View/SugarView.php

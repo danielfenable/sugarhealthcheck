@@ -156,8 +156,6 @@ class OAuth2Api extends SugarApi
 
         setcookie(RestService::DOWNLOAD_COOKIE.'_'.$api->platform, false, -1, ini_get('session.cookie_path'), ini_get('session.cookie_domain'), ini_get('session.cookie_secure'), true);
 
-        SugarApplication::endSession();
-
         // The OAuth access token is actually just a session, so we can nuke that here.
         $_SESSION = array();
         session_regenerate_id(true);

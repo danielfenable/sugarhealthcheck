@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -21,11 +20,13 @@ $viewdefs['Quotes']['mobile']['view']['list'] = array(
                     'default' => true,
                     'enabled' => true,
                     'link' => true,
+                    'width' => '10%',
                 ),
                 array(
                     'name' => 'billing_account_name',
                     'label' => 'LBL_ACCOUNT_NAME',
                     'enabled' => true,
+                    'width' => '10%',
                     'default' => true,
                 ),
             ),

@@ -8,6 +8,52 @@
   'full_text_search' => true,
   'fields' => 
   array (
+    'my_favorite' => 
+    array (
+      'massupdate' => false,
+      'name' => 'my_favorite',
+      'vname' => 'LBL_FAVORITE',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Favorite for the user',
+      'studio' => 
+      array (
+        'list' => false,
+        'recordview' => false,
+      ),
+      'link' => 'favorite_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'favorite_link' => 
+    array (
+      'name' => 'favorite_link',
+      'type' => 'link',
+      'relationship' => 'campaigns_favorite',
+      'source' => 'non-db',
+      'vname' => 'LBL_FAVORITE',
+    ),
+    'following' => 
+    array (
+      'massupdate' => false,
+      'name' => 'following',
+      'vname' => 'LBL_FOLLOWING',
+      'type' => 'bool',
+      'source' => 'non-db',
+      'comment' => 'Is user following this record',
+      'studio' => 'false',
+      'link' => 'following_link',
+      'rname' => 'id',
+      'rname_exists' => true,
+    ),
+    'following_link' => 
+    array (
+      'name' => 'following_link',
+      'type' => 'link',
+      'relationship' => 'campaigns_following',
+      'source' => 'non-db',
+      'vname' => 'LBL_FOLLOWING',
+    ),
     'id' => 
     array (
       'name' => 'id',
@@ -33,8 +79,7 @@
       'full_text_search' => 
       array (
         'enabled' => true,
-        'searchable' => true,
-        'boost' => 1.3899999999999999,
+        'boost' => 3,
       ),
     ),
     'date_entered' => 
@@ -53,18 +98,6 @@
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_entered' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
     ),
     'date_modified' => 
     array (
@@ -74,18 +107,6 @@
       'group' => 'modified_by_name',
       'comment' => 'Date record last modified',
       'enable_range_search' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'date_modified' => 
-          array (
-            'type' => 'DateRange',
-          ),
-        ),
-      ),
       'studio' => 
       array (
         'portaleditview' => false,
@@ -111,20 +132,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'modified_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_MODIFIED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'modified_by_name' => 
     array (
@@ -163,20 +170,6 @@
       'massupdate' => false,
       'duplicate_on_record_copy' => 'no',
       'readonly' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'type' => 'id',
-        'aggregations' => 
-        array (
-          'created_by' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_CREATED_BY_ME',
-          ),
-        ),
-      ),
     ),
     'created_by_name' => 
     array (
@@ -200,6 +193,38 @@
         0 => 'last_name',
       ),
       'exportable' => true,
+    ),
+    'doc_owner' => 
+    array (
+      'name' => 'doc_owner',
+      'vname' => 'LBL_DOC_OWNER',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
+    ),
+    'user_favorites' => 
+    array (
+      'name' => 'user_favorites',
+      'vname' => 'LBL_USER_FAVORITES',
+      'type' => 'id',
+      'reportable' => false,
+      'source' => 'non-db',
+      'duplicate_merge' => 'disabled',
+      'importable' => 'false',
+      'massupdate' => false,
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
+      'default' => '',
     ),
     'description' => 
     array (
@@ -251,326 +276,6 @@
       'bean_name' => 'Activity',
       'source' => 'non-db',
     ),
-    'tracker_key' => 
-    array (
-      'name' => 'tracker_key',
-      'vname' => 'LBL_TRACKER_KEY',
-      'type' => 'int',
-      'required' => true,
-      'studio' => 
-      array (
-        'editview' => false,
-      ),
-      'len' => '11',
-      'auto_increment' => true,
-      'comment' => 'The internal ID of the tracker used in a campaign; no longer used as of 4.2 (see campaign_trkrs)',
-      'readonly' => true,
-    ),
-    'tracker_count' => 
-    array (
-      'name' => 'tracker_count',
-      'vname' => 'LBL_TRACKER_COUNT',
-      'type' => 'int',
-      'len' => '11',
-      'default' => '0',
-      'comment' => 'The number of accesses made to the tracker URL; no longer used as of 4.2 (see campaign_trkrs)',
-    ),
-    'refer_url' => 
-    array (
-      'name' => 'refer_url',
-      'vname' => 'LBL_REFER_URL',
-      'type' => 'varchar',
-      'len' => '255',
-      'default' => 'http://',
-      'comment' => 'The URL referenced in the tracker URL; no longer used as of 4.2 (see campaign_trkrs)',
-    ),
-    'tracker_text' => 
-    array (
-      'name' => 'tracker_text',
-      'vname' => 'LBL_TRACKER_TEXT',
-      'type' => 'varchar',
-      'len' => '255',
-      'comment' => 'The text that appears in the tracker URL; no longer used as of 4.2 (see campaign_trkrs)',
-    ),
-    'start_date' => 
-    array (
-      'name' => 'start_date',
-      'vname' => 'LBL_START_DATE',
-      'type' => 'date',
-      'audited' => true,
-      'comment' => 'Starting date of the campaign',
-      'validation' => 
-      array (
-        'type' => 'isbefore',
-        'compareto' => 'end_date',
-      ),
-      'enable_range_search' => true,
-      'options' => 'date_range_search_dom',
-    ),
-    'end_date' => 
-    array (
-      'name' => 'end_date',
-      'vname' => 'LBL_END_DATE',
-      'type' => 'date',
-      'audited' => true,
-      'comment' => 'Ending date of the campaign',
-      'importable' => 'required',
-      'required' => true,
-      'enable_range_search' => true,
-      'options' => 'date_range_search_dom',
-    ),
-    'status' => 
-    array (
-      'name' => 'status',
-      'vname' => 'LBL_STATUS',
-      'type' => 'enum',
-      'options' => 'campaign_status_dom',
-      'len' => 100,
-      'audited' => true,
-      'comment' => 'Status of the campaign',
-      'importable' => 'required',
-      'required' => true,
-    ),
-    'impressions' => 
-    array (
-      'name' => 'impressions',
-      'vname' => 'LBL_CAMPAIGN_IMPRESSIONS',
-      'type' => 'int',
-      'default' => 0,
-      'reportable' => true,
-      'comment' => 'Expected Click throughs manually entered by Campaign Manager',
-    ),
-    'budget' => 
-    array (
-      'name' => 'budget',
-      'vname' => 'LBL_CAMPAIGN_BUDGET',
-      'type' => 'currency',
-      'comment' => 'Budgeted amount for the campaign',
-    ),
-    'expected_cost' => 
-    array (
-      'name' => 'expected_cost',
-      'vname' => 'LBL_CAMPAIGN_EXPECTED_COST',
-      'type' => 'currency',
-      'comment' => 'Expected cost of the campaign',
-    ),
-    'actual_cost' => 
-    array (
-      'name' => 'actual_cost',
-      'vname' => 'LBL_CAMPAIGN_ACTUAL_COST',
-      'type' => 'currency',
-      'comment' => 'Actual cost of the campaign',
-    ),
-    'expected_revenue' => 
-    array (
-      'name' => 'expected_revenue',
-      'vname' => 'LBL_CAMPAIGN_EXPECTED_REVENUE',
-      'type' => 'currency',
-      'comment' => 'Expected revenue stemming from the campaign',
-    ),
-    'campaign_type' => 
-    array (
-      'name' => 'campaign_type',
-      'vname' => 'LBL_TYPE',
-      'type' => 'enum',
-      'options' => 'campaign_type_dom',
-      'len' => 100,
-      'audited' => true,
-      'comment' => 'The type of campaign',
-      'importable' => 'required',
-      'required' => true,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-      ),
-    ),
-    'objective' => 
-    array (
-      'name' => 'objective',
-      'vname' => 'LBL_CAMPAIGN_OBJECTIVE',
-      'type' => 'text',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.41999999999999998,
-      ),
-      'comment' => 'The objective of the campaign',
-    ),
-    'content' => 
-    array (
-      'name' => 'content',
-      'vname' => 'LBL_CAMPAIGN_CONTENT',
-      'type' => 'text',
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => true,
-        'boost' => 0.40999999999999998,
-      ),
-      'comment' => 'The campaign description',
-    ),
-    'prospectlists' => 
-    array (
-      'name' => 'prospectlists',
-      'type' => 'link',
-      'relationship' => 'prospect_list_campaigns',
-      'source' => 'non-db',
-    ),
-    'emailmarketing' => 
-    array (
-      'name' => 'emailmarketing',
-      'type' => 'link',
-      'relationship' => 'campaign_email_marketing',
-      'source' => 'non-db',
-    ),
-    'queueitems' => 
-    array (
-      'name' => 'queueitems',
-      'type' => 'link',
-      'relationship' => 'campaign_emailman',
-      'source' => 'non-db',
-    ),
-    'log_entries' => 
-    array (
-      'name' => 'log_entries',
-      'type' => 'link',
-      'relationship' => 'campaign_campaignlog',
-      'source' => 'non-db',
-      'vname' => 'LBL_LOG_ENTRIES',
-    ),
-    'tracked_urls' => 
-    array (
-      'name' => 'tracked_urls',
-      'type' => 'link',
-      'relationship' => 'campaign_campaigntrakers',
-      'source' => 'non-db',
-      'vname' => 'LBL_TRACKED_URLS',
-    ),
-    'frequency' => 
-    array (
-      'name' => 'frequency',
-      'vname' => 'LBL_CAMPAIGN_FREQUENCY',
-      'type' => 'enum',
-      'len' => 100,
-      'comment' => 'Frequency of the campaign',
-      'options' => 'newsletter_frequency_dom',
-    ),
-    'leads' => 
-    array (
-      'name' => 'leads',
-      'type' => 'link',
-      'relationship' => 'campaign_leads',
-      'source' => 'non-db',
-      'vname' => 'LBL_LEADS',
-      'link_class' => 'ProspectLink',
-      'link_file' => 'modules/Campaigns/ProspectLink.php',
-    ),
-    'opportunities' => 
-    array (
-      'name' => 'opportunities',
-      'type' => 'link',
-      'relationship' => 'campaign_opportunities',
-      'source' => 'non-db',
-      'vname' => 'LBL_OPPORTUNITIES',
-    ),
-    'contacts' => 
-    array (
-      'name' => 'contacts',
-      'type' => 'link',
-      'relationship' => 'campaign_contacts',
-      'source' => 'non-db',
-      'vname' => 'LBL_CONTACTS',
-      'link_class' => 'ProspectLink',
-      'link_file' => 'modules/Campaigns/ProspectLink.php',
-    ),
-    'accounts' => 
-    array (
-      'name' => 'accounts',
-      'type' => 'link',
-      'relationship' => 'campaign_accounts',
-      'source' => 'non-db',
-      'vname' => 'LBL_ACCOUNTS',
-      'link_class' => 'ProspectLink',
-      'link_file' => 'modules/Campaigns/ProspectLink.php',
-    ),
-    'forecastworksheet' => 
-    array (
-      'name' => 'forecastworksheet',
-      'type' => 'link',
-      'relationship' => 'forecastworksheets_campaigns',
-      'source' => 'non-db',
-      'vname' => 'LBL_FORECAST_WORKSHEET',
-    ),
-    'following' => 
-    array (
-      'massupdate' => false,
-      'name' => 'following',
-      'vname' => 'LBL_FOLLOWING',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Is user following this record',
-      'studio' => 'false',
-      'link' => 'following_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'following_link' => 
-    array (
-      'name' => 'following_link',
-      'type' => 'link',
-      'relationship' => 'campaigns_following',
-      'source' => 'non-db',
-      'vname' => 'LBL_FOLLOWING',
-      'reportable' => false,
-    ),
-    'my_favorite' => 
-    array (
-      'massupdate' => false,
-      'name' => 'my_favorite',
-      'vname' => 'LBL_FAVORITE',
-      'type' => 'bool',
-      'source' => 'non-db',
-      'comment' => 'Favorite for the user',
-      'studio' => 
-      array (
-        'list' => false,
-        'recordview' => false,
-        'basic_search' => false,
-        'advanced_search' => false,
-      ),
-      'link' => 'favorite_link',
-      'rname' => 'id',
-      'rname_exists' => true,
-    ),
-    'favorite_link' => 
-    array (
-      'name' => 'favorite_link',
-      'type' => 'link',
-      'relationship' => 'campaigns_favorite',
-      'source' => 'non-db',
-      'vname' => 'LBL_FAVORITE',
-      'reportable' => false,
-      'workflow' => false,
-      'full_text_search' => 
-      array (
-        'type' => 'favorites',
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'favorite_link' => 
-          array (
-            'type' => 'MyItems',
-            'options' => 
-            array (
-              'field' => 'user_favorites',
-            ),
-          ),
-        ),
-      ),
-    ),
     'assigned_user_id' => 
     array (
       'name' => 'assigned_user_id',
@@ -585,19 +290,6 @@
       'duplicate_merge' => 'disabled',
       'mandatory_fetch' => true,
       'massupdate' => false,
-      'full_text_search' => 
-      array (
-        'enabled' => true,
-        'searchable' => false,
-        'aggregations' => 
-        array (
-          'assigned_user_id' => 
-          array (
-            'type' => 'MyItems',
-            'label' => 'LBL_AGG_ASSIGNED_TO_ME',
-          ),
-        ),
-      ),
     ),
     'assigned_user_name' => 
     array (
@@ -656,6 +348,10 @@
       'studio' => 'false',
       'dbType' => 'id',
       'duplicate_on_record_copy' => 'always',
+      'full_text_search' => 
+      array (
+        'enabled' => true,
+      ),
     ),
     'team_count' => 
     array (
@@ -752,69 +448,263 @@
       'studio' => 'false',
       'reportable' => false,
     ),
+    'tracker_key' => 
+    array (
+      'name' => 'tracker_key',
+      'vname' => 'LBL_TRACKER_KEY',
+      'type' => 'int',
+      'required' => true,
+      'studio' => 
+      array (
+        'editview' => false,
+      ),
+      'len' => '11',
+      'auto_increment' => true,
+      'comment' => 'The internal ID of the tracker used in a campaign; no longer used as of 4.2 (see campaign_trkrs)',
+      'readonly' => true,
+    ),
+    'tracker_count' => 
+    array (
+      'name' => 'tracker_count',
+      'vname' => 'LBL_TRACKER_COUNT',
+      'type' => 'int',
+      'len' => '11',
+      'default' => '0',
+      'comment' => 'The number of accesses made to the tracker URL; no longer used as of 4.2 (see campaign_trkrs)',
+    ),
+    'refer_url' => 
+    array (
+      'name' => 'refer_url',
+      'vname' => 'LBL_REFER_URL',
+      'type' => 'varchar',
+      'len' => '255',
+      'default' => 'http://',
+      'comment' => 'The URL referenced in the tracker URL; no longer used as of 4.2 (see campaign_trkrs)',
+    ),
+    'tracker_text' => 
+    array (
+      'name' => 'tracker_text',
+      'vname' => 'LBL_TRACKER_TEXT',
+      'type' => 'varchar',
+      'len' => '255',
+      'comment' => 'The text that appears in the tracker URL; no longer used as of 4.2 (see campaign_trkrs)',
+    ),
+    'start_date' => 
+    array (
+      'name' => 'start_date',
+      'vname' => 'LBL_START_DATE',
+      'type' => 'date',
+      'audited' => true,
+      'comment' => 'Starting date of the campaign',
+      'validation' => 
+      array (
+        'type' => 'isbefore',
+        'compareto' => 'end_date',
+      ),
+      'enable_range_search' => true,
+      'options' => 'date_range_search_dom',
+    ),
+    'end_date' => 
+    array (
+      'name' => 'end_date',
+      'vname' => 'LBL_END_DATE',
+      'type' => 'date',
+      'audited' => true,
+      'comment' => 'Ending date of the campaign',
+      'importable' => 'required',
+      'required' => true,
+      'enable_range_search' => true,
+      'options' => 'date_range_search_dom',
+    ),
+    'status' => 
+    array (
+      'name' => 'status',
+      'vname' => 'LBL_STATUS',
+      'type' => 'enum',
+      'options' => 'campaign_status_dom',
+      'len' => 100,
+      'audited' => true,
+      'comment' => 'Status of the campaign',
+      'importable' => 'required',
+      'required' => true,
+    ),
+    'impressions' => 
+    array (
+      'name' => 'impressions',
+      'vname' => 'LBL_CAMPAIGN_IMPRESSIONS',
+      'type' => 'int',
+      'default' => 0,
+      'reportable' => true,
+      'comment' => 'Expected Click throughs manually entered by Campaign Manager',
+    ),
     'currency_id' => 
     array (
       'name' => 'currency_id',
-      'dbType' => 'id',
-      'vname' => 'LBL_CURRENCY_ID',
+      'vname' => 'LBL_CURRENCY',
       'type' => 'currency_id',
+      'dbType' => 'id',
+      'group' => 'currency_id',
       'function' => 'getCurrencies',
       'function_bean' => 'Currencies',
       'required' => false,
+      'do_report' => false,
       'reportable' => false,
       'default' => '-99',
+      'comment' => 'Currency in use for the campaign',
     ),
     'base_rate' => 
     array (
       'name' => 'base_rate',
       'vname' => 'LBL_CURRENCY_RATE',
-      'type' => 'text',
-      'dbType' => 'decimal',
+      'type' => 'decimal',
       'len' => '26,6',
-    ),
-    'currency_name' => 
-    array (
-      'name' => 'currency_name',
-      'rname' => 'name',
-      'id_name' => 'currency_id',
-      'vname' => 'LBL_CURRENCY_NAME',
-      'type' => 'relate',
-      'link' => 'currencies',
-      'isnull' => true,
-      'table' => 'currencies',
-      'module' => 'Currencies',
-      'source' => 'non-db',
       'studio' => false,
-      'duplicate_merge' => 'disabled',
-      'function' => 'getCurrencies',
-      'function_bean' => 'Currencies',
-      'massupdate' => false,
     ),
-    'currency_symbol' => 
+    'budget' => 
     array (
-      'name' => 'currency_symbol',
-      'rname' => 'symbol',
-      'id_name' => 'currency_id',
-      'vname' => 'LBL_CURRENCY_SYMBOL',
-      'type' => 'relate',
-      'link' => 'currencies',
-      'isnull' => true,
-      'table' => 'currencies',
-      'module' => 'Currencies',
-      'source' => 'non-db',
-      'studio' => false,
-      'duplicate_merge' => 'disabled',
-      'function' => 'getCurrencySymbols',
-      'function_bean' => 'Currencies',
-      'massupdate' => false,
+      'name' => 'budget',
+      'vname' => 'LBL_CAMPAIGN_BUDGET',
+      'type' => 'currency',
+      'comment' => 'Budgeted amount for the campaign',
     ),
-    'currencies' => 
+    'expected_cost' => 
     array (
-      'name' => 'currencies',
+      'name' => 'expected_cost',
+      'vname' => 'LBL_CAMPAIGN_EXPECTED_COST',
+      'type' => 'currency',
+      'comment' => 'Expected cost of the campaign',
+    ),
+    'actual_cost' => 
+    array (
+      'name' => 'actual_cost',
+      'vname' => 'LBL_CAMPAIGN_ACTUAL_COST',
+      'type' => 'currency',
+      'comment' => 'Actual cost of the campaign',
+    ),
+    'expected_revenue' => 
+    array (
+      'name' => 'expected_revenue',
+      'vname' => 'LBL_CAMPAIGN_EXPECTED_REVENUE',
+      'type' => 'currency',
+      'comment' => 'Expected revenue stemming from the campaign',
+    ),
+    'campaign_type' => 
+    array (
+      'name' => 'campaign_type',
+      'vname' => 'LBL_TYPE',
+      'type' => 'enum',
+      'options' => 'campaign_type_dom',
+      'len' => 100,
+      'audited' => true,
+      'comment' => 'The type of campaign',
+      'importable' => 'required',
+      'required' => true,
+    ),
+    'objective' => 
+    array (
+      'name' => 'objective',
+      'vname' => 'LBL_CAMPAIGN_OBJECTIVE',
+      'type' => 'text',
+      'comment' => 'The objective of the campaign',
+    ),
+    'content' => 
+    array (
+      'name' => 'content',
+      'vname' => 'LBL_CAMPAIGN_CONTENT',
+      'type' => 'text',
+      'comment' => 'The campaign description',
+    ),
+    'prospectlists' => 
+    array (
+      'name' => 'prospectlists',
       'type' => 'link',
-      'relationship' => 'campaigns_currencies',
+      'relationship' => 'prospect_list_campaigns',
       'source' => 'non-db',
-      'vname' => 'LBL_CURRENCIES',
+    ),
+    'emailmarketing' => 
+    array (
+      'name' => 'emailmarketing',
+      'type' => 'link',
+      'relationship' => 'campaign_email_marketing',
+      'source' => 'non-db',
+    ),
+    'queueitems' => 
+    array (
+      'name' => 'queueitems',
+      'type' => 'link',
+      'relationship' => 'campaign_emailman',
+      'source' => 'non-db',
+    ),
+    'log_entries' => 
+    array (
+      'name' => 'log_entries',
+      'type' => 'link',
+      'relationship' => 'campaign_campaignlog',
+      'source' => 'non-db',
+      'vname' => 'LBL_LOG_ENTRIES',
+    ),
+    'tracked_urls' => 
+    array (
+      'name' => 'tracked_urls',
+      'type' => 'link',
+      'relationship' => 'campaign_campaigntrakers',
+      'source' => 'non-db',
+      'vname' => 'LBL_TRACKED_URLS',
+    ),
+    'frequency' => 
+    array (
+      'name' => 'frequency',
+      'vname' => 'LBL_CAMPAIGN_FREQUENCY',
+      'type' => 'enum',
+      'len' => 100,
+      'comment' => 'Frequency of the campaign',
+      'options' => 'newsletter_frequency_dom',
+    ),
+    'leads' => 
+    array (
+      'name' => 'leads',
+      'type' => 'link',
+      'relationship' => 'campaign_leads',
+      'source' => 'non-db',
+      'vname' => 'LBL_LEADS',
+      'link_class' => 'ProspectLink',
+      'link_file' => 'modules/Campaigns/ProspectLink.php',
+    ),
+    'opportunities' => 
+    array (
+      'name' => 'opportunities',
+      'type' => 'link',
+      'relationship' => 'campaign_opportunities',
+      'source' => 'non-db',
+      'vname' => 'LBL_OPPORTUNITIES',
+    ),
+    'contacts' => 
+    array (
+      'name' => 'contacts',
+      'type' => 'link',
+      'relationship' => 'campaign_contacts',
+      'source' => 'non-db',
+      'vname' => 'LBL_CONTACTS',
+      'link_class' => 'ProspectLink',
+      'link_file' => 'modules/Campaigns/ProspectLink.php',
+    ),
+    'accounts' => 
+    array (
+      'name' => 'accounts',
+      'type' => 'link',
+      'relationship' => 'campaign_accounts',
+      'source' => 'non-db',
+      'vname' => 'LBL_ACCOUNTS',
+      'link_class' => 'ProspectLink',
+      'link_file' => 'modules/Campaigns/ProspectLink.php',
+    ),
+    'forecastworksheet' => 
+    array (
+      'name' => 'forecastworksheet',
+      'type' => 'link',
+      'relationship' => 'forecastworksheets_campaigns',
+      'source' => 'non-db',
+      'vname' => 'LBL_FORECAST_WORKSHEET',
     ),
   ),
   'indices' => 
@@ -856,14 +746,13 @@
         0 => 'date_entered',
       ),
     ),
-    'name_del' => 
+    'team_set_campaigns' => 
     array (
-      'name' => 'idx_campaigns_name_del',
+      'name' => 'idx_campaigns_tmst_id',
       'type' => 'index',
       'fields' => 
       array (
-        0 => 'name',
-        1 => 'deleted',
+        0 => 'team_set_id',
       ),
     ),
     0 => 
@@ -911,28 +800,41 @@
         0 => 'end_date',
       ),
     ),
-    'assigned_user_id' => 
-    array (
-      'name' => 'idx_campaigns_assigned_del',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'deleted',
-        1 => 'assigned_user_id',
-      ),
-    ),
-    'team_set_campaigns' => 
-    array (
-      'name' => 'idx_campaigns_tmst_id',
-      'type' => 'index',
-      'fields' => 
-      array (
-        0 => 'team_set_id',
-      ),
-    ),
   ),
   'relationships' => 
   array (
+    'campaigns_favorite' => 
+    array (
+      'lhs_module' => 'Campaigns',
+      'lhs_table' => 'campaigns',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'sugarfavorites',
+      'join_key_lhs' => 'record_id',
+      'join_key_rhs' => 'modified_user_id',
+      'relationship_role_column' => 'module',
+      'relationship_role_column_value' => 'Campaigns',
+      'user_field' => 'created_by',
+    ),
+    'campaigns_following' => 
+    array (
+      'lhs_module' => 'Campaigns',
+      'lhs_table' => 'campaigns',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Users',
+      'rhs_table' => 'users',
+      'rhs_key' => 'id',
+      'relationship_type' => 'user-based',
+      'join_table' => 'subscriptions',
+      'join_key_lhs' => 'parent_id',
+      'join_key_rhs' => 'created_by',
+      'relationship_role_column' => 'parent_type',
+      'relationship_role_column_value' => 'Campaigns',
+      'user_field' => 'created_by',
+    ),
     'campaigns_modified_user' => 
     array (
       'lhs_module' => 'Users',
@@ -968,6 +870,49 @@
       'join_key_rhs' => 'activity_id',
       'relationship_role_column' => 'parent_type',
       'relationship_role_column_value' => 'Campaigns',
+    ),
+    'campaigns_assigned_user' => 
+    array (
+      'lhs_module' => 'Users',
+      'lhs_table' => 'users',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Campaigns',
+      'rhs_table' => 'campaigns',
+      'rhs_key' => 'assigned_user_id',
+      'relationship_type' => 'one-to-many',
+    ),
+    'campaigns_team_count_relationship' => 
+    array (
+      'lhs_module' => 'Teams',
+      'lhs_table' => 'team_sets',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Campaigns',
+      'rhs_table' => 'campaigns',
+      'rhs_key' => 'team_set_id',
+      'relationship_type' => 'one-to-many',
+    ),
+    'campaigns_teams' => 
+    array (
+      'lhs_module' => 'Campaigns',
+      'lhs_table' => 'campaigns',
+      'lhs_key' => 'team_set_id',
+      'rhs_module' => 'Teams',
+      'rhs_table' => 'teams',
+      'rhs_key' => 'id',
+      'relationship_type' => 'many-to-many',
+      'join_table' => 'team_sets_teams',
+      'join_key_lhs' => 'team_set_id',
+      'join_key_rhs' => 'team_id',
+    ),
+    'campaigns_team' => 
+    array (
+      'lhs_module' => 'Teams',
+      'lhs_table' => 'teams',
+      'lhs_key' => 'id',
+      'rhs_module' => 'Campaigns',
+      'rhs_table' => 'campaigns',
+      'rhs_key' => 'team_id',
+      'relationship_type' => 'one-to-many',
     ),
     'campaign_accounts' => 
     array (
@@ -1090,91 +1035,6 @@
       'rhs_key' => 'modified_user_id',
       'relationship_type' => 'one-to-many',
     ),
-    'campaigns_following' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Campaigns',
-      'rhs_table' => 'campaigns',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'subscriptions',
-      'join_key_lhs' => 'created_by',
-      'join_key_rhs' => 'parent_id',
-      'relationship_role_column' => 'parent_type',
-      'relationship_role_column_value' => 'Campaigns',
-      'user_field' => 'created_by',
-    ),
-    'campaigns_favorite' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Campaigns',
-      'rhs_table' => 'campaigns',
-      'rhs_key' => 'id',
-      'relationship_type' => 'user-based',
-      'join_table' => 'sugarfavorites',
-      'join_key_lhs' => 'modified_user_id',
-      'join_key_rhs' => 'record_id',
-      'relationship_role_column' => 'module',
-      'relationship_role_column_value' => 'Campaigns',
-      'user_field' => 'created_by',
-    ),
-    'campaigns_assigned_user' => 
-    array (
-      'lhs_module' => 'Users',
-      'lhs_table' => 'users',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Campaigns',
-      'rhs_table' => 'campaigns',
-      'rhs_key' => 'assigned_user_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'campaigns_team_count_relationship' => 
-    array (
-      'lhs_module' => 'Teams',
-      'lhs_table' => 'team_sets',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Campaigns',
-      'rhs_table' => 'campaigns',
-      'rhs_key' => 'team_set_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'campaigns_teams' => 
-    array (
-      'lhs_module' => 'Campaigns',
-      'lhs_table' => 'campaigns',
-      'lhs_key' => 'team_set_id',
-      'rhs_module' => 'Teams',
-      'rhs_table' => 'teams',
-      'rhs_key' => 'id',
-      'relationship_type' => 'many-to-many',
-      'join_table' => 'team_sets_teams',
-      'join_key_lhs' => 'team_set_id',
-      'join_key_rhs' => 'team_id',
-    ),
-    'campaigns_team' => 
-    array (
-      'lhs_module' => 'Teams',
-      'lhs_table' => 'teams',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Campaigns',
-      'rhs_table' => 'campaigns',
-      'rhs_key' => 'team_id',
-      'relationship_type' => 'one-to-many',
-    ),
-    'campaigns_currencies' => 
-    array (
-      'lhs_module' => 'Currencies',
-      'lhs_table' => 'currencies',
-      'lhs_key' => 'id',
-      'rhs_module' => 'Campaigns',
-      'rhs_table' => 'campaigns',
-      'rhs_key' => 'currency_id',
-      'relationship_type' => 'one-to-many',
-    ),
   ),
   'name_format_map' => 
   array (
@@ -1186,6 +1046,14 @@
   'acls' => 
   array (
     'SugarACLStatic' => true,
+  ),
+  'templates' => 
+  array (
+    'team_security' => 'team_security',
+    'assignable' => 'assignable',
+    'basic' => 'basic',
+    'following' => 'following',
+    'favorite' => 'favorite',
   ),
   'duplicate_check' => 
   array (
@@ -1213,18 +1081,9 @@
     ),
   ),
   'favorites' => true,
-  'templates' => 
-  array (
-    'basic' => 'basic',
-    'following' => 'following',
-    'favorite' => 'favorite',
-    'assignable' => 'assignable',
-    'team_security' => 'team_security',
-    'currency' => 'currency',
-  ),
-  'custom_fields' => false,
   'related_calc_fields' => 
   array (
     0 => 'forecastworksheet',
   ),
+  'custom_fields' => false,
 );

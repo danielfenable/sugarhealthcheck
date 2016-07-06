@@ -35,4 +35,37 @@ class PMSEBusinessRuleImporter extends PMSEImporter
         $this->extension = 'pbr';
         $this->module = 'rst_module';
     }
+
+    /**
+     * Method to save record in database
+     * @param $projectData
+     * @return bool
+     */
+    public function saveProjectData($projectData)
+    {
+        $source_definition = json_decode($projectData['rst_source_definition']);
+        if (isset($projectData[$this->suffix . 'name']) && !empty($projectData[$this->suffix . 'name'])) {
+            $name = $this->getNameWithSuffix($projectData[$this->suffix . 'name']);
+        } else {
+            $name = $this->getNameWithSuffix($projectData[$this->name]);
+        }
+        $projectData['rst_uid'] = PMSEEngineUtils::generateUniqueID();
+        $source_definition->name = $name;
+        $source_definition->id = $projectData['rst_uid'];
+        $projectData['rst_source_definition'] = json_encode($source_definition);
+        unset($projectData[$this->id]);
+        unset($projectData['rst_uid']);
+        $new_uid = parent::saveProjectData($projectData);
+        if ($new_uid) {
+            // Update new id into 'rst_source_definition' field
+            $br_bean = BeanFactory::getBean('pmse_Business_Rules', $new_uid);
+            $def = json_decode($br_bean->rst_source_definition);
+            $def->id = $new_uid;
+            $br_bean->rst_source_definition = json_encode($def);
+            $br_bean->save();
+            return $new_uid;
+        } else {
+            return false;
+        }
+    }
 }

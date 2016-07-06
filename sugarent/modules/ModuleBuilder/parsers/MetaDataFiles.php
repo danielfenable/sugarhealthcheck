@@ -111,8 +111,6 @@ class MetaDataFiles
         MB_PORTALRECORDVIEW       => 'record',
         MB_PORTALLISTVIEW         => 'list',
         MB_PORTALSEARCHVIEW       => 'search',
-        MB_FILTERVIEW             => 'default',
-        MB_BWCFILTERVIEW          => 'SearchFields',
     );
 
     /**
@@ -757,17 +755,6 @@ class MetaDataFiles
                         foreach ($cacheFiles as $cacheFile) {
                             SugarAutoLoader::unlink($cacheFile);
                         }
-                        // Build up to the role dir level
-                        $roleDirs = glob($platformDir . '*/');
-                        foreach ($roleDirs as $roleDir) {
-
-                            $cacheFiles = glob($roleDir . $type . '.php');
-
-                            // Handle nuking the files
-                            foreach ($cacheFiles as $cacheFile) {
-                                SugarAutoLoader::unlink($cacheFile);
-                            }
-                        }
                     }
                 }
             }
@@ -845,7 +832,10 @@ class MetaDataFiles
                         continue;
                     }
                     $meta = !empty($defs['meta']) ? $defs['meta'] : array();
-                    $deps = DependencyManager::getDependenciesForView($meta, ucfirst($view) . "View", $module);
+                    $deps = array_merge(
+                        DependencyManager::getDependenciesForFields($seed->field_defs, ucfirst($view) . "View"),
+                        DependencyManager::getDependenciesForView($meta, ucfirst($view) . "View", $module)
+                        );
                     if (!empty($deps)) {
                         if (!isset($meta['dependencies']) || !is_array($meta['dependencies'])) {
                             $moduleResults[$view]['meta']['dependencies'] = array();
@@ -855,29 +845,16 @@ class MetaDataFiles
                         }
                     }
                 }
-            } elseif ($type == 'dependency') {
-                if (!empty($seed) && !empty($seed->field_defs)) {
-                    $modDeps = DependencyManager::getDependenciesForFields($seed->field_defs);
-                    if (!empty($modDeps)) {
-                        $moduleResults['dependencies'] = array();
-                        foreach ($modDeps as $dep) {
-                            $moduleResults['dependencies'][] = $dep->getDefinition();
-                        }
-                    }
-                }
             }
 
             if ($noCache) {
                 return $moduleResults;
             } else {
                 $basePath = sugar_cached('modules/'.$module.'/clients/'.$platforms[0]);
-                if ($context != null && $context->getHash()) {
-                    $basePath .= '/' . $context->getHash();
-                }
-                sugar_mkdir($basePath,null,true);
-    
-                $output = "<?php\n\$clientCache['".$module."']['".$platforms[0]."']['".$type."'] = ".var_export($moduleResults,true).";\n\n";
-                sugar_file_put_contents_atomic($basePath.'/'.$type.'.php', $output);
+               sugar_mkdir($basePath,null,true);
+
+               $output = "<?php\n\$clientCache['".$module."']['".$platforms[0]."']['".$type."'] = ".var_export($moduleResults,true).";\n\n";
+               sugar_file_put_contents_atomic($basePath.'/'.$type.'.php', $output);
             }
         }
     }
@@ -1070,7 +1047,7 @@ class MetaDataFiles
                     if (isset($results[$subpath]['controller'][$fileInfo['platform']])) {
                         continue;
                     }
-                    $controller = file_get_contents($fileInfo['path']);
+                    $controller = self::trimLicense(file_get_contents($fileInfo['path'], "js"));
                     $results[$subpath]['controller'][$fileInfo['platform']] = $controller;
                     break;
                 case 'hbs':
@@ -1205,12 +1182,6 @@ class MetaDataFiles
             }
         }
 
-        // Allow modules that set their subpanels dynamically to flow down to
-        // the client
-        if (isset($mergeDefs['dynamic'])) {
-            $currentDefs['dynamic'] = $mergeDefs['dynamic'];
-        }
-
         return $currentDefs;
     }
 
@@ -1308,12 +1279,17 @@ class MetaDataFiles
     /**
      * Used to remove the sugarcrm license header from component files that are going to be rolled into a JSON response
      * @param string $text
+     * @param string $type
      *
      * @return string
      */
-    protected static function trimLicense($text) {
+    protected static function trimLicense($text, $type = "hbs") {
         $start = "{{!";
         $end = "}}";
+        if ($type == "js") {
+            $start = "/**";
+            $end = "*/";
+        }
         if (substr($text, 0, 3) == $start) {
             $endOfLicense = strpos($text, $end) + strlen($end);
             $text = substr($text, $endOfLicense);

@@ -29,8 +29,7 @@ class ForecastManagerWorksheetHooks
     /**
      * Set the Manager Saved Flag
      *
-     * If the person saving the worksheet is the one who the worksheet is assigned to and
-     * it's a draft_save_type from the manager worksheet view, then set the flag to be true
+     * If the person saving the worksheet is the one who the worksheet is assigned to, then set the flag to be true
      *
      * @param ForecastManagerWorksheet $worksheet
      * @param $event
@@ -39,7 +38,7 @@ class ForecastManagerWorksheetHooks
     public static function setManagerSavedFlag(ForecastManagerWorksheet $worksheet, $event, $params = array())
     {
         if ($event == 'before_save' && $worksheet->draft == true
-            && $worksheet->manager_saved == false && in_array($worksheet->draft_save_type, array('commit','draft'))
+            && $worksheet->manager_saved == false && $worksheet->draft_save_type != 'assign_quota'
             && $worksheet->assigned_user_id == $worksheet->modified_user_id) {
                 $worksheet->manager_saved = true;
         }

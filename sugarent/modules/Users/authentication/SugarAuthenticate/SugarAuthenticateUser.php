@@ -54,90 +54,35 @@ class SugarAuthenticateUser{
 	    return !empty($row);
 	}
 
-    /**
-     * this is called when a user logs in
-     *
-     * @param STRING $name
-     * @param STRING $password
-     * @param STRING $fallback - is this authentication a fallback from a failed authentication
-     *
-     * @return boolean
-     */
-    function loadUserOnLogin($name, $password, $fallback = false, $PARAMS = array())
-    {
-        $passwordEncrypted = false;
-        if (empty($name) && empty($password) && !empty($_REQUEST['MSID'])) {
-            $user_id = $this->checkForSeamlessLogin($_REQUEST['MSID']);
-        } else {
-            $GLOBALS['log']->debug("Starting user load for " . $name);
-            if (empty($name) || empty($password)) {
-                return false;
-            }
-            $input_hash = $password;
-            if (!empty($PARAMS) && isset($PARAMS['passwordEncrypted']) && $PARAMS['passwordEncrypted']) {
-                $passwordEncrypted = true;
-            }// if
-            if (!$passwordEncrypted) {
-                $input_hash = SugarAuthenticate::encodePassword($password);
-            } // if
-            $user_id = $this->authenticateUser($name, $input_hash, $fallback);
-            if (empty($user_id)) {
-                $GLOBALS['log']->fatal('SECURITY: User authentication for ' . $name . ' failed');
+	/**
+	 * this is called when a user logs in
+	 *
+	 * @param STRING $name
+	 * @param STRING $password
+	 * @param STRING $fallback - is this authentication a fallback from a failed authentication
+	 * @return boolean
+	 */
+	function loadUserOnLogin($name, $password, $fallback = false, $PARAMS = array()) {
+		global $login_error;
 
-                return false;
-            }
-        }
-
-        $this->loadUserOnSession($user_id);
-        
-        // Only call rehash when we have a clear text password
-        if (!$passwordEncrypted && !empty($GLOBALS['current_user']->id)) {
-            $GLOBALS['current_user']->rehashPassword($password);
-        }
-
-        return true;
-    }
-
-    /**
-     * @param string $sessionId
-     * @return bool
-     */
-    protected function checkForSeamlessLogin($sessionId)
-    {
-        //allow a user to pick up a session from another application.
-        session_id($sessionId);
-        session_start();
-        if (isset($_SESSION['user_id']) && isset($_SESSION['seamless_login'])) {
-            unset($_SESSION['seamless_login']);
-            $sessionIp = null;
-            if (isset($_SESSION['seamless_login_ip'])) {
-                $sessionIp = $_SESSION['seamless_login_ip'];
-                unset($_SESSION['seamless_login_ip']);
-            } elseif (isset($_SESSION['ipaddress'])) {
-                $sessionIp = $_SESSION['ipaddress'];
-            }
-
-            if ($sessionIp) {
-                $clientIp = query_client_ip();
-                if (!validate_ip($clientIp, $sessionIp)) {
-                    $GLOBALS['log']->fatal(sprintf(
-                        'Seamless login IP address mismatch: SESSION IP: %s, CLIENT IP: %s',
-                        $_SESSION['seamless_login_ip'],
-                        $clientIp
-                    ));
-                    session_write_close();
-                                    $_SESSION = array();
-                    return false;
-                }
-            }
-            return $_SESSION['user_id'];
-        }
-        session_write_close();
-                        $_SESSION = array();
-
-        return false;
-    }
-
+		$GLOBALS['log']->debug("Starting user load for ". $name);
+		if(empty($name) || empty($password)) return false;
+		$input_hash = $password;
+		$passwordEncrypted = false;
+		if (!empty($PARAMS) && isset($PARAMS['passwordEncrypted']) && $PARAMS['passwordEncrypted']) {
+			$passwordEncrypted = true;
+		}// if
+		if (!$passwordEncrypted) {
+			$input_hash = SugarAuthenticate::encodePassword($password);
+		} // if
+		$user_id = $this->authenticateUser($name, $input_hash, $fallback);
+		if(empty($user_id)) {
+			$GLOBALS['log']->fatal('SECURITY: User authentication for '.$name.' failed');
+			return false;
+		}
+		$this->loadUserOnSession($user_id);
+		return true;
+	}
 	/**
 	 * Loads the current user bassed on the given user_id
 	 *

@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,19 +12,15 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-/*********************************************************************************
- * Description:
- * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc. All Rights
- * Reserved. Contributor(s): contact@synolia.com - www.synolia.com
- * *******************************************************************************/
+	
+
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="7%" class="dataLabel"><img height="50" src="modules/Connectors/connectors/sources/ext/rest/dnb/images/DNB_corp30_pos.png"></td><td>Usługa D&amp;B for Sugar® zapewnia subskrybentom D&amp;B dostęp do najnowszych, pełnych i dokładnych informacji biznesowych, łącznie z firmowymi i osobowymi danymi kontaktowymi, informacjami o konkurentach, firmach rodzinnych, finansach, aktualnościach i serwisach społecznościowych. Aby dowiedzieć się więcej o usłudze D&amp;B for Sugar®, odwiedź stronę <a  target="_blank" href="http://www.dnb.com/partner/dnb-for-sugarcrm.html">Dun &amp; Bradstreet</a>.</td></tr></table>',
-    'LBL_NAME' => 'Nazwa użytkownika D&B',
-    'LBL_ID' => 'Nazwa użytkownika D&B',
-    'company_url' => 'URL',
-    'dnb_username' => 'Nazwa użytkownika D&B',
-    'dnb_password' => 'Klucz aplikacji D&B',
-    'dnb_env' => 'Środowisko D&B'
+  'LBL_ID' => 'Nazwa użytkownika DNB',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Konektor DNB</td></tr></table>',
+  'LBL_NAME' => 'Nazwa użytkownika DNB',
+  'company_url' => 'Adres URL',
+  'dnb_env' => 'Środowisko DNB',
+  'dnb_password' => 'Klucz aplikacji DNB',
+  'dnb_username' => 'Nazwa użytkownika DNB',
 );
 
-?>

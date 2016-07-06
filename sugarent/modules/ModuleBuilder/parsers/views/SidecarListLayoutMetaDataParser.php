@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
@@ -25,6 +24,7 @@ class SidecarListLayoutMetaDataParser extends ListLayoutMetaDataParser
      */
     protected $invalidTypes = array(
         'base' => array('iframe', 'encrypt', 'html', 'currency_id'),
+        'portal' => array('iframe', 'encrypt', 'html','currency', 'currency_id'),
     );
 
     /**
@@ -40,6 +40,7 @@ class SidecarListLayoutMetaDataParser extends ListLayoutMetaDataParser
         MB_SIDECARPOPUPVIEW,
         MB_SIDECARDUPECHECKVIEW,
         MB_WIRELESSLISTVIEW,
+        MB_PORTALLISTVIEW,
     );
 
     /*
@@ -125,7 +126,7 @@ class SidecarListLayoutMetaDataParser extends ListLayoutMetaDataParser
             // for studio we don't know all cases, value can be array or 'visible' etc.
             // because of that we use expected studio not to be false or 'false'.
             // when we'll know all values we should replace that condition with suitable one.
-            && (!isset($field['studio']) || ($field['studio'] !== false && $field['studio'] !== 'false')
+            && (!isset($field['studio']) || ($field['studio'] !== false && $field['studio'] != 'false')
         );
     }
 
@@ -707,7 +708,6 @@ class SidecarListLayoutMetaDataParser extends ListLayoutMetaDataParser
 
     /**
      * Sets the sortable property of the fielddef
-     * Also see SidecarPortalListLayoutMetaDataParser::setDefSortable() for special handling on portal list view.
      *
      * @param string $fieldName  The name of the field being worked on
      * @param array $fieldDef The current fielddef collection for a field

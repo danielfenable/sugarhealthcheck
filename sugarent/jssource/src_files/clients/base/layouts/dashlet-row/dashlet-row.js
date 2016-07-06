@@ -22,7 +22,7 @@
     plugins: ['Tooltip'],
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     initialize: function(options) {
         this.index = options.meta.index;
@@ -38,7 +38,7 @@
     /**
      * Updates and sets metadata based on the meta param
      * @param {Object} meta
-     * @return {Object} meta
+     * @returns {Object} meta
      */
     setMetadata: function(meta) {
         meta.components = meta.components || [];
@@ -76,7 +76,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     _placeComponent: function(comp, def, prepend) {
         var $body = this.$el.children(".dashlet-row");
@@ -100,7 +100,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     addComponent: function(component, def) {
         if(this.prependComponent) {
@@ -150,10 +150,6 @@
         _.each(this._components, function(component, index){
             component.index = this.index + '' + index;
         }, this);
-
-        //init components of the most recently created row
-        this._components[this._components.length-2].initComponents();
-
         this.setMode(this.model.mode);
     },
 
@@ -208,7 +204,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     setMode: function(type) {
         if(type === 'edit' || (this.model._previousMode === 'edit' && type === 'drag')) {
@@ -285,7 +281,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     _dispose: function() {
         this.$el.children(".dashlet-row").sortable("destroy");

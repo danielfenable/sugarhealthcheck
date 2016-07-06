@@ -97,9 +97,7 @@ class ImportFileSplitter
             return false;
         $importFile = new ImportFile($this->_sourceFile,$delimiter,$enclosure,false);
         $filecount = 0;
-        // to convert the stream file format (upload://) to file system format (upload/)
-        $fileName = str_replace('://', '/', $this->_sourceFile) . '-' . $filecount;
-        $fw = sugar_fopen($fileName, 'w');
+        $fw = sugar_fopen("{$this->_sourceFile}-{$filecount}","w");
         $count = 0;
         // skip first row if we have a header row
         if ( $has_header && $importFile->getNextRow() ) {
@@ -113,8 +111,7 @@ class ImportFileSplitter
             if ( $count >= $this->_recordThreshold ) {
                 fclose($fw);
                 $filecount++;
-                $fileName = str_replace('://', '/', $this->_sourceFile) . '-' . $filecount;
-                $fw = sugar_fopen($fileName, 'w');
+                $fw = sugar_fopen("{$this->_sourceFile}-{$filecount}","w");
                 $count = 0;
             }
             // Bug 25119: Trim the enclosure string to remove any blank spaces that may have been added.

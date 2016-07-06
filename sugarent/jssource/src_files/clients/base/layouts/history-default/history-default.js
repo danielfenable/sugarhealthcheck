@@ -27,7 +27,7 @@
      * Extend to return `false` the first time this method is called, so the
      * pane is always collapsed on first load.
      *
-     * @inheritdoc
+     * @inheritDoc
      */
     isSidePaneVisible: function() {
         if (this._isSidePaneVisibleCalledOnce !== true) {
@@ -42,7 +42,7 @@
      * Removes the cache entry because it is unnecessary to keep it since we
      * reset it on first load.
      *
-     * @inheritdoc
+     * @inheritDoc
      */
     _dispose: function() {
         app.user.lastState.remove(this._hideLastStateKey);

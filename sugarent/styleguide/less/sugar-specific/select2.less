@@ -64,7 +64,9 @@
   .select2-search-field {
     height: 20px;
     input {
-      padding: 0 6px;
+      padding: 0 0 0 8px;
+      line-height: 19px;
+      height: 20px;
     }
   }
   .select2-choice-type {
@@ -88,11 +90,6 @@
       outline: 0;
       outline: ~"thin dotted \9";
       background: @grayDark;
-    }
-    &.drag-drop-selected {
-      outline: 0;
-      outline: ~"thin dotted \9";
-      background: @blue;
     }
   }
 
@@ -129,7 +126,7 @@
     .select2-search-choice {
       div {
         font-size: 11px;
-        line-height: 13px;
+        line-height: 12px;
         display: inline;
       }
       a.select2-search-choice-close {
@@ -159,10 +156,6 @@
           color: @white;
         }
       }
-      &.more {
-        background-color: @blue;
-        cursor: pointer;
-      }
     }
     &.attachments .select2-search-choice {
       div {
@@ -178,9 +171,9 @@
       padding: 0;
       position: relative;
       a.select2-search-choice-close {
+        top: 3px;
         position: absolute;
-        top: 1px;
-        right: 4px;
+        right: 7px;
         left: auto;
         &::before {
           line-height: 14px;
@@ -209,8 +202,12 @@
 
     &.select2field {
       .select2-search-field {
-        input.select2-active {
-          background: transparent !important;
+        input {
+          padding: 6px 4px;
+          margin: -6px 0 0;
+          &.select2-active {
+            background: transparent !important;
+          }
         }
       }
     }
@@ -271,6 +268,12 @@
           }
         }
       }
+      .select2-search-field {
+        input {
+          padding: 6px 4px;
+          margin: -1px 0 0;
+        }
+      }
     }
   }
   .select2-select-legend {
@@ -290,8 +293,6 @@
     line-height: 26px;
     height: 26px;
     .border-radius(3px);
-    //TODO: added by UIUX-1795
-    padding-left: 6px;
     .box-shadow(none);
     &:focus {
       border-color: @linkColor;
@@ -326,20 +327,13 @@
       }
     }
   }
-  &.select2-container-active {
-    &.required .select2-choice {
-      border-color: @linkColor;
-    }
-    .select2-choice {
-      border-color: @linkColor;
-      outline: 0;
-      outline: ~"thin dotted \9"; /* IE6-9 */
-    }
+  &.select2-container-active .select2-choice, &.required.select2-container-active .select2-choice {
+    border-color: @linkColor;
+    outline: 0;
+    outline: ~"thin dotted \9"; /* IE6-9 */
   }
   &.required .select2-choice {
-    //TODO: find out why this was set to light gray
-    //border-color: darken(@grayLighter, 10%);
-    border-color: @grayLight;;
+    border-color: darken(@grayLighter, 10%);
     &:focus {
       border-color: @linkColor !important;
     }
@@ -347,8 +341,8 @@
 }
 
 .selected_recipients .select2-container.select2-container-multi.select2-choices-pills-close.select2-container-disabled .select2-choices {
-  // needed for address book recipients
-  background-color: @white;
+ // needed for address book recipients
+ background-color: @white;
 }
 
 .select2-drop-mask {
@@ -404,7 +398,7 @@
 .select2-container-multi .select2-choices {
   .select2-search-field input {
     margin:0;
-    padding: 0 6px;
+    padding: 3px 7px;
   }
   .select2-search-choice {
     filter: none;
@@ -558,7 +552,6 @@
 // Added for currency field, or any field that has
 // a select2 field at end of input
 .select2-addon {
-  min-height: 28px;
   .input-append {
     width: 50%;
     .calcWidth(~"100% - 100px");
@@ -594,83 +587,18 @@
   margin: 0;
   .clearfix();
   .tag-wrapper {
-    float: left;
-    max-width: 100%;
-    padding: 3px 6px 2px;
-    margin: 0 4px 4px 0;
-    background: @gray;
-    .box-sizing(border-box);
-    .border-radius(9px);
-    .tag-name {
-      font-size: @fontSizeSmall;
-      line-height: 12px;
-      color: @white;
-      font-weight: 600;
-    }
-  }
-}
-
-// Added for relate field and pills inside relate field
-.select2-choices-pills-close.same-size-pills.select2-container.select2-container-multi {
-  .select2-choices {
-    max-height: 60px;
-    overflow-y: auto;
-    .select2-search-choice {
-      padding-right: 15px;
-      width: 70px;
-      .select2-search-choice-close {
-        position: absolute;
-        right: 2px;
-        left: auto;
-        top: 2px;
+      float: left;
+      max-width: 100%;
+      padding: 3px 6px 2px;
+      margin: 0 4px 4px 0;
+      background: @gray;
+      .box-sizing(border-box);
+      .border-radius(9px);
+      .tag-name {
+        font-size: @fontSizeSmall;
+        line-height: 12px;
+        color: @white;
+        font-weight: 600;
       }
-    }
-  }
-}
-
-// Drag-and-drop between recipient fields
-.drag-drop-select2-helper {
-  background: transparent;
-  .border-radius(11px);
-  z-index: 2;
-  span {
-    font-size: 11px;
-    font-weight: bold;
-    .box-shadow(none);
-    line-height: 12px;
-    .border-radius(11px);
-    background: @blue;
-    color: @white;
-    padding: 2px 4px 2px 6px;
-    white-space: nowrap;
-    outline: 0;
-    outline: ~"thin dotted \9";
-    display: none;
-    &:nth-child(1) {
-      display: block;
-      position: relative;
-      z-index: 3;
-    }
-    &:nth-child(2) {
-      top: 2px;
-      background: #aaa;
-      left: 2px;
-      right: -2px;
-      z-index: 2;
-    }
-    &:nth-child(3) {
-      top: 4px;
-      background: #ccc;
-      left: 4px;
-      right: -4px;
-      z-index: 1;
-    }
-    &:nth-child(2), &:nth-child(3) {
-      display: block;
-      position: absolute;
-      overflow: hidden;
-      .box-shadow(inset 0 0 0 1px rgba(0,0,0,.25));
-      color: transparent;
-    }
   }
 }

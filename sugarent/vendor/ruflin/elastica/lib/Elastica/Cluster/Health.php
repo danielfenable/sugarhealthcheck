@@ -1,7 +1,6 @@
 <?php
 
 namespace Elastica\Cluster;
-
 use Elastica\Client;
 use Elastica\Cluster\Health\Index;
 use Elastica\Request;

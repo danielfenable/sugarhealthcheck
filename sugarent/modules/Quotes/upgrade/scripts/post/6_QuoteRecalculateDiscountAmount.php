@@ -36,7 +36,7 @@ class SugarUpgradeQuoteRecalculateDiscountAmount extends UpgradeScript
                        AND discount_amount != '0.000000'
                        AND ( quote_id IS NOT NULL
                               OR quote_id <> '' )
-                       AND deleted = 0";
+                       AND deleted = 0;";
 
             $result = $this->db->query($sql);
             $affected = $this->db->getAffectedRowCount($result);

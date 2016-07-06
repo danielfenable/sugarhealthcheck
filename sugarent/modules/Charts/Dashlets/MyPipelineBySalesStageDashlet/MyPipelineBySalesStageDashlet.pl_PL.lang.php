@@ -1,5 +1,6 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,10 +12,14 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: MyPipelineBySalesStageDashlet.en_us.lang.php 29243 2007-11-06 20:04:35Z awu $
-
+/*********************************************************************************
+ * MyPipelineBySalesStageDashlet.pl_pl.lang.php for SugarCRM 6.5.0
+ * Translator: eVolpe
+ * All Rights Reserved.
+ * Any bugs report welcome: support@evolpe.pl
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
 
 $dashletStrings['MyPipelineBySalesStageDashlet'] = array('LBL_TITLE'       => 'Moje szanse przez źródło pozyskania i etap sprzedaży',
-                                                         'LBL_DESCRIPTION' => 'Pionowy wykres kolumnowy mojego raportu szans sprzedaży',
+                                                         'LBL_DESCRIPTION' => 'Wykres kolumnowy moich Szans przez źródło pozyskania i etap sprzedaży',
                                                          'LBL_REFRESH'     => 'Odśwież wykres');
-?>

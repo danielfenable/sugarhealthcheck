@@ -14,34 +14,17 @@
  * @extends View.View
  */
 ({
-    className: 'columns',
+    className: 'container-fluid',
 
     // FIXME: Change this to 'UnsavedChanges' when SC-4167 gets merged.
     plugins: ['Editable'],
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
-        options.meta = this._getMeta(options);
         this._super('initialize', [options]);
         this._bindEvents();
-    },
-
-    /**
-     * Merges the base metadata with custom view metadata.
-     *
-     * @protected
-     * @param {Object} options The options hash containing the custom
-     *   metadata.
-     * @return {Object} The metadata this view should use.
-     */
-    _getMeta: function(options) {
-        return  _.extend({},
-            app.metadata.getView(null, 'sweetspot-config-theme'),
-            app.metadata.getView(this.module, 'sweetspot-config-theme'),
-            options.meta
-        );
     },
 
     /**
@@ -55,7 +38,7 @@
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _renderHtml: function() {
         this._super('_renderHtml');

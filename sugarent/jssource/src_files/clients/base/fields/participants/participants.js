@@ -15,7 +15,7 @@
  *
  * @class View.Fields.Base.ParticipantsField
  * @alias SUGAR.App.view.fields.BaseParticipantsField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     fieldTag: 'input.select2',
@@ -50,9 +50,11 @@
      * View.Fields.Base.ParticipantsField#previewRow, and
      * View.Fields.Base.ParticipantsField#search methods so that these event
      * handlers do not execute too frequently.
+     *
+     * The current user is added to the collection if the model is new.
      */
     initialize: function(options) {
-        var fieldValue;
+        var currentUser, fieldValue;
 
         this._super('initialize', [options]);
 
@@ -65,11 +67,16 @@
         this.search = _.debounce(this.search, app.config.requiredElapsed || 500);
 
         if (this.model.isNew()) {
-            try {
-                fieldValue = this.getFieldValue();
-            } catch (e) {
+            fieldValue = this.model.get(this.name);
+            currentUser = _.extend({_module: 'Users'}, app.utils.deepCopy(app.user));
+
+            if (fieldValue instanceof app.BeanCollection) {
+                fieldValue.add(currentUser);
+            } else {
                 // create a new virtual collection
                 this.model.set(this.name, []);
+                // add to the virtual collection
+                this.model.get(this.name).add(currentUser);
             }
         }
 
@@ -81,9 +88,6 @@
 
         // caches the string "More {{field label}}..." for use in the template
         this.showMoreTemplate = app.lang.get('LBL_SHOW_MORE_GENERIC', this.module, {name: this.label});
-
-        // adjust the start and end date/time indicator on the scheduler to fit the resized window
-        $(window).on('resize.' + this.cid, _.bind(this.adjustStartAndEnd, this));
     },
 
     /**
@@ -123,7 +127,7 @@
             this.clearFreeBusyInformationCache();
             this.renderTimelineInfo();
         }, this);
-        this.model.on('change:date_end', this.adjustStartAndEnd, this);
+        this.model.on('change:date_end', this.markStartAndEnd, this);
         this.model.on('sync:' + this.name, this.hideShowMoreButton, this);
 
         // Fetch free/busy information again on save to get the latest.
@@ -234,7 +238,7 @@
 
         if ((this.getTimelineBlocks().length > 0) && (!_.isEmpty(startAndEndDates))) {
             this.renderTimelineHeader();
-            this.adjustStartAndEnd();
+            this.markStartAndEnd();
             this.fetchFreeBusyInformation();
         }
     },
@@ -284,56 +288,49 @@
     },
 
     /**
-     * Adjust the start and end overlay on the timeline for all users.
+     * Mark the start and end datetime on the timeline for all participants.
      */
-    adjustStartAndEnd: function() {
+    markStartAndEnd: function() {
         var startAndEndDates = this.getStartAndEndDates(),
-            timelineBlockStartIndex, //index of timeline block when the meeting starts
-            timelineBlockEndIndex, //index of timeline block when the meeting ends
-            $timelineBlocks, //all timeline blocks in a given timeline
-            $startBlock, //timeline block when the meeting starts
-            $endBlock, //timeline block when the meeting ends
-            overlayLeft, //left position of the overlay
-            overlayWidth = 1, //width of the overlay
-            $startEndOverlays = this.$('.start_end_overlay'), //all overlays
-            firstUserOverlay, //first user overlay
-            firstUserData; //first user module and ID
+            timelineBlockStart,
+            timelineBlockEnd,
+            $timelineBlocks;
 
-        if (_.isEmpty(startAndEndDates) || ($startEndOverlays.length === 0)) {
+        this.getTimelineBlocks().removeClass('schedule start end start-end');
+
+        if (_.isEmpty(startAndEndDates)) {
             return;
         }
 
-        // Get timeline blocks that represents the start and end datetime for the meeting
-        firstUserOverlay = $startEndOverlays.first();
-        firstUserData = firstUserOverlay.closest('.participant').data();
-        $timelineBlocks = this.getTimelineBlocks(firstUserData.module, firstUserData.id);
-        timelineBlockStartIndex = startAndEndDates.meetingStart.diff(startAndEndDates.timelineStart, 'hours', true) * 4;
-        timelineBlockEndIndex = (startAndEndDates.meetingEnd.diff(startAndEndDates.timelineStart, 'hours', true) * 4) - 1;
-        $startBlock = $timelineBlocks.eq(timelineBlockStartIndex);
-        $endBlock = $timelineBlocks.eq(timelineBlockEndIndex);
+        timelineBlockStart = startAndEndDates.meetingStart.diff(startAndEndDates.timelineStart, 'hours', true) * 4;
+        timelineBlockEnd = (startAndEndDates.meetingEnd.diff(startAndEndDates.timelineStart, 'hours', true) * 4) - 1;
 
-        if ($endBlock.length === 0) {
-            $endBlock = $timelineBlocks.last();
-            $startEndOverlays.removeClass('right_border');
-        } else {
-            $startEndOverlays.addClass('right_border');
-        }
+        this.getFieldValue().each(function(participant) {
+            $timelineBlocks = this.getTimelineBlocks(participant.module, participant.get('id'));
 
-        // calculate the left position of the overlay
-        overlayLeft = $startBlock.position().left;
+            // start and end datetime is the same
+            if (timelineBlockStart - timelineBlockEnd === 1) {
+                $timelineBlocks.eq(timelineBlockStart).addClass('start-end');
+                return;
+            }
 
-        // calculate the width of the overlay for meetings that last more than 0 minutes
-        if (timelineBlockEndIndex - timelineBlockStartIndex >= 0) {
-            // Note: Need to use getBoundingClientRect() so that we can get subpixel measurements.
-            overlayWidth = $endBlock.position().left - overlayLeft + $endBlock.get(0).getBoundingClientRect().width;
-            // subtract left and right border width
-            overlayWidth -= parseInt(firstUserOverlay.css('border-left-width'), 10) + parseInt(firstUserOverlay.css('border-right-width'), 10);
-        }
+            // mark start and end datetime range
+            $timelineBlocks.each(function(index, timelineBlock) {
+                var $block = $(timelineBlock);
 
-        $startEndOverlays.css({
-            left: overlayLeft + 'px',
-            width: overlayWidth + 'px'
-        });
+                if ((index >= timelineBlockStart) && (index <= timelineBlockEnd)) {
+                    $block.addClass('schedule');
+                }
+
+                if (index === timelineBlockStart) {
+                    $block.addClass('start');
+                }
+
+                if (index === timelineBlockEnd) {
+                    $block.addClass('end');
+                }
+            });
+        }, this);
     },
 
     /**
@@ -345,7 +342,7 @@
             startAndEndDates = this.getStartAndEndDates(),
             participants = this.getFieldValue();
 
-        if (this.freebusy.isFetching() || _.isEmpty(startAndEndDates)) {
+        if (this.freebusy.isFetching()) {
             return;
         }
 
@@ -506,36 +503,22 @@
     getStartAndEndDates: function() {
         var dateStartString = this.model.get('date_start'),
             dateEndString = this.model.get('date_end'),
-            durationHours = this.model.get('duration_hours'),
-            durationMins = this.model.get('duration_minutes'),
             meetingStart,
             meetingEnd,
             result = {};
 
-        // must have date_start, but if we don't have date_end we need to have at least
-        // duration_hours or duration_minutes to judge an end time
-        if (!dateStartString ||
-            (!dateEndString && !(_.isFinite(durationHours) || _.isFinite(durationMins)))) {
+        if (!dateStartString || !dateEndString) {
             return result;
         }
 
         meetingStart = app.date(dateStartString);
-
-        // if we don't have the date_end string, create it from the duration times
-        if (dateEndString) {
-            meetingEnd = app.date(dateEndString);
-        } else {
-            meetingEnd = app.date(meetingStart)
-                .add(durationHours || 0, 'hours')
-                .add(durationMins || 0, 'minutes');
-        }
-
+        meetingEnd = app.date(dateEndString);
 
         if (!meetingStart.isAfter(meetingEnd)) {
             result.meetingStart = meetingStart;
             result.meetingEnd = meetingEnd;
-            result.timelineStart = app.date(meetingStart).subtract(this.timelineStart, 'hours').minutes(0);
-            result.timelineEnd = app.date(result.timelineStart).add(this.timelineLength, 'hours').minutes(0);
+            result.timelineStart = app.date(meetingStart).subtract('hours', this.timelineStart).minutes(0);
+            result.timelineEnd = app.date(result.timelineStart).add('hours', this.timelineLength).minutes(0);
         }
 
         return result;
@@ -694,11 +677,20 @@
         };
 
         deletable = function(participant) {
+            var assignedUser, undeletable;
+
             if (participant.deletable === false) {
                 return false;
             }
 
-            return participant.id !== self.model.get('assigned_user_id');
+            assignedUser = self.model.get('assigned_user_id');
+            undeletable = [assignedUser];
+
+            if (app.user.id !== assignedUser && self.model.isNew()) {
+                undeletable.push(app.user.id);
+            }
+
+            return !_.contains(undeletable, participant.id);
         };
 
         preview = function(participant) {
@@ -778,7 +770,6 @@
         }
 
         this.getFieldElement().select2('open');
-        this.adjustStartAndEnd();
     },
 
     /**
@@ -806,7 +797,6 @@
             this.$('[name=newRow]').hide();
             this.$('button[data-action=addRow]').show();
             this.$('.participants-schedule').removeClass('new');
-            this.adjustStartAndEnd();
         }
     },
 
@@ -845,8 +835,8 @@
         var options;
 
         options = {
-            fields: this._getRelatedFieldNames(),
-            order_by: 'name:asc'
+            fields: ['id', 'full_name', 'email', 'picture', 'accept_status_' + this.module.toLowerCase()],
+            order_by: 'full_name:asc'
         };
 
         try {
@@ -886,7 +876,7 @@
      * passed once it has been loaded
      */
     search: function(query) {
-        var data, fields, participants, success;
+        var data, participants, success;
 
         data = {
             results: [],
@@ -907,19 +897,12 @@
         };
 
         try {
-            fields = _.union(
-                // fields that are needed for the detail, edit, and preview templates
-                this._getRelatedFieldNames(),
-                // fields for which there may be a match to show
-                ['full_name', 'first_name', 'last_name', 'email', 'account_name']
-            );
-
             participants = this.getFieldValue();
             participants.search({
                 query: query.term,
                 success: success,
                 search_fields: ['full_name', 'email', 'account_name'],
-                fields: fields,
+                fields: ['id', 'full_name', 'first_name', 'last_name', 'email', 'account_name', 'picture'],
                 complete: function() {
                     query.callback(data);
                 }
@@ -928,27 +911,6 @@
             app.logger.warn(e);
             query.callback(data);
         }
-    },
-
-    /**
-     * Returns an array of strings representing the names of related fields.
-     *
-     * The related fields are defined under `this.def.fields`. Some of these
-     * fields may be objects, while others strings.
-     *
-     * @return {Array}
-     * @private
-     */
-    _getRelatedFieldNames: function() {
-        var fields = this.def.fields || [];
-
-        if (fields.length === 0) {
-            return [];
-        }
-
-        return _.map(fields, function(field) {
-            return _.isObject(field) ? field.name : field;
-        });
     },
 
     /**
@@ -969,27 +931,5 @@
         });
 
         return this.searchResultTemplate(result);
-    },
-
-    /**
-     * Remove resize event.
-     * @inheritdoc
-     * @private
-     */
-    _dispose: function() {
-        $(window).off('resize.' + this.cid);
-        this._super('_dispose');
-    },
-
-    /**
-     * We do not support this field for preview edit
-     * @inheritdoc
-     */
-    _loadTemplate: function() {
-        this._super('_loadTemplate');
-
-        if (this.view.name === 'preview') {
-            this.template = app.template.getField('participants', 'preview', this.model.module);
-        }
     }
 })

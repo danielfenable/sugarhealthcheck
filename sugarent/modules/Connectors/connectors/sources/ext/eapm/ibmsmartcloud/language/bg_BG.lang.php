@@ -1,6 +1,7 @@
 <?php
-
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,23 +12,11 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
 
 $connector_strings = array (
-    'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Получете ключ и таен ключ от IBM SmartCloud, като регистрирате Вашата инсталация на Sugar като ново приложение.<br>
-&nbsp;<br>
-Стъпки за регистриране на Вашата инсталация:<br>
-&nbsp;<br>
-<ol>
-<li>Влезте в профила си в IBM SmartCloud (трябва да сте администратор)</li>
-<li>Отидете на Администриране -> Управление на организация</li>
-<li>Отидете на връзката „Интегрирани приложения на трети страни“ на страничната лента и разрешете SugarCRM за всички потребители.</li>
-<li>Отидете на „Вътрешни приложения“ на страничната лента и щракнете върху „Регистриране на приложение“</li>
-<li>Задайте желано име на това приложение (например „SugarCRM Production“) и задължително _НЕ_ слагайте отметка в полето за отметка за OAuth 2.x най-долу на изскачащия прозорец.</li>
-<li>След създаването на приложението щракнете върху малкия триъгълен обект вдясно от името на приложението и изберете „Покажи идентификационните данни“ от падащото меню.</li>
-<li>Копирайте идентификационните данни по-долу.</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'Потребителски OAuth ключ',
-    'oauth_consumer_secret' => 'Потребителски OAuth таен ключ',
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">Obtain a Key and Secret from IBM SmartCloud&copy; by registering your Sugar instance as a new application.<br><br />&nbsp;<br><br />Steps to register your instance:<br><br />&nbsp;<br><br /><ol><br /><li>Log in to your IBM SmartCloud account (you must be an administrator)</li><br /><li>Go to Administration -> Manage Organization</li><br /><li>Go to the "Integrated Third-Party Apps" link on the sidebar and enable SugarCRM for all users.</li><br /><li>Go to "Internal Apps" on the sidebar and "Register App"</li><br /><li>Name this app whatever you want (say "SugarCRM Production"), and be sure _NOT_ to check the OAuth 2.x checkbox at the bottom of the pop up window.</li><br /><li>After the app has been created, click on the little triangle thing to the right of the app name and select "Show Credentials" from the dropdown menu.</li><br /><li>Copy the credentials below.</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'OAuth ключ',
+  'oauth_consumer_secret' => 'OAuth криптиращ стринг',
 );
 

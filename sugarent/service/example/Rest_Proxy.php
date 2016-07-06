@@ -10,18 +10,15 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-include "../../config.php";
-
 ob_start();
 $fp =  fopen('proxy.log', 'a');
-define('PROXY_SERVER',  $sugar_config['site_url'] . "service/v4_1/rest.php");
+define('PROXY_SERVER',  'http://localhost/service/v2/rest.php');
 $headers = (function_exists('getallheaders'))?getallheaders(): array();
 $_headers  = array();
 foreach($headers as $k=>$v){
 	$_headers[strtolower($k)] = $v;
 }
 $url = parse_url(PROXY_SERVER);
-$curl_headers = array();
 if(!empty($_headers['referer']))$curl_headers['referer'] = 'Referer: '  . $_headers['referer'];
 if(!empty($_headers['user-agent']))$curl_headers['user-agent'] = 'User-Agent: ' . $_headers['user-agent'];
 if(!empty($_headers['accept']))$curl_headers['accept'] = 'Accept: ' . $_headers['accept'];
@@ -75,3 +72,6 @@ echo $result[1];
 ob_end_flush();
 fwrite($fp, "done\n");
 die();
+// close cURL resource, and free up system resources
+
+?>

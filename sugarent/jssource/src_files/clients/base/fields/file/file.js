@@ -11,7 +11,7 @@
 /**
  * @class View.Fields.Base.FileField
  * @alias SUGAR.App.view.fields.BaseFileField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     fieldTag: 'input[type=file]',
@@ -28,7 +28,7 @@
     plugins: ['File', 'FieldDuplicate', 'EllipsisInline'],
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this._super('initialize', [options]);
@@ -118,11 +118,6 @@
             };
         }
         this.model.set(fieldName + '_guid', guid);
-
-        // Update filename of the model with the value from response,
-        // since it may have been modified on the server side
-        this.model.set(fieldName, data.record[fieldName]);
-
         callback(null, fields, errors);
     },
 
@@ -153,7 +148,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _dispose: function() {
         // Remove specific validation task from the model.
@@ -221,7 +216,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     setMode: function(name) {
         if (!_.isEmpty(this._errors)) {
@@ -236,7 +231,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Override field templates for merge-duplicate view.
      */
@@ -297,16 +292,11 @@
         // Cannot be a hard check against "list" since subpanel-list needs this too
         return attachments;
     },
-
     /**
-     * Creates a file object
-     * @param {string} value The file name
-     * @param {Object} urlOpts URL options
-     * @return {Object} The created file object
-     * @return {string} return.name The file name
-     * @return {string} return.docType The document type
-     * @return {string} return.mimeType The file's MIME type
-     * @return {string} return.url The file resource url
+     * gets file object
+     * @param {String} value file name
+     * @param {Object} urlOpts url options
+     * @returns {{name: *, mimeType: string, url: (String|*)}}
      * @private
      */
     _createFileObj: function (value, urlOpts) {
@@ -327,16 +317,14 @@
                 })
         };
     },
-
     /**
-     * This is overridden by portal in order to prepend site url
+     * This is overriden by portal in order to prepend site url
      * @param {String} uri
-     * @return {string} formatted uri
+     * @returns {String} formatted uri
      */
     formatUri: function(uri) {
         return uri;
     },
-
     startDownload: function(e) {
         var uri = this.$(e.currentTarget).data('url');
 
@@ -349,7 +337,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Overrides `change` event for file field.
      * We should call `render` method when change event is triggered if:
@@ -374,7 +362,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * Because input file uses full local path to file as value,
      * value can contains directory names.

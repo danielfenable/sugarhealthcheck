@@ -15,7 +15,7 @@
  */
 ({
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * This field doesn't support `showNoData`.
      */

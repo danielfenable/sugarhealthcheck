@@ -152,6 +152,10 @@
              * @param {Boolean} editable
              */
             toggleEditRecurrenceFields: function(editable) {
+                var getEditLink = function(fieldName) {
+                    return this.$('span.record-edit-link-wrapper[data-name="' + fieldName + '"]');
+                };
+
                 _.each([
                     'repeat_type',
                     'recurrence',
@@ -160,16 +164,14 @@
                     'repeat_until',
                     'repeat_count'
                 ], function(field) {
-                    var $editWrapper = this.$('span.record-edit-link-wrapper[data-name="' + field + '"]');
-
                     if (editable) {
                         // allow recurrence fields to be editable
                         this.noEditFields = _.without(this.noEditFields, field);
-                        $editWrapper.removeClass('hide');
-                    } else if (!_.contains(this.noEditFields, field)) {
+                        getEditLink(field).show();
+                    } else {
                         // make all recurrence fields read only
                         this.noEditFields.push(field);
-                        $editWrapper.addClass('hide');
+                        getEditLink(field).hide();
                     }
                 }, this);
             },

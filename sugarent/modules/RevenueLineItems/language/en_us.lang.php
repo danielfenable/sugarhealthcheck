@@ -65,7 +65,6 @@ $mod_strings = array(
     'LBL_TYPE' => 'Type:',
     'LBL_PRODUCT_TYPE' => 'Product Type:',
     'LBL_CATEGORY' => 'Product Category:',
-    'LBL_CATEGORY_ID' => 'Product Category ID:',
     'LBL_QUANTITY' => 'Quantity:',
     'LBL_STATUS' => 'Status:',
     'LBL_TAX_CLASS' => 'Tax Class:',
@@ -115,7 +114,7 @@ $mod_strings = array(
     'LBL_PRODUCT_CATEGORIES' => 'Product Categories',
     'LBL_PRODUCT_TYPES' => 'Product Types',
     'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
-    'LBL_ASSIGNED_TO' => 'Assigned To',
+    'LBL_ASSIGNED_TO' => 'Assigned User Name',
     'LBL_ASSIGNED_TO_ID'=>'Assigned User ID',
     'LBL_EXPORT_ASSIGNED_USER_NAME' => 'Assigned User Name',
     'LBL_EXPORT_ASSIGNED_USER_ID' => 'Assigned User ID',
@@ -168,6 +167,8 @@ $mod_strings = array(
 
     'LBL_QUOTED' => 'Quoted',
     'LBL_NOT_QUOTED' => 'Not Quoted',
+    'WARNING_DELETED_RECORD_RECOMMIT_1' => 'This record was included in a ',
+    'WARNING_DELETED_RECORD_RECOMMIT_2' => 'It will be removed and you will need to re-commit your ',
     'WARNING_DELETED_RECORD_LIST_RECOMMIT_1' => 'One or more records were included in a ',
     'WARNING_DELETED_RECORD_LIST_RECOMMIT_2' => 'They will be removed and you will need to re-commit your ',
     'WARNING_MERGE_RLIS_WITH_DIFFERENT_OPPORTUNITIES' => 'One or more of the records you\'ve selected can not be merged together as they belong to different Opportunities',
@@ -192,7 +193,9 @@ To create a {{module_name}}:
 1. Provide values for the fields as desired.
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
-2. Click "Save" to finalize the new record and return to the previous page.',
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
 
     'LBL_DASHLET_TOP10_SALES_OPPORTUNITIES_NAME' => 'Top 10 Sales Revenue Line Items',
     'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Displays top ten Revenue Line Items in a bubble chart.',

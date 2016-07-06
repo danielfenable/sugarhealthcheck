@@ -73,9 +73,7 @@
         this.checkIfPageComplete();
 
         this.layout.trigger("wizard-page:render:complete");
-        return this;
     },
-
     /**
      * We have to check if required fields are pre-filled once we've sync'd. For example,
      * user might have valid required field values (in which case we enable next button).
@@ -140,25 +138,22 @@
             nextBtn.setDisabled(!this.isPageComplete());
         }
     },
-
     /**
      * Called after initialization of the wizard page but just before it gets
      * added as a component to the Wizard layout.  Allows implementers to
      * control when a wizard page is included. Default implementation hides
      * page if it will not render because of ACL checks.
      *
-     * @property {boolean|Function} showPage
-     * @return {boolean} `true` to show the page.
+     * @returns {boolean} TRUE if this page should be included in wizard
      */
-    showPage: function() {
+    showPage: function(){
         return app.acl.hasAccessToModel(this.action, this.model);
     },
-
     /**
      * We can advance the page once we know it is complete. Wizard page's
      * should override this function to provide custom validation logic.
      *
-     * @return {boolean} `true` if this page is complete
+     * @returns {boolean} TRUE if this page is complete
      * @override
      */
     isPageComplete: function(){
@@ -228,7 +223,7 @@
      * Do any actions like http requests, etc., before allowing user to proceed to next
      * page. Implementers should override this.
      * @param {Function} callback The callback to call once actions are completed
-     * @return {boolean} Whether action was performed successfully or not
+     * @returns {Boolean} Whether action was performed successfully or not
      */
     beforeNext: function(callback) {
         app.logger.debug("wizard's beforeNext called directly. Derived controllers should have overridden this!");
@@ -238,7 +233,7 @@
      * Do any actions like http requests, etc., before allowing user to proceed to finish
      * the wizard. Implementers should override this.
      * @param {Function} callback The callback to call once actions are completed
-     * @return {boolean} Whether action was performed successfully or not
+     * @returns {Boolean} Whether action was performed successfully or not
      */
     beforeFinish: function(callback){
         app.logger.debug("wizard's beforeFinish called directly. Derived controller should have overridden this!");

@@ -57,85 +57,6 @@ class ForecastWorksheet extends SugarBean
     public $total_amount;
 
     /**
-     * The fields we should copy from the Products/RLI Bean
-     *
-     * @var array
-     */
-    public $productFieldMap = array(
-        'name',
-        'account_id',
-        'account_name',
-        'likely_case',
-        'best_case',
-        'base_rate',
-        'worst_case',
-        'currency_id',
-        'date_closed',
-        'date_closed_timestamp',
-        'probability',
-        'commit_stage',
-        'sales_stage',
-        'assigned_user_id',
-        'created_by',
-        'date_entered',
-        'deleted',
-        'team_id',
-        'team_set_id',
-        'opportunity_id',
-        'opportunity_name',
-        'description',
-        'next_step',
-        'lead_source',
-        'product_type',
-        'campaign_id',
-        'campaign_name',
-        'product_template_id',
-        'product_template_name',
-        'category_id',
-        'category_name',
-        'list_price',
-        'cost_price',
-        'discount_price',
-        'discount_amount',
-        'quantity',
-        'total_amount'
-    );
-
-    /**
-     * The field map for when coping from an Opportunity Bean
-     *
-     * @var array
-     */
-    public $opportunityFieldMap = array(
-        'name',
-        'account_id',
-        'account_name',
-        array('likely_case' => 'amount'),
-        'best_case',
-        'base_rate',
-        'worst_case',
-        'currency_id',
-        'date_closed',
-        'date_closed_timestamp',
-        'sales_stage',
-        'probability',
-        'commit_stage',
-        'assigned_user_id',
-        'created_by',
-        'date_entered',
-        'deleted',
-        'team_id',
-        'team_set_id',
-        'sales_status',
-        'description',
-        'next_step',
-        'lead_source',
-        array('product_type' => 'opportunity_type'),
-        'campaign_id',
-        'campaign_name'
-    );
-
-    /**
      * Update the real table with the values when a save happens on the front end
      *
      * @param bool $check_notify        Should we send the notifications
@@ -146,6 +67,7 @@ class ForecastWorksheet extends SugarBean
         /* @var $bean Opportunity|Product */
         $bean = BeanFactory::getBean($this->parent_type, $this->parent_id);
         $bean->probability = $this->probability;
+        $bean->best_case = $this->best_case;
         if ($bean instanceof RevenueLineItem) {
             $bean->likely_case = $this->likely_case;
         } else {
@@ -154,12 +76,7 @@ class ForecastWorksheet extends SugarBean
         $bean->date_closed = $this->date_closed;
         $bean->sales_stage = $this->sales_stage;
         $bean->commit_stage = $this->commit_stage;
-        if ($this->ACLFieldAccess('best_case', 'write')) {
-            $bean->best_case = $this->best_case;
-        }
-        if ($this->ACLFieldAccess('worst_case', 'write')) {
-            $bean->worst_case = $this->worst_case;
-        }
+        $bean->worst_case = $this->worst_case;
         $bean->save($check_notify);
     }
 
@@ -179,7 +96,6 @@ class ForecastWorksheet extends SugarBean
         }
     }
 
-
     /**
      * Save an Opportunity as a worksheet
      *
@@ -193,20 +109,47 @@ class ForecastWorksheet extends SugarBean
                 'parent_type' => 'Opportunities',
                 'parent_id' => $opp->id,
                 'draft' => ($isCommit === false) ? 1 : 0,
-                'deleted' => 0
+                'deleted' => 0,
             ),
             true,
             false
         );
 
-        $this->deleted = $opp->deleted;
+        $fields = array(
+            'name',
+            'account_id',
+            'account_name',
+            array('likely_case' => 'amount'),
+            'best_case',
+            'base_rate',
+            'worst_case',
+            'currency_id',
+            'date_closed',
+            'date_closed_timestamp',
+            'sales_stage',
+            'probability',
+            'commit_stage',
+            'assigned_user_id',
+            'created_by',
+            'date_entered',
+            'deleted',
+            'team_id',
+            'team_set_id',
+            'sales_status',
+            'description',
+            'next_step',
+            'lead_source',
+            array('product_type' => 'opportunity_type'),
+            'campaign_id',
+            'campaign_name'
+        );
 
         // load the account
         if (empty($opp->account_name) && !empty($opp->account_id)) {
             $opp->account_name = $this->getRelatedName('Accounts', $opp->account_id);
         }
 
-        $this->copyValues($this->opportunityFieldMap, $opp);
+        $this->copyValues($fields, $opp);
 
         // set the parent types
         $this->parent_type = 'Opportunities';
@@ -217,6 +160,7 @@ class ForecastWorksheet extends SugarBean
 
         //if this migrated, we need to delete the committed row
         $this->removeMigratedRow($opp);
+
     }
 
     /**
@@ -287,13 +231,51 @@ class ForecastWorksheet extends SugarBean
                 'parent_type' => 'RevenueLineItems',
                 'parent_id' => $rli->id,
                 'draft' => ($isCommit === false) ? 1 : 0,
-                'deleted' => 0
+                'deleted' => 0,
             ),
             true,
             false
         );
 
-        $this->deleted = $rli->deleted;
+        $fields = array(
+            'name',
+            'account_id',
+            'account_name',
+            'likely_case',
+            'best_case',
+            'base_rate',
+            'worst_case',
+            'currency_id',
+            'date_closed',
+            'date_closed_timestamp',
+            'probability',
+            'commit_stage',
+            'sales_stage',
+            'assigned_user_id',
+            'created_by',
+            'date_entered',
+            'deleted',
+            'team_id',
+            'team_set_id',
+            'opportunity_id',
+            'opportunity_name',
+            'description',
+            'next_step',
+            'lead_source',
+            'product_type',
+            'campaign_id',
+            'campaign_name',
+            'product_template_id',
+            'product_template_name',
+            'category_id',
+            'category_name',
+            'list_price',
+            'cost_price',
+            'discount_price',
+            'discount_amount',
+            'quantity',
+            'total_amount'
+        );
 
         // load the account
         if (empty($rli->account_name) && !empty($rli->account_id)) {
@@ -315,7 +297,7 @@ class ForecastWorksheet extends SugarBean
             $rli->category_name = $this->getRelatedName('ProductCategories', $rli->category_id);
         }
 
-        $this->copyValues($this->productFieldMap, $rli);
+        $this->copyValues($fields, $rli);
 
         // set the parent types
         $this->parent_type = 'RevenueLineItems';
@@ -382,7 +364,7 @@ class ForecastWorksheet extends SugarBean
      * @param array $fields
      * @param SugarBean $seed
      */
-    public function copyValues($fields, SugarBean $seed)
+    protected function copyValues($fields, SugarBean $seed)
     {
         foreach ($fields as $field) {
             $key = $field;
@@ -445,8 +427,6 @@ class ForecastWorksheet extends SugarBean
         $sq->select(array(array('account.id', 'account_id')));
 
         $beans = $sq->execute();
-
-        $this->removeReassignedItems($user_id, $timeperiod, $chunk_size);
 
         if (empty($beans)) {
             return false;
@@ -512,138 +492,6 @@ class ForecastWorksheet extends SugarBean
         require_once('include/SugarQueue/SugarJobQueue.php');
         $jq = new SugarJobQueue();
         $jq->submitJob($job);
-    }
-
-    /**
-     * Removes leftover committed items after something is reassigned.  When the user commits again,
-     * things that were reassigned are removed.
-     *
-     * @param string $user_id
-     * @param String $timeperiod
-     * @param int $chunk_size
-     * @return bool success
-     */
-    public function removeReassignedItems($user_id, $timeperiod, $chunk_size = 50)
-    {
-        $settings = $this->getForecastSettings();
-        $returnVal = true;
-
-        if ($settings['is_setup'] == false) {
-            $GLOBALS['log']->fatal("Forecast Module is not setup. " . __CLASS__ . " should not be running");
-            $returnVal = false;
-        }
-
-        $tp = $this->getBean('TimePeriods', $timeperiod);
-
-        if ($returnVal && empty($tp->id)) {
-            $GLOBALS['log']->fatal("Unable to load TimePeriod for id: " . $timeperiod);
-            $returnVal = false;
-        }
-
-        if ($returnVal) {
-            $sq = $this->getSugarQuery();
-            $sq->select(array('id'));
-            $sq->from($this, array('alias'=>'fw','team_security'=>false))
-                ->joinRaw('inner join forecast_worksheets fw2 ' .
-                          'on fw2.parent_id = fw.parent_id ' .
-                            'and fw2.assigned_user_id <> fw.assigned_user_id');
-            $sq->where()
-                ->equals("draft", 0)
-                ->queryAnd()
-                ->equals("assigned_user_id", $user_id);
-
-            $beans = $sq->execute();
-
-            if (empty($beans)) {
-                $returnVal = false;
-            } else {
-                $bean_chunks = array_chunk($beans, $chunk_size);
-
-                //process the first chunk
-                $this->processRemoveChunk($bean_chunks[0]);
-
-                // process any remaining in the background
-                for ($x = 1; $x < count($bean_chunks); $x++) {
-                    $this->createRemoveReassignedJob($bean_chunks[$x], $user_id);
-                }
-
-            }
-        }
-
-        return $returnVal;
-    }
-
-    /**
-     * Processes the first set of beans to remove
-     *
-     * @param array $beans Forecastworksheet beans
-     */
-    public function processRemoveChunk($beans)
-    {
-        foreach ($beans as $bean) {
-            $this->mark_deleted($bean["id"]);
-        }
-    }
-
-    /**
-     * Creates the job to remove reassigned items
-     *
-     * @param array $data Array of bean IDs
-     * @param string $user_id
-     */
-    public function createRemoveReassignedJob($data, $user_id)
-    {
-        $job = $this->getBean('SchedulersJobs', null);
-        $job->name = 'Remove Reassigned Items';
-        $job->target = 'class::SugarJobRemoveReassignedItems';
-        $job->data = json_encode($data);
-        $job->retry_count = 0;
-        $job->assigned_user_id = $user_id;
-
-        require_once('include/SugarQueue/SugarJobQueue.php');
-        $jq = $this->getJobQueue();
-        $jq->submitJob($job);
-    }
-
-    /**
-     * Utility function to get Forecast Settings (to aid in test writing)
-     *
-     * @param bool $reload
-     * @return array
-     */
-    public function getForecastSettings($reload = false)
-    {
-        return Forecast::getSettings($reload);
-    }
-
-    /**
-     * Utility function to get beans (to aid in test writing)
-     *
-     * @param string $beanName
-     * @param string $id
-     * @return null|SugarBean
-     */
-    public function getBean($beanName, $id)
-    {
-        return BeanFactory::getBean($beanName, $id);
-    }
-
-    /**
-     * Utility function to get the job queue (to aid in test writing)
-     * @return SugarJobQueue
-     */
-    public function getJobQueue()
-    {
-        return new SugarJobQueue();
-    }
-
-    /**
-     * Utility function to get a new SugarQuery instance (to aid in test writing)
-     * @return SugarQuery
-     */
-    public function getSugarQuery()
-    {
-        return new SugarQuery();
     }
 
     public static function reassignForecast($fromUserId, $toUserId)

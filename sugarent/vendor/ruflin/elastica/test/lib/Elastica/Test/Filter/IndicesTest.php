@@ -25,8 +25,8 @@ class IndicesTest extends BaseTest
     protected function setUp()
     {
         parent::setUp();
-        $this->_index1 = $this->_createIndex();
-        $this->_index2 = $this->_createIndex();
+        $this->_index1 = $this->_createIndex('indices_filter_1');
+        $this->_index2 = $this->_createIndex('indices_filter_2');
         $this->_index1->addAlias("indices_filter");
         $this->_index2->addAlias("indices_filter");
         $docs = array(
@@ -41,18 +41,25 @@ class IndicesTest extends BaseTest
         $this->_index2->refresh();
     }
 
+    protected function tearDown()
+    {
+        $this->_index1->delete();
+        $this->_index2->delete();
+        parent::tearDown();
+    }
+
     public function testToArray()
     {
         $expected = array(
             "indices" => array(
                 "indices" => array("index1", "index2"),
                 "filter" => array(
-                    "term" => array("tag" => "wow"),
+                    "term" => array("tag" => "wow")
                 ),
                 "no_match_filter" => array(
-                    "term" => array("tag" => "such filter"),
-                ),
-            ),
+                    "term" => array("tag" => "such filter")
+                )
+            )
         );
         $filter = new Indices(new Term(array("tag" => "wow")), array("index1", "index2"));
         $filter->setNoMatchFilter(new Term(array("tag" => "such filter")));
@@ -64,7 +71,7 @@ class IndicesTest extends BaseTest
         $filter = new Indices(new BoolNot(new Term(array("color" => "blue"))), array($this->_index1->getName()));
         $filter->setNoMatchFilter(new BoolNot(new Term(array("color" => "yellow"))));
         $query = new Query();
-        $query->setPostFilter($filter);
+        $query->setFilter($filter);
 
         // search over the alias
         $index = $this->_getClient()->getIndex("indices_filter");
@@ -82,38 +89,5 @@ class IndicesTest extends BaseTest
             }
         }
     }
-
-    public function testSetIndices()
-    {
-        $indices = array('one', 'two');
-        $filter = new Indices(new Term(array('color' => 'blue')), $indices);
-        $this->assertEquals($indices, $filter->getParam('indices'));
-
-        $indices[] = 'three';
-        $filter->setIndices($indices);
-        $this->assertEquals($indices, $filter->getParam('indices'));
-
-        $filter->setIndices(array($this->_index1, $this->_index2));
-        $expected = array($this->_index1->getName(), $this->_index2->getName());
-        $this->assertEquals($expected, $filter->getParam('indices'));
-
-        $returnValue = $filter->setIndices($indices);
-        $this->assertInstanceOf('Elastica\Filter\Indices', $returnValue);
-    }
-
-    public function testAddIndex()
-    {
-        $filter = new Indices(new Term(array('color' => 'blue')), array());
-
-        $filter->addIndex($this->_index1);
-        $expected = array($this->_index1->getName());
-        $this->assertEquals($expected, $filter->getParam('indices'));
-
-        $filter->addIndex('foo');
-        $expected = array($this->_index1->getName(), 'foo');
-        $this->assertEquals($expected, $filter->getParam('indices'));
-
-        $returnValue = $filter->addIndex('bar');
-        $this->assertInstanceOf('Elastica\Filter\Indices', $returnValue);
-    }
 }
+ 

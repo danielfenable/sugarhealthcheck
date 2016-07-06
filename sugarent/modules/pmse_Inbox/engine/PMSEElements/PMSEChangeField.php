@@ -119,7 +119,9 @@ class PMSEChangeField extends PMSEScriptTask
         $act_fields = htmlspecialchars_decode($bpmnElement['act_fields']);
         $fields = json_decode($act_fields);
         $ifields = 0;
-
+        
+        //$this->bpmLog('INFO', "[$cas_id][$cas_index] Getting**** ".print_r($bpmnElement,true));
+        //$related = $bean->get_linked_fields();
         $idMainModule = $bean->id;
         $moduleName = $bean->module_name;
 
@@ -138,74 +140,36 @@ class PMSEChangeField extends PMSEScriptTask
             if ($act_field_module == $moduleName || $isRelated) {
                 foreach ($fields as $field) {
                     if (isset($bean->field_defs[$field->field])) {
-                        // check if of type link
-                        if ((isset($bean->field_defs[$field->field]['type'])) &&
-                            ($bean->field_defs[$field->field]['type'] == 'link') &&
-                            !(empty($bean->field_defs[$field->field]['name']))) {
-
-                            // if its a link then go through cases on basis of "name" here.
-                            // Currently only supporting teams
-                            switch ($bean->field_defs[$field->field]['name']) {
-                                case 'teams':
-                                    PMSEEngineUtils::changeTeams($bean, $field);
-                                    break;
-                            }
-
-                        } else {
-
-                            if (!$this->emailHandler->doesPrimaryEmailExists($field, $bean, $historyData)) {
-                                $historyData->savePredata($field->field, $bean->{$field->field});
-                                $newValue = '';
-                                if (is_array($field->value)) {
-                                    $newValue = $this->evaluator->evaluateExpression(
-                                        json_encode($field->value),
-                                        $beanModule,
-                                        array(),
-                                        false
-                                    );
-
-                                    $newValue = $this->postProcessValue($newValue, $bean->field_name_map[$field->field]['type']);
-
-                                    // This will handle currency type fields
-                                    $newValue = $this->handleFieldTypeProcessing($newValue, $field, $bean);
-                                } else {
-                                    if ($field->field == 'assigned_user_id') {
-                                        $field->value = $this->getCustomUser($field->value, $beanModule);
-                                    }
-                                    $newValue = $this->beanHandler->mergeBeanInTemplate($beanModule, $field->value);
+                        if (!$this->emailHandler->doesPrimaryEmailExists($field, $bean, $historyData)) {
+                            $historyData->savePredata($field->field, $bean->{$field->field});
+                            $newValue = '';
+                            if (is_array($field->value)) {
+                                $newValue = $this->evaluator->evaluateExpression(
+                                    json_encode($field->value),
+                                    $beanModule,
+                                    array(),
+                                    false
+                                );                                
+                                $newValue = $this->postProcessValue($newValue, $bean->field_name_map[$field->field]['type']);
+                            } else {
+                                if ($field->field == 'assigned_user_id') {
+                                    $field->value = $this->getCustomUser($field->value, $beanModule);
                                 }
-                                if (!empty($bean->field_defs[$field->field]['required'])) {
-                                    $invalid = false;
-                                    switch (gettype($newValue)) {
-                                        case 'boolean':
-                                        case 'integer':
-                                        case 'double':
-                                            break;
-                                        case 'string':
-                                            $invalid = !strlen($newValue);
-                                            break;
-                                        default:
-                                            $invalid = empty($newValue);
-                                    }
-                                    if ($invalid) {
-                                        throw new PMSEElementException('Cannot fill a required field ' . $field->field . ' with an empty value', $flowData, $this);
-                                    }
-                                }
-
-                                // Finally, set the new value of the field onto
-                                // the bean
-                                $bean->{$field->field} = $newValue;
+                                $newValue = $this->beanHandler->mergeBeanInTemplate($beanModule, $field->value);
                             }
+                            $bean->{$field->field} = $newValue; //$field->value;
                         }
-
                         $historyData->savePostdata($field->field, $field->value);
                         $ifields++;
+                    } else {
+                        
+                        //$this->logger->warning("[{$flowData['cas_id']}][{$flowData['cas_index']}] $moduleClassName->" . $field->field . " not defined");
                     }
                 }
-
+                $bean->skipPartialUpdate = true;
                 $bean->new_with_id = false;
-                PMSEEngineUtils::saveAssociatedBean($bean);
-
+                $res = $bean->save();
+                $scriptTaskExecuted = true;
                 $params = array();
                 $params['cas_id'] = $flowData['cas_id'];
                 $params['cas_index'] = $flowData['cas_index'];
@@ -258,34 +222,6 @@ class PMSEChangeField extends PMSEScriptTask
                 break;
             case 'boolean':
                 $value = (boolean)$value;
-                break;
-        }
-        return $value;
-    }
-
-    /**
-     * handle certain types of field types where the bean may need to be modified as well
-     * @param type value
-     * @param type field
-     * @param type bean
-     * @return value
-     */
-    public function handleFieldTypeProcessing($value, $field, $bean)
-    {
-        $fieldType = '';
-
-        if (!empty($bean->field_name_map[$field->field]['type'])) {
-            $fieldType = $bean->field_name_map[$field->field]['type'];
-        }
-        switch (strtolower($fieldType)) {
-            case 'currency':
-                // For currency fields, the return value is a json encoded string. So need to json_decode.
-                $currencyFields = json_decode($value);
-                if (!empty($currencyFields) && (!empty($currencyFields->expField)) && (!empty($currencyFields->expValue))) {
-                    // we need to take into account the type of currency too
-                    $bean->currency_id = $currencyFields->expField;
-                    $value = $currencyFields->expValue;
-                }
                 break;
         }
         return $value;

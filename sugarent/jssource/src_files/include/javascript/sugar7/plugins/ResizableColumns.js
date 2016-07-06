@@ -191,7 +191,7 @@
             },
 
             /**
-             * @inheritdoc
+             * @inheritDoc
              *
              * Every time `render` is called, re-applies the plugin and cleans
              * up.
@@ -202,7 +202,7 @@
             },
 
             /**
-             * @inheritdoc
+             * @inheritDoc
              *
              * Unbinds the plugin properly.
              */

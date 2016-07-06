@@ -1,23 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:21
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_ANY_EMAIL' => 'Email:',
-  'LBL_EMAIL' => 'Email Address:',
-  'LBL_PRIMARY_EMAIL' => 'Primary Email',
-  'LBL_LIST_EMAIL_ADDRESS' => 'Email',
-  'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
-  'LBL_EMAIL_ADDRESS' => 'Email Address:',
-  'LBL_EMAIL_ADDRESSES' => 'Email Address(es)',
-  'LBL_INVALID_EMAIL' => 'Invalid Email:',
-  'LBL_EMAIL_OPT_OUT' => 'Email Opt Out:',
-  'LBL_EMAIL_NON_PRIMARY' => 'Non-primary emails',
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team Id',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User:',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -37,6 +20,20 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User:',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team Id',
+  'LBL_ANY_EMAIL' => 'Email:',
+  'LBL_EMAIL' => 'Email Address:',
+  'LBL_LIST_EMAIL_ADDRESS' => 'Email',
+  'LBL_OTHER_EMAIL_ADDRESS' => 'Other Email:',
+  'LBL_EMAIL_ADDRESS' => 'Email Address:',
+  'LBL_EMAIL_ADDRESSES' => 'Email Address(es)',
+  'LBL_INVALID_EMAIL' => 'Invalid Email:',
+  'LBL_EMAIL_OPT_OUT' => 'Email Opt Out:',
+  'LBL_EMAIL_NON_PRIMARY' => 'Non-primary emails',
   'LBL_SALUTATION' => 'Salutation',
   'LBL_FIRST_NAME' => 'First Name:',
   'LBL_LAST_NAME' => 'Last Name:',
@@ -119,14 +116,12 @@ $mod_strings = array (
   'LBL_CONVERT_SWITCH_TO_SEARCH' => 'Search',
   'LBL_CONVERT_DUPLICATES_FOUND' => '{{duplicateCount}} duplicates found',
   'LBL_CONVERT_CREATE_NEW' => 'New {{moduleName}}',
-  'LBL_CONVERT_SELECT_MODULE' => 'Select {{moduleName}}',
-  'LBL_CONVERT_SELECTED_MODULE' => 'Selecting {{moduleName}}',
-  'LBL_CONVERT_CREATE_MODULE' => 'Create {{moduleName}}',
-  'LBL_CONVERT_CREATED_MODULE' => 'Creating {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATE_MODULE' => 'Associate {{moduleName}}',
+  'LBL_CONVERT_ASSOCIATED_MODULE' => 'Associated {{moduleName}}',
+  'LBL_CONVERT_MODULE_ASSOCIATED' => '{{moduleName}} Associated',
+  'LBL_CONVERT_MODULE_ASSOCIATED_NEW_SUCCESS' => 'You associated the {{moduleNameLower}} {{recordName}} but it will not be created until you finish and save.',
+  'LBL_CONVERT_MODULE_ASSOCIATED_SUCCESS' => 'You associated the {{moduleNameLower}} {{recordName}} but it will not be linked until you finish and save.',
   'LBL_CONVERT_RESET_PANEL' => 'Reset',
-  'LBL_CONVERT_COPY_RELATED_ACTIVITIES' => 'Copy related activities to',
-  'LBL_CONVERT_MOVE_RELATED_ACTIVITIES' => 'Move related activities to',
-  'LBL_CONVERT_MOVE_ACTIVITIES_TO_CONTACT' => 'Move related activities to the contact record',
   'LBL_CONVERTED_ACCOUNT' => 'Converted Account:',
   'LBL_CONVERTED_CONTACT' => 'Converted Contact:',
   'LBL_CONVERTED_OPP' => 'Converted Opportunity:',
@@ -301,12 +296,14 @@ To create a {{module_name}}:
 1. Provide values for the fields as desired.
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
-2. Click "Save" to finalize the new record and return to the previous page.',
+2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.',
   'LBL_HELP_CONVERT' => 'Sugar enables you to convert {{plural_module_name}} into {{contacts_module}}, {{accounts_module}}, and other modules once the {{module_name}} meets your qualification criteria.
 
-Step through each module by modifying fields then confirming the new recordâs values by clicking each Associate button.
+Step through each module by modifying fields then confirming the new record’s values by clicking each Associate button.
 
-If Sugar detects an existing record that matches your {{module_name}}âs information, you have the option to choose a duplicate and confirm the selection with the Associate button or to click "Ignore and create new" and proceed normally.
+If Sugar detects an existing record that matches your {{module_name}}’s information, you have the option to choose a duplicate and confirm the selection with the Associate button or to click "Ignore and create new" and proceed normally.
 
 After confirming each required and desired module, click the Save and Convert button at the top to finalize the conversion.',
   'LBL_MKTO_SYNC' => 'Sync to Marketo&reg;',

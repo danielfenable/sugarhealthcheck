@@ -18,6 +18,9 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Contributor(s): ______________________________________..
  ********************************************************************************/
 
+
+
+
 class System extends SugarBean {
     var $new_schema = true;
     var $table_name = "systems";

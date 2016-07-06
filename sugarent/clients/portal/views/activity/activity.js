@@ -8,7 +8,7 @@
      *
      * Copyright (C) SugarCRM Inc. All rights reserved.
      */
-({events:{'click .addNote':'openNoteModal','click [data-action=loadPreview]':'loadPreview','click [name=show_more_button]':'showMoreRecords'},plugins:['RelativeTime','Tooltip'],_defaultSettings:{relativeTimeThreshold:2,useRelativeTime:true},_settings:{},emptyStream:false,initialize:function(options){this._super('initialize',[options]);this._addPreviewEvents();this._initSettings();},_initSettings:function(){this._settings=_.extend({},this._defaultSettings,this.meta&&this.meta.settings||{});if(this._settings.useRelativeTime===true){this.useRelativeTime();}
+({events:{'click .addNote':'openNoteModal','click .activity a':'loadPreview','click [name=show_more_button]':'showMoreRecords'},plugins:['RelativeTime','Tooltip'],_defaultSettings:{relativeTimeThreshold:2,useRelativeTime:true},_settings:{},emptyStream:false,initialize:function(options){this._super('initialize',[options]);this._addPreviewEvents();this._initSettings();},_initSettings:function(){this._settings=_.extend({},this._defaultSettings,this.meta&&this.meta.settings||{});if(this._settings.useRelativeTime===true){this.useRelativeTime();}
 return this;},useRelativeTime:function(){if(_.isEmpty(this.collection.models)){return;}
 _.each(this.collection.models,function(model){var date=model.get('date_entered'),diffInDays=app.date().diff(date,'days',true),useRelative=diffInDays<=this._settings.relativeTimeThreshold;model.set('showRelativeTime',useRelative);},this);return this;},_renderHtml:function(){if(this.hasLoadedActivities()){this.emptyStream=this.collection.length<1;}
 var oViewName=this.name;this.name='list';if(this._settings.useRelativeTime===true){this.useRelativeTime();}

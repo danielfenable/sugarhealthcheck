@@ -24,7 +24,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         options.model = app.data.createBean();

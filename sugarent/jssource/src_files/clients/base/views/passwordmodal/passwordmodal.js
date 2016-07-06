@@ -12,14 +12,11 @@
  * @class View.Views.Base.PasswordmodalView
  * @alias SUGAR.App.view.views.BasePasswordmodalView
  * @extends View.Views.Base.BaseeditmodalView
- * @deprecated 7.7 It will be removed in 7.8.
  */
 ({
     extendsFrom:'BaseeditmodalView',
     fallbackFieldTemplate: 'edit',
     initialize: function(options) {
-        app.logger.warn('The class `View.Views.Base.PasswordmodalView` has' +
-            ' been deprecated since 7.7.0.0 and will be removed in 7.8.0.0.');
         app.view.View.prototype.initialize.call(this, options);
         if (this.layout) {
             this.layout.on("app:view:password:editmodal", function() {

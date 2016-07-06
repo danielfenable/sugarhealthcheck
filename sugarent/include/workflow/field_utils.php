@@ -11,7 +11,7 @@
  */
 
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
-// $Id: field_utils.php 56426 2010-05-12 23:53:01Z smalyshev $
+
 
 include_once('include/workflow/workflow_utils.php');
 include_once('include/workflow/expression_utils.php');
@@ -349,7 +349,7 @@ include_once('include/workflow/expression_utils.php');
 				//check for multi_select and that this is the same dropdown as previous;
 
 				//Set the value select
-				$user_array = get_user_array(true, 'Active', '', true, null, ' AND is_group = 0 OR is_group IS NULL ');
+				$user_array = get_user_array(TRUE, "Active", "", true, null, ' AND is_group=0 ');
 
 				//$column_select = get_select_options_with_id($app_list_strings[$target_field_array['options']], $selected_value);
 				$column_select = get_select_options_with_id($user_array, $selected_value);
@@ -736,9 +736,6 @@ function process_advanced_actions(& $focus, $field, $meta_array, & $rel_this){
 				return 1;
 			}
 		//if value is current_user
-		}
-		else if ($meta_array['value'] == 'team_set_id'){
-		    $focus->team_set_id = $meta_array['value'];
 		}
 
 		if($meta_array['ext1']=="Self"){

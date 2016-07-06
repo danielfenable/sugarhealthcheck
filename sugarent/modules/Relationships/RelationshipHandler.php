@@ -57,11 +57,13 @@ class RelationshipHandler extends Relationship {
 
 ///////////////////////////Setup and populate functions//////////////////////////////
 
-    public function RelationshipHandler($db, $base_module="")
-    {
-        $this->base_module = $base_module;
+	function RelationshipHandler($db, $base_module="")
+	{
+		$this->db = $db;
+		$this->base_module = $base_module;
         parent::__construct();
-    }
+	//end function RelationshipHandler
+	}
 
 	function set_rel_vardef_fields($base_vardef_field, $rel1_vardef_field=""){
 
@@ -115,29 +117,19 @@ class RelationshipHandler extends Relationship {
 	//end function build_info
 	}
 
-    function build_rel1_info()
-    {
-        $bean = BeanFactory::getBean($this->base_module);
-        $rel_attribute1_name = $bean->field_defs[strtolower($this->base_vardef_field)]['relationship'];
-        $rel_module1 = $this->get_other_module($rel_attribute1_name, $this->base_module);
-        $this->rel1_bean = BeanFactory::getBean($rel_module1);
-    }
+	function build_rel1_info(){
 
-    function build_rel2_info()
-    {
-        // Both sides of the if condition may need this
-        if (empty($this->rel1_bean)) {
-            $this->build_rel1_info();
-        }
+			$this->rel1_bean = $this->trace_relationship_module($this->base_module, $this->base_vardef_field);
 
-        if (empty($this->rel1_vardef_field)) {
-            $this->rel2_bean = $this->rel1_bean;
-        } else {
-            $rel_attribute2_name = $this->rel1_bean->field_defs[strtolower($this->rel1_vardef_field)]['relationship'];
-            $rel_module2 = $this->get_other_module($rel_attribute2_name, $this->rel1_bean->module_dir);
-            $this->rel2_bean = BeanFactory::getBean($rel_module2);
-        }
-    }
+	//end function build_rel1_info
+	}
+
+	function build_rel2_info(){
+
+			$this->rel2_bean = $this->trace_relationship_module($this->base_module, $this->base_vardef_field, $this->rel1_vardef_field);
+
+	//end function build_rel1_info
+	}
 
 	/*
 	Translates the module names to their singular and plural label and puts them in
@@ -249,22 +241,12 @@ function get_relationship_information(& $target_bean, $get_upstream_rel_field_na
 
 	//Look for downstream connection
 	$rel_array = $this->retrieve_by_sides($current_module_name, $target_module_name, $this->db);
-    $flip_sides = false;
-    if (empty($rel_array)) {
-        $rel_array = $this->retrieve_by_sides($target_module_name, $current_module_name, $this->db);
-        $flip_sides = true;
-    }
-    //No relationship found, abort
-    if (empty($rel_array)) {
-        return;
-    }
 
 
 	//Does a downstream relationship exist
 	if($rel_array!=null){
 		if($rel_array['relationship_type']=="many-to-many"){
-            $join_key = $flip_sides ? 'join_key_rhs' : 'join_key_lhs';
-			$target_bean->$rel_array[$join_key] = $this->base_bean->id;
+			$target_bean->$rel_array['join_key_lhs'] = $this->base_bean->id;
 			foreach ($this->getRoleColumns($rel_array) as $column => $value) {
 			    $target_bean->$column = $value;
 			}
@@ -273,12 +255,10 @@ function get_relationship_information(& $target_bean, $get_upstream_rel_field_na
 
 		if($rel_array['relationship_type']=="one-to-many"){
 			if (!empty($rel_array['join_key_rhs'])) {
-			    $join_key = $flip_sides ? 'join_key_rhs' : 'join_key_lhs';
-			    $target_bean->$rel_array[$join_key] = $this->base_bean->id;
+			    $target_bean->$rel_array['join_key_rhs'] = $this->base_bean->id;
 			}
 			else {
-                $rel_key = $flip_sides ? 'lhs_key' : 'rhs_key';
-                $target_bean->$rel_array[$rel_key] = $this->base_bean->id;
+			    $target_bean->$rel_array['rhs_key'] = $this->base_bean->id;
 			}
 			foreach ($this->getRoleColumns($rel_array) as $column => $value) {
 			    $target_bean->$column = $value;
@@ -298,18 +278,16 @@ function get_relationship_information(& $target_bean, $get_upstream_rel_field_na
 	//Does an upstream relationship exist
 	if($rel_array!=null){
 		if($rel_array['relationship_type']=="many-to-many"){
-            $join_key = $flip_sides ? 'join_key_lhs' : 'join_key_rhs';
-			$target_bean->$rel_array[$join_key] = $this->base_bean->id;
-			if(!empty($rel_array['relationship_role_column'])){
+			$target_bean->$rel_array['join_key_rhs'] = $this->base_bean->id;
+			if($rel_array['relationship_role_column']!=""){
 				$target_bean->$rel_array['relationship_role_column'] = $rel_array['relationship_role_column_value'];
 			}
 		//end if many-to-many
 		}
 
 		if($rel_array['relationship_type']=="one-to-many"){
-            $rel_key = $flip_sides ? 'lhs_key' : 'rhs_key';
-			$this->$rel_array[$rel_key] = $this->base_bean->id;
-			if(!empty($rel_array['relationship_role_column'])){
+			$this->$rel_array['rhs_key'] = $this->base_bean->id;
+			if($rel_array['relationship_role_column']!=""){
 				$this->$rel_array['relationship_role_column'] = $rel_array['relationship_role_column_value'];
 			}
 		//end if one-to-many

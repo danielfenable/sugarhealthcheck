@@ -10,19 +10,10 @@ $settings->idpSingleLogOutUrl       = isset($GLOBALS['sugar_config']['SAML_SLO']
 // the certificate for the users account in the IdP
 $settings->idpPublicCertificate          = isset($GLOBALS['sugar_config']['SAML_X509Cert']) ? $GLOBALS['sugar_config']['SAML_X509Cert'] : '';
 
-// no dataOnly when showing the login page in the main window (no popup)
-// $returnQueryVars is set by the caller
-if (!empty($returnQueryVars) && !empty($returnQueryVars['platform']) && $returnQueryVars['platform'] == 'base'
-        && !empty($GLOBALS['sugar_config']['SAML_SAME_WINDOW'])) {
-        $returnPath = '/index.php?module=Users&action=Authenticate';
-} else {
-        $returnPath = '/index.php?module=Users&action=Authenticate&dataOnly=1';
-}
-
 // The URL where to the SAML Response/SAML Assertion will be posted
 $settings->spReturnUrl = htmlspecialchars(
     rtrim($GLOBALS['sugar_config']['site_url'], '/')
-    . $returnPath
+    . '/index.php?module=Users&action=Authenticate&dataOnly=1'
 );
 
 // Name of this application
@@ -32,7 +23,7 @@ $settings->spIssuer                         = isset($GLOBALS['sugar_config']['SA
 $settings->requestedNameIdFormat = OneLogin_Saml_Settings::NAMEID_EMAIL_ADDRESS;
 
 // Should new users be provisioned?
-$settings->provisionUsers = isset($GLOBALS['sugar_config']['SAML_provisionUser']) ? $GLOBALS['sugar_config']['SAML_provisionUser'] : true;
+$settings->provisionUsers = true;
 
 // Available settings other than above:
 // id - way of matching users: user_name, id. If not set, matched by email.

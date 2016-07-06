@@ -46,19 +46,6 @@
             }
         }
     },
-    /**
-    * Sets field's view element and invokes render on the given field.
-    * @param field
-    * @param $fieldEl
-    * @private
-    */
-    _renderField: function(field, $fieldEl) {
-        //for custom modules, we need the pluralized form of module name
-        if (!field.model.get('lbl_base_module')) {
-            field.model.set('lbl_base_module', app.lang.getModuleName(field.model.get('base_module'), {plural: true}));
-        }
-        this._super('_renderField', [field, $fieldEl]);
-    },
 
     /**
      * Cancel and close the drawer
@@ -72,8 +59,12 @@
     /**
      * Send the email immediately or warn if user did not provide subject or body
      */
-    save: function () {
-        this.model.doValidate(this.getFields(this.module), _.bind(this.validationComplete, this));
+    save: function() {
+        this.model.doValidate(this.getFields(this.module), _.bind(function(isValid) {
+            if (isValid) {
+                this.validationCompleteApprove(this.model,false);
+            }
+        }, this));
     },
     validationCompleteApprove: function (model,exit) {
         var url, attributes, bodyHtml, subject, route = this.context.get("module");
@@ -92,11 +83,6 @@
         App.api.call('update', url, attributes, {
             success: function (data) {
                 App.alert.dismiss('upload');
-                App.alert.show('save-success', {
-                    level: 'success',
-                    messages: App.lang.get('LBL_SAVED'),
-                    autoClose: true
-                });
                 if(exit)
                 {
                     model.revertAttributes();

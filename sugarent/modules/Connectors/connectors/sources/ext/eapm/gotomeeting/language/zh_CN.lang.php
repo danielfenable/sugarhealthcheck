@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,20 +13,9 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel">
-注册一个新的应用程序，从 Citrix Online GoToMeeting 获取 API 密钥。<br>
-&nbsp;<br>
-注册实例的步骤：<br>
-&nbsp;<br>
-<ol>
-<li>登录您的 Citrix Online 开发者账户：<a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;>https://developer.citrixonline.com/</a></li>
-<li>单击“申请开发者密钥”</li>
-<li>在“产品 API”中选择“GoToMeeting”，然后在应用程序 URL 中输入您的实例 URL</li>
-<li>“您的应用程序”下将显示一个被称为“API 密钥”的数列</li>
-<li>复制下方的 API 密钥。</li>
-</ol>
-</td></tr></table>',
-    'oauth_consumer_key' => 'API 密钥',
+
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => '<table border="0" cellspacing="1"><tr><td valign="top" width="35%" class="dataLabel"><br />通过注册一个新应用程序从Citrix Online GoToMeeting获取API密匙。<br><br />&nbsp;<br><br />注册您的实例的步骤：<br><br />&nbsp;<br><br /><ol><br /><li>登录您的Citrix Online开发帐号：https://developer.citrixonline.com/</li><br /><li>单击“申请开发密匙</li><br /><li>在产品API下选择“GoToMeeting”并在“应用程序URL"输入您的事件URL</li><br /><li>您可以在您的应用程序下看到API密匙的列</li><br /><li>复制到下方。</li><br /></ol><br /></td></tr></table>',
+  'oauth_consumer_key' => 'API密钥',
 );
+

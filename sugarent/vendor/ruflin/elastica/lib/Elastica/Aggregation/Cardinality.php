@@ -2,6 +2,7 @@
 
 namespace Elastica\Aggregation;
 
+
 /**
  * Class Cardinality
  * @package Elastica\Aggregation
@@ -9,4 +10,5 @@ namespace Elastica\Aggregation;
  */
 class Cardinality extends AbstractSimpleAggregation
 {
-}
+
+} 

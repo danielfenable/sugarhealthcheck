@@ -108,14 +108,12 @@
     app.augment("tutorial", {
         instance: null,
         /**
-         * Test if a layout for the given module has a Tutorial associated with
-         * it. By default, this will check if the layout associated with the
-         * default context has a Tutorial.
+         * Test if a layout for the given module has a Tutorial associated with it.  By default, this will check if the
+         * layout associated with the default context has a Tutorial.
          *
-         * @param {string} [layout] layout name to check.
-         * @param {string} [module] module name to check.
-         * @return {boolean} `true` if a tutorial exists for this layout,
-         *   `false` otherwise.
+         * @param {String} layout (optional) layout name to check
+         * @param {String} module (optional) module name to check
+         * @returns {boolean} TRUE if a tutorial exists for this layout
          */
         hasTutorial: function(layout, module) {
             if(_.isUndefined(module)) module = app.controller.context.get('module');
@@ -203,14 +201,6 @@
             app.user.setPreference("tutorialPrefs", prefs);
         }
     });
-
-    /**
-     * @class View.TutorialView
-     * @alias SUGAR.App.view.TutorialView
-     * @extends View.View
-     *
-     * TODO this needs to be removed from this path
-     */
     app.view.TutorialView = app.view.View.extend({
 
         events: {
@@ -238,7 +228,7 @@
             this.setContent(options.content);
             this.setScroll(options.scroll);
 
-            app.events.on('app:login app:logout', this.hide, this);
+            app.events.on('router:reauth:load app:logout', this.hide, this);
         },
 
         setContent: function(content) {
@@ -575,7 +565,7 @@
         },
 
         /**
-         * @inheritdoc
+         * @inheritDoc
          */
         remove: function() {
             app.$contentEl.removeAttr('aria-hidden');

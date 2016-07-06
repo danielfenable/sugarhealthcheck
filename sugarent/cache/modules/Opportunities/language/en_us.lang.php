@@ -1,19 +1,6 @@
 <?php
-// created: 2016-07-04 12:09:22
+// created: 2016-07-06 08:09:16
 $mod_strings = array (
-  'LBL_CURRENCY' => 'Currency:',
-  'LBL_CURRENCIES' => 'Currencies',
-  'LBL_CURRENCY_NAME' => 'Currency Name',
-  'LBL_CURRENCY_SYMBOL' => 'Currency Symbol',
-  'LBL_CURRENCY_RATE' => 'Currency Rate',
-  'LBL_CURRENCY_ID' => 'Currency ID',
-  'LBL_TEAM' => 'Teams',
-  'LBL_TEAMS' => 'Teams',
-  'LBL_TEAM_ID' => 'Team ID',
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User:',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
-  'LBL_TAGS_LINK' => 'Tags',
-  'LBL_TAGS' => 'Tags',
   'LBL_ID' => 'ID',
   'LBL_DATE_ENTERED' => 'Date Created',
   'LBL_DATE_MODIFIED' => 'Date Modified',
@@ -33,6 +20,11 @@ $mod_strings = array (
   'LBL_EDIT_BUTTON' => 'Edit',
   'LBL_REMOVE' => 'Remove',
   'LBL_EXPORT_MODIFIED_BY_NAME' => 'Modified By Name',
+  'LBL_ASSIGNED_TO_ID' => 'Assigned User:',
+  'LBL_ASSIGNED_TO_NAME' => 'Assigned to:',
+  'LBL_TEAM' => 'Teams',
+  'LBL_TEAMS' => 'Teams',
+  'LBL_TEAM_ID' => 'Team ID',
   'LBL_MODULE_NAME' => 'Opportunities',
   'LBL_MODULE_NAME_SINGULAR' => 'Opportunity',
   'LBL_MODULE_TITLE' => 'Opportunities: Home',
@@ -42,12 +34,17 @@ $mod_strings = array (
   'LBL_OPPORTUNITY_NAME' => 'Opportunity Name:',
   'LBL_OPPORTUNITY' => 'Opportunity:',
   'LBL_INVITEE' => 'Contacts',
+  'LBL_CURRENCIES' => 'Currencies',
   'LBL_LIST_OPPORTUNITY_NAME' => 'Name',
   'LBL_LIST_ACCOUNT_NAME' => 'Account Name',
   'LBL_LIST_DATE_CLOSED' => 'Expected Close Date',
   'LBL_LIST_AMOUNT' => 'Likely',
   'LBL_LIST_AMOUNT_USDOLLAR' => 'Converted Amount',
   'LBL_ACCOUNT_ID' => 'Account ID',
+  'LBL_CURRENCY_RATE' => 'Currency Rate',
+  'LBL_CURRENCY_ID' => 'Currency ID',
+  'LBL_CURRENCY_NAME' => 'Currency Name',
+  'LBL_CURRENCY_SYMBOL' => 'Currency Symbol',
   'db_sales_stage' => 'LBL_LIST_SALES_STAGE',
   'db_name' => 'LBL_NAME',
   'db_amount' => 'LBL_LIST_AMOUNT',
@@ -78,6 +75,7 @@ $mod_strings = array (
   'UPDATE_MERGE' => 'Merge Currencies',
   'UPDATE_MERGE_TXT' => 'Merge multiple Currencies into a single Currency. If there are multiple Currency records for the same Currency, you merge them together. This will also merge the Currencies for all other modules.',
   'LBL_ACCOUNT_NAME' => 'Account Name:',
+  'LBL_CURRENCY' => 'Currency:',
   'LBL_DATE_CLOSED' => 'Expected Close Date:',
   'LBL_DATE_CLOSED_TIMESTAMP' => 'Expected Close Date Timestamp',
   'LBL_TYPE' => 'Type:',
@@ -136,7 +134,6 @@ $mod_strings = array (
   'LBL_COMMITTED' => 'Committed',
   'LBL_FORECAST' => 'Include in Forecast',
   'LBL_COMMIT_STAGE' => 'Commit Stage',
-  'LBL_COMMIT_STAGE_FORECAST' => 'Forecast',
   'LBL_WORKSHEET' => 'Worksheet',
   'TPL_RLI_CREATE' => 'An Opportunity must have an associated Revenue Line Item.',
   'TPL_RLI_CREATE_LINK_TEXT' => 'Create a Revenue Line Item.',
@@ -146,7 +143,6 @@ $mod_strings = array (
   'LBL_CLOSED_RLIS' => '# of Closed Revenue Line Items',
   'NOTICE_NO_DELETE_CLOSED_RLIS' => 'You cannot delete Opportunities that contain closed Revenue Line Items',
   'WARNING_NO_DELETE_CLOSED_SELECTED' => 'One or more of the selected records contains closed Revenue Line Items and cannot be deleted.',
-  'LBL_INCLUDED_RLIS' => '# of Included Revenue Line Items',
   'LBL_QUOTE_SUBPANEL_TITLE' => 'Quotes',
   'LBL_OPPS_CONFIG_VIEW_BY_LABEL' => 'Opportunity Hierarchy',
   'LBL_OPPS_CONFIG_VIEW_BY_DATE_ROLLUP' => 'Set the Expected Close Date field on the resulting Opportunity records to be the earliest or latest close dates of the existing Revenue Line Items',
@@ -177,6 +173,8 @@ To create an {{module_name}}:
  - Fields marked "Required" must be completed prior to saving.
  - Click "Show More" to expose additional fields if necessary.
 2. Click "Save" to finalize the new record and return to the previous page.
+ - Choose "Save and view" to open the new {{module_name}} in record view.
+ - Choose "Save and create new" to immediately create another new {{module_name}}.
 3. After saving, use the {{revenuelineitems_module}} subpanel to add line items to the {{module_name}}.',
   'LBL_MKTO_SYNC' => 'Sync to Marketo&reg;',
   'LBL_MKTO_ID' => 'Marketo Lead ID',
@@ -184,7 +182,4 @@ To create an {{module_name}}:
   'LBL_TOP10_OPPORTUNITIES_CHART_DESC' => 'Displays top ten Opportunities in a bubble chart.',
   'LBL_TOP10_OPPORTUNITIES_MY_OPP' => 'My Opportunities',
   'LBL_TOP10_OPPORTUNITIES_MY_TEAMS_OPP' => 'My Team\'s Opportunities',
-  'LBL_CURRENCY_0' => 'LBL_CURRENCY',
-  'LBL_CURRENCY_1' => 'LBL_CURRENCY',
-  'LBL_CURRENCY_2' => 'LBL_CURRENCY',
 );

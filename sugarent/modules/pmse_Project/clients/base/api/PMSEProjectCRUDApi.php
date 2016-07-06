@@ -14,10 +14,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 require_once 'clients/base/api/ModuleApi.php';
 
-require_once 'modules/pmse_Project/clients/base/api/wrappers/PMSEDynaForm.php';
+require_once 'wrappers/PMSEDynaForm.php';
 require_once 'modules/pmse_Inbox/engine/PMSEEngineUtils.php';
-require_once 'modules/pmse_Inbox/engine/PMSEProjectExporter.php';
-require_once 'modules/pmse_Inbox/engine/PMSEProjectImporter.php';
 
 class PMSEProjectCRUDApi extends ModuleApi
 {
@@ -71,7 +69,7 @@ class PMSEProjectCRUDApi extends ModuleApi
             $relatedDepBean->deleted = 1;
             $relatedDepBean->save();
         }
-
+        
 
         $bean = $this->loadBean($api, $args, 'delete');
         $bean->mark_deleted($args['record']);
@@ -127,7 +125,7 @@ class PMSEProjectCRUDApi extends ModuleApi
         $relDepStatus = $projectBean->prj_status=='ACTIVE'?'INACTIVE':'ACTIVE';
         while(
             $relatedDepBean = BeanFactory::getBean('pmse_BpmRelatedDependency')
-            ->retrieve_by_string_fields(array('pro_id'=>$pro_id, 'pro_status'=>$relDepStatus))
+            ->retrieve_by_string_fields(array('prj_id'=>$id, 'pro_status'=>$relDepStatus))
         ) {
             $relatedDepBean->pro_status = $projectBean->prj_status;
             $relatedDepBean->save();
@@ -143,32 +141,5 @@ class PMSEProjectCRUDApi extends ModuleApi
         $dynaForm = new PMSEDynaForm();
         $dynaForm->generateDefaultDynaform($processDefinitionBean->pro_module, $keysArray, $editDyna);
 
-    }
-
-
-    public function createRecord($api, $args) {
-        if (!isset($args['picture_duplicateBeanId'])) {
-            return parent::createRecord($api, $args);
-        }
-
-        $id = $args['picture_duplicateBeanId'];
-
-        $exporter = new PMSEProjectExporter();
-        $project = $exporter->getProject(array('id' => $id));
-
-        $project['project']['name'] =  $args['name'];
-        $project['project']['assigned_user_id'] =  $args['assigned_user_id'];
-        $project['project']['description'] =  $args['description'];
-        $project['project']['prj_status'] = $args['prj_status'];
-
-        $importer = new PMSEProjectImporter();
-        $project['_module']['project'] = 'pmse_Project';
-
-        // The importation always changes the project status to INACTIVE except when the case is Copy from a Process Definition
-        $savedProject = $importer->saveProjectData($project['project'], true);
-        $project['project']['id'] = $savedProject['id'];
-        $project['project']['warnings'] = array($savedProject['br_warning'], $savedProject['et_warning']);
-
-        return $project['project'];
     }
 }

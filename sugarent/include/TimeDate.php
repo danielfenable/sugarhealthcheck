@@ -377,17 +377,22 @@ class TimeDate
             }
         }
 
-        return $this->merge_date_time(
-            $this->get_date_format($user),
-            $this->get_time_format($user)
-        );
+        $cacheKey= $this->get_date_time_format_cache_key($user);
+        $cachedValue = sugar_cache_retrieve($cacheKey);
+
+        if(!empty($cachedValue) )
+        {
+            return $cachedValue;
+        }
+        else
+        {
+            $value = $this->merge_date_time($this->get_date_format($user), $this->get_time_format($user));
+            sugar_cache_put($cacheKey,$value,0);
+            return $value;
+        }
     }
 
     /**
-     * @deprecated as of version 7.7 - not needed as we are no longer caching
-     *   the date_time_format since it is built by concatenating two values
-     *   which are already cached in user preferences.
-     *
      * Retrieve the cache key used for user date/time formats
      *
      * @param $user

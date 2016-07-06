@@ -1,4 +1,5 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -13,58 +14,40 @@
 
 /**
  * Highlighter
- *
- *                      !!! DEPRECATION WARNING !!!
- *
- * All code in include/SugarSearchEngine is going to be deprecated in a future
- * release. Do not use any of its APIs for code customizations as there will be
- * no guarantee of support and/or functionality for it. Use the new framework
- * located in the directories src/SearchEngine and src/Elasticsearch.
- *
- * @deprecated
+ * @api
  */
 class SugarSearchEngineHighlighter
 {
-    /**
-     * @var module name
-     */
-    protected $module;
+    protected $_module;
 
     public static $preTag = '<strong>';
     public static $postTag = '</strong>';
     public static $fragmentSize = 20;
     public static $fragmentNumber = 2;
-    public static $fragmentSep = ' ... ';
+
+    public function __construct()
+    {
+    }
 
     /**
      * Setter for module name.
+     *
      * @param $module
      */
     public function setModule($module)
     {
-        $this->module = $module;
+        $this->_module = $module;
     }
 
-    /**
-     * Process highlighter results
-     * @param array $results
-     * @return array
-     */
-    public function processHighlightText(array $results)
+    public function processHighlightText(array $resultArray)
     {
         $ret = array();
-        foreach ($results as $field => $fragments) {
-            $ret[$field] = array(
-                'text' => '',
-                'module' => $this->module,
-                'label' => $this->getLabel($field)
-
-            );
+        foreach ($resultArray as $field => $fragments) {
+            $ret[$field] = array('text' => '', 'module' => $this->_module, 'label' => $this->getLabel($field));
             $first = true;
-
             foreach ($fragments as $fragment) {
                 if (!$first) {
-                    $ret[$field]['text'] .= self::$fragmentSep . $fragment;
+                    $ret[$field]['text'] .= '...' . $fragment;
                 } else {
                     $ret[$field]['text'] = $fragment;
                 }
@@ -75,17 +58,13 @@ class SugarSearchEngineHighlighter
         return $ret;
     }
 
-    /**
-     * Get field label
-     * @param string $field
-     * @return string
-     */
     public function getLabel($field)
     {
-        if (empty($this->module)) {
+        if (empty($this->_module)) {
             return $field;
         } else {
-            $field_defs = $this->getFieldDefs($this->module);
+            $tmpBean = BeanFactory::getBean($this->_module);
+            $field_defs = $tmpBean->field_defs;
             $field_def = isset($field_defs[$field]) ? $field_defs[$field] : false;
             if ($field_def === false || (!isset($field_def['vname']) && !isset($field_def['label']))) {
                 return $field;
@@ -93,16 +72,5 @@ class SugarSearchEngineHighlighter
 
             return (isset($field_def['label'])) ? $field_def['label'] : $field_def['vname'];
         }
-    }
-
-
-    /**
-     * Return field defs for given module name
-     * @param string $module
-     * @return array
-     */
-    protected function getFieldDefs($module)
-    {
-        return BeanFactory::getBean($module)->field_defs;
     }
 }

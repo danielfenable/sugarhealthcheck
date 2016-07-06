@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,14 +12,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
+
 $mod_strings = array (
-'LBL_DEFAULT'=>'Non positionné',
-'LBL_READ_WRITE'=>'Lecture/Écriture',
-'LBL_READ_OWNER_WRITE'=>'Lecture/Écriture par le propriétaire',
-'LBL_READ_ONLY'=>'Lecture seule',
-'LBL_OWNER_READ_WRITE'=>'Lecture par le propriétaire/Écriture par le propriétaire',
-'LBL_ALLOW_NONE'=>'Aucun',
-'LBL_FIELDS'=>'Permissions des champs',
-'LBL_NOT_DEFINED' => 'Non défini',
-)
-?>
+  'LBL_ALLOW_NONE' => 'Aucun',
+  'LBL_DEFAULT' => 'Non positionné',
+  'LBL_FIELDS' => 'Permissions des champs',
+  'LBL_NOT_DEFINED' => 'Non définit',
+  'LBL_OWNER_READ_WRITE' => 'Lecture par le propriétaire/Ecriture par le propriétaire',
+  'LBL_READ_ONLY' => 'Lecture seule',
+  'LBL_READ_OWNER_WRITE' => 'Lecture/Ecriture par le propriétaire',
+  'LBL_READ_WRITE' => 'Lecture/Ecriture',
+);
+

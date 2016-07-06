@@ -241,6 +241,7 @@ class SugarWebServiceUtilv3 extends SoapHelperWebServices {
                     require $defs;
                 }
 	            break;
+
 	        case 'default':
 	        default:
 	            $defs = SugarAutoLoader::loadWithMetafiles($module, 'subpaneldefs');
@@ -312,6 +313,7 @@ class SugarWebServiceUtilv3 extends SoapHelperWebServices {
 
         return $enabled_modules;
     }
+
     /**
      * Examine the application to determine which modules have been enabled..
      *

@@ -97,7 +97,6 @@ $viewdefs['Styleguide']['base']['layout']['docs'] = array(
                 "popovers" => array("label"=>"Popovers", "description"=>"Add small overlays of content, like those on the iPad, to any element for housing secondary information."),
                 "progress" => array("label"=>"Progress bars", "description"=>"For loading, redirecting, or action status."),
                 "tooltips" => array("label"=>"Tooltips", "description"=>"A new take on the jQuery Tipsy plugin, Tooltips don't rely on images, uss CSS3 for animations, and data-attributes for local title storage."),
-                "keybindings" => array("label"=>"Key bindings", "description"=>" "),
             )
         ),
         "layouts" => array (
@@ -106,7 +105,7 @@ $viewdefs['Styleguide']['base']['layout']['docs'] = array(
             "index" => true,
             "pages" => array (
                 "list" => array("label"=>"List Tables", "description"=>"For, you guessed it, tabular data."),
-                "record" => array("label"=>"Record Views", "url"=>"#Styleguide/create", "description"=>"Detail, edit and create views for records."),
+                "record" => array("label"=>"Record Views", "description"=>"Detail, edit and create views for records."),
                 "drawer" => array("label"=>"Drawers", "description"=>"Drawer is a form of a modal that pushes main content down and expands from the top taking 100% of the screen width."),
                 "navbar" => array("label"=>"Navbar", "description"=>"Top level navigation layout."),
                 "tabs" => array("label"=>"Tab Navigation", "description"=>"Use this plugin to make tabs and pills more useful by allowing them to toggle through tabbable panes of local content."),

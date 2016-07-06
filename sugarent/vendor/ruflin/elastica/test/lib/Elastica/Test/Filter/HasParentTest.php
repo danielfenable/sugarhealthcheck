@@ -20,33 +20,33 @@ class HasParentTest extends BaseTest
         $expectedArray = array(
             'has_parent' => array(
                 'query' => $q->toArray(),
-                'type' => $type,
-            ),
+                'type' => $type
+            )
         );
 
         $this->assertEquals($expectedArray, $filter->toArray());
     }
 
-    public function testSetType()
+    public function testSetScope()
     {
-        $index = $this->prepareSearchData();
+        $q = new MatchAll();
 
-        $filter = new HasParent(new MatchAll(), 'type_name');
-        $this->assertEquals('type_name', $filter->getParam('type'));
+        $type = 'test';
 
-        $filter->setType('new_type_name');
-        $this->assertEquals('new_type_name', $filter->getParam('type'));
+        $scope = 'foo';
 
-        $type = $index->getType('foo');
-        $filter = new HasParent(new MatchAll(), $type);
-        $this->assertEquals('foo', $filter->getParam('type'));
+        $filter = new HasParent($q, $type);
+        $filter->setScope($scope);
 
-        $type = $index->getType('bar');
-        $filter->setType($type);
-        $this->assertEquals('bar', $filter->getParam('type'));
+        $expectedArray = array(
+            'has_parent' => array(
+                'query' => $q->toArray(),
+                'type' => $type,
+                '_scope' => $scope
+            )
+        );
 
-        $returnValue = $filter->setType('last');
-        $this->assertInstanceOf('Elastica\Filter\HasParent', $returnValue);
+        $this->assertEquals($expectedArray, $filter->toArray());
     }
 
     public function testFilterInsideHasParent()
@@ -60,11 +60,12 @@ class HasParentTest extends BaseTest
         $expectedArray = array(
             'has_parent' => array(
                 'filter' => $f->toArray(),
-                'type' => $type,
-            ),
+                'type' => $type
+            )
         );
 
         $this->assertEquals($expectedArray, $filter->toArray());
+
     }
 
     public function testFilterInsideHasParentSearch()
@@ -76,7 +77,7 @@ class HasParentTest extends BaseTest
         $filter = new HasParent($f, 'parent');
 
         $searchQuery = new \Elastica\Query();
-        $searchQuery->setPostFilter($filter);
+        $searchQuery->setFilter($filter);
         $searchResults = $index->search($searchQuery);
 
         $this->assertEquals(1, $searchResults->count());
@@ -96,7 +97,7 @@ class HasParentTest extends BaseTest
         $filter = new HasParent($f, 'parent');
 
         $searchQuery = new \Elastica\Query();
-        $searchQuery->setPostFilter($filter);
+        $searchQuery->setFilter($filter);
         $searchResults = $index->search($searchQuery);
 
         $this->assertEquals(1, $searchResults->count());
@@ -133,7 +134,6 @@ class HasParentTest extends BaseTest
         $childType->addDocument($child2);
 
         $index->refresh();
-
         return $index;
     }
 }

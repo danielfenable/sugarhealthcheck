@@ -18,16 +18,13 @@ class Parser {
     	'pi' 	=> 3.141592653589793,
     	'e'		=> 2.718281828459045,
     );
-
-    /**
-     * Evaluates an expression.
+	/**
+	 * Evaluates an expression.
+	 *
+	 * @param string	the expression to evaluate
      *
-     * @param string $expr The expression to evaluate
-     * @param SugarBean|null $context Expression context
-     * @return AbstractExpression
-     * @throws Exception
-     */
-    public static function evaluate($expr, $context = null)
+	 */
+	static function evaluate($expr, $context = false)
 	{
 		// the function map
 		static $FUNCTION_MAP = array();

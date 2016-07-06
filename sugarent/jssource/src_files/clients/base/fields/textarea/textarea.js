@@ -11,11 +11,11 @@
 /**
  * @class View.Fields.Base.TextareaField
  * @alias SUGAR.App.view.fields.BaseTextareaField
- * @extends View.Fields.Base.BaseField
+ * @extends View.Field
  */
 ({
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     fieldTag : 'textarea',
 
@@ -61,19 +61,19 @@
     _settings: {},
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     plugins: ['EllipsisInline'],
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     events: {
         'click [data-action=toggle]': 'toggleCollapsed'
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Initializes settings on the field by calling
      * {@link View.Fields.BaseTextareaField#_initSettings _initSettings}.
@@ -102,7 +102,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Prevents editing the textarea field in a list view.
      *
@@ -119,7 +119,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Formatter that always returns the value set on the textarea field. Sets
      * a `short` value for a truncated representation, if the lenght of the

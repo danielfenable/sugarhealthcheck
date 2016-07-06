@@ -173,10 +173,8 @@ $campaign_id = $focus->id;
     $xtpl = $smarty;
     require_once('modules/DynamicFields/templates/Files/DetailView.php');
     
-
     $smarty->assign("TEAM_NAME", $focus->team_name);
     /* comment out the non-pro code
-
 
     */
     

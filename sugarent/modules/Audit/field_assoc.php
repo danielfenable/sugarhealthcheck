@@ -54,36 +54,13 @@ $genericAssocFieldsArray = array('assigned_user_id' =>
                                     'select_field_join'  => 'id',
                                   ),                                   
                             );
-$moduleAssocFieldsArray = array(
-    'Account' => array(
-        'parent_id' => array(
-            'table_name' => 'accounts',
-            'select_field_name' => 'name',
-            'select_field_join' => 'id',
-        ),
-    ),
-    'KBContent' => array(
-        'kbarticle_id' => array(
-            'table_name' => 'kbarticles',
-            'select_field_name' => 'name',
-            'select_field_join' => 'id',
-        ),
-        'category_id' => array(
-            'table_name' => 'categories',
-            'select_field_name' => 'name',
-            'select_field_join' => 'id',
-        ),
-        'kbscase_id' => array(
-            'table_name' => 'cases',
-            'select_field_name' => 'name',
-            'select_field_join' => 'id',
-        ),
-        'kbsapprover_id' => array(
-            'table_name' => 'users',
-            'select_field_name' => 'user_name',
-            'select_field_join' => 'id',
-        ),
-    ),
-);
+$moduleAssocFieldsArray = array('Account' =>
+                                array('parent_id' =>
+                                    array('table_name' => 'accounts',
+                                        'select_field_name' => 'name',
+                                        'select_field_join'  => 'id',
+                                    )
+                                ),
+                            );
 
 ?>

@@ -26,6 +26,7 @@
         this._super('initialize', [options]);
         this.type = 'rowaction';
 
+        this.once('init', this._toggleDisable, this);
         this.context.on('button:convert_to_quote:click', this.convertToQuote, this);
     },
 
@@ -33,7 +34,6 @@
      * @inheritdoc
      */
     bindDataChange: function() {
-        this.model.on('sync', this._toggleDisable, this);
         this.model.on('change:quote_id', this._toggleDisable, this);
     },
 
@@ -59,6 +59,8 @@
             title: app.lang.get('LBL_CONVERT_TO_QUOTE_INFO', this.module) + ':',
             messages: [app.lang.get('LBL_CONVERT_TO_QUOTE_INFO_MESSAGE', this.module)]
         });
+        // remove the close since we don't want this to be closable
+        alert.getCloseSelector().remove();
 
         var url = app.api.buildURL(this.model.module, 'quote', { id: this.model.id }),
             callbacks = {
@@ -89,5 +91,27 @@
     _toggleDisable: function() {
         var quote_id = this.model.get('quote_id');
         this.setDisabled(!(_.isUndefined(quote_id) || _.isEmpty(quote_id)));
+    },
+
+    /**
+     * @inheritdoc
+     *
+     * Overriding so that the disabled class is correctly put on the field element and not the span tag
+     *
+     * @override
+     */
+    _removeViewClass: function(action) {
+        this.getFieldElement().removeClass(action);
+    },
+
+    /**
+     * @inheritdoc
+     *
+     * Overriding so that the disabled class is correctly put on the field element and not the span tag
+     *
+     * @override
+     */
+    _addViewClass: function(action) {
+        this.getFieldElement().addClass(action);
     }
 })

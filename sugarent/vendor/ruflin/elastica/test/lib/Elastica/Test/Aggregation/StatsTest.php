@@ -2,6 +2,7 @@
 
 namespace Elastica\Test\Aggregation;
 
+
 use Elastica\Aggregation\Stats;
 use Elastica\Document;
 use Elastica\Query;
@@ -11,7 +12,7 @@ class StatsTest extends BaseAggregationTest
     protected function setUp()
     {
         parent::setUp();
-        $this->_index = $this->_createIndex();
+        $this->_index = $this->_createIndex('stats');
         $docs = array(
             new Document('1', array('price' => 5)),
             new Document('2', array('price' => 8)),
@@ -38,3 +39,4 @@ class StatsTest extends BaseAggregationTest
         $this->assertEquals((5 + 8 + 1 + 3), $results['sum']);
     }
 }
+ 

@@ -169,7 +169,7 @@ class="yui-navset detailview_tabs"
 			<td>&nbsp;</td><td>&nbsp;</td>
 			{/if}
 		{{/if}}
-		{{if !empty($colData.field.hideIf)}}
+	    {{if !empty($colData.field.hideIf)}}
 			{else}
 
 			<td>&nbsp;</td><td>&nbsp;</td>

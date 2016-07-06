@@ -71,7 +71,6 @@ class pmse_InboxViewShowCase extends SugarView
             $this->bean = BeanFactory::getBean($module, $id);
             $altViewMode = array();
             if (is_array($viewMode)) {
-                $isBpm = true;
                 $altViewMode = $viewMode;
                 $viewMode = $viewMode['displayMode'];
             } else {
@@ -102,17 +101,11 @@ class pmse_InboxViewShowCase extends SugarView
                 if ($readonly) {
                     $this->setHeaderFootersReadOnly($viewdefs);
                 }
-                if($isBpm){
-                    $viewdefs['EditView'] = $viewdefs['BpmView'];
-                }
                 $tmpArray = array();
                 $tmpArray[$this->bean->module_name] = $viewdefs;
                 $viewdefs = $tmpArray;
             }
             $this->view = ucfirst($viewMode) . 'View';
-            if($isBpm){
-                $this->view = "EditView";
-            }
             if (isset($viewdefs[$this->bean->module_name][$this->view])) {
                 $this->defs = $viewdefs[$this->bean->module_name][$this->view];
             } else {
@@ -121,9 +114,6 @@ class pmse_InboxViewShowCase extends SugarView
 
             $this->focus = $this->bean;
             $tpl = get_custom_file_if_exists('modules/pmse_Inbox/tpls/' . $this->view . '.tpl');
-            if($isBpm){
-                $tpl = get_custom_file_if_exists('modules/pmse_Inbox/tpls/BpmView.tpl');
-            }
             $this->th = new TemplateHandler();
             $this->th->ss = &$this->ss;
             $this->tpl = $tpl;
@@ -167,15 +157,13 @@ class pmse_InboxViewShowCase extends SugarView
                 'id' => 'ApproveBtn',
                 'name' => 'Type',
                 'value' => 'Approve',
-                'type' => 'button',
-                'onclick' => "if (app.btSubmitClicked != true) return (check_form('EditView') && confirmAction(this)); else return true;"
+                'type' => 'submit'
             ),
             'reject' => array(
                 'id' => 'RejectBtn',
                 'name' => 'Type',
                 'value' => 'Reject',
-                'type' => 'button',
-                'onclick' => "if (app.btSubmitClicked != true) return (check_form('EditView') && confirmAction(this)); else return true;"
+                'type' => 'submit'
             ),
             'reassign' => array(
                 'id' => 'ReassignBtn',
@@ -195,8 +183,7 @@ class pmse_InboxViewShowCase extends SugarView
                 'id' => 'RouteBtn',
                 'name' => 'Type',
                 'value' => 'Route Task',
-                'type' => 'button',
-                'onclick' => "if (app.btSubmitClicked != true) return (check_form('EditView') && confirmAction(this)); else return true;"
+                'type' => 'submit'
             ),
             'cancel' => array(
                 'name' => 'Cancel',
@@ -249,8 +236,7 @@ class pmse_InboxViewShowCase extends SugarView
 
         $caseBean = BeanFactory::newBean('pmse_Inbox');
         $joinTables = array(
-            array('LEFT', 'pmse_bpm_flow', 'pmse_inbox.cas_id = pmse_bpm_flow.cas_id'),
-            array('INNER', 'pmse_bpmn_process', 'pmse_inbox.pro_id = pmse_bpmn_process.id'),
+            array('LEFT', 'pmse_bpm_flow', 'pmse_inbox.cas_id = pmse_bpm_flow.cas_id')
         );
         $records = $this->wrapper->getSelectRows($caseBean, 'cas_id desc',
             "pmse_bpm_flow.cas_id = $cas_id and cas_index = $cas_index ", 0, -1, -1, array('*'), $joinTables);
@@ -304,9 +290,7 @@ FLIST;
                 $data_aux = new stdClass();
                 $data_aux->cas_task_start_date = $caseData['cas_task_start_date'];
                 $data_aux->cas_delegate_date = $caseData['cas_delegate_date'];
-                // Commenting out below line. We don't want due date to be calculated dynamically. Once a process due date is set it should stay.
-                // $expTime = PMSECaseWrapper::expectedTime($this->activityRow['act_expected_time'], $data_aux);
-                $expTime = PMSECaseWrapper::processDueDateTime($caseData['cas_due_date']);
+                $expTime = PMSECaseWrapper::expectedTime($this->activityRow['act_expected_time'], $data_aux);
                 $expected_time = $expTime['expected_time'];
                 $expected_time_warning = $expTime['expected_time_warning'];
                 if ($expected_time_warning == true) {
@@ -473,7 +457,6 @@ FLIST;
             $this->fieldDefs = $this->processRequiredFields($this->fieldDefs);
         }
         $this->th->ss->assign('fields', $this->fieldDefs);
-        $this->th->ss->assign('detailView', $readonly);
         $this->sectionPanels = $this->processSectionPanels($this->sectionPanels);
         $this->th->ss->assign('sectionPanels', $this->sectionPanels);
         $this->th->ss->assign('config', $sugar_config);
@@ -623,22 +606,6 @@ FLIST;
             $nameTemplateTmp = $this->dyn_uid;
         } else {
             $nameTemplateTmp = 'PMSEDetailView';
-        }
-
-        foreach ($this->fieldDefs as $field) {
-            if (isset($field['viewType']) && ($field['viewType'] == 'DetailView')) {
-                $arrReadOnlyFields[] = $field['name'];
-            }
-            if (!empty($field['required'])) {
-                $arrRequiredFields[] = $field['name'];
-            }
-        }
-
-        if (isset($arrReadOnlyFields)) {
-            $this->th->ss->assign('readOnlyFields', $arrReadOnlyFields);
-        }
-        if (isset($arrRequiredFields)) {
-            $this->th->ss->assign('requiredFields', $arrRequiredFields);
         }
         $this->th->buildTemplate($this->bean->module_name, $nameTemplateTmp, $this->tpl, $ajaxSave, $this->defs);
         $this->th->deleteTemplate($this->bean->module_name, $form_name);

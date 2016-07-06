@@ -11,7 +11,7 @@
 /**
  * @class View.Layouts.Base.SelectionListModuleSwitchLayout
  * @alias SUGAR.App.view.layouts.BaseSelectionListModuleSwitchLayout
- * @extends View.Layouts.Base.SelectionListLayout
+ * @extends View.SelectionListLayout
  */
 ({
     extendsFrom: 'SelectionListLayout',
@@ -35,7 +35,7 @@
      * Given a list of modules, it checks to see if the user has access to those modules
      * and returns a list in a form that Select2 dropdown accepts.
      * @param {Array} modules - List of modules to be displayed in the dropdown.
-     * @return {Array}
+     * @returns {Array}
      * @private
      */
     _buildModuleSwitchList: function(modules) {

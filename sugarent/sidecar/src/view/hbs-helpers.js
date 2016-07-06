@@ -124,10 +124,9 @@
      * over `model.module`.
      * Same applies for `id` (`id` will take precedence over `model.id`).
      *
-     * @param {Object} options Handlebars options hash.
-     * @param {Object} options.hash More parameters to be used by this helper.
-     *   It needs at least one of `options.hash.module`, `options.hash.model`
-     *   or `options.hash.context`.
+     * @param {Object} options
+     *   The hashes being sent by handlebars helper. It needs at least one of
+     *   `options.hash.module`, `options.hash.model` or `options.hash.context`.
      * @param {String} [options.hash.module=options.hash.model.module]
      *   The name of the module.
      * @param {Data.Bean} [options.hash.model=options.hash.context.get('model')]
@@ -321,6 +320,35 @@
     });
 
     /**
+     * Wrap the date into a time element
+     * This helper allows to implement a plugin that will parse each time element and
+     * convert the date into a relative time with a timer.
+     * Uses user dateTime format for future dates.
+     *
+     * @method timeago
+     * @param {String} dateString like `YYYY-MM-DD hh:mm:ss`.
+     * @param {String} label (optional) defaults to LBL_TIME_RELATIVE.
+     * @return {String} the relative time like `10 minutes ago`.
+     *
+     * @deprecated since 7.2.0. Please use {@link #relativeTime} helper.
+     */
+    Handlebars.registerHelper("timeago", function(dateString, label) {
+
+        app.logger.warn('The helper `timeago` is deprecated since 7.2.0. Please upgrade your code to use `relativeTime`.');
+
+        var label = (_.isString(label))? " data-label='" + label + "' " : "";
+
+        var formattedDateString = app.date(dateString).formatUser();
+
+        // TODO: Replace `span` with a `time` element. It was removed because impossible to do innerHTML on a `time` element in IE8
+        var wrapper = "<span class=\"relativetime\" "+ label + " title=\"" + dateString + "\">" +
+            formattedDateString +
+            "</span>";
+
+        return new Handlebars.SafeString(wrapper);
+    });
+
+    /**
      * Creates a relative time element to display the human readable related
      * time.
      *
@@ -330,9 +358,9 @@
      * @method relativeTime
      * @param {String} iso8601 The ISO-8601 date string to be used for a new
      *   date.
-     * @param {Object} [options] Handlebars options hash.
-     * @param {Object} [options.hash] More parameters to be used by this helper.
-     * @param {String} [options.hash.title] The title attribute. Defaults to
+     * @param {Object} [options] More attributes to be used on this element for
+     *   reuse.
+     * @param {string} [options.hash.title] The title attribute. Defaults to
      *   current user date/time preference format.
      * @param {boolean} [options.hash.dateOnly] Setting this to `true` will
      *   format the `title` attribute with the user-formatted date only.
@@ -402,13 +430,12 @@
     /**
      * Formats given date to users preferences
      * @method formatDate
-     * @param {Date|string} date The date to format.
+     * @param {Number} date      The date to format.
      * @param {Object} [options] More attributes to be used on this element for
      *   reuse.
-     * @param {Object} [options.hash] More parameters to be used by this helper.
-     * @param {boolean} [options.hash.dateOnly] Flag to determine whether to
-     *   return just date current user date/time preference format.
-     * @return {string} The formatted date.
+     * @param {Boolean} [options.hash.dateOnly] Flag to determine whether to return just date
+     *   current user date/time preference format.
+     * @return {String} The formatted date.
      */
     Handlebars.registerHelper('formatDate', function(date, options) {
         var date = app.date(date);
@@ -444,14 +471,13 @@
      *
      *     {{getModuleName 'undefinedModule'}}
      *
-     * @param {string} module The module defined in the language strings.
+     * @param {String} module The module defined in the language strings.
      * @param {Object} [options] Optional params to pass to the helper.
-     * @param {Object} [options.hash] More parameters to be used by this helper.
-     * @param {boolean} [options.hash.plural] Returns the plural form if `true`,
+     * @param {Boolean} [options.hash.plural] Returns the plural form if `true`,
      *   singular otherwise.
-     * @param {string} [options.hash.defaultValue] Value to be returned if the
+     * @param {String} [options.hash.defaultValue] Value to be returned if the
      *   module language string is not found.
-     * @return {string} The module name.
+     * @return {String} The module name.
      */
     Handlebars.registerHelper('getModuleName', function(module, options) {
         var options = {
@@ -466,51 +492,31 @@
      * Helper for rendering a partial template. This helper can load a partial from the templateOptions
      * or from the same relative location as the current template.
      *
-     *     {{partial 'partial-name' componentFrom defaultProperties dynamicProperty=value}}
-     *
-     * The data supplied to the partial with be an object with the list of
-     * `dynamicProperty`s merged into `defaultProperties` object (defaults to
-     * empty object if not explicitly passed).
-     *
-     *
      * For fields
      *
-     *     {{partial 'edit' this properties fallbackTemplate='detail'}}
+     *     {{partial 'detail' this component=field}}
      *
      * For layouts
      *
-     *     {{partial 'ActivityStream' this properties}}
+     *     {{partial 'ActivityStream' this}}
      *
      * For views
      *
-     *     {{partial 'record' this properties}}
+     *     {{partial 'record' this}}
      *
-     * @param {string} name Name of the partial.
-     * @param {view.View|view.Field|view.Layout} component The view component.
-     * @param {Object} [properties] Data supplied to the partial. `options.hash`
-     *   is merged into this before it is used for the template. This allows the
-     *   partial to provide dynamic parameters on top of the default properties.
-     *   The original component is kept as `templateComponent` in these
-     *   properties.
-     * @param {Object} [options] Optional params.
-     * @param {Object} [options.hash] The hash of the optional params.
-     * @param {Object} [options.hash.module=component.module] Module to use.
-     * @param {Object} [options.hash.fallbackTemplate] Fallback template for
-     *   field partials.
-     * @return {string} The handlebars safestring for the partial template.
+     * @param {String} name Name of the partial.
+     * @param {Object} data (optional) Data supplied to the partial (a model).
+     * @param {Object} component (optional) componenent to use for type of partial.
+     * @param {Object} module (optional) module to use for partial.
+     * @param {Object} fallbackTemplate (optional) fallbackTemplate for field partials.
+     * @return {String} The stringified partial template.
      */
-    Handlebars.registerHelper('partial', function(name, component, properties, options) {
-        var module, template, data;
-
-        // `properties` is optional, so `options` is `properties` is no `properties` is passed.
-        if (!options && properties.hash) {
-            options = properties;
-            properties = {};
-        }
-
-        // Data supplied to the partial
-        data = _.extend({templateComponent: component}, properties, options.hash);
-
+    Handlebars.registerHelper('partial', function(name, data, options) {
+        var module, template, component;
+        options = options || {};
+        options.hash = options.hash || {};
+        data = data || this;
+        component = options.hash.component || this;
         module = options.hash.module || component.module;
         if (component && component.options.templateOptions && component.options.templateOptions.partials) {
             template = component.options.templateOptions.partials[name];
@@ -519,23 +525,13 @@
         else if (component instanceof app.view.Field) {
             var fallbackTemplate = options.hash.fallbackTemplate;
             template = app.template.getField(
-                component.type, // field type
+                component.name, // field name
                 name || 'detail', // template name
                 module,
                 fallbackTemplate);
         }
         else if (component instanceof app.view.View) {
-            var templateName = component.tplName;
-
-            //FIXME SC-3363 use the real inheritance chain when loading partial templates
-            //Try the current component first in case the template was overriden.
-            template = app.template.getView(component.name + '.' + name, module) ||
-                app.template.getView(component.name + '.' + name);
-
-            if (!template && templateName) {
-                template = app.template.getView(templateName + '.' + name, module) ||
-                    app.template.getView(templateName + '.' + name);
-            }
+            template = app.template.getView(component.name + '.' + name, module) || app.template.getView(component.name + '.' + name);
         }
         else if (component instanceof app.view.Layout) {
             template = app.template.getLayout(component.name + '.' + name, module) || app.template.getLayout(component.name + '.' + name);

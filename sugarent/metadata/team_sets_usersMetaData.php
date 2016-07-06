@@ -10,7 +10,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
-
 $dictionary['team_sets_users'] = array('table' => 'team_sets_users'
                                ,'fields' => array (
 	  'team_set_id' => 

@@ -1,6 +1,7 @@
 <?php
+if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -12,8 +13,9 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$connector_strings = array(
-    'LBL_LICENSING_INFO' =>
-'<table border="0" cellspacing="1"> <tr><td valign="top" width="35%" class="dataLabel"> få API-nyckel från Citrix Online GoToMeeting genom att registrera en ny ansökan. <br><br>åtgärder för att registrera din instans: <br><br><ol><li>Logga in på ditt Citrix-konto för onlineutvecklare: <a href=&#39;https://developer.citrixonline.com/&#39; target=&#39;_blank&#39;> &nbsp;https://developer.citrixonline.com/</a></li> <li>Klicka på Verkställ för utvecklarnyckel</li> <li>I produkt API Välj GoToMeeting, och ange Webbadressens instans i programmets URL</li> <li>du kommer att se en kolumn som heter API-nyckel under din ansökan</li> <li>Kopiera den nedan.</li></ol></td></tr></table>',
-    'oauth_consumer_key' => 'API-nyckel',
+
+$connector_strings = array (
+  'LBL_LICENSING_INFO' => 'Skaffa API-nyckel från Citrix Online GoToMeeting genom att registrera en ny ansökan.<br /><br />Steg för att registrera din instans:<br /><br />1. Logga in på ditt Citrix Online utvecklarkonto: https://developer.citrixonline.com/<br />2. Klicka på verkställ för utvecklar nyckel<br />3. I produkt API välja GoToMeeting, och ange din instans URL i Application URL<br />4. Du kommer att se en kolumn som heter API-nyckel i dina program<br />5. Kopiera den nedan.',
+  'oauth_consumer_key' => 'API Key',
 );
+

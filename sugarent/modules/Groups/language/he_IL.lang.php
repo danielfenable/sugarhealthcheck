@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,17 +13,16 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-$mod_strings = array ( 
-	'LBL_MODULE_NAME'			=> 'קבוצות',
-	'LBL_MODULE_NAME_SINGULAR'		=> 'קבוצה',
-	'LBL_GROUP_NAME'			=> 'שם קבוצה:',
-	'LBL_DESCRIPTION'			=> 'תיאור:',
-	'LBL_TEAM'					=> 'צוות:',
-	// ListView
-	'LBL_LIST_TITLE'			=> 'קבוצות',
-	// Links
-	'LNK_ALL_GROUPS'			=> 'כל הקבוצות',
-	'LNK_NEW_GROUP'				=> 'צור קבוצה',
-	'LNK_CONVERT_USER'			=> 'המר משתמש לקבוצה', 
+
+$mod_strings = array (
+  'LBL_DESCRIPTION' => 'תיאור:',
+  'LBL_GROUP_NAME' => 'שם קבוצה:',
+  'LBL_LIST_TITLE' => 'קבוצות',
+  'LBL_MODULE_NAME' => 'קבוצות',
+  'LBL_MODULE_NAME_SINGULAR' => 'קבוצה',
+  'LBL_TEAM' => 'צוות:',
+  'LNK_ALL_GROUPS' => 'כל הקבוצות',
+  'LNK_CONVERT_USER' => 'המר משתמש לקבוצה',
+  'LNK_NEW_GROUP' => 'צור קבוצה',
 );
-?>
+

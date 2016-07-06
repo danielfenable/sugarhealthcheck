@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -11,10 +13,13 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
- // $Id: MyPipelineBySalesStageDashlet.en_us.lang.php 29243 2007-11-06 20:04:35Z awu $
 
+$dashletStrings = array (
+  'MyPipelineBySalesStageDashlet' => 
+  array (
+    'LBL_DESCRIPTION' => 'Діаграма стадій продаж моєї воронки',
+    'LBL_REFRESH' => 'Оновити графік',
+    'LBL_TITLE' => 'Моя воронка стадій продаж',
+  ),
+);
 
-$dashletStrings['MyPipelineBySalesStageDashlet'] = array('LBL_TITLE'       => 'Моя воронка стадій продаж',
-                                                         'LBL_DESCRIPTION' => 'Діаграма стадій продаж моєї воронки',
-                                                         'LBL_REFRESH'     => 'Оновити діаграму');
-?>

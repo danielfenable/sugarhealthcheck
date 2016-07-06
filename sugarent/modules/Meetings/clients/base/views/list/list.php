@@ -36,7 +36,6 @@ $viewdefs['Meetings']['base']['view']['list'] = array(
                     'name' => 'date_start',
                     'label' => 'LBL_LIST_DATE',
                     'type' => 'datetimecombo-colorcoded',
-                    'css_class' => 'overflow-visible',
                     'completed_status_value' => 'Held',
                     'link' => false,
                     'default' => true,

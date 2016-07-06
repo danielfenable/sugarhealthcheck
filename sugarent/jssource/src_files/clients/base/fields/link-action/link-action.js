@@ -9,7 +9,7 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 /**
- * "Link existing record" action used in Subpanels.
+ * Link action used in Subpanels.
  *
  * It needs to be sticky so that we keep things lined up nicely.
  *
@@ -22,112 +22,76 @@
     events: {
         'click a[name=select_button]': 'openSelectDrawer'
     },
-
     /**
-     * Click handler for the select action.
-     *
-     * Opens a drawer for selecting records to link to the current record.
+     * Event handler for the select button that opens a link selection dialog in a drawer for linking
+     * an existing record
      */
     openSelectDrawer: function() {
         if (this.isDisabled()) {
             return;
         }
+        var parentModel = this.context.get('parentModel'),
+            linkModule = this.context.get('module'),
+            link = this.context.get('link'),
+            self = this;
 
-        app.drawer.open(
-            this.getDrawerOptions(),
-            _.bind(this.selectDrawerCallback, this)
-        );
-    },
-
-    /**
-     * Format drawer options used by {@link #openSelectDrawer}.
-     *
-     * By default it uses {@link View.Layouts.Base.SelectionListLayout} layout.
-     * You can extend this method if you need to pass more or different options.
-     *
-     * @return {Object}
-     * @return {string} return.module The module to select records from.
-     * @return {Object} return.parent The parent context of the selection list
-     *                                context to pass to the drawer.
-     * @return {Data.Bean} return.recParentModel The current record to link to.
-     * @return {string} return.recLink The relationship link.
-     * @return {View.View} return.recView The view for the selection list.
-     * @return {Backbone.Model} return.filterOptions The filter options object.
-     * */
-    getDrawerOptions: function() {
-        var parentModel = this.context.get('parentModel');
-        var linkModule = this.context.get('module');
-        var link = this.context.get('link');
-
-        var filterOptions = new app.utils.FilterOptions().config(this.def);
-        filterOptions.setInitialFilter(this.def.initial_filter || '$relate');
-        filterOptions.populateRelate(parentModel);
-
-        return {
-            layout: 'multi-selection-list-link',
+        app.drawer.open({
+            layout: 'selection-list',
             context: {
                 module: linkModule,
                 recParentModel: parentModel,
                 recLink: link,
                 recContext: this.context,
-                recView: this.view,
-                independentMassCollection: true,
-                filterOptions: filterOptions.format()
+                recView: this.view
             }
-        };
+        }, function(model) {
+            if (!model) {
+                return;
+            }
+            var relatedModel = app.data.createRelatedBean(parentModel, model.id, link),
+                options = {
+                    //Show alerts for this request
+                    showAlerts: true,
+                    relate: true,
+                    success: function(model) {
+                        //We've just linked a related, however, the list of records from
+                        //loadData will come back in DESC (reverse chronological order with
+                        //our newly linked on top). Hence, we reset pagination here.
+                        self.context.get('collection').resetPagination();
+                        self.context.resetLoadFlag();
+                        self.context.set('skipFetch', false);
+                        //Reset limit on context so we don't "over fetch" (lose pagination)
+                        var collectionOptions = self.context.get('collectionOptions') || {};
+                        if (collectionOptions.limit) self.context.set('limit', collectionOptions.limit);
+                        self.context.loadData({
+                            success: function() {
+                                self.view.layout.trigger('filter:record:linked');
+                            },
+                            error: function(error) {
+                                app.alert.show('server-error', {
+                                    level: 'error',
+                                    messages: 'ERR_GENERIC_SERVER_ERROR'
+                                });
+                            }
+                        });
+                    },
+                    error: function(error) {
+                        app.alert.show('server-error', {
+                            level: 'error',
+                            messages: 'ERR_GENERIC_SERVER_ERROR'
+                        });
+                    }
+                };
+            relatedModel.save(null, options);
+        });
     },
-
     /**
-     * Callback method used when the drawer is closed.
+     * A side effect of linking an existing record is that in the process, we could be deleting an existing
+     * required relationship.
+     * So here we prevent user from doing this by disabling the action.
      *
-     * If a record has been selected, it makes a request to the server to link
-     * it to the parent record.
-     * On success, it refreshes the subpanel collection so the new record
-     * appears in the subpanel.
-     *
-     * Finally, it expands the subpanel context by setting the `collapsed`
-     * property to `false`.
-     *
-     * @param {Data.Bean} model The selected record to link to parent record.
-     */
-    selectDrawerCallback: function(model) {
-        if (!model) {
-            return;
-        }
-
-        var parentModel = this.context.get('parentModel');
-        var link = this.context.get('link');
-
-        var relatedModel = app.data.createRelatedBean(parentModel, model.id, link),
-            options = {
-                //Show alerts for this request
-                showAlerts: true,
-                relate: true,
-                success: _.bind(function(model) {
-                    //We've just linked a related, however, the list of records from
-                    //loadData will come back in DESC (reverse chronological order
-                    //with our newly linked on top). Hence, we reset pagination here.
-                    this.context.get('collection').resetPagination();
-                    this.context.set('collapsed', false);
-                }, this),
-                error: function(error) {
-                    app.alert.show('server-error', {
-                        level: 'error',
-                        messages: 'ERR_GENERIC_SERVER_ERROR'
-                    });
-                }
-            };
-        relatedModel.save(null, options);
-    },
-
-    /**
-     * Check if link action should be disabled or not.
-     *
-     * The side effect of linking another record on a required relationship is
-     * that the record could be already linked to a record and in that case we
-     * would delete this existing link.
-     *
-     * @return {boolean} `true` if it should be disabled, `false` otherwise.
+     * Returns false if relationship is required otherwise calls parent for additional ACL checks
+     * @return {Boolean} true if allow access, false otherwise
      * @override
      */
     isDisabled: function() {

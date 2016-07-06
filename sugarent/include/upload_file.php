@@ -11,8 +11,6 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 require_once('include/externalAPI/ExternalAPIFactory.php');
-
-use  Sugarcrm\Sugarcrm\Util\Arrays\ArrayFunctions\ArrayFunctions;
 /**
  * @api
  * Manage uploaded files
@@ -463,7 +461,7 @@ class UploadFile
                 sugar_rename($new_destination, str_replace($bean_id.'_'.$file_name, $bean_id, $new_destination));
                 $bean->doc_type = 'Sugar';
                 // FIXME: Translate
-                if ( !ArrayFunctions::is_array_access($_SESSION['user_error_message']) )
+                if ( ! is_array($_SESSION['user_error_message']) )
                     $_SESSION['user_error_message'] = array();
 
                 $error_message = isset($result['errorMessage']) ? $result['errorMessage'] : $GLOBALS['app_strings']['ERR_EXTERNAL_API_SAVE_FAIL'];

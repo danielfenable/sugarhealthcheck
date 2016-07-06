@@ -35,7 +35,7 @@
     likelyField: null,
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initialize: function(options) {
         this.isManager = app.user.get('is_manager');
@@ -84,7 +84,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     initDashlet: function(view) {
         var self = this;
@@ -114,7 +114,7 @@
             .margin({top: 0})
             .tooltipContent(function(key, x, y, e, graph) {
                 e.point.close_date = d3.time.format('%x')(d3.time.format('%Y-%m-%d').parse(e.point.x));
-                e.point.amount = app.currency.formatAmountLocale(e.point.base_amount, e.point.currency_id);
+                e.point.amount = e.point.currency_symbol + d3.format(',.2d')(e.point.base_amount);
                 return self.tooltiptemplate(e.point).replace(/(\r\n|\n|\r)/gm, '');
             })
             .showTitle(false)
@@ -238,9 +238,8 @@
                     sales_stage: sales_stage,
                     sales_stage_short: sales_stage,
                     probability: parseInt(d.probability, 10),
-                    base_amount: d[this.likelyField],
-                    currency_symbol: app.currency.getCurrencySymbol(d.currency_id),
-                    currency_id: d.currency_id
+                    base_amount: parseInt(d[this.likelyField], 10),
+                    currency_symbol: app.currency.getCurrencySymbol(d.currency_id)
                 };
             }, this),
             properties: {
@@ -251,7 +250,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     loadData: function(options) {
         var self = this,
@@ -303,15 +302,7 @@
             duration = mapping[this.settings.get('filter_duration')],
             startMonth = Math.floor(now.getMonth() / 3) * 3,
             startDate = new Date(now.getFullYear(), (duration === 12 ? 0 : startMonth + duration), 1),
-            addYear = 0,
-            addMonth = duration === 12 ? 12 : 3,
-            endDate;
-
-        // if "Next Quarter" is selected and the current month is Oct/Nov/Dec, add 1 to the year
-        if(duration === 3 && now.getMonth() >= 9) {
-            addYear = 1;
-        }
-        endDate = new Date(now.getFullYear() + addYear, startDate.getMonth() + addMonth, 0);
+            endDate = new Date(now.getFullYear(), (duration === 12 ? 12 : startDate.getMonth() + 3), 0);
 
         this.dateRange = {
             'begin': app.date.format(startDate, 'Y-m-d'),
@@ -328,7 +319,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _dispose: function() {
         this.off('data-changed');

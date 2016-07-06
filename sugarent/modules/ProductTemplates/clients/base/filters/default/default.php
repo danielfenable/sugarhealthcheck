@@ -23,6 +23,5 @@ $viewdefs['ProductTemplates']['base']['filter']['default'] = array(
         'date_available' => array(),
         'url' => array(),
         'support_term' => array(),
-        'tag' => array(),
     ),
 );

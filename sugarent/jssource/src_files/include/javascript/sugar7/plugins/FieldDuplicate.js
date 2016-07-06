@@ -152,13 +152,13 @@
                         this.model.on('duplicate:unformat:field', this._unformatFieldForDuplicate, this);
                     }
                     if (this.view) {
-                        this.view.before('duplicate:field', this._beforeFieldDuplicate, this);
+                        this.view.before('duplicate:field', this._beforeFieldDuplicate, {}, this);
                     }
                 });
             },
 
             /**
-             * @inheritdoc
+             * {@inheritDoc}
              *
              * Clean up associated event handlers.
              */

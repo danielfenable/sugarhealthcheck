@@ -1,5 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
+
+
 /*
  * Your installation or use of this SugarCRM file is subject to the applicable
  * terms available at
@@ -10,31 +12,31 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  *
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
+	
+
 $mod_strings = array (
-'LBL_MODULE_NAME' => 'Roller',
-'LBL_MODULE_NAME_SINGULAR' => 'Rol',
-'LBL_MODULE_TITLE' => 'Roller: Ana Sayfa',
-'LBL_ROLE'=>'Rol',
-'LBL_NAME'=>'İsim',
-'LBL_DESCRIPTION'=>'Tanım',
-'LIST_ROLES'=>'Roller Listesi',
-'LBL_USERS_SUBPANEL_TITLE'=>'Kullanıcılar',
-'LIST_ROLES_BY_USER'=>'Rolleri Kullanıcılara Göre Listele',
-'LBL_LIST_FORM_TITLE' => 'Roller',
-'LBL_ROLES_SUBPANEL_TITLE'=>'Kullanıcı Rolleri',
-'LBL_SEARCH_FORM_TITLE'=>'Ara',
-'LBL_CREATE_ROLE'=>'Rol Oluştur',
-'LBL_EDIT_VIEW_DIRECTIONS'=>'Değeri değiştirmek için hücreye çift tıklayınız.',
-'LBL_ACCESS_DEFAULT'=>'Belirtilmedi',
-'LBL_ACTION_ADMIN'=>'Kullanıcı Tipi',
-'LBL_ALL'=>'Hepsi',
-'LBL_DUPLICATE_OF'=>'Aynı Olan Kaydı',
-//BEGIN SUGARCRM flav!=com
-'LBL_USER_NAME_FOR_ROLE'=>'Kullanıcılar/Takımlar/Roller',
-//END SUGARCRM flav!=com
-'LBL_NO_MODULES_AVAILABLE' => 'Modül yok',
-'LBL_NO_ROLES' => 'Rol Yok',
-'LBL_DONE' => 'Tamam',
-'LBL_COULD_NOT_CONNECT' => 'Bağlantı Başarısız.',
-)
-?>
+  'LBL_ACCESS_DEFAULT' => 'Belirtilmedi',
+  'LBL_ACTION_ADMIN' => 'Kullanıcı Tipi',
+  'LBL_ALL' => 'Hepsi',
+  'LBL_COULD_NOT_CONNECT' => 'Bağlantı Başarısız.',
+  'LBL_CREATE_ROLE' => 'Rol Oluştur',
+  'LBL_DESCRIPTION' => 'Tanım',
+  'LBL_DONE' => 'Tamam',
+  'LBL_DUPLICATE_OF' => 'Aynı Olan Kaydı',
+  'LBL_EDIT_VIEW_DIRECTIONS' => 'Değeri değiştirmek için hücreye çift tıklayınız.',
+  'LBL_LIST_FORM_TITLE' => 'Roller',
+  'LBL_MODULE_NAME' => 'Roller',
+  'LBL_MODULE_NAME_SINGULAR' => 'Rol',
+  'LBL_MODULE_TITLE' => 'Roller: Ana Sayfa',
+  'LBL_NAME' => 'İsim',
+  'LBL_NO_MODULES_AVAILABLE' => 'Modül yok',
+  'LBL_NO_ROLES' => 'Rol Yok',
+  'LBL_ROLE' => 'Rol',
+  'LBL_ROLES_SUBPANEL_TITLE' => 'Kullanıcı Rolleri',
+  'LBL_SEARCH_FORM_TITLE' => 'Ara',
+  'LBL_USERS_SUBPANEL_TITLE' => 'Kullanıcılar',
+  'LBL_USER_NAME_FOR_ROLE' => 'Kullanıcılar/Takımlar/Roller',
+  'LIST_ROLES' => 'Roller Listesi',
+  'LIST_ROLES_BY_USER' => 'Rolleri Kullanıcılara Göre Listele',
+);
+

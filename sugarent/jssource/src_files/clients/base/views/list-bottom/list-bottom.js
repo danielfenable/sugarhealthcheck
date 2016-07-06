@@ -60,9 +60,6 @@
         var options = {};
         options.success = _.bind(function() {
             this.layout.trigger('list:paginate:success');
-            // FIXME: This should trigger on `this.collection` instead of
-            // `this.context`. Will be fixed as part of SC-2605.
-            this.context.trigger('paginate');
             this.render();
         }, this);
 
@@ -111,7 +108,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     _renderHtml: function() {
         this.setShowMoreLabel();
@@ -119,7 +116,7 @@
     },
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Bind listeners for collection updates.
      * The pagination link synchronizes its visibility with the collection's
@@ -131,7 +128,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Add dashlet placeholder's class in order to handle the custom css style.
      */
@@ -144,7 +141,7 @@
     },
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Remove pagination custom CSS class on dashlet placeholder.
      */

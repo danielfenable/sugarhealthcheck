@@ -10,7 +10,7 @@
  * Copyright (C) SugarCRM Inc. All rights reserved.
  */
 
-// $Id$
+
 
 $viewdefs['Project']['EditView'] =
     array( 'templateMeta' =>
@@ -48,8 +48,7 @@ $viewdefs['Project']['EditView'] =
             'LBL_PANEL_ASSIGNMENT' => array(
                    array (
                        'assigned_user_name',
-
-                      'team_name',
+                      'team_name', 
                 ),
               )
           )

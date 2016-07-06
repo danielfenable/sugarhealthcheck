@@ -46,43 +46,20 @@ class PMSEEngineUtils
             'password',
             'is_admin',
         ),
-        // list for BR conclusions and others (write)
         'BR' => array(
             'duration_hours',
-            'kbdocument_body',
             'duration_minutes',
             'repeat_type',
-            'viewcount',
             'created_by',
             'modified_user_id',
             'date_entered',
             'date_modified',
         ),
-        // list for BR conditions (read)
-        'BRR' => array(
-        ),
-        // Add related record Activity item in Process Definitions
-        'AC' => array(
-            'kbdocument_body',
-            'viewcount',
-        ),
-        // Process Definitions
-        'PD' => array(
-            'kbdocument_body',
-            'viewcount',
-        ),
-        'GT' => array(
-            'kbdocument_body',
-            'viewcount',
-        ),
+        // Add related record activity panel
+        'AC' => array(),
         // Change field action... this used to be the same as Add Related Record
         // but we needed different things from this
         'CF' => array(
-            'dnb_principal_id',
-            'system_generated_password',
-            'duns_num',
-            'kbdocument_body',
-            'viewcount',
             'created_by',
             'modified_user_id',
             'date_entered',
@@ -113,21 +90,7 @@ class PMSEEngineUtils
         'contact',
         'following_link',
         'favorite_link',
-        'users',
         'user_sync',
-        'relcases_kbcontents',
-        'localizations',
-        'revisions',
-        'attachments',
-        'usefulness'
-    );
-
-    /**
-     * PA related blacklisted links by module
-     * @var array
-     */
-    public static $relatedBlacklistedLinksByModule = array(
-        'Accounts'=>array('revenuelineitems')
     );
 
     /**
@@ -136,19 +99,38 @@ class PMSEEngineUtils
      */
     public static $specialFields = array(
         'All' => array('created_by', 'modified_user_id'),
-        'BR' => array('assigned_user_id', 'email1', 'outlook_id'),
-        'BRR' => array('assigned_user_id', 'email1', 'outlook_id'),
+        'BR' => array('assigned_user_id', 'email1'),
         'ET' => array('email1'),
-        'AC' => array('assigned_user_id', 'likely_case', 'worst_case', 'best_case', 'teams'),
-        'CF' => array('assigned_user_id', 'likely_case', 'worst_case', 'best_case', 'teams'),
+        'AC' => array('assigned_user_id'),
+        'CF' => array('assigned_user_id'),
         'RR' => array(),
     );
 
     /**
-     * Process Author does not handle the below field types currently. So skip displaying them.
+     * Process Author does not handle the below field types currently. So skip
+     * displaying them.
      * @var array
      */
     public static $blacklistedFieldTypes = array('image','password','file');
+
+    /**
+     * PMSE Logger object
+     * @var PMSELogger
+     */
+    protected $logger;
+
+    /**
+     * Gets an instance of the PMSELogger object
+     * @return PMSELogger
+     */
+    public function getLogger()
+    {
+        if (!isset($this->logger)) {
+            $this->logger = PMSELogger::getInstance();
+        }
+
+        return $this->logger;
+    }
 
     /**
      * Method get key fields
@@ -799,8 +781,12 @@ class PMSEEngineUtils
      */
     public static function getElementUid($id, $elementEntity, $uidField)
     {
+        //$beanFactory = new ADAMBeanFactory();
         $elementEntity = ucfirst($elementEntity);
-        $bean = BeanFactory::getBean('pmse_' . $elementEntity, $id);
+//        $bean = new $elementEntity();
+        //$bean = $beanFactory->getBean($elementEntity);
+        $bean = BeanFactory::getBean('pmse_' . $elementEntity);
+        $bean->retrieve_by_string_fields(array('id' => $id));
         return $bean->$uidField;
     }
 
@@ -1058,7 +1044,6 @@ class PMSEEngineUtils
             'tags',
             'tag',
             'tag_lower',
-            'tag_link',
             'tn_name',
             'tn_name_2',
         );
@@ -1093,13 +1078,6 @@ class PMSEEngineUtils
         return $current_user->isAdmin() || $current_user->isAdminForModule('Users');
     }
 
-    /**
-     * Determines the validity of a field used in a process definition, business
-     * rule, action element, etc.
-     * @param array $def The field def
-     * @param string $type The action type
-     * @return boolean
-     */
     public static function isValidField($def, $type = '')
     {
         // First things first... if we are explicitly directed to do something
@@ -1147,11 +1125,14 @@ class PMSEEngineUtils
             return false;
         }
 
-        if (in_array($type, array('AC', 'CF', 'BR')) && isset($def['formula'])) {
+        // For action type, do not allow formula fields
+        if ($type == 'AC' && isset($def['formula'])) {
             return false;
         }
 
-        if (in_array($type, array('RR', 'AC', 'CF', 'BR')) && !empty($def['readonly'])) {
+        // For action types or relate record types, if the field is readonly,
+        // don't allow it
+        if (($type == 'RR' || $type == 'AC') && !empty($def['readonly'])) {
             return false;
         }
 
@@ -1168,7 +1149,7 @@ class PMSEEngineUtils
     public static function blackListFields($def, $type = '')
     {
         $blacklist = self::$blacklistedFields['ALL'];
-        if (!empty($type) && isset(self::$blacklistedFields[$type])) {
+        if (!empty($type) && $type !== 'ALL' && isset(self::$blacklistedFields[$type])) {
             $blacklist = array_merge($blacklist, self::$blacklistedFields[$type]);
         }
         return !in_array($def['name'], $blacklist);
@@ -1295,43 +1276,6 @@ class PMSEEngineUtils
     }
 
     /**
-     * Gets the proper bean for a field validation check
-     * @param string $tModule Target module name
-     * @param string $aModule Action module name
-     * @return SugarBean
-     */
-    public static function getProperProcessBean($tModule, $aModule)
-    {
-        // Start with the target module
-        $bean = BeanFactory::getBean($tModule);
-
-        // If there is a field on the target module that matches the action module
-        // but is different from the target module...
-        if ($tModule != $aModule && isset($bean->field_defs[$aModule])) {
-            // If we have a link field load the relationship for it
-            if ($bean->field_defs[$aModule]['type'] === 'link') {
-                // Load the relationship for the action module
-                $bean->load_relationship($aModule);
-
-                // If the relationship loaded, get the related bean for it
-                if ($bean->$aModule) {
-                    $rModule = $bean->$aModule->getRelatedModuleName();
-                    return BeanFactory::getBean($rModule);
-                } else {
-                    PMSELogger::getInstance()->warning("Could not load relationship for link field $aModule on {$bean->module_dir}");
-                }
-            } elseif (isset($bean->field_defs[$aModule]['module'])) {
-                // If we are a relate field, see if we have a module on that def
-                $rModule = $bean->field_defs[$aModule]['module'];
-                return BeanFactory::getBean($rModule);
-            }
-        }
-
-        // Just return the bean for the target module
-        return $bean;
-    }
-
-    /**
      * Santizies imported activity fields, since some fields may have been exported
      * in a version when they were still acceptable valid fields
      * @param array $element An activity element from an import
@@ -1342,82 +1286,37 @@ class PMSEEngineUtils
     public static function sanitizeImportActivityFields(array $element, $module, $type = '')
     {
         if (!empty($element['act_field_module'])) {
-            // Get the proper bean for this action
-            $bean = self::getProperProcessBean($module, $element['act_field_module']);
+            // We will need these for validations
+            $targetBean = BeanFactory::getBean($module);
+            if (isset($targetBean->field_defs[$element['act_field_module']]['module'])) {
+                // We need the related module bean to get field defs for validation
+                $relBeanName = $targetBean->field_defs[$element['act_field_module']]['module'];
+                $relBean = BeanFactory::getBean($relBeanName);
 
-            // Get the field information for this action
-            $fieldData = json_decode(html_entity_decode($element['act_fields']), true);
-
-            // In some cases $fieldData comes back null, so we need to check
-            // if it is actually an array before trying to use it as one
-            if (is_array($fieldData)) {
-                // Set the variable that will hold the data
                 $newData = array();
-
-                foreach ($fieldData as $fieldDef) {
-                    $field = $fieldDef['field'];
-                    if (isset($bean->field_defs[$field])) {
-                        if (self::isValidField($bean->field_defs[$field], $type)) {
-                            $newData[] = $fieldDef;
+                $fieldData = json_decode(html_entity_decode($element['act_fields']), true);
+                // In some cases $fieldData comes back null, so we need to check
+                // if it is actually an array before trying to use it as one
+                if (is_array($fieldData)) {
+                    foreach ($fieldData as $fieldDef) {
+                        $field = $fieldDef['field'];
+                        if (isset($relBean->field_defs[$field])) {
+                            if (self::isValidField($relBean->field_defs[$field], $type)) {
+                                $newData[] = $fieldDef;
+                            } else {
+                                $typeMark = empty($type) ? '(EMPTY)' : $type;
+                                $this->getLogger()->warning("sanitizeImportActivityFields: $field field on $relBeanName module did not pass validation for $typeMark");
+                            }
                         } else {
-                            $typeMark = empty($type) ? '(EMPTY)' : $type;
-                            PMSELogger::getInstance()->warning("sanitizeImportActivityFields: $field field on the {$bean->module_dir} module did not pass validation for $typeMark");
+                            $this->getLogger()->warning("sanitizeImportActivityFields: $field $field not found in $relBeanName module");
                         }
-                    } else {
-                        PMSELogger::getInstance()->warning("sanitizeImportActivityFields: $field field not found in the {$bean->module_dir} module");
                     }
                 }
-
                 $element['act_fields'] = json_encode($newData);
             }
         }
 
         return $element['act_fields'];
-    }
-
-    /**
-     * This method add information about PA used to discriminate beans when are
-     * launched hooks
-     * @param SugarBean $bean
-     * @return bool|String
-     */
-    public static function saveAssociatedBean(SugarBean $bean)
-    {
-        $bean->isPASaveRequest = true;
-        return $bean->save();
-    }
-
-    /**
-     * Method that fixes the Currency type. Starting 7.7 we changed the way we compare currency fields (ex. Likely)
-     * Now this evaluation takes into account currency values. In previous versions such as 7.6.0.0 we did this
-     * only using integer values. So at import time all previous currency values in 7.6.0.0 need to be fixed
-     * for currency type
-     * @param object $currencyObj
-     */
-    public static function fixCurrencyType($currencyObj)
-    {
-        global $sugar_config;
-        $defaultCurrencyLabel = '';
-        // set to default currency
-        $currencyObj->expCurrency = '-99';
-        if (isset($sugar_config['default_currency_symbol']) &&
-            isset($sugar_config['default_currency_iso4217'])
-        ) {
-            $defaultCurrencyLabel = $sugar_config['default_currency_symbol'] .
-                " (" . $sugar_config['default_currency_iso4217'] . ")";
-        }
-        if (!empty($currencyObj->expLabel)) {
-            // Labels in pre 7.7 versions were of the type
-            // Likely is less than "500"
-            // We need to remove "500" and replace with something like $ (USD) %VALUE%
-            // So the final label would be : Likely is less than $ (USD) %VALUE%
-            $truncatedLabel = rtrim(preg_replace('/\"|(\d+)/', '', $currencyObj->expLabel));
-            $currencyObj->expLabel = $truncatedLabel . ' ' . $defaultCurrencyLabel . ' %VALUE%';
-        }
-
-        if (!empty($currencyObj->expValue) && (is_string($currencyObj->expValue))) {
-            $currencyObj->expValue = (float) $currencyObj->expValue;
-        }
     }
 
     /**
@@ -1472,94 +1371,5 @@ class PMSEEngineUtils
             return null;
         }
         return current($parentBean);
-    }
-
-    /*
-     * Adds or Replaces teams in a Bean
-     * @param $bean
-     * @param $field containing the new teams information
-     */
-    public static function changeTeams($bean, $field)
-    {
-        $bean->load_relationship('teams');
-
-        // The TeamSetLink could have the _saved property set to true indicating previous data has been saved.
-        // So we need to Explicitly set _saved of TeamSetLink class to false so that the new teams
-        // get saved
-        if (!empty($bean->teams) && !empty($field->value) && is_array($field->value)) {
-            $bean->teams->setSaved(false);
-
-            // Set primary team if a primary team has been set
-            if (!empty($field->primary)) {
-                $bean->team_id = $field->primary;
-            }
-
-            // Determines if teams have to be added to existing teams or
-            // if existing teams need to be replaced by this new set
-            if ($field->append === true) {
-                $bean->teams->add($field->value, array(), true);
-            } else {
-                $bean->teams->replace($field->value, array(), true);
-            }
-        }
-    }
-
-    /*
-     * Gets module label based on module name
-     * @param string $module
-     * @param bool $plural
-     * @return string $label
-     */
-    public static function getModuleLabelFromModuleName($module, $plural = false)
-    {
-        global $app_list_strings;
-        $label = '';
-
-        if (!empty($module)) {
-            if ($plural) {
-                $label = isset($app_list_strings['moduleList'][$module]) ? $app_list_strings['moduleList'][$module] : $module;
-            } else {
-                $label = isset($app_list_strings['moduleListSingular'][$module]) ? $app_list_strings['moduleListSingular'][$module] : $module;
-            }
-        }
-
-        return $label;
-    }
-
-    /**
-     * Checks to see if a module is disabled for export, either based on configuration
-     * or user permission.
-     * @param string $module The module to check
-     * @return boolean
-     */
-    public static function isExportDisabled($module)
-    {
-        global $sugar_config, $current_user;
-
-        // Return a disabled = true straight away if that is the case
-        if (!empty($sugar_config['disable_export'])) {
-            return true;
-        }
-
-        //The current user id
-        $id = $current_user->id;
-
-        // Does this module support ACLs?
-        $aclSupported = ACLController::moduleSupportsACL($module);
-
-        // Is access enabled for this user?
-        $aclEnabled = ACLAction::getUserAccessLevel($id, $module, 'access') === ACL_ALLOW_ENABLED;
-
-        // Does the user have admin access to the module?
-        $aclAdmin = ACLAction::getUserAccessLevel($id, $module, 'admin') == ACL_ALLOW_ADMIN;
-
-        // Is the user an admin or dev for the module?
-        $aclDev = ACLAction::getUserAccessLevel($id, $module, 'admin') == ACL_ALLOW_ADMIN_DEV;
-
-        // Is this user a non-admin user?
-        $nonAdmin = !(is_admin($current_user) || ($aclSupported && $aclEnabled && ($aclAdmin || $aclDev)));
-
-        // Send back if we are admin only and the user is able to admin this module
-        return !empty($sugar_config['admin_export_only']) && $nonAdmin;
     }
 }

@@ -15,7 +15,7 @@
  */
 ({
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      *
      * Initializes the view with the serverInfo.
      */
