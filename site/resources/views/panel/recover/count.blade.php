@@ -33,9 +33,15 @@ Module Name <br>
 
 @endforeach
 
-<select>
+</select>
 
 <br><br>
+
+<p> Case Number (Optional) <br>
+   {{Form::number("case_num")}}
+</p>
+
+<br>
 
 {{Form::hidden("system",$system)}}
 
