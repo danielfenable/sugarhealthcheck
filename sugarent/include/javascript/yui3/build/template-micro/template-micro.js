@@ -1,9 +1,0 @@
-/*
-     YUI 3.15.0 (build 834026e)
-     Copyright 2014 Yahoo! Inc. All rights reserved.
-     Licensed under the BSD License.
-     http://yuilibrary.com/license/
-     */
-YUI.add('template-micro',function(Y,NAME){var Micro=Y.namespace('Template.Micro');Micro.options={code:/<%([\s\S]+?)%>/g,escapedOutput:/<%=([\s\S]+?)%>/g,rawOutput:/<%==([\s\S]+?)%>/g,stringEscape:/\\|'|\r|\n|\t|\u2028|\u2029/g,stringReplace:{'\\':'\\\\',"'":"\\'",'\r':'\\r','\n':'\\n','\t':'\\t','\u2028':'\\u2028','\u2029':'\\u2029'}};Micro.compile=function(text,options){var blocks=[],tokenClose="\uffff",tokenOpen="\ufffe",source;options=Y.merge(Micro.options,options);source="var $b='', $v=function (v){return v || v === 0 ? v : $b;}, $t='"+
-text.replace(/\ufffe|\uffff/g,'').replace(options.rawOutput,function(match,code){return tokenOpen+(blocks.push("'+\n$v("+code+")+\n'")-1)+tokenClose;}).replace(options.escapedOutput,function(match,code){return tokenOpen+(blocks.push("'+\n$e($v("+code+"))+\n'")-1)+tokenClose;}).replace(options.code,function(match,code){return tokenOpen+(blocks.push("';\n"+code+"\n$t+='")-1)+tokenClose;}).replace(options.stringEscape,function(match){return options.stringReplace[match]||'';}).replace(/\ufffe(\d+)\uffff/g,function(match,index){return blocks[parseInt(index,10)];}).replace(/\n\$t\+='';\n/g,'\n')+"';\nreturn $t;";if(options.precompile){return"function (Y, $e, data) {\n"+source+"\n}";}
-return this.revive(new Function('Y','$e','data',source));};Micro.precompile=function(text,options){options||(options={});options.precompile=true;return this.compile(text,options);};Micro.render=function(text,data,options){return this.compile(text,options)(data);};Micro.revive=function(precompiled){return function(data){data||(data={});return precompiled.call(data,Y,Y.Escape.html,data);};};},'3.15.0',{"requires":["escape"]});

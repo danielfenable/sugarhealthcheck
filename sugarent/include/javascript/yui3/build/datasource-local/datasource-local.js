@@ -1,9 +1,0 @@
-/*
-     YUI 3.15.0 (build 834026e)
-     Copyright 2014 Yahoo! Inc. All rights reserved.
-     Licensed under the BSD License.
-     http://yuilibrary.com/license/
-     */
-YUI.add('datasource-local',function(Y,NAME){var LANG=Y.Lang,DSLocal=function(){DSLocal.superclass.constructor.apply(this,arguments);};Y.mix(DSLocal,{NAME:"dataSourceLocal",ATTRS:{source:{value:null}},_tId:0,transactions:{},issueCallback:function(e,caller){var callbacks=e.on||e.callback,callback=callbacks&&callbacks.success,payload=e.details[0];payload.error=(e.error||e.response.error);if(payload.error){caller.fire("error",payload);callback=callbacks&&callbacks.failure;}
-if(callback){callback(payload);}}});Y.extend(DSLocal,Y.Base,{initializer:function(config){this._initEvents();},_initEvents:function(){this.publish("request",{defaultFn:Y.bind("_defRequestFn",this),queuable:true});this.publish("data",{defaultFn:Y.bind("_defDataFn",this),queuable:true});this.publish("response",{defaultFn:Y.bind("_defResponseFn",this),queuable:true});},_defRequestFn:function(e){var data=this.get("source"),payload=e.details[0];if(LANG.isUndefined(data)){payload.error=new Error("Local source undefined");}
-payload.data=data;this.fire("data",payload);},_defDataFn:function(e){var data=e.data,meta=e.meta,response={results:(LANG.isArray(data))?data:[data],meta:(meta)?meta:{}},payload=e.details[0];payload.response=response;this.fire("response",payload);},_defResponseFn:function(e){DSLocal.issueCallback(e,this);},sendRequest:function(request){var tId=DSLocal._tId++,callbacks;request=request||{};callbacks=request.on||request.callback;this.fire("request",{tId:tId,request:request.request,on:callbacks,callback:callbacks,cfg:request.cfg||{}});return tId;}});Y.namespace("DataSource").Local=DSLocal;},'3.15.0',{"requires":["base"]});

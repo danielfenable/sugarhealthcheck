@@ -1,8 +1,0 @@
-/*
-     YUI 3.15.0 (build 834026e)
-     Copyright 2014 Yahoo! Inc. All rights reserved.
-     Licensed under the BSD License.
-     http://yuilibrary.com/license/
-     */
-YUI.add('datasource-cache',function(Y,NAME){var DataSourceCacheExtension=function(){};Y.mix(DataSourceCacheExtension,{NS:"cache",NAME:"dataSourceCacheExtension"});DataSourceCacheExtension.prototype={initializer:function(config){this.doBefore("_defRequestFn",this._beforeDefRequestFn);this.doBefore("_defResponseFn",this._beforeDefResponseFn);},_beforeDefRequestFn:function(e){var entry=(this.retrieve(e.request))||null,payload=e.details[0];if(entry&&entry.response){payload.cached=entry.cached;payload.response=entry.response;payload.data=entry.data;this.get("host").fire("response",payload);return new Y.Do.Halt("DataSourceCache extension halted _defRequestFn");}},_beforeDefResponseFn:function(e){if(e.response&&!e.cached){this.add(e.request,e.response);}}};Y.namespace("Plugin").DataSourceCacheExtension=DataSourceCacheExtension;function DataSourceCache(config){var cache=config&&config.cache?config.cache:Y.Cache,tmpclass=Y.Base.create("dataSourceCache",cache,[Y.Plugin.Base,Y.Plugin.DataSourceCacheExtension]),tmpinstance=new tmpclass(config);tmpclass.NS="tmpClass";return tmpinstance;}
-Y.mix(DataSourceCache,{NS:"cache",NAME:"dataSourceCache"});Y.namespace("Plugin").DataSourceCache=DataSourceCache;},'3.15.0',{"requires":["datasource-local","plugin","cache-base"]});

@@ -1,9 +1,0 @@
-/*
-     YUI 3.15.0 (build 834026e)
-     Copyright 2014 Yahoo! Inc. All rights reserved.
-     Licensed under the BSD License.
-     http://yuilibrary.com/license/
-     */
-YUI.add('history-hash-ie',function(Y,NAME){if(Y.UA.ie&&!Y.HistoryBase.nativeHashChange){var Do=Y.Do,GlobalEnv=YUI.namespace('Env.HistoryHash'),HistoryHash=Y.HistoryHash,iframe=GlobalEnv._iframe,win=Y.config.win;HistoryHash.getIframeHash=function(){if(!iframe||!iframe.contentWindow){return'';}
-var prefix=HistoryHash.hashPrefix,hash=iframe.contentWindow.location.hash.substr(1);return prefix&&hash.indexOf(prefix)===0?hash.replace(prefix,''):hash;};HistoryHash._updateIframe=function(hash,replace){var iframeDoc=iframe&&iframe.contentWindow&&iframe.contentWindow.document,iframeLocation=iframeDoc&&iframeDoc.location;if(!iframeDoc||!iframeLocation){return;}
-if(replace){iframeLocation.replace(hash.charAt(0)==='#'?hash:'#'+hash);}else{iframeDoc.open().close();iframeLocation.hash=hash;}};Do.before(HistoryHash._updateIframe,HistoryHash,'replaceHash',HistoryHash,true);if(!iframe){Y.on('domready',function(){var lastUrlHash=HistoryHash.getHash();iframe=GlobalEnv._iframe=Y.Node.getDOMNode(Y.Node.create('<iframe src="javascript:0" style="display:none" height="0" width="0" tabindex="-1" title="empty"/>'));Y.config.doc.documentElement.appendChild(iframe);HistoryHash._updateIframe(lastUrlHash||'#');Y.on('hashchange',function(e){lastUrlHash=e.newHash;if(HistoryHash.getIframeHash()!==lastUrlHash){HistoryHash._updateIframe(lastUrlHash);}},win);Y.later(50,null,function(){var iframeHash=HistoryHash.getIframeHash();if(iframeHash!==lastUrlHash){HistoryHash.setHash(iframeHash);}},null,true);});}}},'3.15.0',{"requires":["history-hash","node-base"]});
